@@ -69,11 +69,72 @@
     },
     "noAnnualFlush": -1,
     "anodeReplaced": 1,
-    "minimumLifeYears": 5
+    "minimumLifeYears": 5,
+    "hardnessScale": {
+      "source": "U.S. Geological Survey, Hardness of Water (as calcium carbonate)",
+      "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/hardness-water",
+      "mapUrl": "https://www.usgs.gov/media/images/map-water-hardness-united-states",
+      "soft": {
+        "label": "Soft",
+        "mgPerL": "0 to 60"
+      },
+      "moderate": {
+        "label": "Moderately hard",
+        "mgPerL": "61 to 120"
+      },
+      "hard": {
+        "label": "Hard",
+        "mgPerL": "121 to 180"
+      },
+      "veryHard": {
+        "label": "Very hard",
+        "mgPerL": "more than 180"
+      }
+    }
   },
   "statusBands": {
     "amberFrom": 0.6,
     "redFrom": 0.9,
     "source": "Hot Water Math editorial assumption: green below 60% of typical life, amber from 60%, red from 90%"
+  },
+  "toolTypes": {
+    "source": "Age calculator type options mapped to the lifespan types above",
+    "options": [
+      {
+        "id": "gas_tank",
+        "label": "Gas tank",
+        "life": "gas_tank"
+      },
+      {
+        "id": "electric_tank",
+        "label": "Electric tank",
+        "life": "electric_tank"
+      },
+      {
+        "id": "tankless",
+        "label": "Tankless (gas or electric)",
+        "life": "gas_tankless"
+      },
+      {
+        "id": "heat_pump",
+        "label": "Heat pump (hybrid)",
+        "life": "heat_pump"
+      }
+    ]
+  },
+  "manufacturerViews": {
+    "rheem": {
+      "tankLow": 8,
+      "tankHigh": 12,
+      "tanklessLow": 15,
+      "tanklessHigh": 20,
+      "signs": [
+        "water leaking from the base of the tank",
+        "rusty or discolored hot water",
+        "persistent rumbling or popping sounds caused by hardened sediment on the tank floor"
+      ],
+      "source": "Rheem, Water Heater Lifespan: When to Repair vs. Replace (March 25, 2026): tank units typically last 8–12 years; tankless 15–20+ years with proper care",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+    }
   }
 }

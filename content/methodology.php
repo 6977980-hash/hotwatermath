@@ -30,6 +30,29 @@ $hwm_xcheck = static function ( string $what ): void {
 </div>
 	<?php
 };
+/** Filled manufacturer cross-check table from data/computed/<tool>.json → crossChecks. */
+$hwm_xfilled = static function ( string $tool, string $what ): void {
+	$rows = (array) hwm_raw( 'computed/' . $tool, 'crossChecks' );
+	?>
+	<div class="table-wrap" role="region" aria-label="Manufacturer cross-check: <?php echo esc_attr( $what ); ?>" tabindex="0">
+	<table>
+		<caption>Manufacturer cross-check: <?php echo esc_html( $what ); ?> (run <?php echo esc_html( hwm_date( (string) hwm_site( 'dateVerified.' . $tool ) ) ); ?>)</caption>
+		<thead><tr><th scope="col">Test case (inputs)</th><th scope="col">Our result</th><th scope="col">Manufacturer or official result</th><th scope="col">Difference and why</th><th scope="col">Source</th></tr></thead>
+		<tbody>
+			<?php foreach ( $rows as $row ) : ?>
+				<tr>
+					<th scope="row"><?php echo esc_html( (string) $row['label'] ); ?></th>
+					<td><?php echo esc_html( (string) $row['ours'] ); ?></td>
+					<td><?php echo esc_html( (string) $row['published'] ); ?></td>
+					<td><?php echo isset( $row['diffPct'] ) ? esc_html( number_format( (float) $row['diffPct'], 1 ) . '%. ' ) : ( ! empty( $row['match'] ) ? 'Match. ' : 'Mismatch. ' ); ?><?php echo esc_html( (string) $row['why'] ); ?></td>
+					<td><a href="<?php echo esc_url( (string) $row['sourceUrl'] ); ?>" rel="noopener"><?php echo esc_html( (string) $row['source'] ); ?></a></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+</div>
+	<?php
+};
 $hwm_gw   = 'groundwater-temp-by-state';
 $hwm_life = 'lifespans';
 $hwm_dr   = 'decision-rules';
@@ -95,7 +118,8 @@ $hwm_dr   = 'decision-rules';
 	<p>For electric tankless units, the tool also shows the wiring a manufacturer lists for units of that size, as a reference to discuss with your electrician, not as a design.</p>
 	<?php echo hwm_table( $hwm_ref, 'electricReference' ); // phpcs:ignore ?>
 	<p><strong>Limitations.</strong> Flow at a fixture mixes hot and cold water, while the formula heats the full flow to the setpoint. That slightly overstates the need, which errs on the safe side. Real units lose some output at high altitude and with long pipe runs, and some models have a minimum flow below which they do not fire.</p>
-	<?php $hwm_xcheck( 'tankless sizing (Rinnai, Navien, Rheem sizing guides)' ); ?>
+	<p>The cross-check below runs our formula on published manufacturer figures: the flow Rinnai lists for three units at two temperature rises, the two worked examples in Noritz's sizing guide, and Rheem's electric temperature rise table. The tool's size chart uses gas input sizes from the Rinnai chart.</p>
+	<?php $hwm_xfilled( 'tankless-water-heater-size-calculator', 'tankless sizing (Rinnai, Noritz, Rheem)' ); ?>
 </section>
 
 <section id="water-heater-size-calculator">
@@ -124,8 +148,10 @@ $hwm_dr   = 'decision-rules';
 	<?php echo hwm_table( $hwm_ref, 'serialFormats' ); // phpcs:ignore ?>
 	<?php echo hwm_table( $hwm_ref, 'lifespans' ); // phpcs:ignore ?>
 	<p>Lifespans come from DOE's 2024 efficiency rules, which estimate how long water heaters last from national housing surveys. DOE puts the average storage tank at about <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tank.high' ) ); ?> years; its earlier rule, ENERGY STAR and DOE FEMP use <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tank.typical' ) ); ?>. We use <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tank.typical' ) ); ?> as typical with a <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tank.low' ) ); ?> to <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tank.high' ) ); ?> year range. For tankless units DOE gives an average of about <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tankless.typical' ) ); ?> years and no range, so we show that figure without inventing one.</p>
+	<p>Some brands are decoded with another maker's code, following the Energy Trust of Oregon decoder: Whirlpool with the American code, Kenmore with the State code and GE with the Rheem code, each with a warning in the result. Rinnai, Noritz, Takagi and Bosch are not decoded, because guides online disagree about their codes and we could not open a manufacturer or government source that confirms one; for these the calculator asks for the year.</p>
 	<p><strong>Limitations.</strong> We only decode brands whose date code we could confirm in a published source. Brands not listed yet are added once we find a source we can open and check. A heater can also sit in a warehouse for months before it is installed, so the install date may be later than the build date.</p>
-	<?php $hwm_xcheck( 'serial number decoding (manufacturer date code references)' ); ?>
+	<p>The cross-check below decodes test serials with our rules and compares the date with the manufacturer's own answer: Rheem/Ruud's official age lookup (queried with test serials on the check date), Bradford White's published letter table, and the date code example in a U.S. CPSC recall notice for Navien.</p>
+	<?php $hwm_xfilled( 'water-heater-age-calculator', 'serial number decoding (Rheem/Ruud lookup, Bradford White table, CPSC)' ); ?>
 </section>
 
 <section id="repair-or-replace-water-heater">

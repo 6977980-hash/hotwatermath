@@ -275,3 +275,22 @@ add_filter(
 function hwm_tool_content( string $name, array $entry = array() ): array {
 	return hwm_content( $name, $entry );
 }
+
+/**
+ * Internal link to a registry page by slug, only when the visitor can open it (live, or draft for logged-in editors).
+ * Otherwise returns the anchor text alone, so drafts and planned pages are never linked for visitors.
+ */
+function hwm_link( string $slug, string $anchor = '' ): string {
+	$entry = hwm_page( $slug );
+	$text  = '' !== $anchor ? $anchor : (string) ( $entry['title'] ?? $slug );
+	if ( $entry && ( hwm_is_live( $entry ) || ( 'draft' === ( $entry['status'] ?? '' ) && hwm_is_draft_preview() ) ) ) {
+		return '<a href="' . esc_url( hwm_url( $slug ) ) . '">' . esc_html( $text ) . '</a>';
+	}
+	return esc_html( $text );
+}
+
+/** Print a computed tool's client data as inert JSON for its calculator module. */
+function hwm_tool_data_script( string $id, string $file ): string {
+	$client = hwm_raw( $file, 'client' );
+	return '<script type="application/json" id="' . esc_attr( $id ) . '">' . wp_json_encode( $client, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>';
+}

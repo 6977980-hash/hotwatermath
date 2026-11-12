@@ -142,18 +142,57 @@
     {
       "slug": "water-heater-age-calculator",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2",
       "title": "Water Heater Age Calculator",
-      "summary": "Find a water heater's age from its serial number, for every major brand, and see how much of its expected life is used."
+      "summary": "Find a water heater's age from its serial number, for every major brand, and see how much of its expected life is used.",
+      "metaTitle": "Water Heater Age Calculator by Serial | Hot Water Math",
+      "description": "Find a water heater's age from its serial number for Rheem, A. O. Smith, Bradford White, Navien and more, and see how much of its expected life is used.",
+      "h1": "Water heater age calculator",
+      "subtitle": "Find the build date and remaining life from the serial number.",
+      "quickAnswer": "Most brands hide the build date in the first characters of the serial number. Enter it below to see the age and how much life is left.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "keywords": [
+        "how old is my water heater",
+        "water heater serial number age",
+        "water heater age by serial number",
+        "water heater serial number lookup",
+        "water heater serial number decoder"
+      ]
     },
     {
       "slug": "tankless-water-heater-size-calculator",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2",
       "title": "Tankless Water Heater Size Calculator",
-      "summary": "Work out the flow rate and temperature rise your home needs, with your state's groundwater temperature built in."
+      "summary": "Work out the flow rate and temperature rise your home needs, with your state's groundwater temperature built in.",
+      "metaTitle": "Tankless Water Heater Size Calculator | Hot Water Math",
+      "description": "What size tankless water heater do you need? Add your fixtures and state to get the GPM, temperature rise, gas BTU/h and electric kW, with sources shown.",
+      "h1": "Tankless water heater size calculator",
+      "subtitle": "Flow, temperature rise and unit size for your home and state.",
+      "quickAnswer": "Add the flow of the fixtures you run at once, then size for your coldest-month temperature rise. Two showers at a 70 °F rise need 5 GPM, about 184,000 BTU/h of gas.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "tankless-size"
+      ],
+      "keywords": [
+        "what size tankless water heater do i need",
+        "tankless water heater sizing",
+        "tankless water heater size chart",
+        "tankless water heater flow rate calculator",
+        "how to size a tankless water heater",
+        "tankless water heater size for family of 4",
+        "electric tankless water heater size calculator",
+        "tankless gpm calculator",
+        "tankless btu calculator",
+        "temperature rise"
+      ]
     },
     {
       "slug": "water-heater-size-calculator",
@@ -202,6 +241,120 @@
       "phase": "2b",
       "title": "How Long Does a Water Heater Last",
       "summary": "Expected lifespan by water heater type, what shortens it, and how to check your own unit's age."
+    },
+    {
+      "slug": "tankless-water-heater-installation-cost",
+      "type": "article",
+      "status": "planned",
+      "phase": "6",
+      "title": "Tankless Water Heater Installation Cost",
+      "summary": "What installing a tankless water heater costs, by fuel and by the extra work a switch from a tank needs."
+    },
+    {
+      "slug": "gas-line-size-for-tankless-water-heater",
+      "type": "article",
+      "status": "planned",
+      "phase": "6d",
+      "title": "Gas Line Size for a Tankless Water Heater",
+      "summary": "What the fuel gas code tables say about pipe size for a tankless water heater, for discussion with your installer."
+    },
+    {
+      "slug": "tankless-water-heater-electrical-requirements",
+      "type": "article",
+      "status": "planned",
+      "phase": "6d",
+      "title": "Tankless Water Heater Electrical Requirements",
+      "summary": "Breakers, wire and service capacity for electric tankless units, from manufacturer manuals and the electrical code."
+    },
+    {
+      "slug": "bradford-white-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "Bradford White Water Heater Age",
+      "summary": "Read the build date from a Bradford White serial number, with every format and worked examples."
+    },
+    {
+      "slug": "ao-smith-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "A. O. Smith Water Heater Age",
+      "summary": "Read the build date from a A. O. Smith serial number, with every format and worked examples."
+    },
+    {
+      "slug": "rheem-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "Rheem Water Heater Age",
+      "summary": "Read the build date from a Rheem serial number, with every format and worked examples."
+    },
+    {
+      "slug": "state-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "State Water Heater Age",
+      "summary": "Read the build date from a State serial number, with every format and worked examples."
+    },
+    {
+      "slug": "whirlpool-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "Whirlpool Water Heater Age",
+      "summary": "Read the build date from a Whirlpool serial number, with every format and worked examples."
+    },
+    {
+      "slug": "american-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "American Water Heater Age",
+      "summary": "Read the build date from a American serial number, with every format and worked examples."
+    },
+    {
+      "slug": "ge-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "GE Water Heater Age",
+      "summary": "Read the build date from a GE serial number, with every format and worked examples."
+    },
+    {
+      "slug": "kenmore-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "Kenmore Water Heater Age",
+      "summary": "Read the build date from a Kenmore serial number, with every format and worked examples."
+    },
+    {
+      "slug": "navien-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "Navien Water Heater Age",
+      "summary": "Read the build date from a Navien serial number, with every format and worked examples."
+    },
+    {
+      "slug": "rinnai-water-heater-age",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2b",
+      "parent": "water-heater-age-calculator",
+      "title": "Rinnai Water Heater Age",
+      "summary": "Read the build date from a Rinnai serial number, with every format and worked examples."
     }
   ]
 }

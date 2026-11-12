@@ -15,7 +15,9 @@
     "minutesPerHour": 60,
     "daysPerYear": 365,
     "monthsPerYear": 12,
-    "weeksPerYear": 52
+    "weeksPerYear": 52,
+    "litersPerGallon": 3.785,
+    "fahrenheitPerCelsius": 1.8
   },
   "tables": {
     "fixtures": {
@@ -336,6 +338,11 @@
         },
         {
           "brand": "Rheem / Ruud",
+          "rule": "two-digit week, then two-digit year",
+          "example": "Q4319***** → week 43 of 2019 (Rheem/Ruud lookup: October 18, 2019)"
+        },
+        {
+          "brand": "",
           "rule": "two-digit month, then two-digit year",
           "example": "0794****** → July 1994"
         },
@@ -363,11 +370,16 @@
           "brand": "American",
           "rule": "two-digit year, then two-digit week",
           "example": "9746****** → 1997, week 46"
+        },
+        {
+          "brand": "Navien",
+          "rule": "two-digit year, then month letter",
+          "example": "7410*18709**** → July 9, 2018 (CPSC example)"
         }
       ],
-      "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater",
+      "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)",
       "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
-      "sourceDate": "2026-11-12"
+      "sourceDate": "2026-11-13"
     }
   }
 }

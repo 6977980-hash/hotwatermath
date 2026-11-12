@@ -1,0 +1,766 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/fixture-flow-rates.json, data/tankless-reference-units.json, data/electrical.json, data/uef-ranges.json and data/groundwater-temp-by-state.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result, size charts, worked example and manufacturer cross-check for the tankless size calculator."
+  },
+  "defaultInputs": {
+    "counts": {
+      "shower": 2
+    },
+    "inletF": 50,
+    "setpointF": 120,
+    "fuel": "gas",
+    "efficiency": 0.95
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "One unit can do it",
+    "headline": "5.0 GPM at a 70 °F rise",
+    "explain": "You need about 184,358 BTU/h of gas input at UEF 0.95. A 199,000 BTU/h unit covers it. Electric instead: about 51.3 kW, more than one 36 kW unit.",
+    "formula": "Flow = 2 × 2.5 = 5.0 GPM\nRise = 120 °F − 50.0 °F = 70.0 °F\nOutput = 5.0 GPM × 8.34 lb/gal × 60 min × 70.0 °F = 175,140 BTU/h\nGas input = 175,140 ÷ 0.95 = 184,358 BTU/h\nElectric = 175,140 ÷ 3,412 BTU per kWh = 51.3 kW; × 1,000 ÷ 240 V = 214 A",
+    "sources": "Defaults: 120 °F setpoint (DOE FEMP); fixture flows are federal maximums (10 CFR 430.32), low-flow values EPA WaterSense; 50 °F incoming water is the DOE example until you pick a state (then NOAA normals with the DOE EnergyPlus mains correlation, coldest month); UEF 0.95 is the median ENERGY STAR certified gas tankless unit. <a href=\"/methodology/#tankless-water-heater-size-calculator\">See our results checked against Rinnai, Noritz and Rheem charts</a>."
+  },
+  "example": {
+    "state": "Minnesota",
+    "inlet": 36.6,
+    "setpoint": 120,
+    "counts": {
+      "shower": 2,
+      "kitchenFaucet": 1
+    },
+    "showerGpm": 2.5,
+    "kitchenGpm": 2.2,
+    "gpm": "7.2",
+    "rise": "83.4",
+    "output": "300,480",
+    "gasInput": "316,295",
+    "gasUnits": 2,
+    "gasSize": "",
+    "largestGas": "199,000",
+    "kw": "88.1",
+    "amps": "367",
+    "electricUnits": 3,
+    "largestKw": "36",
+    "lowShowerGpm": 2,
+    "lowGpm": "6.2",
+    "lowGasInput": "272,365",
+    "lowGasUnits": 2,
+    "lowGasSize": "",
+    "lowKw": "75.8",
+    "uef": 0.95
+  },
+  "defaultCase": {
+    "gpm": "5.0",
+    "lpm": "18.9",
+    "rise": 70,
+    "gasInput": "184,358",
+    "gasSize": "199,000",
+    "kw": "51.3",
+    "amps": "214",
+    "electricUnits": 2,
+    "inlet": 50
+  },
+  "climate": [
+    {
+      "st": "FL",
+      "name": "Florida",
+      "inlet": "69",
+      "rise": "51",
+      "gpm": "7.2",
+      "gasInput": "192,280",
+      "gasUnits": 1,
+      "kw": "53.5"
+    },
+    {
+      "st": "TN",
+      "name": "Tennessee",
+      "inlet": "54",
+      "rise": "66",
+      "gpm": "7.2",
+      "gasInput": "251,822",
+      "gasUnits": 2,
+      "kw": "70.1"
+    },
+    {
+      "st": "MN",
+      "name": "Minnesota",
+      "inlet": "37",
+      "rise": "83",
+      "gpm": "7.2",
+      "gasInput": "316,295",
+      "gasUnits": 2,
+      "kw": "88.1"
+    }
+  ],
+  "chartHighlight": {
+    "rise": 70,
+    "gasBtuh": "199,000",
+    "gasGpm": "5.4",
+    "kw": "36",
+    "elecGpm": "3.5"
+  },
+  "publishedRisesF": [
+    70,
+    50
+  ],
+  "inletExtremes": {
+    "coldest": {
+      "name": "North Dakota",
+      "f": "36"
+    },
+    "warmest": {
+      "name": "Hawaii",
+      "f": "81"
+    }
+  },
+  "crossChecks": [
+    {
+      "id": "rinnai-RUR98i-70",
+      "label": "Rinnai RUR98i, 199,000 BTU/h, efficiency 0.95, 70 °F rise",
+      "ours": "5.4 GPM",
+      "published": "5.5 GPM",
+      "diffPct": -1.8,
+      "why": "Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.",
+      "source": "Rinnai tankless model chart (2016)",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf"
+    },
+    {
+      "id": "rinnai-RUR98i-50",
+      "label": "Rinnai RUR98i, 199,000 BTU/h, efficiency 0.95, 50 °F rise",
+      "ours": "7.6 GPM",
+      "published": "7.7 GPM",
+      "diffPct": -1.8,
+      "why": "Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.",
+      "source": "Rinnai tankless model chart (2016)",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf"
+    },
+    {
+      "id": "rinnai-RL94i-70",
+      "label": "Rinnai RL94i, 199,000 BTU/h, efficiency 0.82, 70 °F rise",
+      "ours": "4.7 GPM",
+      "published": "4.7 GPM",
+      "diffPct": -0.9,
+      "why": "Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.",
+      "source": "Rinnai tankless model chart (2016)",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf"
+    },
+    {
+      "id": "rinnai-RL94i-50",
+      "label": "Rinnai RL94i, 199,000 BTU/h, efficiency 0.82, 50 °F rise",
+      "ours": "6.5 GPM",
+      "published": "6.6 GPM",
+      "diffPct": -1.2,
+      "why": "Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.",
+      "source": "Rinnai tankless model chart (2016)",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf"
+    },
+    {
+      "id": "rinnai-V65i-70",
+      "label": "Rinnai V65i, 150,000 BTU/h, efficiency 0.82, 70 °F rise",
+      "ours": "3.5 GPM",
+      "published": "3.6 GPM",
+      "diffPct": -2.5,
+      "why": "Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.",
+      "source": "Rinnai tankless model chart (2016)",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf"
+    },
+    {
+      "id": "rinnai-V65i-50",
+      "label": "Rinnai V65i, 150,000 BTU/h, efficiency 0.82, 50 °F rise",
+      "ours": "4.9 GPM",
+      "published": "5.0 GPM",
+      "diffPct": -1.6,
+      "why": "Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.",
+      "source": "Rinnai tankless model chart (2016)",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf"
+    },
+    {
+      "id": "noritz-1",
+      "label": "Noritz example: 2 showers and a washing machine, 55 °F groundwater, 120 °F setpoint",
+      "ours": "6 GPM, 65 °F rise; 205,427 BTU/h input; 2 units of 199,000 BTU/h",
+      "published": "6 GPM, 65 °F rise; one unit (EZ111, NRCR111 or NRC111)",
+      "diffPct": 0,
+      "why": "Same flow and rise. Our required input is 3.2% above one 199,000 BTU/h unit at UEF 0.95, so we say one unit is just short; Noritz matches the \"approximate flow\" on its chart and picks one large unit. Both agree it is a one-large-unit or two-unit job.",
+      "source": "Noritz, How to Size a Tankless (printable V1, 2024), steps 1 to 3",
+      "sourceUrl": "https://training.noritz.com/wp-content/uploads/2024/08/Tankless_Sizing_Printable_V1.pdf"
+    },
+    {
+      "id": "noritz-2",
+      "label": "Noritz example: 4 showers and a dishwasher, 55 °F groundwater, 120 °F setpoint",
+      "ours": "10 GPM, 65 °F rise; 342,379 BTU/h input; 2 units of 199,000 BTU/h",
+      "published": "10 GPM, 65 °F rise; a pair of units (EZ98, NRC98, NRCR92 or NR98)",
+      "diffPct": 0,
+      "why": "Same flow, rise and number of units.",
+      "source": "Noritz, How to Size a Tankless (printable V1, 2024), steps 1 to 3",
+      "sourceUrl": "https://training.noritz.com/wp-content/uploads/2024/08/Tankless_Sizing_Printable_V1.pdf"
+    },
+    {
+      "id": "rheem-electric-3",
+      "label": "Electric: 3.0 GPM at 82 °F rise",
+      "ours": "36.1 kW needed",
+      "published": "RETEX-36 (36 kW) delivers this flow and rise",
+      "diffPct": 0.2,
+      "why": "Within 0.2% of the unit's rating. Rheem rounds the rise to whole degrees; when our need is a fraction above 36 kW the tool says one unit is just short, which errs on the safe side.",
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "rheem-electric-4",
+      "label": "Electric: 4.0 GPM at 62 °F rise",
+      "ours": "36.4 kW needed",
+      "published": "RETEX-36 (36 kW) delivers this flow and rise",
+      "diffPct": 1,
+      "why": "Within 1.0% of the unit's rating. Rheem rounds the rise to whole degrees; when our need is a fraction above 36 kW the tool says one unit is just short, which errs on the safe side.",
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "rheem-electric-5",
+      "label": "Electric: 5.0 GPM at 49 °F rise",
+      "ours": "35.9 kW needed",
+      "published": "RETEX-36 (36 kW) delivers this flow and rise",
+      "diffPct": -0.2,
+      "why": "Within 0.2% of the unit's rating. Rheem rounds the rise to whole degrees; when our need is a fraction above 36 kW the tool says one unit is just short, which errs on the safe side.",
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    }
+  ],
+  "tables": {
+    "gasChart": {
+      "caption": "Gas tankless size chart: maximum GPM by temperature rise (UEF 0.95)",
+      "columns": [
+        {
+          "key": "rise",
+          "label": "Temperature rise"
+        },
+        {
+          "key": "g120000",
+          "label": "120,000 BTU/h",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "g150000",
+          "label": "150,000 BTU/h",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "g180000",
+          "label": "180,000 BTU/h",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "g199000",
+          "label": "199,000 BTU/h",
+          "unit": "GPM",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "rise": "30 °F",
+          "g120000": "7.6",
+          "g150000": "9.5",
+          "g180000": "11.4",
+          "g199000": "12.6"
+        },
+        {
+          "rise": "40 °F",
+          "g120000": "5.7",
+          "g150000": "7.1",
+          "g180000": "8.5",
+          "g199000": "9.4"
+        },
+        {
+          "rise": "50 °F",
+          "g120000": "4.6",
+          "g150000": "5.7",
+          "g180000": "6.8",
+          "g199000": "7.6"
+        },
+        {
+          "rise": "60 °F",
+          "g120000": "3.8",
+          "g150000": "4.8",
+          "g180000": "5.7",
+          "g199000": "6.3"
+        },
+        {
+          "rise": "70 °F",
+          "g120000": "3.3",
+          "g150000": "4.1",
+          "g180000": "4.9",
+          "g199000": "5.4"
+        },
+        {
+          "rise": "80 °F",
+          "g120000": "2.9",
+          "g150000": "3.6",
+          "g180000": "4.3",
+          "g199000": "4.7"
+        },
+        {
+          "rise": "90 °F",
+          "g120000": "2.5",
+          "g150000": "3.2",
+          "g180000": "3.8",
+          "g199000": "4.2"
+        }
+      ],
+      "source": "Computed with GPM = input × UEF ÷ (8.34 × 60 × rise); input sizes from the Rinnai model chart; UEF = ENERGY STAR median",
+      "sourceUrl": "https://hotwatermath.com/methodology/#tankless-water-heater-size-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "electricChart": {
+      "caption": "Electric tankless size chart: maximum GPM by temperature rise",
+      "columns": [
+        {
+          "key": "rise",
+          "label": "Temperature rise"
+        },
+        {
+          "key": "e13",
+          "label": "13 kW",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "e18",
+          "label": "18 kW",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "e24",
+          "label": "24 kW",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "e27",
+          "label": "27 kW",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "e36",
+          "label": "36 kW",
+          "unit": "GPM",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "rise": "30 °F",
+          "e13": "3.0",
+          "e18": "4.1",
+          "e24": "5.5",
+          "e27": "6.1",
+          "e36": "8.2"
+        },
+        {
+          "rise": "40 °F",
+          "e13": "2.2",
+          "e18": "3.1",
+          "e24": "4.1",
+          "e27": "4.6",
+          "e36": "6.1"
+        },
+        {
+          "rise": "50 °F",
+          "e13": "1.8",
+          "e18": "2.5",
+          "e24": "3.3",
+          "e27": "3.7",
+          "e36": "4.9"
+        },
+        {
+          "rise": "60 °F",
+          "e13": "1.5",
+          "e18": "2.1",
+          "e24": "2.7",
+          "e27": "3.1",
+          "e36": "4.1"
+        },
+        {
+          "rise": "70 °F",
+          "e13": "1.3",
+          "e18": "1.8",
+          "e24": "2.3",
+          "e27": "2.6",
+          "e36": "3.5"
+        },
+        {
+          "rise": "80 °F",
+          "e13": "1.1",
+          "e18": "1.5",
+          "e24": "2.1",
+          "e27": "2.3",
+          "e36": "3.1"
+        },
+        {
+          "rise": "90 °F",
+          "e13": "1.0",
+          "e18": "1.4",
+          "e24": "1.8",
+          "e27": "2.1",
+          "e36": "2.7"
+        }
+      ],
+      "source": "Computed with GPM = kW × 3412 ÷ (8.34 × 60 × rise); kW sizes from Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20)",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  },
+  "client": {
+    "setpointF": 120,
+    "defaultInletF": 50,
+    "fixtures": {
+      "shower": {
+        "label": "Shower",
+        "gpm": 2.5,
+        "lowFlowGpm": 2
+      },
+      "bathroomFaucet": {
+        "label": "Bathroom faucet",
+        "gpm": 2.2,
+        "lowFlowGpm": 1.5
+      },
+      "kitchenFaucet": {
+        "label": "Kitchen faucet",
+        "gpm": 2.2,
+        "lowFlowGpm": 2.2
+      },
+      "dishwasher": {
+        "label": "Dishwasher",
+        "gpm": 2,
+        "lowFlowGpm": 2
+      },
+      "clothesWasher": {
+        "label": "Clothes washer",
+        "gpm": 3.5,
+        "lowFlowGpm": 3.5
+      },
+      "tubFill": {
+        "label": "Bathtub filling",
+        "gpm": 3.5,
+        "lowFlowGpm": 3.5
+      }
+    },
+    "states": {
+      "AL": {
+        "name": "Alabama",
+        "coldestMonth": 59.2,
+        "annualAvg": 69.6
+      },
+      "AK": {
+        "name": "Alaska",
+        "coldestMonth": 36.5,
+        "annualAvg": 43.7
+      },
+      "AZ": {
+        "name": "Arizona",
+        "coldestMonth": 56.1,
+        "annualAvg": 67.1
+      },
+      "AR": {
+        "name": "Arkansas",
+        "coldestMonth": 55.5,
+        "annualAvg": 67
+      },
+      "CA": {
+        "name": "California",
+        "coldestMonth": 56.1,
+        "annualAvg": 65
+      },
+      "CO": {
+        "name": "Colorado",
+        "coldestMonth": 43.3,
+        "annualAvg": 52.2
+      },
+      "CT": {
+        "name": "Connecticut",
+        "coldestMonth": 45.5,
+        "annualAvg": 55.9
+      },
+      "DE": {
+        "name": "Delaware",
+        "coldestMonth": 51.2,
+        "annualAvg": 62.2
+      },
+      "DC": {
+        "name": "District of Columbia",
+        "coldestMonth": 53.5,
+        "annualAvg": 65.6
+      },
+      "FL": {
+        "name": "Florida",
+        "coldestMonth": 69.3,
+        "annualAvg": 77.4
+      },
+      "GA": {
+        "name": "Georgia",
+        "coldestMonth": 60,
+        "annualAvg": 70.2
+      },
+      "HI": {
+        "name": "Hawaii",
+        "coldestMonth": 81.2,
+        "annualAvg": 84.4
+      },
+      "ID": {
+        "name": "Idaho",
+        "coldestMonth": 41.6,
+        "annualAvg": 49.9
+      },
+      "IL": {
+        "name": "Illinois",
+        "coldestMonth": 46.8,
+        "annualAvg": 58.6
+      },
+      "IN": {
+        "name": "Indiana",
+        "coldestMonth": 47.1,
+        "annualAvg": 58.3
+      },
+      "IA": {
+        "name": "Iowa",
+        "coldestMonth": 42.4,
+        "annualAvg": 54.3
+      },
+      "KS": {
+        "name": "Kansas",
+        "coldestMonth": 48.8,
+        "annualAvg": 61
+      },
+      "KY": {
+        "name": "Kentucky",
+        "coldestMonth": 51.3,
+        "annualAvg": 62.3
+      },
+      "LA": {
+        "name": "Louisiana",
+        "coldestMonth": 62.8,
+        "annualAvg": 73.1
+      },
+      "ME": {
+        "name": "Maine",
+        "coldestMonth": 38.1,
+        "annualAvg": 47.8
+      },
+      "MD": {
+        "name": "Maryland",
+        "coldestMonth": 50.4,
+        "annualAvg": 61.4
+      },
+      "MA": {
+        "name": "Massachusetts",
+        "coldestMonth": 44.7,
+        "annualAvg": 54.8
+      },
+      "MI": {
+        "name": "Michigan",
+        "coldestMonth": 41.2,
+        "annualAvg": 51.2
+      },
+      "MN": {
+        "name": "Minnesota",
+        "coldestMonth": 36.6,
+        "annualAvg": 47.7
+      },
+      "MS": {
+        "name": "Mississippi",
+        "coldestMonth": 59.5,
+        "annualAvg": 70.2
+      },
+      "MO": {
+        "name": "Missouri",
+        "coldestMonth": 49.3,
+        "annualAvg": 61.3
+      },
+      "MT": {
+        "name": "Montana",
+        "coldestMonth": 39.7,
+        "annualAvg": 48.5
+      },
+      "NE": {
+        "name": "Nebraska",
+        "coldestMonth": 44.2,
+        "annualAvg": 55.4
+      },
+      "NV": {
+        "name": "Nevada",
+        "coldestMonth": 47.1,
+        "annualAvg": 57
+      },
+      "NH": {
+        "name": "New Hampshire",
+        "coldestMonth": 40.3,
+        "annualAvg": 50
+      },
+      "NJ": {
+        "name": "New Jersey",
+        "coldestMonth": 48.8,
+        "annualAvg": 59.6
+      },
+      "NM": {
+        "name": "New Mexico",
+        "coldestMonth": 50.8,
+        "annualAvg": 60.5
+      },
+      "NY": {
+        "name": "New York",
+        "coldestMonth": 42,
+        "annualAvg": 52
+      },
+      "NC": {
+        "name": "North Carolina",
+        "coldestMonth": 55.2,
+        "annualAvg": 65.5
+      },
+      "ND": {
+        "name": "North Dakota",
+        "coldestMonth": 36.2,
+        "annualAvg": 47
+      },
+      "OH": {
+        "name": "Ohio",
+        "coldestMonth": 46.9,
+        "annualAvg": 57.7
+      },
+      "OK": {
+        "name": "Oklahoma",
+        "coldestMonth": 54,
+        "annualAvg": 66.3
+      },
+      "OR": {
+        "name": "Oregon",
+        "coldestMonth": 46.4,
+        "annualAvg": 53.9
+      },
+      "PA": {
+        "name": "Pennsylvania",
+        "coldestMonth": 45.4,
+        "annualAvg": 55.5
+      },
+      "RI": {
+        "name": "Rhode Island",
+        "coldestMonth": 46.6,
+        "annualAvg": 56.7
+      },
+      "SC": {
+        "name": "South Carolina",
+        "coldestMonth": 58.8,
+        "annualAvg": 69.4
+      },
+      "SD": {
+        "name": "South Dakota",
+        "coldestMonth": 40.3,
+        "annualAvg": 51.6
+      },
+      "TN": {
+        "name": "Tennessee",
+        "coldestMonth": 53.6,
+        "annualAvg": 64.4
+      },
+      "TX": {
+        "name": "Texas",
+        "coldestMonth": 60.7,
+        "annualAvg": 71.8
+      },
+      "UT": {
+        "name": "Utah",
+        "coldestMonth": 44.9,
+        "annualAvg": 55.2
+      },
+      "VT": {
+        "name": "Vermont",
+        "coldestMonth": 39.4,
+        "annualAvg": 49
+      },
+      "VA": {
+        "name": "Virginia",
+        "coldestMonth": 51.6,
+        "annualAvg": 62
+      },
+      "WA": {
+        "name": "Washington",
+        "coldestMonth": 45.9,
+        "annualAvg": 53.3
+      },
+      "WV": {
+        "name": "West Virginia",
+        "coldestMonth": 48.7,
+        "annualAvg": 58.6
+      },
+      "WI": {
+        "name": "Wisconsin",
+        "coldestMonth": 39.1,
+        "annualAvg": 49.8
+      },
+      "WY": {
+        "name": "Wyoming",
+        "coldestMonth": 39.7,
+        "annualAvg": 48.3
+      }
+    },
+    "gasEfficiency": {
+      "condensing": 0.95,
+      "nonCondensing": 0.81
+    },
+    "electricEfficiency": 0.92,
+    "gasSizesBtuh": [
+      120000,
+      150000,
+      180000,
+      199000
+    ],
+    "electricUnits": [
+      {
+        "model": "RETEX-13",
+        "kw": 13,
+        "amps": 54,
+        "breakers": "1 × 60 A",
+        "wire": "6 AWG copper"
+      },
+      {
+        "model": "RETEX-18",
+        "kw": 18,
+        "amps": 75,
+        "breakers": "2 × 40 A",
+        "wire": "8 AWG copper"
+      },
+      {
+        "model": "RETEX-24",
+        "kw": 24,
+        "amps": 100,
+        "breakers": "3 × 40 A",
+        "wire": "8 AWG copper"
+      },
+      {
+        "model": "RETEX-27",
+        "kw": 27,
+        "amps": 113,
+        "breakers": "3 × 40 A",
+        "wire": "8 AWG copper"
+      },
+      {
+        "model": "RETEX-36",
+        "kw": 36,
+        "amps": 150,
+        "breakers": "4 × 40 A",
+        "wire": "8 AWG copper"
+      }
+    ],
+    "volts": 240,
+    "rules": {
+      "coldClimateRiseF": 60,
+      "coldClimateGpm": 4,
+      "source": "Hot Water Math editorial threshold (docs/STRATEGY.md §3.2): warn that a single whole-house electric unit is rarely enough when the rise is above 60 °F and the flow is above 4 GPM"
+    }
+  }
+}

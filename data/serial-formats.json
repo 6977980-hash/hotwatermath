@@ -1,9 +1,9 @@
 {
   "meta": {
-    "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater",
+    "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)",
     "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
-    "sourceDate": "2026-11-12",
-    "notes": "Only brands whose format we could confirm in an opened source are listed. Patterns are tried in order. Two-digit years take the latest matching year that is not in the future. Letter-year codes repeat every 20 years, so the decoder returns the latest year and lists the earlier ones; the unit's look and the dates on its labels settle which is right. Tankless brands (Rinnai, Navien, Noritz, Takagi, Bosch) are not listed yet; for them, and whenever a serial does not match, the calculator asks for the manufacture year. Rheem and Ruud also offer their own lookup, which beats any decoder."
+    "sourceDate": "2026-11-13",
+    "notes": "Only brands whose format we could confirm in an opened source are listed. Patterns are tried in order. Two-digit years take the latest matching year that is not in the future. Letter-year codes repeat every 20 years, so the decoder returns the latest year and lists the earlier ones; the unit's look and the dates on its labels settle which is right. Rinnai, Noritz, Takagi and Bosch are not decoded: no manufacturer or government source for their date code could be opened (third-party guides disagree with each other), so the calculator asks for the manufacture year. Rheem and Ruud also offer their own lookup, which beats any decoder."
   },
   "brands": {
     "bradford-white": {
@@ -48,9 +48,26 @@
         "Vanguard",
         "Intertherm"
       ],
-      "source": "Energy Trust of Oregon: Rheem uses a two-digit month followed by a two-digit year (example 0794****** = July 1994)",
-      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "source": "Rheem/Ruud official age lookup (tested 2026-11-13: serials that start with a plant letter, then a two-digit week and a two-digit year, return that week's date); Energy Trust of Oregon for older all-digit serials (two-digit month, then two-digit year, example 0794****** = July 1994)",
+      "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/",
       "patterns": [
+        {
+          "id": "rheem-plant-wwyy",
+          "regex": "^[A-Z](0[1-9]|[1-4]\\d|5[0-3])(\\d{2})",
+          "example": "Q4319***** → week 43 of 2019 (Rheem/Ruud lookup: October 18, 2019)",
+          "source": "Rheem/Ruud official age lookup: Q431912345 → 10/18/2019, M101812345 → 03/07/2018, Q052412345 → 01/25/2024 (checked 2026-11-13)",
+          "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/",
+          "fields": {
+            "week": {
+              "group": 1,
+              "type": "ww"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          }
+        },
         {
           "id": "rheem-mmyy",
           "regex": "^(0[1-9]|1[0-2])(\\d{2})",
@@ -64,7 +81,9 @@
               "group": 2,
               "type": "yy"
             }
-          }
+          },
+          "source": "Energy Trust of Oregon decoder: 0794****** or 0794F***** = July 1994",
+          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
         }
       ]
     },
@@ -185,18 +204,132 @@
           }
         }
       ]
+    },
+    "navien": {
+      "label": "Navien",
+      "alsoSoldAs": [],
+      "source": "U.S. CPSC recall notices for Navien tankless water heaters (2018, 2019): after the four-digit model code and one more character, the next two digits are the year, the next character is the month (X = October) and the next two digits are the day; example 18709 = July 9, 2018. Navien: the serial is on the outside right of the unit, between two barcodes, 15 to 16 characters long.",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning",
+      "patterns": [
+        {
+          "id": "navien-yymdd",
+          "regex": "^\\d{4}[A-Z0-9](\\d{2})([1-9XYZ])(0[1-9]|[12]\\d|3[01])",
+          "example": "7410*18709**** → July 9, 2018 (CPSC example)",
+          "notes": "CPSC confirms 1 to 9 for January to September and X for October. Y and Z for November and December follow the same sequence; no opened source shows them, so treat those two months as likely, not confirmed.",
+          "fields": {
+            "year": {
+              "group": 1,
+              "type": "yy"
+            },
+            "month": {
+              "group": 2,
+              "type": "letterMonth",
+              "letters": "123456789XYZ"
+            }
+          }
+        }
+      ]
     }
   },
   "officialLookups": [
     {
       "brand": "Rheem",
-      "url": "https://www.rheem.com/warranties/",
-      "note": "Rheem warranty and registration lookup"
+      "url": "https://www.rheem.com/how-old-is-my-equipment/",
+      "note": "Rheem's official age lookup (tank and tankless)"
+    },
+    {
+      "brand": "Ruud",
+      "url": "https://www.ruud.com/how-old-is-my-water-heater/",
+      "note": "Ruud's official water heater age calculator"
     },
     {
       "brand": "Bradford White",
       "url": "https://www.bradfordwhite.com/my-water-heater/",
-      "note": "Bradford White age decoder and serial location"
+      "note": "Bradford White year and month letter table and rating plate location"
+    },
+    {
+      "brand": "Navien",
+      "url": "https://www.navieninc.com/warranty",
+      "note": "Navien warranty page: where the serial number is on the unit"
     }
-  ]
+  ],
+  "brandOptions": {
+    "source": "Dropdown for the age calculator. decodeAs = which brand's date code applies; empty = not decodable, ask for the year. Aliases come from the Energy Trust of Oregon decoder (Whirlpool is made by American; State/Kenmore; General Electric under Rheem).",
+    "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+    "options": [
+      {
+        "id": "rheem",
+        "label": "Rheem / Ruud",
+        "decodeAs": "rheem"
+      },
+      {
+        "id": "ao-smith",
+        "label": "A. O. Smith",
+        "decodeAs": "ao-smith"
+      },
+      {
+        "id": "bradford-white",
+        "label": "Bradford White",
+        "decodeAs": "bradford-white"
+      },
+      {
+        "id": "state",
+        "label": "State",
+        "decodeAs": "state"
+      },
+      {
+        "id": "american",
+        "label": "American",
+        "decodeAs": "american"
+      },
+      {
+        "id": "whirlpool",
+        "label": "Whirlpool",
+        "decodeAs": "american",
+        "caveat": "Whirlpool water heaters are made by American (part of A. O. Smith), so the American code is used."
+      },
+      {
+        "id": "ge",
+        "label": "GE",
+        "decodeAs": "rheem",
+        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label."
+      },
+      {
+        "id": "kenmore",
+        "label": "Kenmore",
+        "decodeAs": "state",
+        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label."
+      },
+      {
+        "id": "navien",
+        "label": "Navien",
+        "decodeAs": "navien"
+      },
+      {
+        "id": "rinnai",
+        "label": "Rinnai",
+        "decodeAs": ""
+      },
+      {
+        "id": "noritz",
+        "label": "Noritz",
+        "decodeAs": ""
+      },
+      {
+        "id": "takagi",
+        "label": "Takagi",
+        "decodeAs": ""
+      },
+      {
+        "id": "bosch",
+        "label": "Bosch",
+        "decodeAs": ""
+      },
+      {
+        "id": "other",
+        "label": "Other or not sure",
+        "decodeAs": ""
+      }
+    ]
+  }
 }

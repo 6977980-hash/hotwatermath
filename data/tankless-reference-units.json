@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "source": "Rinnai America Corporation, tankless water heater model chart and specifications (2016), hosted by Lowe's; Noritz, How to Size a Tankless (printable, 2024); Lochinvar, Tankless Water Heater Sizing Guide",
+    "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Manufacturer figures used two ways: the gas input sizes in the size chart, and the cross-check of our formula against the flow each manufacturer publishes. The Rinnai chart gives an Energy Factor (the rating used before UEF); newer models of the same size are rated in UEF and are very close. Cross-check and chart settings below that are not manufacturer figures are labelled as Hot Water Math choices. publishedRisesF = the two temperature rises Rinnai's chart publishes flow for (gpmAt70, gpmAt50)."
+  },
+  "gasUnits": [
+    {
+      "model": "RUR98i",
+      "maker": "Rinnai",
+      "type": "condensing",
+      "inputBtuh": 199000,
+      "efficiency": 0.95,
+      "gpmAt70": 5.5,
+      "gpmAt50": 7.7
+    },
+    {
+      "model": "RUC90i",
+      "maker": "Rinnai",
+      "type": "condensing",
+      "inputBtuh": 180000,
+      "efficiency": 0.96,
+      "gpmAt70": 5.0,
+      "gpmAt50": 7.0
+    },
+    {
+      "model": "RUC80i",
+      "maker": "Rinnai",
+      "type": "condensing",
+      "inputBtuh": 152000,
+      "efficiency": 0.96,
+      "gpmAt70": 4.2,
+      "gpmAt50": 5.9
+    },
+    {
+      "model": "RL94i",
+      "maker": "Rinnai",
+      "type": "non-condensing",
+      "inputBtuh": 199000,
+      "efficiency": 0.82,
+      "gpmAt70": 4.7,
+      "gpmAt50": 6.6
+    },
+    {
+      "model": "RL75i",
+      "maker": "Rinnai",
+      "type": "non-condensing",
+      "inputBtuh": 180000,
+      "efficiency": 0.82,
+      "gpmAt70": 4.3,
+      "gpmAt50": 6.0
+    },
+    {
+      "model": "V65i",
+      "maker": "Rinnai",
+      "type": "non-condensing",
+      "inputBtuh": 150000,
+      "efficiency": 0.82,
+      "gpmAt70": 3.6,
+      "gpmAt50": 5.0
+    },
+    {
+      "model": "V53e",
+      "maker": "Rinnai",
+      "type": "non-condensing",
+      "inputBtuh": 120000,
+      "efficiency": 0.82,
+      "gpmAt70": 2.8,
+      "gpmAt50": 4.0
+    }
+  ],
+  "sizeChart": {
+    "gasInputsBtuh": [
+      120000,
+      150000,
+      180000,
+      199000
+    ],
+    "risesF": [
+      30,
+      40,
+      50,
+      60,
+      70,
+      80,
+      90
+    ],
+    "source": "Gas input sizes are the residential input ratings in the Rinnai chart above; the rises are a Hot Water Math display choice covering warm to very cold inlet water. Electric sizes come from data/electrical.json."
+  },
+  "noritzExample": {
+    "setpointF": 120,
+    "groundwaterF": 55,
+    "riseF": 65,
+    "fixtureGpm": {
+      "shower": 2,
+      "lavSink": 1,
+      "kitchenSink": 1.5,
+      "dishwasher": 2,
+      "washingMachine": 2
+    },
+    "examples": [
+      {
+        "id": "noritz-1",
+        "label": "2 showers and a washing machine",
+        "fixtures": {
+          "shower": 2,
+          "washingMachine": 1
+        },
+        "gpm": 6,
+        "pick": "one unit (EZ111, NRCR111 or NRC111)"
+      },
+      {
+        "id": "noritz-2",
+        "label": "4 showers and a dishwasher",
+        "fixtures": {
+          "shower": 4,
+          "dishwasher": 1
+        },
+        "gpm": 10,
+        "pick": "a pair of units (EZ98, NRC98, NRCR92 or NR98)"
+      }
+    ],
+    "source": "Noritz, How to Size a Tankless (printable V1, 2024), steps 1 to 3",
+    "sourceUrl": "https://training.noritz.com/wp-content/uploads/2024/08/Tankless_Sizing_Printable_V1.pdf"
+  },
+  "lochinvarCheck": {
+    "note": "Lochinvar sizing guide: capacity in showers at 50 °F and 70 °F incoming water with a 120 °F setpoint, and a GPM by temperature rise chart per model. Used as a qualitative check on the per-shower rule (one shower per about 2.5 GPM).",
+    "source": "Lochinvar, Tankless Water Heater Sizing Guide",
+    "sourceUrl": "https://assets.lochinvar.com/damroot/Original/10013/Tankless%20Sizing.pdf"
+  },
+  "rules": {
+    "coldClimateRiseF": 60,
+    "coldClimateGpm": 4,
+    "source": "Hot Water Math editorial threshold (docs/STRATEGY.md §3.2): warn that a single whole-house electric unit is rarely enough when the rise is above 60 °F and the flow is above 4 GPM"
+  },
+  "publishedRisesF": [
+    70,
+    50
+  ]
+}

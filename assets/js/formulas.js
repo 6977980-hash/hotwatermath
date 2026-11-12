@@ -18,6 +18,8 @@ export const PHYSICS = Object.freeze({
 	daysPerYear: 365,
 	monthsPerYear: 12,
 	weeksPerYear: 52,
+	litersPerGallon: 3.785, // one US gallon in liters (3.78541, rounded)
+	fahrenheitPerCelsius: 1.8, // size of one °C step in °F
 });
 
 const isNum = (v) => typeof v === 'number' && Number.isFinite(v);
@@ -146,6 +148,22 @@ export function lifeStatus(age, life, bands) {
 	return { usedFraction: round(usedFraction, 3), remaining, status };
 }
 
+/**
+ * Full age estimate for one unit: age, adjusted life and status (combines ageYears, adjustedLifespan, lifeStatus).
+ * @param {{year:number, month:(number|null)}} made Build date.
+ * @param {Date} today
+ * @param {{low:number, typical:number, high:number}} lifespan For the unit type (data/lifespans.json).
+ * @param {number[]} deltasYears Editorial adjustments that apply (data/lifespans.json → adjustments).
+ * @param {number} minimumYears
+ * @param {{amberFrom:number, redFrom:number}} bands
+ * @returns {{age:number, life:{low:number,typical:number,high:number}, usedFraction:number, remaining:{min:number,max:number}, status:'ok'|'warn'|'bad'}}
+ */
+export function ageEstimate(made, today, lifespan, deltasYears, minimumYears, bands) {
+	const age = ageYears(made, today);
+	const life = adjustedLifespan(lifespan, deltasYears, minimumYears);
+	return { age, life, ...lifeStatus(age, life, bands) };
+}
+
 /* ---------- 3.2 Tankless size ---------- */
 
 /**
@@ -243,6 +261,61 @@ export function riseAtGpm(outputBtuhValue, gpm) {
  */
 export function maxGpmByRise(outputBtuhValue, rises) {
 	return rises.map((rise) => ({ rise, gpm: rise > 0 ? round(outputBtuhValue / (PHYSICS.lbPerGallon * PHYSICS.minutesPerHour * rise), 2) : Infinity }));
+}
+
+/**
+ * Smallest item in a list whose numeric field is at least the value (e.g. the smallest gas input size that covers the need).
+ * @param {number} value
+ * @param {Array<object>} items
+ * @param {string} key Field to compare.
+ * @returns {object|null} null when even the largest item is too small.
+ */
+export function smallestAtLeast(value, items, key) {
+	return [...items].sort((a, b) => a[key] - b[key]).find((i) => i[key] >= value) || null;
+}
+
+/**
+ * Number of identical units needed to cover a requirement (at least 1).
+ * @param {number} required e.g. BTU/h input or kW needed.
+ * @param {number} perUnit Capacity of one unit in the same unit.
+ * @returns {number}
+ */
+export function unitsNeeded(required, perUnit) {
+	if (!(perUnit > 0)) return Infinity;
+	return Math.max(1, Math.ceil(round(required / perUnit, 6)));
+}
+
+/**
+ * Tankless sizing for one household: flow, rise, output, gas input, electric kW and amps, and the reference sizes that cover it.
+ * @param {{fixtures:Array<{count:number,gpm:number}>, setpointF:number, inletF:number, gasEfficiency:number, volts:number,
+ *   gasSizesBtuh:number[], electricUnits:Array<{model:string,kw:number,amps:number,breakers:string,wire:string}>}} i
+ * @returns {object}
+ */
+export function tanklessSizing(i) {
+	const gpm = totalGpm(i.fixtures);
+	const rise = temperatureRise(i.setpointF, i.inletF);
+	const output = outputBtuh(gpm, rise);
+	const gasInput = gasInputBtuh(output, i.gasEfficiency);
+	const kw = electricKw(output);
+	const amps = electricAmps(kw, i.volts);
+	const largestGas = Math.max(...i.gasSizesBtuh);
+	const gasSize = smallestAtLeast(gasInput, i.gasSizesBtuh.map((btuh) => ({ btuh })), 'btuh');
+	const electricUnit = referenceUnitFor(kw, i.electricUnits);
+	const largestKw = Math.max(...i.electricUnits.map((u) => u.kw));
+	return {
+		gpm,
+		rise,
+		outputBtuh: round(output),
+		gasInputBtuh: round(gasInput),
+		gasSizeBtuh: gasSize ? gasSize.btuh : null,
+		gasUnitsAtLargest: unitsNeeded(gasInput, largestGas),
+		largestGasBtuh: largestGas,
+		kw: round(kw, 1),
+		amps: round(amps),
+		electricUnit,
+		electricUnitsAtLargest: unitsNeeded(kw, largestKw),
+		largestKw,
+	};
 }
 
 /**

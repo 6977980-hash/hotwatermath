@@ -13,6 +13,8 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import * as F from '../assets/js/formulas.js';
+import { describe as describeAge } from '../assets/js/age.js';
+import { describe as describeTankless, FIXTURE_KEYS } from '../assets/js/tankless-size.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'data/computed');
@@ -38,6 +40,7 @@ export const INPUTS = [
 	'data/serial-formats.json',
 	'data/incentives.json',
 	'data/decision-rules.json',
+	'data/tankless-reference-units.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -302,6 +305,223 @@ function describePattern(p) {
 				{ source: 'DOE FEMP; Rheem form THD-PTE; DOE Energy Saver (archived); AHRI worksheet', sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: d.site.defaults.defaultElectricRateUsdPerKwh.sourceDate },
 			),
 		},
+	};
+}
+
+/* ---------- Phase 2 tools: age calculator ---------- */
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.year}`);
+{
+	const sf = d['serial-formats'];
+	const ls = d.lifespans;
+	const asOfIso = d.site.dateVerified['water-heater-age-calculator'];
+	const asOf = new Date(`${asOfIso}T12:00:00Z`);
+	const refYear = asOf.getUTCFullYear();
+	const adj = ls.adjustments;
+	const lifeFor = (typeId) => ls.types[ls.toolTypes.options.find((o) => o.id === typeId).life];
+	const deltas = (hardness, flushed, anode) => [adj.hardness[hardness] ?? 0, flushed ? 0 : adj.noAnnualFlush, anode ? adj.anodeReplaced : 0];
+	const estimate = (brand, serial, typeId, hardness, flushed, anode) => {
+		const made = F.decodeSerial(serial, sf.brands[brand].patterns, refYear);
+		const est = F.ageEstimate(made, asOf, lifeFor(typeId), deltas(hardness, flushed, anode), adj.minimumLifeYears, ls.statusBands);
+		return { made, ...est };
+	};
+	const statusLabel = { ok: 'Well within expected life', warn: 'Getting older: plan ahead', bad: 'Near or past expected life' };
+	const pct = (f) => Math.round(f * 100);
+
+	// Default (server-rendered) result = the form's default inputs.
+	const def = { brand: 'rheem', serial: 'Q431912345', type: 'gas_tank', hardness: 'moderate', flushed: true, anode: false };
+	const e = estimate(def.brand, def.serial, def.type, def.hardness, def.flushed, def.anode);
+	const life = e.life;
+	// Worked example on the page: Bradford White electric tank, hard water, never flushed.
+	const wx = { brand: 'bradford-white', serial: 'SF1234567', type: 'electric_tank', hardness: 'hard', flushed: false, anode: false };
+	const w = estimate(wx.brand, wx.serial, wx.type, wx.hardness, wx.flushed, wx.anode);
+	const wBase = lifeFor(wx.type);
+
+	// Cross-checks against manufacturer references (the official lookup's answers were recorded on the check date).
+	const xc = [];
+	for (const t of [
+		{ serial: 'Q431912345', official: '2019-10-18' },
+		{ serial: 'M101812345', official: '2018-03-07' },
+		{ serial: 'Q052412345', official: '2024-01-25' },
+	]) {
+		const m = F.decodeSerial(t.serial, sf.brands.rheem.patterns, refYear);
+		const [oy, om] = t.official.split('-').map(Number);
+		xc.push({ id: `rheem-${t.serial}`, label: `Rheem/Ruud serial ${t.serial} (test serial)`, ours: madeLabel(m), published: `${MONTHS[om - 1]} ${Number(t.official.slice(8))}, ${oy}`, match: m.year === oy && m.month === om, why: 'Same month. The serial holds a production week, so we show the month; the official lookup returns a day inside that week.', source: 'Ruud official water heater age calculator', sourceUrl: sf.brands.rheem.sourceUrl });
+	}
+	for (const t of [{ serial: 'SF', year: 2018, month: 6 }, { serial: 'XA', year: 2021, month: 1 }]) {
+		const m = F.decodeSerial(`${t.serial}1234567`, sf.brands['bradford-white'].patterns, refYear);
+		xc.push({ id: `bw-${t.serial}`, label: `Bradford White serial starting ${t.serial}`, ours: `${madeLabel(m)} (also possible: ${m.otherYears.join(', ')})`, published: `${MONTHS[t.month - 1]} ${t.year} (table: ${t.serial[0]} = ${t.year} or ${t.year + 20}, ${t.serial[1]} = ${MONTHS[t.month - 1]})`, match: m.year === t.year && m.month === t.month, why: 'Same date. Bradford White letters repeat every 20 years; we pick the latest year that is not in the future and list the others, as the manufacturer table does.', source: 'Bradford White, Determine the age of my water heater', sourceUrl: sf.brands['bradford-white'].sourceUrl });
+	}
+	{
+		const m = F.decodeSerial('7410A18709AAAA', sf.brands.navien.patterns, refYear);
+		xc.push({ id: 'navien-cpsc', label: 'Navien NPE-180A serial 7410x18709xxxx (recall example)', ours: madeLabel(m), published: 'July 9, 2018', match: m.year === 2018 && m.month === 7, why: 'Same month. We do not show the day.', source: 'U.S. CPSC recall notice, Navien tankless water heaters (2019)', sourceUrl: sf.brands.navien.sourceUrl });
+	}
+
+	const summaryRows = sf.brandOptions.options.map((o) => {
+		const b = o.decodeAs ? sf.brands[o.decodeAs] : null;
+		return {
+			id: o.id,
+			brand: o.label,
+			rule: b ? b.patterns.map(describePattern).join('; or ') : 'Not decoded yet: enter the year from the label',
+			example: b ? b.patterns.map((p) => p.example).join('; ') : '',
+			note: o.caveat || '',
+		};
+	});
+
+	out['water-heater-age-calculator'] = {
+		meta: { ...derived('data/serial-formats.json and data/lifespans.json'), notes: `Default result and worked example are computed as of ${asOfIso} (site.json dateVerified). The live calculator uses the visitor's date.` },
+		asOf: asOfIso,
+		defaultInputs: def,
+		default: null,
+		statusLabels: statusLabel,
+		example: {
+			input: wx,
+			madeLabel: madeLabel(w.made),
+			year: w.made.year,
+			cycleYears: w.made.year - w.made.otherYears[0],
+			cycleStarts: sf.brands['bradford-white'].patterns[0].fields.year.cycleStarts,
+			otherYears: w.made.otherYears,
+			age: fmt(w.age, 1),
+			baseLow: wBase.low, baseTypical: wBase.typical, baseHigh: wBase.high,
+			hardDelta: adj.hardness.hard, flushDelta: adj.noAnnualFlush,
+			lifeLow: w.life.low, lifeTypical: w.life.typical, lifeHigh: w.life.high,
+			usedPct: pct(w.usedFraction),
+			remainingMin: fmt(w.remaining.min, 1), remainingMax: fmt(w.remaining.max, 1),
+			status: w.status, statusLabel: statusLabel[w.status],
+		},
+		bandsPct: { amberFrom: pct(ls.statusBands.amberFrom), redFrom: pct(ls.statusBands.redFrom) },
+		crossChecks: xc,
+		summaryRows,
+		client: {
+			asOf: asOfIso,
+			months: MONTHS,
+			brandOptions: sf.brandOptions.options,
+			brands: Object.fromEntries(Object.entries(sf.brands).map(([k, b]) => [k, { label: b.label, patterns: b.patterns.map(({ id, regex, fields, validFromYear, validToYear }) => ({ id, regex, fields, validFromYear, validToYear })) }])),
+			officialLookups: sf.officialLookups,
+			types: ls.toolTypes.options.map((o) => ({ id: o.id, label: o.label, ...ls.types[o.life] })),
+			adjustments: adj,
+			bands: ls.statusBands,
+			statusLabels: statusLabel,
+		},
+	};
+	const ageOut = out['water-heater-age-calculator'];
+	const dd = describeAge({ ...def, year: null, month: '' }, ageOut.client, asOf);
+	ageOut.default = {
+		status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline,
+		explain: `${dd.explain} (Example serial, as of ${asOfIso}; type yours.)`,
+		formula: dd.formula,
+		sources: 'Rheem date code: checked against Rheem/Ruud\'s own lookup. Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions. <a href="/methodology/#water-heater-age-calculator">See the decoder checked against Rheem/Ruud, Bradford White and CPSC</a>.',
+	};
+}
+
+/* ---------- Phase 2 tools: tankless size calculator ---------- */
+{
+	const fx = d['fixture-flow-rates'];
+	const tr = d['tankless-reference-units'];
+	const el = d.electrical;
+	const it = out['inlet-temps'].states;
+	const uef = out['uef-defaults'].types;
+	const setpoint = d.site.defaults.setpointTempF.value;
+	const defInlet = fx.doeExample.inletF;
+	const gasSizes = tr.sizeChart.gasInputsBtuh;
+	const units = el.referenceUnits;
+	const size = (counts, inletF, eff = uef.gas_tankless.typical, lowFlow = false) => F.tanklessSizing({
+		fixtures: Object.entries(counts).map(([k, count]) => ({ count, gpm: lowFlow ? fx.fixtures[k].lowFlowGpm : fx.fixtures[k].gpm })),
+		setpointF: setpoint, inletF: inletF, gasEfficiency: eff, volts: el.residentialVolts, gasSizesBtuh: gasSizes, electricUnits: units,
+	});
+
+	const defCounts = { shower: 2 };
+	const s0 = size(defCounts, defInlet);
+	// Worked example: Minnesota (coldest month), two showers + kitchen faucet, gas, then electric and low-flow.
+	const exState = 'MN';
+	const exInlet = it[exState].coldestMonth;
+	const exCounts = { shower: 2, kitchenFaucet: 1 };
+	const ex = size(exCounts, exInlet);
+	const exLow = size(exCounts, exInlet, uef.gas_tankless.typical, true);
+	// Climate comparison for the FAQ (family of 4: two showers + bathroom faucet) in a warm, middle and cold state.
+	const climate = ['FL', 'TN', 'MN'].map((st) => ({ st, name: it[st].name, inlet: it[st].coldestMonth, ...size({ shower: 2, bathroomFaucet: 1 }, it[st].coldestMonth) }));
+	const coldest = Object.values(it).reduce((a, b) => (b.coldestMonth < a.coldestMonth ? b : a));
+	const warmest = Object.values(it).reduce((a, b) => (b.coldestMonth > a.coldestMonth ? b : a));
+
+	const riseCols = tr.sizeChart.risesF;
+	const gasChartRows = riseCols.map((rise) => ({ rise: `${rise} °F`, ...Object.fromEntries(gasSizes.map((b) => [`g${b}`, fmt(F.maxGpmByRise(b * uef.gas_tankless.typical, [rise])[0].gpm, 1)])) }));
+	const elecKws = units.map((u) => u.kw);
+	const elecChartRows = riseCols.map((rise) => ({ rise: `${rise} °F`, ...Object.fromEntries(elecKws.map((k) => [`e${k}`, fmt(F.maxGpmByRise(F.btuhFromKw(k), [rise])[0].gpm, 1)])) }));
+
+	// Cross-checks against manufacturer sizing literature.
+	const xc = [];
+	for (const u of tr.gasUnits.filter((x) => ['RUR98i', 'RL94i', 'V65i'].includes(x.model))) {
+		for (const [rise, pub] of [[70, u.gpmAt70], [50, u.gpmAt50]]) {
+			const gpm = F.maxGpmByRise(u.inputBtuh * u.efficiency, [rise])[0].gpm;
+			xc.push({ id: `rinnai-${u.model}-${rise}`, label: `Rinnai ${u.model}, ${fmt(u.inputBtuh)} BTU/h, efficiency ${u.efficiency}, ${rise} °F rise`, ours: `${fmt(gpm, 1)} GPM`, published: `${fmt(pub, 1)} GPM`, diffPct: r(((gpm - pub) / pub) * 100, 1), why: 'Within a few percent. Rinnai rounds and rates with its own test efficiency; our formula uses the rated Energy Factor.', source: 'Rinnai tankless model chart (2016)', sourceUrl: tr.meta.sourceUrl });
+		}
+	}
+	for (const ex2 of tr.noritzExample.examples) {
+		const g = F.totalGpm(Object.entries(ex2.fixtures).map(([k, count]) => ({ count, gpm: tr.noritzExample.fixtureGpm[k] })));
+		const s = F.tanklessSizing({ fixtures: [{ count: 1, gpm: g }], setpointF: tr.noritzExample.setpointF, inletF: tr.noritzExample.groundwaterF, gasEfficiency: uef.gas_tankless.typical, volts: el.residentialVolts, gasSizesBtuh: gasSizes, electricUnits: units });
+		xc.push({ id: ex2.id, label: `Noritz example: ${ex2.label}, ${tr.noritzExample.groundwaterF} °F groundwater, ${tr.noritzExample.setpointF} °F setpoint`, ours: `${fmt(s.gpm)} GPM, ${s.rise} °F rise; ${fmt(s.gasInputBtuh)} BTU/h input; ${s.gasUnitsAtLargest} unit${s.gasUnitsAtLargest > 1 ? 's' : ''} of ${fmt(s.largestGasBtuh)} BTU/h`, published: `${fmt(ex2.gpm)} GPM, ${tr.noritzExample.riseF} °F rise; ${ex2.pick}`, diffPct: r(((s.gpm - ex2.gpm) / ex2.gpm) * 100, 1), why: s.gasUnitsAtLargest === 1 || ex2.id === 'noritz-2' ? 'Same flow, rise and number of units.' : `Same flow and rise. Our required input is ${fmt(r(((s.gasInputBtuh - s.largestGasBtuh) / s.largestGasBtuh) * 100, 1), 1)}% above one ${fmt(s.largestGasBtuh)} BTU/h unit at UEF ${uef.gas_tankless.typical}, so we say one unit is just short; Noritz matches the "approximate flow" on its chart and picks one large unit. Both agree it is a one-large-unit or two-unit job.`, source: tr.noritzExample.source, sourceUrl: tr.noritzExample.sourceUrl });
+	}
+	for (const p of el.riseChartCheck.points.filter((x) => [3, 4, 5].includes(x.gpm))) {
+		const kwNeeded = F.electricKw(F.outputBtuh(p.gpm, p.riseF));
+		const unit = F.referenceUnitFor(kwNeeded, units);
+		xc.push({ id: `rheem-electric-${p.gpm}`, label: `Electric: ${fmt(p.gpm, 1)} GPM at ${p.riseF} °F rise`, ours: `${fmt(kwNeeded, 1)} kW needed`, published: `${el.riseChartCheck.model} (${el.riseChartCheck.kw} kW) delivers this flow and rise`, diffPct: r(((kwNeeded - el.riseChartCheck.kw) / el.riseChartCheck.kw) * 100, 1), why: `Within ${fmt(Math.abs(r(((kwNeeded - el.riseChartCheck.kw) / el.riseChartCheck.kw) * 100, 1)), 1)}% of the unit's rating. Rheem rounds the rise to whole degrees; when our need is a fraction above ${el.riseChartCheck.kw} kW the tool says one unit is just short, which errs on the safe side.`, source: `${el.meta.source}, temperature rise table`, sourceUrl: el.meta.sourceUrl });
+	}
+
+	out['tankless-water-heater-size-calculator'] = {
+		meta: { ...derived('data/fixture-flow-rates.json, data/tankless-reference-units.json, data/electrical.json, data/uef-ranges.json and data/groundwater-temp-by-state.json'), notes: 'Default result, size charts, worked example and manufacturer cross-check for the tankless size calculator.' },
+		defaultInputs: { counts: defCounts, inletF: defInlet, setpointF: setpoint, fuel: 'gas', efficiency: uef.gas_tankless.typical },
+		default: null,
+		example: {
+			state: it[exState].name, inlet: exInlet, setpoint, counts: exCounts,
+			showerGpm: fx.fixtures.shower.gpm, kitchenGpm: fx.fixtures.kitchenFaucet.gpm,
+			gpm: fmt(ex.gpm, 1), rise: fmt(ex.rise, 1), output: fmt(ex.outputBtuh), gasInput: fmt(ex.gasInputBtuh), gasUnits: ex.gasUnitsAtLargest, gasSize: ex.gasSizeBtuh ? fmt(ex.gasSizeBtuh) : '', largestGas: fmt(ex.largestGasBtuh),
+			kw: fmt(ex.kw, 1), amps: fmt(ex.amps), electricUnits: ex.electricUnitsAtLargest, largestKw: fmt(ex.largestKw),
+			lowShowerGpm: fx.fixtures.shower.lowFlowGpm, lowGpm: fmt(exLow.gpm, 1), lowGasInput: fmt(exLow.gasInputBtuh), lowGasUnits: exLow.gasUnitsAtLargest, lowGasSize: exLow.gasSizeBtuh ? fmt(exLow.gasSizeBtuh) : '', lowKw: fmt(exLow.kw, 1),
+			uef: uef.gas_tankless.typical,
+		},
+		defaultCase: { gpm: fmt(s0.gpm, 1), lpm: fmt(s0.gpm * F.PHYSICS.litersPerGallon, 1), rise: s0.rise, gasInput: fmt(s0.gasInputBtuh), gasSize: s0.gasSizeBtuh ? fmt(s0.gasSizeBtuh) : '', kw: fmt(s0.kw, 1), amps: fmt(s0.amps), electricUnits: s0.electricUnitsAtLargest, inlet: defInlet },
+		climate: climate.map((c) => ({ st: c.st, name: c.name, inlet: fmt(c.inlet), rise: fmt(c.rise), gpm: fmt(c.gpm, 1), gasInput: fmt(c.gasInputBtuh), gasUnits: c.gasUnitsAtLargest, kw: fmt(c.kw, 1) })),
+		chartHighlight: (() => {
+			const rise = tr.sizeChart.risesF.includes(tr.publishedRisesF[0]) ? tr.publishedRisesF[0] : tr.sizeChart.risesF[0];
+			const gasBtuh = Math.max(...gasSizes);
+			const kw = Math.max(...elecKws);
+			return { rise, gasBtuh: fmt(gasBtuh), gasGpm: fmt(F.maxGpmByRise(gasBtuh * uef.gas_tankless.typical, [rise])[0].gpm, 1), kw: fmt(kw), elecGpm: fmt(F.maxGpmByRise(F.btuhFromKw(kw), [rise])[0].gpm, 1) };
+		})(),
+		publishedRisesF: tr.publishedRisesF,
+		inletExtremes: { coldest: { name: coldest.name, f: fmt(coldest.coldestMonth) }, warmest: { name: warmest.name, f: fmt(warmest.coldestMonth) } },
+		crossChecks: xc,
+		tables: {
+			gasChart: table(
+				`Gas tankless size chart: maximum GPM by temperature rise (UEF ${uef.gas_tankless.typical})`,
+				[{ key: 'rise', label: 'Temperature rise' }, ...gasSizes.map((b) => ({ key: `g${b}`, label: `${fmt(b)} BTU/h`, unit: 'GPM', num: true }))],
+				gasChartRows,
+				{ source: `Computed with GPM = input × UEF ÷ (${F.PHYSICS.lbPerGallon} × ${F.PHYSICS.minutesPerHour} × rise); input sizes from the Rinnai model chart; UEF = ENERGY STAR median`, sourceUrl: 'https://hotwatermath.com/methodology/#tankless-water-heater-size-calculator', sourceDate: tr.meta.sourceDate },
+			),
+			electricChart: table(
+				'Electric tankless size chart: maximum GPM by temperature rise',
+				[{ key: 'rise', label: 'Temperature rise' }, ...elecKws.map((k) => ({ key: `e${k}`, label: `${fmt(k)} kW`, unit: 'GPM', num: true }))],
+				elecChartRows,
+				{ source: `Computed with GPM = kW × ${F.PHYSICS.btuPerKwh} ÷ (${F.PHYSICS.lbPerGallon} × ${F.PHYSICS.minutesPerHour} × rise); kW sizes from ${el.meta.source}`, sourceUrl: el.meta.sourceUrl, sourceDate: el.meta.sourceDate },
+			),
+		},
+		client: {
+			setpointF: setpoint,
+			defaultInletF: defInlet,
+			fixtures: Object.fromEntries(Object.entries(fx.fixtures).map(([k, f]) => [k, { label: f.label, gpm: f.gpm, lowFlowGpm: f.lowFlowGpm }])),
+			states: Object.fromEntries(Object.entries(it).map(([k, s]) => [k, { name: s.name, coldestMonth: s.coldestMonth, annualAvg: s.annualAvg }])),
+			gasEfficiency: { condensing: uef.gas_tankless.typical, nonCondensing: uef.gas_tankless.low },
+			electricEfficiency: uef.electric_tankless.typical,
+			gasSizesBtuh: gasSizes,
+			electricUnits: units,
+			volts: el.residentialVolts,
+			rules: tr.rules,
+		},
+	};
+	const tOut = out['tankless-water-heater-size-calculator'];
+	const td = describeTankless({ state: '', inlet: defInlet, setpoint, fuel: 'gas', efficiency: uef.gas_tankless.typical, lowflow: false, ...Object.fromEntries(FIXTURE_KEYS.map((k) => [k, defCounts[k] || 0])) }, tOut.client);
+	tOut.default = {
+		status: td.status, statusLabel: td.statusLabel, headline: td.headline, explain: td.explain, formula: td.formula,
+		sources: `Defaults: ${setpoint} °F setpoint (DOE FEMP); fixture flows are federal maximums (10 CFR 430.32), low-flow values EPA WaterSense; ${defInlet} °F incoming water is the DOE example until you pick a state (then NOAA normals with the DOE EnergyPlus mains correlation, coldest month); UEF ${uef.gas_tankless.typical} is the median ENERGY STAR certified gas tankless unit. <a href="/methodology/#tankless-water-heater-size-calculator">See our results checked against Rinnai, Noritz and Rheem charts</a>.`,
 	};
 }
 
