@@ -4,65 +4,63 @@
 
 ## Current State
 
-**Last completed phase:** Phase 1 — Data layer + /methodology (2026-11-12)
-**Next phase to run:** Phase 2 — Tools 1 & 2: Age Calculator + Tankless Size Calculator (see `docs/PHASES.md`)
+**Last completed phase:** Phase 2 — Tools 1 & 2: Age Calculator + Tankless Size Calculator (2026-11-13)
+**Next phase to run:** Phase 2b — Lifespan article + per-brand serial decoder pages, thread 1 (lifespan + Bradford White, A. O. Smith, Rheem, State) (see `docs/PHASES.md`)
 
-**What exists now (new or changed in Phase 1; Phase 0 files unchanged unless listed):**
-- `assets/js/formulas.js` — all STRATEGY §3 formulas implemented as pure functions; `PHYSICS` constants (incl. `wattsPerKw`)
-- `tests/formulas.test.mjs` — 27 tests, one or more per formula incl. edge cases, plus "every serial example in the data decodes" (`npm test`)
-- `scripts/build-data.mjs` — `npm run build:data` → `data/computed/*.json` + `_manifest.json` (input hashes for the stale check)
-- `scripts/validate-data.mjs` — `npm run validate-data` (meta source/url/date, no nulls/non-finite, 51 state keys, stale computed data); `-- --urls` requests every sourceUrl
-- `scripts/fetch-sources.mjs` + `scripts/lib/states.mjs` — `npm run fetch:sources -- eia noaa rpp energystar` regenerates the four generated data files from primary sources (needs `NODE_USE_ENV_PROXY=1` behind the proxy)
-- Data files (all `sourceDate` 2026-11-12):
-  - `data/site.json` — defaults: setpoint 120 °F (DOE FEMP), $0.1723/kWh (EIA EPA table 2.10, 2025), $1.481/therm (EIA dnav 2025 $/Mcf ÷ heat content); `dateVerified` per tool (all empty until each tool's cross-check runs)
-  - `data/fixture-flow-rates.json` — fixture GPM: 10 CFR 430.32 maximums, EPA WaterSense low-flow, PNNL BASC (ASHRAE) appliance/tub ranges; DOE example (UNT archive 2017)
-  - `data/peak-hour-demand.json` — gallons per use for the peak-hour worksheet: AHRI 2011 worksheet (example = 70 gal)
-  - `data/fhr-to-tank-size.json` — FHR per gas/electric tank model: Rheem Performance spec sheets (THD-PGRH, PGHD, PE06, PEDR6)
-  - `data/energystar-water-heaters.json` — generated: ENERGY STAR certified list summary (heat pump FHR by size, UEF ranges, gas tankless max GPM at 67 °F)
-  - `data/uef-ranges.json` — UEF by type (spec sheets + ENERGY STAR) and federal minimum coefficients (10 CFR 430.32(d)), electric-resistance 55 gal limit
-  - `data/hot-water-use.json` — DOE Appendix E draw patterns and test conditions (58/125 °F); FEMP 55 gal/day; per-person use (DOE Data Book 8.2.4, archived)
-  - `data/groundwater-temp-by-state.json` — generated: NOAA 1991–2020 air normals per state + Christensen–Burch correlation (EnergyPlus Engineering Reference)
-  - `data/energy-prices.json` — generated: EIA residential electricity (2025) and gas price + heat content by state (6 states use 2024 gas, EIA withheld 2025)
-  - `data/regional-cost-index.json` — generated: BEA RPP all items 2024 by state (via FRED)
-  - `data/lifespans.json` — lifespans by type (DOE 2024 rules, FEMP) + editorial adjustments and status bands
-  - `data/serial-formats.json` — date-code patterns: Bradford White, Rheem, A. O. Smith, State, American (Energy Trust of Oregon decoder; Bradford White)
-  - `data/cost-ranges.json` — equipment-only Home Depot listing samples (model, price, URL); no labor/extras yet
-  - `data/electrical.json` — Rheem RETEX-13…36 kW / amps / breakers (spec sheet THD-PTE)
-  - `data/decision-rules.json` — editorial repair-or-replace thresholds, ownership period 10 years
-  - `data/incentives.json` — IRS 25C: expired 2025-12-31, current federal credit $0
-  - `data/affiliate.json` — empty (block does not render)
-- `data/computed/` — `energy-prices`, `inlet-temps`, `regional-multipliers`, `fhr-table`, `uef-defaults`, `unit-prices`, `reference-tables` (display tables + `physics`), `cross-checks` (formula vs published figures)
-- `content/methodology.php` — complete: constants, formula cross-checks, one section per tool (`id` = tool slug) with formula, data, tables, limitations and an empty manufacturer cross-check table; data-file source table; editorial assumptions; update cadence; limitations; corrections
-- `.htaccess` also blocks `tests/`; `style.css` Version 0.2.1 (0.2.1 = follow-up fix: wide tables made the page scroll sideways at 360px; `.layout` grid children now `min-width: 0` and the hand-written tables on /methodology use `.table-wrap`); README dev scripts; 8 new `docs/DECISIONS.md` entries
+**What exists now (new or changed in Phase 2):**
+- `content/water-heater-age-calculator.php` — tool page: decoder inputs, all-brands summary table (brand cells link to the planned brand pages once they exist), rating-plate SVG, worked example, lifespan section, FAQ (7), sources (9)
+- `content/tankless-water-heater-size-calculator.php` — tool page: state + fixtures + fuel inputs, gas and electric size charts, state inlet table, worked example (Minnesota), family-of-4 table by climate, electric reference table, FAQ (7), sources (11)
+- `assets/js/age.js`, `assets/js/tankless-size.js` — calculator modules; each exports `describe()` (also used by build-data for the default result), URL-param state, copy/share, GA4 `calc_result` and `embed_view` (no-op until GA loads)
+- `assets/js/formulas.js` — added `ageEstimate`, `smallestAtLeast`, `unitsNeeded`, `tanklessSizing`; PHYSICS + `litersPerGallon`, `fahrenheitPerCelsius`
+- `data/computed/water-heater-age-calculator.json`, `data/computed/tankless-water-heater-size-calculator.json` — default result, worked examples, charts, cross-checks, `client` (inline JSON for the browser)
+- `data/tankless-reference-units.json` (new) — Rinnai chart units, Noritz examples, Lochinvar guide, cold-climate rule
+- `data/serial-formats.json` — Rheem plant-letter + week + year pattern (checked against Rheem/Ruud's lookup), Navien (CPSC), `brandOptions` dropdown with aliases, official lookups (Rheem, Ruud, Bradford White, Navien)
+- `data/lifespans.json` — USGS hardness scale, `toolTypes`, Rheem's published lifespan/signs (`manufacturerViews`)
+- `data/site.json` — `dateVerified` set for both tools (2026-11-13)
+- `data/pages.json` — both tools `draft` with SEO fields + `scripts`; planned entries added: 10 brand pages (Phase 2b), tankless installation cost (6), gas line size and electrical requirements (6d)
+- `content/methodology.php` — both manufacturer cross-check tables filled from computed data; age section notes aliases and undecoded brands
+- `inc/helpers.php` — `hwm_link()` (links only to visible pages) and `hwm_tool_data_script()`
+- `assets/css/global.css` — `.field-grid`, `.figure`, `[hidden]`
+- `assets/og/water-heater-age-calculator.png`, `assets/og/tankless-water-heater-size-calculator.png`
+- `docs/briefs/water-heater-age-calculator.md`, `docs/briefs/tankless-water-heater-size-calculator.md` — SERP briefs + quality check (sources table)
+- `tests/formulas.test.mjs` — 33 tests; `style.css` Version 0.3.0; 5 new `docs/DECISIONS.md` rows
 
-**Verified:**
-- `npm test`: 27/27 pass. `npm run validate-data`: 27 files OK, computed data fresh.
-- `NODE_USE_ENV_PROXY=1 npm run validate-data -- --urls` on 2026-11-12: **83/83 source URLs answered 200.**
-- Formula cross-checks (in `data/computed/cross-checks.json`, shown on /methodology): DOE FEMP electric 3,461 vs 3,437 kWh (+0.7%); Rheem RETEX-36 rise at 2.5/3/4/5/6 GPM 98/82/61/49/41 vs 98/82/62/49/41 °F; DOE example 3.25 GPM / 70 °F rise (0%); AHRI worksheet 70 gal (0%).
-- `php -l` clean; /methodology rendered with a PHP stub harness (no notices; 23 tables; no empty values).
-- Live after PR #3 (0.2.0): `npm run check` 118/118 with and without `--bust`; /methodology 200, noindex, 23 tables, data-rendered numbers present; `data/*.json` public (200), `tests/` and `scripts/` 403. 360px check found sideways scroll (fixed in the 0.2.1 follow-up PR; re-verified live).
+**Verified (before deploy):**
+- `npm test` 33/33; `npm run validate-data` 30 files OK, computed fresh; `--urls` 90/90 source URLs 200 (2026-11-13).
+- Offline render (PHP stub of the WP helpers) of both pages and /methodology: no PHP notices; Playwright at 360 px: no console errors, no sideways scroll, first input inside the first 640 px (age: brand select ends at 590 px; tankless: state select ends at 617 px).
+- Prose word count excluding tables and FAQ: age 1,465, tankless 1,440.
+- Hand-checked calculator cases (as of 2026-11-13):
+  - Age: Rheem `Q431912345`, gas tank, moderate water, flushed → built Oct 2019, 7.1 yr, 55% of 13 → green. (Rheem/Ruud lookup: 10/18/2019.)
+  - Age: Bradford White `SF1234567`, electric tank, hard water, never flushed → June 2018, 8.4 yr, life 13 − 1 − 1 = 11, 76% → amber, also 1998/1978.
+  - Age: Navien `7410A18709ABCD`, tankless → July 2018 (CPSC: July 9, 2018).
+  - Tankless: 2 showers × 2.5 GPM, 50 °F in, 120 °F out, UEF 0.95 → 5 GPM, 70 °F rise, 175,140 BTU/h output, 184,358 BTU/h input (one 199,000 unit), 51.3 kW / 214 A (more than one 36 kW unit).
+  - Tankless: Minnesota coldest month 36.6 °F, 2 showers + kitchen faucet → 7.2 GPM, 83.4 °F rise, 316,295 BTU/h → 2 gas units; 88.1 kW electric → not realistic.
+  - Tankless: 1 shower, 70 °F in → 2.5 GPM, 50 °F rise, 18.3 kW → RETEX-24 (18 kW too small).
+- Manufacturer cross-checks (on /methodology): Rinnai RUR98i/RL94i/V65i flow at 70 and 50 °F rise within −0.9% to −2.5%; Noritz examples same GPM and rise (6 GPM case: our input is 3.2% above one 199,000 unit, Noritz picks one large unit — explained); Rheem RETEX-36 within 1%; age decoder matches Rheem/Ruud lookup (3/3), Bradford White table (2/2) and CPSC Navien example.
+- Hardcoded-digit grep on both content files: only regulation names (10 CFR 430.32, 89 FR), years of sources (2024 rules, 1991–2020 normals), "24-hour test" (DOE test name), "50 states", question wording ("family of 4", "2 or 3 bathrooms"), "the digits 0 and 1" and source access dates. All data numbers render from data/computed files.
+- Live (after deploy): see the follow-up note below once checked.
 
 **Known issues / TODOs carried forward:**
-- **energy.gov Energy Saver pages are gone (404)** and web.archive.org is unreachable from the build container; use the UNT web archive or FEMP/eCFR instead.
-- **BLS blocks scripted access (403)**; do not try to get around it. Regional factor uses BEA RPP (DECISIONS).
-- Serial formats: no tankless brands (Rinnai, Navien, Noritz, Takagi) and no Whirlpool/GE/Kenmore yet — add only with an openable source (Phase 2/2b).
-- Cost: installation labor and extras missing on purpose (Phase 4 must find named, openable references); propane prices not in data.
-- Manufacturer cross-check tables on /methodology are empty skeletons; Phases 2–4 fill them (3+ cases per tool, linked) and set `dateVerified`.
-- Hostinger CDN still needs a flush after deploys if the plain URL serves stale HTML (see Phase 0 note).
-- Methodology `dateModified` in `pages.json` stays 2026-11-13 (Phase 0 value, not earlier than `datePublished`).
+- Navien months Y/Z (Nov/Dec) are inferred, not shown in an opened source (noted in data). Rinnai, Noritz, Takagi, Bosch not decoded (no source); Phase 2b Navien/Rinnai brand pages must find a manufacturer source first.
+- Angi and propane.com block automated fetches (403); judged from search snippets in the tankless brief.
+- STRATEGY §3.2 "125% breaker rule" not shown (no confirmed source for tankless); Phase 6d electrical page should settle it from the NEC/manual.
+- Tankless gas sizes come from a 2016 Rinnai chart (Energy Factor era); refresh with a current spec sheet when convenient.
+- Age default result and example are frozen "as of" `dateVerified`; re-run `npm run build:data` when `dateVerified` changes.
+- Links to drafts/planned pages render as plain text for visitors (by design): Next-steps and Related cards stay empty for anonymous visitors until those pages are live.
+- Carried from Phase 1: labor/extras costs missing (Phase 4); Hostinger CDN may need a flush after deploys.
 
-**Notes for the next thread:**
-- Render numbers with `hwm_value()` / `hwm_table()`; computed tables live under `computed/<file>` → `tables.<name>`. Physics constants: `hwm_value('computed/reference-tables', 'physics.lbPerGallon')`.
-- Tool JS imports `formulas.js`; its defaults should come from `data/*.json` (fetched or inlined by PHP), never typed into JS.
-- Write `data/computed/<tool-slug>.json` (the server-rendered default) from `build-data.mjs`, add new inputs to `INPUTS`, rerun `npm run build:data`, `npm test`, `npm run validate-data`.
-- Inlet temperature for tankless sizing: `computed/inlet-temps` → `states.<ST>.coldestMonth`.
-- Bump `style.css` Version in every PR; after deploy open `https://hotwatermath.com/?sync=<random>` and run `npm run check -- --bust` and without `--bust`.
+**Notes for the next thread (Phase 2b):**
+- Brand pages are registered as `planned` with `parent: water-heater-age-calculator`; flip to `draft` when built. The age page's summary table links each brand cell automatically once the page is visible.
+- Brand page decoder: reuse `assets/js/age.js` (it reads `#hwm-age-data`); preset with `?brand=<id>` or by setting the select default in the content file.
+- Rheem lookup endpoint used for checks: `https://www.ruud.com/media/getData.php?service=getWaterHeaterAge&SerialNumber=<serial>` (returns JSON with ManufacturingDate). Use sparingly, test serials only.
+- Lifespan article must use `data/lifespans.json` (DOE 15/20 years averages, FEMP 13, Rheem 8–12 / 15–20+ in `manufacturerViews`).
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
 - 2026-11-09 — Strategy review v2: added SERP briefs, draft/live gating, embed widgets, Dataset/`/data`, troubleshooting cluster (6b), state pages (6c), authority phase (8), realistic traffic targets.
 - 2026-11-12 — Phase 0 done — WordPress theme foundation, live on hotwatermath.com (PRs #1, #2).
 - 2026-11-12 — Phase 1 done — sourced data layer (17 data files, 83/83 sources 200), formulas + tests, computed tables, full /methodology.
+- 2026-11-13 — Phase 2 done — age calculator (Rheem code checked against Rheem/Ruud lookup, Navien via CPSC) and tankless size calculator (state inlet temps, size charts, Rinnai/Noritz/Rheem cross-checks); both draft.
 
 ---
 

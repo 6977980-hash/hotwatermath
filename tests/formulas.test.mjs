@@ -251,3 +251,65 @@ test('serial-formats.json: every brand pattern matches its own example', () => {
 		}
 	}
 });
+
+/* ---------- Phase 2 additions ---------- */
+
+test('decodeSerial: Rheem plant letter + week + year matches Rheem/Ruud official lookup (checked 2026-11-13)', () => {
+	const p = sf.rheem.patterns;
+	// Official lookup: Q431912345 → 10/18/2019; week 43 → month floor(42 × 12 / 52) + 1 = 10.
+	assert.deepEqual([F.decodeSerial('Q431912345', p, 2026).year, F.decodeSerial('Q431912345', p, 2026).month], [2019, 10]);
+	// M101812345 → 03/07/2018; week 10 → month 3.
+	assert.deepEqual([F.decodeSerial('M101812345', p, 2026).year, F.decodeSerial('M101812345', p, 2026).month], [2018, 3]);
+	// Q052412345 → 01/25/2024; week 5 → month 1.
+	assert.deepEqual([F.decodeSerial('Q052412345', p, 2026).year, F.decodeSerial('Q052412345', p, 2026).month], [2024, 1]);
+	// Old all-digit format still decodes as month + year.
+	assert.equal(F.decodeSerial('0794123456', p, 2026).month, 7);
+});
+
+test('decodeSerial: Navien year, month character, day (CPSC example 18709 = July 9, 2018; X = October)', () => {
+	const p = sf.navien.patterns;
+	const r = F.decodeSerial('7410A18709ABCD', p, 2026);
+	assert.deepEqual([r.year, r.month], [2018, 7]);
+	assert.equal(F.decodeSerial('7410A18X14ABCD', p, 2026).month, 10);
+	assert.equal(F.decodeSerial('7410A18014ABCD', p, 2026), null); // 0 is not a month
+});
+
+test('ageEstimate: combines age, adjusted life and status', () => {
+	// June 2018 built, 2026-11-13: age 2026 + 10/12 − (2018 + 5/12) = 8.4; life 13 − 1 − 1 = 11 → 76% → amber.
+	const e = F.ageEstimate({ year: 2018, month: 6 }, new Date('2026-11-13T12:00:00Z'), { low: 10, typical: 13, high: 15 }, [-1, -1], 5, { amberFrom: 0.6, redFrom: 0.9 });
+	assert.equal(e.age, 8.4);
+	assert.deepEqual(e.life, { low: 8, typical: 11, high: 13 });
+	assert.equal(e.status, 'warn');
+	assert.deepEqual(e.remaining, { min: 0, max: 4.6 });
+});
+
+test('smallestAtLeast and unitsNeeded', () => {
+	assert.deepEqual(F.smallestAtLeast(150001, [{ b: 199000 }, { b: 150000 }, { b: 180000 }], 'b'), { b: 180000 });
+	assert.equal(F.smallestAtLeast(200000, [{ b: 199000 }], 'b'), null);
+	assert.equal(F.unitsNeeded(342379, 199000), 2);
+	assert.equal(F.unitsNeeded(199000, 199000), 1);
+	assert.equal(F.unitsNeeded(10, 0), Infinity);
+});
+
+test('tanklessSizing: two 2.5 GPM showers, 50 °F in, 120 °F out, UEF 0.95 (hand-checked)', () => {
+	// 5 GPM × 8.34 × 60 × 70 = 175,140 BTU/h; ÷ 0.95 = 184,358; ÷ 3412 = 51.33 kW; × 1000 ÷ 240 = 213.9 A.
+	const el = data('electrical');
+	const s = F.tanklessSizing({ fixtures: [{ count: 2, gpm: 2.5 }], setpointF: 120, inletF: 50, gasEfficiency: 0.95, volts: 240, gasSizesBtuh: [120000, 150000, 180000, 199000], electricUnits: el.referenceUnits });
+	assert.equal(s.gpm, 5);
+	assert.equal(s.rise, 70);
+	assert.equal(s.outputBtuh, 175140);
+	assert.equal(s.gasInputBtuh, 184358);
+	assert.equal(s.gasSizeBtuh, 199000);
+	assert.equal(s.kw, 51.3);
+	assert.equal(s.amps, 214);
+	assert.equal(s.electricUnit, null);
+	assert.equal(s.electricUnitsAtLargest, 2);
+});
+
+test('tanklessSizing: one shower, warm climate fits one electric unit', () => {
+	// 2.5 GPM, 120 − 70 = 50 °F rise: 2.5 × 500.4 × 50 = 62,550 BTU/h ÷ 3412 = 18.33 kW → RETEX-24 (18 kW is too small).
+	const el = data('electrical');
+	const s = F.tanklessSizing({ fixtures: [{ count: 1, gpm: 2.5 }], setpointF: 120, inletF: 70, gasEfficiency: 0.95, volts: 240, gasSizesBtuh: [120000, 199000], electricUnits: el.referenceUnits });
+	assert.equal(s.kw, 18.3);
+	assert.equal(s.electricUnit.model, 'RETEX-24');
+});
