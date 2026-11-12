@@ -1,0 +1,202 @@
+{
+  "meta": {
+    "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater",
+    "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+    "sourceDate": "2026-11-12",
+    "notes": "Only brands whose format we could confirm in an opened source are listed. Patterns are tried in order. Two-digit years take the latest matching year that is not in the future. Letter-year codes repeat every 20 years, so the decoder returns the latest year and lists the earlier ones; the unit's look and the dates on its labels settle which is right. Tankless brands (Rinnai, Navien, Noritz, Takagi, Bosch) are not listed yet; for them, and whenever a serial does not match, the calculator asks for the manufacture year. Rheem and Ruud also offer their own lookup, which beats any decoder."
+  },
+  "brands": {
+    "bradford-white": {
+      "label": "Bradford White",
+      "alsoSoldAs": [
+        "Jetglas"
+      ],
+      "source": "Bradford White: first two characters of the serial are the year and month (year letters exclude I, O, Q, R, U, V; month letters A to M exclude I); Energy Trust of Oregon gives the earlier cycles (A = 1964, 1984, 2004)",
+      "sourceUrl": "https://www.bradfordwhite.com/my-water-heater/",
+      "patterns": [
+        {
+          "id": "bw-letter-year-month",
+          "regex": "^([A-HJ-NPSTW-Z])([A-HJ-M])",
+          "example": "DF******* → June 1967, 1987, 2007 or 2027 (latest not in the future)",
+          "fields": {
+            "year": {
+              "group": 1,
+              "type": "letterYear",
+              "letters": "ABCDEFGHJKLMNPSTWXYZ",
+              "cycleStarts": [
+                1964,
+                1984,
+                2004,
+                2024
+              ]
+            },
+            "month": {
+              "group": 2,
+              "type": "letterMonth",
+              "letters": "ABCDEFGHJKLM"
+            }
+          }
+        }
+      ]
+    },
+    "rheem": {
+      "label": "Rheem / Ruud",
+      "alsoSoldAs": [
+        "Ruud",
+        "Richmond",
+        "General Electric (older units)",
+        "Vanguard",
+        "Intertherm"
+      ],
+      "source": "Energy Trust of Oregon: Rheem uses a two-digit month followed by a two-digit year (example 0794****** = July 1994)",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "patterns": [
+        {
+          "id": "rheem-mmyy",
+          "regex": "^(0[1-9]|1[0-2])(\\d{2})",
+          "example": "0794****** → July 1994",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "mm"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          }
+        }
+      ]
+    },
+    "ao-smith": {
+      "label": "A. O. Smith",
+      "alsoSoldAs": [
+        "Glascote",
+        "PermaGlas"
+      ],
+      "source": "Energy Trust of Oregon: since 2008, an 11-character serial whose first two positions are the year followed by a two-digit week (example 0805A…); before 2008 the second letter is the month (A to N, no I) followed by a two-digit year (example *H06… = August 2006)",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "patterns": [
+        {
+          "id": "aos-yyww",
+          "regex": "^(\\d{2})(\\d{2})[A-Z]",
+          "validFromYear": 2008,
+          "example": "0805A****** → 2008, week 5",
+          "fields": {
+            "year": {
+              "group": 1,
+              "type": "yy"
+            },
+            "week": {
+              "group": 2,
+              "type": "ww"
+            }
+          }
+        },
+        {
+          "id": "aos-letter-month-yy",
+          "regex": "^[A-Z]([A-HJ-N])(\\d{2})",
+          "validToYear": 2008,
+          "example": "*H06****** → August 2006",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "letterMonth",
+              "letters": "ABCDEFGHJKLMN"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          }
+        }
+      ]
+    },
+    "state": {
+      "label": "State",
+      "alsoSoldAs": [
+        "Kenmore (State-made units)",
+        "Reliance",
+        "Ace",
+        "Patriot"
+      ],
+      "source": "Energy Trust of Oregon: since 2008 State uses the A. O. Smith code (two-digit year, two-digit week); before 2008 a one-letter month (A to N, no I) followed by a two-digit year (example C05… = March 2005)",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "patterns": [
+        {
+          "id": "state-yyww",
+          "regex": "^(\\d{2})(\\d{2})",
+          "validFromYear": 2008,
+          "example": "0904******* → 2009, week 4 (Energy Trust labels this example April 2009, which does not match its own year-week rule; we follow the rule)",
+          "fields": {
+            "year": {
+              "group": 1,
+              "type": "yy"
+            },
+            "week": {
+              "group": 2,
+              "type": "ww"
+            }
+          }
+        },
+        {
+          "id": "state-letter-month-yy",
+          "regex": "^([A-HJ-N])(\\d{2})",
+          "validToYear": 2008,
+          "example": "C05******* → March 2005",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "letterMonth",
+              "letters": "ABCDEFGHJKLMN"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          }
+        }
+      ]
+    },
+    "american": {
+      "label": "American",
+      "alsoSoldAs": [
+        "Whirlpool",
+        "U.S. Craftmaster",
+        "American ProLine",
+        "PremierPlus"
+      ],
+      "source": "Energy Trust of Oregon: American uses a two-digit year followed by a two-digit week (example 9746****** = week 46 of 1997); American has been part of A. O. Smith since 2001 and makes the Whirlpool brand",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "patterns": [
+        {
+          "id": "american-yyww",
+          "regex": "^(\\d{2})(\\d{2})",
+          "example": "9746****** → 1997, week 46",
+          "fields": {
+            "year": {
+              "group": 1,
+              "type": "yy"
+            },
+            "week": {
+              "group": 2,
+              "type": "ww"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "officialLookups": [
+    {
+      "brand": "Rheem",
+      "url": "https://www.rheem.com/warranties/",
+      "note": "Rheem warranty and registration lookup"
+    },
+    {
+      "brand": "Bradford White",
+      "url": "https://www.bradfordwhite.com/my-water-heater/",
+      "note": "Bradford White age decoder and serial location"
+    }
+  ]
+}

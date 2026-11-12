@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20)",
+    "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf",
+    "sourceDate": "2026-11-12",
+    "notes": "Whole-house electric tankless units run on 240 volts and need several double-pole breakers. The reference units below are one manufacturer's published requirements, shown so you can discuss them with your electrician; they are not a wiring design. Local code and the installation manual of the unit you buy decide the real breaker and wire sizes."
+  },
+  "residentialVolts": 240,
+  "referenceUnits": [
+    {
+      "model": "RETEX-13",
+      "kw": 13.0,
+      "amps": 54,
+      "breakers": "1 × 60 A",
+      "wire": "6 AWG copper"
+    },
+    {
+      "model": "RETEX-18",
+      "kw": 18.0,
+      "amps": 75,
+      "breakers": "2 × 40 A",
+      "wire": "8 AWG copper"
+    },
+    {
+      "model": "RETEX-24",
+      "kw": 24.0,
+      "amps": 100,
+      "breakers": "3 × 40 A",
+      "wire": "8 AWG copper"
+    },
+    {
+      "model": "RETEX-27",
+      "kw": 27.0,
+      "amps": 113,
+      "breakers": "3 × 40 A",
+      "wire": "8 AWG copper"
+    },
+    {
+      "model": "RETEX-36",
+      "kw": 36.0,
+      "amps": 150,
+      "breakers": "4 × 40 A",
+      "wire": "8 AWG copper"
+    }
+  ],
+  "riseChartCheck": {
+    "model": "RETEX-36",
+    "kw": 36.0,
+    "points": [
+      {
+        "gpm": 2.5,
+        "riseF": 98
+      },
+      {
+        "gpm": 3.0,
+        "riseF": 82
+      },
+      {
+        "gpm": 4.0,
+        "riseF": 62
+      },
+      {
+        "gpm": 5.0,
+        "riseF": 49
+      },
+      {
+        "gpm": 6.0,
+        "riseF": 41
+      }
+    ],
+    "source": "Same spec sheet, temperature rise table"
+  }
+}

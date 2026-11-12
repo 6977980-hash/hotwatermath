@@ -1,0 +1,439 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/regional-cost-index.json (BEA) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Multiplier = regional price parity ÷ 100. Applied to labor and extras only."
+  },
+  "states": {
+    "AL": {
+      "name": "Alabama",
+      "multiplier": 0.888
+    },
+    "AK": {
+      "name": "Alaska",
+      "multiplier": 1.024
+    },
+    "AZ": {
+      "name": "Arizona",
+      "multiplier": 1.007
+    },
+    "AR": {
+      "name": "Arkansas",
+      "multiplier": 0.869
+    },
+    "CA": {
+      "name": "California",
+      "multiplier": 1.107
+    },
+    "CO": {
+      "name": "Colorado",
+      "multiplier": 1.031
+    },
+    "CT": {
+      "name": "Connecticut",
+      "multiplier": 1.036
+    },
+    "DE": {
+      "name": "Delaware",
+      "multiplier": 0.998
+    },
+    "DC": {
+      "name": "District of Columbia",
+      "multiplier": 1.099
+    },
+    "FL": {
+      "name": "Florida",
+      "multiplier": 1.034
+    },
+    "GA": {
+      "name": "Georgia",
+      "multiplier": 0.963
+    },
+    "HI": {
+      "name": "Hawaii",
+      "multiplier": 1.1
+    },
+    "ID": {
+      "name": "Idaho",
+      "multiplier": 0.955
+    },
+    "IL": {
+      "name": "Illinois",
+      "multiplier": 1
+    },
+    "IN": {
+      "name": "Indiana",
+      "multiplier": 0.933
+    },
+    "IA": {
+      "name": "Iowa",
+      "multiplier": 0.878
+    },
+    "KS": {
+      "name": "Kansas",
+      "multiplier": 0.901
+    },
+    "KY": {
+      "name": "Kentucky",
+      "multiplier": 0.902
+    },
+    "LA": {
+      "name": "Louisiana",
+      "multiplier": 0.882
+    },
+    "ME": {
+      "name": "Maine",
+      "multiplier": 0.971
+    },
+    "MD": {
+      "name": "Maryland",
+      "multiplier": 1.05
+    },
+    "MA": {
+      "name": "Massachusetts",
+      "multiplier": 1.058
+    },
+    "MI": {
+      "name": "Michigan",
+      "multiplier": 0.962
+    },
+    "MN": {
+      "name": "Minnesota",
+      "multiplier": 0.986
+    },
+    "MS": {
+      "name": "Mississippi",
+      "multiplier": 0.87
+    },
+    "MO": {
+      "name": "Missouri",
+      "multiplier": 0.908
+    },
+    "MT": {
+      "name": "Montana",
+      "multiplier": 0.946
+    },
+    "NE": {
+      "name": "Nebraska",
+      "multiplier": 0.901
+    },
+    "NV": {
+      "name": "Nevada",
+      "multiplier": 1
+    },
+    "NH": {
+      "name": "New Hampshire",
+      "multiplier": 1.042
+    },
+    "NJ": {
+      "name": "New Jersey",
+      "multiplier": 1.088
+    },
+    "NM": {
+      "name": "New Mexico",
+      "multiplier": 0.922
+    },
+    "NY": {
+      "name": "New York",
+      "multiplier": 1.079
+    },
+    "NC": {
+      "name": "North Carolina",
+      "multiplier": 0.943
+    },
+    "ND": {
+      "name": "North Dakota",
+      "multiplier": 0.89
+    },
+    "OH": {
+      "name": "Ohio",
+      "multiplier": 0.928
+    },
+    "OK": {
+      "name": "Oklahoma",
+      "multiplier": 0.878
+    },
+    "OR": {
+      "name": "Oregon",
+      "multiplier": 1.034
+    },
+    "PA": {
+      "name": "Pennsylvania",
+      "multiplier": 0.976
+    },
+    "RI": {
+      "name": "Rhode Island",
+      "multiplier": 1.023
+    },
+    "SC": {
+      "name": "South Carolina",
+      "multiplier": 0.937
+    },
+    "SD": {
+      "name": "South Dakota",
+      "multiplier": 0.886
+    },
+    "TN": {
+      "name": "Tennessee",
+      "multiplier": 0.919
+    },
+    "TX": {
+      "name": "Texas",
+      "multiplier": 0.971
+    },
+    "UT": {
+      "name": "Utah",
+      "multiplier": 0.989
+    },
+    "VT": {
+      "name": "Vermont",
+      "multiplier": 0.98
+    },
+    "VA": {
+      "name": "Virginia",
+      "multiplier": 1.011
+    },
+    "WA": {
+      "name": "Washington",
+      "multiplier": 1.07
+    },
+    "WV": {
+      "name": "West Virginia",
+      "multiplier": 0.895
+    },
+    "WI": {
+      "name": "Wisconsin",
+      "multiplier": 0.941
+    },
+    "WY": {
+      "name": "Wyoming",
+      "multiplier": 0.927
+    }
+  },
+  "tables": {
+    "regional": {
+      "caption": "Regional cost multiplier by state (1.00 = U.S. average)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "m",
+          "label": "Multiplier",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "m": "0.89"
+        },
+        {
+          "name": "Alaska",
+          "m": "1.02"
+        },
+        {
+          "name": "Arizona",
+          "m": "1.01"
+        },
+        {
+          "name": "Arkansas",
+          "m": "0.87"
+        },
+        {
+          "name": "California",
+          "m": "1.11"
+        },
+        {
+          "name": "Colorado",
+          "m": "1.03"
+        },
+        {
+          "name": "Connecticut",
+          "m": "1.04"
+        },
+        {
+          "name": "Delaware",
+          "m": "1.00"
+        },
+        {
+          "name": "District of Columbia",
+          "m": "1.10"
+        },
+        {
+          "name": "Florida",
+          "m": "1.03"
+        },
+        {
+          "name": "Georgia",
+          "m": "0.96"
+        },
+        {
+          "name": "Hawaii",
+          "m": "1.10"
+        },
+        {
+          "name": "Idaho",
+          "m": "0.96"
+        },
+        {
+          "name": "Illinois",
+          "m": "1.00"
+        },
+        {
+          "name": "Indiana",
+          "m": "0.93"
+        },
+        {
+          "name": "Iowa",
+          "m": "0.88"
+        },
+        {
+          "name": "Kansas",
+          "m": "0.90"
+        },
+        {
+          "name": "Kentucky",
+          "m": "0.90"
+        },
+        {
+          "name": "Louisiana",
+          "m": "0.88"
+        },
+        {
+          "name": "Maine",
+          "m": "0.97"
+        },
+        {
+          "name": "Maryland",
+          "m": "1.05"
+        },
+        {
+          "name": "Massachusetts",
+          "m": "1.06"
+        },
+        {
+          "name": "Michigan",
+          "m": "0.96"
+        },
+        {
+          "name": "Minnesota",
+          "m": "0.99"
+        },
+        {
+          "name": "Mississippi",
+          "m": "0.87"
+        },
+        {
+          "name": "Missouri",
+          "m": "0.91"
+        },
+        {
+          "name": "Montana",
+          "m": "0.95"
+        },
+        {
+          "name": "Nebraska",
+          "m": "0.90"
+        },
+        {
+          "name": "Nevada",
+          "m": "1.00"
+        },
+        {
+          "name": "New Hampshire",
+          "m": "1.04"
+        },
+        {
+          "name": "New Jersey",
+          "m": "1.09"
+        },
+        {
+          "name": "New Mexico",
+          "m": "0.92"
+        },
+        {
+          "name": "New York",
+          "m": "1.08"
+        },
+        {
+          "name": "North Carolina",
+          "m": "0.94"
+        },
+        {
+          "name": "North Dakota",
+          "m": "0.89"
+        },
+        {
+          "name": "Ohio",
+          "m": "0.93"
+        },
+        {
+          "name": "Oklahoma",
+          "m": "0.88"
+        },
+        {
+          "name": "Oregon",
+          "m": "1.03"
+        },
+        {
+          "name": "Pennsylvania",
+          "m": "0.98"
+        },
+        {
+          "name": "Rhode Island",
+          "m": "1.02"
+        },
+        {
+          "name": "South Carolina",
+          "m": "0.94"
+        },
+        {
+          "name": "South Dakota",
+          "m": "0.89"
+        },
+        {
+          "name": "Tennessee",
+          "m": "0.92"
+        },
+        {
+          "name": "Texas",
+          "m": "0.97"
+        },
+        {
+          "name": "Utah",
+          "m": "0.99"
+        },
+        {
+          "name": "Vermont",
+          "m": "0.98"
+        },
+        {
+          "name": "Virginia",
+          "m": "1.01"
+        },
+        {
+          "name": "Washington",
+          "m": "1.07"
+        },
+        {
+          "name": "West Virginia",
+          "m": "0.90"
+        },
+        {
+          "name": "Wisconsin",
+          "m": "0.94"
+        },
+        {
+          "name": "Wyoming",
+          "m": "0.93"
+        }
+      ],
+      "source": "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)",
+      "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

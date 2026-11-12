@@ -1,0 +1,14 @@
+{
+  "meta": {
+    "source": "Hot Water Math editorial assumptions (documented on /methodology)",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "No government agency publishes a repair-or-replace rule for water heaters. These thresholds are our own, chosen to be conservative and stated openly so you can judge them: a leaking tank is always a replacement; otherwise replace when a repair costs more than half of a new unit, or when the unit has used three quarters of its typical life and the repair costs more than a quarter of a new unit."
+  },
+  "repairOrReplace": {
+    "repairShareAlways": 0.5,
+    "ageShare": 0.75,
+    "repairShareWhenOld": 0.25
+  },
+  "ownershipYearsDefault": 10
+}

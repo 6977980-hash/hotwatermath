@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "source": "Air-Conditioning, Heating and Refrigeration Institute (AHRI), Water Heater Calculator: Worksheet for Estimating Peak Hour Demand/First Hour Rating (2011)",
+    "sourceUrl": "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf",
+    "sourceDate": "2026-11-12",
+    "notes": "AHRI runs the certification program for water heater ratings, and DOE's Building America Solution Center (PNNL) describes this AHRI method as the industry standard for sizing storage water heaters. The worksheet assumes no water conservation measures, which suits sizing because a heater lasts more than a decade. Rule: choose a first hour rating (FHR) at least equal to the peak hour demand. DOE's own Energy Saver worksheet (removed from energy.gov in 2026; archived 2017 copy) used smaller per-use values; they are kept below for comparison only."
+  },
+  "activities": {
+    "shower": {
+      "label": "Shower",
+      "gallons": 20
+    },
+    "bath": {
+      "label": "Bath",
+      "gallons": 20
+    },
+    "shaving": {
+      "label": "Shaving",
+      "gallons": 2
+    },
+    "handsFace": {
+      "label": "Hands and face washing",
+      "gallons": 4
+    },
+    "shampoo": {
+      "label": "Hair shampoo",
+      "gallons": 4
+    },
+    "handDishwashing": {
+      "label": "Hand dishwashing",
+      "gallons": 4
+    },
+    "dishwasher": {
+      "label": "Automatic dishwasher",
+      "gallons": 14
+    },
+    "foodPrep": {
+      "label": "Food preparation",
+      "gallons": 5
+    },
+    "wringerWasher": {
+      "label": "Wringer clothes washer",
+      "gallons": 26
+    },
+    "clothesWasher": {
+      "label": "Automatic clothes washer",
+      "gallons": 32
+    }
+  },
+  "example": {
+    "showers": 3,
+    "shaves": 1,
+    "shampoos": 1,
+    "handDishwashing": 1,
+    "peakHourDemand": 70,
+    "source": "AHRI worksheet example",
+    "sourceUrl": "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf"
+  },
+  "fhrRule": {
+    "minimumFhrToPhdRatio": 1.0,
+    "source": "Select a storage water heater with a first-hour rating equal to or greater than the peak hour demand (PNNL Building America Solution Center, DHW First Hour Rating tool, based on AHRI guidance)",
+    "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-first-hour-rating"
+  },
+  "doeArchived2017": {
+    "source": "DOE Energy Saver, Sizing a New Water Heater, worksheet (archived January 27, 2017; adapted from the FEMP Energy Cost Calculator)",
+    "sourceUrl": "https://webarchive.library.unt.edu/web/20170127025521/https://energy.gov/energysaver/sizing-new-water-heater",
+    "shower": 10,
+    "shaving": 2,
+    "handDishwashingOrFoodPrep": 4,
+    "dishwasher": 6,
+    "clothesWasher": 7,
+    "examplePeakHourDemand": 36
+  }
+}

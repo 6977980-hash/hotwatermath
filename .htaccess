@@ -3,7 +3,7 @@
 # it is the site's sourced data and is read by the calculators.
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^(docs|scripts|node_modules|content|inc|parts|templates)(/|$) - [F,L]
+RewriteRule ^(docs|scripts|tests|node_modules|content|inc|parts|templates)(/|$) - [F,L]
 RewriteRule ^(CLAUDE|README|README-OWNER)\.md$ - [F,L]
 RewriteRule ^(package|package-lock)\.json$ - [F,L]
 RewriteRule ^\.(git|editorconfig|gitignore) - [F,L]

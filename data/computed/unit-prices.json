@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/cost-ranges.json (retail listings) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Equipment only, before tax, delivery or installation. build:data turns each sample into low / typical (median) / high (data/computed/unit-prices.json). One retailer's listings on one day are a snapshot, not a market survey, and this retailer's tank range is mostly one manufacturer family (Rheem), so treat the ranges as indicative and recheck them every three months. Installation labor and extras (permit, haul-away, expansion tank, venting, gas line, electrical work) are not included yet: no primary source we could open publishes them (DOE's own rule uses paid RSMeans data), so they will be added with named references in the cost calculator phase, never guessed.",
+    "lastReviewed": "2026-11-12"
+  },
+  "units": {
+    "gas_tank_40": {
+      "type": "gas_tank",
+      "label": "40-gallon gas tank (natural gas, standard vent)",
+      "low": 531,
+      "typical": 759,
+      "high": 1019,
+      "n": 9
+    },
+    "gas_tank_50": {
+      "type": "gas_tank",
+      "label": "50-gallon gas tank (natural gas, standard vent)",
+      "low": 749,
+      "typical": 899,
+      "high": 999,
+      "n": 9
+    },
+    "gas_tank_75": {
+      "type": "gas_tank",
+      "label": "75-gallon gas tank (natural gas, standard vent)",
+      "low": 1149,
+      "typical": 1319,
+      "high": 1459,
+      "n": 3
+    },
+    "electric_tank_40": {
+      "type": "electric_tank",
+      "label": "40-gallon electric tank",
+      "low": 459,
+      "typical": 684,
+      "high": 1199,
+      "n": 18
+    },
+    "electric_tank_50": {
+      "type": "electric_tank",
+      "label": "50-gallon electric tank",
+      "low": 559,
+      "typical": 819,
+      "high": 1429,
+      "n": 22
+    },
+    "heat_pump_50": {
+      "type": "heat_pump",
+      "label": "50-gallon heat pump (hybrid)",
+      "low": 1658,
+      "typical": 1787,
+      "high": 2119,
+      "n": 4
+    },
+    "heat_pump_65": {
+      "type": "heat_pump",
+      "label": "65-gallon heat pump (hybrid)",
+      "low": 1869,
+      "typical": 1946,
+      "high": 2519,
+      "n": 3
+    },
+    "heat_pump_80": {
+      "type": "heat_pump",
+      "label": "80-gallon heat pump (hybrid)",
+      "low": 2235,
+      "typical": 2378,
+      "high": 2798,
+      "n": 3
+    },
+    "gas_tankless_whole_house": {
+      "type": "gas_tankless",
+      "label": "Gas tankless, whole house (8 GPM or more, natural gas)",
+      "low": 869,
+      "typical": 1108,
+      "high": 1703,
+      "n": 14
+    },
+    "electric_tankless_whole_house": {
+      "type": "electric_tankless",
+      "label": "Electric tankless, whole house (24 kW or more)",
+      "low": 526,
+      "typical": 674,
+      "high": 999,
+      "n": 10
+    }
+  },
+  "tables": {
+    "unitPrices": {
+      "caption": "Equipment prices, unit only (listings checked 2026-11-12)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Water heater"
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "n",
+          "label": "Listings",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank (natural gas, standard vent)",
+          "typical": "759",
+          "range": "531–1,019",
+          "n": 9
+        },
+        {
+          "label": "50-gallon gas tank (natural gas, standard vent)",
+          "typical": "899",
+          "range": "749–999",
+          "n": 9
+        },
+        {
+          "label": "75-gallon gas tank (natural gas, standard vent)",
+          "typical": "1,319",
+          "range": "1,149–1,459",
+          "n": 3
+        },
+        {
+          "label": "40-gallon electric tank",
+          "typical": "684",
+          "range": "459–1,199",
+          "n": 18
+        },
+        {
+          "label": "50-gallon electric tank",
+          "typical": "819",
+          "range": "559–1,429",
+          "n": 22
+        },
+        {
+          "label": "50-gallon heat pump (hybrid)",
+          "typical": "1,787",
+          "range": "1,658–2,119",
+          "n": 4
+        },
+        {
+          "label": "65-gallon heat pump (hybrid)",
+          "typical": "1,946",
+          "range": "1,869–2,519",
+          "n": 3
+        },
+        {
+          "label": "80-gallon heat pump (hybrid)",
+          "typical": "2,378",
+          "range": "2,235–2,798",
+          "n": 3
+        },
+        {
+          "label": "Gas tankless, whole house (8 GPM or more, natural gas)",
+          "typical": "1,108",
+          "range": "869–1,703",
+          "n": 14
+        },
+        {
+          "label": "Electric tankless, whole house (24 kW or more)",
+          "typical": "674",
+          "range": "526–999",
+          "n": 10
+        }
+      ],
+      "source": "Retail listing prices at The Home Depot (homedepot.com search results), checked 2026-11-12",
+      "sourceUrl": "https://www.homedepot.com/b/Plumbing-Water-Heaters/N-5yc1vZbqly",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

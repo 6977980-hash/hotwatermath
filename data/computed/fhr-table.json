@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/fhr-to-tank-size.json and data/energystar-water-heaters.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "First hour rating (FHR) depends on tank size and burner or element size, so each nominal size has a range. build:data turns these model rows into low / typical (median) / high per nominal size (data/computed/fhr-table.json). Gas tanks recover faster than electric ones, so a gas tank reaches the same FHR with fewer gallons. Federal efficiency standards for electric storage tanks over 55 gallons (10 CFR 430.32(d)) require heat pump levels of efficiency, so electric sizes above 55 gallons are heat pump water heaters. Spec sheets from one manufacturer are a sample, not the market; the heat pump figures cover several brands. The manufacturer cross-check on /methodology compares results with other brands' literature."
+  },
+  "rows": [
+    {
+      "fuel": "gas",
+      "nominalGallons": 30,
+      "fhrLow": 55,
+      "fhrTypical": 55,
+      "fhrHigh": 55,
+      "n": 1
+    },
+    {
+      "fuel": "gas",
+      "nominalGallons": 40,
+      "fhrLow": 64,
+      "fhrTypical": 68.5,
+      "fhrHigh": 84,
+      "n": 4
+    },
+    {
+      "fuel": "gas",
+      "nominalGallons": 50,
+      "fhrLow": 75,
+      "fhrTypical": 81,
+      "fhrHigh": 86,
+      "n": 4
+    },
+    {
+      "fuel": "gas",
+      "nominalGallons": 55,
+      "fhrLow": 97,
+      "fhrTypical": 97,
+      "fhrHigh": 97,
+      "n": 1
+    },
+    {
+      "fuel": "gas",
+      "nominalGallons": 75,
+      "fhrLow": 100,
+      "fhrTypical": 100,
+      "fhrHigh": 100,
+      "n": 1
+    },
+    {
+      "fuel": "electric",
+      "nominalGallons": 30,
+      "fhrLow": 45,
+      "fhrTypical": 45.5,
+      "fhrHigh": 46,
+      "n": 2
+    },
+    {
+      "fuel": "electric",
+      "nominalGallons": 40,
+      "fhrLow": 53,
+      "fhrTypical": 54.5,
+      "fhrHigh": 55,
+      "n": 4
+    },
+    {
+      "fuel": "electric",
+      "nominalGallons": 50,
+      "fhrLow": 61,
+      "fhrTypical": 62,
+      "fhrHigh": 63,
+      "n": 4
+    },
+    {
+      "fuel": "electric",
+      "nominalGallons": 55,
+      "fhrLow": 74,
+      "fhrTypical": 74,
+      "fhrHigh": 74,
+      "n": 1
+    },
+    {
+      "fuel": "heatpump",
+      "nominalGallons": 50,
+      "fhrLow": 51,
+      "fhrTypical": 65,
+      "fhrHigh": 67,
+      "n": 25
+    },
+    {
+      "fuel": "heatpump",
+      "nominalGallons": 65,
+      "fhrLow": 54,
+      "fhrTypical": 75,
+      "fhrHigh": 82,
+      "n": 24
+    },
+    {
+      "fuel": "heatpump",
+      "nominalGallons": 80,
+      "fhrLow": 67,
+      "fhrTypical": 86.5,
+      "fhrHigh": 95,
+      "n": 22
+    }
+  ],
+  "tables": {
+    "fhr": {
+      "caption": "First hour rating by tank size and fuel (sample of current models)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Fuel"
+        },
+        {
+          "key": "size",
+          "label": "Tank",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical FHR",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "n",
+          "label": "Models",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Gas",
+          "size": 30,
+          "typical": "55",
+          "range": "55–55",
+          "n": 1
+        },
+        {
+          "fuel": "Gas",
+          "size": 40,
+          "typical": "69",
+          "range": "64–84",
+          "n": 4
+        },
+        {
+          "fuel": "Gas",
+          "size": 50,
+          "typical": "81",
+          "range": "75–86",
+          "n": 4
+        },
+        {
+          "fuel": "Gas",
+          "size": 55,
+          "typical": "97",
+          "range": "97–97",
+          "n": 1
+        },
+        {
+          "fuel": "Gas",
+          "size": 75,
+          "typical": "100",
+          "range": "100–100",
+          "n": 1
+        },
+        {
+          "fuel": "Electric",
+          "size": 30,
+          "typical": "46",
+          "range": "45–46",
+          "n": 2
+        },
+        {
+          "fuel": "Electric",
+          "size": 40,
+          "typical": "55",
+          "range": "53–55",
+          "n": 4
+        },
+        {
+          "fuel": "Electric",
+          "size": 50,
+          "typical": "62",
+          "range": "61–63",
+          "n": 4
+        },
+        {
+          "fuel": "Electric",
+          "size": 55,
+          "typical": "74",
+          "range": "74–74",
+          "n": 1
+        },
+        {
+          "fuel": "Heat pump",
+          "size": 50,
+          "typical": "65",
+          "range": "51–67",
+          "n": 25
+        },
+        {
+          "fuel": "Heat pump",
+          "size": 65,
+          "typical": "75",
+          "range": "54–82",
+          "n": 24
+        },
+        {
+          "fuel": "Heat pump",
+          "size": 80,
+          "typical": "87",
+          "range": "67–95",
+          "n": 22
+        }
+      ],
+      "source": "Rheem Performance spec sheets (gas, electric); ENERGY STAR certified list (heat pump)",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

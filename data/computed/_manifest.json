@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "source": "npm run build:data",
+    "sourceUrl": "",
+    "sourceDate": "",
+    "notes": "Hashes of the build inputs; scripts/validate-data.mjs fails when they no longer match (stale computed data)."
+  },
+  "outputs": [
+    "energy-prices",
+    "inlet-temps",
+    "regional-multipliers",
+    "fhr-table",
+    "uef-defaults",
+    "unit-prices",
+    "reference-tables",
+    "cross-checks"
+  ],
+  "inputs": {
+    "assets/js/formulas.js": "fdbce05020b5466a",
+    "scripts/build-data.mjs": "7b52f7746a4c26b8",
+    "data/site.json": "46782fdfbd412323",
+    "data/energy-prices.json": "b4e98398b34dad8f",
+    "data/groundwater-temp-by-state.json": "a1f9b690f93635a0",
+    "data/regional-cost-index.json": "a176162a982ec7a9",
+    "data/energystar-water-heaters.json": "d2ce72c4c8a1dbd7",
+    "data/fhr-to-tank-size.json": "422ad526ed382e18",
+    "data/uef-ranges.json": "e1ce6411a009dcdd",
+    "data/fixture-flow-rates.json": "f0c7510410f46b31",
+    "data/peak-hour-demand.json": "c0f6c6016126e4d7",
+    "data/lifespans.json": "1bf007e9500c423b",
+    "data/hot-water-use.json": "206b51919edb9ef0",
+    "data/cost-ranges.json": "7c6b165d96dc59d5",
+    "data/electrical.json": "183045e0d756a4f0",
+    "data/serial-formats.json": "6b32832c41dbf7c9",
+    "data/incentives.json": "d2775969e96466d7",
+    "data/decision-rules.json": "dd453a6444afc180"
+  }
+}

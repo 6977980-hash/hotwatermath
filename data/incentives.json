@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "source": "Internal Revenue Service, Energy Efficient Home Improvement Credit (section 25C)",
+    "sourceUrl": "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit",
+    "sourceDate": "2026-11-12",
+    "notes": "Review every three months. As of the check date the federal 25C credit covers only property placed in service through December 31, 2025, so calculators use a federal credit of $0 for a water heater installed now. State and utility rebates vary by place and are not modeled; ENERGY STAR's Rebate Finder lists them."
+  },
+  "credits": [
+    {
+      "id": "25c-heat-pump-water-heater",
+      "label": "Federal tax credit (25C): heat pump water heaters",
+      "percent": 30,
+      "maxUsd": 2000,
+      "appliesTo": [
+        "heat_pump"
+      ],
+      "placedInServiceFrom": "2023-01-01",
+      "placedInServiceThrough": "2025-12-31",
+      "status": "expired",
+      "source": "IRS: 30% of costs, up to $2,000 per year for qualified heat pumps and heat pump water heaters (CEE highest efficiency tier); credit for property placed in service through December 31, 2025",
+      "sourceUrl": "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit"
+    },
+    {
+      "id": "25c-gas-water-heater",
+      "label": "Federal tax credit (25C): natural gas, propane or oil water heaters",
+      "percent": 30,
+      "maxUsd": 600,
+      "appliesTo": [
+        "gas_tank",
+        "gas_tankless"
+      ],
+      "placedInServiceFrom": "2023-01-01",
+      "placedInServiceThrough": "2025-12-31",
+      "status": "expired",
+      "source": "IRS: residential energy property meeting the CEE highest efficiency tier, up to $600 per item; credit for property placed in service through December 31, 2025",
+      "sourceUrl": "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit"
+    }
+  ],
+  "currentFederalCreditUsd": {
+    "heat_pump": 0,
+    "gas_tank": 0,
+    "gas_tankless": 0,
+    "electric_tank": 0,
+    "electric_tankless": 0
+  },
+  "rebateFinder": {
+    "label": "ENERGY STAR Rebate Finder",
+    "sourceUrl": "https://www.energystar.gov/rebate-finder"
+  },
+  "nextReview": "2027-02-12"
+}

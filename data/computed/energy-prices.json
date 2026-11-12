@@ -1,0 +1,710 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/energy-prices.json (EIA) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Dollars per kWh and per therm by state. Gas: $/Mcf ÷ (BTU per cubic foot × 1,000 ÷ 100,000)."
+  },
+  "us": {
+    "usdPerKwh": 0.1723,
+    "usdPerTherm": 1.481
+  },
+  "states": {
+    "AL": {
+      "name": "Alabama",
+      "usdPerKwh": 0.1609,
+      "usdPerTherm": 1.702,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "AK": {
+      "name": "Alaska",
+      "usdPerKwh": 0.2611,
+      "usdPerTherm": 1.312,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "AZ": {
+      "name": "Arizona",
+      "usdPerKwh": 0.1526,
+      "usdPerTherm": 1.814,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "AR": {
+      "name": "Arkansas",
+      "usdPerKwh": 0.1287,
+      "usdPerTherm": 1.884,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "CA": {
+      "name": "California",
+      "usdPerKwh": 0.3135,
+      "usdPerTherm": 2.154,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "CO": {
+      "name": "Colorado",
+      "usdPerKwh": 0.1569,
+      "usdPerTherm": 1.048,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "CT": {
+      "name": "Connecticut",
+      "usdPerKwh": 0.2931,
+      "usdPerTherm": 1.632,
+      "electricYear": 2025,
+      "gasYear": 2024
+    },
+    "DE": {
+      "name": "Delaware",
+      "usdPerKwh": 0.1715,
+      "usdPerTherm": 1.544,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "DC": {
+      "name": "District of Columbia",
+      "usdPerKwh": 0.2192,
+      "usdPerTherm": 1.615,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "FL": {
+      "name": "Florida",
+      "usdPerKwh": 0.1521,
+      "usdPerTherm": 2.488,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "GA": {
+      "name": "Georgia",
+      "usdPerKwh": 0.1474,
+      "usdPerTherm": 1.979,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "HI": {
+      "name": "Hawaii",
+      "usdPerKwh": 0.404,
+      "usdPerTherm": 5.712,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "ID": {
+      "name": "Idaho",
+      "usdPerKwh": 0.1183,
+      "usdPerTherm": 0.74,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "IL": {
+      "name": "Illinois",
+      "usdPerKwh": 0.1767,
+      "usdPerTherm": 1.073,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "IN": {
+      "name": "Indiana",
+      "usdPerKwh": 0.1596,
+      "usdPerTherm": 1.086,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "IA": {
+      "name": "Iowa",
+      "usdPerKwh": 0.1362,
+      "usdPerTherm": 1.001,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "KS": {
+      "name": "Kansas",
+      "usdPerKwh": 0.1444,
+      "usdPerTherm": 1.425,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "KY": {
+      "name": "Kentucky",
+      "usdPerKwh": 0.1313,
+      "usdPerTherm": 1.357,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "LA": {
+      "name": "Louisiana",
+      "usdPerKwh": 0.1252,
+      "usdPerTherm": 1.705,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "ME": {
+      "name": "Maine",
+      "usdPerKwh": 0.2769,
+      "usdPerTherm": 1.808,
+      "electricYear": 2025,
+      "gasYear": 2024
+    },
+    "MD": {
+      "name": "Maryland",
+      "usdPerKwh": 0.1953,
+      "usdPerTherm": 1.553,
+      "electricYear": 2025,
+      "gasYear": 2024
+    },
+    "MA": {
+      "name": "Massachusetts",
+      "usdPerKwh": 0.3041,
+      "usdPerTherm": 2.431,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "MI": {
+      "name": "Michigan",
+      "usdPerKwh": 0.2003,
+      "usdPerTherm": 1.03,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "MN": {
+      "name": "Minnesota",
+      "usdPerKwh": 0.1583,
+      "usdPerTherm": 1.041,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "MS": {
+      "name": "Mississippi",
+      "usdPerKwh": 0.1403,
+      "usdPerTherm": 1.628,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "MO": {
+      "name": "Missouri",
+      "usdPerKwh": 0.133,
+      "usdPerTherm": 1.46,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "MT": {
+      "name": "Montana",
+      "usdPerKwh": 0.1299,
+      "usdPerTherm": 0.847,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NE": {
+      "name": "Nebraska",
+      "usdPerKwh": 0.1205,
+      "usdPerTherm": 1.08,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NV": {
+      "name": "Nevada",
+      "usdPerKwh": 0.1326,
+      "usdPerTherm": 1.261,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NH": {
+      "name": "New Hampshire",
+      "usdPerKwh": 0.2453,
+      "usdPerTherm": 1.791,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NJ": {
+      "name": "New Jersey",
+      "usdPerKwh": 0.2248,
+      "usdPerTherm": 1.369,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NM": {
+      "name": "New Mexico",
+      "usdPerKwh": 0.1485,
+      "usdPerTherm": 0.964,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NY": {
+      "name": "New York",
+      "usdPerKwh": 0.2639,
+      "usdPerTherm": 1.703,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "NC": {
+      "name": "North Carolina",
+      "usdPerKwh": 0.14,
+      "usdPerTherm": 1.57,
+      "electricYear": 2025,
+      "gasYear": 2024
+    },
+    "ND": {
+      "name": "North Dakota",
+      "usdPerKwh": 0.1182,
+      "usdPerTherm": 0.907,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "OH": {
+      "name": "Ohio",
+      "usdPerKwh": 0.169,
+      "usdPerTherm": 1.304,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "OK": {
+      "name": "Oklahoma",
+      "usdPerKwh": 0.1321,
+      "usdPerTherm": 1.385,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "OR": {
+      "name": "Oregon",
+      "usdPerKwh": 0.1546,
+      "usdPerTherm": 1.554,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "PA": {
+      "name": "Pennsylvania",
+      "usdPerKwh": 0.1929,
+      "usdPerTherm": 1.452,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "RI": {
+      "name": "Rhode Island",
+      "usdPerKwh": 0.2948,
+      "usdPerTherm": 2.103,
+      "electricYear": 2025,
+      "gasYear": 2024
+    },
+    "SC": {
+      "name": "South Carolina",
+      "usdPerKwh": 0.1512,
+      "usdPerTherm": 1.632,
+      "electricYear": 2025,
+      "gasYear": 2024
+    },
+    "SD": {
+      "name": "South Dakota",
+      "usdPerKwh": 0.1332,
+      "usdPerTherm": 0.917,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "TN": {
+      "name": "Tennessee",
+      "usdPerKwh": 0.1322,
+      "usdPerTherm": 1.155,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "TX": {
+      "name": "Texas",
+      "usdPerKwh": 0.154,
+      "usdPerTherm": 1.911,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "UT": {
+      "name": "Utah",
+      "usdPerKwh": 0.1302,
+      "usdPerTherm": 0.971,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "VT": {
+      "name": "Vermont",
+      "usdPerKwh": 0.2279,
+      "usdPerTherm": 1.718,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "VA": {
+      "name": "Virginia",
+      "usdPerKwh": 0.1528,
+      "usdPerTherm": 1.604,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "WA": {
+      "name": "Washington",
+      "usdPerKwh": 0.1317,
+      "usdPerTherm": 1.608,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "WV": {
+      "name": "West Virginia",
+      "usdPerKwh": 0.1539,
+      "usdPerTherm": 1.27,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "WI": {
+      "name": "Wisconsin",
+      "usdPerKwh": 0.1808,
+      "usdPerTherm": 1.024,
+      "electricYear": 2025,
+      "gasYear": 2025
+    },
+    "WY": {
+      "name": "Wyoming",
+      "usdPerKwh": 0.1337,
+      "usdPerTherm": 1.114,
+      "electricYear": 2025,
+      "gasYear": 2025
+    }
+  },
+  "tables": {
+    "energyPrices": {
+      "caption": "Average residential energy prices by state",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "kwh",
+          "label": "Electricity",
+          "unit": "$/kWh",
+          "num": true
+        },
+        {
+          "key": "therm",
+          "label": "Natural gas",
+          "unit": "$/therm",
+          "num": true
+        },
+        {
+          "key": "gasYear",
+          "label": "Gas price year",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "kwh": "0.161",
+          "therm": "1.70",
+          "gasYear": 2025
+        },
+        {
+          "name": "Alaska",
+          "kwh": "0.261",
+          "therm": "1.31",
+          "gasYear": 2025
+        },
+        {
+          "name": "Arizona",
+          "kwh": "0.153",
+          "therm": "1.81",
+          "gasYear": 2025
+        },
+        {
+          "name": "Arkansas",
+          "kwh": "0.129",
+          "therm": "1.88",
+          "gasYear": 2025
+        },
+        {
+          "name": "California",
+          "kwh": "0.314",
+          "therm": "2.15",
+          "gasYear": 2025
+        },
+        {
+          "name": "Colorado",
+          "kwh": "0.157",
+          "therm": "1.05",
+          "gasYear": 2025
+        },
+        {
+          "name": "Connecticut",
+          "kwh": "0.293",
+          "therm": "1.63",
+          "gasYear": 2024
+        },
+        {
+          "name": "Delaware",
+          "kwh": "0.172",
+          "therm": "1.54",
+          "gasYear": 2025
+        },
+        {
+          "name": "District of Columbia",
+          "kwh": "0.219",
+          "therm": "1.62",
+          "gasYear": 2025
+        },
+        {
+          "name": "Florida",
+          "kwh": "0.152",
+          "therm": "2.49",
+          "gasYear": 2025
+        },
+        {
+          "name": "Georgia",
+          "kwh": "0.147",
+          "therm": "1.98",
+          "gasYear": 2025
+        },
+        {
+          "name": "Hawaii",
+          "kwh": "0.404",
+          "therm": "5.71",
+          "gasYear": 2025
+        },
+        {
+          "name": "Idaho",
+          "kwh": "0.118",
+          "therm": "0.74",
+          "gasYear": 2025
+        },
+        {
+          "name": "Illinois",
+          "kwh": "0.177",
+          "therm": "1.07",
+          "gasYear": 2025
+        },
+        {
+          "name": "Indiana",
+          "kwh": "0.160",
+          "therm": "1.09",
+          "gasYear": 2025
+        },
+        {
+          "name": "Iowa",
+          "kwh": "0.136",
+          "therm": "1.00",
+          "gasYear": 2025
+        },
+        {
+          "name": "Kansas",
+          "kwh": "0.144",
+          "therm": "1.43",
+          "gasYear": 2025
+        },
+        {
+          "name": "Kentucky",
+          "kwh": "0.131",
+          "therm": "1.36",
+          "gasYear": 2025
+        },
+        {
+          "name": "Louisiana",
+          "kwh": "0.125",
+          "therm": "1.71",
+          "gasYear": 2025
+        },
+        {
+          "name": "Maine",
+          "kwh": "0.277",
+          "therm": "1.81",
+          "gasYear": 2024
+        },
+        {
+          "name": "Maryland",
+          "kwh": "0.195",
+          "therm": "1.55",
+          "gasYear": 2024
+        },
+        {
+          "name": "Massachusetts",
+          "kwh": "0.304",
+          "therm": "2.43",
+          "gasYear": 2025
+        },
+        {
+          "name": "Michigan",
+          "kwh": "0.200",
+          "therm": "1.03",
+          "gasYear": 2025
+        },
+        {
+          "name": "Minnesota",
+          "kwh": "0.158",
+          "therm": "1.04",
+          "gasYear": 2025
+        },
+        {
+          "name": "Mississippi",
+          "kwh": "0.140",
+          "therm": "1.63",
+          "gasYear": 2025
+        },
+        {
+          "name": "Missouri",
+          "kwh": "0.133",
+          "therm": "1.46",
+          "gasYear": 2025
+        },
+        {
+          "name": "Montana",
+          "kwh": "0.130",
+          "therm": "0.85",
+          "gasYear": 2025
+        },
+        {
+          "name": "Nebraska",
+          "kwh": "0.121",
+          "therm": "1.08",
+          "gasYear": 2025
+        },
+        {
+          "name": "Nevada",
+          "kwh": "0.133",
+          "therm": "1.26",
+          "gasYear": 2025
+        },
+        {
+          "name": "New Hampshire",
+          "kwh": "0.245",
+          "therm": "1.79",
+          "gasYear": 2025
+        },
+        {
+          "name": "New Jersey",
+          "kwh": "0.225",
+          "therm": "1.37",
+          "gasYear": 2025
+        },
+        {
+          "name": "New Mexico",
+          "kwh": "0.149",
+          "therm": "0.96",
+          "gasYear": 2025
+        },
+        {
+          "name": "New York",
+          "kwh": "0.264",
+          "therm": "1.70",
+          "gasYear": 2025
+        },
+        {
+          "name": "North Carolina",
+          "kwh": "0.140",
+          "therm": "1.57",
+          "gasYear": 2024
+        },
+        {
+          "name": "North Dakota",
+          "kwh": "0.118",
+          "therm": "0.91",
+          "gasYear": 2025
+        },
+        {
+          "name": "Ohio",
+          "kwh": "0.169",
+          "therm": "1.30",
+          "gasYear": 2025
+        },
+        {
+          "name": "Oklahoma",
+          "kwh": "0.132",
+          "therm": "1.39",
+          "gasYear": 2025
+        },
+        {
+          "name": "Oregon",
+          "kwh": "0.155",
+          "therm": "1.55",
+          "gasYear": 2025
+        },
+        {
+          "name": "Pennsylvania",
+          "kwh": "0.193",
+          "therm": "1.45",
+          "gasYear": 2025
+        },
+        {
+          "name": "Rhode Island",
+          "kwh": "0.295",
+          "therm": "2.10",
+          "gasYear": 2024
+        },
+        {
+          "name": "South Carolina",
+          "kwh": "0.151",
+          "therm": "1.63",
+          "gasYear": 2024
+        },
+        {
+          "name": "South Dakota",
+          "kwh": "0.133",
+          "therm": "0.92",
+          "gasYear": 2025
+        },
+        {
+          "name": "Tennessee",
+          "kwh": "0.132",
+          "therm": "1.16",
+          "gasYear": 2025
+        },
+        {
+          "name": "Texas",
+          "kwh": "0.154",
+          "therm": "1.91",
+          "gasYear": 2025
+        },
+        {
+          "name": "Utah",
+          "kwh": "0.130",
+          "therm": "0.97",
+          "gasYear": 2025
+        },
+        {
+          "name": "Vermont",
+          "kwh": "0.228",
+          "therm": "1.72",
+          "gasYear": 2025
+        },
+        {
+          "name": "Virginia",
+          "kwh": "0.153",
+          "therm": "1.60",
+          "gasYear": 2025
+        },
+        {
+          "name": "Washington",
+          "kwh": "0.132",
+          "therm": "1.61",
+          "gasYear": 2025
+        },
+        {
+          "name": "West Virginia",
+          "kwh": "0.154",
+          "therm": "1.27",
+          "gasYear": 2025
+        },
+        {
+          "name": "Wisconsin",
+          "kwh": "0.181",
+          "therm": "1.02",
+          "gasYear": 2025
+        },
+        {
+          "name": "Wyoming",
+          "kwh": "0.134",
+          "therm": "1.11",
+          "gasYear": 2025
+        }
+      ],
+      "source": "U.S. Energy Information Administration (EIA): Electric Power Annual table 2.10 (residential electricity price by state); Natural Gas Annual residential price and heat content of delivered gas by state",
+      "sourceUrl": "https://www.eia.gov/electricity/annual/html/epa_02_10.html",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}
