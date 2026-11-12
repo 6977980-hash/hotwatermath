@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "source": "Owner decisions recorded in docs/DECISIONS.md (brand, domain, founder, contact). Default assumption values and their sources are filled in Phase 1.",
+    "sourceUrl": "",
+    "sourceDate": "2026-11-13",
+    "notes": "Single source of truth for brand, identity, integrations and default assumptions. Never hardcode these in templates or content."
+  },
+  "brand": "Hot Water Math",
+  "tagline": "Size it, age it, price it with the real formulas, not guesses.",
+  "description": "Free water heater calculators for US homes: size, age, cost and operating cost, built on published formulas and named sources.",
+  "domain": "hotwatermath.com",
+  "origin": "https://hotwatermath.com",
+  "language": "en-US",
+  "themeColor": "#0b4a7d",
+  "author": {
+    "name": "Ali Ahmad",
+    "jobTitle": "Founder, Hot Water Math",
+    "description": "Independent developer of calculator websites. Builds and maintains the Hot Water Math calculators and data.",
+    "sameAs": [
+      "https://www.linkedin.com/in/ali-ahmad-chaudhry-12777486/"
+    ],
+    "url": "https://hotwatermath.com/about/"
+  },
+  "contact": {
+    "email": "contact@hotwatermath.com"
+  },
+  "social": [],
+  "integrations": {
+    "adsenseClient": "",
+    "ga4Id": "",
+    "gscToken": "",
+    "bingToken": "",
+    "indexNowKey": ""
+  },
+  "defaults": {
+    "setpointTempF": {
+      "value": 120,
+      "unit": "°F",
+      "source": "",
+      "sourceUrl": "",
+      "sourceDate": ""
+    },
+    "defaultElectricRateUsdPerKwh": {
+      "value": null,
+      "unit": "USD/kWh",
+      "source": "",
+      "sourceUrl": "",
+      "sourceDate": ""
+    },
+    "defaultGasRateUsdPerTherm": {
+      "value": null,
+      "unit": "USD/therm",
+      "source": "",
+      "sourceUrl": "",
+      "sourceDate": ""
+    }
+  },
+  "dateVerified": {}
+}
