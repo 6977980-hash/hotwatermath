@@ -21,11 +21,13 @@ $hwm_link = static function ( string $slug, string $anchor = '' ): string {
 /** "Not yet run" row for a tool's manufacturer cross-check table. */
 $hwm_xcheck = static function ( string $what ): void {
 	?>
-	<table class="data-table">
+	<div class="table-wrap" role="region" aria-label="Manufacturer cross-check: <?php echo esc_attr( $what ); ?>" tabindex="0">
+	<table>
 		<caption>Manufacturer cross-check: <?php echo esc_html( $what ); ?></caption>
 		<thead><tr><th scope="col">Test case (inputs)</th><th scope="col">Our result</th><th scope="col">Manufacturer guide result</th><th scope="col">Difference and why</th><th scope="col">Manufacturer source</th></tr></thead>
 		<tbody><tr><td colspan="5">Not run yet. At least three test cases are run and published here, with links, when this calculator is built. Until then the calculator is not public.</td></tr></tbody>
 	</table>
+</div>
 	<?php
 };
 $hwm_gw   = 'groundwater-temp-by-state';
@@ -47,7 +49,8 @@ $hwm_dr   = 'decision-rules';
 
 <h2>Which physical constants do the calculators use?</h2>
 <p>Every water heater calculation starts from the energy needed to warm water. One British thermal unit (BTU) raises one pound of water by 1 °F, and one gallon of water weighs <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> pounds. The other constants below are unit definitions.</p>
-<table class="data-table">
+<div class="table-wrap" role="region" aria-label="Constants used in every formula" tabindex="0">
+<table>
 	<caption>Constants used in every formula</caption>
 	<thead><tr><th scope="col">Constant</th><th scope="col">Value</th><th scope="col">Where it comes from</th></tr></thead>
 	<tbody>
@@ -58,6 +61,7 @@ $hwm_dr   = 'decision-rules';
 		<tr><td>Watts in one kilowatt</td><td><?php echo esc_html( $hwm_k( 'wattsPerKw' ) ); ?></td><td>Definition</td></tr>
 	</tbody>
 </table>
+</div>
 
 <h2>Do our formulas match published examples?</h2>
 <p>Yes, closely. Before any calculator is built we test the shared formulas against worked examples published by the Department of Energy, AHRI and a manufacturer spec sheet. The table shows our answer next to the published one. Small differences come from rounding in the published figures.</p>
@@ -212,7 +216,8 @@ $hwm_files = array(
 	'decision-rules'            => 'Repair-or-replace thresholds (editorial)',
 );
 ?>
-<table class="data-table">
+<div class="table-wrap" role="region" aria-label="Data files and their sources" tabindex="0">
+<table>
 	<caption>Data files and their sources</caption>
 	<thead><tr><th scope="col">What it holds</th><th scope="col">Source</th><th scope="col">Last checked</th></tr></thead>
 	<tbody>
@@ -239,10 +244,12 @@ $hwm_files = array(
 		<?php endforeach; ?>
 	</tbody>
 </table>
+</div>
 
 <h2>Which numbers are our own assumptions?</h2>
 <p>A few numbers on this site are our judgment, not measured data, because no agency publishes them. We list them here so you can disagree with them, and every calculator lets you override them.</p>
-<table class="data-table">
+<div class="table-wrap" role="region" aria-label="Editorial assumptions" tabindex="0">
+<table>
 	<caption>Editorial assumptions</caption>
 	<thead><tr><th scope="col">Assumption</th><th scope="col">Value</th><th scope="col">Why we chose it</th></tr></thead>
 	<tbody>
@@ -254,6 +261,7 @@ $hwm_files = array(
 		<tr><td>Repair-or-replace thresholds</td><td>See the repair or replace section</td><td>Conservative rules of the kind homeowners already use, written down so you can check them.</td></tr>
 	</tbody>
 </table>
+</div>
 
 <h2>How often do we review the numbers?</h2>
 <ul>

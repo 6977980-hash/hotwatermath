@@ -33,13 +33,14 @@
   - `data/affiliate.json` — empty (block does not render)
 - `data/computed/` — `energy-prices`, `inlet-temps`, `regional-multipliers`, `fhr-table`, `uef-defaults`, `unit-prices`, `reference-tables` (display tables + `physics`), `cross-checks` (formula vs published figures)
 - `content/methodology.php` — complete: constants, formula cross-checks, one section per tool (`id` = tool slug) with formula, data, tables, limitations and an empty manufacturer cross-check table; data-file source table; editorial assumptions; update cadence; limitations; corrections
-- `.htaccess` also blocks `tests/`; `style.css` Version 0.2.0; README dev scripts; 8 new `docs/DECISIONS.md` entries
+- `.htaccess` also blocks `tests/`; `style.css` Version 0.2.1 (0.2.1 = follow-up fix: wide tables made the page scroll sideways at 360px; `.layout` grid children now `min-width: 0` and the hand-written tables on /methodology use `.table-wrap`); README dev scripts; 8 new `docs/DECISIONS.md` entries
 
 **Verified:**
 - `npm test`: 27/27 pass. `npm run validate-data`: 27 files OK, computed data fresh.
 - `NODE_USE_ENV_PROXY=1 npm run validate-data -- --urls` on 2026-11-12: **83/83 source URLs answered 200.**
 - Formula cross-checks (in `data/computed/cross-checks.json`, shown on /methodology): DOE FEMP electric 3,461 vs 3,437 kWh (+0.7%); Rheem RETEX-36 rise at 2.5/3/4/5/6 GPM 98/82/61/49/41 vs 98/82/62/49/41 °F; DOE example 3.25 GPM / 70 °F rise (0%); AHRI worksheet 70 gal (0%).
-- `php -l` clean; /methodology rendered with a PHP stub harness (no notices; 23 tables; no empty values). Live check: see Log / PR.
+- `php -l` clean; /methodology rendered with a PHP stub harness (no notices; 23 tables; no empty values).
+- Live after PR #3 (0.2.0): `npm run check` 118/118 with and without `--bust`; /methodology 200, noindex, 23 tables, data-rendered numbers present; `data/*.json` public (200), `tests/` and `scripts/` 403. 360px check found sideways scroll (fixed in the 0.2.1 follow-up PR; re-verified live).
 
 **Known issues / TODOs carried forward:**
 - **energy.gov Energy Saver pages are gone (404)** and web.archive.org is unreachable from the build container; use the UNT web archive or FEMP/eCFR instead.
