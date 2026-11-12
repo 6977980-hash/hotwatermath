@@ -89,7 +89,8 @@ add_action(
 		echo '<meta name="twitter:card" content="summary_large_image">' . "\n";
 
 		// Icons and manifest (stable URLs, CLAUDE.md §6 brand assets).
-		echo '<link rel="icon" href="/favicon.ico" sizes="48x48">' . "\n";
+		// Hostinger answers /favicon.ico with a static 404 before WordPress runs, so the stable icon URL lives in the theme (docs/DECISIONS.md).
+		echo '<link rel="icon" href="' . esc_url( HWM_URI . '/assets/brand/favicon.ico' ) . '" sizes="48x48">' . "\n";
 		echo '<link rel="icon" href="' . esc_url( HWM_URI . '/assets/brand/icon.svg' ) . '" type="image/svg+xml">' . "\n";
 		echo '<link rel="apple-touch-icon" href="' . esc_url( HWM_URI . '/assets/brand/apple-touch-icon.png' ) . '">' . "\n";
 		echo '<link rel="manifest" href="/site.webmanifest">' . "\n";
