@@ -8,7 +8,7 @@
 **Next phase to run:** Phase 1 — Data layer (see `docs/PHASES.md`)
 
 **What exists now:**
-- `style.css` (theme header, Version 0.1.0), `functions.php` (loads `inc/*.php`), `header.php`, `footer.php`, `index.php`, `page.php` (home + utility), `404.php`, `search.php`
+- `style.css` (theme header, Version 0.1.1), `functions.php` (loads `inc/*.php`), `header.php`, `footer.php`, `index.php`, `page.php` (home + utility), `404.php`, `search.php`
 - `templates/tool.php`, `templates/article.php`, `templates/hub.php`, `templates/embed.php`
 - `inc/data.php` — `hwm_data()`, `hwm_raw()`, `hwm_value()`, `hwm_site()`, `hwm_table()`
 - `inc/helpers.php` — registry lookups, `hwm_url()`, `hwm_current()`, `hwm_part()`, `hwm_content()`, nav, registry search, asset enqueue (CSS + per-page JS modules from `scripts` in the registry), template routing by registry `type`, embed snippet
@@ -36,10 +36,12 @@
 - Tool and article templates tested with a temporary draft tool (removed before commit): calculator part renders the server-side default, FAQPage + WebApplication schema, module script enqueued only on that page, `/embed/<tool>/` 200 with `noindex` + `frame-ancestors *`.
 - Lighthouse (local, mobile, `/about/`): Performance 100, Accessibility 100, Best Practices 100, SEO 66 only because drafts are `noindex` ("is-crawlable"); expected 100 once live.
 - 360px and 1280px screenshots: no horizontal scroll, menu toggle works, first viewport shows H1 + quick answer.
-- Live-site check: see the follow-up note below (requires the owner to activate the theme in wp-admin).
+- **Live site (2026-11-12, after the owner activated the theme):** `npm run check -- --bust` against https://hotwatermath.com: 118/118 pass. Lighthouse mobile on live `/about/`: Performance 100, Accessibility 100, Best Practices 100, SEO 66 (noindex drafts only); LCP 0.8 s, CLS 0, TBT 0 ms, TTFB 220 ms. 360px render checked, no console errors, no horizontal scroll. Security headers present; `/robots.txt`, `/ads.txt`, `/site.webmanifest` served by the theme; repo-only files return 403; `http://` and `www` 301 to the apex.
 
 **Known issues / TODOs carried forward:**
-- **Owner must activate the theme** (Appearance → Themes → Hot Water Math) and do the one-time settings in README ("One-time WordPress settings"), including turning **off** "Discourage search engines" and removing the extra Hostinger plugins (the live site currently loads `cdn-reach.hostinger.com` from a Hostinger plugin).
+- **Hostinger CDN (`server: hcdn`) caches HTML separately from LiteSpeed.** After the theme switch the plain `https://hotwatermath.com/` URL kept serving the old theme's cached HTML (with the old Hostinger Reach script) while uncached URLs showed the new theme. The theme's LiteSpeed purge does not reach this CDN. After each deploy the owner flushes it in hPanel (Websites → hotwatermath.com → Performance → CDN → Flush cache), or turns the CDN off; verify with `npm run check` **without** `--bust` (that is what visitors and Google get).
+- `/favicon.ico` at the root returns Hostinger's static 404 (see DECISIONS); the icon is served from the theme URL instead. Harmless, but do not "fix" it by uploading a file by hand.
+- `http://www.hotwatermath.com/x` redirects in two hops (→ `https://www…` → apex). Hostinger-level; acceptable, revisit only if Search Console complains.
 - `data/site.json` → `defaults` values for electricity/gas price are `null` with empty sources; Phase 1 fills them (and `setpointTempF` source).
 - `/methodology` is structure only; Phase 1 writes formulas and data sources; Phases 2–4 add cross-check tables.
 - GA4/AdSense/consent loaders are not written yet (Phase 5); the hooks exist (`integrations` in `site.json`, `track()` in `ui.js`, ad-slot part, ads.txt route).
