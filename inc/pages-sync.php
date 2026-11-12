@@ -61,11 +61,16 @@ function hwm_sync_pages(): array {
 			'post_parent'    => 0,
 			'comment_status' => 'closed',
 			'ping_status'    => 'closed',
-			'post_date'      => ( $entry['datePublished'] ?? gmdate( 'Y-m-d' ) ) . ' 00:00:00',
 		);
+		// The registry's datePublished is the truth for schema; the WordPress date only must not be in the future (WP would schedule the page).
+		$published = ( $entry['datePublished'] ?? '' ) . ' 00:00:00';
+		$now       = current_time( 'mysql' );
+		$postarr['post_date']     = ( '' !== ( $entry['datePublished'] ?? '' ) && $published < $now ) ? $published : $now;
+		$postarr['post_date_gmt'] = get_gmt_from_date( $postarr['post_date'] );
+		$postarr['edit_date']     = true;
 		if ( isset( $existing[ $slug ] ) ) {
 			$post = $existing[ $slug ];
-			if ( $post->post_title !== $postarr['post_title'] || $post->post_name !== $postarr['post_name'] || 'publish' !== $post->post_status ) {
+			if ( $post->post_title !== $postarr['post_title'] || $post->post_name !== $postarr['post_name'] || 'publish' !== $post->post_status || $post->post_date_gmt > current_time( 'mysql', true ) ) {
 				$postarr['ID'] = $post->ID;
 				wp_update_post( $postarr );
 				$log[] = "updated {$slug}";

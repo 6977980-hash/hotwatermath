@@ -168,3 +168,6 @@ function hwm_ensure_permalinks(): void {
 	}
 }
 add_action( 'after_switch_theme', 'hwm_ensure_permalinks' );
+
+// No "did you mean" redirects for unknown URLs: an unknown URL is a plain 404.
+add_filter( 'do_redirect_guess_404_permalink', '__return_false' );

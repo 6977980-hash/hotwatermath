@@ -1,0 +1,161 @@
+/**
+ * ui.js: shared browser helpers for every calculator (no math here; math is in formulas.js).
+ * Loaded as an ES module by each calculator module.
+ */
+
+/** Read a form's named inputs into a plain object (numbers parsed for inputmode=decimal / type=number). */
+export function readInputs(form) {
+	const out = {};
+	for (const el of form.elements) {
+		if (!el.name || el.disabled) continue;
+		if (el.type === 'checkbox') {
+			out[el.name] = el.checked;
+		} else if (el.type === 'radio') {
+			if (el.checked) out[el.name] = el.value;
+		} else if (el.type === 'number' || el.inputMode === 'decimal' || el.inputMode === 'numeric') {
+			const n = parseFloat(String(el.value).replace(/,/g, ''));
+			out[el.name] = Number.isFinite(n) ? n : null;
+		} else {
+			out[el.name] = el.value;
+		}
+	}
+	return out;
+}
+
+const usd0 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+const usd2 = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+/** "$1,234" (or "$12.34" with cents=true). */
+export function formatCurrency(value, cents = false) {
+	return Number.isFinite(value) ? (cents ? usd2 : usd0).format(value) : '–';
+}
+
+/** "1,234.5" with a fixed number of decimals. */
+export function formatNumber(value, decimals = 0) {
+	return Number.isFinite(value)
+		? value.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })
+		: '–';
+}
+
+/** Put the current inputs into the URL query (replaceState; no history spam). */
+export function writeState(values) {
+	const url = new URL(window.location.href);
+	url.search = '';
+	for (const [key, value] of Object.entries(values)) {
+		if (value === null || value === '' || value === false) continue;
+		url.searchParams.set(key, value === true ? '1' : String(value));
+	}
+	window.history.replaceState(null, '', url);
+	return url.toString();
+}
+
+/** Fill form fields from the URL query (only fields that exist in the form). */
+export function readState(form) {
+	const params = new URLSearchParams(window.location.search);
+	for (const [key, value] of params) {
+		const el = form.elements.namedItem(key);
+		if (!el) continue;
+		if (el instanceof RadioNodeList) {
+			for (const r of el) r.checked = r.value === value;
+		} else if (el.type === 'checkbox') {
+			el.checked = value === '1' || value === 'true';
+		} else {
+			el.value = value;
+		}
+	}
+	return params.size > 0;
+}
+
+/** Copy text to the clipboard; resolves true on success. */
+export async function copyText(text) {
+	try {
+		await navigator.clipboard.writeText(text);
+		return true;
+	} catch {
+		const area = document.createElement('textarea');
+		area.value = text;
+		area.setAttribute('readonly', '');
+		area.style.position = 'absolute';
+		area.style.left = '-9999px';
+		document.body.appendChild(area);
+		area.select();
+		const ok = document.execCommand('copy');
+		area.remove();
+		return ok;
+	}
+}
+
+/** Share the current URL (native share sheet where available, else copy). */
+export async function shareLink(title) {
+	const url = window.location.href;
+	if (navigator.share) {
+		try {
+			await navigator.share({ title, url });
+			return 'shared';
+		} catch {
+			/* user cancelled; fall back to copy */
+		}
+	}
+	return (await copyText(url)) ? 'copied' : 'failed';
+}
+
+/** Debounce a function by ms. */
+export function debounce(fn, ms = 150) {
+	let timer;
+	return (...args) => {
+		clearTimeout(timer);
+		timer = setTimeout(() => fn(...args), ms);
+	};
+}
+
+/** Briefly change a button's label to confirm an action, then restore it. */
+export function flashLabel(button, text, ms = 1600) {
+	const original = button.dataset.label || button.textContent;
+	button.dataset.label = original;
+	button.textContent = text;
+	setTimeout(() => { button.textContent = original; }, ms);
+}
+
+/**
+ * Update the server-rendered result panel without layout jumps.
+ * @param {HTMLElement} root The .calc section.
+ * @param {{status?:'ok'|'warn'|'bad', statusLabel?:string, headline:string, explain:string, formula:string}} r
+ */
+export function renderResult(root, r) {
+	const box = root.querySelector('[data-result]');
+	if (!box) return;
+	box.classList.remove('result--ok', 'result--warn', 'result--bad');
+	if (r.status) box.classList.add(`result--${r.status}`);
+	const set = (sel, value) => {
+		const el = box.querySelector(sel);
+		if (el && value !== undefined) el.textContent = value;
+	};
+	set('[data-result-status]', r.statusLabel);
+	set('[data-result-headline]', r.headline);
+	set('[data-result-explain]', r.explain);
+	set('[data-result-formula]', r.formula);
+}
+
+/**
+ * Send a GA4 event if GA is loaded (no-op otherwise). Key inputs must be bucketed by the caller.
+ * @param {string} name e.g. 'calc_result'
+ * @param {object} params
+ */
+export function track(name, params = {}) {
+	if (typeof window.gtag === 'function') window.gtag('event', name, params);
+}
+
+/**
+ * Wire the shared buttons (copy result, share link) for one calculator section.
+ * @param {HTMLElement} root
+ * @param {() => string} resultText Returns the plain-text result to copy.
+ */
+export function wireActions(root, resultText) {
+	root.querySelector('[data-action="copy"]')?.addEventListener('click', async (e) => {
+		flashLabel(e.currentTarget, (await copyText(resultText())) ? 'Copied' : 'Copy failed');
+	});
+	root.querySelector('[data-action="share"]')?.addEventListener('click', async (e) => {
+		const outcome = await shareLink(document.title);
+		if (outcome !== 'shared') flashLabel(e.currentTarget, outcome === 'copied' ? 'Link copied' : 'Copy failed');
+	});
+}
