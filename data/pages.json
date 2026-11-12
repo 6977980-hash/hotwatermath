@@ -1,0 +1,207 @@
+{
+  "meta": {
+    "source": "Page registry. URLs and intents from docs/STRATEGY.md §2 (Keyword Map).",
+    "sourceUrl": "",
+    "sourceDate": "2026-11-13",
+    "notes": "One entry per URL. status: live = indexable, in sitemap and hubs; draft = page exists but noindex, not in sitemap or hubs; planned = no page is created. Only the owner's OK moves a page to live (CLAUDE.md §8). type picks the template: home, utility, hub, tool, article. Body lives in content/<slug>.php (home uses content/home.php)."
+  },
+  "pages": [
+    {
+      "slug": "",
+      "contentFile": "home",
+      "type": "home",
+      "status": "draft",
+      "title": "Hot Water Math",
+      "metaTitle": "Water Heater Calculators That Show the Math | Hot Water Math",
+      "description": "Free water heater calculators for US homes: tank and tankless sizing, unit age from the serial number, and cost, each with its formula and named sources.",
+      "h1": "Hot Water Math: water heater calculators that show their math",
+      "subtitle": "Free sizing, age and cost tools for US homes, built on published formulas and named sources.",
+      "quickAnswer": "Hot Water Math is a free set of water heater calculators for US homeowners. Every result shows the formula used and the source behind each default value.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "calculators",
+      "type": "hub",
+      "hub": "tool",
+      "status": "draft",
+      "title": "Water Heater Calculators",
+      "metaTitle": "Water Heater Calculators: Size, Age, Cost | Hot Water Math",
+      "description": "All Hot Water Math water heater calculators in one place: tank size, tankless size, age from serial number and cost, each with its formula and sources.",
+      "h1": "Water heater calculators",
+      "subtitle": "Every tool on the site, with what it answers and the data it uses.",
+      "quickAnswer": "Pick the calculator that matches your question: what size to buy, how old your unit is, or what a replacement costs. Each tool shows its formula and sources.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "guides",
+      "type": "hub",
+      "hub": "article",
+      "status": "draft",
+      "title": "Water Heater Guides",
+      "metaTitle": "Water Heater Guides: Cost, Lifespan, Care | Hot Water Math",
+      "description": "Water heater guides from Hot Water Math on lifespan, replacement cost, care and troubleshooting, written answer-first with sourced numbers and calculators.",
+      "h1": "Water heater guides",
+      "subtitle": "Answer-first articles on cost, lifespan, care and common problems, each linked to the matching calculator.",
+      "quickAnswer": "These guides answer one water heater question each, give the short answer first, and link to the calculator that works out your own numbers.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "about",
+      "type": "utility",
+      "status": "draft",
+      "title": "About Hot Water Math",
+      "metaTitle": "About Hot Water Math: Who Builds These Calculators",
+      "description": "Who runs Hot Water Math, why the site exists, how each calculator is built and checked against manufacturer sizing guides, and what the site is not.",
+      "h1": "About Hot Water Math",
+      "subtitle": "An independent calculator site, run by its founder, that shows its formulas and sources.",
+      "quickAnswer": "Hot Water Math is an independent calculator site built by Ali Ahmad, a calculator developer. We are not plumbers, we refer no one, and every formula is published on our methodology page.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "methodology",
+      "type": "utility",
+      "status": "draft",
+      "title": "Methodology",
+      "metaTitle": "Methodology: Formulas and Sources | Hot Water Math",
+      "description": "How Hot Water Math calculates water heater size, age and cost: the formulas, the data sources behind each default, manufacturer cross-checks and limits.",
+      "h1": "How our water heater calculators work",
+      "subtitle": "Formulas, data sources, cross-checks against manufacturer sizing guides, update schedule and limitations.",
+      "quickAnswer": "Every calculator uses published physics and sourced data files, never guesses. This page lists each formula, each source, and how our results compare with manufacturer sizing guides.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "editorial-policy",
+      "type": "utility",
+      "status": "draft",
+      "title": "Editorial Policy",
+      "metaTitle": "Editorial Policy: Sourcing and Corrections | Hot Water Math",
+      "description": "How Hot Water Math chooses sources, checks every number, corrects mistakes, and keeps ads and affiliate links from changing any calculator result or page.",
+      "h1": "Editorial policy",
+      "subtitle": "How we source numbers, check pages, fix mistakes and keep money away from results.",
+      "quickAnswer": "We cite primary sources such as DOE, ENERGY STAR and EIA, check every number before a page goes live, fix reported errors quickly, and never let ads or affiliate links change a result.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "contact",
+      "type": "utility",
+      "status": "draft",
+      "title": "Contact",
+      "metaTitle": "Contact Hot Water Math: Corrections and Questions",
+      "description": "Contact Hot Water Math by email to report an error, ask about a calculator, or request a correction. We read every message and reply within a few days.",
+      "h1": "Contact Hot Water Math",
+      "subtitle": "Report an error, ask about a calculator, or send a correction.",
+      "quickAnswer": "Email us to report a mistake, ask how a calculator works, or suggest a source. We cannot give advice on a specific installation and we do not refer contractors.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "privacy-policy",
+      "type": "utility",
+      "status": "draft",
+      "title": "Privacy Policy",
+      "metaTitle": "Privacy Policy: Cookies, Ads and Analytics | Hot Water Math",
+      "description": "What Hot Water Math collects, how Google Analytics and Google AdSense use cookies on this site, your consent choices, and how to opt out of ad tracking.",
+      "h1": "Privacy policy",
+      "subtitle": "What data this site collects, which third parties are involved, and the choices you have.",
+      "quickAnswer": "Our calculators run in your browser and we do not store what you type. Google Analytics and, once approved, Google AdSense may use cookies; you can refuse or opt out.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "terms",
+      "type": "utility",
+      "status": "draft",
+      "title": "Terms of Use",
+      "metaTitle": "Terms of Use: Using Our Calculators | Hot Water Math",
+      "description": "Terms for using Hot Water Math: calculator results are planning estimates, not professional advice. Covers acceptable use, embeds, liability and changes.",
+      "h1": "Terms of use",
+      "subtitle": "The rules for using this site, its calculators and its embeddable widgets.",
+      "quickAnswer": "You may use our calculators for free. Results are planning estimates, not professional advice, so confirm sizing, code and safety questions with a licensed professional in your area.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "affiliate-disclosure",
+      "type": "utility",
+      "status": "draft",
+      "title": "Affiliate Disclosure",
+      "metaTitle": "Affiliate Disclosure: How We Earn Money | Hot Water Math",
+      "description": "How Hot Water Math earns money: display ads and, on some sizing results, labeled retailer affiliate links. Neither one ever changes a calculator result.",
+      "h1": "Affiliate disclosure",
+      "subtitle": "How this site is paid for, and the rules that keep that money away from results.",
+      "quickAnswer": "Hot Water Math earns money from display ads and may earn a commission from labeled retailer links. These never change a calculator result, and we never take money from contractors.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "water-heater-age-calculator",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2",
+      "title": "Water Heater Age Calculator",
+      "summary": "Find a water heater's age from its serial number, for every major brand, and see how much of its expected life is used."
+    },
+    {
+      "slug": "tankless-water-heater-size-calculator",
+      "type": "tool",
+      "status": "planned",
+      "phase": "2",
+      "title": "Tankless Water Heater Size Calculator",
+      "summary": "Work out the flow rate and temperature rise your home needs, with your state's groundwater temperature built in."
+    },
+    {
+      "slug": "water-heater-size-calculator",
+      "type": "tool",
+      "status": "planned",
+      "phase": "3",
+      "title": "Water Heater Size Calculator",
+      "summary": "Size a tank water heater from your peak-hour demand and first hour rating, not just household size."
+    },
+    {
+      "slug": "repair-or-replace-water-heater",
+      "type": "tool",
+      "status": "planned",
+      "phase": "3",
+      "title": "Repair or Replace Water Heater",
+      "summary": "Decide whether a repair quote is worth paying, based on the unit's age, the symptoms and replacement cost."
+    },
+    {
+      "slug": "water-heater-cost-calculator",
+      "type": "tool",
+      "status": "planned",
+      "phase": "4",
+      "title": "Water Heater Cost Calculator",
+      "summary": "Estimate the installed cost of a new water heater by type, size, state and the extras your job needs."
+    },
+    {
+      "slug": "tankless-vs-tank-water-heater",
+      "type": "tool",
+      "status": "planned",
+      "phase": "4",
+      "title": "Tankless vs Tank Water Heater",
+      "summary": "Compare ten-year cost of ownership for tankless and tank water heaters with your own energy prices."
+    },
+    {
+      "slug": "gas-vs-electric-water-heater",
+      "type": "tool",
+      "status": "planned",
+      "phase": "4",
+      "title": "Gas vs Electric Water Heater",
+      "summary": "Compare yearly operating cost for gas, electric, heat pump and tankless water heaters in your state."
+    },
+    {
+      "slug": "how-long-does-a-water-heater-last",
+      "type": "article",
+      "status": "planned",
+      "phase": "2b",
+      "title": "How Long Does a Water Heater Last",
+      "summary": "Expected lifespan by water heater type, what shortens it, and how to check your own unit's age."
+    }
+  ]
+}
