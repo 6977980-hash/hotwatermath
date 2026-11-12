@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "source": "DOE test procedure for water heaters, 10 CFR Part 430, Subpart B, Appendix E (draw patterns and test conditions); DOE FEMP (typical household use); DOE Buildings Energy Data Book table 8.2.4 (per-person use)",
+    "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-B/appendix-Appendix%20E%20to%20Subpart%20B%20of%20Part%20430",
+    "sourceDate": "2026-11-12",
+    "notes": "The UEF on a water heater label comes from a 24-hour test with one of four draw patterns, picked by the unit's first hour rating. DOE FEMP calls the medium pattern (55 gallons a day, 20,075 a year) typical household use, so it is the default when you do not enter a household size. Per-person use comes from an older field study (10 Seattle homes, 2.6 people each); it is used only to scale use with household size, and you can change it."
+  },
+  "drawPatterns": [
+    {
+      "id": "very-small",
+      "label": "Very small",
+      "fhrFrom": 0,
+      "fhrBelow": 18,
+      "gallonsPerDay": 10
+    },
+    {
+      "id": "low",
+      "label": "Low",
+      "fhrFrom": 18,
+      "fhrBelow": 51,
+      "gallonsPerDay": 38
+    },
+    {
+      "id": "medium",
+      "label": "Medium",
+      "fhrFrom": 51,
+      "fhrBelow": 75,
+      "gallonsPerDay": 55
+    },
+    {
+      "id": "high",
+      "label": "High",
+      "fhrFrom": 75,
+      "gallonsPerDay": 84
+    }
+  ],
+  "testConditions": {
+    "inletF": 58,
+    "outletF": 125,
+    "riseF": 67,
+    "source": "10 CFR 430 Subpart B, Appendix E, sections 2.3 and 2.4 (supply 58 °F, outlet 125 °F); 67 °F nominal rise"
+  },
+  "typicalHouseholdGallonsPerDay": {
+    "value": 55,
+    "gallonsPerYear": 20075,
+    "source": "DOE FEMP: annual energy use based on the Appendix E test for a unit producing 20,075 gallons of hot water per year; Table 2 lists medium use as 55 gal/day",
+    "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters"
+  },
+  "perPersonGallonsPerDay": {
+    "value": 25.1,
+    "householdGallonsPerDay": 65.2,
+    "peoplePerHome": 2.6,
+    "source": "DOE Buildings Energy Data Book (March 2012), table 8.2.4, from Aquacraft, Residential End Uses of Hot Water in Single-Family Homes from Flow-Trace Analysis (2000); archived copy",
+    "sourceUrl": "https://webarchive.library.unt.edu/web/20130221165356/http://buildingsdatabook.eren.doe.gov/docs/xls_pdf/8.2.4.pdf"
+  },
+  "femp": {
+    "electricUef": 0.95,
+    "annualKwh": 3437,
+    "source": "DOE FEMP Table 1: a 0.95 UEF electric storage water heater uses 3,437 kWh a year at 20,075 gallons (used on /methodology to cross-check our energy formula)",
+    "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters"
+  }
+}

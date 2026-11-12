@@ -1,0 +1,373 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the sourced data files named in each table with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Display tables; each table carries its own source. physics = the constants in formulas.PHYSICS, copied here so pages can print them."
+  },
+  "physics": {
+    "lbPerGallon": 8.34,
+    "btuPerKwh": 3412,
+    "btuPerTherm": 100000,
+    "cubicFeetPerMcf": 1000,
+    "wattsPerKw": 1000,
+    "centsPerDollar": 100,
+    "minutesPerHour": 60,
+    "daysPerYear": 365,
+    "monthsPerYear": 12,
+    "weeksPerYear": 52
+  },
+  "tables": {
+    "fixtures": {
+      "caption": "Fixture flow rates used for tankless sizing",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Fixture"
+        },
+        {
+          "key": "gpm",
+          "label": "Default",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "low",
+          "label": "Low-flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Typical range",
+          "unit": "GPM",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Shower",
+          "gpm": "2.5",
+          "low": "2.0",
+          "range": "0.8–2.5"
+        },
+        {
+          "label": "Bathroom faucet",
+          "gpm": "2.2",
+          "low": "1.5",
+          "range": "0.2–2.2"
+        },
+        {
+          "label": "Kitchen faucet",
+          "gpm": "2.2",
+          "low": "2.2",
+          "range": "1.0–2.2"
+        },
+        {
+          "label": "Dishwasher",
+          "gpm": "2.0",
+          "low": "2.0",
+          "range": "1.0–3.0"
+        },
+        {
+          "label": "Clothes washer",
+          "gpm": "3.5",
+          "low": "3.5",
+          "range": "1.0–6.0"
+        },
+        {
+          "label": "Bathtub filling",
+          "gpm": "3.5",
+          "low": "3.5",
+          "range": "1.0–6.0"
+        }
+      ],
+      "source": "10 CFR 430.32, EPA WaterSense, PNNL Building America Solution Center (ASHRAE Handbook data)",
+      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+      "sourceDate": "2026-11-12"
+    },
+    "peakHour": {
+      "caption": "Hot water per use for the peak-hour worksheet",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Use"
+        },
+        {
+          "key": "gallons",
+          "label": "Hot water per use",
+          "unit": "gal",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Shower",
+          "gallons": 20
+        },
+        {
+          "label": "Bath",
+          "gallons": 20
+        },
+        {
+          "label": "Shaving",
+          "gallons": 2
+        },
+        {
+          "label": "Hands and face washing",
+          "gallons": 4
+        },
+        {
+          "label": "Hair shampoo",
+          "gallons": 4
+        },
+        {
+          "label": "Hand dishwashing",
+          "gallons": 4
+        },
+        {
+          "label": "Automatic dishwasher",
+          "gallons": 14
+        },
+        {
+          "label": "Food preparation",
+          "gallons": 5
+        },
+        {
+          "label": "Wringer clothes washer",
+          "gallons": 26
+        },
+        {
+          "label": "Automatic clothes washer",
+          "gallons": 32
+        }
+      ],
+      "source": "Air-Conditioning, Heating and Refrigeration Institute (AHRI), Water Heater Calculator: Worksheet for Estimating Peak Hour Demand/First Hour Rating (2011)",
+      "sourceUrl": "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf",
+      "sourceDate": "2026-11-12"
+    },
+    "lifespans": {
+      "caption": "Expected life by water heater type",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "years",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "years",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank",
+          "typical": 13,
+          "range": "10–15"
+        },
+        {
+          "label": "Electric tank",
+          "typical": 13,
+          "range": "10–15"
+        },
+        {
+          "label": "Heat pump (hybrid)",
+          "typical": 13,
+          "range": "10–15"
+        },
+        {
+          "label": "Gas tankless",
+          "typical": 20,
+          "range": "20 (DOE average; no range published)"
+        },
+        {
+          "label": "Electric tankless",
+          "typical": 20,
+          "range": "20 (DOE average; no range published)"
+        }
+      ],
+      "source": "U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
+      "sourceDate": "2026-11-12"
+    },
+    "drawPatterns": {
+      "caption": "DOE test draw patterns behind the UEF rating",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Draw pattern"
+        },
+        {
+          "key": "fhr",
+          "label": "First hour rating",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "gpd",
+          "label": "Hot water drawn",
+          "unit": "gal/day",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Very small",
+          "fhr": "0 to under 18",
+          "gpd": 10
+        },
+        {
+          "label": "Low",
+          "fhr": "18 to under 51",
+          "gpd": 38
+        },
+        {
+          "label": "Medium",
+          "fhr": "51 to under 75",
+          "gpd": 55
+        },
+        {
+          "label": "High",
+          "fhr": "75 or more",
+          "gpd": 84
+        }
+      ],
+      "source": "DOE test procedure for water heaters, 10 CFR Part 430, Subpart B, Appendix E (draw patterns and test conditions); DOE FEMP (typical household use); DOE Buildings Energy Data Book table 8.2.4 (per-person use)",
+      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-B/appendix-Appendix%20E%20to%20Subpart%20B%20of%20Part%20430",
+      "sourceDate": "2026-11-12"
+    },
+    "electricReference": {
+      "caption": "Electric tankless: one manufacturer's published electrical requirements",
+      "columns": [
+        {
+          "key": "model",
+          "label": "Model"
+        },
+        {
+          "key": "kw",
+          "label": "Power",
+          "unit": "kW",
+          "num": true
+        },
+        {
+          "key": "amps",
+          "label": "Current",
+          "unit": "A",
+          "num": true
+        },
+        {
+          "key": "breakers",
+          "label": "Breakers"
+        },
+        {
+          "key": "wire",
+          "label": "Wire"
+        }
+      ],
+      "rows": [
+        {
+          "model": "RETEX-13",
+          "kw": "13",
+          "amps": 54,
+          "breakers": "1 × 60 A",
+          "wire": "6 AWG copper"
+        },
+        {
+          "model": "RETEX-18",
+          "kw": "18",
+          "amps": 75,
+          "breakers": "2 × 40 A",
+          "wire": "8 AWG copper"
+        },
+        {
+          "model": "RETEX-24",
+          "kw": "24",
+          "amps": 100,
+          "breakers": "3 × 40 A",
+          "wire": "8 AWG copper"
+        },
+        {
+          "model": "RETEX-27",
+          "kw": "27",
+          "amps": 113,
+          "breakers": "3 × 40 A",
+          "wire": "8 AWG copper"
+        },
+        {
+          "model": "RETEX-36",
+          "kw": "36",
+          "amps": 150,
+          "breakers": "4 × 40 A",
+          "wire": "8 AWG copper"
+        }
+      ],
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20)",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf",
+      "sourceDate": "2026-11-12"
+    },
+    "serialFormats": {
+      "caption": "Serial number date codes we can decode",
+      "columns": [
+        {
+          "key": "brand",
+          "label": "Brand"
+        },
+        {
+          "key": "rule",
+          "label": "How the date is written"
+        },
+        {
+          "key": "example",
+          "label": "Example"
+        }
+      ],
+      "rows": [
+        {
+          "brand": "Bradford White",
+          "rule": "year letter, then month letter",
+          "example": "DF******* → June 1967, 1987, 2007 or 2027 (latest not in the future)"
+        },
+        {
+          "brand": "Rheem / Ruud",
+          "rule": "two-digit month, then two-digit year",
+          "example": "0794****** → July 1994"
+        },
+        {
+          "brand": "A. O. Smith",
+          "rule": "two-digit year, then two-digit week (2008 and later)",
+          "example": "0805A****** → 2008, week 5"
+        },
+        {
+          "brand": "",
+          "rule": "month letter, then two-digit year (up to 2008)",
+          "example": "*H06****** → August 2006"
+        },
+        {
+          "brand": "State",
+          "rule": "two-digit year, then two-digit week (2008 and later)",
+          "example": "0904******* → 2009, week 4 (Energy Trust labels this example April 2009, which does not match its own year-week rule; we follow the rule)"
+        },
+        {
+          "brand": "",
+          "rule": "month letter, then two-digit year (up to 2008)",
+          "example": "C05******* → March 2005"
+        },
+        {
+          "brand": "American",
+          "rule": "two-digit year, then two-digit week",
+          "example": "9746****** → 1997, week 46"
+        }
+      ],
+      "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/uef-ranges.json, data/fhr-to-tank-size.json and data/energystar-water-heaters.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Uniform Energy Factor (UEF) is the DOE efficiency rating printed on the EnergyGuide label: hot water energy delivered ÷ energy used in the 24-hour test. Defaults are typical values for each type; your unit's own UEF (on its label or spec sheet) always beats a default. Electric tankless units are not ENERGY STAR certified, so the federal minimum is used as a conservative default. Federal minimums below are the current rules for units made before May 6, 2029, for the medium and high draw patterns that most 40 to 50 gallon tanks are rated under (Vr = rated storage volume in gallons)."
+  },
+  "types": {
+    "gas_tank": {
+      "label": "Gas tank (standard vent)",
+      "low": 0.58,
+      "typical": 0.635,
+      "high": 0.66
+    },
+    "gas_tank_high_efficiency": {
+      "label": "Gas tank (high efficiency, ENERGY STAR)",
+      "low": 0.86,
+      "typical": 0.9,
+      "high": 0.9
+    },
+    "electric_tank": {
+      "label": "Electric tank",
+      "low": 0.92,
+      "typical": 0.93,
+      "high": 0.93
+    },
+    "heat_pump": {
+      "label": "Heat pump (hybrid), 240 V",
+      "low": 3.3,
+      "typical": 3.8,
+      "high": 4.5
+    },
+    "gas_tankless": {
+      "label": "Gas tankless",
+      "low": 0.81,
+      "typical": 0.95,
+      "high": 0.98
+    },
+    "electric_tankless": {
+      "label": "Electric tankless",
+      "low": 0.91,
+      "typical": 0.92,
+      "high": 0.92
+    }
+  },
+  "tables": {
+    "uef": {
+      "caption": "Uniform Energy Factor (UEF) by water heater type",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "typical",
+          "label": "Default",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "typical": "0.64",
+          "range": "0.58–0.66"
+        },
+        {
+          "label": "Gas tank (high efficiency, ENERGY STAR)",
+          "typical": "0.90",
+          "range": "0.86–0.90"
+        },
+        {
+          "label": "Electric tank",
+          "typical": "0.93",
+          "range": "0.92–0.93"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "typical": "3.80",
+          "range": "3.30–4.50"
+        },
+        {
+          "label": "Gas tankless",
+          "typical": "0.95",
+          "range": "0.81–0.98"
+        },
+        {
+          "label": "Electric tankless",
+          "typical": "0.92",
+          "range": "0.91–0.92"
+        }
+      ],
+      "source": "Rheem spec sheets, ENERGY STAR certified list and criteria, 10 CFR 430.32(d)",
+      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

@@ -1,0 +1,217 @@
+{
+  "meta": {
+    "source": "Manufacturer spec sheets (Rheem Performance gas: form THD-PGRH N Rev. 12 and THD-PGHD N Rev. 6, 12/23; Rheem Performance electric: THD-PE06 N Rev. 6, 08/20 and THD-PEDR6 Rev. 3, 12/23) and the ENERGY STAR certified list for heat pump models (data/energystar-water-heaters.json)",
+    "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf",
+    "sourceDate": "2026-11-12",
+    "notes": "First hour rating (FHR) depends on tank size and burner or element size, so each nominal size has a range. build:data turns these model rows into low / typical (median) / high per nominal size (data/computed/fhr-table.json). Gas tanks recover faster than electric ones, so a gas tank reaches the same FHR with fewer gallons. Federal efficiency standards for electric storage tanks over 55 gallons (10 CFR 430.32(d)) require heat pump levels of efficiency, so electric sizes above 55 gallons are heat pump water heaters. Spec sheets from one manufacturer are a sample, not the market; the heat pump figures cover several brands. The manufacturer cross-check on /methodology compares results with other brands' literature."
+  },
+  "models": {
+    "gas": [
+      {
+        "model": "XG30S06EC30U1",
+        "nominalGallons": 30,
+        "ratedGallons": 29,
+        "inputKbtuh": 30,
+        "fhr": 55,
+        "uef": 0.6,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG40S06EC34UO",
+        "nominalGallons": 40,
+        "ratedGallons": 39,
+        "inputKbtuh": 34,
+        "fhr": 64,
+        "uef": 0.58,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG40T06EC36U1",
+        "nominalGallons": 40,
+        "ratedGallons": 38,
+        "inputKbtuh": 36,
+        "fhr": 68,
+        "uef": 0.58,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG40S06HE38UO",
+        "nominalGallons": 40,
+        "ratedGallons": 39,
+        "inputKbtuh": 38,
+        "fhr": 69,
+        "uef": 0.59,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG40T06TH40U0",
+        "nominalGallons": 40,
+        "ratedGallons": 38,
+        "inputKbtuh": 40,
+        "fhr": 84,
+        "uef": 0.66,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG50T06TH40U0",
+        "nominalGallons": 50,
+        "ratedGallons": 48,
+        "inputKbtuh": 40,
+        "fhr": 75,
+        "uef": 0.64,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG50T06HE40UO",
+        "nominalGallons": 50,
+        "ratedGallons": 48,
+        "inputKbtuh": 40,
+        "fhr": 77,
+        "uef": 0.64,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG50T06EC38U1",
+        "nominalGallons": 50,
+        "ratedGallons": 48,
+        "inputKbtuh": 38,
+        "fhr": 85,
+        "uef": 0.63,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG50S06EC40U1",
+        "nominalGallons": 50,
+        "ratedGallons": 48,
+        "inputKbtuh": 40,
+        "fhr": 86,
+        "uef": 0.64,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG55T06EC50UO",
+        "nominalGallons": 55,
+        "ratedGallons": 55,
+        "inputKbtuh": 50,
+        "fhr": 97,
+        "uef": 0.62,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+      },
+      {
+        "model": "XG75T06ST76UO",
+        "nominalGallons": 75,
+        "ratedGallons": 73,
+        "inputKbtuh": 75.1,
+        "fhr": 100,
+        "uef": 0.61,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/d8/d85d4549-29e8-42cb-ad63-3fb984dc7ecf.pdf"
+      }
+    ],
+    "electric": [
+      {
+        "model": "XE30T06ST45U1",
+        "nominalGallons": 30,
+        "ratedGallons": 27,
+        "elementKw": 4.5,
+        "fhr": 46,
+        "uef": 0.92,
+        "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+      },
+      {
+        "model": "XE30M06ST45U1",
+        "nominalGallons": 30,
+        "ratedGallons": 27,
+        "elementKw": 4.5,
+        "fhr": 45,
+        "uef": 0.9,
+        "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+      },
+      {
+        "model": "XE40T06ST45U1",
+        "nominalGallons": 40,
+        "ratedGallons": 36,
+        "elementKw": 4.5,
+        "fhr": 54,
+        "uef": 0.93,
+        "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+      },
+      {
+        "model": "XE40M06ST45U1",
+        "nominalGallons": 40,
+        "ratedGallons": 36,
+        "elementKw": 4.5,
+        "fhr": 53,
+        "uef": 0.93,
+        "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+      },
+      {
+        "model": "XE40M06CG45U0",
+        "nominalGallons": 40,
+        "ratedGallons": 36,
+        "elementKw": 4.5,
+        "fhr": 55,
+        "uef": 0.93,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c0/c09d0db3-da10-43ba-9dbd-00a342e368aa.pdf"
+      },
+      {
+        "model": "XE40T06CG45U0",
+        "nominalGallons": 40,
+        "ratedGallons": 36,
+        "elementKw": 4.5,
+        "fhr": 55,
+        "uef": 0.92,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c0/c09d0db3-da10-43ba-9dbd-00a342e368aa.pdf"
+      },
+      {
+        "model": "XE50T06ST45U1",
+        "nominalGallons": 50,
+        "ratedGallons": 45,
+        "elementKw": 4.5,
+        "fhr": 61,
+        "uef": 0.93,
+        "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+      },
+      {
+        "model": "XE50M06ST45U1",
+        "nominalGallons": 50,
+        "ratedGallons": 45,
+        "elementKw": 4.5,
+        "fhr": 61,
+        "uef": 0.93,
+        "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+      },
+      {
+        "model": "XE50T06CG45U0",
+        "nominalGallons": 50,
+        "ratedGallons": 45,
+        "elementKw": 4.5,
+        "fhr": 63,
+        "uef": 0.92,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c0/c09d0db3-da10-43ba-9dbd-00a342e368aa.pdf"
+      },
+      {
+        "model": "XE50M06CG45U0",
+        "nominalGallons": 50,
+        "ratedGallons": 45,
+        "elementKw": 4.5,
+        "fhr": 63,
+        "uef": 0.92,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c0/c09d0db3-da10-43ba-9dbd-00a342e368aa.pdf"
+      },
+      {
+        "model": "XE55T06CG45U0",
+        "nominalGallons": 55,
+        "ratedGallons": 55,
+        "elementKw": 4.5,
+        "fhr": 74,
+        "uef": 0.92,
+        "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c0/c09d0db3-da10-43ba-9dbd-00a342e368aa.pdf"
+      }
+    ]
+  },
+  "heatPump": {
+    "from": "energystar-water-heaters.json → heatPumpFhrByNominal",
+    "source": "ENERGY STAR Certified Water Heaters dataset",
+    "sourceUrl": "https://data.energystar.gov/Active-Specifications/ENERGY-STAR-Certified-Water-Heaters/pbpq-swnu"
+  }
+}

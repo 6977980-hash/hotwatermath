@@ -1,8 +1,8 @@
 {
   "meta": {
-    "source": "Owner decisions recorded in docs/DECISIONS.md (brand, domain, founder, contact). Default assumption values and their sources are filled in Phase 1.",
-    "sourceUrl": "",
-    "sourceDate": "2026-11-13",
+    "source": "Owner decisions recorded in docs/DECISIONS.md (brand, domain, founder, contact). Default assumptions: DOE FEMP (setpoint) and EIA (energy prices), each with its own source below.",
+    "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters",
+    "sourceDate": "2026-11-12",
     "notes": "Single source of truth for brand, identity, integrations and default assumptions. Never hardcode these in templates or content."
   },
   "brand": "Hot Water Math",
@@ -36,24 +36,33 @@
     "setpointTempF": {
       "value": 120,
       "unit": "°F",
-      "source": "",
-      "sourceUrl": "",
-      "sourceDate": ""
+      "source": "U.S. Department of Energy, Federal Energy Management Program (FEMP), Purchasing Energy-Efficient Residential Water Heaters: \"For most residential applications, set the temperature at 120°F.\"",
+      "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters",
+      "sourceDate": "2026-11-12"
     },
     "defaultElectricRateUsdPerKwh": {
-      "value": null,
+      "value": 0.1723,
       "unit": "USD/kWh",
-      "source": "",
-      "sourceUrl": "",
-      "sourceDate": ""
+      "source": "EIA Electric Power Annual, Table 2.10: U.S. average residential electricity price, 2025 (17.23 cents/kWh)",
+      "sourceUrl": "https://www.eia.gov/electricity/annual/html/epa_02_10.html",
+      "sourceDate": "2026-11-12"
     },
     "defaultGasRateUsdPerTherm": {
-      "value": null,
+      "value": 1.481,
       "unit": "USD/therm",
-      "source": "",
-      "sourceUrl": "",
-      "sourceDate": ""
+      "source": "EIA: U.S. average residential natural gas price, 2025 ($15.34/Mcf), converted with the U.S. heat content of delivered gas, 2025 (1036 BTU/cf)",
+      "sourceUrl": "https://www.eia.gov/dnav/ng/ng_pri_sum_a_EPG0_PRS_DMcf_a.htm",
+      "sourceDate": "2026-11-12"
     }
   },
-  "dateVerified": {}
+  "dateVerified": {
+    "water-heater-age-calculator": "",
+    "tankless-water-heater-size-calculator": "",
+    "water-heater-size-calculator": "",
+    "repair-or-replace-water-heater": "",
+    "water-heater-cost-calculator": "",
+    "tankless-vs-tank-water-heater": "",
+    "gas-vs-electric-water-heater": ""
+  },
+  "dateVerifiedNote": "Per tool: the date its manufacturer cross-check on /methodology was last run (Phases 2–4). Empty = not yet verified, and the AuthorLine then shows no 'Last verified' date."
 }

@@ -41,7 +41,11 @@ npm run check                               # SEO/robots/schema check against ht
 npm run check -- --base=http://localhost:8080 --bust
 npm run build:og                            # assets/og/<slug>.png, 1200×630, per non-planned page
 npm run build:brand                         # logo/favicon PNGs + favicon.ico from assets/brand/icon.svg
-npm run build:data                          # data/computed/*.json (calculators arrive in Phase 1+)
+npm run build:data                          # data/computed/*.json from assets/js/formulas.js + data/*.json (commit the output)
+npm test                                    # formula unit tests (node --test)
+npm run validate-data                       # meta/source fields, no nulls, 51 states, computed data not stale
+NODE_USE_ENV_PROXY=1 npm run validate-data -- --urls   # also request every sourceUrl (record results in HANDOFF)
+NODE_USE_ENV_PROXY=1 npm run fetch:sources -- eia noaa rpp energystar   # refresh generated data files from primary sources, then build:data
 ```
 
 Run `npm run build:og` after adding a page or changing an H1/subtitle, and commit the PNGs.

@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from published worked examples (DOE FEMP, Rheem spec sheet, DOE Energy Saver, AHRI) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Checks that our formulas reproduce published figures. diffPct = (ours − published) ÷ published × 100."
+  },
+  "checks": [
+    {
+      "id": "annual-kwh-femp",
+      "label": "Electric tank, UEF 0.95, 20,075 gal/yr, 67 °F rise",
+      "ours": "3,461 kWh/yr",
+      "published": "3,437 kWh/yr",
+      "diffPct": 0.7,
+      "source": "DOE FEMP Table 1: a 0.95 UEF electric storage water heater uses 3,437 kWh a year at 20,075 gallons (used on /methodology to cross-check our energy formula)",
+      "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters"
+    },
+    {
+      "id": "rise-RETEX-36-2.5",
+      "label": "RETEX-36 (36 kW) at 2.5 GPM",
+      "ours": "98 °F rise",
+      "published": "98 °F rise",
+      "diffPct": 0.2,
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "rise-RETEX-36-3",
+      "label": "RETEX-36 (36 kW) at 3.0 GPM",
+      "ours": "82 °F rise",
+      "published": "82 °F rise",
+      "diffPct": -0.2,
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "rise-RETEX-36-4",
+      "label": "RETEX-36 (36 kW) at 4.0 GPM",
+      "ours": "61 °F rise",
+      "published": "62 °F rise",
+      "diffPct": -1,
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "rise-RETEX-36-5",
+      "label": "RETEX-36 (36 kW) at 5.0 GPM",
+      "ours": "49 °F rise",
+      "published": "49 °F rise",
+      "diffPct": 0.2,
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "rise-RETEX-36-6",
+      "label": "RETEX-36 (36 kW) at 6.0 GPM",
+      "ours": "41 °F rise",
+      "published": "41 °F rise",
+      "diffPct": -0.2,
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20), temperature rise table",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf"
+    },
+    {
+      "id": "doe-tankless-example",
+      "label": "Faucet 0.75 GPM + shower 2.5 GPM, 50 °F in, 120 °F out",
+      "ours": "3.25 GPM at 70 °F rise",
+      "published": "3.25 GPM at 70 °F rise",
+      "diffPct": 0,
+      "source": "DOE Energy Saver, Sizing a New Water Heater (tankless section), archived copy of January 27, 2017 (the page is no longer on energy.gov; it returned 404 on 2026-11-12)",
+      "sourceUrl": "https://webarchive.library.unt.edu/web/20170127025521/https://energy.gov/energysaver/sizing-new-water-heater"
+    },
+    {
+      "id": "ahri-peak-hour-example",
+      "label": "3 showers, 1 shave, 1 shampoo, 1 hand dishwashing",
+      "ours": "70 gal",
+      "published": "70 gal",
+      "diffPct": 0,
+      "source": "AHRI worksheet example",
+      "sourceUrl": "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf"
+    }
+  ],
+  "tables": {
+    "formulaChecks": {
+      "caption": "Our formulas against published figures",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Case"
+        },
+        {
+          "key": "ours",
+          "label": "Our result"
+        },
+        {
+          "key": "published",
+          "label": "Published"
+        },
+        {
+          "key": "diff",
+          "label": "Difference",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Electric tank, UEF 0.95, 20,075 gal/yr, 67 °F rise",
+          "ours": "3,461 kWh/yr",
+          "published": "3,437 kWh/yr",
+          "diff": "0.7"
+        },
+        {
+          "label": "RETEX-36 (36 kW) at 2.5 GPM",
+          "ours": "98 °F rise",
+          "published": "98 °F rise",
+          "diff": "0.2"
+        },
+        {
+          "label": "RETEX-36 (36 kW) at 3.0 GPM",
+          "ours": "82 °F rise",
+          "published": "82 °F rise",
+          "diff": "-0.2"
+        },
+        {
+          "label": "RETEX-36 (36 kW) at 4.0 GPM",
+          "ours": "61 °F rise",
+          "published": "62 °F rise",
+          "diff": "-1.0"
+        },
+        {
+          "label": "RETEX-36 (36 kW) at 5.0 GPM",
+          "ours": "49 °F rise",
+          "published": "49 °F rise",
+          "diff": "0.2"
+        },
+        {
+          "label": "RETEX-36 (36 kW) at 6.0 GPM",
+          "ours": "41 °F rise",
+          "published": "41 °F rise",
+          "diff": "-0.2"
+        },
+        {
+          "label": "Faucet 0.75 GPM + shower 2.5 GPM, 50 °F in, 120 °F out",
+          "ours": "3.25 GPM at 70 °F rise",
+          "published": "3.25 GPM at 70 °F rise",
+          "diff": "0.0"
+        },
+        {
+          "label": "3 showers, 1 shave, 1 shampoo, 1 hand dishwashing",
+          "ours": "70 gal",
+          "published": "70 gal",
+          "diff": "0.0"
+        }
+      ],
+      "source": "DOE FEMP; Rheem form THD-PTE; DOE Energy Saver (archived); AHRI worksheet",
+      "sourceUrl": "https://hotwatermath.com/methodology/",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

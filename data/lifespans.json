@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "source": "U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP",
+    "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
+    "sourceDate": "2026-11-12",
+    "notes": "DOE estimates lifetimes from national survey data (RECS and the American Housing Survey) with a survival function. For storage tanks DOE's 2024 average is about 15 years; its 2010 rule, ENERGY STAR and DOE FEMP use 13 years; AHRI assumes 10 to 13 years (as quoted in the 2024 rule). We use 13 as the typical value and 10 to 15 as the range. For tankless units DOE publishes an average of about 20 years and no range, so low, typical and high are all 20 until a primary source gives a range. Adjustments for water hardness, maintenance and anode replacement are Hot Water Math editorial assumptions, not measured data, and /methodology says so."
+  },
+  "types": {
+    "gas_tank": {
+      "label": "Gas tank",
+      "low": 10,
+      "typical": 13,
+      "high": 15
+    },
+    "electric_tank": {
+      "label": "Electric tank",
+      "low": 10,
+      "typical": 13,
+      "high": 15
+    },
+    "heat_pump": {
+      "label": "Heat pump (hybrid)",
+      "low": 10,
+      "typical": 13,
+      "high": 15
+    },
+    "gas_tankless": {
+      "label": "Gas tankless",
+      "low": 20,
+      "typical": 20,
+      "high": 20
+    },
+    "electric_tankless": {
+      "label": "Electric tankless",
+      "low": 20,
+      "typical": 20,
+      "high": 20
+    }
+  },
+  "evidence": [
+    {
+      "claim": "DOE estimates the average product lifetime to be around 15 years for storage water heaters",
+      "source": "DOE final rule, Energy Conservation Standards for Consumer Water Heaters, 89 FR (May 6, 2024), section IV.F.6",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "claim": "The 2010 rulemaking reports an average lifetime of 13 years; 13 years for heat pump water heaters is shared by ENERGY STAR; AHRI assumes a 10-13 year lifespan (comments quoted in the rule)",
+      "source": "Same rule, section IV.F.6",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "claim": "Assumed product life of 13 years (electric storage and heat pump water heaters)",
+      "source": "DOE FEMP, Purchasing Energy-Efficient Residential Water Heaters",
+      "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters"
+    },
+    {
+      "claim": "DOE estimates the average product lifetime to be around 20 years for instantaneous water heaters",
+      "source": "DOE final rule, Energy Conservation Standards for Consumer Gas-fired Instantaneous Water Heaters, 89 FR (December 26, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/html/2024-30369.htm"
+    }
+  ],
+  "adjustments": {
+    "source": "Hot Water Math editorial assumption (documented on /methodology); not measured data",
+    "hardness": {
+      "soft": 0,
+      "moderate": 0,
+      "hard": -1,
+      "veryHard": -2
+    },
+    "noAnnualFlush": -1,
+    "anodeReplaced": 1,
+    "minimumLifeYears": 5
+  },
+  "statusBands": {
+    "amberFrom": 0.6,
+    "redFrom": 0.9,
+    "source": "Hot Water Math editorial assumption: green below 60% of typical life, amber from 60%, red from 90%"
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "source": "Federal maximum flow rates (10 CFR 430.32(o) faucets, 430.32(p) showerheads); EPA WaterSense specifications; typical appliance fill rates from the DOE Building America Solution Center (PNNL) table based on the ASHRAE Handbook",
+    "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+    "sourceDate": "2026-11-12",
+    "notes": "Flow rates are mixed (hot + cold) water at the fixture, which is how tankless sizing guides add them up; sizing a tankless unit with mixed flow and the full setpoint rise slightly overstates the need, which errs on the safe side. Shower and faucet defaults are the federal maximums (the flow most homes see from fixtures sold since 1994). Low-flow values are the WaterSense maximums. Dishwasher, clothes washer and tub defaults are the midpoint of the PNNL/ASHRAE typical range, rounded to 0.5 GPM; the ranges are wide, so the calculator lets you change every value."
+  },
+  "fixtures": {
+    "shower": {
+      "label": "Shower",
+      "gpm": 2.5,
+      "lowFlowGpm": 2.0,
+      "rangeLow": 0.8,
+      "rangeHigh": 2.5,
+      "source": "Federal maximum 2.5 GPM at 80 psi (10 CFR 430.32(p)); WaterSense labeled showerheads use no more than 2.0 GPM; typical range from PNNL table",
+      "sourceUrl": "https://www.epa.gov/watersense/showerheads"
+    },
+    "bathroomFaucet": {
+      "label": "Bathroom faucet",
+      "gpm": 2.2,
+      "lowFlowGpm": 1.5,
+      "rangeLow": 0.2,
+      "rangeHigh": 2.2,
+      "source": "Federal maximum 2.2 GPM at 60 psi for lavatory faucets (10 CFR 430.32(o)); WaterSense labeled bathroom faucets use no more than 1.5 GPM; hand-washing sink range 0.2 to 1.0 GPM from PNNL table",
+      "sourceUrl": "https://www.epa.gov/watersense/bathroom-faucets"
+    },
+    "kitchenFaucet": {
+      "label": "Kitchen faucet",
+      "gpm": 2.2,
+      "lowFlowGpm": 2.2,
+      "rangeLow": 1.0,
+      "rangeHigh": 2.2,
+      "source": "Federal maximum 2.2 GPM at 60 psi for kitchen faucets (10 CFR 430.32(o)). WaterSense has no kitchen faucet label, so the low-flow value is the same.",
+      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+    },
+    "dishwasher": {
+      "label": "Dishwasher",
+      "gpm": 2.0,
+      "lowFlowGpm": 2.0,
+      "rangeLow": 1.0,
+      "rangeHigh": 3.0,
+      "source": "Dishwasher fill rates 1.0 to 3.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); default is the midpoint",
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+    },
+    "clothesWasher": {
+      "label": "Clothes washer",
+      "gpm": 3.5,
+      "lowFlowGpm": 3.5,
+      "rangeLow": 1.0,
+      "rangeHigh": 6.0,
+      "source": "Clothes-washing machine fill rates 1.0 to 6.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); default is the midpoint",
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+    },
+    "tubFill": {
+      "label": "Bathtub filling",
+      "gpm": 3.5,
+      "lowFlowGpm": 3.5,
+      "rangeLow": 1.0,
+      "rangeHigh": 6.0,
+      "source": "Bathtub fill rates 1.0 to 6.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); default is the midpoint",
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+    }
+  },
+  "wholeHousePeaks": {
+    "recurringLow": 3.0,
+    "recurringHigh": 4.0,
+    "severeLow": 6.0,
+    "severeHigh": 8.0,
+    "source": "Residential whole-house recurring peak 3.0 to 4.0 GPM and severe peak 6.0 to 8.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook)",
+    "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+  },
+  "doeExample": {
+    "faucetGpm": 0.75,
+    "showerGpm": 2.5,
+    "totalGpm": 3.25,
+    "inletF": 50,
+    "outletF": 120,
+    "riseF": 70,
+    "source": "DOE Energy Saver, Sizing a New Water Heater (tankless section), archived copy of January 27, 2017 (the page is no longer on energy.gov; it returned 404 on 2026-11-12)",
+    "sourceUrl": "https://webarchive.library.unt.edu/web/20170127025521/https://energy.gov/energysaver/sizing-new-water-heater"
+  }
+}

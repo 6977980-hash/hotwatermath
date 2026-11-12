@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "source": "Federal minimum UEF (10 CFR 430.32(d)); ENERGY STAR Version 5.0 criteria; Rheem Performance spec sheets (standard gas and electric tanks); ENERGY STAR certified list (heat pump and gas tankless)",
+    "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+    "sourceDate": "2026-11-12",
+    "notes": "Uniform Energy Factor (UEF) is the DOE efficiency rating printed on the EnergyGuide label: hot water energy delivered ÷ energy used in the 24-hour test. Defaults are typical values for each type; your unit's own UEF (on its label or spec sheet) always beats a default. Electric tankless units are not ENERGY STAR certified, so the federal minimum is used as a conservative default. Federal minimums below are the current rules for units made before May 6, 2029, for the medium and high draw patterns that most 40 to 50 gallon tanks are rated under (Vr = rated storage volume in gallons)."
+  },
+  "types": {
+    "gas_tank": {
+      "label": "Gas tank (standard vent)",
+      "from": "fhr-to-tank-size.json → models.gas, 40 and 50 gallon rows",
+      "source": "Rheem Performance atmospheric gas spec sheet (.58 to .66 UEF); build:data takes low / median / high of the 40 and 50 gallon models",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf"
+    },
+    "gas_tank_high_efficiency": {
+      "label": "Gas tank (high efficiency, ENERGY STAR)",
+      "energyStarMinimumMedium": 0.81,
+      "energyStarMinimumHigh": 0.86,
+      "typical": 0.9,
+      "source": "ENERGY STAR criteria (UEF ≥ 0.81 medium draw, ≥ 0.86 high draw, tanks up to 55 gallons); typical = median of certified gas storage models",
+      "sourceUrl": "https://www.energystar.gov/products/water_heaters/residential_water_heaters_key_product_criteria"
+    },
+    "electric_tank": {
+      "label": "Electric tank",
+      "from": "fhr-to-tank-size.json → models.electric, 40 and 50 gallon rows",
+      "source": "Rheem Performance electric spec sheets; build:data takes low / median / high of the 40 and 50 gallon models",
+      "sourceUrl": "https://images.homedepot-static.com/catalog/pdfImages/2d/2d7ed116-1a8c-439d-b7fe-a62a0a98f806.pdf"
+    },
+    "heat_pump": {
+      "label": "Heat pump (hybrid), 240 V",
+      "from": "energystar-water-heaters.json → uef.heatPump240V",
+      "energyStarMinimum": 3.3,
+      "source": "ENERGY STAR criteria (integrated heat pump UEF ≥ 3.30) and certified list",
+      "sourceUrl": "https://www.energystar.gov/products/water_heaters/residential_water_heaters_key_product_criteria"
+    },
+    "gas_tankless": {
+      "label": "Gas tankless",
+      "low": 0.81,
+      "typical": 0.95,
+      "high": 0.98,
+      "federalMinimum": 0.81,
+      "energyStarMinimum": 0.95,
+      "source": "Federal minimum 0.81 (non-condensing units can be rated near it); ENERGY STAR minimum 0.95; certified models range 0.95 to 0.98 (median 0.95)",
+      "sourceUrl": "https://www.energystar.gov/products/water_heaters/residential_water_heaters_key_product_criteria"
+    },
+    "electric_tankless": {
+      "label": "Electric tankless",
+      "low": 0.91,
+      "typical": 0.92,
+      "federalMinimum": 0.92,
+      "source": "Federal minimum for instantaneous electric water heaters: 0.91 (very small to medium draw), 0.92 (high draw). Used as a conservative default.",
+      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+    }
+  },
+  "federalMinimums": {
+    "gasStorage20to55": {
+      "medium": {
+        "intercept": 0.6483,
+        "perGallon": 0.0017
+      },
+      "high": {
+        "intercept": 0.692,
+        "perGallon": 0.0013
+      }
+    },
+    "electricStorage20to55": {
+      "medium": {
+        "intercept": 0.9307,
+        "perGallon": 0.0002
+      },
+      "high": {
+        "intercept": 0.9349,
+        "perGallon": 0.0001
+      }
+    },
+    "electricStorageOver55": {
+      "medium": {
+        "intercept": 2.1171,
+        "perGallon": 0.0011
+      },
+      "high": {
+        "intercept": 2.2418,
+        "perGallon": 0.0011
+      }
+    },
+    "source": "10 CFR 430.32(d)(1): minimum UEF = intercept − perGallon × Vr",
+    "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+    "electricResistanceMaxGallons": 55,
+    "electricResistanceMaxGallonsNote": "Above 55 gallons rated volume, the federal minimum UEF for electric storage tanks (about 2.1 and up) can only be met by a heat pump water heater, so standard electric resistance tanks stop at 55 gallons."
+  }
+}

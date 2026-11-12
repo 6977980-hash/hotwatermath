@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "source": "Owner-maintained list of retailer links (CLAUDE.md §7). Empty means the affiliate block does not render.",
+    "sourceUrl": "",
+    "sourceDate": "2026-11-12",
+    "notes": "Each item: { category, spec, url, retailer }. Every link is printed with rel=\"sponsored nofollow noopener\"."
+  },
+  "items": []
+}
