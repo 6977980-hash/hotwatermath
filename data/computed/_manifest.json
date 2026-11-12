@@ -19,7 +19,7 @@
   ],
   "inputs": {
     "assets/js/formulas.js": "111d3b1bb0311161",
-    "scripts/build-data.mjs": "ff7fc4471caa727d",
+    "scripts/build-data.mjs": "ebaf05b5b15e1513",
     "data/site.json": "2d91479c18da6bc2",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "a1f9b690f93635a0",

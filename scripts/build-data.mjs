@@ -405,7 +405,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		},
 	};
 	const ageOut = out['water-heater-age-calculator'];
-	const dd = describeAge({ ...def, year: null, month: '' }, ageOut.client, asOf);
+	const dd = describeAge({ ...def, madeYear: null, madeMonth: '' }, ageOut.client, asOf);
 	ageOut.default = {
 		status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline,
 		explain: `${dd.explain} (Example serial, as of ${asOfIso}; type yours.)`,

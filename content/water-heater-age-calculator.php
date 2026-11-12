@@ -40,11 +40,11 @@ ob_start();
 	<summary>No serial, or brand not decoded? Enter the year</summary>
 	<div class="field">
 		<label for="age-year">Year it was made <span class="hint">From the rating plate. Used when the serial cannot be decoded.</span></label>
-		<input id="age-year" name="year" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off">
+		<input id="age-year" name="madeYear" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off">
 	</div>
 	<div class="field">
 		<label for="age-month">Month (optional)</label>
-		<select id="age-month" name="month">
+		<select id="age-month" name="madeMonth">
 			<option value="">Not sure</option>
 			<?php foreach ( (array) hwm_raw( $hwm_c, 'client.months' ) as $hwm_i => $hwm_m ) : ?>
 				<option value="<?php echo esc_attr( (string) ( $hwm_i + 1 ) ); ?>"><?php echo esc_html( $hwm_m ); ?></option>

@@ -23,7 +23,7 @@
 - `assets/css/global.css` — `.field-grid`, `.figure`, `[hidden]`
 - `assets/og/water-heater-age-calculator.png`, `assets/og/tankless-water-heater-size-calculator.png`
 - `docs/briefs/water-heater-age-calculator.md`, `docs/briefs/tankless-water-heater-size-calculator.md` — SERP briefs + quality check (sources table)
-- `tests/formulas.test.mjs` — 33 tests; `style.css` Version 0.3.0; 5 new `docs/DECISIONS.md` rows
+- `tests/formulas.test.mjs` — 33 tests; `style.css` Version 0.3.1; 5 new `docs/DECISIONS.md` rows
 
 **Verified (before deploy):**
 - `npm test` 33/33; `npm run validate-data` 30 files OK, computed fresh; `--urls` 90/90 source URLs 200 (2026-11-13).
@@ -38,7 +38,11 @@
   - Tankless: 1 shower, 70 °F in → 2.5 GPM, 50 °F rise, 18.3 kW → RETEX-24 (18 kW too small).
 - Manufacturer cross-checks (on /methodology): Rinnai RUR98i/RL94i/V65i flow at 70 and 50 °F rise within −0.9% to −2.5%; Noritz examples same GPM and rise (6 GPM case: our input is 3.2% above one 199,000 unit, Noritz picks one large unit — explained); Rheem RETEX-36 within 1%; age decoder matches Rheem/Ruud lookup (3/3), Bradford White table (2/2) and CPSC Navien example.
 - Hardcoded-digit grep on both content files: only regulation names (10 CFR 430.32, 89 FR), years of sources (2024 rules, 1991–2020 normals), "24-hour test" (DOE test name), "50 states", question wording ("family of 4", "2 or 3 bathrooms"), "the digits 0 and 1" and source access dates. All data numbers render from data/computed files.
-- Live (after deploy): see the follow-up note below once checked.
+- Live after PR #5 (0.3.0) and the follow-up PR (0.3.1), 2026-11-13: both pages 200, `noindex, follow`, server-rendered default result present; `/embed/<tool>/` 200 for both. `npm run check` 140/140 with and without `--bust`.
+- Live Playwright at 360×640: no console errors, no sideways scroll; age brand select ends at 590 px, tankless state select at 617 px; Minnesota case gives 7.2 GPM / 83 °F / 316,295 BTU/h (matches the worked example); share-link URL reloads to the same result; embed works.
+- Lighthouse mobile (live): age 100 / 100 / 100 / SEO 66, tankless 100 / 100 / 100 / SEO 66; LCP 1.0–1.1 s, CLS 0. The only failing SEO audit is `is-crawlable` (the pages are noindex drafts by design); every other SEO audit passes, so SEO is 100 once the owner flips them live.
+- Schema.org validator (live): age page 0 errors (WebPage, BreadcrumbList, WebApplication, FAQPage). Tankless page: the validator rate-limited further requests; its markup comes from the same functions.
+- Follow-up fix (0.3.1): the age form's year field was named `year`, a WordPress query var, so a shared link with a year answered 404. Renamed to `madeYear` / `madeMonth`. Never name a form field after a WordPress query var (`year`, `monthnum`, `day`, `m`, `p`, `s`, `page`, `name`, `cat`, `tag`, `author`, `feed`, `order`).
 
 **Known issues / TODOs carried forward:**
 - Navien months Y/Z (Nov/Dec) are inferred, not shown in an opened source (noted in data). Rinnai, Noritz, Takagi, Bosch not decoded (no source); Phase 2b Navien/Rinnai brand pages must find a manufacturer source first.

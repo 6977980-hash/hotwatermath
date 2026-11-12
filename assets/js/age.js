@@ -10,7 +10,7 @@ const one = (v) => formatNumber(v, 1);
 
 /**
  * Turn the form values into the result panel text.
- * @param {object} v Form values: brand, serial, year, month, type, hardness, flushed, anode.
+ * @param {object} v Form values: brand, serial, madeYear, madeMonth (named so they never collide with WordPress query vars "year"/"monthnum"), type, hardness, flushed, anode.
  * @param {object} cfg Client data from data/computed/water-heater-age-calculator.json → client.
  * @param {Date} today
  * @returns {{status:(string|undefined), statusLabel:string, headline:string, explain:string, formula:string, made?:object, age?:number}}
@@ -26,12 +26,12 @@ export function describe(v, cfg, today) {
 		made = decodeSerial(serial, code.patterns, refYear);
 		if (made) from = 'serial';
 	}
-	const year = Number.isFinite(v.year) ? Math.round(v.year) : null;
+	const year = Number.isFinite(v.madeYear) ? Math.round(v.madeYear) : null;
 	if (!made && year) {
 		if (year > refYear || year < refYear - 80) {
 			return { statusLabel: 'Check the year', headline: `Enter a year between ${refYear - 80} and ${refYear}`, explain: 'The year printed on the rating plate, or decoded from the serial number.', formula: '' };
 		}
-		const month = Number.parseInt(v.month, 10);
+		const month = Number.parseInt(v.madeMonth, 10);
 		made = { year, month: month >= 1 && month <= 12 ? month : null, week: null, otherYears: [] };
 		from = 'year';
 	}
