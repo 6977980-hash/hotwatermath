@@ -260,7 +260,7 @@ const out = {};
 
 function describePattern(p) {
 	if (p.layout) return p.layout;
-	const parts = Object.entries(p.fields).sort((a, b) => a[1].group - b[1].group).map(([, s]) => ({ yy: 'two-digit year', mm: 'two-digit month', ww: 'two-digit week', letterYear: 'year letter', letterMonth: 'month letter' })[s.type]);
+	const parts = Object.entries(p.fields).sort((a, b) => a[1].group - b[1].group).map(([, s]) => ({ yy: 'two-digit year', mm: 'two-digit month', ww: 'two-digit week', yyyy: 'four-digit year', letterYear: 'year letter', letterMonth: 'month letter' })[s.type]);
 	const when = p.validFromYear ? ` (${p.validFromYear} and later)` : p.validToYear ? ` (up to ${p.validToYear})` : '';
 	return `${parts.join(', then ')}${when}`;
 }
@@ -364,6 +364,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		const b = o.decodeAs ? sf.brands[o.decodeAs] : null;
 		return {
 			id: o.id,
+			page: o.page || `${o.id}-water-heater-age`,
 			brand: o.label,
 			rule: b ? b.patterns.map(describePattern).join('; or ') : 'Not decoded yet: enter the year from the label',
 			example: b ? b.patterns.map((p) => p.example).join('; ') : '',
@@ -429,14 +430,14 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const deltas = (hardness, flushed, anode, typeId) => [adj.hardness[hardness] ?? 0, flushed ? 0 : adj.noAnnualFlush, anode && typeId !== 'tankless' ? adj.anodeReplaced : 0];
 	const statusLabel = ageOut.statusLabels;
 	const pct = (f) => Math.round(f * 100);
-	const SOURCE_NAMES = { 'insider.energytrust.org': 'Energy Trust of Oregon', 'www.cpsc.gov': 'U.S. CPSC recall notice', 'www.ruud.com': 'Rheem/Ruud lookup', 'www.bradfordwhite.com': 'Bradford White', 'inspectapedia.com': 'InspectApedia (third party)', 'building-center.org': 'Building Intelligence Center (third party)' };
+	const SOURCE_NAMES = { 'insider.energytrust.org': 'Energy Trust of Oregon', 'www.cpsc.gov': 'U.S. CPSC recall notice', 'www.ruud.com': 'Rheem/Ruud lookup', 'www.bradfordwhite.com': 'Bradford White', 'inspectapedia.com': 'InspectApedia (third party)', 'building-center.org': 'Building Intelligence Center (third party)', 'www.building-center.org': 'Building Intelligence Center (third party)' };
 	const sourceName = (url) => SOURCE_NAMES[new URL(url).host] || new URL(url).host;
 
 	for (const [brandId, b] of Object.entries(bp.brands)) {
 		const asOfIso = d.site.dateVerified[b.slug] || d.site.dateVerified['water-heater-age-calculator'];
 		const asOf = new Date(`${asOfIso}T12:00:00Z`);
 		const refYear = asOf.getUTCFullYear();
-		const code = sf.brands[brandId];
+		const code = sf.brands[b.code || brandId];
 		const option = sf.brandOptions.options.find((o) => o.id === b.option);
 		const checks = b.checks.map((c) => {
 			const m = F.decodeSerial(c.serial, code.patterns, refYear);
@@ -481,7 +482,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 			source: sourceName(p.sourceUrl || code.sourceUrl),
 			sourceUrl: p.sourceUrl || code.sourceUrl,
 		}));
-		const def = { brand: b.option, serial: b.defaultSerial, type: 'gas_tank', hardness: 'moderate', flushed: true, anode: false };
+		const def = { brand: b.option, serial: b.defaultSerial, type: b.defaultType || 'gas_tank', hardness: 'moderate', flushed: true, anode: false };
 		const dd = describeAge({ ...def, madeYear: null, madeMonth: '' }, ageOut.client, asOf);
 		const o = {
 			meta: { ...derived('data/brand-pages.json, data/serial-formats.json and data/lifespans.json'), notes: `Brand page for ${code.label}. Default result, hand-checks and worked examples are computed as of ${asOfIso}. The live calculator uses the visitor's date.` },

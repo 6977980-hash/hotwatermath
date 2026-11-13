@@ -67,7 +67,10 @@
     "bradford-white-water-heater-age": "2026-11-13",
     "ao-smith-water-heater-age": "2026-11-13",
     "rheem-water-heater-age": "2026-11-13",
-    "state-water-heater-age": "2026-11-13"
+    "state-water-heater-age": "2026-11-13",
+    "whirlpool-water-heater-age": "2026-11-13",
+    "american-water-heater-age": "2026-11-13",
+    "navien-water-heater-age": "2026-11-13"
   },
   "dateVerifiedNote": "Per tool: the date its manufacturer cross-check on /methodology was last run (Phases 2–4). Empty = not yet verified, and the AuthorLine then shows no 'Last verified' date."
 }

@@ -275,13 +275,13 @@
         "American ProLine",
         "PremierPlus"
       ],
-      "source": "Energy Trust of Oregon: American uses a two-digit year followed by a two-digit week (example 9746****** = week 46 of 1997); American has been part of A. O. Smith since 2001 and makes the Whirlpool brand",
-      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+      "source": "U.S. CPSC 2018 recall of A. O. Smith-made water heaters (American, U.S. Craftmaster and Whirlpool among the brands; the first four serial digits are the year and week of production); Energy Trust of Oregon decoder (two-digit year, then two-digit week, example 9746****** = week 46 of 1997). American has been an A. O. Smith company since A. O. Smith completed its purchase of GSW, American's parent, in April 2006 (Energy Trust gives 2001), and makes the Whirlpool brand.",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard",
       "patterns": [
         {
           "id": "american-yyww",
           "regex": "^(\\d{2})(\\d{2})",
-          "example": "9746****** → 1997, week 46",
+          "example": "9746****** → 1997, week 46 (Energy Trust); 1115…–1631… = April 2011 to August 2016 (CPSC recall range)",
           "fields": {
             "year": {
               "group": 1,
@@ -292,21 +292,22 @@
               "type": "ww"
             }
           },
-          "layout": "year (2 digits), then week (2 digits)"
+          "layout": "year (2 digits), then week (2 digits)",
+          "era": "All dated serials we found (1997 to today)"
         }
       ]
     },
     "navien": {
       "label": "Navien",
       "alsoSoldAs": [],
-      "source": "U.S. CPSC recall notices for Navien tankless water heaters (2018, 2019): after the four-digit model code and one more character, the next two digits are the year, the next character is the month (X = October) and the next two digits are the day; example 18709 = July 9, 2018. Navien: the serial is on the outside right of the unit, between two barcodes, 15 to 16 characters long.",
+      "source": "U.S. CPSC recall notices for Navien tankless water heaters (2018, 2019): after the four-digit model code and one more character, the next two digits are the year, the next character is the month (X = October) and the next two digits are the day; example 18709 = July 9, 2018. Navien: the serial is on the outside right of the unit, between two barcodes, 15 to 16 characters long. Older hyphenated tags with a four-digit year: Building Intelligence Center and FastWaterHeater (third party).",
       "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning",
       "patterns": [
         {
           "id": "navien-yymdd",
           "regex": "^\\d{4}[A-Z0-9](\\d{2})([1-9XYZ])(0[1-9]|[12]\\d|3[01])",
           "example": "7410*18709**** → July 9, 2018 (CPSC example)",
-          "notes": "CPSC confirms 1 to 9 for January to September and X for October. Y and Z for November and December follow the same sequence; no opened source shows them, so treat those two months as likely, not confirmed.",
+          "notes": "CPSC confirms 1 to 9 for January to September and X for October. Y and Z for November and December come from the Building Intelligence Center decoder (third party), which lists X, Y and Z as months 10 to 12.",
           "fields": {
             "year": {
               "group": 1,
@@ -318,7 +319,28 @@
               "letters": "123456789XYZ"
             }
           },
-          "layout": "4-digit model code and 1 character, then year (2 digits), month (1 character) and day (2 digits)"
+          "layout": "4-digit model code and 1 character, then year (2 digits), month (1 character: 1 to 9, X, Y, Z) and day (2 digits)",
+          "era": "2010 and later (CPSC recall units 2018; third-party examples from 2011)",
+          "validFromYear": 2010
+        },
+        {
+          "id": "navien-dash-yyyymmdd",
+          "regex": "^\\d{4}(20[01]\\d)(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])",
+          "example": "8881-20100520-3026 → May 20, 2010 (older hyphenated tag)",
+          "source": "Building Intelligence Center, Navien water heater age (styles 3 and 4: four digits, then a four-digit year, e.g. 9262-20081208-1027); FastWaterHeater brand guide (older Navien format 8881-20100520-3026 = May 20, 2010). Both are third-party decoders; no Navien or government source documents this style.",
+          "sourceUrl": "https://www.building-center.org/navien-water-heater-age",
+          "fields": {
+            "year": {
+              "group": 1,
+              "type": "yyyy"
+            },
+            "month": {
+              "group": 2,
+              "type": "mm"
+            }
+          },
+          "layout": "older tags: 4 digits, a hyphen, then the full date as year (4 digits), month (2) and day (2), a hyphen and 4 more digits",
+          "era": "Older tags (third-party examples from 2008 and 2010)"
         }
       ]
     }
@@ -346,7 +368,7 @@
     }
   ],
   "brandOptions": {
-    "source": "Dropdown for the age calculator. decodeAs = which brand's date code applies; empty = not decodable, ask for the year. Aliases come from the Energy Trust of Oregon decoder (Whirlpool is made by American; State/Kenmore; General Electric under Rheem).",
+    "source": "Dropdown for the age calculator. decodeAs = which brand's date code applies; empty = not decodable, ask for the year. Aliases come from the Energy Trust of Oregon decoder (Whirlpool is made by American; State/Kenmore; General Electric under Rheem). page = the brand page that covers an option without its own page (GE on the Rheem page, Kenmore on the State page).",
     "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
     "options": [
       {
@@ -384,13 +406,15 @@
         "id": "ge",
         "label": "GE",
         "decodeAs": "rheem",
-        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label."
+        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label.",
+        "page": "rheem-water-heater-age"
       },
       {
         "id": "kenmore",
         "label": "Kenmore",
         "decodeAs": "state",
-        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label."
+        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label.",
+        "page": "state-water-heater-age"
       },
       {
         "id": "navien",

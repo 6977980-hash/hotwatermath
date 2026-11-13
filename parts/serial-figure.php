@@ -7,7 +7,7 @@
  *   id       (string) unique id prefix for title/desc.
  *   title    (string) SVG title.
  *   desc     (string) SVG description (what the drawing shows, in words).
- *   unit     (string) 'tank' (plate on the upper jacket) or 'valve' (plate next to the gas control).
+ *   unit     (string) 'tank' (plate on the upper jacket), 'valve' (plate next to the gas control) or 'wall' (wall-hung tankless, label on the right side).
  *   segments (array)  [ [ 'text' => 'XA', 'label' => 'year, month', 'hl' => true ], ... ]
  *   caption  (string) figcaption text.
  */
@@ -26,17 +26,30 @@ $hwm_font = '-apple-system, Segoe UI, Roboto, Arial, sans-serif';
 		<title id="<?php echo esc_attr( $hwm_id ); ?>-t"><?php echo esc_html( (string) ( $args['title'] ?? '' ) ); ?></title>
 		<desc id="<?php echo esc_attr( $hwm_id ); ?>-d"><?php echo esc_html( (string) ( $args['desc'] ?? '' ) ); ?></desc>
 		<g fill="none" stroke="#17212e" stroke-width="2">
-			<rect x="30" y="40" width="120" height="200" rx="18"/>
-			<path d="M80 40v-22h20v22"/>
+			<?php if ( 'wall' === $hwm_unit ) : ?>
+				<rect x="40" y="60" width="96" height="140" rx="8"/>
+				<path d="M78 60v-30h20v30M60 200v26M88 200v26M116 200v26"/>
+			<?php else : ?>
+				<rect x="30" y="40" width="120" height="200" rx="18"/>
+				<path d="M80 40v-22h20v22"/>
+			<?php endif; ?>
 			<?php if ( 'valve' === $hwm_unit ) : ?>
 				<rect x="70" y="190" width="40" height="22" rx="3"/>
 			<?php endif; ?>
 			<rect x="220" y="40" width="400" height="200" rx="6"/>
 		</g>
-		<rect x="<?php echo 'valve' === $hwm_unit ? '112' : '92'; ?>" y="<?php echo 'valve' === $hwm_unit ? '150' : '80'; ?>" width="34" height="44" rx="3" fill="#e8f1f9" stroke="#0b4a7d" stroke-width="2.5"/>
-		<path d="M<?php echo 'valve' === $hwm_unit ? '146 172' : '126 102'; ?>L220 140" stroke="#0b4a7d" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
+		<?php
+		$hwm_plate = array(
+			'tank'  => array( 92, 80, 'plate on the upper jacket' ),
+			'valve' => array( 112, 150, 'plate beside the gas control' ),
+			'wall'  => array( 140, 100, 'label on the right side' ),
+		);
+		$hwm_p     = $hwm_plate[ $hwm_unit ] ?? $hwm_plate['tank'];
+		?>
+		<rect x="<?php echo esc_attr( (string) $hwm_p[0] ); ?>" y="<?php echo esc_attr( (string) $hwm_p[1] ); ?>" width="<?php echo 'wall' === $hwm_unit ? '14' : '34'; ?>" height="44" rx="3" fill="#e8f1f9" stroke="#0b4a7d" stroke-width="2.5"/>
+		<path d="M<?php echo esc_attr( ( $hwm_p[0] + ( 'wall' === $hwm_unit ? 14 : 34 ) ) . ' ' . ( $hwm_p[1] + 22 ) ); ?>L220 140" stroke="#0b4a7d" stroke-width="1.5" stroke-dasharray="4 4" fill="none"/>
 		<g font-family="<?php echo esc_attr( $hwm_font ); ?>" fill="#17212e">
-			<text x="90" y="262" font-size="13" text-anchor="middle"><?php echo 'valve' === $hwm_unit ? 'plate beside the gas control' : 'plate on the upper jacket'; ?></text>
+			<text x="90" y="262" font-size="13" text-anchor="middle"><?php echo esc_html( (string) $hwm_p[2] ); ?></text>
 			<text x="240" y="70" font-size="13">RATING PLATE (detail)</text>
 			<text x="240" y="100" font-size="13">MODEL NO.  ··········</text>
 			<text x="240" y="138" font-size="13">SERIAL NO.</text>

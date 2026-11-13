@@ -274,6 +274,25 @@ test('decodeSerial: Navien year, month character, day (CPSC example 18709 = July
 	assert.equal(F.decodeSerial('7410A18014ABCD', p, 2026), null); // 0 is not a month
 });
 
+test('decodeSerial: older Navien hyphenated tag with a four-digit year (third-party examples)', () => {
+	const p = sf.navien.patterns;
+	const a = F.decodeSerial('8881-20100520-3026', p, 2026);
+	assert.deepEqual([a.year, a.month, a.patternId], [2010, 5, 'navien-dash-yyyymmdd']);
+	// 9262-20081208-1027 would fit the current layout as 2000; the current layout starts in 2010, so the old one wins.
+	const b = F.decodeSerial('9262-20081208-1027', p, 2026);
+	assert.deepEqual([b.year, b.month, b.patternId], [2008, 12, 'navien-dash-yyyymmdd']);
+	assert.equal(F.decodeSerial('9545J1152752044', p, 2026).patternId, 'navien-yymdd');
+	// A four-digit year in the future is rejected.
+	assert.equal(F.decodeSerial('1234-20990101-0000', p, 2026), null);
+});
+
+test('decodeSerial: Whirlpool serials use the American year-week code (CPSC 2018 range 1115–1631)', () => {
+	const p = sf.american.patterns;
+	assert.deepEqual([F.decodeSerial('1104T403904', p, 2026).year, F.decodeSerial('1104T403904', p, 2026).week], [2011, 4]);
+	assert.equal(F.decodeSerial('1905T000001', p, 2026).month, 1); // week 5 is late January, not May
+	assert.deepEqual([F.decodeSerial('9950123040', p, 2026).year, F.decodeSerial('9950123040', p, 2026).month], [1999, 12]);
+});
+
 test('ageEstimate: combines age, adjusted life and status', () => {
 	// June 2018 built, 2026-11-13: age 2026 + 10/12 − (2018 + 5/12) = 8.4; life 13 − 1 − 1 = 11 → 76% → amber.
 	const e = F.ageEstimate({ year: 2018, month: 6 }, new Date('2026-11-13T12:00:00Z'), { low: 10, typical: 13, high: 15 }, [-1, -1], 5, { amberFrom: 0.6, redFrom: 0.9 });
@@ -345,7 +364,7 @@ test('brand-pages.json: every hand-check decodes to the date its source gives', 
 	const bp = data('brand-pages').brands;
 	for (const [brand, b] of Object.entries(bp)) {
 		for (const c of b.checks) {
-			const m = F.decodeSerial(c.serial, sf[brand].patterns, 2026);
+			const m = F.decodeSerial(c.serial, sf[b.code || brand].patterns, 2026);
 			assert.ok(m, `${brand} ${c.serial} did not decode`);
 			assert.equal(m.month, c.month, `${brand} ${c.serial} month`);
 			assert.ok(m.year === c.year || (c.cycle && m.otherYears.includes(c.year)), `${brand} ${c.serial} year`);

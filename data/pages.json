@@ -390,20 +390,56 @@
     {
       "slug": "whirlpool-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Whirlpool Water Heater Age",
-      "summary": "Read the build date from a Whirlpool serial number, with every format and worked examples."
+      "summary": "Read the build date from a Whirlpool serial number, with every format and worked examples.",
+      "metaTitle": "Whirlpool Water Heater Age by Serial Number | Hot Water Math",
+      "description": "Find a Whirlpool water heater's age from its serial: the first four digits are year and week. Recall-checked decoder, warranty code chart and examples.",
+      "h1": "Whirlpool water heater age",
+      "subtitle": "Read the build date and warranty from a Whirlpool label.",
+      "quickAnswer": "The first four digits of a Whirlpool water heater serial are the year and the week it was made: 2032 means week 32 of 2020, about August. American Water Heater builds Whirlpool units.",
+      "keywords": [
+        "whirlpool water heater age",
+        "whirlpool water heater serial number",
+        "how old is my whirlpool water heater",
+        "whirlpool water heater serial number lookup",
+        "whirlpool water heater warranty"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "american-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "American Water Heater Age",
-      "summary": "Read the build date from a American serial number, with every format and worked examples."
+      "summary": "Read the build date from a American serial number, with every format and worked examples.",
+      "metaTitle": "American Water Heater Age by Serial Number | Hot Water Math",
+      "description": "Find an American water heater's age from its serial: two-digit year, then week. Decoder checked against CPSC recall ranges, warranty chart, 2 examples.",
+      "h1": "American water heater age",
+      "subtitle": "Date any American, ProLine or U.S. Craftmaster tank.",
+      "quickAnswer": "An American Water Heater serial starts with a two-digit year and a two-digit week: 2214 means week 14 of 2022, about April. The same code dates ProLine, U.S. Craftmaster and Whirlpool units.",
+      "keywords": [
+        "american water heater age",
+        "american water heater serial number",
+        "american water heater serial number lookup",
+        "american proline water heater age",
+        "how old is my american water heater"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "ge-water-heater-age",
@@ -426,11 +462,29 @@
     {
       "slug": "navien-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Navien Water Heater Age",
-      "summary": "Read the build date from a Navien serial number, with every format and worked examples."
+      "summary": "Read the build date from a Navien serial number, with every format and worked examples.",
+      "metaTitle": "Navien Serial Number Lookup: Tankless Age | Hot Water Math",
+      "description": "Read a Navien tankless water heater's build date from its serial: year, month and day after the first five characters. CPSC-checked decoder and 2 examples.",
+      "h1": "Navien water heater age",
+      "subtitle": "Read the build date in a Navien tankless serial.",
+      "quickAnswer": "Skip the first five characters of a Navien serial. The next two digits are the year, one character is the month (X, Y, Z for October to December) and two digits are the day.",
+      "keywords": [
+        "navien serial number lookup",
+        "navien water heater age",
+        "navien tankless age",
+        "how old is my navien tankless water heater",
+        "navien serial number date code"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "rinnai-water-heater-age",

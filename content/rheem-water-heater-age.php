@@ -76,6 +76,7 @@ hwm_part(
 
 <h2>Which brands share the Rheem code?</h2>
 <p>Ruud is part of Rheem and uses the same serial format; its official lookup is the one we tested. The Energy Trust of Oregon decoder also lists these names under Rheem: <?php echo esc_html( implode( ', ', $hwm_alias ) ); ?>. For any of them, choose Rheem / Ruud in the calculator.</p>
+<h3>GE water heater age</h3>
 <p>GE needs care. <?php echo esc_html( (string) hwm_raw( $hwm_c, 'caveat' ) ? (string) hwm_raw( $hwm_c, 'caveat' ) : 'Older GE water heaters were made by Rheem.' ); ?> The <?php echo hwm_link( 'water-heater-age-calculator', 'main age calculator' ); // phpcs:ignore ?> has a separate GE option that applies the Rheem code with that warning.</p>
 
 <h2>Where is the serial number on a Rheem water heater?</h2>
