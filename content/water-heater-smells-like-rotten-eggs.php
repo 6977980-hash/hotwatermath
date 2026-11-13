@@ -73,6 +73,7 @@ hwm_part( 'safety-notice', array( 'gas' => true, 'power' => true, 'scald' => tru
 
 <h2>How to get rid of the rotten egg smell in a water heater</h2>
 <p>There are four fixes, and they do not last equally. Manufacturers and Penn State agree on what works; they disagree on which anode metal to use.</p>
+<div class="table-wrap" role="region" aria-label="Fixes for a rotten egg smell from the water heater" tabindex="0">
 <table>
 	<caption>Fixes for a rotten egg smell from the water heater</caption>
 	<thead>
@@ -85,6 +86,7 @@ hwm_part( 'safety-notice', array( 'gas' => true, 'power' => true, 'scald' => tru
 		<tr><th scope="row">Chlorination</th><td>A. O. Smith's manual calls a chlorination system "the only sure treatment" for the bacteria. Penn State notes that one-off shock chlorination of a well often lets the smell return quickly.</td><td>Lasting only as continuous treatment</td></tr>
 	</tbody>
 </table>
+</div>
 <p class="table-source">Sources: A. O. Smith Use &amp; Care Guides and troubleshooting page, GE Appliances, Penn State Extension (checked <?php echo esc_html( (string) hwm_raw( $hwm_f, 'references.psu-h2s.checked' ) ); ?>).</p>
 <p>Our reading: start with a flush, then change the rod to the metal your heater's maker sells for odor. Why the maker? Because removing the rod, or fitting one it does not approve, can void the warranty. A. O. Smith says a rod must be installed at all times or the warranty is void, and Penn State warns that simply removing the magnesium rod shortens the heater's life and will likely void it.</p>
 <p>Replacing the rod means shutting off the heater, draining some water and loosening a tight fitting; our <?php echo hwm_link( 'water-heater-anode-rod', 'anode rod guide' ); // phpcs:ignore ?> covers what is involved, and <?php echo hwm_link( 'how-to-flush-a-water-heater', 'how to flush a water heater' ); // phpcs:ignore ?> covers the flush.</p>

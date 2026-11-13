@@ -66,6 +66,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-size-calculator', 'inputs
 
 <h2>How fast should a water heater recover?</h2>
 <p>A. O. Smith gives these typical numbers. If yours takes much longer than its type, something is wrong.</p>
+<div class="table-wrap" role="region" aria-label="Typical recovery of tank water heaters" tabindex="0">
 <table>
 	<caption>Typical recovery of tank water heaters</caption>
 	<thead>
@@ -77,6 +78,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-size-calculator', 'inputs
 		<tr><th scope="row">Tankless</th><td colspan="2">No reheat; limited by flow rate instead (gallons per minute it can heat at once)</td></tr>
 	</tbody>
 </table>
+</div>
 <p class="table-source">Source: <?php echo $hwm_ext( $hwm_r( 'aos-reheat' ), 'A. O. Smith, How long for a water heater to reheat?' ); // phpcs:ignore ?> (checked <?php echo esc_html( (string) hwm_raw( $hwm_f, 'references.aos-reheat.checked' ) ); ?>).</p>
 <p>Because electric tanks recover more slowly, they are the ones that come up short in a busy house. If you are choosing a new heater, that is a reason to weigh a bigger electric tank or a gas one: see <?php echo hwm_link( 'gas-vs-electric-water-heater', 'gas vs electric water heater' ); // phpcs:ignore ?>.</p>
 
