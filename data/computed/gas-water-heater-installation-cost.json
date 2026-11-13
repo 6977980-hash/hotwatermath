@@ -1,0 +1,548 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures and tables for the gas water heater installation cost article."
+  },
+  "figures": {
+    "s40": {
+      "low": "1,031",
+      "typical": "1,669",
+      "high": "2,619",
+      "typicalNum": 1669,
+      "unit": "759",
+      "install": "910",
+      "unitShare": 45
+    },
+    "s50": {
+      "low": "1,249",
+      "typical": "1,809",
+      "high": "2,599",
+      "typicalNum": 1809,
+      "unit": "899",
+      "install": "910",
+      "unitShare": 50
+    },
+    "s75": {
+      "low": "1,649",
+      "typical": "2,229",
+      "high": "3,059",
+      "typicalNum": 2229,
+      "unit": "1,319",
+      "install": "910",
+      "unitShare": 59
+    },
+    "fromEl": {
+      "low": "1,849",
+      "typical": "2,909",
+      "high": "4,599",
+      "typicalNum": 2909,
+      "unit": "899",
+      "install": "2,010",
+      "unitShare": 31
+    },
+    "tankless": {
+      "low": "2,219",
+      "typical": "3,318",
+      "high": "5,703",
+      "typicalNum": 3318,
+      "unit": "1,108",
+      "install": "2,210",
+      "unitShare": 33
+    },
+    "labor": {
+      "low": "350",
+      "typical": "650",
+      "high": "1,100"
+    },
+    "permit": "260",
+    "venting": "500",
+    "ventingLow": "300",
+    "ventingHigh": "1,000",
+    "gasLine": "600",
+    "gasLineLow": "300",
+    "gasLineHigh": "1,000",
+    "codeItems": "150",
+    "expansion": "175",
+    "fhr40": "69",
+    "fhr50": "81",
+    "fhr75": "100",
+    "runYear": "242",
+    "runMonth": "20",
+    "elRunYear": "564",
+    "gasWins": 51,
+    "stateCount": 51,
+    "thermPrice": 1.481,
+    "life": 13
+  },
+  "tables": {
+    "jobs": {
+      "caption": "Gas water heater installation cost by job (U.S. average)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job"
+        },
+        {
+          "key": "unit",
+          "label": "Unit",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Installed, typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Installed range",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank, like for like",
+          "unit": "759",
+          "typical": "1,669",
+          "range": "1,031–2,619"
+        },
+        {
+          "label": "50-gallon gas tank, like for like",
+          "unit": "899",
+          "typical": "1,809",
+          "range": "1,249–2,599"
+        },
+        {
+          "label": "75-gallon gas tank, like for like",
+          "unit": "1,319",
+          "typical": "2,229",
+          "range": "1,649–3,059"
+        },
+        {
+          "label": "Electric tank to 50-gallon gas tank",
+          "unit": "899",
+          "typical": "2,909",
+          "range": "1,849–4,599"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "unit": "1,108",
+          "typical": "3,318",
+          "range": "2,219–5,703"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "items": {
+      "caption": "Itemized: 50-gallon gas tank, like for like (U.S. average)",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "350",
+          "typical": "650",
+          "high": "1,100"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "150",
+          "typical": "260",
+          "high": "500"
+        },
+        {
+          "item": "Total",
+          "low": "1,249",
+          "typical": "1,809",
+          "high": "2,599"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsSwitch": {
+      "caption": "Itemized: switching an electric tank to a 50-gallon gas tank (U.S. average)",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "350",
+          "typical": "650",
+          "high": "1,100"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "150",
+          "typical": "260",
+          "high": "500"
+        },
+        {
+          "item": "Gas line upgrade or new gas line",
+          "low": "300",
+          "typical": "600",
+          "high": "1,000"
+        },
+        {
+          "item": "New or changed venting",
+          "low": "300",
+          "typical": "500",
+          "high": "1,000"
+        },
+        {
+          "item": "Total",
+          "low": "1,849",
+          "typical": "2,909",
+          "high": "4,599"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "byState": {
+      "caption": "Gas water heater installation cost by state (like for like)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "g40",
+          "label": "40 gallons",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "50 gallons",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "g40": "1,567",
+          "g50": "1,707"
+        },
+        {
+          "name": "Alaska",
+          "g40": "1,691",
+          "g50": "1,831"
+        },
+        {
+          "name": "Arizona",
+          "g40": "1,676",
+          "g50": "1,816"
+        },
+        {
+          "name": "Arkansas",
+          "g40": "1,550",
+          "g50": "1,690"
+        },
+        {
+          "name": "California",
+          "g40": "1,767",
+          "g50": "1,907"
+        },
+        {
+          "name": "Colorado",
+          "g40": "1,697",
+          "g50": "1,837"
+        },
+        {
+          "name": "Connecticut",
+          "g40": "1,701",
+          "g50": "1,841"
+        },
+        {
+          "name": "Delaware",
+          "g40": "1,667",
+          "g50": "1,807"
+        },
+        {
+          "name": "District of Columbia",
+          "g40": "1,759",
+          "g50": "1,899"
+        },
+        {
+          "name": "Florida",
+          "g40": "1,700",
+          "g50": "1,840"
+        },
+        {
+          "name": "Georgia",
+          "g40": "1,635",
+          "g50": "1,775"
+        },
+        {
+          "name": "Hawaii",
+          "g40": "1,760",
+          "g50": "1,900"
+        },
+        {
+          "name": "Idaho",
+          "g40": "1,628",
+          "g50": "1,768"
+        },
+        {
+          "name": "Illinois",
+          "g40": "1,669",
+          "g50": "1,809"
+        },
+        {
+          "name": "Indiana",
+          "g40": "1,608",
+          "g50": "1,748"
+        },
+        {
+          "name": "Iowa",
+          "g40": "1,558",
+          "g50": "1,698"
+        },
+        {
+          "name": "Kansas",
+          "g40": "1,579",
+          "g50": "1,719"
+        },
+        {
+          "name": "Kentucky",
+          "g40": "1,580",
+          "g50": "1,720"
+        },
+        {
+          "name": "Louisiana",
+          "g40": "1,561",
+          "g50": "1,701"
+        },
+        {
+          "name": "Maine",
+          "g40": "1,642",
+          "g50": "1,782"
+        },
+        {
+          "name": "Maryland",
+          "g40": "1,715",
+          "g50": "1,855"
+        },
+        {
+          "name": "Massachusetts",
+          "g40": "1,722",
+          "g50": "1,862"
+        },
+        {
+          "name": "Michigan",
+          "g40": "1,634",
+          "g50": "1,774"
+        },
+        {
+          "name": "Minnesota",
+          "g40": "1,656",
+          "g50": "1,796"
+        },
+        {
+          "name": "Mississippi",
+          "g40": "1,551",
+          "g50": "1,691"
+        },
+        {
+          "name": "Missouri",
+          "g40": "1,585",
+          "g50": "1,725"
+        },
+        {
+          "name": "Montana",
+          "g40": "1,620",
+          "g50": "1,760"
+        },
+        {
+          "name": "Nebraska",
+          "g40": "1,579",
+          "g50": "1,719"
+        },
+        {
+          "name": "Nevada",
+          "g40": "1,669",
+          "g50": "1,809"
+        },
+        {
+          "name": "New Hampshire",
+          "g40": "1,707",
+          "g50": "1,847"
+        },
+        {
+          "name": "New Jersey",
+          "g40": "1,749",
+          "g50": "1,889"
+        },
+        {
+          "name": "New Mexico",
+          "g40": "1,598",
+          "g50": "1,738"
+        },
+        {
+          "name": "New York",
+          "g40": "1,741",
+          "g50": "1,881"
+        },
+        {
+          "name": "North Carolina",
+          "g40": "1,617",
+          "g50": "1,757"
+        },
+        {
+          "name": "North Dakota",
+          "g40": "1,569",
+          "g50": "1,709"
+        },
+        {
+          "name": "Ohio",
+          "g40": "1,603",
+          "g50": "1,743"
+        },
+        {
+          "name": "Oklahoma",
+          "g40": "1,558",
+          "g50": "1,698"
+        },
+        {
+          "name": "Oregon",
+          "g40": "1,700",
+          "g50": "1,840"
+        },
+        {
+          "name": "Pennsylvania",
+          "g40": "1,647",
+          "g50": "1,787"
+        },
+        {
+          "name": "Rhode Island",
+          "g40": "1,690",
+          "g50": "1,830"
+        },
+        {
+          "name": "South Carolina",
+          "g40": "1,612",
+          "g50": "1,752"
+        },
+        {
+          "name": "South Dakota",
+          "g40": "1,565",
+          "g50": "1,705"
+        },
+        {
+          "name": "Tennessee",
+          "g40": "1,595",
+          "g50": "1,735"
+        },
+        {
+          "name": "Texas",
+          "g40": "1,642",
+          "g50": "1,782"
+        },
+        {
+          "name": "Utah",
+          "g40": "1,659",
+          "g50": "1,799"
+        },
+        {
+          "name": "Vermont",
+          "g40": "1,651",
+          "g50": "1,791"
+        },
+        {
+          "name": "Virginia",
+          "g40": "1,679",
+          "g50": "1,819"
+        },
+        {
+          "name": "Washington",
+          "g40": "1,733",
+          "g50": "1,873"
+        },
+        {
+          "name": "West Virginia",
+          "g40": "1,574",
+          "g50": "1,714"
+        },
+        {
+          "name": "Wisconsin",
+          "g40": "1,616",
+          "g50": "1,756"
+        },
+        {
+          "name": "Wyoming",
+          "g40": "1,603",
+          "g50": "1,743"
+        }
+      ],
+      "source": "Equipment listings + data/installation-costs.json; labor and permit × BEA Regional Price Parity ÷ 100",
+      "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

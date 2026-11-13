@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "source": "AMTROL, Sizing the Therm-X-Trol (form MC10007, 03/19): expansion factor table and design pressure factor equation; AMTROL Therm-X-Trol specifications and Quick Sizing Charts (form MC8520, 04/22); Washington State Department of Health, Protect Your Water Heater from Thermal Expansion (2025)",
+    "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Sizing method: expanded water = water heater gallons x expansion factor (from 40 °F to the tank setting); required tank volume = expanded water x design pressure factor, where DPF = (maximum allowed pressure + 14.7) / (maximum allowed pressure - static supply pressure), pressures in psig. A tank fits when its total volume is at least the required volume and its maximum acceptance volume is at least the expanded water. Tank classes are one manufacturer's residential models; other brands publish their own acceptance volumes, so check the spec sheet of the tank you buy. Expansion factors between table temperatures are interpolated linearly (our choice)."
+  },
+  "references": {
+    "amtrol-sizing": {
+      "publisher": "AMTROL",
+      "title": "Sizing the Therm-X-Trol: for pressurization and expansion control of hot water systems (MC10007, 03/19)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Tv = Design Pressure Factor x expanded water",
+        "DPF = (Max. Allow. Pressure + 14.7) / (Max. Allow. Pressure - Line Pressure)",
+        "Table 1 Expansion Factor ... *Based on initial temperature of 40˚F.",
+        "When sizing a Therm-X-Trol, the unit must meet the calculated expanded water and total tank volume.",
+        "The Therm-X-Trol air pressure should be equal to static line pressure.",
+        "Standard Therm-X-Trol tanks are shipped at 40 psi ... it is necessary to match the precharge to the incoming supply pressure before installation.",
+        "It is necessary to install the Therm-X-Trol on the cold water supply after the backflow preventer.",
+        "Examples of one-way devices include: Backflow Preventers (BFP's), Check Valves, Pressure Reducing Valves (PRV's)"
+      ]
+    },
+    "amtrol-chart": {
+      "publisher": "AMTROL (Worthington Industries)",
+      "title": "Therm-X-Trol water heater expansion tanks: specifications and Quick Sizing Charts (MC8520, 04/22)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/MC8520-04_22-TXT-Sizing-Chart_pzeetd.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "ST-5: tank volume 2.0 gal, max. acceptance volume 0.9 gal; ST-12: 4.4 gal, 3.2 gal; ST-25V: 10.3 gal, 10.3 gal; ST-30V: 14.0 gal, 11.3 gal",
+        "Maximum Working Pressure: 150 psig. Factory Pre-charge: ST-5 and ST-12: 50 PSIG",
+        "Sizing based on: 40°F incoming water temperature; 150 psi T&P safety relief valve; Precharge equal to static supply pressure"
+      ]
+    },
+    "wa-doh": {
+      "publisher": "Washington State Department of Health",
+      "title": "Protect Your Water Heater from Thermal Expansion (2025)",
+      "sourceUrl": "https://doh.wa.gov/sites/default/files/2025-08/water_heater.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The thermal expansion tank controls the increased pressure generated within the normal operating temperature range of the water heater. The small tank with a sealed compressible air cushion provides a space to store and hold the additional expanded water volume.",
+        "The T & P Valve is normally pre-set at 125 psi or 150 psi.",
+        "For public health protection, the water purveyor may require the installation of a check valve or backflow preventer downstream of the water meter. In these situations, it is essential that a T & P Valve and thermal expansion tank be properly installed"
+      ]
+    },
+    "watts-etp": {
+      "publisher": "Watts",
+      "title": "Expansion Tank Sizing Calculator (Potable)",
+      "sourceUrl": "https://www.watts.com/resources/planning/etp",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Initial Pressure: typically does not exceed 80 PSI as per UPC plumbing code.",
+        "Air pre-charge should match Initial Pressure. Never exceed 80 PSI pre-charge!",
+        "Final Pressure: Initial Pressure plus 50%; should not exceed 85% of the T&P relief valve rating.",
+        "Initial Temperature: set to 90°F; use lower values only if the entire contents of the water heater are drained on each use."
+      ]
+    }
+  },
+  "expansionFactors": {
+    "startTempF": 40,
+    "rows": [
+      { "tempF": 100, "factor": 0.0062 },
+      { "tempF": 120, "factor": 0.01 },
+      { "tempF": 130, "factor": 0.0124 },
+      { "tempF": 140, "factor": 0.015 },
+      { "tempF": 150, "factor": 0.0179 },
+      { "tempF": 160, "factor": 0.0209 },
+      { "tempF": 170, "factor": 0.0242 },
+      { "tempF": 180, "factor": 0.0276 }
+    ],
+    "source": "AMTROL MC10007 Table 1",
+    "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf"
+  },
+  "atmosphericPsi": 14.7,
+  "tanks": [
+    { "id": "2", "model": "ST-5", "label": "2-gallon tank", "totalGallons": 2.0, "acceptanceGallons": 0.9 },
+    { "id": "4.4", "model": "ST-12", "label": "4.4-gallon tank", "totalGallons": 4.4, "acceptanceGallons": 3.2 },
+    { "id": "10", "model": "ST-25V", "label": "10-gallon tank", "totalGallons": 10.3, "acceptanceGallons": 10.3 },
+    { "id": "14", "model": "ST-30V", "label": "14-gallon tank", "totalGallons": 14.0, "acceptanceGallons": 11.3 },
+    { "id": "20", "model": "ST-42V", "label": "20-gallon tank", "totalGallons": 20.0, "acceptanceGallons": 11.4 }
+  ],
+  "tanksSource": "AMTROL MC8520 (04/22) specifications table",
+  "defaults": {
+    "heaterGallons": 50,
+    "supplyPsi": 60,
+    "maxPsi": 150,
+    "maxPsiNote": "The relief valve setting; AMTROL's quick charts assume a 150 psi relief valve. Many installers design to a lower maximum for margin, which gives a larger tank.",
+    "headroomShare": 0.15,
+    "headroomNote": "Our rule: when the required volume or the expanded water is within 15% of the chosen tank's limit, we also name the next size as a safer pick. AMTROL's own chart picks the larger size in most such borderline cases."
+  },
+  "quickChart": {
+    "source": "AMTROL MC8520 (04/22) Quick Sizing Charts: 40 °F incoming water, 150 psi relief valve, precharge equal to supply pressure",
+    "pressures": [40, 60, 80],
+    "rows": [
+      { "tempF": 140, "gallons": 40, "picks": ["ST-5", "ST-5", "ST-5"] },
+      { "tempF": 140, "gallons": 50, "picks": ["ST-5", "ST-5", "ST-5"] },
+      { "tempF": 140, "gallons": 60, "picks": ["ST-12", "ST-12", "ST-12"] },
+      { "tempF": 140, "gallons": 80, "picks": ["ST-12", "ST-12", "ST-12"] },
+      { "tempF": 140, "gallons": 120, "picks": ["ST-12", "ST-12", "ST-25V"] },
+      { "tempF": 160, "gallons": 40, "picks": ["ST-5", "ST-5", "ST-12"] },
+      { "tempF": 160, "gallons": 50, "picks": ["ST-5", "ST-12", "ST-12"] },
+      { "tempF": 160, "gallons": 60, "picks": ["ST-12", "ST-12", "ST-12"] },
+      { "tempF": 160, "gallons": 80, "picks": ["ST-12", "ST-12", "ST-25V"] },
+      { "tempF": 160, "gallons": 120, "picks": ["ST-12", "ST-25V", "ST-25V"] },
+      { "tempF": 180, "gallons": 40, "picks": ["ST-12", "ST-12", "ST-12"] },
+      { "tempF": 180, "gallons": 50, "picks": ["ST-12", "ST-12", "ST-12"] },
+      { "tempF": 180, "gallons": 60, "picks": ["ST-12", "ST-12", "ST-25V"] },
+      { "tempF": 180, "gallons": 80, "picks": ["ST-12", "ST-25V", "ST-25V"] },
+      { "tempF": 180, "gallons": 120, "picks": ["ST-25V", "ST-25V", "ST-25V"] }
+    ]
+  },
+  "relief": {
+    "commonPsi": [125, 150],
+    "source": "Washington State Department of Health (2025)",
+    "sourceUrl": "https://doh.wa.gov/sites/default/files/2025-08/water_heater.pdf"
+  },
+  "pressureAdvice": {
+    "prvLowPsi": 50,
+    "prvHighPsi": 60,
+    "maxPsi": 80,
+    "source": "A. O. Smith residential gas water heater manual (PRV 50 to 60 psi) and Watts (supply typically does not exceed 80 psi per UPC)",
+    "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf"
+  }
+}

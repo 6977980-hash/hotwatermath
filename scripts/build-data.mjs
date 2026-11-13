@@ -21,6 +21,8 @@ import { estimateInstalled, defaultExtras, operatingCosts, gallonsFor } from '..
 import { describe as describeCost } from '../assets/js/cost-calculator.js';
 import { describe as describeTco } from '../assets/js/tankless-vs-tank.js';
 import { describe as describeOp } from '../assets/js/gas-vs-electric.js';
+import { describe as describeHp } from '../assets/js/heat-pump-savings.js';
+import { describe as describeEt } from '../assets/js/expansion-tank.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'data/computed');
@@ -60,6 +62,10 @@ export const INPUTS = [
 	'assets/js/tankless-vs-tank.js',
 	'assets/js/gas-vs-electric.js',
 	'assets/js/ui.js',
+	'data/heat-pump.json',
+	'data/expansion-tanks.json',
+	'assets/js/heat-pump-savings.js',
+	'assets/js/expansion-tank.js',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -1133,6 +1139,345 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 	];
 	for (const [slug, parts] of must) for (const part of parts) if (!qa(slug).includes(part)) throw new Error('pages.json quickAnswer for ' + slug + ' must contain "' + part + '" (computed); update it.');
 	if (tf.gas.gas_tankless.be) throw new Error('tankless-vs-tank quickAnswer says gas tankless does not pay back in the default period; computed says it does.');
+}
+
+/* ---------- Phase 6: expansion articles (heat pump cost, installation costs, 40 vs 50, expansion tank) ---------- */
+// Every article reuses the Phase 4 cost model, so a number on an article matches the calculators to the dollar.
+const usdN = (v) => fmt(Math.round(v));
+const job = (type, size, scenario, state = 'US', extra = []) => estimateInstalled(model, { type, size, state, extras: [...defaultExtras(model, scenario, type), ...extra] });
+const jobFig = (e) => ({ low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high), typicalNum: e.typical, unit: fmt(e.unit.typical), install: fmt(e.typical - e.unit.typical), unitShare: Math.round((e.unit.typical / e.typical) * 100) });
+const costSrc = { source: `Equipment: Home Depot listings (${d['cost-ranges'].lastReviewed}); labor, permit and extras: data/installation-costs.json (${ic.lastReviewed}), anchored to DOE's 2024 water heater rules`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed };
+const itemRows = (e) => e.items.map((i) => ({ item: i.label, low: fmt(i.low), typical: fmt(i.typical), high: fmt(i.high) }));
+const itemCols = [{ key: 'item', label: 'Item' }, { key: 'low', label: 'Low', unit: '$', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'high', label: 'High', unit: '$', num: true }];
+const itemTable = (caption, e) => ({ ...table(caption, itemCols, [...itemRows(e), { item: 'Total', low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high) }], costSrc) });
+const costClient = out['water-heater-cost-calculator'].client;
+/** Server-rendered default of the cost calculator for a preset (articles embed the calculator preset to their type). */
+const costPreset = (type, size, scenario) => {
+	const v = { type, size, state: 'US', scenario, ...Object.fromEntries(defaultExtras(model, scenario, type).map((x) => [x, true])) };
+	const dd = describeCost(v, costClient);
+	return { inputs: v, default: { status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline, explain: dd.explain, formula: dd.formula, table: dd.table, sources: out['water-heater-cost-calculator'].default.sources } };
+};
+const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', label: 'State' }, ...cols], states.map(([k, s]) => ({ name: s.name, ...fn(k) })), src);
+
+/* heat pump water heater cost + savings calculator (STRATEGY §3.8) */
+{
+	const hp = d['heat-pump'];
+	const client = { model, defaults: { current: 'electric_tank', size: '50', household: 'typical', state: 'US' }, paybackGoodYears: hp.savingsCalculator.paybackGoodYears };
+	const run = (o = {}) => describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US', ...o }, client);
+	const e0 = run();
+	const g0 = run({ current: 'gas_tank' });
+	const e4 = run({ household: hp.energyStar.householdPeople });
+	const eSpace = run({ space: true });
+	const gSpace = run({ current: 'gas_tank', space: true });
+	const eReb = run({ rebate: hp.rebates.heehrMaxUsd });
+	const gReb = run({ current: 'gas_tank', rebate: hp.rebates.heehrMaxUsd });
+	const res = (x) => ({ saving: fmt(x.result.saving), extra: fmt(x.result.extra), payback: x.result.payback === null ? 'never' : fmt(x.result.payback, 1), paybackNum: x.result.payback, net: fmt(x.result.net), netNum: x.result.net, hpInstalled: fmt(x.result.hpInstalled), altInstalled: fmt(x.result.altInstalled), hpYear: fmt(x.result.hpYear), curYear: fmt(x.result.curYear) });
+	const sizes = model.types.heat_pump.sizes.map((s) => {
+		const fromEl = job('heat_pump', s.id, 'replace');
+		const fromGas = job('heat_pump', s.id, 'fuelSwitch');
+		const fhr = out['fhr-table'].rows.find((r) => r.fuel === 'heatpump' && r.nominalGallons === Number(s.id));
+		return { size: s.id, unit: fmt(fromEl.unit.typical), unitRange: `${fmt(fromEl.unit.low)}–${fmt(fromEl.unit.high)}`, fromEl: fmt(fromEl.typical), fromElRange: `${fmt(fromEl.low)}–${fmt(fromEl.high)}`, fromGas: fmt(fromGas.typical), fromGasRange: `${fmt(fromGas.low)}–${fmt(fromGas.high)}`, fromElNum: fromEl.typical, fhr: fhr ? fmt(fhr.fhrTypical) : '' };
+	});
+	const stateRows = states.map(([k, s]) => {
+		const e = run({ state: k }).result;
+		const g = run({ state: k, current: 'gas_tank' }).result;
+		return { code: k, name: s.name, eSave: e.saving, ePay: e.payback, gSave: g.saving, gPay: g.payback };
+	});
+	const payTxt = (p) => (p === null ? 'Never' : p === 0 ? 'At once' : `${fmt(p, 1)} yrs`);
+	const life = model.types.heat_pump.life;
+	const elFast = stateRows.filter((x) => x.ePay !== null && x.ePay <= client.paybackGoodYears).length;
+	const gasInLife = stateRows.filter((x) => x.gPay !== null && x.gPay <= life).length;
+	const gasNever = stateRows.filter((x) => x.gPay === null).length;
+	const sortedE = [...stateRows].sort((a, b) => b.eSave - a.eSave);
+	const sortedG = [...stateRows].sort((a, b) => b.gSave - a.gSave);
+	const ep = e0.result;
+	const elUse = operatingCosts(model, { gallonsPerDay: model.typicalGallons, setpointF: model.setpointF, inletF: model.us.inletF, prices: { usdPerKwh: model.us.usdPerKwh, usdPerTherm: model.us.usdPerTherm } }).rows;
+	const elKwh = elUse.find((x) => x.id === 'electric_tank').use.kwh;
+	const hpKwh = elUse.find((x) => x.id === 'heat_pump').use.kwh;
+	const lessPct = Math.round((1 - hpKwh / elKwh) * 100);
+	const hpRef = (id) => ({ source: `${hp.references[id].publisher}: ${hp.references[id].title}`, sourceUrl: hp.references[id].sourceUrl });
+	const xc = [
+		{ id: 'es-saving', label: `Heat pump instead of an electric tank, household of ${hp.energyStar.householdPeople} (${gallonsFor(model, hp.energyStar.householdPeople)} gal/day), U.S. average price`, ours: `$${fmt(e4.result.saving)} a year`, published: `ENERGY STAR: about $${fmt(hp.energyStar.savingUsdPerYear)} a year for a household of four`, diffPct: pct(e4.result.saving, hp.energyStar.savingUsdPerYear), why: 'ENERGY STAR does not publish its household’s daily use or electricity price. We use DOE’s per-person use and the 2025 EIA average price; a household that uses more hot water saves more.', ...hpRef('es-guide') },
+		{ id: 'es-energy', label: 'Energy use of a heat pump vs a standard electric tank (median UEF 3.8 vs 0.93)', ours: `${lessPct}% less energy`, published: `ENERGY STAR: ${hp.energyStar.lessEnergyPct}% less energy`, diffPct: pct(lessPct, hp.energyStar.lessEnergyPct), why: 'Our UEF is the median of today’s ENERGY STAR list; ENERGY STAR’s round figure covers older and smaller certified models too.', ...hpRef('es-guide') },
+		{ id: 'doe-payback', label: 'Simple payback, heat pump instead of a 50-gal electric tank, U.S. average', ours: `${fmt(ep.payback, 1)} years`, published: 'DOE: 5.6 years (Table V.8, 2022 dollars)', diffPct: pct(ep.payback, 5.6), why: 'DOE used 2022 electricity prices and its own equipment cost model, and it adds space-work costs to some homes. Electricity cost more in 2025, which shortens payback; tick “space work” to see the slow case.', ...refLink('doe-storage-2024') },
+	];
+	const inc = d.incentives;
+	out['heat-pump-water-heater-cost'] = {
+		meta: { ...derived('the cost calculator and gas vs electric models plus data/heat-pump.json'), notes: 'Default result, size, state and incentive tables, and ENERGY STAR / DOE cross-checks for the heat pump water heater cost article and its savings calculator.' },
+		default: { status: e0.status, statusLabel: e0.statusLabel, headline: e0.headline, explain: e0.explain, formula: e0.formula, table: e0.table, sources: `Installed costs: same model as our cost calculator (${ic.lastReviewed}). Running costs: same formula as our gas vs electric tool, EIA prices. Federal credit: $0 (IRS, 25C ended 2025). <a href="/methodology/#heat-pump-water-heater-cost">See our savings checked against ENERGY STAR and DOE</a>.` },
+		figures: {
+			e0: res(e0), g0: res(g0), e4: res(e4), eSpace: res(eSpace), gSpace: res(gSpace), eReb: res(eReb), gReb: res(gReb),
+			sizes: Object.fromEntries(sizes.map((x) => [x.size, x])), life, paybackGood: client.paybackGoodYears, elFast, gasInLife, gasNever, stateCount: stateRows.length,
+			bestE: { name: sortedE[0].name, saving: fmt(sortedE[0].eSave), payback: payTxt(sortedE[0].ePay) }, worstE: { name: sortedE[sortedE.length - 1].name, saving: fmt(sortedE[sortedE.length - 1].eSave), payback: payTxt(sortedE[sortedE.length - 1].ePay) },
+			bestG: { name: sortedG[0].name, saving: fmt(sortedG[0].gSave), payback: payTxt(sortedG[0].gPay) },
+			lessPct, elKwh: fmt(elKwh), hpKwh: fmt(hpKwh), uef: fmt(model.types.heat_pump.uef, 1), elUef: fmt(model.types.electric_tank.uef, 2), gallons: model.typicalGallons, kwhPrice: model.us.usdPerKwh, thermPrice: model.us.usdPerTherm,
+			space: fmt(model.extras.heatPumpSpace.typical), spaceLow: fmt(model.extras.heatPumpSpace.low), spaceHigh: fmt(model.extras.heatPumpSpace.high), circuit: fmt(model.extras.circuit.typical), panelLow: fmt(model.extras.panel.low), panelHigh: fmt(model.extras.panel.high), labor: fmt(model.labor.heat_pump.typical), laborLow: fmt(model.labor.heat_pump.low), laborHigh: fmt(model.labor.heat_pump.high),
+			creditEnded: inc.credits[0].placedInServiceThrough, creditPct: inc.credits[0].percent, creditMax: fmt(inc.credits[0].maxUsd), heehr: fmt(hp.rebates.heehrMaxUsd), heehrHousehold: fmt(hp.rebates.heehrHouseholdMaxUsd),
+		},
+		stateOptions,
+		crossChecks: xc,
+		tables: {
+			bySize: table('Heat pump water heater cost by size (U.S. average)', [{ key: 'size', label: 'Size' }, { key: 'fhr', label: 'Typical FHR', unit: 'gal', num: true }, { key: 'unit', label: 'Unit only', unit: '$', num: true }, { key: 'fromEl', label: 'Installed, replacing electric', unit: '$', num: true }, { key: 'fromGas', label: 'Installed, replacing gas', unit: '$', num: true }], sizes.map((x) => ({ size: `${x.size} gallons`, fhr: x.fhr, unit: x.unit, fromEl: x.fromEl, fromGas: x.fromGas })), { ...costSrc, source: `${costSrc.source}. FHR: median of ENERGY STAR certified models` }),
+			itemsEl: itemTable('Itemized: 50-gallon heat pump replacing an electric tank (U.S. average)', job('heat_pump', '50', 'replace')),
+			itemsGas: itemTable('Itemized: 50-gallon heat pump replacing a gas tank (U.S. average)', job('heat_pump', '50', 'fuelSwitch')),
+			byState: stateTable(`Heat pump savings and payback by state (typical household, 50 gallons, no rebate)`, [{ key: 'eSave', label: 'Saves vs electric', unit: '$/yr', num: true }, { key: 'ePay', label: 'Payback vs electric' }, { key: 'gSave', label: 'Saves vs gas', unit: '$/yr', num: true }, { key: 'gPay', label: 'Payback vs gas' }], (k) => { const x = stateRows.find((y) => y.code === k); return { eSave: fmt(x.eSave), ePay: payTxt(x.ePay), gSave: fmt(x.gSave), gPay: payTxt(x.gPay) }; }, { source: `Computed with the savings calculator: ${model.typicalGallons} gal/day, ${model.setpointF} °F setting, state incoming water temperature, EIA 2025 state prices, median UEFs, installed costs × BEA state price factor`, sourceUrl: 'https://hotwatermath.com/methodology/#heat-pump-water-heater-cost', sourceDate: ic.lastReviewed }),
+			incentives: table('Heat pump water heater incentives (checked 2026-11-13)', [{ key: 'name', label: 'Program' }, { key: 'amount', label: 'Amount' }, { key: 'who', label: 'Who can get it' }, { key: 'status', label: 'Status now' }], [
+				{ name: 'Federal tax credit (25C)', amount: `${inc.credits[0].percent}% of cost, up to $${fmt(inc.credits[0].maxUsd)} a year`, who: 'Any taxpayer, main home', status: `Ended: only for heaters placed in service by ${inc.credits[0].placedInServiceThrough}` },
+				{ name: 'High-Efficiency Electric Home Rebate (HEEHR)', amount: `Up to $${fmt(hp.rebates.heehrMaxUsd)} for a heat pump water heater`, who: `Income below ${hp.rebates.heehrHalfCostIncomePct}% of area median (full cost below ${hp.rebates.heehrFullCostIncomePct}%)`, status: 'Open in select states only' },
+				{ name: 'Utility and state rebates', amount: 'Varies by utility', who: 'Varies', status: 'Check the ENERGY STAR Rebate Finder by ZIP code' },
+			], { source: 'IRS (25C); 42 U.S.C. 18795a and DOE Home Energy Rebates (HEEHR); ENERGY STAR Rebate Finder', sourceUrl: inc.meta.sourceUrl, sourceDate: '2026-11-13' }),
+		},
+		client,
+	};
+}
+
+/* water heater replacement (installation) cost */
+{
+	const cf = out['water-heater-cost-calculator'].figures;
+	const byType = ['gas_tank_40', 'gas_tank_50', 'gas_tank_75', 'electric_tank_40', 'electric_tank_50', 'heat_pump_50', 'gas_tankless_whole', 'electric_tankless_whole'].map((key) => {
+		const u = model.units[key];
+		const size = key.slice(u.type.length + 1);
+		const e = job(u.type, size, 'replace');
+		return { key, label: u.label, unit: fmt(e.unit.typical), install: fmt(e.typical - e.unit.typical), typical: fmt(e.typical), range: `${fmt(e.low)}–${fmt(e.high)}`, share: `${Math.round((e.unit.typical / e.typical) * 100)}%` };
+	});
+	const sr = states.map(([k, s]) => ({ code: k, name: s.name, m: model.states[k].multiplier, g: job('gas_tank', '50', 'replace', k).typical, e: job('electric_tank', '50', 'replace', k).typical, h: job('heat_pump', '50', 'replace', k).typical }));
+	const sortedG = [...sr].sort((a, b) => a.g - b.g);
+	const sortedE = [...sr].sort((a, b) => a.e - b.e);
+	const g50 = job('gas_tank', '50', 'replace');
+	const e50 = job('electric_tank', '50', 'replace');
+	const newInstall = job('gas_tank', '50', 'replace', 'US', ['relocation', 'expansionTank', 'codeItems']);
+	const fullCode = job('gas_tank', '50', 'replace', 'US', ['expansionTank', 'codeItems']);
+	out['water-heater-installation-cost'] = {
+		meta: { ...derived('the cost calculator model (data/cost-ranges.json, data/installation-costs.json, data/regional-cost-index.json)'), notes: 'Figures and tables for the water heater replacement (installation) cost article.' },
+		figures: {
+			g50: jobFig(g50), e50: jobFig(e50), g40: cf.gas40, e40: cf.el40, hp50: cf.hp50, gasTankless: cf.gasTankless, newInstall: jobFig(newInstall), fullCode: jobFig(fullCode),
+			laborGas: { low: fmt(model.labor.gas_tank.low), typical: fmt(model.labor.gas_tank.typical), high: fmt(model.labor.gas_tank.high) }, laborEl: { low: fmt(model.labor.electric_tank.low), typical: fmt(model.labor.electric_tank.typical), high: fmt(model.labor.electric_tank.high) },
+			permit: fmt(model.extras.permit.typical), expansion: fmt(model.extras.expansionTank.typical), codeItems: fmt(model.extras.codeItems.typical), relocation: fmt(model.extras.relocation.typical), relocationHigh: fmt(model.extras.relocation.high),
+			cheapG: { name: sortedG[0].name, typical: fmt(sortedG[0].g) }, dearG: { name: sortedG[sortedG.length - 1].name, typical: fmt(sortedG[sortedG.length - 1].g) }, cheapE: { name: sortedE[0].name, typical: fmt(sortedE[0].e) }, dearE: { name: sortedE[sortedE.length - 1].name, typical: fmt(sortedE[sortedE.length - 1].e) },
+			scenarios: cf.scenarios, lastReviewed: ic.lastReviewed, unitsReviewed: d['cost-ranges'].lastReviewed, stateCount: sr.length,
+		},
+		tables: {
+			byType: table('Water heater replacement cost by type and size (like for like, U.S. average)', [{ key: 'label', label: 'Water heater' }, { key: 'unit', label: 'Unit', unit: '$', num: true }, { key: 'install', label: 'Labor, permit, haul-away', unit: '$', num: true }, { key: 'typical', label: 'Total, typical', unit: '$', num: true }, { key: 'range', label: 'Total range', unit: '$', num: true }, { key: 'share', label: 'Unit share', num: true }], byType.map(({ key, ...x }) => x), costSrc),
+			byState: stateTable('Water heater replacement cost by state: 50-gallon tanks, like for like', [{ key: 'm', label: 'Price factor', num: true }, { key: 'g', label: 'Gas tank', unit: '$', num: true }, { key: 'e', label: 'Electric tank', unit: '$', num: true }, { key: 'h', label: 'Heat pump', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { m: fmt(x.m, 2), g: fmt(x.g), e: fmt(x.e), h: fmt(x.h) }; }, { source: 'Equipment listings + data/installation-costs.json; labor, permit and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+			replaceVsNew: table('Replacement vs new installation: what changes (50-gallon gas tank, U.S. average)', itemCols, [
+				{ item: 'Replacement in the same spot', low: fmt(g50.low), typical: fmt(g50.typical), high: fmt(g50.high) },
+				{ item: 'Replacement plus code items and an expansion tank', low: fmt(fullCode.low), typical: fmt(fullCode.typical), high: fmt(fullCode.high) },
+				{ item: 'New location (relocation, code items, expansion tank)', low: fmt(newInstall.low), typical: fmt(newInstall.typical), high: fmt(newInstall.high) },
+			], costSrc),
+		},
+	};
+}
+
+/* tankless water heater installation cost (embeds the cost calculator preset to gas tank → tankless) */
+{
+	const pre = costPreset('gas_tankless', 'whole', 'toTankless');
+	const gT = job('gas_tankless', 'whole', 'toTankless');
+	const gR = job('gas_tankless', 'whole', 'replace');
+	const eT = job('electric_tankless', 'whole', 'toTankless');
+	const eR = job('electric_tankless', 'whole', 'replace');
+	const gTank = job('gas_tank', '50', 'replace');
+	const eTank = job('electric_tank', '50', 'replace');
+	const sr = states.map(([k, s]) => ({ code: k, name: s.name, gT: job('gas_tankless', 'whole', 'toTankless', k).typical, gR: job('gas_tankless', 'whole', 'replace', k).typical, eT: job('electric_tankless', 'whole', 'toTankless', k).typical }));
+	const sorted = [...sr].sort((a, b) => a.gT - b.gT);
+	const units = d.electrical.referenceUnits;
+	const tco = out['tankless-vs-tank-water-heater'].figures;
+	out['tankless-water-heater-installation-cost'] = {
+		meta: { ...derived('the cost calculator model plus data/electrical.json'), notes: 'Calculator preset, figures and tables for the tankless water heater installation cost article.' },
+		calculator: pre,
+		figures: {
+			gT: jobFig(gT), gR: jobFig(gR), eT: jobFig(eT), eR: jobFig(eR), gTank: jobFig(gTank), eTank: jobFig(eTank),
+			gasPremium: fmt(gT.typical - gTank.typical), elPremium: fmt(eT.typical - eTank.typical),
+			venting: fmt(model.extras.venting.typical), ventingLow: fmt(model.extras.venting.low), ventingHigh: fmt(model.extras.venting.high), gasLine: fmt(model.extras.gasLine.typical), gasLineLow: fmt(model.extras.gasLine.low), gasLineHigh: fmt(model.extras.gasLine.high),
+			circuit: fmt(model.extras.circuit.typical), panel: fmt(model.extras.panel.typical), panelLow: fmt(model.extras.panel.low), panelHigh: fmt(model.extras.panel.high),
+			labor: { low: fmt(model.labor.gas_tankless.low), typical: fmt(model.labor.gas_tankless.typical), high: fmt(model.labor.gas_tankless.high) }, laborEl: { low: fmt(model.labor.electric_tankless.low), typical: fmt(model.labor.electric_tankless.typical), high: fmt(model.labor.electric_tankless.high) },
+			cheap: { name: sorted[0].name, typical: fmt(sorted[0].gT) }, dear: { name: sorted[sorted.length - 1].name, typical: fmt(sorted[sorted.length - 1].gT) },
+			kwLow: fmt(Math.min(...units.map((u) => u.kw))), kwHigh: fmt(Math.max(...units.map((u) => u.kw))), ampsLow: fmt(Math.min(...units.map((u) => u.amps))), ampsHigh: fmt(Math.max(...units.map((u) => u.amps))),
+			gtBreakEven: tco.gas.gas_tankless.be, years: tco.years, gtStatesPay: tco.gasTanklessStatesPay, lifeTankless: tco.lifeTankless, lifeTank: tco.lifeTank, tanklessSaving: tco.gasTanklessSaving,
+		},
+		tables: {
+			jobs: table('Tankless installation cost by job (U.S. average)', [{ key: 'job', label: 'Job' }, { key: 'extras', label: 'Extras included' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], [
+				['Gas tank to gas tankless', gT, 'toTankless', 'gas_tankless'], ['Gas tankless to gas tankless (replacement)', gR, 'replace', 'gas_tankless'], ['Electric tank to electric tankless', eT, 'toTankless', 'electric_tankless'], ['Electric tankless to electric tankless', eR, 'replace', 'electric_tankless'],
+			].map(([label, e, sc, type]) => ({ job: label, extras: defaultExtras(model, sc, type).map((x) => model.extras[x].label.split(' (')[0].split(',')[0]).join(', '), typical: fmt(e.typical), range: `${fmt(e.low)}–${fmt(e.high)}` })), costSrc),
+			itemsGas: itemTable('Itemized: gas tank to gas tankless (U.S. average)', gT),
+			electric: table('Electric tankless: what the panel has to supply (one manufacturer’s whole-house range)', [{ key: 'model', label: 'Unit' }, { key: 'kw', label: 'Power', unit: 'kW', num: true }, { key: 'amps', label: 'Current at 240 V', unit: 'A', num: true }, { key: 'breakers', label: 'Breakers' }, { key: 'wire', label: 'Wire' }], units.map((u) => ({ model: u.model, kw: fmt(u.kw), amps: fmt(u.amps), breakers: u.breakers, wire: u.wire })), { source: d.electrical.meta.source, sourceUrl: d.electrical.meta.sourceUrl, sourceDate: d.electrical.meta.sourceDate }),
+			byState: stateTable('Tankless installation cost by state (gas tank to gas tankless)', [{ key: 'gT', label: 'Tank to tankless', unit: '$', num: true }, { key: 'gR', label: 'Tankless replacement', unit: '$', num: true }, { key: 'eT', label: 'Electric tank to electric tankless', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { gT: fmt(x.gT), gR: fmt(x.gR), eT: fmt(x.eT) }; }, { source: 'Equipment listings + data/installation-costs.json; labor and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+		},
+	};
+}
+
+/* gas and electric water heater installation cost */
+{
+	const op = out['gas-vs-electric-water-heater'].figures;
+	const g = { s40: job('gas_tank', '40', 'replace'), s50: job('gas_tank', '50', 'replace'), s75: job('gas_tank', '75', 'replace'), fromEl: job('gas_tank', '50', 'fuelSwitch'), tankless: job('gas_tankless', 'whole', 'toTankless') };
+	const e = { s40: job('electric_tank', '40', 'replace'), s50: job('electric_tank', '50', 'replace'), fromGas: job('electric_tank', '50', 'fuelSwitch'), fromGasPanel: job('electric_tank', '50', 'fuelSwitch', 'US', ['panel']), hp: job('heat_pump', '50', 'replace'), tankless: job('electric_tankless', 'whole', 'toTankless') };
+	const sizeRows = (set, keys) => keys.map(([label, k]) => ({ label, unit: fmt(set[k].unit.typical), typical: fmt(set[k].typical), range: `${fmt(set[k].low)}–${fmt(set[k].high)}` }));
+	const sizeCols = [{ key: 'label', label: 'Job' }, { key: 'unit', label: 'Unit', unit: '$', num: true }, { key: 'typical', label: 'Installed, typical', unit: '$', num: true }, { key: 'range', label: 'Installed range', unit: '$', num: true }];
+	const fhr = (fuel, gal) => out['fhr-table'].rows.find((r) => r.fuel === fuel && r.nominalGallons === gal);
+	const sr = states.map(([k, s]) => ({ code: k, name: s.name, g40: job('gas_tank', '40', 'replace', k).typical, g50: job('gas_tank', '50', 'replace', k).typical, e40: job('electric_tank', '40', 'replace', k).typical, e50: job('electric_tank', '50', 'replace', k).typical }));
+	const hpe = d['heat-pump'].electrical;
+	out['gas-water-heater-installation-cost'] = {
+		meta: { ...derived('the cost calculator model'), notes: 'Figures and tables for the gas water heater installation cost article.' },
+		figures: {
+			s40: jobFig(g.s40), s50: jobFig(g.s50), s75: jobFig(g.s75), fromEl: jobFig(g.fromEl), tankless: jobFig(g.tankless),
+			labor: { low: fmt(model.labor.gas_tank.low), typical: fmt(model.labor.gas_tank.typical), high: fmt(model.labor.gas_tank.high) }, permit: fmt(model.extras.permit.typical), venting: fmt(model.extras.venting.typical), ventingLow: fmt(model.extras.venting.low), ventingHigh: fmt(model.extras.venting.high), gasLine: fmt(model.extras.gasLine.typical), gasLineLow: fmt(model.extras.gasLine.low), gasLineHigh: fmt(model.extras.gasLine.high), codeItems: fmt(model.extras.codeItems.typical), expansion: fmt(model.extras.expansionTank.typical),
+			fhr40: fmt(fhr('gas', 40).fhrTypical), fhr50: fmt(fhr('gas', 50).fhrTypical), fhr75: fmt(fhr('gas', 75).fhrTypical),
+			runYear: op.us.gas_tank.year, runMonth: op.us.gas_tank.month, elRunYear: op.us.electric_tank.year, gasWins: op.gasWins, stateCount: op.stateCount, thermPrice: op.thermPrice,
+			life: model.types.gas_tank.life,
+		},
+		tables: {
+			jobs: table('Gas water heater installation cost by job (U.S. average)', sizeCols, sizeRows(g, [['40-gallon gas tank, like for like', 's40'], ['50-gallon gas tank, like for like', 's50'], ['75-gallon gas tank, like for like', 's75'], ['Electric tank to 50-gallon gas tank', 'fromEl'], ['Gas tank to gas tankless', 'tankless']]), costSrc),
+			items: itemTable('Itemized: 50-gallon gas tank, like for like (U.S. average)', g.s50),
+			itemsSwitch: itemTable('Itemized: switching an electric tank to a 50-gallon gas tank (U.S. average)', g.fromEl),
+			byState: stateTable('Gas water heater installation cost by state (like for like)', [{ key: 'g40', label: '40 gallons', unit: '$', num: true }, { key: 'g50', label: '50 gallons', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { g40: fmt(x.g40), g50: fmt(x.g50) }; }, { source: 'Equipment listings + data/installation-costs.json; labor and permit × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+		},
+	};
+	const pre = costPreset('electric_tank', '50', 'replace');
+	out['electric-water-heater-installation-cost'] = {
+		meta: { ...derived('the cost calculator model'), notes: 'Calculator preset, figures and tables for the electric water heater installation cost article.' },
+		calculator: pre,
+		figures: {
+			s40: jobFig(e.s40), s50: jobFig(e.s50), fromGas: jobFig(e.fromGas), fromGasPanel: jobFig(e.fromGasPanel), hp: jobFig(e.hp), tankless: jobFig(e.tankless),
+			labor: { low: fmt(model.labor.electric_tank.low), typical: fmt(model.labor.electric_tank.typical), high: fmt(model.labor.electric_tank.high) }, permit: fmt(model.extras.permit.typical), circuit: fmt(model.extras.circuit.typical), circuitLow: fmt(model.extras.circuit.low), circuitHigh: fmt(model.extras.circuit.high), panel: fmt(model.extras.panel.typical), panelLow: fmt(model.extras.panel.low), panelHigh: fmt(model.extras.panel.high), expansion: fmt(model.extras.expansionTank.typical),
+			fhr40: fmt(fhr('electric', 40).fhrTypical), fhr50: fmt(fhr('electric', 50).fhrTypical), gas40: fmt(fhr('gas', 40).fhrTypical), gas50: fmt(fhr('gas', 50).fhrTypical),
+			elementKw: op.elementKw, elementKwLow: op.elementKwLow, elementKwHigh: op.elementKwHigh, breakerAmps: hpe.breakerAmps, wireGauge: hpe.wireGauge,
+			runYear: op.us.electric_tank.year, runMonth: op.us.electric_tank.month, kwh: op.us.electric_tank.kwh, hpRunYear: op.us.heat_pump.year, kwhPrice: op.kwhPrice, hpExtra: fmt(e.hp.typical - e.s50.typical), hpSaving: fmt(op.us.electric_tank.year.replace(/,/g, '') - op.us.heat_pump.year.replace(/,/g, '')),
+			maxElectricGallons: d['uef-ranges'].federalMinimums.electricResistanceMaxGallons, life: model.types.electric_tank.life,
+		},
+		tables: {
+			jobs: table('Electric water heater installation cost by job (U.S. average)', sizeCols, sizeRows(e, [['40-gallon electric tank, like for like', 's40'], ['50-gallon electric tank, like for like', 's50'], ['Gas tank to 50-gallon electric tank (new circuit)', 'fromGas'], ['Gas tank to electric, with a panel upgrade', 'fromGasPanel'], ['Electric tank to 50-gallon heat pump', 'hp'], ['Electric tank to electric tankless', 'tankless']]), costSrc),
+			items: itemTable('Itemized: 50-gallon electric tank, like for like (U.S. average)', e.s50),
+			byState: stateTable('Electric water heater installation cost by state (like for like)', [{ key: 'e40', label: '40 gallons', unit: '$', num: true }, { key: 'e50', label: '50 gallons', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { e40: fmt(x.e40), e50: fmt(x.e50) }; }, { source: 'Equipment listings + data/installation-costs.json; labor and permit × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+		},
+	};
+}
+
+/* 40 vs 50 gallon water heater (embeds the tank size calculator) */
+{
+	const rows = out['fhr-table'].rows;
+	const fr = (fuel, gal) => rows.find((r) => r.fuel === fuel && r.nominalGallons === gal);
+	const am = d['household-size-guides'].guides.american.rows;
+	// Largest household whose American FHR band starts at or below the size's typical FHR (our reading of the guide).
+	// Fits = the largest household whose typical busiest hour (our size calculator's presets) the typical FHR covers, so this page agrees with the size calculator.
+	const fitsUpTo = (fhrTypical) => out['water-heater-size-calculator'].byPeople.filter((x) => Number(String(x.phd).replace(/,/g, '')) <= fhrTypical).reduce((a, x) => Math.max(a, x.n), 0);
+	const models = d['fhr-to-tank-size'].models;
+	const uefMed = (fuel, gal) => F.summarize(models[fuel].filter((x) => x.nominalGallons === gal).map((x) => x.uef));
+	const inputs = (fuel, gal) => F.summarize(models[fuel].filter((x) => x.nominalGallons === gal).map((x) => (fuel === 'gas' ? x.inputKbtuh : x.elementKw)));
+	const cmp = ['gas', 'electric'].map((fuel) => {
+		const t = fuel === 'gas' ? 'gas_tank' : 'electric_tank';
+		const a = job(t, '40', 'replace');
+		const b = job(t, '50', 'replace');
+		const f40 = fr(fuel, 40);
+		const f50 = fr(fuel, 50);
+		return { fuel, fhr40: f40.fhrTypical, fhr50: f50.fhrTypical, fhr40Range: `${fmt(f40.fhrLow)}–${fmt(f40.fhrHigh)}`, fhr50Range: `${fmt(f50.fhrLow)}–${fmt(f50.fhrHigh)}`, fits40: fitsUpTo(f40.fhrTypical), fits50: fitsUpTo(f50.fhrTypical), unit40: a.unit.typical, unit50: b.unit.typical, inst40: a.typical, inst50: b.typical, uef40: uefMed(fuel, 40)?.typical, uef50: uefMed(fuel, 50)?.typical, in40: inputs(fuel, 40)?.typical, in50: inputs(fuel, 50)?.typical };
+	});
+	const [gas, el] = cmp;
+	const hp80 = fr('heatpump', 80);
+	const hp50 = fr('heatpump', 50);
+	const g75 = fr('gas', 75);
+	const c = (x) => ({ ...x, fhr40: fmt(x.fhr40, 1).replace(/\.0$/, ''), fhr50: fmt(x.fhr50, 1).replace(/\.0$/, ''), unit40: fmt(x.unit40), unit50: fmt(x.unit50), inst40: fmt(x.inst40), inst50: fmt(x.inst50), unitDiff: fmt(x.unit50 - x.unit40), instDiff: fmt(x.inst50 - x.inst40), fhrDiff: fmt(x.fhr50 - x.fhr40, 1).replace(/\.0$/, ''), showers40: Math.floor(x.fhr40 / d['peak-hour-demand'].activities.shower.gallons), showers50: Math.floor(x.fhr50 / d['peak-hour-demand'].activities.shower.gallons), uef40: fmt(x.uef40, 2), uef50: fmt(x.uef50, 2), in40: fmt(x.in40, 1).replace(/\.0$/, ''), in50: fmt(x.in50, 1).replace(/\.0$/, '') });
+	const ph = d['peak-hour-demand'];
+	out['40-vs-50-gallon-water-heater'] = {
+		meta: { ...derived('data/fhr-to-tank-size.json, data/household-size-guides.json and the cost calculator model'), notes: 'Figures and tables for the 40 vs 50 gallon article. "Fits up to N people" is our reading of American Water Heater’s first hour rating bands: the largest household whose band starts at or below the size’s typical FHR.' },
+		figures: { gas: c(gas), el: c(el), hp50: fmt(hp50.fhrTypical, 1).replace(/\.0$/, ''), hp80: fmt(hp80.fhrTypical, 1).replace(/\.0$/, ''), hp80Range: `${fmt(hp80.fhrLow)}–${fmt(hp80.fhrHigh)}`, g75: fmt(g75.fhrTypical), hp80Inst: fmt(job('heat_pump', '80', 'replace').typical), hp50Inst: fmt(job('heat_pump', '50', 'replace').typical), g75Inst: fmt(job('gas_tank', '75', 'replace').typical), americanRows: am },
+		tables: {
+			compare: table('40-gallon vs 50-gallon water heater, side by side', [{ key: 'what', label: '' }, { key: 'g40', label: 'Gas 40', num: true }, { key: 'g50', label: 'Gas 50', num: true }, { key: 'e40', label: 'Electric 40', num: true }, { key: 'e50', label: 'Electric 50', num: true }], [
+				{ what: 'First hour rating, typical (gal)', g40: c(gas).fhr40, g50: c(gas).fhr50, e40: c(el).fhr40, e50: c(el).fhr50 },
+				{ what: 'First hour rating, range (gal)', g40: gas.fhr40Range, g50: gas.fhr50Range, e40: el.fhr40Range, e50: el.fhr50Range },
+				{ what: 'Burner (kBtu/h) or element (kW)', g40: c(gas).in40, g50: c(gas).in50, e40: c(el).in40, e50: c(el).in50 },
+				{ what: 'UEF, typical', g40: c(gas).uef40, g50: c(gas).uef50, e40: c(el).uef40, e50: c(el).uef50 },
+				{ what: 'Covers a typical household of up to', g40: `${gas.fits40} people`, g50: `${gas.fits50} people`, e40: `${el.fits40} people`, e50: `${el.fits50} people` },
+				{ what: 'Unit price, typical ($)', g40: fmt(gas.unit40), g50: fmt(gas.unit50), e40: fmt(el.unit40), e50: fmt(el.unit50) },
+				{ what: 'Installed, like for like ($)', g40: fmt(gas.inst40), g50: fmt(gas.inst50), e40: fmt(el.inst40), e50: fmt(el.inst50) },
+			], { source: `Rheem Performance spec sheets (FHR, input, UEF); American Water Heater selection guide (household bands); Home Depot listings (${d['cost-ranges'].lastReviewed}) and data/installation-costs.json (installed)`, sourceUrl: d['fhr-to-tank-size'].meta.sourceUrl, sourceDate: d['fhr-to-tank-size'].meta.sourceDate }),
+			peakHour: table('How much hot water your busiest hour uses (AHRI worksheet values)', [{ key: 'label', label: 'Use' }, { key: 'gallons', label: 'Gallons each', num: true }], Object.values(ph.activities || {}).map((a) => ({ label: a.label, gallons: fmt(a.gallons) })), { source: ph.meta.source, sourceUrl: ph.meta.sourceUrl, sourceDate: ph.meta.sourceDate }),
+		},
+	};
+}
+
+/* expansion tank size tool (page 16) */
+{
+	const et = d['expansion-tanks'];
+	const data = { expansionFactors: et.expansionFactors, atmosphericPsi: et.atmosphericPsi, tanks: et.tanks, headroomShare: et.defaults.headroomShare };
+	const pa = et.pressureAdvice;
+	const client = { data, defaults: { heaterGallons: et.defaults.heaterGallons, tempF: d.site.defaults.setpointTempF.value, supplyPsi: et.defaults.supplyPsi, maxPsi: et.defaults.maxPsi }, highSupplyPsi: pa.maxPsi, prvLow: pa.prvLowPsi, prvHigh: pa.prvHighPsi };
+	const run = (o = {}) => describeEt({ gallons: client.defaults.heaterGallons, temp: client.defaults.tempF, supply: client.defaults.supplyPsi, max: client.defaults.maxPsi, ...o }, client);
+	const d0 = run();
+	const sizeOf = (r) => (r.result.safer ? `${r.result.tank.id} (${r.result.safer.id} safer)` : r.result.tank ? r.result.tank.id : '—');
+	const heaters = [30, 40, 50, 65, 75, 80, 100];
+	const psis = [40, 50, 60, 70, 80];
+	const quick = heaters.map((gal) => ({ gal: String(gal), ...Object.fromEntries(psis.map((p) => [`p${p}`, sizeOf(run({ gallons: gal, supply: p }))])) }));
+	// Cross-check: every cell of AMTROL's quick chart vs our method with the same assumptions (40 °F start, 150 psi max).
+	const byModel = Object.fromEntries(et.tanks.map((t) => [t.model, t]));
+	let exact = 0, saferMatch = 0;
+	const misses = [];
+	for (const row of et.quickChart.rows) et.quickChart.pressures.forEach((p, k) => {
+		const r = F.expansionTankSizing({ heaterGallons: row.gallons, tempF: row.tempF, supplyPsi: p, maxPsi: 150 }, data);
+		const want = row.picks[k];
+		if (r.tank && r.tank.model === want) exact++;
+		else if (r.safer && r.safer.model === want) saferMatch++;
+		else misses.push({ ...row, psi: p, want, ours: r.tank ? r.tank.model : 'none', expanded: r.expanded });
+	});
+	const cells = et.quickChart.rows.length * et.quickChart.pressures.length;
+	const ref = (id) => ({ source: `${et.references[id].publisher}: ${et.references[id].title}`, sourceUrl: et.references[id].sourceUrl });
+	const sample = (gal, t, p) => { const r = F.expansionTankSizing({ heaterGallons: gal, tempF: t, supplyPsi: p, maxPsi: 150 }, data); const row = et.quickChart.rows.find((x) => x.gallons === gal && x.tempF === t); const want = row.picks[et.quickChart.pressures.indexOf(p)]; return { r, want, wantTank: byModel[want] }; };
+	const s1 = sample(50, 140, 60);
+	const s2 = sample(80, 160, 80);
+	const s3 = sample(40, 160, 80);
+	const lab = (t) => `${t.label} (${t.model})`;
+	const xc = [
+		{ id: 'amtrol-example', label: 'AMTROL worked example: 240-gal heater, 150 °F, 60 psi supply, 125 psi maximum', ours: (() => { const r = F.expansionTankSizing({ heaterGallons: 240, tempF: 150, supplyPsi: 60, maxPsi: 125 }, data); return `${fmt(r.expanded, 1)} gal expanded × DPF ${fmt(r.dpf, 2)} = ${fmt(r.required, 1)} gal`; })(), published: 'AMTROL: 4.3 gal expanded × DPF 2.1 = 9.0 gal (ST-25V or ST-30V-C)', match: true, why: 'Same method. AMTROL rounds the DPF to 2.1 before multiplying; unrounded it is 2.15, which gives 9.2 gallons.', ...ref('amtrol-sizing') },
+		{ id: 'amtrol-50-140-60', label: '50-gal heater, 140 °F, 60 psi supply, 150 psi relief valve', ours: `${fmt(s1.r.required, 2)} gal needed → ${lab(s1.r.tank)}`, published: `AMTROL quick chart: ${s1.want}`, match: s1.r.tank.model === s1.want, why: 'Same tank.', ...ref('amtrol-chart') },
+		{ id: 'amtrol-80-160-80', label: '80-gal heater, 160 °F, 80 psi supply, 150 psi relief valve', ours: `${fmt(s2.r.required, 2)} gal needed → minimum ${lab(s2.r.tank)}${s2.r.safer ? `, safer ${lab(s2.r.safer)}` : ''}`, published: `AMTROL quick chart: ${s2.want}`, match: (s2.r.safer || s2.r.tank).model === s2.want, why: 'The required 3.93 gallons fits a 4.4-gallon tank with little room to spare. AMTROL picks the larger tank; our headroom rule names it as the safer pick.', ...ref('amtrol-chart') },
+		{ id: 'amtrol-40-160-80', label: '40-gal heater, 160 °F, 80 psi supply, 150 psi relief valve', ours: `${fmt(s3.r.required, 2)} gal needed → minimum ${lab(s3.r.tank)}${s3.r.safer ? `, safer ${lab(s3.r.safer)}` : ''}`, published: `AMTROL quick chart: ${s3.want}`, match: (s3.r.safer || s3.r.tank).model === s3.want, why: 'Borderline case: 1.97 gallons needed against a 2.0-gallon tank. AMTROL picks the larger tank; so does our headroom rule.', ...ref('amtrol-chart') },
+		{ id: 'amtrol-all', label: `All ${cells} cells of AMTROL’s quick sizing chart (40, 50, 60, 80, 120 gal; 140, 160, 180 °F; 40, 60, 80 psi)`, ours: `${exact} same minimum tank, ${saferMatch} same as our safer pick, ${misses.length} different`, published: 'AMTROL Therm-X-Trol Quick Sizing Charts (MC8520, 04/22)', match: misses.length <= 1, why: misses.map((x) => `${x.gallons}-gal, ${x.tempF} °F, ${x.psi} psi: AMTROL ${x.want}, ours ${x.ours}, because ${fmt(x.expanded, 2)} gal of expanded water is more than the smaller tank's ${fmt(byModel[x.want].acceptanceGallons, 1)} gal acceptance volume.`).join(' ') || 'All match.', ...ref('amtrol-chart') },
+	];
+	const hd = ic.references['home-depot-parts'];
+	out['water-heater-expansion-tank-size'] = {
+		meta: { ...derived('data/expansion-tanks.json (AMTROL method and tank data)'), notes: 'Default result, quick-size table, expansion factors and AMTROL cross-checks for the expansion tank size calculator.' },
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: `Method and tank data: AMTROL sizing guide and spec sheet. <a href="/methodology/#water-heater-expansion-tank-size">See every cell of AMTROL’s chart checked against ours</a>.` },
+		figures: {
+			d0: { tank: d0.result.tank.label, expanded: fmt(d0.result.expanded, 2), required: fmt(d0.result.required, 2), dpf: fmt(d0.result.dpf, 2), factorPct: fmt(d0.result.factor * 100, 1) },
+			heater: client.defaults.heaterGallons, temp: client.defaults.tempF, supply: client.defaults.supplyPsi, max: client.defaults.maxPsi,
+			f140: fmt(F.expansionFactor(140, et.expansionFactors) * 100, 1), f120: fmt(F.expansionFactor(120, et.expansionFactors) * 100, 1),
+			r80: (() => { const r = run({ gallons: 80, supply: 80 }).result; return { tank: r.tank.label, safer: r.safer ? r.safer.label : '', required: fmt(r.required, 2) }; })(),
+			r50at80: (() => { const r = run({ supply: 80 }).result; return { tank: r.tank.label, safer: r.safer ? r.safer.label : '', required: fmt(r.required, 2) }; })(),
+			r50max125: (() => { const r = run({ max: 125 }).result; return { tank: r.tank.label, safer: r.safer ? r.safer.label : '', required: fmt(r.required, 2) }; })(),
+			cells, exact, saferMatch, missCount: misses.length, headroomPct: fmt(et.defaults.headroomShare * 100),
+			...(() => { const ps = hd.quotes.filter((q) => /expansion|therm-x-trol/i.test(q)).map((q) => Number((q.match(/\$([\d.]+)/) || [])[1])).filter(Number.isFinite); return { partLow: fmt(Math.min(...ps)), partHigh: fmt(Math.max(...ps)) }; })(), costTypical: fmt(model.extras.expansionTank.typical), costLow: fmt(model.extras.expansionTank.low), costHigh: fmt(model.extras.expansionTank.high),
+			prvLow: pa.prvLowPsi, prvHigh: pa.prvHighPsi, maxSupply: pa.maxPsi, relief: et.relief.commonPsi.join(' or '),
+		},
+		crossChecks: xc,
+		tables: {
+			quick: table(`Expansion tank size by heater size and supply pressure (${client.defaults.tempF} °F setting, ${client.defaults.maxPsi} psi relief valve)`, [{ key: 'gal', label: 'Heater (gal)', num: true }, ...psis.map((p) => ({ key: `p${p}`, label: `${p} psi`, unit: 'gal tank', num: true }))], quick, { source: 'Computed with AMTROL’s sizing method (expansion factor × design pressure factor) and AMTROL tank volumes; “safer” = within our 15% headroom rule', sourceUrl: et.meta.sourceUrl, sourceDate: et.meta.sourceDate }),
+			factors: table('How much water grows when heated from 40 °F', [{ key: 't', label: 'Tank setting', unit: '°F', num: true }, { key: 'pct', label: 'Volume increase', unit: '%', num: true }, { key: 'g50', label: 'In a 50-gal tank', unit: 'gal', num: true }], et.expansionFactors.rows.map((x) => ({ t: fmt(x.tempF), pct: fmt(x.factor * 100, 2), g50: fmt(x.factor * 50, 2) })), { source: et.expansionFactors.source, sourceUrl: et.expansionFactors.sourceUrl, sourceDate: et.meta.sourceDate }),
+			tanks: table('Common residential expansion tank sizes', [{ key: 'label', label: 'Tank' }, { key: 'model', label: 'Example model' }, { key: 'total', label: 'Total volume', unit: 'gal', num: true }, { key: 'accept', label: 'Max. acceptance', unit: 'gal', num: true }], et.tanks.map((t) => ({ label: t.label, model: `AMTROL ${t.model}`, total: fmt(t.totalGallons, 1), accept: fmt(t.acceptanceGallons, 1) })), { source: et.tanksSource, sourceUrl: et.references['amtrol-chart'].sourceUrl, sourceDate: et.meta.sourceDate }),
+			prices: table('Thermal expansion tank prices (parts only)', [{ key: 'p', label: 'Listing' }], hd.quotes.filter((q) => /expansion|therm-x-trol/i.test(q)).map((q) => ({ p: q })), { source: `${hd.publisher}: ${hd.title}`, sourceUrl: hd.sourceUrl, sourceDate: hd.checked }),
+		},
+		stateOptions: [],
+		client,
+	};
+}
+
+/* Phase 6: Quick Answers must quote the computed numbers */
+{
+	const pages = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages;
+	const qa = (slug) => pages.find((p) => p.slug === slug)?.quickAnswer || '';
+	const hpf = out['heat-pump-water-heater-cost'].figures;
+	const ivf = out['water-heater-installation-cost'].figures;
+	const tlf = out['tankless-water-heater-installation-cost'].figures;
+	const gsf = out['gas-water-heater-installation-cost'].figures;
+	const elf = out['electric-water-heater-installation-cost'].figures;
+	const etf = out['water-heater-expansion-tank-size'].figures;
+	const must = [
+		['heat-pump-water-heater-cost', ['$' + hpf.sizes['50'].fromEl, '$' + hpf.e0.saving]],
+		['water-heater-installation-cost', ['$' + ivf.g50.typical, '$' + ivf.e50.typical]],
+		['tankless-water-heater-installation-cost', ['$' + tlf.gT.typical, '$' + tlf.gR.typical]],
+		['gas-water-heater-installation-cost', ['$' + gsf.s40.typical, '$' + gsf.s50.typical]],
+		['electric-water-heater-installation-cost', ['$' + elf.s40.typical, '$' + elf.s50.typical]],
+		['water-heater-expansion-tank-size', [etf.d0.tank]],
+		['40-vs-50-gallon-water-heater', [out['40-vs-50-gallon-water-heater'].figures.gas.fhrDiff + ' more gallons', '$' + out['40-vs-50-gallon-water-heater'].figures.gas.instDiff]],
+	];
+	for (const [slug, parts] of must) for (const part of parts) if (pages.some((p) => p.slug === slug && p.status !== 'planned') && !qa(slug).includes(part)) throw new Error('pages.json quickAnswer for ' + slug + ' must contain "' + part + '" (computed); update it.');
 }
 
 /* ---------- write + manifest ---------- */

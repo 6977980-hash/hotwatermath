@@ -76,7 +76,14 @@
     "state-water-heater-age": "2026-11-13",
     "whirlpool-water-heater-age": "2026-11-13",
     "american-water-heater-age": "2026-11-13",
-    "navien-water-heater-age": "2026-11-13"
+    "navien-water-heater-age": "2026-11-13",
+    "heat-pump-water-heater-cost": "2026-11-13",
+    "water-heater-installation-cost": "2026-11-13",
+    "tankless-water-heater-installation-cost": "2026-11-13",
+    "gas-water-heater-installation-cost": "2026-11-13",
+    "electric-water-heater-installation-cost": "2026-11-13",
+    "40-vs-50-gallon-water-heater": "2026-11-13",
+    "water-heater-expansion-tank-size": "2026-11-13"
   },
   "dateVerifiedNote": "Per tool: the date its manufacturer cross-check on /methodology was last run (Phases 2–4). Empty = not yet verified, and the AuthorLine then shows no 'Last verified' date."
 }

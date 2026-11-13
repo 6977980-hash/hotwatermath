@@ -569,3 +569,86 @@ export function breakEvenYear(byYearA, byYearB) {
 	for (let i = 0; i < n; i++) if (byYearB[i] <= byYearA[i]) return i + 1;
 	return null;
 }
+
+/* ---------- Phase 6: heat pump payback (STRATEGY §3.8) ---------- */
+
+/**
+ * Simple payback: years for a yearly saving to repay an extra up-front cost.
+ * @param {number} extraCost USD more than the alternative (after any rebate). 0 or less → pays back at once.
+ * @param {number} yearlySavingUsd USD saved a year (positive = the new option is cheaper to run).
+ * @returns {number|null} Years (one decimal), 0 when there is no extra cost, null when it never pays back.
+ */
+export function simplePaybackYears(extraCost, yearlySavingUsd) {
+	if (!isNum(extraCost) || extraCost <= 0) return 0;
+	if (!isNum(yearlySavingUsd) || yearlySavingUsd <= 0) return null;
+	return round(extraCost / yearlySavingUsd, 1);
+}
+
+/**
+ * Net saving over a number of years: yearly saving × years − extra up-front cost (no discounting).
+ * @param {number} yearlySavingUsd
+ * @param {number} years
+ * @param {number} extraCost
+ * @returns {number} USD, rounded
+ */
+export function netSavingOver(yearlySavingUsd, years, extraCost) {
+	return round(yearlySavingUsd * years - extraCost);
+}
+
+/* ---------- Phase 6: thermal expansion tank (STRATEGY §3.8, page 16) ---------- */
+
+/**
+ * Share of a tank's water volume that it gains when heated from the table's start temperature to tempF.
+ * Linear interpolation between table rows; below the first row it interpolates from 0 at the start temperature,
+ * above the last row it uses the last row (no extrapolation).
+ * @param {number} tempF Tank setting, °F.
+ * @param {{startTempF:number, rows:Array<{tempF:number, factor:number}>}} table data/expansion-tanks.json → expansionFactors
+ * @returns {number} e.g. 0.01 for 1.0%
+ */
+export function expansionFactor(tempF, table) {
+	const rows = [{ tempF: table.startTempF, factor: 0 }, ...table.rows].sort((a, b) => a.tempF - b.tempF);
+	if (!isNum(tempF) || tempF <= rows[0].tempF) return 0;
+	const last = rows[rows.length - 1];
+	if (tempF >= last.tempF) return last.factor;
+	const i = rows.findIndex((r) => r.tempF >= tempF);
+	const a = rows[i - 1];
+	const b = rows[i];
+	return round(a.factor + ((tempF - a.tempF) / (b.tempF - a.tempF)) * (b.factor - a.factor), 5);
+}
+
+/**
+ * Design pressure factor (Boyle's law for a precharged tank): (Pmax + atm) ÷ (Pmax − Psupply), gauge pressures.
+ * @param {number} maxPsi Highest pressure allowed (e.g. the relief valve setting), psig.
+ * @param {number} supplyPsi Static supply pressure (= tank precharge), psig.
+ * @param {number} atmosphericPsi Atmospheric pressure, psi (data).
+ * @returns {number|null} null when the maximum is not above the supply pressure.
+ */
+export function designPressureFactor(maxPsi, supplyPsi, atmosphericPsi) {
+	if (!isNum(maxPsi) || !isNum(supplyPsi) || maxPsi <= supplyPsi) return null;
+	return round((maxPsi + atmosphericPsi) / (maxPsi - supplyPsi), 3);
+}
+
+/**
+ * Thermal expansion tank size for a storage water heater.
+ * expanded = heater gallons × expansion factor; required = expanded × DPF; the smallest tank whose total volume
+ * ≥ required and whose acceptance volume ≥ expanded. When either figure is within headroomShare of that tank's
+ * limit, the next tank is returned as a safer pick.
+ * @param {{heaterGallons:number, tempF:number, supplyPsi:number, maxPsi:number}} i
+ * @param {{expansionFactors:object, atmosphericPsi:number, tanks:Array<{id:string,totalGallons:number,acceptanceGallons:number}>, headroomShare:number}} d
+ * @returns {{factor:number, expanded:number, dpf:number|null, required:number|null, tank:object|null, safer:object|null, tooBig:boolean}}
+ */
+export function expansionTankSizing(i, d) {
+	const factor = expansionFactor(i.tempF, d.expansionFactors);
+	const expanded = round(i.heaterGallons * factor, 3);
+	const dpf = designPressureFactor(i.maxPsi, i.supplyPsi, d.atmosphericPsi);
+	if (dpf === null) return { factor, expanded, dpf, required: null, tank: null, safer: null, tooBig: false };
+	const required = round(expanded * dpf, 2);
+	const tanks = [...d.tanks].sort((a, b) => a.totalGallons - b.totalGallons);
+	const idx = tanks.findIndex((t) => t.totalGallons >= required && t.acceptanceGallons >= expanded);
+	if (idx < 0) return { factor, expanded, dpf, required, tank: null, safer: null, tooBig: true };
+	const tank = tanks[idx];
+	const h = isNum(d.headroomShare) ? d.headroomShare : 0;
+	const tight = required > tank.totalGallons * (1 - h) || expanded > tank.acceptanceGallons * (1 - h);
+	const safer = tight && tanks[idx + 1] ? tanks[idx + 1] : null;
+	return { factor, expanded, dpf, required, tank, safer, tooBig: false };
+}

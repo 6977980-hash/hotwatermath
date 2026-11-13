@@ -1,0 +1,232 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/fhr-to-tank-size.json, data/household-size-guides.json and the cost calculator model with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures and tables for the 40 vs 50 gallon article. \"Fits up to N people\" is our reading of American Water Heater’s first hour rating bands: the largest household whose band starts at or below the size’s typical FHR."
+  },
+  "figures": {
+    "gas": {
+      "fuel": "gas",
+      "fhr40": "68.5",
+      "fhr50": "81",
+      "fhr40Range": "64–84",
+      "fhr50Range": "75–86",
+      "fits40": 3,
+      "fits50": 4,
+      "unit40": "759",
+      "unit50": "899",
+      "inst40": "1,669",
+      "inst50": "1,809",
+      "uef40": "0.59",
+      "uef50": "0.64",
+      "in40": "37",
+      "in50": "40",
+      "unitDiff": "140",
+      "instDiff": "140",
+      "fhrDiff": "12.5",
+      "showers40": 3,
+      "showers50": 4
+    },
+    "el": {
+      "fuel": "electric",
+      "fhr40": "54.5",
+      "fhr50": "62",
+      "fhr40Range": "53–55",
+      "fhr50Range": "61–63",
+      "fits40": 2,
+      "fits50": 3,
+      "unit40": "684",
+      "unit50": "819",
+      "inst40": "1,444",
+      "inst50": "1,579",
+      "uef40": "0.93",
+      "uef50": "0.93",
+      "in40": "4.5",
+      "in50": "4.5",
+      "unitDiff": "135",
+      "instDiff": "135",
+      "fhrDiff": "7.5",
+      "showers40": 2,
+      "showers50": 3
+    },
+    "hp50": "65",
+    "hp80": "86.5",
+    "hp80Range": "67–95",
+    "g75": "100",
+    "hp80Inst": "3,538",
+    "hp50Inst": "2,947",
+    "g75Inst": "2,229",
+    "americanRows": [
+      {
+        "people": 2,
+        "low": 38,
+        "high": 49
+      },
+      {
+        "people": 3,
+        "low": 49,
+        "high": 62
+      },
+      {
+        "people": 4,
+        "low": 62,
+        "high": 74
+      },
+      {
+        "people": 5,
+        "low": 74,
+        "high": 95
+      },
+      {
+        "people": 6,
+        "low": 95,
+        "high": 124
+      }
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "40-gallon vs 50-gallon water heater, side by side",
+      "columns": [
+        {
+          "key": "what",
+          "label": ""
+        },
+        {
+          "key": "g40",
+          "label": "Gas 40",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas 50",
+          "num": true
+        },
+        {
+          "key": "e40",
+          "label": "Electric 40",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric 50",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "what": "First hour rating, typical (gal)",
+          "g40": "68.5",
+          "g50": "81",
+          "e40": "54.5",
+          "e50": "62"
+        },
+        {
+          "what": "First hour rating, range (gal)",
+          "g40": "64–84",
+          "g50": "75–86",
+          "e40": "53–55",
+          "e50": "61–63"
+        },
+        {
+          "what": "Burner (kBtu/h) or element (kW)",
+          "g40": "37",
+          "g50": "40",
+          "e40": "4.5",
+          "e50": "4.5"
+        },
+        {
+          "what": "UEF, typical",
+          "g40": "0.59",
+          "g50": "0.64",
+          "e40": "0.93",
+          "e50": "0.93"
+        },
+        {
+          "what": "Covers a typical household of up to",
+          "g40": "3 people",
+          "g50": "4 people",
+          "e40": "2 people",
+          "e50": "3 people"
+        },
+        {
+          "what": "Unit price, typical ($)",
+          "g40": "759",
+          "g50": "899",
+          "e40": "684",
+          "e50": "819"
+        },
+        {
+          "what": "Installed, like for like ($)",
+          "g40": "1,669",
+          "g50": "1,809",
+          "e40": "1,444",
+          "e50": "1,579"
+        }
+      ],
+      "source": "Rheem Performance spec sheets (FHR, input, UEF); American Water Heater selection guide (household bands); Home Depot listings (2026-11-12) and data/installation-costs.json (installed)",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/c3/c3e24cc3-5661-44e2-94a8-a691e90725a3.pdf",
+      "sourceDate": "2026-11-12"
+    },
+    "peakHour": {
+      "caption": "How much hot water your busiest hour uses (AHRI worksheet values)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Use"
+        },
+        {
+          "key": "gallons",
+          "label": "Gallons each",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Shower",
+          "gallons": "20"
+        },
+        {
+          "label": "Bath",
+          "gallons": "20"
+        },
+        {
+          "label": "Shaving",
+          "gallons": "2"
+        },
+        {
+          "label": "Hands and face washing",
+          "gallons": "4"
+        },
+        {
+          "label": "Hair shampoo",
+          "gallons": "4"
+        },
+        {
+          "label": "Hand dishwashing",
+          "gallons": "4"
+        },
+        {
+          "label": "Automatic dishwasher",
+          "gallons": "14"
+        },
+        {
+          "label": "Food preparation",
+          "gallons": "5"
+        },
+        {
+          "label": "Wringer clothes washer",
+          "gallons": "26"
+        },
+        {
+          "label": "Automatic clothes washer",
+          "gallons": "32"
+        }
+      ],
+      "source": "Air-Conditioning, Heating and Refrigeration Institute (AHRI), Water Heater Calculator: Worksheet for Estimating Peak Hour Demand/First Hour Rating (2011)",
+      "sourceUrl": "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

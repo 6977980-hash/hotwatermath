@@ -387,11 +387,29 @@
     {
       "slug": "tankless-water-heater-installation-cost",
       "type": "article",
-      "status": "planned",
+      "status": "draft",
       "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Costs & Sizing",
       "title": "Tankless Water Heater Installation Cost",
       "summary": "What installing a tankless water heater costs, by fuel and by the extra work a switch from a tank needs.",
-      "group": "Costs & Sizing"
+      "metaTitle": "Tankless Water Heater Installation Cost | Hot Water Math",
+      "description": "Tankless water heater installation cost: about $3,318 to switch from a gas tank, $2,218 to replace a tankless unit. Itemized venting, gas line and panel.",
+      "h1": "Tankless water heater installation cost",
+      "subtitle": "What a tankless job costs by fuel, and why switching from a tank costs more.",
+      "quickAnswer": "Switching a gas tank to a gas tankless water heater costs about $3,318 installed at U.S. average prices, mostly because it needs new venting and a larger gas line. Replacing an old tankless unit costs about $2,218.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "tankless water heater installation cost",
+        "tankless water heater cost",
+        "cost to install tankless water heater",
+        "tankless water heater cost installed",
+        "electric tankless water heater installation cost",
+        "convert tank to tankless water heater cost"
+      ]
     },
     {
       "slug": "gas-line-size-for-tankless-water-heater",
@@ -731,6 +749,172 @@
         "gas water heater not heating",
         "tankless water heater no hot water",
         "hot water not working in one faucet"
+      ]
+    },
+    {
+      "slug": "heat-pump-water-heater-cost",
+      "type": "article",
+      "status": "draft",
+      "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Costs & Sizing",
+      "title": "Heat Pump Water Heater Cost",
+      "summary": "What a heat pump water heater costs to buy and install, what it saves a year in your state, and when it pays back.",
+      "metaTitle": "Heat Pump Water Heater Cost and Payback | Hot Water Math",
+      "description": "Heat pump water heater cost: about $2,947 installed for 50 gallons, saving $426 a year vs electric. Payback by state, 2026 rebates and space rules.",
+      "h1": "Heat pump water heater cost, savings and payback",
+      "subtitle": "Installed price by size, yearly savings in your state, and the rebates that still exist.",
+      "quickAnswer": "A 50-gallon heat pump water heater costs about $2,947 installed in place of an electric tank. It saves about $426 a year at U.S. average prices, so the extra cost pays back in about 3 years.",
+      "scripts": [
+        "heat-pump-savings"
+      ],
+      "methodAnchor": "heat-pump-water-heater-cost",
+      "keywords": [
+        "heat pump water heater cost",
+        "heat pump water heater tax credit",
+        "heat pump water heater tax credit 2026",
+        "heat pump water heater savings calculator",
+        "heat pump water heater payback",
+        "50 gallon heat pump water heater",
+        "80 gallon heat pump water heater",
+        "heat pump water heater vs gas",
+        "heat pump water heater vs electric"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost",
+      "type": "article",
+      "status": "draft",
+      "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Costs & Sizing",
+      "title": "Water Heater Replacement Cost",
+      "summary": "What replacing a water heater costs by type, size and state, itemized, and what changes when it is a new installation.",
+      "metaTitle": "Water Heater Replacement Cost, Itemized | Hot Water Math",
+      "description": "Water heater replacement cost: about $1,809 for a 50-gallon gas tank and $1,579 electric, installed. See every line, every state and what raises a quote.",
+      "h1": "Water heater replacement cost, itemized",
+      "subtitle": "What a new water heater costs installed by type, size and state, line by line.",
+      "quickAnswer": "Replacing a 50-gallon water heater costs about $1,809 installed for gas and $1,579 for electric at U.S. average prices, including labor, permit and haul-away. About half of that is the unit itself.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater replacement cost",
+        "water heater installation cost",
+        "cost to replace water heater",
+        "water heater installation labor cost",
+        "new water heater installation cost",
+        "hot water heater replacement cost"
+      ]
+    },
+    {
+      "slug": "gas-water-heater-installation-cost",
+      "type": "article",
+      "status": "draft",
+      "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Costs & Sizing",
+      "title": "Gas Water Heater Installation Cost",
+      "summary": "What a gas tank water heater costs installed by size, and what venting, gas line and fuel switches add.",
+      "metaTitle": "Gas Water Heater Installation Cost | Hot Water Math",
+      "description": "Gas water heater installation cost: about $1,669 for 40 gallons and $1,809 for 50, installed like for like. What venting, gas lines and switching add.",
+      "h1": "Gas water heater installation cost",
+      "subtitle": "Installed price of a gas tank by size, and what venting, gas line or a switch adds.",
+      "quickAnswer": "A gas water heater costs about $1,669 installed for 40 gallons and $1,809 for 50 gallons at U.S. average prices, replacing a gas tank in the same spot. New venting or a gas line adds several hundred dollars each.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "gas water heater installation cost",
+        "cost to install gas water heater",
+        "gas hot water heater replacement cost",
+        "40 gallon gas water heater installed cost",
+        "50 gallon gas water heater installed cost",
+        "electric to gas water heater conversion cost"
+      ]
+    },
+    {
+      "slug": "electric-water-heater-installation-cost",
+      "type": "article",
+      "status": "draft",
+      "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Costs & Sizing",
+      "title": "Electric Water Heater Installation Cost",
+      "summary": "What an electric tank water heater costs installed by size, and what a new circuit, panel or heat pump adds.",
+      "metaTitle": "Electric Water Heater Installation Cost | Hot Water Math",
+      "description": "Electric water heater installation cost: about $1,444 for 40 gallons and $1,579 for 50, installed. What a 240-volt circuit or panel upgrade adds, by state.",
+      "h1": "Electric water heater installation cost",
+      "subtitle": "Installed price of an electric tank by size, and what a circuit, panel or heat pump adds.",
+      "quickAnswer": "An electric water heater costs about $1,444 installed for 40 gallons and $1,579 for 50 gallons at U.S. average prices, replacing like for like. Switching from gas adds a new 240-volt circuit.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "electric water heater installation cost",
+        "cost to install electric water heater",
+        "electric hot water heater replacement cost",
+        "50 gallon electric water heater installed",
+        "gas to electric water heater conversion cost",
+        "electric water heater circuit cost"
+      ]
+    },
+    {
+      "slug": "40-vs-50-gallon-water-heater",
+      "type": "article",
+      "status": "draft",
+      "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Costs & Sizing",
+      "title": "40 vs 50 Gallon Water Heater",
+      "summary": "How much more hot water a 50-gallon tank gives than a 40, what it costs, and which one fits your household.",
+      "metaTitle": "40 vs 50 Gallon Water Heater: Which Size? | Hot Water Math",
+      "description": "40 vs 50 gallon water heater: a 50-gallon gas tank gives about 12 more gallons in your busiest hour for $140 more. See which fits your household size.",
+      "h1": "40 vs 50 gallon water heater: which size do you need?",
+      "subtitle": "Hot water per hour, price and household fit, from manufacturer spec sheets.",
+      "quickAnswer": "A 50-gallon gas tank delivers about 12.5 more gallons in your busiest hour than a 40-gallon one, for about $140 more installed. A 40-gallon gas tank covers a typical three-person household; four people need a 50.",
+      "scripts": [
+        "tank-size"
+      ],
+      "keywords": [
+        "40 gallon vs 50 gallon water heater",
+        "40 or 50 gallon water heater",
+        "is a 40 gallon water heater enough for a family of 4",
+        "50 vs 80 gallon water heater",
+        "40 vs 50 gallon water heater cost",
+        "difference between 40 and 50 gallon water heater"
+      ]
+    },
+    {
+      "slug": "water-heater-expansion-tank-size",
+      "type": "tool",
+      "status": "draft",
+      "phase": "6",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Expansion Tank Size Calculator",
+      "summary": "Find the thermal expansion tank size your water heater needs from its gallons, setting and water pressure.",
+      "metaTitle": "Water Heater Expansion Tank Size Calculator | Hot Water Math",
+      "description": "Expansion tank size calculator: most 40 to 50 gallon water heaters need a 2-gallon tank. Enter gallons, temperature and pressure; checked against AMTROL.",
+      "h1": "Water heater expansion tank size calculator",
+      "subtitle": "The thermal expansion tank your water heater needs, from its size, setting and pressure.",
+      "quickAnswer": "Most 40- to 50-gallon water heaters need a 2-gallon tank at normal water pressure. Larger heaters, hotter settings or pressure near 80 psi call for a 4.4-gallon tank; set its air charge to your water pressure.",
+      "scripts": [
+        "expansion-tank"
+      ],
+      "methodAnchor": "water-heater-expansion-tank-size",
+      "keywords": [
+        "expansion tank size calculator",
+        "water heater expansion tank size",
+        "what size expansion tank do i need",
+        "do i need an expansion tank for my water heater",
+        "expansion tank pressure setting",
+        "expansion tank for 50 gallon water heater"
       ]
     }
   ]
