@@ -26,6 +26,16 @@
 - schema.org validator: 0 errors, 0 warnings on home, /about/, /contact/, /methodology/, /guides/, /calculators/, a tool, a brand page, the article.
 - Trust pass: AuthorLine + disclaimer on all 14 live tool pages; /methodology has filled cross-check tables for all 7 tools (4–34 cases each, with run date); /about and /editorial-policy state what we are not and ads/affiliate independence; no "reviewed by", "licensed plumber recommends", "find a pro", "get quotes" anywhere.
 
+**Verified live (after PR #18 deployed, 2026-11-13):**
+- style.css 0.8.0 served; `npm run check --bust` 333/333; `npm run check-links --bust` 564/564 (0 broken links, every page ≥3 body links, home + /calculators/ link every tool, /guides/ the article).
+- Lighthouse mobile (P/A/BP/SEO): home 100/100/100/100, cost calculator 100/100/100/100, tankless size 100/100/100/100, /calculators/ 100/100/100/100, /privacy-policy/ 100/100/100/100; CLS 0, LCP 0.8–1.1 s, TTFB 116–430 ms.
+- 360×640 on all 7 tools: no horizontal scroll, first input at 514–573 px, server-rendered results as expected ($1,809 installed; 5.0 GPM at 70 °F; 50-gal gas FHR 69+; gas $242 vs electric $564), no console errors, no pop-ups.
+- IndexNow key file `/ba2ff6ca8e6c1daca44777baadc13239.txt` 200; direct API ping for `/` returned **202**. `/ads.txt` 200 with "No ad network is configured yet" (the `google.com, pub-…, DIRECT, f08c47fec0942fa0` line appears once `adsenseClient` is set; checked offline with a test ID). No Google scripts load while the IDs are empty.
+- `http://hotwatermath.com/` → `https://hotwatermath.com/` in 1 hop; `https://www.` → apex in 1 hop; **`http://www.` takes 2 hops** (Hostinger's edge upgrades to `https://www.` first, then WordPress sends it to the apex). Not fixable in the theme.
+- Favicon, logo-512, apple-touch-icon, manifest, OG images (home 46 KB, cost 31 KB, 1200×630) all 200. Sitemap 200; robots.txt points to it ("Discourage search engines" is off).
+- **Found:** `/llms.txt` is a physical file written by the Hostinger Tools plugin (lists "Hello world!"), so it overrides the theme's version. Owner step 7 below.
+- LiteSpeed served the old home page after the deploy (other pages purged); this follow-up PR bumps the version to purge again.
+
 **Owner steps (dashboard clicks; Claude cannot do these):**
 1. **Google Search Console:** add a Domain property for `hotwatermath.com` (DNS TXT in Hostinger) or a URL-prefix property with the HTML tag (send Claude the tag value → `integrations.gscToken`). Then Sitemaps → submit `https://hotwatermath.com/wp-sitemap.xml`; URL Inspection → Request indexing for the home page and the 7 tools.
 2. **Bing Webmaster Tools:** "Import from Google Search Console" (fastest) or add the site with the `msvalidate.01` tag (→ `integrations.bingToken`). Submit the same sitemap. IndexNow already pings Bing on each publish.
@@ -33,6 +43,8 @@
 4. **AdSense (when ready; site already has ≥15 live pages and all utility pages):** sign up with `https://hotwatermath.com`, send Claude the `pub-…` ID (→ `adsenseClient`; this switches on /ads.txt and the verification meta). In AdSense → Privacy & messaging, create and publish the **European regulations (GDPR)** message and the **US state regulations** message. After approval create 4 Display ad units (Responsive) and send their IDs for slots A, B, C, S. Keep **Auto ads off**.
 5. **LiteSpeed Cache:** keep it on; after each deploy Purge All (theme also purges on version change). Hostinger CDN: flush if a page looks stale.
 6. Make sure `contact@hotwatermath.com` receives mail; add hotwatermath.com to your LinkedIn profile.
+7. **Hostinger Tools plugin:** deactivate and delete it (README step 4), then in hPanel → File Manager delete `public_html/llms.txt`, so the theme's `/llms.txt` (live pages only) is served instead of the plugin's file.
+8. Optional: to make `http://www.` redirect in one hop, ask Hostinger support to redirect `www` straight to `https://hotwatermath.com` at the edge. Google follows two hops fine, so this is low priority.
 
 **Post-launch watchlist (Search Console → Performance, check weekly for 8 weeks):**
 - Tools: water heater age calculator; how old is my water heater; what size tankless water heater do i need; tankless water heater size calculator; what size water heater do i need; water heater size calculator; repair or replace water heater; how much is a new water heater; water heater cost calculator; tankless vs traditional water heater; gas vs electric water heater.
