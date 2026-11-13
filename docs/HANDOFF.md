@@ -24,6 +24,8 @@
 - Embeds on the old live code: all 200, noindex, `frame-ancestors *`, 23–28 KB gzip incl. CSS/JS; in-frame methodology/source links were followed links (fixed in this PR).
 - Chart checked by eye (PNG); palette validated (CVD ΔE 9.2, contrast warn on aqua → table view + shapes).
 
+**Verified live (after PRs #40 and #41 deployed, 2026-11-13):** style.css 0.15.1 served; the 3 pages 200 with `noindex, follow`, self canonical, one H1; `/data/` prints 12 Dataset nodes, the index 1. `npm run check -- --bust` 767/767; `npm run check-links -- --bust` 1546/1546 (59 pages); `npm run check-embeds -- --bust` 230/230 (15 embeds: noindex header + meta, `frame-ancestors *`, no X-Frame-Options, no ad script, every in-frame link nofollow, one brand-name credit, 23–28 KB gzip incl. CSS/JS; snippet rules; 12 CSVs 200 text/csv with the right row counts). Playwright 360x640: no horizontal scroll and no console errors on the 3 pages; index calculator updates (Texas → about $1,782, matches the index row). Fixed in #41 after the first live check: USGS link in the age embed was not nofollow; CSV links 404'd for logged-out visitors while `/data/` is draft; spread table and long code URLs overflowed at 360 px. Lighthouse not re-run (no new scripts; same templates).
+
 **Owner steps:**
 1. Read the 3 drafts (`/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/`); reply OK to flip them `live`. Pitch only after the index and `/data/` are live.
 2. Flush the Hostinger CDN after this deploy (CSS and pages changed).
@@ -37,6 +39,7 @@
 | 2026-11 | 0 / 0 | 0 | 0 | — (GA4 not set up) | Assets built (draft) |
 
 **Known issues / TODOs carried forward:**
+- On phones the inline chart scales down to ~43% (labels small); the full table and the 2x PNG carry the detail. A taller mobile variant could be added to build-charts.
 - The index's "cheapest to own" assumes a home with gas service; stated on the page. Rebates excluded (they change often).
 - `/data/` CSVs are `noindex` files; Google Dataset Search reads the `Dataset` markup on `/data/`. Validate it in the Rich Results Test / Schema validator once live.
 - Embed chart image URL is the theme path (`/wp-content/themes/hotwatermath/assets/charts/…png`); keep the theme folder name stable.
