@@ -38,7 +38,8 @@
 - Labor/extras ranges are editorial, anchored to DOE (2022/2023 dollars) and Home Depot parts; Angi/HomeAdvisor/BLS pages were blocked, so no current trade survey backs the "typical" labor values. Re-check when a primary labor source is found.
 - Gas tankless running cost ignores fan/controls electricity (DOE includes it); stated on the page.
 - Hubs and `/llms.txt` list `live` pages only, so the three new drafts appear there only after the owner's OK.
-- Carried: tank size presets editorial; Navien Y/Z months third party; GE/Kenmore sections only; Rinnai not decoded; Hostinger CDN may need a flush after deploys; owner OK needed to flip any page to `live` (all tool pages are draft).
+- 2026-11-13: owner said "pages live kro": all 25 draft pages flipped to `live` (PR after #16); `planned` pages stay planned.
+- Carried: tank size presets editorial; Navien Y/Z months third party; GE/Kenmore sections only; Rinnai not decoded; Hostinger CDN may need a flush after deploys; new pages still start as `draft` and need the owner's OK.
 
 **Notes for the next thread (Phase 5):**
 - Any new tool module must import `./formulas.js`, `./ui.js` or `./cost-model.js` by those exact paths (import map) and be listed in `INPUTS` in `scripts/build-data.mjs`.
@@ -55,6 +56,7 @@
 - 2026-11-13 — Phase 2b (thread 2) done — Whirlpool, American, Navien age pages (draft), GE/Kenmore sections on Rheem/State, decoder checked against CPSC recalls; Phase 2b complete.
 - 2026-11-13 — Phase 3 done — tank size calculator and repair-or-replace tool (draft), cross-checked against American, Rheem and A. O. Smith guidance; age → repair link passes age and type.
 - 2026-11-13 — Phase 4 done — cost calculator, tankless vs tank and gas vs electric tools (draft) on one shared cost model, checked against DOE 2024 rules and EnergyGuide labels; repair tool now uses installed prices.
+- 2026-11-13 — Go-live — owner OK: 25 draft pages (tools, brand pages, article, hubs, utility pages) flipped to `live`.
 
 ---
 
