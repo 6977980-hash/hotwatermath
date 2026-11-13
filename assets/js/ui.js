@@ -134,6 +134,47 @@ export function renderResult(root, r) {
 	set('[data-result-headline]', r.headline);
 	set('[data-result-explain]', r.explain);
 	set('[data-result-formula]', r.formula);
+	if (r.table) renderTable(box, r.table);
+}
+
+/**
+ * Fill (or create) the result table inside the result box. Same shape as data/computed → default.table:
+ * { caption, columns: [{ key, label, num? }], rows: [{ key: text }], total?: { key: text } }.
+ * The row count of a tool stays the same between updates, so the box does not jump.
+ */
+export function renderTable(box, t) {
+	let wrap = box.querySelector('[data-result-table]');
+	if (!wrap) {
+		wrap = document.createElement('div');
+		wrap.className = 'table-wrap result__table';
+		wrap.setAttribute('data-result-table', '');
+		box.querySelector('[data-result-explain]')?.after(wrap);
+	}
+	const table = document.createElement('table');
+	if (t.caption) table.createCaption().textContent = t.caption;
+	const head = table.createTHead().insertRow();
+	for (const c of t.columns) {
+		const th = document.createElement('th');
+		th.scope = 'col';
+		th.textContent = c.label;
+		if (c.num) th.className = 'num';
+		head.appendChild(th);
+	}
+	const addRow = (section, row, strong) => {
+		const tr = section.insertRow();
+		t.columns.forEach((c, i) => {
+			const cell = document.createElement(i === 0 ? 'th' : 'td');
+			if (i === 0) cell.scope = 'row';
+			if (c.num) cell.className = 'num';
+			cell.textContent = row[c.key] ?? '';
+			if (strong) cell.style.fontWeight = '700';
+			tr.appendChild(cell);
+		});
+	};
+	const body = table.createTBody();
+	for (const row of t.rows) addRow(body, row, false);
+	if (t.total) addRow(table.createTFoot(), t.total, true);
+	wrap.replaceChildren(table);
 }
 
 /**

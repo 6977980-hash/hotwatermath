@@ -244,7 +244,7 @@ add_action(
  */
 function hwm_importmap(): string {
 	$map = array();
-	foreach ( array( 'formulas', 'ui' ) as $hwm_m ) {
+	foreach ( array( 'formulas', 'ui', 'cost-model' ) as $hwm_m ) {
 		$map[ HWM_URI . '/assets/js/' . $hwm_m . '.js' ] = hwm_asset( 'js/' . $hwm_m . '.js' );
 	}
 	return '<script type="importmap">' . wp_json_encode( array( 'imports' => $map ), JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";

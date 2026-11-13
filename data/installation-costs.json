@@ -1,0 +1,116 @@
+{
+  "meta": {
+    "source": "Hot Water Math installation cost ranges, anchored to the U.S. Department of Energy's 2024 consumer water heater rules (installation costs built from RSMeans) and Home Depot listing prices, and checked against published industry ranges",
+    "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "No public source publishes plumber labor by job type in a form we can reprint: DOE builds its installation costs from paid RSMeans data and publishes averages only. So these low / typical / high ranges are our own estimate, written down with the references each one leans on. Where DOE gives a figure, the typical value is that figure (or sits next to it); where DOE gives a range, low and high come from it. Industry cost guides are used only as a sanity check, never as the source of a number. Labor and extras are multiplied by the state price factor (regional-cost-index.json); equipment is not. Review every three months."
+  },
+  "lastReviewed": "2026-11-13",
+  "references": {
+    "doe-storage-2024": {
+      "publisher": "U.S. Department of Energy, Federal Register",
+      "title": "Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Installation cost covers all labor, overhead, and material costs associated with the replacement of an existing water heater ... delivery of the new water heater, removal of the existing water heater, and any applicable permit fees.",
+        "Table V.2: gas-fired storage (20-55 gal), baseline average installed cost $1,432 (2022$).",
+        "Table V.8: electric storage (20-55 gal), baseline (electric resistance) $902; efficiency level 1 (heat pump) $1,855 (2022$).",
+        "Panel upgrade costs are significant and can be approximately $750--$2,000 to upgrade to a 200-amp electrical panel.",
+        "The installation of a new 240-volt circuit by a qualified electrician will be at least several hundred dollars.",
+        "Heat pump water heaters: a distribution of installation cost adders that ranges from $0 to $4,000 in total for the most challenging installations, averaging $2,000."
+      ]
+    },
+    "doe-gas-tankless-2024": {
+      "publisher": "U.S. Department of Energy, Federal Register",
+      "title": "Energy conservation standards for consumer gas-fired instantaneous water heaters, final rule (89 FR 105188, December 26, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "DOE estimated an average installation cost of $1,102 for non-condensing units and $1,025 for condensing units.",
+        "Table 8D.5.66 in the final rule TSD estimates permitting, removal, and disposal costs of $260.",
+        "Relocation costs in the case of electric storage water heaters could range up to $2,000.",
+        "Rinnai stated the Department's estimated venting costs of $499 for non-condensing ... and $263 for condensing gas-fired instantaneous water heater overstate the cost differential.",
+        "Table V.2: gas-fired instantaneous, baseline average installed cost $2,087 (2023$); first year's operating cost $303."
+      ]
+    },
+    "home-depot-parts": {
+      "publisher": "The Home Depot",
+      "title": "Listing prices for thermal expansion tanks and a water heater drain pan",
+      "sourceUrl": "https://www.homedepot.com/p/Everbilt-2-0-Gal-Thermal-Expansion-Tank-HDET2G/330866982",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Everbilt 2.0 gal thermal expansion tank HDET2G: $34.42",
+        "PLUMBFLEX 2.1 gal thermal expansion tank FTET21-N: $59.71",
+        "Water Worker 4.5 gal thermal expansion tank G12W: $59.98",
+        "Amtrol Therm-X-Trol ST-5: $67.02",
+        "Everbilt 24 in. plastic water heater drain pan HP00224BL: $11.98"
+      ]
+    },
+    "industry-this-old-house": {
+      "publisher": "This Old House (industry range, sanity check only)",
+      "title": "Water heater installation cost guide (citing The Home Depot data)",
+      "sourceUrl": "https://www.thisoldhouse.com/plumbing/reviews/water-heater-installation-cost",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Average $1,950, range $1,600-$5,400 (The Home Depot data).",
+        "Tank: $300-$800 labor; tankless: $800-$1,500 labor, gas line $500-$1,000, electrical $300-$800, venting $500-$1,000.",
+        "Old unit removal $100-$300; permits $50-$200; expansion tank $40-$150; earthquake strapping $100-$300; drainage $50-$200.",
+        "Switching fuel: budget an extra $1,500-$2,000."
+      ]
+    },
+    "industry-bob-vila": {
+      "publisher": "Bob Vila (industry range, sanity check only)",
+      "title": "Water heater replacement cost (citing Angi and HomeAdvisor)",
+      "sourceUrl": "https://www.bobvila.com/articles/water-heater-replacement-cost/",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Replacement $874-$1,765, national average $1,293.",
+        "Labor for a standard replacement $150-$450, up to $2,500 to convert from tank to tankless.",
+        "Permits $25-$300; removal $100-$500; gas line $275-$825; electrical wiring $550-$2,300; expansion tank $40-$350."
+      ]
+    }
+  },
+  "labor": {
+    "meta": {
+      "note": "Installing the new heater where the old one stood: disconnect and take out the old unit, set the new one, reconnect water, gas or power and the existing vent, fittings and connectors, fill and start up. Permit, haul-away and anything new (venting, gas line, circuit) are separate extras."
+    },
+    "gas_tank": { "low": 350, "typical": 650, "high": 1100, "refs": ["doe-storage-2024", "industry-this-old-house", "industry-bob-vila"], "why": "DOE's average installed cost for a standard gas tank ($1,432 in 2022 dollars, equipment included) leaves several hundred dollars for installation; industry guides give $150-$800 labor." },
+    "electric_tank": { "low": 300, "typical": 500, "high": 900, "refs": ["doe-storage-2024", "industry-this-old-house", "industry-bob-vila"], "why": "No vent or gas connection, so less work than gas; DOE's electric average ($902 installed, 2022 dollars) is its lowest of all types." },
+    "heat_pump": { "low": 500, "typical": 900, "high": 1800, "refs": ["doe-storage-2024", "industry-this-old-house"], "why": "A heavier, taller unit plus a condensate drain. Extra work for tight spaces is a separate extra, as in DOE's analysis." },
+    "gas_tankless": { "low": 600, "typical": 850, "high": 1500, "refs": ["doe-gas-tankless-2024", "industry-this-old-house"], "why": "DOE's average installation cost is $1,102 (non-condensing) and $1,025 (condensing), including about $260 for permit, removal and disposal, which we list separately; industry guides give $800-$1,500 labor." },
+    "electric_tankless": { "low": 300, "typical": 600, "high": 1000, "refs": ["industry-this-old-house", "industry-bob-vila"], "why": "Wall mounting and wiring to existing circuits; new circuits or a panel upgrade are extras. DOE did not analyze electric tankless units." }
+  },
+  "extras": {
+    "permit": { "label": "Permit, haul-away and disposal of the old unit", "low": 150, "typical": 260, "high": 500, "refs": ["doe-gas-tankless-2024", "industry-this-old-house", "industry-bob-vila"], "why": "Typical = DOE's $260 for permitting, removal and disposal; industry guides give $25-$300 for the permit and $100-$500 for removal." },
+    "expansionTank": { "label": "Thermal expansion tank, parts and labor", "low": 100, "typical": 175, "high": 300, "refs": ["home-depot-parts", "industry-this-old-house"], "why": "The tank itself lists for $34-$67 at Home Depot; the rest is about an hour of labor and fittings." },
+    "codeItems": { "label": "Code items: drain pan, seismic straps, relief valve piping", "low": 50, "typical": 150, "high": 400, "refs": ["home-depot-parts", "industry-this-old-house"], "why": "A drain pan lists for about $12; strapping and drain work are mostly labor. Which items apply depends on your local code." },
+    "venting": { "label": "New or changed venting", "low": 300, "typical": 500, "high": 1000, "refs": ["doe-gas-tankless-2024", "industry-this-old-house"], "why": "DOE's earlier estimate was $499 for a non-condensing tankless vent and $263 for a condensing one; industry guides give $300-$1,000." },
+    "gasLine": { "label": "Gas line upgrade or new gas line", "low": 300, "typical": 600, "high": 1000, "refs": ["doe-storage-2024", "industry-this-old-house", "industry-bob-vila"], "why": "Industry guides give $275-$1,000; a tankless unit often needs a larger line than the tank it replaces." },
+    "circuit": { "label": "New 240-volt circuit", "low": 300, "typical": 600, "high": 1200, "refs": ["doe-storage-2024", "industry-this-old-house"], "why": "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work." },
+    "panel": { "label": "Electrical panel upgrade (to 200 amps)", "low": 750, "typical": 1375, "high": 2000, "refs": ["doe-storage-2024"], "why": "DOE's range is about $750-$2,000; typical is the middle of that range." },
+    "relocation": { "label": "Moving the heater to a new spot", "low": 500, "typical": 1000, "high": 2000, "refs": ["doe-gas-tankless-2024", "industry-this-old-house"], "why": "DOE says relocation can cost up to $2,000; new water, gas or power lines to the new spot are the main cost." },
+    "heatPumpSpace": { "label": "Heat pump space work (louvered door, ducting, condensate pump)", "low": 500, "typical": 2000, "high": 4000, "refs": ["doe-storage-2024"], "why": "DOE's adders for the most challenging heat pump installs run $0-$4,000 and average $2,000." }
+  },
+  "scenarios": {
+    "replace": {
+      "label": "Replacing a heater of the same kind",
+      "defaultExtras": { "gas_tank": ["permit"], "electric_tank": ["permit"], "heat_pump": ["permit"], "gas_tankless": ["permit"], "electric_tankless": ["permit"] }
+    },
+    "fuelSwitch": {
+      "label": "Switching fuel (gas to electric or electric to gas)",
+      "defaultExtras": { "gas_tank": ["permit", "gasLine", "venting"], "electric_tank": ["permit", "circuit"], "heat_pump": ["permit", "circuit"], "gas_tankless": ["permit", "gasLine", "venting"], "electric_tankless": ["permit", "circuit", "panel"] }
+    },
+    "toTankless": {
+      "label": "Replacing a tank with a tankless unit",
+      "defaultExtras": { "gas_tank": ["permit"], "electric_tank": ["permit"], "heat_pump": ["permit"], "gas_tankless": ["permit", "venting", "gasLine"], "electric_tankless": ["permit", "circuit", "panel"] }
+    }
+  },
+  "defaults": {
+    "type": "gas_tank",
+    "size": "50",
+    "state": "US",
+    "scenario": "replace",
+    "note": "Example inputs for the server-rendered default result."
+  }
+}

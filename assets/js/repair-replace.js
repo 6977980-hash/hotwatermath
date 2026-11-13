@@ -90,6 +90,16 @@ if (typeof document !== 'undefined') {
 			const values = readInputs(form);
 			last = describe(values, cfg);
 			renderResult(root, last);
+			// Deep-link the cost calculator to the same type (it reads ?type=&size=).
+			const costLink = document.querySelector('.next-steps a[href*="/water-heater-cost-calculator/"]');
+			const t = cfg.types[values.type];
+			if (costLink && t && t.costType) {
+				const u = new URL(costLink.href);
+				u.search = '';
+				u.searchParams.set('type', t.costType);
+				u.searchParams.set('size', t.costSize);
+				costLink.href = u.toString();
+			}
 			if (record) {
 				writeState(values);
 				if (last.decision) track('calc_result', { tool: 'repair-or-replace-water-heater', unit_type: values.type, verdict: last.decision.verdict, age_bucket: values.age < 5 ? '0-5' : values.age < 10 ? '5-10' : values.age < 15 ? '10-15' : '15+' });

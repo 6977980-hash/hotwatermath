@@ -25,12 +25,15 @@
     "how-long-does-a-water-heater-last",
     "tankless-water-heater-size-calculator",
     "water-heater-size-calculator",
-    "repair-or-replace-water-heater"
+    "repair-or-replace-water-heater",
+    "water-heater-cost-calculator",
+    "gas-vs-electric-water-heater",
+    "tankless-vs-tank-water-heater"
   ],
   "inputs": {
-    "assets/js/formulas.js": "be7184dd5e48ba98",
-    "scripts/build-data.mjs": "b03e6c3e1a7e9f21",
-    "data/site.json": "f9fe077c34f2d98f",
+    "assets/js/formulas.js": "f4ae602b6732a01f",
+    "scripts/build-data.mjs": "68b922cadd41bb26",
+    "data/site.json": "8c172f664fb84b86",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "a1f9b690f93635a0",
     "data/regional-cost-index.json": "a176162a982ec7a9",
@@ -50,8 +53,15 @@
     "data/brand-pages.json": "ab6ecccbb83dffff",
     "assets/js/age.js": "353b935c5c0460ea",
     "assets/js/tankless-size.js": "a67a8c5d937531f7",
-    "assets/js/tank-size.js": "a687f7158374ad85",
-    "assets/js/repair-replace.js": "2e59f90dc0f9289a",
-    "data/household-size-guides.json": "7bfdcaed71e35006"
+    "assets/js/tank-size.js": "f5c41ed1d30d6b6d",
+    "assets/js/repair-replace.js": "a1f60261eeb247c3",
+    "data/household-size-guides.json": "7bfdcaed71e35006",
+    "data/installation-costs.json": "67e2d874e470fcee",
+    "data/pages.json": "e7f77776a9b46f91",
+    "assets/js/cost-model.js": "1c4ec89371ee61c8",
+    "assets/js/cost-calculator.js": "5e0d11a582147e8f",
+    "assets/js/tankless-vs-tank.js": "6f6ce82cb8db8ac5",
+    "assets/js/gas-vs-electric.js": "f8e8bc8d8ed2cb95",
+    "assets/js/ui.js": "df0aa8891b5cd929"
   }
 }

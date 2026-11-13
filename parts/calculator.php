@@ -29,6 +29,9 @@ $hwm_allowed = array( 'strong' => array(), 'em' => array(), 'a' => array( 'href'
 			<?php endif; ?>
 			<p class="result__headline" data-result-headline><?php echo wp_kses( (string) ( $hwm_default['headline'] ?? '' ), $hwm_allowed ); ?></p>
 			<p class="result__explain" data-result-explain><?php echo wp_kses( (string) ( $hwm_default['explain'] ?? '' ), $hwm_allowed ); ?></p>
+			<?php if ( ! empty( $hwm_default['table']['columns'] ) ) : ?>
+				<?php hwm_part( 'result-table', array( 'table' => (array) $hwm_default['table'] ) ); ?>
+			<?php endif; ?>
 			<details class="disclosure">
 				<summary>How we calculated this</summary>
 				<pre class="formula" data-result-formula><?php echo esc_html( (string) ( $hwm_default['formula'] ?? '' ) ); ?></pre>

@@ -90,6 +90,16 @@ if (typeof document !== 'undefined') {
 			const values = readInputs(form);
 			last = describe(values, cfg);
 			renderResult(root, last);
+			// Deep-link the cost calculator to the recommended type and size (it reads ?type=&size=).
+			const costLink = document.querySelector('.next-steps a[href*="/water-heater-cost-calculator/"]');
+			const pick = last.sizing && last.sizing[values.fuel];
+			if (costLink && pick) {
+				const u = new URL(costLink.href);
+				u.search = '';
+				u.searchParams.set('type', { gas: 'gas_tank', electric: 'electric_tank', heatpump: 'heat_pump' }[values.fuel] || 'gas_tank');
+				u.searchParams.set('size', String(pick.nominalGallons));
+				costLink.href = u.toString();
+			}
 			if (record) {
 				writeState(values);
 				if (last.sizing) track('calc_result', { tool: 'water-heater-size-calculator', fuel: values.fuel, people: values.people || 'none', phd_bucket: last.sizing.phd < 50 ? '<50' : last.sizing.phd < 70 ? '50-70' : last.sizing.phd < 90 ? '70-90' : '90+' });

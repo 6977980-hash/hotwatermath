@@ -254,26 +254,82 @@
     {
       "slug": "water-heater-cost-calculator",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "4",
       "title": "Water Heater Cost Calculator",
-      "summary": "Estimate the installed cost of a new water heater by type, size, state and the extras your job needs."
+      "summary": "Estimate the installed cost of a new water heater by type, size, state and the extras your job needs.",
+      "metaTitle": "How Much Is a New Water Heater? Calculator | Hot Water Math",
+      "description": "How much is a new water heater? Get an itemized installed price by type, size and state: unit, labor, permit and extras, with DOE-anchored ranges.",
+      "h1": "How much is a new water heater?",
+      "subtitle": "Installed price for your type, size and state.",
+      "quickAnswer": "A like-for-like 50-gallon tank costs about $1,809 installed for gas and $1,579 for electric at U.S. average prices. Tankless and heat pump jobs cost more; price yours below.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "methodAnchor": "water-heater-cost-calculator",
+      "keywords": [
+        "how much is a new water heater",
+        "water heater cost calculator",
+        "40 gallon water heater replacement cost",
+        "50 gallon water heater cost",
+        "water heater installation labor cost",
+        "do you need a permit to replace a water heater"
+      ]
     },
     {
       "slug": "tankless-vs-tank-water-heater",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "4",
       "title": "Tankless vs Tank Water Heater",
-      "summary": "Compare ten-year cost of ownership for tankless and tank water heaters with your own energy prices."
+      "summary": "Compare the cost of ownership of a tank, tankless and heat pump water heater with your state prices.",
+      "metaTitle": "Tankless vs Traditional Water Heater: Cost | Hot Water Math",
+      "description": "Tankless vs traditional water heater: compare 10-year cost of ownership, break-even year and pros and cons for your state, household and energy prices.",
+      "h1": "Tankless vs traditional water heater",
+      "subtitle": "Lifetime cost and break-even, by state.",
+      "quickAnswer": "For a typical gas home, tankless costs more over 10 years than a 50-gallon tank. In an electric home, a heat pump pays back in about 4 years.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "tankless-vs-tank"
+      ],
+      "methodAnchor": "tankless-vs-tank-water-heater",
+      "keywords": [
+        "tankless vs traditional water heater",
+        "tankless water heater pros and cons",
+        "is a tankless water heater worth it",
+        "tankless vs tank water heater cost",
+        "hybrid water heater vs tankless"
+      ]
     },
     {
       "slug": "gas-vs-electric-water-heater",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "4",
       "title": "Gas vs Electric Water Heater",
-      "summary": "Compare yearly operating cost for gas, electric, heat pump and tankless water heaters in your state."
+      "summary": "Compare yearly operating cost for gas, electric, heat pump and tankless water heaters in your state.",
+      "metaTitle": "Gas vs Electric Water Heater: Running Cost | Hot Water Math",
+      "description": "Gas vs electric water heater: see the yearly and monthly running cost of five types for your state, household and rates, checked against EnergyGuide data.",
+      "h1": "Gas vs electric water heater",
+      "subtitle": "Yearly running cost of five types in your state.",
+      "quickAnswer": "A standard gas tank costs about $242 a year to run and an electric tank about $564 at U.S. average prices. A heat pump water heater costs the least, about $138.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "gas-vs-electric"
+      ],
+      "methodAnchor": "gas-vs-electric-water-heater",
+      "keywords": [
+        "gas vs electric water heater",
+        "gas vs electric water heater cost",
+        "water heater wattage",
+        "tankless water heater electricity usage",
+        "how many kwh does a water heater use",
+        "gas water heater cost per month"
+      ]
     },
     {
       "slug": "how-long-does-a-water-heater-last",

@@ -1,0 +1,1899 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/cost-ranges.json, data/installation-costs.json and data/regional-cost-index.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result, installed cost tables, state table and cross-checks for the cost calculator."
+  },
+  "defaultInputs": {
+    "type": "gas_tank",
+    "size": "50",
+    "state": "US",
+    "scenario": "replace",
+    "permit": true
+  },
+  "default": {
+    "statusLabel": "Installed estimate",
+    "headline": "About $1,809 installed",
+    "explain": "50-gallon gas tank (natural gas, standard vent): the unit itself is about $899 ($749 to $999 in current listings). Installation adds about $910 for labor and 1 extra in the U.S. average (price factor 1.00). Range: $1,249 to $2,599.",
+    "formula": "Unit (typical) = $899\nLabor = $650 × 1.000 = $650\nPermit, haul-away and disposal of the old unit = $260 × 1.000 = $260\nTotal (typical) = $899 + $650 + $260 = $1,809\nLow and high use the low and high end of every line the same way.",
+    "table": {
+      "caption": "Itemized estimate",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "$749",
+          "typical": "$899",
+          "high": "$999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "$350",
+          "typical": "$650",
+          "high": "$1,100"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "$150",
+          "typical": "$260",
+          "high": "$500"
+        }
+      ],
+      "total": {
+        "item": "Total",
+        "low": "$1,249",
+        "typical": "$1,809",
+        "high": "$2,599"
+      }
+    },
+    "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+  },
+  "figures": {
+    "gas40": {
+      "key": "gas_tank_40",
+      "type": "gas_tank",
+      "size": "40",
+      "label": "40-gallon gas tank (natural gas, standard vent)",
+      "unit": "759",
+      "low": "1,031",
+      "typical": "1,669",
+      "high": "2,619",
+      "typicalNum": 1669
+    },
+    "gas50": {
+      "key": "gas_tank_50",
+      "type": "gas_tank",
+      "size": "50",
+      "label": "50-gallon gas tank (natural gas, standard vent)",
+      "unit": "899",
+      "low": "1,249",
+      "typical": "1,809",
+      "high": "2,599",
+      "typicalNum": 1809
+    },
+    "gas75": {
+      "key": "gas_tank_75",
+      "type": "gas_tank",
+      "size": "75",
+      "label": "75-gallon gas tank (natural gas, standard vent)",
+      "unit": "1,319",
+      "low": "1,649",
+      "typical": "2,229",
+      "high": "3,059",
+      "typicalNum": 2229
+    },
+    "el40": {
+      "key": "electric_tank_40",
+      "type": "electric_tank",
+      "size": "40",
+      "label": "40-gallon electric tank",
+      "unit": "684",
+      "low": "909",
+      "typical": "1,444",
+      "high": "2,599",
+      "typicalNum": 1444
+    },
+    "el50": {
+      "key": "electric_tank_50",
+      "type": "electric_tank",
+      "size": "50",
+      "label": "50-gallon electric tank",
+      "unit": "819",
+      "low": "1,009",
+      "typical": "1,579",
+      "high": "2,829",
+      "typicalNum": 1579
+    },
+    "hp50": {
+      "key": "heat_pump_50",
+      "type": "heat_pump",
+      "size": "50",
+      "label": "50-gallon heat pump (hybrid)",
+      "unit": "1,787",
+      "low": "2,308",
+      "typical": "2,947",
+      "high": "4,419",
+      "typicalNum": 2947
+    },
+    "gasTankless": {
+      "key": "gas_tankless_whole",
+      "type": "gas_tankless",
+      "size": "whole",
+      "label": "Gas tankless, whole house (8 GPM or more, natural gas)",
+      "unit": "1,108",
+      "low": "1,619",
+      "typical": "2,218",
+      "high": "3,703",
+      "typicalNum": 2218
+    },
+    "elTankless": {
+      "key": "electric_tankless_whole",
+      "type": "electric_tankless",
+      "size": "whole",
+      "label": "Electric tankless, whole house (24 kW or more)",
+      "unit": "674",
+      "low": "976",
+      "typical": "1,534",
+      "high": "2,499",
+      "typicalNum": 1534
+    },
+    "laborGas": {
+      "low": 350,
+      "typical": 650,
+      "high": 1100
+    },
+    "laborElectric": {
+      "low": 300,
+      "typical": 500,
+      "high": 900
+    },
+    "laborTankless": {
+      "low": 600,
+      "typical": 850,
+      "high": 1500
+    },
+    "permit": {
+      "label": "Permit, haul-away and disposal of the old unit",
+      "low": 150,
+      "typical": 260,
+      "high": 500
+    },
+    "cheapState": {
+      "code": "AR",
+      "name": "Arkansas",
+      "m": "0.87",
+      "typical": "1,690",
+      "typicalNum": 1690,
+      "low": "1,183",
+      "high": "2,390"
+    },
+    "dearState": {
+      "code": "CA",
+      "name": "California",
+      "m": "1.11",
+      "typical": "1,907",
+      "typicalNum": 1907,
+      "low": "1,302",
+      "high": "2,771"
+    },
+    "multLow": "0.87",
+    "multHigh": "1.11",
+    "scenarios": [
+      {
+        "label": "Gas tank to gas tank (50 gal)",
+        "extras": "Permit",
+        "low": "1,249",
+        "typical": "1,809",
+        "high": "2,599",
+        "typicalNum": 1809
+      },
+      {
+        "label": "Electric tank to electric tank (50 gal)",
+        "extras": "Permit",
+        "low": "1,009",
+        "typical": "1,579",
+        "high": "2,829",
+        "typicalNum": 1579
+      },
+      {
+        "label": "Electric tank to heat pump (50 gal)",
+        "extras": "Permit",
+        "low": "2,308",
+        "typical": "2,947",
+        "high": "4,419",
+        "typicalNum": 2947
+      },
+      {
+        "label": "Gas tank to heat pump (50 gal)",
+        "extras": "Permit, New 240-volt circuit",
+        "low": "2,608",
+        "typical": "3,547",
+        "high": "5,619",
+        "typicalNum": 3547
+      },
+      {
+        "label": "Gas tank to gas tankless",
+        "extras": "Permit, New or changed venting, Gas line upgrade or new gas line",
+        "low": "2,219",
+        "typical": "3,318",
+        "high": "5,703",
+        "typicalNum": 3318
+      },
+      {
+        "label": "Electric tank to electric tankless",
+        "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
+        "low": "2,026",
+        "typical": "3,509",
+        "high": "5,699",
+        "typicalNum": 3509
+      },
+      {
+        "label": "Electric tank to gas tank (50 gal)",
+        "extras": "Permit, Gas line upgrade or new gas line, New or changed venting",
+        "low": "1,849",
+        "typical": "2,909",
+        "high": "4,599",
+        "typicalNum": 2909
+      }
+    ],
+    "lastReviewed": "2026-11-13"
+  },
+  "stateOptions": [
+    {
+      "id": "US",
+      "name": "U.S. average"
+    },
+    {
+      "id": "AL",
+      "name": "Alabama"
+    },
+    {
+      "id": "AK",
+      "name": "Alaska"
+    },
+    {
+      "id": "AZ",
+      "name": "Arizona"
+    },
+    {
+      "id": "AR",
+      "name": "Arkansas"
+    },
+    {
+      "id": "CA",
+      "name": "California"
+    },
+    {
+      "id": "CO",
+      "name": "Colorado"
+    },
+    {
+      "id": "CT",
+      "name": "Connecticut"
+    },
+    {
+      "id": "DE",
+      "name": "Delaware"
+    },
+    {
+      "id": "DC",
+      "name": "District of Columbia"
+    },
+    {
+      "id": "FL",
+      "name": "Florida"
+    },
+    {
+      "id": "GA",
+      "name": "Georgia"
+    },
+    {
+      "id": "HI",
+      "name": "Hawaii"
+    },
+    {
+      "id": "ID",
+      "name": "Idaho"
+    },
+    {
+      "id": "IL",
+      "name": "Illinois"
+    },
+    {
+      "id": "IN",
+      "name": "Indiana"
+    },
+    {
+      "id": "IA",
+      "name": "Iowa"
+    },
+    {
+      "id": "KS",
+      "name": "Kansas"
+    },
+    {
+      "id": "KY",
+      "name": "Kentucky"
+    },
+    {
+      "id": "LA",
+      "name": "Louisiana"
+    },
+    {
+      "id": "ME",
+      "name": "Maine"
+    },
+    {
+      "id": "MD",
+      "name": "Maryland"
+    },
+    {
+      "id": "MA",
+      "name": "Massachusetts"
+    },
+    {
+      "id": "MI",
+      "name": "Michigan"
+    },
+    {
+      "id": "MN",
+      "name": "Minnesota"
+    },
+    {
+      "id": "MS",
+      "name": "Mississippi"
+    },
+    {
+      "id": "MO",
+      "name": "Missouri"
+    },
+    {
+      "id": "MT",
+      "name": "Montana"
+    },
+    {
+      "id": "NE",
+      "name": "Nebraska"
+    },
+    {
+      "id": "NV",
+      "name": "Nevada"
+    },
+    {
+      "id": "NH",
+      "name": "New Hampshire"
+    },
+    {
+      "id": "NJ",
+      "name": "New Jersey"
+    },
+    {
+      "id": "NM",
+      "name": "New Mexico"
+    },
+    {
+      "id": "NY",
+      "name": "New York"
+    },
+    {
+      "id": "NC",
+      "name": "North Carolina"
+    },
+    {
+      "id": "ND",
+      "name": "North Dakota"
+    },
+    {
+      "id": "OH",
+      "name": "Ohio"
+    },
+    {
+      "id": "OK",
+      "name": "Oklahoma"
+    },
+    {
+      "id": "OR",
+      "name": "Oregon"
+    },
+    {
+      "id": "PA",
+      "name": "Pennsylvania"
+    },
+    {
+      "id": "RI",
+      "name": "Rhode Island"
+    },
+    {
+      "id": "SC",
+      "name": "South Carolina"
+    },
+    {
+      "id": "SD",
+      "name": "South Dakota"
+    },
+    {
+      "id": "TN",
+      "name": "Tennessee"
+    },
+    {
+      "id": "TX",
+      "name": "Texas"
+    },
+    {
+      "id": "UT",
+      "name": "Utah"
+    },
+    {
+      "id": "VT",
+      "name": "Vermont"
+    },
+    {
+      "id": "VA",
+      "name": "Virginia"
+    },
+    {
+      "id": "WA",
+      "name": "Washington"
+    },
+    {
+      "id": "WV",
+      "name": "West Virginia"
+    },
+    {
+      "id": "WI",
+      "name": "Wisconsin"
+    },
+    {
+      "id": "WY",
+      "name": "Wyoming"
+    }
+  ],
+  "crossChecks": [
+    {
+      "id": "doe-gas",
+      "label": "50-gal gas tank, like-for-like, U.S. average",
+      "ours": "$1,809",
+      "published": "DOE average installed cost $1,432 (2022 dollars, baseline gas storage)",
+      "diffPct": 26.3,
+      "why": "Ours is in today’s listing prices; DOE’s is 2022 dollars and averages all sizes from 20 to 55 gallons. PHCC told DOE its RSMeans-based installation costs are too low.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-electric",
+      "label": "50-gal electric tank, like-for-like, U.S. average",
+      "ours": "$1,579",
+      "published": "DOE average installed cost $902 (2022 dollars, baseline electric storage)",
+      "diffPct": 75.1,
+      "why": "The largest gap. DOE’s figure is 2022 dollars, includes smaller tanks and many new-construction installs; current 50-gallon listings alone are near $820.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-hp",
+      "label": "50-gal heat pump, replacing an electric tank, U.S. average",
+      "ours": "$2,947",
+      "published": "DOE average installed cost $1,855 (2022 dollars, heat pump level)",
+      "diffPct": 58.9,
+      "why": "DOE priced heat pump units from its own cost model for the 2030 market; today’s retail listings are higher. Space work for tight closets is an extra in both.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-tankless",
+      "label": "Gas tankless replacing a gas tankless, U.S. average",
+      "ours": "$2,218",
+      "published": "DOE average installed cost $2,087 (2023 dollars, baseline gas tankless)",
+      "diffPct": 6.3,
+      "why": "Close. Our equipment median is a whole-house unit (8 GPM or more); our labor plus permit ($1,110 typical) matches DOE’s $1,102 installation average.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer gas-fired instantaneous water heaters, final rule (89 FR 105188, December 26, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf"
+    },
+    {
+      "id": "hd",
+      "label": "Typical water heater installation, all types",
+      "ours": "$1,809 (50-gal gas) to $2,947 (heat pump)",
+      "published": "Home Depot data (via This Old House): $1,950 average, $1,600-$5,400 range",
+      "match": true,
+      "why": "Industry average, used only as a sanity check: it sits inside our range of common jobs.",
+      "source": "This Old House (industry range, sanity check only): Water heater installation cost guide (citing The Home Depot data)",
+      "sourceUrl": "https://www.thisoldhouse.com/plumbing/reviews/water-heater-installation-cost"
+    }
+  ],
+  "tables": {
+    "byUnit": {
+      "caption": "Installed cost by type and size, like-for-like replacement, U.S. average",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Water heater"
+        },
+        {
+          "key": "unit",
+          "label": "Unit only",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Installed, typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Installed range",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank (natural gas, standard vent)",
+          "unit": "759",
+          "typical": "1,669",
+          "range": "1,031–2,619"
+        },
+        {
+          "label": "50-gallon gas tank (natural gas, standard vent)",
+          "unit": "899",
+          "typical": "1,809",
+          "range": "1,249–2,599"
+        },
+        {
+          "label": "75-gallon gas tank (natural gas, standard vent)",
+          "unit": "1,319",
+          "typical": "2,229",
+          "range": "1,649–3,059"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "unit": "684",
+          "typical": "1,444",
+          "range": "909–2,599"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "unit": "819",
+          "typical": "1,579",
+          "range": "1,009–2,829"
+        },
+        {
+          "label": "50-gallon heat pump (hybrid)",
+          "unit": "1,787",
+          "typical": "2,947",
+          "range": "2,308–4,419"
+        },
+        {
+          "label": "65-gallon heat pump (hybrid)",
+          "unit": "1,946",
+          "typical": "3,106",
+          "range": "2,519–4,819"
+        },
+        {
+          "label": "80-gallon heat pump (hybrid)",
+          "unit": "2,378",
+          "typical": "3,538",
+          "range": "2,885–5,098"
+        },
+        {
+          "label": "Gas tankless, whole house (8 GPM or more, natural gas)",
+          "unit": "1,108",
+          "typical": "2,218",
+          "range": "1,619–3,703"
+        },
+        {
+          "label": "Electric tankless, whole house (24 kW or more)",
+          "unit": "674",
+          "typical": "1,534",
+          "range": "976–2,499"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: data/installation-costs.json (2026-11-13)",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "extras": {
+      "caption": "Extras and what they usually cost (U.S. average, before your state factor)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Extra"
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "why",
+          "label": "Where the number comes from"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Permit, haul-away and disposal of the old unit",
+          "typical": "260",
+          "range": "150–500",
+          "why": "Typical = DOE's $260 for permitting, removal and disposal; industry guides give $25-$300 for the permit and $100-$500 for removal."
+        },
+        {
+          "label": "Thermal expansion tank, parts and labor",
+          "typical": "175",
+          "range": "100–300",
+          "why": "The tank itself lists for $34-$67 at Home Depot; the rest is about an hour of labor and fittings."
+        },
+        {
+          "label": "Code items: drain pan, seismic straps, relief valve piping",
+          "typical": "150",
+          "range": "50–400",
+          "why": "A drain pan lists for about $12; strapping and drain work are mostly labor. Which items apply depends on your local code."
+        },
+        {
+          "label": "New or changed venting",
+          "typical": "500",
+          "range": "300–1,000",
+          "why": "DOE's earlier estimate was $499 for a non-condensing tankless vent and $263 for a condensing one; industry guides give $300-$1,000."
+        },
+        {
+          "label": "Gas line upgrade or new gas line",
+          "typical": "600",
+          "range": "300–1,000",
+          "why": "Industry guides give $275-$1,000; a tankless unit often needs a larger line than the tank it replaces."
+        },
+        {
+          "label": "New 240-volt circuit",
+          "typical": "600",
+          "range": "300–1,200",
+          "why": "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work."
+        },
+        {
+          "label": "Electrical panel upgrade (to 200 amps)",
+          "typical": "1,375",
+          "range": "750–2,000",
+          "why": "DOE's range is about $750-$2,000; typical is the middle of that range."
+        },
+        {
+          "label": "Moving the heater to a new spot",
+          "typical": "1,000",
+          "range": "500–2,000",
+          "why": "DOE says relocation can cost up to $2,000; new water, gas or power lines to the new spot are the main cost."
+        },
+        {
+          "label": "Heat pump space work (louvered door, ducting, condensate pump)",
+          "typical": "2,000",
+          "range": "500–4,000",
+          "why": "DOE's adders for the most challenging heat pump installs run $0-$4,000 and average $2,000."
+        }
+      ],
+      "source": "Hot Water Math installation cost ranges, anchored to the U.S. Department of Energy's 2024 consumer water heater rules (installation costs built from RSMeans) and Home Depot listing prices, and checked against published industry ranges",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "labor": {
+      "caption": "Installation labor by type, like-for-like (U.S. average)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "why",
+          "label": "Why"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "typical": "650",
+          "range": "350–1,100",
+          "why": "DOE's average installed cost for a standard gas tank ($1,432 in 2022 dollars, equipment included) leaves several hundred dollars for installation; industry guides give $150-$800 labor."
+        },
+        {
+          "label": "Electric tank",
+          "typical": "500",
+          "range": "300–900",
+          "why": "No vent or gas connection, so less work than gas; DOE's electric average ($902 installed, 2022 dollars) is its lowest of all types."
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "typical": "900",
+          "range": "500–1,800",
+          "why": "A heavier, taller unit plus a condensate drain. Extra work for tight spaces is a separate extra, as in DOE's analysis."
+        },
+        {
+          "label": "Gas tankless",
+          "typical": "850",
+          "range": "600–1,500",
+          "why": "DOE's average installation cost is $1,102 (non-condensing) and $1,025 (condensing), including about $260 for permit, removal and disposal, which we list separately; industry guides give $800-$1,500 labor."
+        },
+        {
+          "label": "Electric tankless",
+          "typical": "600",
+          "range": "300–1,000",
+          "why": "Wall mounting and wiring to existing circuits; new circuits or a panel upgrade are extras. DOE did not analyze electric tankless units."
+        }
+      ],
+      "source": "Hot Water Math installation cost ranges, anchored to the U.S. Department of Energy's 2024 consumer water heater rules (installation costs built from RSMeans) and Home Depot listing prices, and checked against published industry ranges",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "scenarios": {
+      "caption": "Common jobs and their installed cost (U.S. average)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job"
+        },
+        {
+          "key": "extras",
+          "label": "Extras included"
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank to gas tank (50 gal)",
+          "extras": "Permit",
+          "typical": "1,809",
+          "range": "1,249–2,599"
+        },
+        {
+          "label": "Electric tank to electric tank (50 gal)",
+          "extras": "Permit",
+          "typical": "1,579",
+          "range": "1,009–2,829"
+        },
+        {
+          "label": "Electric tank to heat pump (50 gal)",
+          "extras": "Permit",
+          "typical": "2,947",
+          "range": "2,308–4,419"
+        },
+        {
+          "label": "Gas tank to heat pump (50 gal)",
+          "extras": "Permit, New 240-volt circuit",
+          "typical": "3,547",
+          "range": "2,608–5,619"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "extras": "Permit, New or changed venting, Gas line upgrade or new gas line",
+          "typical": "3,318",
+          "range": "2,219–5,703"
+        },
+        {
+          "label": "Electric tank to electric tankless",
+          "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
+          "typical": "3,509",
+          "range": "2,026–5,699"
+        },
+        {
+          "label": "Electric tank to gas tank (50 gal)",
+          "extras": "Permit, Gas line upgrade or new gas line, New or changed venting",
+          "typical": "2,909",
+          "range": "1,849–4,599"
+        }
+      ],
+      "source": "Computed with the cost calculator’s own model (equipment listings + data/installation-costs.json)",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "byState": {
+      "caption": "50-gallon gas tank, like-for-like, installed cost by state",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "m",
+          "label": "Price factor",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "m": "0.89",
+          "typical": "1,707",
+          "range": "1,193–2,420"
+        },
+        {
+          "name": "Alaska",
+          "m": "1.02",
+          "typical": "1,831",
+          "range": "1,261–2,637"
+        },
+        {
+          "name": "Arizona",
+          "m": "1.01",
+          "typical": "1,816",
+          "range": "1,252–2,610"
+        },
+        {
+          "name": "Arkansas",
+          "m": "0.87",
+          "typical": "1,690",
+          "range": "1,183–2,390"
+        },
+        {
+          "name": "California",
+          "m": "1.11",
+          "typical": "1,907",
+          "range": "1,302–2,771"
+        },
+        {
+          "name": "Colorado",
+          "m": "1.03",
+          "typical": "1,837",
+          "range": "1,265–2,649"
+        },
+        {
+          "name": "Connecticut",
+          "m": "1.04",
+          "typical": "1,841",
+          "range": "1,267–2,657"
+        },
+        {
+          "name": "Delaware",
+          "m": "1.00",
+          "typical": "1,807",
+          "range": "1,248–2,596"
+        },
+        {
+          "name": "District of Columbia",
+          "m": "1.10",
+          "typical": "1,899",
+          "range": "1,299–2,758"
+        },
+        {
+          "name": "Florida",
+          "m": "1.03",
+          "typical": "1,840",
+          "range": "1,266–2,653"
+        },
+        {
+          "name": "Georgia",
+          "m": "0.96",
+          "typical": "1,775",
+          "range": "1,230–2,540"
+        },
+        {
+          "name": "Hawaii",
+          "m": "1.10",
+          "typical": "1,900",
+          "range": "1,299–2,759"
+        },
+        {
+          "name": "Idaho",
+          "m": "0.96",
+          "typical": "1,768",
+          "range": "1,226–2,528"
+        },
+        {
+          "name": "Illinois",
+          "m": "1.00",
+          "typical": "1,809",
+          "range": "1,249–2,599"
+        },
+        {
+          "name": "Indiana",
+          "m": "0.93",
+          "typical": "1,748",
+          "range": "1,216–2,492"
+        },
+        {
+          "name": "Iowa",
+          "m": "0.88",
+          "typical": "1,698",
+          "range": "1,188–2,404"
+        },
+        {
+          "name": "Kansas",
+          "m": "0.90",
+          "typical": "1,719",
+          "range": "1,199–2,441"
+        },
+        {
+          "name": "Kentucky",
+          "m": "0.90",
+          "typical": "1,720",
+          "range": "1,200–2,442"
+        },
+        {
+          "name": "Louisiana",
+          "m": "0.88",
+          "typical": "1,701",
+          "range": "1,190–2,410"
+        },
+        {
+          "name": "Maine",
+          "m": "0.97",
+          "typical": "1,782",
+          "range": "1,235–2,553"
+        },
+        {
+          "name": "Maryland",
+          "m": "1.05",
+          "typical": "1,855",
+          "range": "1,275–2,679"
+        },
+        {
+          "name": "Massachusetts",
+          "m": "1.06",
+          "typical": "1,862",
+          "range": "1,278–2,692"
+        },
+        {
+          "name": "Michigan",
+          "m": "0.96",
+          "typical": "1,774",
+          "range": "1,230–2,538"
+        },
+        {
+          "name": "Minnesota",
+          "m": "0.99",
+          "typical": "1,796",
+          "range": "1,242–2,577"
+        },
+        {
+          "name": "Mississippi",
+          "m": "0.87",
+          "typical": "1,691",
+          "range": "1,185–2,391"
+        },
+        {
+          "name": "Missouri",
+          "m": "0.91",
+          "typical": "1,725",
+          "range": "1,203–2,452"
+        },
+        {
+          "name": "Montana",
+          "m": "0.95",
+          "typical": "1,760",
+          "range": "1,222–2,513"
+        },
+        {
+          "name": "Nebraska",
+          "m": "0.90",
+          "typical": "1,719",
+          "range": "1,199–2,441"
+        },
+        {
+          "name": "Nevada",
+          "m": "1.00",
+          "typical": "1,809",
+          "range": "1,249–2,599"
+        },
+        {
+          "name": "New Hampshire",
+          "m": "1.04",
+          "typical": "1,847",
+          "range": "1,270–2,666"
+        },
+        {
+          "name": "New Jersey",
+          "m": "1.09",
+          "typical": "1,889",
+          "range": "1,293–2,740"
+        },
+        {
+          "name": "New Mexico",
+          "m": "0.92",
+          "typical": "1,738",
+          "range": "1,210–2,474"
+        },
+        {
+          "name": "New York",
+          "m": "1.08",
+          "typical": "1,881",
+          "range": "1,289–2,726"
+        },
+        {
+          "name": "North Carolina",
+          "m": "0.94",
+          "typical": "1,757",
+          "range": "1,220–2,508"
+        },
+        {
+          "name": "North Dakota",
+          "m": "0.89",
+          "typical": "1,709",
+          "range": "1,195–2,423"
+        },
+        {
+          "name": "Ohio",
+          "m": "0.93",
+          "typical": "1,743",
+          "range": "1,213–2,484"
+        },
+        {
+          "name": "Oklahoma",
+          "m": "0.88",
+          "typical": "1,698",
+          "range": "1,188–2,404"
+        },
+        {
+          "name": "Oregon",
+          "m": "1.03",
+          "typical": "1,840",
+          "range": "1,266–2,653"
+        },
+        {
+          "name": "Pennsylvania",
+          "m": "0.98",
+          "typical": "1,787",
+          "range": "1,237–2,561"
+        },
+        {
+          "name": "Rhode Island",
+          "m": "1.02",
+          "typical": "1,830",
+          "range": "1,260–2,635"
+        },
+        {
+          "name": "South Carolina",
+          "m": "0.94",
+          "typical": "1,752",
+          "range": "1,218–2,499"
+        },
+        {
+          "name": "South Dakota",
+          "m": "0.89",
+          "typical": "1,705",
+          "range": "1,192–2,417"
+        },
+        {
+          "name": "Tennessee",
+          "m": "0.92",
+          "typical": "1,735",
+          "range": "1,209–2,470"
+        },
+        {
+          "name": "Texas",
+          "m": "0.97",
+          "typical": "1,782",
+          "range": "1,235–2,553"
+        },
+        {
+          "name": "Utah",
+          "m": "0.99",
+          "typical": "1,799",
+          "range": "1,243–2,582"
+        },
+        {
+          "name": "Vermont",
+          "m": "0.98",
+          "typical": "1,791",
+          "range": "1,239–2,567"
+        },
+        {
+          "name": "Virginia",
+          "m": "1.01",
+          "typical": "1,819",
+          "range": "1,255–2,616"
+        },
+        {
+          "name": "Washington",
+          "m": "1.07",
+          "typical": "1,873",
+          "range": "1,285–2,711"
+        },
+        {
+          "name": "West Virginia",
+          "m": "0.90",
+          "typical": "1,714",
+          "range": "1,196–2,432"
+        },
+        {
+          "name": "Wisconsin",
+          "m": "0.94",
+          "typical": "1,756",
+          "range": "1,219–2,505"
+        },
+        {
+          "name": "Wyoming",
+          "m": "0.93",
+          "typical": "1,743",
+          "range": "1,212–2,483"
+        }
+      ],
+      "source": "Equipment listings + data/installation-costs.json, labor and extras × BEA Regional Price Parity ÷ 100",
+      "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  },
+  "client": {
+    "model": {
+      "units": {
+        "gas_tank_40": {
+          "type": "gas_tank",
+          "label": "40-gallon gas tank (natural gas, standard vent)",
+          "low": 531,
+          "typical": 759,
+          "high": 1019,
+          "n": 9,
+          "sourceKey": "gas_tank_40"
+        },
+        "gas_tank_50": {
+          "type": "gas_tank",
+          "label": "50-gallon gas tank (natural gas, standard vent)",
+          "low": 749,
+          "typical": 899,
+          "high": 999,
+          "n": 9,
+          "sourceKey": "gas_tank_50"
+        },
+        "gas_tank_75": {
+          "type": "gas_tank",
+          "label": "75-gallon gas tank (natural gas, standard vent)",
+          "low": 1149,
+          "typical": 1319,
+          "high": 1459,
+          "n": 3,
+          "sourceKey": "gas_tank_75"
+        },
+        "electric_tank_40": {
+          "type": "electric_tank",
+          "label": "40-gallon electric tank",
+          "low": 459,
+          "typical": 684,
+          "high": 1199,
+          "n": 18,
+          "sourceKey": "electric_tank_40"
+        },
+        "electric_tank_50": {
+          "type": "electric_tank",
+          "label": "50-gallon electric tank",
+          "low": 559,
+          "typical": 819,
+          "high": 1429,
+          "n": 22,
+          "sourceKey": "electric_tank_50"
+        },
+        "heat_pump_50": {
+          "type": "heat_pump",
+          "label": "50-gallon heat pump (hybrid)",
+          "low": 1658,
+          "typical": 1787,
+          "high": 2119,
+          "n": 4,
+          "sourceKey": "heat_pump_50"
+        },
+        "heat_pump_65": {
+          "type": "heat_pump",
+          "label": "65-gallon heat pump (hybrid)",
+          "low": 1869,
+          "typical": 1946,
+          "high": 2519,
+          "n": 3,
+          "sourceKey": "heat_pump_65"
+        },
+        "heat_pump_80": {
+          "type": "heat_pump",
+          "label": "80-gallon heat pump (hybrid)",
+          "low": 2235,
+          "typical": 2378,
+          "high": 2798,
+          "n": 3,
+          "sourceKey": "heat_pump_80"
+        },
+        "gas_tankless_whole": {
+          "type": "gas_tankless",
+          "label": "Gas tankless, whole house (8 GPM or more, natural gas)",
+          "low": 869,
+          "typical": 1108,
+          "high": 1703,
+          "n": 14,
+          "sourceKey": "gas_tankless_whole_house"
+        },
+        "electric_tankless_whole": {
+          "type": "electric_tankless",
+          "label": "Electric tankless, whole house (24 kW or more)",
+          "low": 526,
+          "typical": 674,
+          "high": 999,
+          "n": 10,
+          "sourceKey": "electric_tankless_whole_house"
+        }
+      },
+      "types": {
+        "gas_tank": {
+          "label": "Gas tank (standard vent)",
+          "fuel": "gas",
+          "uef": 0.635,
+          "life": 13,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "40",
+              "label": "40 gallons"
+            },
+            {
+              "id": "50",
+              "label": "50 gallons"
+            },
+            {
+              "id": "75",
+              "label": "75 gallons"
+            }
+          ],
+          "defaultSize": "50"
+        },
+        "electric_tank": {
+          "label": "Electric tank",
+          "fuel": "electric",
+          "uef": 0.93,
+          "life": 13,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "40",
+              "label": "40 gallons"
+            },
+            {
+              "id": "50",
+              "label": "50 gallons"
+            }
+          ],
+          "defaultSize": "50"
+        },
+        "heat_pump": {
+          "label": "Heat pump (hybrid), 240 V",
+          "fuel": "electric",
+          "uef": 3.8,
+          "life": 13,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "50",
+              "label": "50 gallons"
+            },
+            {
+              "id": "65",
+              "label": "65 gallons"
+            },
+            {
+              "id": "80",
+              "label": "80 gallons"
+            }
+          ],
+          "defaultSize": "50"
+        },
+        "gas_tankless": {
+          "label": "Gas tankless",
+          "fuel": "gas",
+          "uef": 0.95,
+          "life": 20,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "whole",
+              "label": "Whole house"
+            }
+          ],
+          "defaultSize": "whole"
+        },
+        "electric_tankless": {
+          "label": "Electric tankless",
+          "fuel": "electric",
+          "uef": 0.92,
+          "life": 20,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "whole",
+              "label": "Whole house"
+            }
+          ],
+          "defaultSize": "whole"
+        }
+      },
+      "typeOrder": [
+        "gas_tank",
+        "electric_tank",
+        "heat_pump",
+        "gas_tankless",
+        "electric_tankless"
+      ],
+      "labor": {
+        "gas_tank": {
+          "low": 350,
+          "typical": 650,
+          "high": 1100
+        },
+        "electric_tank": {
+          "low": 300,
+          "typical": 500,
+          "high": 900
+        },
+        "heat_pump": {
+          "low": 500,
+          "typical": 900,
+          "high": 1800
+        },
+        "gas_tankless": {
+          "low": 600,
+          "typical": 850,
+          "high": 1500
+        },
+        "electric_tankless": {
+          "low": 300,
+          "typical": 600,
+          "high": 1000
+        }
+      },
+      "extras": {
+        "permit": {
+          "label": "Permit, haul-away and disposal of the old unit",
+          "low": 150,
+          "typical": 260,
+          "high": 500
+        },
+        "expansionTank": {
+          "label": "Thermal expansion tank, parts and labor",
+          "low": 100,
+          "typical": 175,
+          "high": 300
+        },
+        "codeItems": {
+          "label": "Code items: drain pan, seismic straps, relief valve piping",
+          "low": 50,
+          "typical": 150,
+          "high": 400
+        },
+        "venting": {
+          "label": "New or changed venting",
+          "low": 300,
+          "typical": 500,
+          "high": 1000
+        },
+        "gasLine": {
+          "label": "Gas line upgrade or new gas line",
+          "low": 300,
+          "typical": 600,
+          "high": 1000
+        },
+        "circuit": {
+          "label": "New 240-volt circuit",
+          "low": 300,
+          "typical": 600,
+          "high": 1200
+        },
+        "panel": {
+          "label": "Electrical panel upgrade (to 200 amps)",
+          "low": 750,
+          "typical": 1375,
+          "high": 2000
+        },
+        "relocation": {
+          "label": "Moving the heater to a new spot",
+          "low": 500,
+          "typical": 1000,
+          "high": 2000
+        },
+        "heatPumpSpace": {
+          "label": "Heat pump space work (louvered door, ducting, condensate pump)",
+          "low": 500,
+          "typical": 2000,
+          "high": 4000
+        }
+      },
+      "scenarios": {
+        "replace": {
+          "label": "Replacing a heater of the same kind",
+          "defaultExtras": {
+            "gas_tank": [
+              "permit"
+            ],
+            "electric_tank": [
+              "permit"
+            ],
+            "heat_pump": [
+              "permit"
+            ],
+            "gas_tankless": [
+              "permit"
+            ],
+            "electric_tankless": [
+              "permit"
+            ]
+          }
+        },
+        "fuelSwitch": {
+          "label": "Switching fuel (gas to electric or electric to gas)",
+          "defaultExtras": {
+            "gas_tank": [
+              "permit",
+              "gasLine",
+              "venting"
+            ],
+            "electric_tank": [
+              "permit",
+              "circuit"
+            ],
+            "heat_pump": [
+              "permit",
+              "circuit"
+            ],
+            "gas_tankless": [
+              "permit",
+              "gasLine",
+              "venting"
+            ],
+            "electric_tankless": [
+              "permit",
+              "circuit",
+              "panel"
+            ]
+          }
+        },
+        "toTankless": {
+          "label": "Replacing a tank with a tankless unit",
+          "defaultExtras": {
+            "gas_tank": [
+              "permit"
+            ],
+            "electric_tank": [
+              "permit"
+            ],
+            "heat_pump": [
+              "permit"
+            ],
+            "gas_tankless": [
+              "permit",
+              "venting",
+              "gasLine"
+            ],
+            "electric_tankless": [
+              "permit",
+              "circuit",
+              "panel"
+            ]
+          }
+        }
+      },
+      "states": {
+        "AL": {
+          "name": "Alabama",
+          "multiplier": 0.888,
+          "usdPerKwh": 0.1609,
+          "usdPerTherm": 1.702,
+          "inletF": 69.6
+        },
+        "AK": {
+          "name": "Alaska",
+          "multiplier": 1.024,
+          "usdPerKwh": 0.2611,
+          "usdPerTherm": 1.312,
+          "inletF": 43.7
+        },
+        "AZ": {
+          "name": "Arizona",
+          "multiplier": 1.007,
+          "usdPerKwh": 0.1526,
+          "usdPerTherm": 1.814,
+          "inletF": 67.1
+        },
+        "AR": {
+          "name": "Arkansas",
+          "multiplier": 0.869,
+          "usdPerKwh": 0.1287,
+          "usdPerTherm": 1.884,
+          "inletF": 67
+        },
+        "CA": {
+          "name": "California",
+          "multiplier": 1.107,
+          "usdPerKwh": 0.3135,
+          "usdPerTherm": 2.154,
+          "inletF": 65
+        },
+        "CO": {
+          "name": "Colorado",
+          "multiplier": 1.031,
+          "usdPerKwh": 0.1569,
+          "usdPerTherm": 1.048,
+          "inletF": 52.2
+        },
+        "CT": {
+          "name": "Connecticut",
+          "multiplier": 1.036,
+          "usdPerKwh": 0.2931,
+          "usdPerTherm": 1.632,
+          "inletF": 55.9
+        },
+        "DE": {
+          "name": "Delaware",
+          "multiplier": 0.998,
+          "usdPerKwh": 0.1715,
+          "usdPerTherm": 1.544,
+          "inletF": 62.2
+        },
+        "DC": {
+          "name": "District of Columbia",
+          "multiplier": 1.099,
+          "usdPerKwh": 0.2192,
+          "usdPerTherm": 1.615,
+          "inletF": 65.6
+        },
+        "FL": {
+          "name": "Florida",
+          "multiplier": 1.034,
+          "usdPerKwh": 0.1521,
+          "usdPerTherm": 2.488,
+          "inletF": 77.4
+        },
+        "GA": {
+          "name": "Georgia",
+          "multiplier": 0.963,
+          "usdPerKwh": 0.1474,
+          "usdPerTherm": 1.979,
+          "inletF": 70.2
+        },
+        "HI": {
+          "name": "Hawaii",
+          "multiplier": 1.1,
+          "usdPerKwh": 0.404,
+          "usdPerTherm": 5.712,
+          "inletF": 84.4
+        },
+        "ID": {
+          "name": "Idaho",
+          "multiplier": 0.955,
+          "usdPerKwh": 0.1183,
+          "usdPerTherm": 0.74,
+          "inletF": 49.9
+        },
+        "IL": {
+          "name": "Illinois",
+          "multiplier": 1,
+          "usdPerKwh": 0.1767,
+          "usdPerTherm": 1.073,
+          "inletF": 58.6
+        },
+        "IN": {
+          "name": "Indiana",
+          "multiplier": 0.933,
+          "usdPerKwh": 0.1596,
+          "usdPerTherm": 1.086,
+          "inletF": 58.3
+        },
+        "IA": {
+          "name": "Iowa",
+          "multiplier": 0.878,
+          "usdPerKwh": 0.1362,
+          "usdPerTherm": 1.001,
+          "inletF": 54.3
+        },
+        "KS": {
+          "name": "Kansas",
+          "multiplier": 0.901,
+          "usdPerKwh": 0.1444,
+          "usdPerTherm": 1.425,
+          "inletF": 61
+        },
+        "KY": {
+          "name": "Kentucky",
+          "multiplier": 0.902,
+          "usdPerKwh": 0.1313,
+          "usdPerTherm": 1.357,
+          "inletF": 62.3
+        },
+        "LA": {
+          "name": "Louisiana",
+          "multiplier": 0.882,
+          "usdPerKwh": 0.1252,
+          "usdPerTherm": 1.705,
+          "inletF": 73.1
+        },
+        "ME": {
+          "name": "Maine",
+          "multiplier": 0.971,
+          "usdPerKwh": 0.2769,
+          "usdPerTherm": 1.808,
+          "inletF": 47.8
+        },
+        "MD": {
+          "name": "Maryland",
+          "multiplier": 1.05,
+          "usdPerKwh": 0.1953,
+          "usdPerTherm": 1.553,
+          "inletF": 61.4
+        },
+        "MA": {
+          "name": "Massachusetts",
+          "multiplier": 1.058,
+          "usdPerKwh": 0.3041,
+          "usdPerTherm": 2.431,
+          "inletF": 54.8
+        },
+        "MI": {
+          "name": "Michigan",
+          "multiplier": 0.962,
+          "usdPerKwh": 0.2003,
+          "usdPerTherm": 1.03,
+          "inletF": 51.2
+        },
+        "MN": {
+          "name": "Minnesota",
+          "multiplier": 0.986,
+          "usdPerKwh": 0.1583,
+          "usdPerTherm": 1.041,
+          "inletF": 47.7
+        },
+        "MS": {
+          "name": "Mississippi",
+          "multiplier": 0.87,
+          "usdPerKwh": 0.1403,
+          "usdPerTherm": 1.628,
+          "inletF": 70.2
+        },
+        "MO": {
+          "name": "Missouri",
+          "multiplier": 0.908,
+          "usdPerKwh": 0.133,
+          "usdPerTherm": 1.46,
+          "inletF": 61.3
+        },
+        "MT": {
+          "name": "Montana",
+          "multiplier": 0.946,
+          "usdPerKwh": 0.1299,
+          "usdPerTherm": 0.847,
+          "inletF": 48.5
+        },
+        "NE": {
+          "name": "Nebraska",
+          "multiplier": 0.901,
+          "usdPerKwh": 0.1205,
+          "usdPerTherm": 1.08,
+          "inletF": 55.4
+        },
+        "NV": {
+          "name": "Nevada",
+          "multiplier": 1,
+          "usdPerKwh": 0.1326,
+          "usdPerTherm": 1.261,
+          "inletF": 57
+        },
+        "NH": {
+          "name": "New Hampshire",
+          "multiplier": 1.042,
+          "usdPerKwh": 0.2453,
+          "usdPerTherm": 1.791,
+          "inletF": 50
+        },
+        "NJ": {
+          "name": "New Jersey",
+          "multiplier": 1.088,
+          "usdPerKwh": 0.2248,
+          "usdPerTherm": 1.369,
+          "inletF": 59.6
+        },
+        "NM": {
+          "name": "New Mexico",
+          "multiplier": 0.922,
+          "usdPerKwh": 0.1485,
+          "usdPerTherm": 0.964,
+          "inletF": 60.5
+        },
+        "NY": {
+          "name": "New York",
+          "multiplier": 1.079,
+          "usdPerKwh": 0.2639,
+          "usdPerTherm": 1.703,
+          "inletF": 52
+        },
+        "NC": {
+          "name": "North Carolina",
+          "multiplier": 0.943,
+          "usdPerKwh": 0.14,
+          "usdPerTherm": 1.57,
+          "inletF": 65.5
+        },
+        "ND": {
+          "name": "North Dakota",
+          "multiplier": 0.89,
+          "usdPerKwh": 0.1182,
+          "usdPerTherm": 0.907,
+          "inletF": 47
+        },
+        "OH": {
+          "name": "Ohio",
+          "multiplier": 0.928,
+          "usdPerKwh": 0.169,
+          "usdPerTherm": 1.304,
+          "inletF": 57.7
+        },
+        "OK": {
+          "name": "Oklahoma",
+          "multiplier": 0.878,
+          "usdPerKwh": 0.1321,
+          "usdPerTherm": 1.385,
+          "inletF": 66.3
+        },
+        "OR": {
+          "name": "Oregon",
+          "multiplier": 1.034,
+          "usdPerKwh": 0.1546,
+          "usdPerTherm": 1.554,
+          "inletF": 53.9
+        },
+        "PA": {
+          "name": "Pennsylvania",
+          "multiplier": 0.976,
+          "usdPerKwh": 0.1929,
+          "usdPerTherm": 1.452,
+          "inletF": 55.5
+        },
+        "RI": {
+          "name": "Rhode Island",
+          "multiplier": 1.023,
+          "usdPerKwh": 0.2948,
+          "usdPerTherm": 2.103,
+          "inletF": 56.7
+        },
+        "SC": {
+          "name": "South Carolina",
+          "multiplier": 0.937,
+          "usdPerKwh": 0.1512,
+          "usdPerTherm": 1.632,
+          "inletF": 69.4
+        },
+        "SD": {
+          "name": "South Dakota",
+          "multiplier": 0.886,
+          "usdPerKwh": 0.1332,
+          "usdPerTherm": 0.917,
+          "inletF": 51.6
+        },
+        "TN": {
+          "name": "Tennessee",
+          "multiplier": 0.919,
+          "usdPerKwh": 0.1322,
+          "usdPerTherm": 1.155,
+          "inletF": 64.4
+        },
+        "TX": {
+          "name": "Texas",
+          "multiplier": 0.971,
+          "usdPerKwh": 0.154,
+          "usdPerTherm": 1.911,
+          "inletF": 71.8
+        },
+        "UT": {
+          "name": "Utah",
+          "multiplier": 0.989,
+          "usdPerKwh": 0.1302,
+          "usdPerTherm": 0.971,
+          "inletF": 55.2
+        },
+        "VT": {
+          "name": "Vermont",
+          "multiplier": 0.98,
+          "usdPerKwh": 0.2279,
+          "usdPerTherm": 1.718,
+          "inletF": 49
+        },
+        "VA": {
+          "name": "Virginia",
+          "multiplier": 1.011,
+          "usdPerKwh": 0.1528,
+          "usdPerTherm": 1.604,
+          "inletF": 62
+        },
+        "WA": {
+          "name": "Washington",
+          "multiplier": 1.07,
+          "usdPerKwh": 0.1317,
+          "usdPerTherm": 1.608,
+          "inletF": 53.3
+        },
+        "WV": {
+          "name": "West Virginia",
+          "multiplier": 0.895,
+          "usdPerKwh": 0.1539,
+          "usdPerTherm": 1.27,
+          "inletF": 58.6
+        },
+        "WI": {
+          "name": "Wisconsin",
+          "multiplier": 0.941,
+          "usdPerKwh": 0.1808,
+          "usdPerTherm": 1.024,
+          "inletF": 49.8
+        },
+        "WY": {
+          "name": "Wyoming",
+          "multiplier": 0.927,
+          "usdPerKwh": 0.1337,
+          "usdPerTherm": 1.114,
+          "inletF": 48.3
+        }
+      },
+      "us": {
+        "name": "U.S. average",
+        "multiplier": 1,
+        "usdPerKwh": 0.1723,
+        "usdPerTherm": 1.481,
+        "inletF": 58
+      },
+      "setpointF": 120,
+      "typicalGallons": 55,
+      "perPersonGallons": 25.1,
+      "lastReviewed": "2026-11-13"
+    },
+    "defaults": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "US",
+      "scenario": "replace"
+    }
+  }
+}
