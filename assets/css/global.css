@@ -327,3 +327,4 @@ details.disclosure > :not(summary) { margin: 0 var(--space-3) var(--space-3); }
 .chart-figure figcaption { font-size: var(--step--1); color: var(--muted, #4a5668); margin-top: var(--space-2); }
 .press-summary { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-4); background: var(--surface); }
 .press-summary h2 { margin-top: 0; }
+.prose code { overflow-wrap: anywhere; }

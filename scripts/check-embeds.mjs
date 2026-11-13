@@ -4,8 +4,8 @@
  *   200 without a redirect; X-Robots-Tag and <meta robots> say noindex; framing allowed from any origin
  *   (CSP frame-ancestors *, no X-Frame-Options); no ad script; exactly one credit link, anchor = brand name,
  *   rel contains nofollow; total weight (HTML + stylesheet + module scripts and their imports, gzip -9) ≤ 30 KB.
- * Also checks the /data/<id>.csv files: 200 text/csv with the expected row count when /data/ is live,
- * 404 while it is a draft (drafts must not leak).
+ * Also checks the /data/<id>.csv files: 200 text/csv with the expected row count while /data/ is draft or live,
+ * 404 when it is only planned.
  * Usage: npm run check-embeds [-- --base=https://hotwatermath.com] [-- --bust]
  */
 import { readFileSync } from 'node:fs';
@@ -78,7 +78,7 @@ for (const p of pages.filter((x) => x.type === 'tool' && ['live', 'draft'].inclu
 	const fn = helpers.slice(helpers.indexOf('function hwm_embed_snippet'), helpers.indexOf('}', helpers.indexOf('function hwm_embed_snippet')));
 	ok((fn.match(/<a /g) || []).length === 1, 'hwm_embed_snippet', 'snippet must contain exactly one link');
 	ok(/rel="nofollow"/.test(fn), 'hwm_embed_snippet', 'snippet link lacks rel="nofollow"');
-	ok(/hwm_site\( 'brand' \)\s*\)\s*\)\s*\.\s*'<\/a>/.test(fn), 'hwm_embed_snippet', 'snippet anchor is not the brand name');
+	ok(/hwm_site\( 'brand' \)\s*\)\s*\.\s*'<\/a>/.test(fn), 'hwm_embed_snippet', 'snippet anchor is not the brand name');
 	ok(/optional; you may remove it/.test(fn), 'hwm_embed_snippet', 'snippet does not say the credit is removable');
 }
 
@@ -86,14 +86,14 @@ const dataPage = pages.find((x) => x.slug === 'data');
 for (const d of datasets) {
 	const where = `/data/${d.id}.csv`;
 	const res = await get(`${base}${where}${bust}`);
-	if (dataPage?.status === 'live') {
+	if (['live', 'draft'].includes(dataPage?.status)) {
 		ok(res.status === 200, where, `status ${res.status}`);
 		if (res.status !== 200) continue;
 		ok(/text\/csv/.test(res.headers.get('content-type') || ''), where, 'not text/csv');
 		const lines = (await res.text()).trim().split(/\r?\n/);
 		ok(lines.length === d.rowCount + 1, where, `${lines.length - 1} rows (want ${d.rowCount})`);
 	} else {
-		ok(res.status === 404, where, `draft /data/ but CSV answers ${res.status} (should 404 to logged-out visitors)`);
+		ok(res.status === 404, where, `/data/ is planned but the CSV answers ${res.status}`);
 	}
 }
 

@@ -92,6 +92,7 @@ $related = array( 'water-heater-installation-cost', 'water-heater-cost-calculato
 <h2>Why do running costs matter more than installation prices?</h2>
 <p>Because labor prices vary far less between states than energy prices do. The cheapest state to install a 50-gallon gas tank, <?php echo $hwm_v( 'installG.low.name' ); // phpcs:ignore ?> ($<?php echo $hwm_v( 'installG.low.v' ); // phpcs:ignore ?>), is only <?php echo $hwm_v( 'installSpreadPct' ); // phpcs:ignore ?>% below the dearest, <?php echo $hwm_v( 'installG.high.name' ); // phpcs:ignore ?> ($<?php echo $hwm_v( 'installG.high.v' ); // phpcs:ignore ?>). The equipment costs the same everywhere; only labor, permit and haul-away follow local price levels.</p>
 <p>Energy is different. Running an electric tank for a year costs about $<?php echo $hwm_v( 'yearlyE.low.v' ); // phpcs:ignore ?> in <?php echo $hwm_v( 'yearlyE.low.name' ); // phpcs:ignore ?> and $<?php echo $hwm_v( 'yearlyE.high.v' ); // phpcs:ignore ?> in <?php echo $hwm_v( 'yearlyE.high.name' ); // phpcs:ignore ?>, and a gas tank from $<?php echo $hwm_v( 'yearlyG.low.v' ); // phpcs:ignore ?> in <?php echo $hwm_v( 'yearlyG.low.name' ); // phpcs:ignore ?> to $<?php echo $hwm_v( 'yearlyG.high.v' ); // phpcs:ignore ?> in <?php echo $hwm_v( 'yearlyG.high.name' ); // phpcs:ignore ?>. Two things drive it: the local price of electricity or gas, and how cold the incoming water is, since colder water needs more heat to reach <?php echo $hwm_v( 'setpoint' ); // phpcs:ignore ?> °F.</p>
+<div class="table-wrap" role="region" aria-label="Spread between states" tabindex="0">
 <table>
 	<caption>Spread between the cheapest and the dearest state</caption>
 	<thead><tr><th scope="col">Measure</th><th scope="col">Lowest</th><th scope="col">Highest</th><th scope="col" class="num">Highest ÷ lowest</th></tr></thead>
@@ -104,6 +105,7 @@ $related = array( 'water-heater-installation-cost', 'water-heater-cost-calculato
 		<tr><th scope="row">Electric tank, <?php echo esc_html( $hwm_y ); ?> years</th><td><?php echo $hwm_v( 'ownE.low.name' ); // phpcs:ignore ?> $<?php echo $hwm_v( 'ownE.low.v' ); // phpcs:ignore ?></td><td><?php echo $hwm_v( 'ownE.high.name' ); // phpcs:ignore ?> $<?php echo $hwm_v( 'ownE.high.v' ); // phpcs:ignore ?></td><td class="num"><?php echo $hwm_v( 'ownE.ratio' ); // phpcs:ignore ?></td></tr>
 	</tbody>
 </table>
+</div>
 
 <h2>Gas, electric or heat pump: which costs least over 10 years?</h2>
 <p>If your home has natural gas, a gas tank is usually cheapest to own: it wins in <?php echo $hwm_v( 'bestGas' ); // phpcs:ignore ?> states, and a heat pump wins in the other <?php echo $hwm_v( 'bestHp' ); // phpcs:ignore ?>. In an all-electric home, a heat pump beats a standard electric tank in every state, because it uses about <?php echo $hwm_v( 'hpShare' ); // phpcs:ignore ?>% of the electricity for the same hot water.</p>
