@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "source": "ENERGY STAR heat pump water heater guides (Installation Best Practices, 2024; Heat Pump Water Heater Guide for new construction, June 2024) and product page; U.S. Code 42 U.S.C. 18795a (High-Efficiency Electric Home Rebate Program); U.S. Department of Energy Home Energy Rebates program page; IRS Energy Efficient Home Improvement Credit page",
+    "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-08/HPWH%20Installation%20Guide.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Facts the heat pump water heater cost article and its savings calculator quote. Equipment prices, installation labor and the heat pump space-work extra come from cost-ranges.json and installation-costs.json; running costs from the same formula as the gas vs electric tool. Federal tax credit status is in incentives.json. Rebate programs change often: review every three months."
+  },
+  "references": {
+    "es-install": {
+      "publisher": "ENERGY STAR (U.S. EPA)",
+      "title": "Best Practices: Installing Heat Pump Water Heaters (2024)",
+      "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-08/HPWH%20Installation%20Guide.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Most traditional 240 unitary models require at least 700 cubic feet of air space (ex: a 10 ft x 10 ft room with a 7 ft ceiling), though some need as little as 450 cubic feet. If the unit is in a closet with at least 84 cubic feet, a fully louvered door will suffice.",
+        "Heat pump water heaters typically perform best in spaces that do not regularly get colder than 38F.",
+        "for gas to heat pump conversions, you will want to size up to make up for the slower recovery time",
+        "Heat pump water heaters produce a small amount of clean non-acidic condensate water which can be directed to a nearby drain or condensate pump.",
+        "A 240V heat pump water heater typically utilizes a 30-amp circuit breaker and 10-gauge electrical wire, just like a standard electric storage water heater. But some models may even work with a 25-amp or even 20-amp circuit.",
+        "Typically, 120V units need to be sized-up two sizes from a gas water heater (40-gallon gas to a 65 gallon)."
+      ]
+    },
+    "es-guide": {
+      "publisher": "ENERGY STAR (U.S. EPA)",
+      "title": "Heat Pump Water Heater Guide: Best Practices and Technical Considerations (June 2024)",
+      "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-07/ENERGY%20STAR%20Heat%20Pump%20Water%20Heater%20Technical%20Guide%20508C.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "ENERGY STAR certified HPWHs use 70% less energy than a standard electric water heater, which could save a household of four approximately $550 per year on its electric bills and more than $5,600 over the unit's lifetime. There can also be operating cost savings relative to natural gas, but these depend on local utility rate structures.",
+        "HPWHs that meet ENERGY STAR Version 5.0 product specifications emit sound levels less than 55 dBA, about the level of a background conversation.",
+        "Some HPWHs have sound pressure ratings of 45 dBA, about the level of a quiet dishwasher.",
+        "Intake air temperatures below approximately 40°F will trigger electric resistance elements and significantly reduce HPWH efficiency.",
+        "When an HPWH is actively heating water in heat pump mode, it generally provides 2,500 to 5,000 Btus/hour of cooling to the surrounding air.",
+        "HPWHs have similar life spans to electric storage water heaters, and many come with 10-year warranties."
+      ]
+    },
+    "es-product": {
+      "publisher": "ENERGY STAR (U.S. EPA)",
+      "title": "Heat Pump Water Heaters: buying guidance",
+      "sourceUrl": "https://www.energystar.gov/products/heat_pump_water_heaters",
+      "checked": "2026-11-13",
+      "quotes": [
+        "HPWHs should be installed in interior spaces that remain between 40° to 90° F year-round, and provide 1,000 cubic feet of air space around the water heater.",
+        "In colder environments with lower incoming water temperature HPWHs may need to go temporarily into a back-up standard electric water heating mode to meet household hot water use in colder months.",
+        "HPWHs may also require annual maintenance, including changing air filters."
+      ]
+    },
+    "usc-heehr": {
+      "publisher": "U.S. Code (Cornell Legal Information Institute)",
+      "title": "42 U.S.C. 18795a: High-efficiency electric home rebate program",
+      "sourceUrl": "https://www.law.cornell.edu/uscode/text/42/18795a",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The amount of a rebate provided under a high-efficiency electric home rebate program for the purchase of an appliance under a qualified electrification project shall be (i) not more than $1,750 for a heat pump water heater",
+        "50 percent of the cost of the qualified electrification project for a household the annual income of which is not less than 80 percent and not greater than 150 percent of the area median income; and 100 percent of the cost ... for a household the annual income of which is less than 80 percent"
+      ]
+    },
+    "doe-rebates": {
+      "publisher": "U.S. Department of Energy",
+      "title": "Home Energy Rebates Program",
+      "sourceUrl": "https://www.energy.gov/scep/home-energy-rebate-programs",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Home Energy Rebates are now available in select states. Additional details on active state, territory or Tribal rebate programs are coming soon. Contact your State or Territory Energy Office for more information on the status and eligibility requirements.",
+        "American households can save up to $14,000 on efficient upgrades"
+      ]
+    },
+    "irs-25c": {
+      "publisher": "Internal Revenue Service",
+      "title": "Energy Efficient Home Improvement Credit",
+      "sourceUrl": "https://www.irs.gov/credits-deductions/energy-efficient-home-improvement-credit",
+      "checked": "2026-11-13",
+      "quotes": [
+        "You can claim the credit for improvements made through December 31, 2025.",
+        "$2,000 per year for qualified heat pumps, water heaters, biomass stoves or biomass boilers"
+      ]
+    }
+  },
+  "space": {
+    "minCubicFeet": 700,
+    "minCubicFeetSome": 450,
+    "closetCubicFeetLouvered": 84,
+    "productPageCubicFeet": 1000,
+    "minSpaceTempF": 38,
+    "spaceTempLowF": 40,
+    "spaceTempHighF": 90,
+    "source": "ENERGY STAR installation guide and product page",
+    "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-08/HPWH%20Installation%20Guide.pdf"
+  },
+  "electrical": {
+    "breakerAmps": 30,
+    "wireGauge": 10,
+    "lowerBreakerAmps": 20,
+    "plugInVolts": 120,
+    "plugInSizeUp": "two sizes (a 40-gallon gas tank to a 65-gallon heat pump)",
+    "source": "ENERGY STAR installation guide",
+    "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-08/HPWH%20Installation%20Guide.pdf"
+  },
+  "sound": {
+    "maxDba": 55,
+    "quietDba": 45,
+    "source": "ENERGY STAR Heat Pump Water Heater Guide (June 2024)",
+    "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-07/ENERGY%20STAR%20Heat%20Pump%20Water%20Heater%20Technical%20Guide%20508C.pdf"
+  },
+  "energyStar": {
+    "lessEnergyPct": 70,
+    "savingUsdPerYear": 550,
+    "householdPeople": 4,
+    "lifetimeSavingUsd": 5600,
+    "coolingBtuhLow": 2500,
+    "coolingBtuhHigh": 5000,
+    "intakeColdF": 40,
+    "source": "ENERGY STAR Heat Pump Water Heater Guide (June 2024)",
+    "sourceUrl": "https://www.energystar.gov/sites/default/files/2024-07/ENERGY%20STAR%20Heat%20Pump%20Water%20Heater%20Technical%20Guide%20508C.pdf"
+  },
+  "rebates": {
+    "heehrMaxUsd": 1750,
+    "heehrHouseholdMaxUsd": 14000,
+    "heehrFullCostIncomePct": 80,
+    "heehrHalfCostIncomePct": 150,
+    "status": "Available in select states only; each state runs its own program (DOE, checked 2026-11-13).",
+    "source": "42 U.S.C. 18795a; U.S. Department of Energy Home Energy Rebates program page",
+    "sourceUrl": "https://www.law.cornell.edu/uscode/text/42/18795a"
+  },
+  "savingsCalculator": {
+    "rebateDefaultUsd": 0,
+    "paybackGoodYears": 7,
+    "note": "Our thresholds for the result colour: payback within paybackGoodYears is green, within the heat pump's typical life (lifespans.json) amber, longer red. Editorial choice, stated on the page."
+  },
+  "nextReview": "2027-02-13"
+}

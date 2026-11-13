@@ -1,0 +1,516 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/expansion-tanks.json (AMTROL method and tank data) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result, quick-size table, expansion factors and AMTROL cross-checks for the expansion tank size calculator."
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "Minimum tank size",
+    "headline": "A 2-gallon tank is enough",
+    "explain": "Heating 50 gallons from 40 °F to 120 °F adds about 0.50 gal of water. With 60 psi supply and a 150 psi maximum, the tank needs 0.92 gal of total volume. Choose a 2-gallon tank and set its precharge to 60 psi.",
+    "formula": "Expansion factor at 120 °F (from 40 °F) = 0.0100 (1.00% of the water)\nExpanded water = 50 gal × 0.0100 = 0.50 gal\nDesign pressure factor = (150 + 14.7) ÷ (150 − 60) = 1.83\nTank volume needed = 0.50 gal × 1.83 = 0.92 gal\nSmallest tank with total ≥ 0.92 gal and acceptance ≥ 0.50 gal: 2-gallon tank (2.0 gal total, 0.9 gal acceptance)\nSet the tank's air precharge to your supply pressure: 60 psi",
+    "table": {
+      "caption": "Which tank sizes are big enough",
+      "columns": [
+        {
+          "key": "tank",
+          "label": "Tank"
+        },
+        {
+          "key": "total",
+          "label": "Total volume",
+          "num": true
+        },
+        {
+          "key": "accept",
+          "label": "Max. acceptance",
+          "num": true
+        },
+        {
+          "key": "fits",
+          "label": "Big enough"
+        }
+      ],
+      "rows": [
+        {
+          "tank": "2-gallon tank",
+          "total": "2.0 gal",
+          "accept": "0.9 gal",
+          "fits": "Yes"
+        },
+        {
+          "tank": "4.4-gallon tank",
+          "total": "4.4 gal",
+          "accept": "3.2 gal",
+          "fits": "Yes"
+        },
+        {
+          "tank": "10-gallon tank",
+          "total": "10.3 gal",
+          "accept": "10.3 gal",
+          "fits": "Yes"
+        },
+        {
+          "tank": "14-gallon tank",
+          "total": "14.0 gal",
+          "accept": "11.3 gal",
+          "fits": "Yes"
+        },
+        {
+          "tank": "20-gallon tank",
+          "total": "20.0 gal",
+          "accept": "11.4 gal",
+          "fits": "Yes"
+        }
+      ]
+    },
+    "sources": "Method and tank data: AMTROL sizing guide and spec sheet. <a href=\"/methodology/#water-heater-expansion-tank-size\">See every cell of AMTROL’s chart checked against ours</a>."
+  },
+  "figures": {
+    "d0": {
+      "tank": "2-gallon tank",
+      "expanded": "0.50",
+      "required": "0.92",
+      "dpf": "1.83",
+      "factorPct": "1.0"
+    },
+    "heater": 50,
+    "temp": 120,
+    "supply": 60,
+    "max": 150,
+    "f140": "1.5",
+    "f120": "1.0",
+    "r80": {
+      "tank": "2-gallon tank",
+      "safer": "4.4-gallon tank",
+      "required": "1.88"
+    },
+    "r50at80": {
+      "tank": "2-gallon tank",
+      "safer": "",
+      "required": "1.18"
+    },
+    "r50max125": {
+      "tank": "2-gallon tank",
+      "safer": "",
+      "required": "1.07"
+    },
+    "cells": 45,
+    "exact": 37,
+    "saferMatch": 7,
+    "missCount": 1,
+    "headroomPct": "15",
+    "partLow": "34",
+    "partHigh": "67",
+    "costTypical": "175",
+    "costLow": "100",
+    "costHigh": "300",
+    "prvLow": 50,
+    "prvHigh": 60,
+    "maxSupply": 80,
+    "relief": "125 or 150"
+  },
+  "crossChecks": [
+    {
+      "id": "amtrol-example",
+      "label": "AMTROL worked example: 240-gal heater, 150 °F, 60 psi supply, 125 psi maximum",
+      "ours": "4.3 gal expanded × DPF 2.15 = 9.2 gal",
+      "published": "AMTROL: 4.3 gal expanded × DPF 2.1 = 9.0 gal (ST-25V or ST-30V-C)",
+      "match": true,
+      "why": "Same method. AMTROL rounds the DPF to 2.1 before multiplying; unrounded it is 2.15, which gives 9.2 gallons.",
+      "source": "AMTROL: Sizing the Therm-X-Trol: for pressurization and expansion control of hot water systems (MC10007, 03/19)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf"
+    },
+    {
+      "id": "amtrol-50-140-60",
+      "label": "50-gal heater, 140 °F, 60 psi supply, 150 psi relief valve",
+      "ours": "1.37 gal needed → 2-gallon tank (ST-5)",
+      "published": "AMTROL quick chart: ST-5",
+      "match": true,
+      "why": "Same tank.",
+      "source": "AMTROL (Worthington Industries): Therm-X-Trol water heater expansion tanks: specifications and Quick Sizing Charts (MC8520, 04/22)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/MC8520-04_22-TXT-Sizing-Chart_pzeetd.pdf"
+    },
+    {
+      "id": "amtrol-80-160-80",
+      "label": "80-gal heater, 160 °F, 80 psi supply, 150 psi relief valve",
+      "ours": "3.93 gal needed → minimum 4.4-gallon tank (ST-12), safer 10-gallon tank (ST-25V)",
+      "published": "AMTROL quick chart: ST-25V",
+      "match": true,
+      "why": "The required 3.93 gallons fits a 4.4-gallon tank with little room to spare. AMTROL picks the larger tank; our headroom rule names it as the safer pick.",
+      "source": "AMTROL (Worthington Industries): Therm-X-Trol water heater expansion tanks: specifications and Quick Sizing Charts (MC8520, 04/22)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/MC8520-04_22-TXT-Sizing-Chart_pzeetd.pdf"
+    },
+    {
+      "id": "amtrol-40-160-80",
+      "label": "40-gal heater, 160 °F, 80 psi supply, 150 psi relief valve",
+      "ours": "1.97 gal needed → minimum 2-gallon tank (ST-5), safer 4.4-gallon tank (ST-12)",
+      "published": "AMTROL quick chart: ST-12",
+      "match": true,
+      "why": "Borderline case: 1.97 gallons needed against a 2.0-gallon tank. AMTROL picks the larger tank; so does our headroom rule.",
+      "source": "AMTROL (Worthington Industries): Therm-X-Trol water heater expansion tanks: specifications and Quick Sizing Charts (MC8520, 04/22)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/MC8520-04_22-TXT-Sizing-Chart_pzeetd.pdf"
+    },
+    {
+      "id": "amtrol-all",
+      "label": "All 45 cells of AMTROL’s quick sizing chart (40, 50, 60, 80, 120 gal; 140, 160, 180 °F; 40, 60, 80 psi)",
+      "ours": "37 same minimum tank, 7 same as our safer pick, 1 different",
+      "published": "AMTROL Therm-X-Trol Quick Sizing Charts (MC8520, 04/22)",
+      "match": true,
+      "why": "50-gal, 160 °F, 40 psi: AMTROL ST-5, ours ST-12, because 1.05 gal of expanded water is more than the smaller tank's 0.9 gal acceptance volume.",
+      "source": "AMTROL (Worthington Industries): Therm-X-Trol water heater expansion tanks: specifications and Quick Sizing Charts (MC8520, 04/22)",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/MC8520-04_22-TXT-Sizing-Chart_pzeetd.pdf"
+    }
+  ],
+  "tables": {
+    "quick": {
+      "caption": "Expansion tank size by heater size and supply pressure (120 °F setting, 150 psi relief valve)",
+      "columns": [
+        {
+          "key": "gal",
+          "label": "Heater (gal)",
+          "num": true
+        },
+        {
+          "key": "p40",
+          "label": "40 psi",
+          "unit": "gal tank",
+          "num": true
+        },
+        {
+          "key": "p50",
+          "label": "50 psi",
+          "unit": "gal tank",
+          "num": true
+        },
+        {
+          "key": "p60",
+          "label": "60 psi",
+          "unit": "gal tank",
+          "num": true
+        },
+        {
+          "key": "p70",
+          "label": "70 psi",
+          "unit": "gal tank",
+          "num": true
+        },
+        {
+          "key": "p80",
+          "label": "80 psi",
+          "unit": "gal tank",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "gal": "30",
+          "p40": "2",
+          "p50": "2",
+          "p60": "2",
+          "p70": "2",
+          "p80": "2"
+        },
+        {
+          "gal": "40",
+          "p40": "2",
+          "p50": "2",
+          "p60": "2",
+          "p70": "2",
+          "p80": "2"
+        },
+        {
+          "gal": "50",
+          "p40": "2",
+          "p50": "2",
+          "p60": "2",
+          "p70": "2",
+          "p80": "2"
+        },
+        {
+          "gal": "65",
+          "p40": "2",
+          "p50": "2",
+          "p60": "2",
+          "p70": "2",
+          "p80": "2"
+        },
+        {
+          "gal": "75",
+          "p40": "2",
+          "p50": "2",
+          "p60": "2",
+          "p70": "2",
+          "p80": "2 (4.4 safer)"
+        },
+        {
+          "gal": "80",
+          "p40": "2 (4.4 safer)",
+          "p50": "2 (4.4 safer)",
+          "p60": "2 (4.4 safer)",
+          "p70": "2 (4.4 safer)",
+          "p80": "2 (4.4 safer)"
+        },
+        {
+          "gal": "100",
+          "p40": "4.4",
+          "p50": "4.4",
+          "p60": "4.4",
+          "p70": "4.4",
+          "p80": "4.4"
+        }
+      ],
+      "source": "Computed with AMTROL’s sizing method (expansion factor × design pressure factor) and AMTROL tank volumes; “safer” = within our 15% headroom rule",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "factors": {
+      "caption": "How much water grows when heated from 40 °F",
+      "columns": [
+        {
+          "key": "t",
+          "label": "Tank setting",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "pct",
+          "label": "Volume increase",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "In a 50-gal tank",
+          "unit": "gal",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "t": "100",
+          "pct": "0.62",
+          "g50": "0.31"
+        },
+        {
+          "t": "120",
+          "pct": "1.00",
+          "g50": "0.50"
+        },
+        {
+          "t": "130",
+          "pct": "1.24",
+          "g50": "0.62"
+        },
+        {
+          "t": "140",
+          "pct": "1.50",
+          "g50": "0.75"
+        },
+        {
+          "t": "150",
+          "pct": "1.79",
+          "g50": "0.90"
+        },
+        {
+          "t": "160",
+          "pct": "2.09",
+          "g50": "1.05"
+        },
+        {
+          "t": "170",
+          "pct": "2.42",
+          "g50": "1.21"
+        },
+        {
+          "t": "180",
+          "pct": "2.76",
+          "g50": "1.38"
+        }
+      ],
+      "source": "AMTROL MC10007 Table 1",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "tanks": {
+      "caption": "Common residential expansion tank sizes",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Tank"
+        },
+        {
+          "key": "model",
+          "label": "Example model"
+        },
+        {
+          "key": "total",
+          "label": "Total volume",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "accept",
+          "label": "Max. acceptance",
+          "unit": "gal",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "2-gallon tank",
+          "model": "AMTROL ST-5",
+          "total": "2.0",
+          "accept": "0.9"
+        },
+        {
+          "label": "4.4-gallon tank",
+          "model": "AMTROL ST-12",
+          "total": "4.4",
+          "accept": "3.2"
+        },
+        {
+          "label": "10-gallon tank",
+          "model": "AMTROL ST-25V",
+          "total": "10.3",
+          "accept": "10.3"
+        },
+        {
+          "label": "14-gallon tank",
+          "model": "AMTROL ST-30V",
+          "total": "14.0",
+          "accept": "11.3"
+        },
+        {
+          "label": "20-gallon tank",
+          "model": "AMTROL ST-42V",
+          "total": "20.0",
+          "accept": "11.4"
+        }
+      ],
+      "source": "AMTROL MC8520 (04/22) specifications table",
+      "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/MC8520-04_22-TXT-Sizing-Chart_pzeetd.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "prices": {
+      "caption": "Thermal expansion tank prices (parts only)",
+      "columns": [
+        {
+          "key": "p",
+          "label": "Listing"
+        }
+      ],
+      "rows": [
+        {
+          "p": "Everbilt 2.0 gal thermal expansion tank HDET2G: $34.42"
+        },
+        {
+          "p": "PLUMBFLEX 2.1 gal thermal expansion tank FTET21-N: $59.71"
+        },
+        {
+          "p": "Water Worker 4.5 gal thermal expansion tank G12W: $59.98"
+        },
+        {
+          "p": "Amtrol Therm-X-Trol ST-5: $67.02"
+        }
+      ],
+      "source": "The Home Depot: Listing prices for thermal expansion tanks and a water heater drain pan",
+      "sourceUrl": "https://www.homedepot.com/p/Everbilt-2-0-Gal-Thermal-Expansion-Tank-HDET2G/330866982",
+      "sourceDate": "2026-11-13"
+    }
+  },
+  "stateOptions": [],
+  "client": {
+    "data": {
+      "expansionFactors": {
+        "startTempF": 40,
+        "rows": [
+          {
+            "tempF": 100,
+            "factor": 0.0062
+          },
+          {
+            "tempF": 120,
+            "factor": 0.01
+          },
+          {
+            "tempF": 130,
+            "factor": 0.0124
+          },
+          {
+            "tempF": 140,
+            "factor": 0.015
+          },
+          {
+            "tempF": 150,
+            "factor": 0.0179
+          },
+          {
+            "tempF": 160,
+            "factor": 0.0209
+          },
+          {
+            "tempF": 170,
+            "factor": 0.0242
+          },
+          {
+            "tempF": 180,
+            "factor": 0.0276
+          }
+        ],
+        "source": "AMTROL MC10007 Table 1",
+        "sourceUrl": "https://res.cloudinary.com/dzhpkjoqj/Amtrol/9017-112-03_19-MC10007-Sizing-TXT_cepv3g.pdf"
+      },
+      "atmosphericPsi": 14.7,
+      "tanks": [
+        {
+          "id": "2",
+          "model": "ST-5",
+          "label": "2-gallon tank",
+          "totalGallons": 2,
+          "acceptanceGallons": 0.9
+        },
+        {
+          "id": "4.4",
+          "model": "ST-12",
+          "label": "4.4-gallon tank",
+          "totalGallons": 4.4,
+          "acceptanceGallons": 3.2
+        },
+        {
+          "id": "10",
+          "model": "ST-25V",
+          "label": "10-gallon tank",
+          "totalGallons": 10.3,
+          "acceptanceGallons": 10.3
+        },
+        {
+          "id": "14",
+          "model": "ST-30V",
+          "label": "14-gallon tank",
+          "totalGallons": 14,
+          "acceptanceGallons": 11.3
+        },
+        {
+          "id": "20",
+          "model": "ST-42V",
+          "label": "20-gallon tank",
+          "totalGallons": 20,
+          "acceptanceGallons": 11.4
+        }
+      ],
+      "headroomShare": 0.15
+    },
+    "defaults": {
+      "heaterGallons": 50,
+      "tempF": 120,
+      "supplyPsi": 60,
+      "maxPsi": 150
+    },
+    "highSupplyPsi": 80,
+    "prvLow": 50,
+    "prvHigh": 60
+  }
+}

@@ -234,6 +234,36 @@ $hwm_dr   = 'decision-rules';
 	<?php $hwm_xfilled( 'tankless-vs-tank-water-heater', 'cost of ownership (DOE 2024 rules)' ); ?>
 </section>
 
+<section id="heat-pump-water-heater-cost">
+	<h3>Heat pump water heater savings and payback</h3>
+	<p>The savings calculator on the heat pump cost page reuses two models already described above, so its numbers agree with every other tool:</p>
+	<ol>
+		<li><strong>Installed cost</strong> of both jobs comes from the cost calculator's model: the heat pump replacing your current heater (a fuel switch with a new 240-volt circuit when you have gas, a like-for-like job when you have an electric tank), and a new heater of your current type in the same spot. Ticking the space option adds the heat pump space-work extra.</li>
+		<li><strong>Yearly running cost</strong> of each heater comes from the gas vs electric formula, with your state's prices, incoming water temperature and household use.</li>
+		<li><strong>Extra cost</strong> = heat pump installed − new current-type heater installed − any rebate you enter.</li>
+		<li><strong>Simple payback</strong> = extra cost ÷ yearly saving. <strong>Net over the heater's life</strong> = yearly saving × typical life − extra cost. No interest or price changes are applied.</li>
+	</ol>
+	<p>The green "pays back quickly" label means a payback within <?php echo esc_html( hwm_value( 'heat-pump', 'savingsCalculator.paybackGoodYears' ) ); ?> years, our editorial threshold; amber means within the heater's typical life; red means longer, or never. Space rules, electrical needs and rebates come from ENERGY STAR, the U.S. Code and the IRS, listed in the heat pump data file.</p>
+	<p><strong>Limitations.</strong> The heat pump's efficiency drops in a cold room and its backup elements run more in a busy hour; the UEF rating averages this out. Utility rebates are not built in because they change too often; enter yours.</p>
+	<p>The cross-check compares our results with ENERGY STAR's published saving and energy reduction, and with DOE's 2024 payback for heat pump water heaters.</p>
+	<?php $hwm_xfilled( 'heat-pump-water-heater-cost', 'heat pump savings (ENERGY STAR, DOE 2024 rule)' ); ?>
+</section>
+
+<section id="water-heater-expansion-tank-size">
+	<h3>Thermal expansion tank size</h3>
+	<p>The calculator follows AMTROL's published sizing method for its Therm-X-Trol tanks:</p>
+	<ol>
+		<li><strong>Expanded water</strong> = heater gallons × expansion factor, from AMTROL's table of how much water grows when heated from <?php echo esc_html( hwm_value( 'expansion-tanks', 'expansionFactors.startTempF' ) ); ?> °F. Between table temperatures we interpolate in a straight line.</li>
+		<li><strong>Design pressure factor</strong> = (maximum pressure + <?php echo esc_html( hwm_value( 'expansion-tanks', 'atmosphericPsi' ) ); ?>) ÷ (maximum pressure − supply pressure), in psi gauge.</li>
+		<li><strong>Tank volume needed</strong> = expanded water × design pressure factor.</li>
+		<li>Pick the smallest tank whose total volume is at least the volume needed and whose maximum acceptance volume is at least the expanded water. When either is within <?php echo esc_html( hwm_value( 'computed/water-heater-expansion-tank-size', 'figures.headroomPct' ) ); ?>% of the tank's limit, we also name the next size as the safer pick (our rule).</li>
+	</ol>
+	<p>The defaults are a <?php echo esc_html( hwm_value( 'expansion-tanks', 'defaults.heaterGallons' ) ); ?>-gallon heater, the site's <?php echo esc_html( hwm_value( 'site', 'defaults.setpointTempF' ) ); ?> °F setpoint, <?php echo esc_html( hwm_value( 'expansion-tanks', 'defaults.supplyPsi' ) ); ?> psi supply and a <?php echo esc_html( hwm_value( 'expansion-tanks', 'defaults.maxPsi' ) ); ?> psi maximum (the relief valve setting AMTROL's charts assume). Tank volumes are AMTROL's residential models; other brands publish their own.</p>
+	<p><strong>Limitations.</strong> One storage water heater only; not for boilers, wells or several heaters in series. Watts' calculator uses a warmer starting temperature and a final pressure tied to the supply pressure, so it gives larger tanks.</p>
+	<p>The cross-check runs AMTROL's worked example and every cell of its quick sizing chart through our formula.</p>
+	<?php $hwm_xfilled( 'water-heater-expansion-tank-size', 'expansion tank sizing (AMTROL)' ); ?>
+</section>
+
 <h2>Where does our data come from?</h2>
 <p>Every number lives in a data file with a named source, a link and the date we last checked it. We prefer government sources first, then codes and standards, then manufacturer spec sheets. Other websites' cost guides are never used as the source of a number.</p>
 <?php
@@ -254,6 +284,8 @@ $hwm_files = array(
 	'installation-costs'        => 'Installation labor and extras (our ranges, anchored to DOE)',
 	'regional-cost-index'       => 'Regional price factor by state',
 	'incentives'                => 'Federal tax credits',
+	'heat-pump'                 => 'Heat pump space, electrical, savings and rebate figures (ENERGY STAR, U.S. Code, IRS)',
+	'expansion-tanks'           => 'Expansion factors, tank volumes and quick sizing chart (AMTROL)',
 	'decision-rules'            => 'Repair-or-replace thresholds (editorial)',
 );
 ?>
@@ -298,6 +330,8 @@ $hwm_files = array(
 		<tr><td>No yearly flushing</td><td><?php echo esc_html( hwm_value( $hwm_life, 'adjustments.noAnnualFlush' ) ); ?> year</td><td>Manufacturer manuals call for draining sediment regularly; skipping it lets sediment build up.</td></tr>
 		<tr><td>Anode rod replaced</td><td>+<?php echo esc_html( hwm_value( $hwm_life, 'adjustments.anodeReplaced' ) ); ?> year</td><td>The anode corrodes instead of the tank. Replacing it extends tank protection, but the gain depends on your water, so we keep it modest.</td></tr>
 		<tr><td>Shortest expected life we show</td><td><?php echo esc_html( hwm_value( $hwm_life, 'adjustments.minimumLifeYears' ) ); ?> years</td><td>Keeps adjustments from adding up to an unrealistic result.</td></tr>
+		<tr><td>Heat pump "pays back quickly"</td><td>Within <?php echo esc_html( hwm_value( 'heat-pump', 'savingsCalculator.paybackGoodYears' ) ); ?> years</td><td>About half a heat pump's typical life, so most of its life is net saving. It only sets the label colour; the payback number is shown either way.</td></tr>
+		<tr><td>Expansion tank "safer" pick</td><td>Within <?php echo esc_html( hwm_value( 'computed/water-heater-expansion-tank-size', 'figures.headroomPct' ) ); ?>% of a tank's limit</td><td>Real pressures and settings drift. AMTROL's own chart picks the larger tank in most borderline cases, and this rule reproduces that.</td></tr>
 		<tr><td>Age status colors</td><td>Amber from <?php echo esc_html( hwm_value( $hwm_life, 'statusBands.amberFrom', 1 ) ); ?>, red from <?php echo esc_html( hwm_value( $hwm_life, 'statusBands.redFrom', 1 ) ); ?> × expected life</td><td>Gives you time to plan a replacement before the typical end of life.</td></tr>
 		<tr><td>Installation labor and extras ranges</td><td>See the water heater cost section</td><td>No public source publishes labor by job type; our ranges sit on DOE's averages and ranges, with industry guides as a sanity check.</td></tr>
 		<tr><td>Repair-or-replace thresholds</td><td>See the repair or replace section</td><td>Conservative rules of the kind homeowners already use, written down so you can check them.</td></tr>

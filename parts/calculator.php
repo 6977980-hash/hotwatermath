@@ -7,13 +7,14 @@
  * data/computed/<tool>.json → { "default": { "status": "ok|warn|bad", "statusLabel": "...",
  *   "headline": "...", "explain": "...", "formula": "...", "sources": "..." } }
  *
- * Args: tool (slug), inputs (HTML string), label.
+ * Args: tool (slug), inputs (HTML string), label, default (optional: an article's preset default result,
+ *   same shape, from its own computed file; the tool's default is used when it is missing).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $hwm_tool    = (string) ( $args['tool'] ?? '' );
-$hwm_default = (array) ( hwm_raw( 'computed/' . $hwm_tool, 'default' ) ?? array() );
+$hwm_default = ! empty( $args['default'] ) ? (array) $args['default'] : (array) ( hwm_raw( 'computed/' . $hwm_tool, 'default' ) ?? array() );
 $hwm_state   = in_array( $hwm_default['status'] ?? '', array( 'ok', 'warn', 'bad' ), true ) ? ' result--' . $hwm_default['status'] : '';
 $hwm_anchor  = (string) ( hwm_page( $hwm_tool )['methodAnchor'] ?? $hwm_tool );
 $hwm_allowed = array( 'strong' => array(), 'em' => array(), 'a' => array( 'href' => true ), 'br' => array(), 'span' => array( 'class' => true ) );
@@ -45,10 +46,12 @@ $hwm_allowed = array( 'strong' => array(), 'em' => array(), 'a' => array( 'href'
 			<button type="button" class="btn btn--ghost" data-action="copy">Copy result</button>
 			<button type="button" class="btn btn--ghost" data-action="share">Share link</button>
 		</div>
+		<?php if ( 'tool' === ( hwm_page( $hwm_tool )['type'] ?? '' ) ) : // Only tool pages have an /embed/ route. ?>
 		<details class="disclosure" style="margin-top: var(--space-3)">
 			<summary>Embed this calculator</summary>
 			<p>Paste this on your site. The credit line is optional and you may remove it.</p>
 			<textarea readonly rows="4" aria-label="Embed code"><?php echo esc_textarea( hwm_embed_snippet( $hwm_tool ) ); ?></textarea>
 		</details>
+		<?php endif; ?>
 	</div>
 </section>

@@ -1,0 +1,715 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model plus data/electrical.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Calculator preset, figures and tables for the tankless water heater installation cost article."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "gas_tankless",
+      "size": "whole",
+      "state": "US",
+      "scenario": "toTankless",
+      "permit": true,
+      "venting": true,
+      "gasLine": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $3,318 installed",
+      "explain": "Gas tankless, whole house (8 GPM or more, natural gas): the unit itself is about $1,108 ($869 to $1,703 in current listings). Installation adds about $2,210 for labor and 3 extras in the U.S. average (price factor 1.00). Range: $2,219 to $5,703.",
+      "formula": "Unit (typical) = $1,108\nLabor = $850 × 1.000 = $850\nPermit, haul-away and disposal of the old unit = $260 × 1.000 = $260\nNew or changed venting = $500 × 1.000 = $500\nGas line upgrade or new gas line = $600 × 1.000 = $600\nTotal (typical) = $1,108 + $850 + $260 + $500 + $600 = $3,318\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "Gas tankless, whole house (8 GPM or more, natural gas)",
+            "low": "$869",
+            "typical": "$1,108",
+            "high": "$1,703"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$600",
+            "typical": "$850",
+            "high": "$1,500"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$150",
+            "typical": "$260",
+            "high": "$500"
+          },
+          {
+            "item": "New or changed venting",
+            "low": "$300",
+            "typical": "$500",
+            "high": "$1,000"
+          },
+          {
+            "item": "Gas line upgrade or new gas line",
+            "low": "$300",
+            "typical": "$600",
+            "high": "$1,000"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$2,219",
+          "typical": "$3,318",
+          "high": "$5,703"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "gT": {
+      "low": "2,219",
+      "typical": "3,318",
+      "high": "5,703",
+      "typicalNum": 3318,
+      "unit": "1,108",
+      "install": "2,210",
+      "unitShare": 33
+    },
+    "gR": {
+      "low": "1,619",
+      "typical": "2,218",
+      "high": "3,703",
+      "typicalNum": 2218,
+      "unit": "1,108",
+      "install": "1,110",
+      "unitShare": 50
+    },
+    "eT": {
+      "low": "2,026",
+      "typical": "3,509",
+      "high": "5,699",
+      "typicalNum": 3509,
+      "unit": "674",
+      "install": "2,835",
+      "unitShare": 19
+    },
+    "eR": {
+      "low": "976",
+      "typical": "1,534",
+      "high": "2,499",
+      "typicalNum": 1534,
+      "unit": "674",
+      "install": "860",
+      "unitShare": 44
+    },
+    "gTank": {
+      "low": "1,249",
+      "typical": "1,809",
+      "high": "2,599",
+      "typicalNum": 1809,
+      "unit": "899",
+      "install": "910",
+      "unitShare": 50
+    },
+    "eTank": {
+      "low": "1,009",
+      "typical": "1,579",
+      "high": "2,829",
+      "typicalNum": 1579,
+      "unit": "819",
+      "install": "760",
+      "unitShare": 52
+    },
+    "gasPremium": "1,509",
+    "elPremium": "1,930",
+    "venting": "500",
+    "ventingLow": "300",
+    "ventingHigh": "1,000",
+    "gasLine": "600",
+    "gasLineLow": "300",
+    "gasLineHigh": "1,000",
+    "circuit": "600",
+    "panel": "1,375",
+    "panelLow": "750",
+    "panelHigh": "2,000",
+    "labor": {
+      "low": "600",
+      "typical": "850",
+      "high": "1,500"
+    },
+    "laborEl": {
+      "low": "300",
+      "typical": "600",
+      "high": "1,000"
+    },
+    "cheap": {
+      "name": "Arkansas",
+      "typical": "3,029"
+    },
+    "dear": {
+      "name": "California",
+      "typical": "3,555"
+    },
+    "kwLow": "13",
+    "kwHigh": "36",
+    "ampsLow": "54",
+    "ampsHigh": "150",
+    "gtBreakEven": 0,
+    "years": 10,
+    "gtStatesPay": 1,
+    "lifeTankless": 20,
+    "lifeTank": 13,
+    "tanklessSaving": "80"
+  },
+  "tables": {
+    "jobs": {
+      "caption": "Tankless installation cost by job (U.S. average)",
+      "columns": [
+        {
+          "key": "job",
+          "label": "Job"
+        },
+        {
+          "key": "extras",
+          "label": "Extras included"
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Range",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "job": "Gas tank to gas tankless",
+          "extras": "Permit, New or changed venting, Gas line upgrade or new gas line",
+          "typical": "3,318",
+          "range": "2,219–5,703"
+        },
+        {
+          "job": "Gas tankless to gas tankless (replacement)",
+          "extras": "Permit",
+          "typical": "2,218",
+          "range": "1,619–3,703"
+        },
+        {
+          "job": "Electric tank to electric tankless",
+          "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
+          "typical": "3,509",
+          "range": "2,026–5,699"
+        },
+        {
+          "job": "Electric tankless to electric tankless",
+          "extras": "Permit",
+          "typical": "1,534",
+          "range": "976–2,499"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsGas": {
+      "caption": "Itemized: gas tank to gas tankless (U.S. average)",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "Gas tankless, whole house (8 GPM or more, natural gas)",
+          "low": "869",
+          "typical": "1,108",
+          "high": "1,703"
+        },
+        {
+          "item": "Installation labor",
+          "low": "600",
+          "typical": "850",
+          "high": "1,500"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "150",
+          "typical": "260",
+          "high": "500"
+        },
+        {
+          "item": "New or changed venting",
+          "low": "300",
+          "typical": "500",
+          "high": "1,000"
+        },
+        {
+          "item": "Gas line upgrade or new gas line",
+          "low": "300",
+          "typical": "600",
+          "high": "1,000"
+        },
+        {
+          "item": "Total",
+          "low": "2,219",
+          "typical": "3,318",
+          "high": "5,703"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "electric": {
+      "caption": "Electric tankless: what the panel has to supply (one manufacturer’s whole-house range)",
+      "columns": [
+        {
+          "key": "model",
+          "label": "Unit"
+        },
+        {
+          "key": "kw",
+          "label": "Power",
+          "unit": "kW",
+          "num": true
+        },
+        {
+          "key": "amps",
+          "label": "Current at 240 V",
+          "unit": "A",
+          "num": true
+        },
+        {
+          "key": "breakers",
+          "label": "Breakers"
+        },
+        {
+          "key": "wire",
+          "label": "Wire"
+        }
+      ],
+      "rows": [
+        {
+          "model": "RETEX-13",
+          "kw": "13",
+          "amps": "54",
+          "breakers": "1 × 60 A",
+          "wire": "6 AWG copper"
+        },
+        {
+          "model": "RETEX-18",
+          "kw": "18",
+          "amps": "75",
+          "breakers": "2 × 40 A",
+          "wire": "8 AWG copper"
+        },
+        {
+          "model": "RETEX-24",
+          "kw": "24",
+          "amps": "100",
+          "breakers": "3 × 40 A",
+          "wire": "8 AWG copper"
+        },
+        {
+          "model": "RETEX-27",
+          "kw": "27",
+          "amps": "113",
+          "breakers": "3 × 40 A",
+          "wire": "8 AWG copper"
+        },
+        {
+          "model": "RETEX-36",
+          "kw": "36",
+          "amps": "150",
+          "breakers": "4 × 40 A",
+          "wire": "8 AWG copper"
+        }
+      ],
+      "source": "Rheem Performance tankless electric spec sheet, form THD-PTE Rev. 2 (12/20)",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf",
+      "sourceDate": "2026-11-12"
+    },
+    "byState": {
+      "caption": "Tankless installation cost by state (gas tank to gas tankless)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "gT",
+          "label": "Tank to tankless",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "gR",
+          "label": "Tankless replacement",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "eT",
+          "label": "Electric tank to electric tankless",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "gT": "3,071",
+          "gR": "2,094",
+          "eT": "3,192"
+        },
+        {
+          "name": "Alaska",
+          "gT": "3,370",
+          "gR": "2,244",
+          "eT": "3,576"
+        },
+        {
+          "name": "Arizona",
+          "gT": "3,333",
+          "gR": "2,226",
+          "eT": "3,529"
+        },
+        {
+          "name": "Arkansas",
+          "gT": "3,029",
+          "gR": "2,073",
+          "eT": "3,137"
+        },
+        {
+          "name": "California",
+          "gT": "3,555",
+          "gR": "2,337",
+          "eT": "3,812"
+        },
+        {
+          "name": "Colorado",
+          "gT": "3,387",
+          "gR": "2,252",
+          "eT": "3,598"
+        },
+        {
+          "name": "Connecticut",
+          "gT": "3,398",
+          "gR": "2,258",
+          "eT": "3,612"
+        },
+        {
+          "name": "Delaware",
+          "gT": "3,313",
+          "gR": "2,215",
+          "eT": "3,503"
+        },
+        {
+          "name": "District of Columbia",
+          "gT": "3,537",
+          "gR": "2,328",
+          "eT": "3,789"
+        },
+        {
+          "name": "Florida",
+          "gT": "3,393",
+          "gR": "2,256",
+          "eT": "3,605"
+        },
+        {
+          "name": "Georgia",
+          "gT": "3,237",
+          "gR": "2,177",
+          "eT": "3,404"
+        },
+        {
+          "name": "Hawaii",
+          "gT": "3,539",
+          "gR": "2,329",
+          "eT": "3,793"
+        },
+        {
+          "name": "Idaho",
+          "gT": "3,219",
+          "gR": "2,168",
+          "eT": "3,381"
+        },
+        {
+          "name": "Illinois",
+          "gT": "3,318",
+          "gR": "2,218",
+          "eT": "3,509"
+        },
+        {
+          "name": "Indiana",
+          "gT": "3,171",
+          "gR": "2,144",
+          "eT": "3,320"
+        },
+        {
+          "name": "Iowa",
+          "gT": "3,048",
+          "gR": "2,082",
+          "eT": "3,163"
+        },
+        {
+          "name": "Kansas",
+          "gT": "3,100",
+          "gR": "2,108",
+          "eT": "3,229"
+        },
+        {
+          "name": "Kentucky",
+          "gT": "3,102",
+          "gR": "2,110",
+          "eT": "3,231"
+        },
+        {
+          "name": "Louisiana",
+          "gT": "3,057",
+          "gR": "2,087",
+          "eT": "3,174"
+        },
+        {
+          "name": "Maine",
+          "gT": "3,254",
+          "gR": "2,185",
+          "eT": "3,427"
+        },
+        {
+          "name": "Maryland",
+          "gT": "3,429",
+          "gR": "2,274",
+          "eT": "3,651"
+        },
+        {
+          "name": "Massachusetts",
+          "gT": "3,446",
+          "gR": "2,282",
+          "eT": "3,674"
+        },
+        {
+          "name": "Michigan",
+          "gT": "3,234",
+          "gR": "2,176",
+          "eT": "3,401"
+        },
+        {
+          "name": "Minnesota",
+          "gT": "3,287",
+          "gR": "2,202",
+          "eT": "3,470"
+        },
+        {
+          "name": "Mississippi",
+          "gT": "3,031",
+          "gR": "2,074",
+          "eT": "3,140"
+        },
+        {
+          "name": "Missouri",
+          "gT": "3,115",
+          "gR": "2,116",
+          "eT": "3,249"
+        },
+        {
+          "name": "Montana",
+          "gT": "3,199",
+          "gR": "2,158",
+          "eT": "3,357"
+        },
+        {
+          "name": "Nebraska",
+          "gT": "3,100",
+          "gR": "2,108",
+          "eT": "3,229"
+        },
+        {
+          "name": "Nevada",
+          "gT": "3,318",
+          "gR": "2,218",
+          "eT": "3,509"
+        },
+        {
+          "name": "New Hampshire",
+          "gT": "3,411",
+          "gR": "2,265",
+          "eT": "3,628"
+        },
+        {
+          "name": "New Jersey",
+          "gT": "3,513",
+          "gR": "2,316",
+          "eT": "3,759"
+        },
+        {
+          "name": "New Mexico",
+          "gT": "3,146",
+          "gR": "2,132",
+          "eT": "3,288"
+        },
+        {
+          "name": "New York",
+          "gT": "3,493",
+          "gR": "2,306",
+          "eT": "3,733"
+        },
+        {
+          "name": "North Carolina",
+          "gT": "3,193",
+          "gR": "2,155",
+          "eT": "3,348"
+        },
+        {
+          "name": "North Dakota",
+          "gT": "3,075",
+          "gR": "2,096",
+          "eT": "3,197"
+        },
+        {
+          "name": "Ohio",
+          "gT": "3,159",
+          "gR": "2,138",
+          "eT": "3,305"
+        },
+        {
+          "name": "Oklahoma",
+          "gT": "3,048",
+          "gR": "2,082",
+          "eT": "3,163"
+        },
+        {
+          "name": "Oregon",
+          "gT": "3,393",
+          "gR": "2,256",
+          "eT": "3,605"
+        },
+        {
+          "name": "Pennsylvania",
+          "gT": "3,266",
+          "gR": "2,192",
+          "eT": "3,442"
+        },
+        {
+          "name": "Rhode Island",
+          "gT": "3,369",
+          "gR": "2,244",
+          "eT": "3,575"
+        },
+        {
+          "name": "South Carolina",
+          "gT": "3,179",
+          "gR": "2,148",
+          "eT": "3,330"
+        },
+        {
+          "name": "South Dakota",
+          "gT": "3,066",
+          "gR": "2,091",
+          "eT": "3,186"
+        },
+        {
+          "name": "Tennessee",
+          "gT": "3,139",
+          "gR": "2,128",
+          "eT": "3,279"
+        },
+        {
+          "name": "Texas",
+          "gT": "3,254",
+          "gR": "2,185",
+          "eT": "3,427"
+        },
+        {
+          "name": "Utah",
+          "gT": "3,294",
+          "gR": "2,206",
+          "eT": "3,477"
+        },
+        {
+          "name": "Vermont",
+          "gT": "3,274",
+          "gR": "2,196",
+          "eT": "3,453"
+        },
+        {
+          "name": "Virginia",
+          "gT": "3,342",
+          "gR": "2,230",
+          "eT": "3,541"
+        },
+        {
+          "name": "Washington",
+          "gT": "3,473",
+          "gR": "2,296",
+          "eT": "3,707"
+        },
+        {
+          "name": "West Virginia",
+          "gT": "3,087",
+          "gR": "2,102",
+          "eT": "3,212"
+        },
+        {
+          "name": "Wisconsin",
+          "gT": "3,189",
+          "gR": "2,153",
+          "eT": "3,343"
+        },
+        {
+          "name": "Wyoming",
+          "gT": "3,157",
+          "gR": "2,137",
+          "eT": "3,302"
+        }
+      ],
+      "source": "Equipment listings + data/installation-costs.json; labor and extras × BEA Regional Price Parity ÷ 100",
+      "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
+      "sourceDate": "2026-11-12"
+    }
+  }
+}

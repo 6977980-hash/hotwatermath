@@ -481,3 +481,95 @@ test('cost of ownership: gas tank vs tankless over 20 years: tank replaced once 
 	assert.equal(tankless.replacements, 0);
 	assert.equal(tankless.breakEven, 13);
 });
+
+/* ---------- Phase 6: heat pump payback and expansion tank sizing ---------- */
+import { describe as describeHp } from '../assets/js/heat-pump-savings.js';
+import { describe as describeEt } from '../assets/js/expansion-tank.js';
+
+const computed = (f) => JSON.parse(readFileSync(new URL(`../data/computed/${f}.json`, import.meta.url), 'utf8'));
+const et = data('expansion-tanks');
+const etData = { expansionFactors: et.expansionFactors, atmosphericPsi: et.atmosphericPsi, tanks: et.tanks, headroomShare: et.defaults.headroomShare };
+
+test('simple payback: 1,368 extra ÷ 426 a year = 3.2 years; no extra cost → 0; no saving → null', () => {
+	assert.equal(F.simplePaybackYears(1368, 426), 3.2);
+	assert.equal(F.simplePaybackYears(-50, 426), 0);
+	assert.equal(F.simplePaybackYears(1368, 0), null);
+	assert.equal(F.simplePaybackYears(1368, -10), null);
+});
+
+test('net saving over a life: 426 × 13 − 1,368 = 4,170', () => {
+	assert.equal(F.netSavingOver(426, 13, 1368), 4170);
+});
+
+test('expansion factor: table rows exact (120 °F → 0.0100), interpolated (125 °F → 0.0112), from 0 at 40 °F, capped at 180 °F', () => {
+	near(F.expansionFactor(120, et.expansionFactors), 0.01);
+	near(F.expansionFactor(125, et.expansionFactors), 0.0112, 1e-9);
+	near(F.expansionFactor(40, et.expansionFactors), 0);
+	near(F.expansionFactor(70, et.expansionFactors), 0.0062 * 30 / 60, 1e-9);
+	near(F.expansionFactor(200, et.expansionFactors), 0.0276);
+});
+
+test('design pressure factor: (150 + 14.7) ÷ (150 − 60) = 1.83; maximum not above supply → null', () => {
+	near(F.designPressureFactor(150, 60, 14.7), 164.7 / 90, 1e-12);
+	assert.equal(F.designPressureFactor(60, 60, 14.7), null);
+});
+
+test('expansion tank: AMTROL worked example, 240 gal at 150 °F, 60 psi supply, 125 psi max → 4.3 gal × 2.15 = 9.2 gal → 10-gallon tank', () => {
+	const r = F.expansionTankSizing({ heaterGallons: 240, tempF: 150, supplyPsi: 60, maxPsi: 125 }, etData);
+	near(r.expanded, 240 * 0.0179, 1e-9); // 4.296
+	near(r.dpf, 139.7 / 65, 1e-3); // 2.149 (rounded to 3 decimals)
+	near(r.required, 4.296 * (139.7 / 65), 1e-2); // 9.23
+	assert.equal(r.tank.model, 'ST-25V');
+});
+
+test('expansion tank: default 50 gal, 120 °F, 60/150 psi → 0.50 gal × 1.83 = 0.92 gal → 2-gallon tank, no safer pick', () => {
+	const r = F.expansionTankSizing({ heaterGallons: 50, tempF: 120, supplyPsi: 60, maxPsi: 150 }, etData);
+	near(r.required, 0.5 * (164.7 / 90), 1e-2); // 0.915 → 0.92
+	assert.equal(r.tank.model, 'ST-5');
+	assert.equal(r.safer, null);
+});
+
+test('expansion tank: borderline 40 gal, 160 °F, 80 psi (1.97 gal vs a 2.0-gal tank) → ST-5 minimum, ST-12 safer, as AMTROL picks', () => {
+	const r = F.expansionTankSizing({ heaterGallons: 40, tempF: 160, supplyPsi: 80, maxPsi: 150 }, etData);
+	assert.equal(r.tank.model, 'ST-5');
+	assert.equal(r.safer.model, 'ST-12');
+});
+
+test('expansion tank: acceptance volume decides 50 gal, 160 °F, 40 psi (1.05 gal expanded > 0.9 gal acceptance) → ST-12', () => {
+	const r = F.expansionTankSizing({ heaterGallons: 50, tempF: 160, supplyPsi: 40, maxPsi: 150 }, etData);
+	near(r.expanded, 50 * 0.0209, 1e-9);
+	assert.equal(r.tank.model, 'ST-12');
+});
+
+test('expansion tank: AMTROL quick chart, every cell matches our minimum or safer pick except the one documented acceptance case', () => {
+	let misses = 0;
+	for (const row of et.quickChart.rows) {
+		et.quickChart.pressures.forEach((psi, i) => {
+			const r = F.expansionTankSizing({ heaterGallons: row.gallons, tempF: row.tempF, supplyPsi: psi, maxPsi: 150 }, etData);
+			const ok = r.tank.model === row.picks[i] || (r.safer && r.safer.model === row.picks[i]);
+			if (!ok) misses += 1;
+		});
+	}
+	assert.equal(misses, 1);
+});
+
+test('expansion tank describe: invalid pressures → bad status; high supply → warning with PRV advice', () => {
+	const cfg = computed('water-heater-expansion-tank-size').client;
+	assert.equal(describeEt({ gallons: 50, temp: 120, supply: 100, max: 90 }, cfg).status, 'bad');
+	const hi = describeEt({ gallons: 50, temp: 120, supply: 90, max: 150 }, cfg);
+	assert.equal(hi.status, 'warn');
+	assert.match(hi.explain, /pressure-reducing valve/);
+});
+
+test('heat pump describe: electric tank, U.S. average → saves $426 a year, extra $1,368, payback 3.2 years; gas tank pays back after its life', () => {
+	const cfg = computed('heat-pump-water-heater-cost').client;
+	const e = describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US' }, cfg).result;
+	assert.equal(e.saving, 426);
+	assert.equal(e.extra, 1368);
+	assert.equal(e.payback, 3.2);
+	const g = describeHp({ current: 'gas_tank', size: '50', household: 'typical', state: 'US' }, cfg);
+	assert.ok(g.result.payback > g.result.life);
+	assert.equal(g.status, 'bad');
+	const reb = describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US', rebate: 2000 }, cfg).result;
+	assert.equal(reb.payback, 0);
+});
