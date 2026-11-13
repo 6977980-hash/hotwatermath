@@ -35,7 +35,12 @@ function hwm_schema_person( bool $full = false ): array {
 		$person['jobTitle']    = (string) hwm_site( 'author.jobTitle' );
 		$person['description'] = (string) hwm_site( 'author.description' );
 		$person['sameAs']      = array_values( (array) hwm_site( 'author.sameAs' ) );
-		$person['worksFor']    = array( '@id' => $ids['org'] );
+		$person['worksFor']    = array(
+			'@type' => 'Organization',
+			'@id'   => $ids['org'],
+			'name'  => (string) hwm_site( 'brand' ),
+			'url'   => hwm_url(),
+		);
 	}
 	return $person;
 }
@@ -107,6 +112,25 @@ function hwm_schema_webpage( array $entry ): array {
 	}
 	if ( 'about' === $entry['slug'] ) {
 		$page['mainEntity'] = array( '@id' => $ids['founder'] );
+	}
+	if ( 'hub' === ( $entry['type'] ?? '' ) ) {
+		// CollectionPage lists its live children (never drafts: schema must not depend on who is logged in).
+		$list = array();
+		foreach ( hwm_pages_of( (string) ( $entry['hub'] ?? 'tool' ), array( 'live' ) ) as $i => $child ) {
+			$list[] = array(
+				'@type'    => 'ListItem',
+				'position' => $i + 1,
+				'url'      => hwm_url( (string) $child['slug'] ),
+				'name'     => (string) $child['title'],
+			);
+		}
+		if ( $list ) {
+			$page['mainEntity'] = array(
+				'@type'           => 'ItemList',
+				'numberOfItems'   => count( $list ),
+				'itemListElement' => $list,
+			);
+		}
 	}
 	return $page;
 }

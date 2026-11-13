@@ -19,9 +19,19 @@ get_header();
 	<?php hwm_part( 'page-intro', array( 'entry' => $hwm_entry ) ); ?>
 	<?php hwm_part( 'quick-answer', array( 'text' => $hwm_entry['quickAnswer'] ?? '' ) ); ?>
 
-	<?php if ( $hwm_items ) : ?>
+	<?php
+	// Calculators hub: the core tools first, then the per-brand serial decoders (children of the age calculator).
+	$hwm_groups = array( array( 'tool' === $hwm_type ? 'Sizing, age and cost calculators' : 'All water heater guides', array_values( array_filter( $hwm_items, static fn( $e ) => empty( $e['parent'] ) ) ) ) );
+	$hwm_kids   = array_values( array_filter( $hwm_items, static fn( $e ) => ! empty( $e['parent'] ) ) );
+	if ( $hwm_kids ) {
+		$hwm_groups[] = array( 'Serial number decoders by brand', $hwm_kids );
+	}
+	?>
+	<?php foreach ( $hwm_groups as $hwm_group ) : ?>
+		<?php if ( ! $hwm_group[1] ) { continue; } ?>
+		<?php if ( $hwm_group[0] ) : ?><h2><?php echo esc_html( $hwm_group[0] ); ?></h2><?php endif; ?>
 		<ul class="cards">
-			<?php foreach ( $hwm_items as $hwm_p ) : ?>
+			<?php foreach ( $hwm_group[1] as $hwm_p ) : ?>
 				<li class="card">
 					<?php if ( 'draft' === ( $hwm_p['status'] ?? '' ) ) : ?><span class="badge">Draft</span><?php endif; ?>
 					<h3><a href="<?php echo esc_url( hwm_url( $hwm_p['slug'] ) ); ?>"><?php echo esc_html( (string) $hwm_p['title'] ); ?></a></h3>
@@ -29,7 +39,7 @@ get_header();
 				</li>
 			<?php endforeach; ?>
 		</ul>
-	<?php endif; ?>
+	<?php endforeach; ?>
 
 	<div class="prose">
 		<?php echo $hwm_out['html']; // phpcs:ignore -- our own content file. ?>

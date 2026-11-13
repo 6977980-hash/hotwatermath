@@ -14,7 +14,8 @@
     "build:data": "node scripts/build-data.mjs",
     "fetch:sources": "node scripts/fetch-sources.mjs",
     "build:og": "node scripts/build-og.mjs",
-    "build:brand": "node scripts/build-brand.mjs"
+    "build:brand": "node scripts/build-brand.mjs",
+    "check-links": "node scripts/check-links.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2"

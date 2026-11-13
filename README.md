@@ -39,6 +39,7 @@ Rules for anyone working here are in [`CLAUDE.md`](CLAUDE.md); the build plan is
 npm install
 npm run check                               # SEO/robots/schema check against https://hotwatermath.com
 npm run check -- --base=http://localhost:8080 --bust
+npm run check-links                         # internal links 200, ≥3 body links, hubs cover every tool, trust line, embed/affiliate rel, banned phrases
 npm run build:og                            # assets/og/<slug>.png, 1200×630, per non-planned page
 npm run build:brand                         # logo/favicon PNGs + favicon.ico from assets/brand/icon.svg
 npm run build:data                          # data/computed/*.json from assets/js/formulas.js + data/*.json (commit the output)
@@ -49,6 +50,23 @@ NODE_USE_ENV_PROXY=1 npm run fetch:sources -- eia noaa rpp energystar   # refres
 ```
 
 Run `npm run build:og` after adding a page or changing an H1/subtitle, and commit the PNGs.
+
+## Integrations (`data/site.json` → `integrations`)
+
+Every Google feature is switched on by filling one public ID and deploying. An empty value turns the feature off.
+
+| Key | Example | What it turns on |
+|---|---|---|
+| `gscToken` | `abc123…` (the `content` of Google's HTML-tag method) | `<meta name="google-site-verification">` on every page |
+| `bingToken` | `0F1E2D…` (Bing's `msvalidate.01` value) | `<meta name="msvalidate.01">` on every page |
+| `ga4Id` | `G-XXXXXXXXXX` | Consent Mode v2 defaults + GA4, loaded after the page has loaded; `calc_result` and `embed_view` events from the calculators and embeds |
+| `adsenseClient` | `ca-pub-1234567890123456` or `pub-…` | `/ads.txt` line, `<meta name="google-adsense-account">` (site verification), Consent Mode v2 defaults, and `adsbygoogle.js` loaded after page load (this also shows the "Privacy & messaging" consent message once it is turned on in AdSense) |
+| `adsenseSlots.A/B/C/S` | `1234567890` (ad unit ID) | The reserved ad box for that slot: A after results, B mid-content, C end of article, S desktop sidebar. A box shows only when the client **and** its unit ID are set, so there are no empty boxes during the AdSense review |
+| `indexNowKey` | 32 hex characters | `/<key>.txt` key file, and an IndexNow ping (Bing, Yandex and others) for every page that goes `live` or gets a new `dateModified`, sent on the first request after a deploy |
+
+Consent Mode v2: all four signals default to `denied` in the EEA, the UK and Switzerland (`wait_for_update` 500 ms) and to `granted` elsewhere; Google's own certified consent message (AdSense → Privacy & messaging) updates them. No third-party cookie banner.
+
+When you create AdSense ad units: use **Display ads**, shape **Responsive**, then paste only the `data-ad-slot` number here. Leave **Auto ads off** (they can insert ads above the calculator and move the layout).
 
 ## One-time WordPress settings (owner, in wp-admin)
 

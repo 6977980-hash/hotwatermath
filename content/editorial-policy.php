@@ -28,7 +28,7 @@ $hwm_email = (string) hwm_site( 'contact.email' );
 <p>Pages that touch gas, electricity, scalding or Legionella restate official sources only, such as fuel gas and electrical codes, CPSC, CDC, DOE and manufacturer manuals. They explain what the problem is, what the code or manual requires and when the job needs a licensed professional. They do not give step-by-step instructions for gas or live electrical work.</p>
 
 <h2>Who checks the content</h2>
-<p>Pages are written and checked by the founder, <a href="<?php echo esc_url( hwm_url( 'about' ) ); ?>"><?php echo esc_html( (string) hwm_site( 'author.name' ) ); ?></a>, a calculator developer. We do not have a plumber or engineer on staff, and we will never show a "reviewed by" line that is not true. If an outside professional checks a page in future, the page will say who checked it and when.</p>
+<p>Pages are written and checked by the founder, <a href="<?php echo esc_url( hwm_url( 'about' ) ); ?>"><?php echo esc_html( (string) hwm_site( 'author.name' ) ); ?></a>, a calculator developer. We do not have a plumber or engineer on staff, and we will never claim that a page was checked by an expert when it was not. If an outside professional checks a page in future, the page will say who checked it and when.</p>
 
 <h2>Corrections</h2>
 <p>Email <a href="mailto:<?php echo esc_attr( $hwm_email ); ?>"><?php echo esc_html( $hwm_email ); ?></a> with the page and what looks wrong. We check every report against the source. When we confirm an error we fix it, update the page's "Last updated" date, and re-run any calculator cross-check it affects. We only change "Last updated" when the content really changes.</p>
