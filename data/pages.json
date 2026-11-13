@@ -470,8 +470,8 @@
       "metaTitle": "Navien Serial Number Lookup: Tankless Age | Hot Water Math",
       "description": "Read a Navien tankless water heater's build date from its serial: year, month and day after the first five characters. CPSC-checked decoder and 2 examples.",
       "h1": "Navien water heater age",
-      "subtitle": "Read the build date in a Navien tankless serial.",
-      "quickAnswer": "Skip the first five characters of a Navien serial. Next come the year (2 digits), the month (1 character, X to Z for October to December) and the day.",
+      "subtitle": "Read the build date in a Navien serial.",
+      "quickAnswer": "Skip the first five characters of a Navien serial. Next come the year (2 digits), the month (1 character; X, Y, Z = October to December) and the day.",
       "keywords": [
         "navien serial number lookup",
         "navien water heater age",
