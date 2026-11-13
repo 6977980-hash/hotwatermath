@@ -28,7 +28,11 @@
 - Consistency test: same state and household → same installed price on cost and TCO pages and same running cost on TCO and gas vs electric pages.
 - Cross-checks (on /methodology): installed cost vs DOE 2024 (gas +26%, electric +75%, heat pump +59%, gas tankless +6%, explained: 2022/2023 dollars vs 2025 listings); running energy vs EnergyGuide labels within 1.3% (Rheem electric, gas, heat pump; American gas) and FEMP 0.7%; ownership vs DOE heat pump payback 3.2 vs 5.6 years and first-year costs (explained).
 
-**Verified live:** see the Log line and the PR; filled in after deploy.
+**Verified live (after PR #15 deployed, 2026-11-13):**
+- style.css 0.7.0 served; `npm run check` 283/283 with and without `--bust`.
+- All 3 new pages and repair: 200, `noindex, follow`, JSON-LD WebPage + BreadcrumbList + WebApplication + FAQPage; server-rendered defaults $1,809 installed / gas tank $242 vs electric $564 / tank cheapest over 10 years.
+- 360×640 live: first input top 573 px (repair 514), no horizontal scroll, no console errors; share links work (`?type=electric_tank&state=CA…` → $1,661; `?fuel=electric` → heat pump saves $2,888; `?state=TX` → $243 vs $392).
+- Lighthouse mobile (P/A/BP/SEO): 100/100/100/66 on all three; SEO 66 only from draft noindex. CLS 0, LCP 1.0–1.3 s.
 
 **Known issues / TODOs carried forward:**
 - Labor/extras ranges are editorial, anchored to DOE (2022/2023 dollars) and Home Depot parts; Angi/HomeAdvisor/BLS pages were blocked, so no current trade survey backs the "typical" labor values. Re-check when a primary labor source is found.
