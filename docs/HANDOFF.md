@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6b batch 1 — Troubleshooting: leaking, how to flush, anode rod, no hot water (2026-11-13). All four pages are `draft` (noindex) until the owner's OK.
+**Last completed phase:** Phase 6b batch 1 — Troubleshooting: leaking, how to flush, anode rod, no hot water (2026-11-13). Owner OK received the same day: all four pages are `live`.
 **Next phase to run:** Phase 6 — Expansion articles (start with `/heat-pump-water-heater-cost`, see `docs/PHASES.md`). Phase 6b batch 2 (reset button, noise, runs out fast, rotten eggs) runs after Phase 6.
 
 **What exists now (new or changed in Phase 6b batch 1):**
@@ -30,7 +30,7 @@
 - Playwright at 360x640 on the live drafts: no horizontal scroll, no console errors; the embedded repair tool switches to "Replace it rather than pay for this repair" when "Water leaking from the tank itself" is ticked; the embedded age calculator runs.
 
 **Owner steps:**
-1. Review the four drafts and reply OK to make them `live`: /water-heater-leaking/, /how-to-flush-a-water-heater/, /water-heater-anode-rod/, /no-hot-water/.
+1. Done: owner OK'd the four pages; they are `live` (go-live PR).
 2. Flush the Hostinger CDN after this deploy if a page looks stale (hPanel → Performance → CDN).
 3. Carried from Phase 5: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs.
 
@@ -58,6 +58,7 @@
 - 2026-11-13 — Phase 4 done — cost calculator, tankless vs tank and gas vs electric tools (draft) on one shared cost model, checked against DOE 2024 rules and EnergyGuide labels; repair tool now uses installed prices.
 - 2026-11-13 — Go-live — owner OK: 25 draft pages (tools, brand pages, article, hubs, utility pages) flipped to `live`.
 - 2026-11-13 — Phase 5 done — launch home, hubs with ItemList schema, consent-gated GA4/AdSense loader, IndexNow key, check-links audit, OUTREACH playbook.
+- 2026-11-13 — Go-live — owner OK: leaking, flush, anode rod, no hot water flipped to `live`.
 - 2026-11-13 — Phase 6b batch 1 done — leaking, how to flush, anode rod and no hot water articles (draft), sourced troubleshooting data file, /guides/ groups, Common problems links on tools.
 
 ---
