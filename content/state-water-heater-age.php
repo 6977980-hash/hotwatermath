@@ -100,7 +100,9 @@ hwm_part(
 
 <h2>Other names that use the State code</h2>
 <p>The Energy Trust of Oregon decoder lists many brand names under State Industries, among them <?php echo esc_html( implode( ', ', $hwm_alias ) ); ?>. If your label carries one of these names and says it was made by State Industries, choose State in the calculator.</p>
-<p>Kenmore is the tricky one: Kenmore water heaters were made by more than one manufacturer, so the State code only fits units whose plate names State as the maker.</p>
+<h3>Kenmore water heater age</h3>
+<p>Kenmore is the tricky one: Kenmore water heaters were made by more than one manufacturer, so the State code only fits units whose plate names State or A. O. Smith as the maker. For those, the CPSC's 2018 recall is clear: it lists Kenmore among the A. O. Smith-made brands whose first four serial digits, <?php echo esc_html( $hwm_r18['firstDigits'] . ' to ' . $hwm_r18['lastDigits'] ); ?> in the recall, are the year and week of production. A Kenmore serial starting with four digits therefore reads like this page's current code; choose Kenmore in the calculator and it applies the State rules with a warning.</p>
+<p>If your Kenmore plate names another maker, or the serial does not fit any layout above, enter the year printed on the label instead of guessing.</p>
 
 <h2>How long does a State water heater last?</h2>
 <p>We could not find a lifespan figure that State publishes for its own tanks. Its parent company, A. O. Smith, says traditional tanks last <?php echo esc_html( $hwm_mv['tankLow'] . ' to ' . $hwm_mv['tankHigh'] ); ?> years, and Department of Energy survey data gives a typical storage tank <?php echo $hwm_l( 'types.gas_tank.typical' ); // phpcs:ignore ?> years, with most lasting <?php echo $hwm_l( 'types.gas_tank.low' ); // phpcs:ignore ?> to <?php echo $hwm_l( 'types.gas_tank.high' ); // phpcs:ignore ?>. The calculator uses the DOE figures.</p>
@@ -129,6 +131,10 @@ $faq = array(
 	array(
 		'q' => 'How long does a State water heater last?',
 		'a' => 'State does not publish its own figure that we could find. DOE survey data puts a typical storage tank at ' . hwm_value( $hwm_ls, 'types.gas_tank.typical' ) . ' years, and parent company A. O. Smith says ' . $hwm_mv['tankLow'] . ' to ' . $hwm_mv['tankHigh'] . ' years for tanks. Hard water and skipped flushing shorten it.',
+	),
+	array(
+		'q' => 'How do I tell the age of a Kenmore water heater?',
+		'a' => 'If the plate names State or A. O. Smith as the maker, read it like a State: four digits at the start are the year and week. The CPSC 2018 recall lists Kenmore among the A. O. Smith-made brands that use this code. Other Kenmore units came from other makers; use the label year for those.',
 	),
 	array(
 		'q' => 'Is a Reliance water heater dated like a State?',

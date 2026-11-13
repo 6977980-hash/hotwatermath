@@ -19,13 +19,16 @@
     "ao-smith-water-heater-age",
     "rheem-water-heater-age",
     "state-water-heater-age",
+    "whirlpool-water-heater-age",
+    "american-water-heater-age",
+    "navien-water-heater-age",
     "how-long-does-a-water-heater-last",
     "tankless-water-heater-size-calculator"
   ],
   "inputs": {
-    "assets/js/formulas.js": "111d3b1bb0311161",
-    "scripts/build-data.mjs": "d422d60aabffe9b2",
-    "data/site.json": "97b1a14e119df7fa",
+    "assets/js/formulas.js": "5a3f2bf5e36299ea",
+    "scripts/build-data.mjs": "9564a9e651fad3b2",
+    "data/site.json": "20cf0e1d13b78bb4",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "a1f9b690f93635a0",
     "data/regional-cost-index.json": "a176162a982ec7a9",
@@ -38,11 +41,11 @@
     "data/hot-water-use.json": "206b51919edb9ef0",
     "data/cost-ranges.json": "7c6b165d96dc59d5",
     "data/electrical.json": "183045e0d756a4f0",
-    "data/serial-formats.json": "7176c92e4adaa40a",
+    "data/serial-formats.json": "c13f817b22b7f619",
     "data/incentives.json": "d2775969e96466d7",
     "data/decision-rules.json": "dd453a6444afc180",
     "data/tankless-reference-units.json": "56e35d07025e09b1",
-    "data/brand-pages.json": "11adcd6056e52e2d",
+    "data/brand-pages.json": "ab6ecccbb83dffff",
     "assets/js/age.js": "c9c2bacf583ad106"
   }
 }

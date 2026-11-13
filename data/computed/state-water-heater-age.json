@@ -223,13 +223,15 @@
         "id": "ge",
         "label": "GE",
         "decodeAs": "rheem",
-        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label."
+        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label.",
+        "page": "rheem-water-heater-age"
       },
       {
         "id": "kenmore",
         "label": "Kenmore",
         "decodeAs": "state",
-        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label."
+        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label.",
+        "page": "state-water-heater-age"
       },
       {
         "id": "navien",
@@ -491,6 +493,21 @@
                 "group": 2,
                 "type": "letterMonth",
                 "letters": "123456789XYZ"
+              }
+            },
+            "validFromYear": 2010
+          },
+          {
+            "id": "navien-dash-yyyymmdd",
+            "regex": "^\\d{4}(20[01]\\d)(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yyyy"
+              },
+              "month": {
+                "group": 2,
+                "type": "mm"
               }
             }
           }

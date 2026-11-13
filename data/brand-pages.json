@@ -1,6 +1,6 @@
 {
   "meta": {
-    "source": "Bradford White; Rheem/Ruud official age lookup; U.S. CPSC recall notices (2002, 2008, 2018); Energy Trust of Oregon decoder; InspectApedia and Building Intelligence Center for older styles",
+    "source": "Bradford White; Rheem/Ruud official age lookup; U.S. CPSC recall notices (2002, 2008, 2018); Energy Trust of Oregon decoder; InspectApedia and Building Intelligence Center for older styles; Whirlpool licensed site and warranty; American Water Heaters support pages; Navien warranty and lifespan pages; FastWaterHeater (third party, older Navien tags)",
     "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
     "sourceDate": "2026-11-13",
     "notes": "Per-brand page inputs: the example serial preset in each brand page's decoder, the hand-check cases (serial, the date a source gives, and that source), and the worked examples. The serials marked 'test serial' are made-up serials in the brand's real format (only the date characters matter); recall serials are real ranges from CPSC notices. Rheem/Ruud lookup answers were recorded on 2026-11-13. npm run build:data decodes every case with formulas.js and the brand pages print the results."
@@ -282,6 +282,286 @@
           "anode": false
         }
       ]
+    },
+    "whirlpool": {
+      "slug": "whirlpool-water-heater-age",
+      "option": "whirlpool",
+      "code": "american",
+      "defaultSerial": "2032T123456",
+      "defaultType": "electric_tank",
+      "checks": [
+        {
+          "serial": "1115T000001",
+          "year": 2011,
+          "month": 4,
+          "published": "First recalled unit: made April 8, 2011 (Whirlpool is one of the brands covered; first four digits 1115 to 1631 = year and week)",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "1631T000001",
+          "year": 2016,
+          "month": 7,
+          "published": "Last recalled unit: made through August 1, 2016 (week 31 of 2016 spans late July and early August)",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "1104T403904",
+          "year": 2011,
+          "month": 1,
+          "published": "Year 11, week 04 (Whirlpool style 1 example; digits 1-2 = year, 3-4 = week)",
+          "source": "Building Intelligence Center, Whirlpool water heater age (third party)",
+          "sourceUrl": "https://building-center.org/whirlpool-water-heater-age/"
+        },
+        {
+          "serial": "0128104380",
+          "year": 2001,
+          "month": 7,
+          "published": "Year 01, week 28 (Whirlpool style 2 example, all digits)",
+          "source": "Building Intelligence Center, Whirlpool water heater age (third party)",
+          "sourceUrl": "https://building-center.org/whirlpool-water-heater-age/"
+        }
+      ],
+      "examples": [
+        {
+          "id": "current",
+          "serial": "2032T123456",
+          "type": "electric_tank",
+          "hardness": "hard",
+          "flushed": true,
+          "anode": false
+        },
+        {
+          "id": "old",
+          "serial": "1104T403904",
+          "type": "gas_tank",
+          "hardness": "moderate",
+          "flushed": false,
+          "anode": false
+        }
+      ],
+      "lookup": {
+        "url": "https://www.whirlpoolwaterheaters.com/owner-center/need-more-help/",
+        "tested": "2026-11-13",
+        "note": "Whirlpool's licensed water heater site (run by American Water Heater) asks for the serial and shows a description and manufacturing date for units in its records. It did not recognise the published example serials we tried (1104T403904, 0128104380), so it only helps with your own unit's real serial."
+      },
+      "warranty": {
+        "codes": [
+          {
+            "code": "6",
+            "tank": 6,
+            "parts": 6,
+            "labor": 1
+          },
+          {
+            "code": "9",
+            "tank": 9,
+            "parts": 9,
+            "labor": 2
+          },
+          {
+            "code": "12",
+            "tank": 12,
+            "parts": 12,
+            "labor": 3
+          }
+        ],
+        "modelExample": "30T6-30NG",
+        "source": "Whirlpool brand residential water heater limited warranty (American Water Heater Company, February 2015, form 100236126): the warranty code in the model number sets the tank, parts and labor terms",
+        "sourceUrl": "https://www.whirlpoolwaterheaters.com/owner-center/product-manuals/warranty/035505160348_warranty.pdf"
+      },
+      "labelNote": {
+        "text": "The serial number may be found on the label near the bottom of the water heater.",
+        "source": "Whirlpool water heaters, Need More Help page",
+        "sourceUrl": "https://www.whirlpoolwaterheaters.com/owner-center/need-more-help/"
+      }
+    },
+    "american": {
+      "slug": "american-water-heater-age",
+      "option": "american",
+      "defaultSerial": "2214123456",
+      "checks": [
+        {
+          "serial": "1115000001",
+          "year": 2011,
+          "month": 4,
+          "published": "First recalled unit: made April 8, 2011 (American is one of the brands covered; first four digits = year and week)",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "1631000001",
+          "year": 2016,
+          "month": 7,
+          "published": "Last recalled unit: made through August 1, 2016",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "9746000001",
+          "year": 1997,
+          "month": 11,
+          "published": "46th week of 1997 (example 9746…)",
+          "source": "Energy Trust of Oregon decoder",
+          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+        },
+        {
+          "serial": "9950123040",
+          "year": 1999,
+          "month": 12,
+          "published": "1999, week 50 (serial read from a data tag photo)",
+          "source": "InspectApedia, American water heater age (third party)",
+          "sourceUrl": "https://inspectapedia.com/plumbing/American-Water-Heater-Age-Manuals.php"
+        }
+      ],
+      "examples": [
+        {
+          "id": "current",
+          "serial": "2214123456",
+          "type": "gas_tank",
+          "hardness": "moderate",
+          "flushed": true,
+          "anode": false
+        },
+        {
+          "id": "old",
+          "serial": "9950123040",
+          "type": "gas_tank",
+          "hardness": "hard",
+          "flushed": false,
+          "anode": true
+        }
+      ],
+      "warrantyModels": {
+        "items": [
+          {
+            "model": "G61-50T40",
+            "years": 6
+          },
+          {
+            "model": "G62-40T34",
+            "years": 6
+          },
+          {
+            "model": "G101-50T40",
+            "years": 10
+          },
+          {
+            "model": "G102-40T34",
+            "years": 10
+          },
+          {
+            "model": "E6N-30L",
+            "years": 6
+          },
+          {
+            "model": "E10N-40L",
+            "years": 10
+          }
+        ],
+        "source": "American Water Heaters product support pages (model titles end in \"6-year warranty\" or \"10-year warranty\"), sitemap checked 2026-11-13",
+        "sourceUrl": "https://www.americanwaterheater.com/sitemap_index.xml"
+      },
+      "history": {
+        "acquired": "April 2006",
+        "source": "ACHR News, A. O. Smith completes acquisition of GSW (April 26, 2006): \"The addition of GSW's American Water Heater Company partners us with Lowe's\"",
+        "sourceUrl": "https://achrnews.com/articles/101400-april-26-2006-a-o-smith-completes-acquisition-of-gsw",
+        "energyTrustYear": "2001",
+        "johnsonCity": "Johnson City, Tennessee",
+        "johnsonCitySource": "Whirlpool brand limited warranty (American Water Heater Company, Product Services, P.O. Box 1597, Johnson City, TN)",
+        "johnsonCityUrl": "https://www.whirlpoolwaterheaters.com/owner-center/product-manuals/warranty/035505160348_warranty.pdf"
+      }
+    },
+    "navien": {
+      "slug": "navien-water-heater-age",
+      "option": "navien",
+      "defaultSerial": "7410C22X170001",
+      "defaultType": "tankless",
+      "checks": [
+        {
+          "serial": "7410A18709AAAA",
+          "year": 2018,
+          "month": 7,
+          "published": "July 9, 2018 (first recalled unit; \"18709 stands for July 9, 2018\")",
+          "source": "U.S. CPSC, Navien tankless water heater and boiler recall (2018, recall 19-057)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+        },
+        {
+          "serial": "7419A18X14AAAA",
+          "year": 2018,
+          "month": 10,
+          "published": "October 14, 2018 (last recalled NPE-180S unit; \"X stands for October\")",
+          "source": "U.S. CPSC, Navien tankless water heater and boiler recall (2018, recall 19-057)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+        },
+        {
+          "serial": "6608A18801AAAA",
+          "year": 2018,
+          "month": 8,
+          "published": "August 2018 (recalled NCB-180E range 6608x188xxxxxx)",
+          "source": "U.S. CPSC, Navien tankless water heater and boiler recall (2018, recall 19-057)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+        },
+        {
+          "serial": "7414C14X1771143",
+          "year": 2014,
+          "month": 10,
+          "published": "Year 14, month X (10), day 17 (style 2 example)",
+          "source": "Building Intelligence Center, Navien water heater age (third party)",
+          "sourceUrl": "https://www.building-center.org/navien-water-heater-age"
+        },
+        {
+          "serial": "8881-20100520-3026",
+          "year": 2010,
+          "month": 5,
+          "published": "May 20, 2010 (older Navien format)",
+          "source": "FastWaterHeater, water heater age by brand (third party)",
+          "sourceUrl": "https://fastwaterheater.com/blog/find-your-water-tank-age-based-on-the-brand"
+        }
+      ],
+      "examples": [
+        {
+          "id": "current",
+          "serial": "7410C22X170001",
+          "type": "tankless",
+          "hardness": "moderate",
+          "flushed": true,
+          "anode": false
+        },
+        {
+          "id": "old",
+          "serial": "9545J1152752044",
+          "type": "tankless",
+          "hardness": "veryHard",
+          "flushed": false,
+          "anode": false
+        }
+      ],
+      "warranty": {
+        "series": "NPE-A2 (residential)",
+        "heatExchanger": 15,
+        "parts": 5,
+        "labor": 1,
+        "uncontrolledHx": 5,
+        "uncontrolledParts": 3,
+        "commercialHx": 8,
+        "commercialParts": 5,
+        "source": "Navien, NPE-A2 series warranty page (residential, standard or controlled recirculation; uncontrolled recirculation shorter); Navien tankless FAQ for commercial use (8 / 5 / 1)",
+        "sourceUrl": "https://www.navieninc.com/series/npe-a2/warranty",
+        "faqUrl": "https://www.navieninc.com/residential/tankless-water-heaters/faqs"
+      },
+      "life": {
+        "low": 15,
+        "high": 20,
+        "source": "Navien blog, How long do tankless water heaters last? (\"typically last 15 to 20 years or more with proper installation, good water quality, and routine maintenance\")",
+        "sourceUrl": "https://www.navieninc.com/blog/notice/how-long-tankless-water-heaters-last"
+      },
+      "labelNote": {
+        "text": "It's on the outside right of the unit, in between two barcodes, and will be 15-16 digits long.",
+        "source": "Navien warranty page",
+        "sourceUrl": "https://www.navieninc.com/warranty"
+      }
     }
   }
 }

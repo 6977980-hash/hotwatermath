@@ -82,6 +82,7 @@ export function decodeSerial(serial, patterns, referenceYear) {
 			const raw = m[spec.group];
 			if (raw === undefined) { ok = false; break; }
 			if (spec.type === 'yy') year = yearFromTwoDigits(parseInt(raw, 10), referenceYear);
+			else if (spec.type === 'yyyy') { year = parseInt(raw, 10); if (year > referenceYear) ok = false; }
 			else if (spec.type === 'mm') month = parseInt(raw, 10);
 			else if (spec.type === 'ww') week = parseInt(raw, 10);
 			else if (spec.type === 'letterMonth') {

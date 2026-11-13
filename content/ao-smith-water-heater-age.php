@@ -75,7 +75,7 @@ hwm_part(
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<p class="table-source">Computed with assets/js/formulas.js (month = week × 12 ÷ 52, rounded up). So week <?php echo esc_html( (string) $hwm_r18['lastWeek'] ); ?> of <?php echo esc_html( (string) $hwm_r18['lastYear'] ); ?> reads as July, while the CPSC gives <?php echo esc_html( (string) $hwm_r18['madeTo'] ); ?> as the last production day of its recall range: a boundary week.</p>
+	<p class="table-source">Computed with assets/js/formulas.js (month = (week − 1) × 12 ÷ 52, rounded down, plus 1). So week <?php echo esc_html( (string) $hwm_r18['lastWeek'] ); ?> of <?php echo esc_html( (string) $hwm_r18['lastYear'] ); ?> reads as July, while the CPSC gives <?php echo esc_html( (string) $hwm_r18['madeTo'] ); ?> as the last production day of its recall range: a boundary week.</p>
 </div>
 
 <h2>What the CPSC recalls show about the code</h2>

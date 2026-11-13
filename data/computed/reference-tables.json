@@ -389,12 +389,17 @@
         {
           "brand": "American",
           "rule": "year (2 digits), then week (2 digits)",
-          "example": "9746****** → 1997, week 46"
+          "example": "9746****** → 1997, week 46 (Energy Trust); 1115…–1631… = April 2011 to August 2016 (CPSC recall range)"
         },
         {
           "brand": "Navien",
-          "rule": "4-digit model code and 1 character, then year (2 digits), month (1 character) and day (2 digits)",
+          "rule": "4-digit model code and 1 character, then year (2 digits), month (1 character: 1 to 9, X, Y, Z) and day (2 digits)",
           "example": "7410*18709**** → July 9, 2018 (CPSC example)"
+        },
+        {
+          "brand": "",
+          "rule": "older tags: 4 digits, a hyphen, then the full date as year (4 digits), month (2) and day (2), a hyphen and 4 more digits",
+          "example": "8881-20100520-3026 → May 20, 2010 (older hyphenated tag)"
         }
       ],
       "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)",

@@ -1,0 +1,609 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/brand-pages.json, data/serial-formats.json and data/lifespans.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Brand page for Navien. Default result, hand-checks and worked examples are computed as of 2026-11-13. The live calculator uses the visitor's date."
+  },
+  "asOf": "2026-11-13",
+  "brand": "navien",
+  "label": "Navien",
+  "alsoSoldAs": [],
+  "caveat": "",
+  "defaultInputs": {
+    "brand": "navien",
+    "serial": "7410C22X170001",
+    "type": "tankless",
+    "hardness": "moderate",
+    "flushed": true,
+    "anode": false
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "Well within expected life",
+    "headline": "About 4.1 years old (built October 2022)",
+    "explain": "That is about 21% of the 20-year average life for this type (gas tankless). About 15.9 years left at most; it could fail sooner. (Example serial in the Navien format, as of 2026-11-13; type yours.)",
+    "formula": "Built: October 2022 (Navien code)\nAge = today − October 2022 = 4.1 years\nExpected life (gas tankless) = 20 years (DOE average); adjustments: none\nShare used = 4.1 ÷ 20 = 21%",
+    "sources": "Navien date code: U.S. CPSC recall notice, Building Intelligence Center (third party). Lifespan: DOE 2024 water heater rule and DOE FEMP. Adjustments are our editorial assumptions. <a href=\"/methodology/#water-heater-age-calculator\">See every decoder test case</a>."
+  },
+  "checks": [
+    {
+      "serial": "7410A18709AAAA",
+      "ours": "July 2018",
+      "pattern": "navien-yymdd",
+      "published": "July 9, 2018 (first recalled unit; \"18709 stands for July 9, 2018\")",
+      "match": true,
+      "cycle": false,
+      "source": "U.S. CPSC, Navien tankless water heater and boiler recall (2018, recall 19-057)",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+    },
+    {
+      "serial": "7419A18X14AAAA",
+      "ours": "October 2018",
+      "pattern": "navien-yymdd",
+      "published": "October 14, 2018 (last recalled NPE-180S unit; \"X stands for October\")",
+      "match": true,
+      "cycle": false,
+      "source": "U.S. CPSC, Navien tankless water heater and boiler recall (2018, recall 19-057)",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+    },
+    {
+      "serial": "6608A18801AAAA",
+      "ours": "August 2018",
+      "pattern": "navien-yymdd",
+      "published": "August 2018 (recalled NCB-180E range 6608x188xxxxxx)",
+      "match": true,
+      "cycle": false,
+      "source": "U.S. CPSC, Navien tankless water heater and boiler recall (2018, recall 19-057)",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+    },
+    {
+      "serial": "7414C14X1771143",
+      "ours": "October 2014",
+      "pattern": "navien-yymdd",
+      "published": "Year 14, month X (10), day 17 (style 2 example)",
+      "match": true,
+      "cycle": false,
+      "source": "Building Intelligence Center, Navien water heater age (third party)",
+      "sourceUrl": "https://www.building-center.org/navien-water-heater-age"
+    },
+    {
+      "serial": "8881-20100520-3026",
+      "ours": "May 2010",
+      "pattern": "navien-dash-yyyymmdd",
+      "published": "May 20, 2010 (older Navien format)",
+      "match": true,
+      "cycle": false,
+      "source": "FastWaterHeater, water heater age by brand (third party)",
+      "sourceUrl": "https://fastwaterheater.com/blog/find-your-water-tank-age-based-on-the-brand"
+    }
+  ],
+  "checksMatched": 5,
+  "examples": {
+    "current": {
+      "id": "current",
+      "serial": "7410C22X170001",
+      "input": {
+        "id": "current",
+        "serial": "7410C22X170001",
+        "type": "tankless",
+        "hardness": "moderate",
+        "flushed": true,
+        "anode": false
+      },
+      "typeLabel": "tankless (gas or electric)",
+      "madeLabel": "October 2022",
+      "year": 2022,
+      "month": 10,
+      "latestYear": 2022,
+      "otherYears": [],
+      "pattern": "navien-yymdd",
+      "age": "4.1",
+      "baseLow": 20,
+      "baseTypical": 20,
+      "baseHigh": 20,
+      "hardDelta": 0,
+      "flushDelta": 0,
+      "anodeDelta": 0,
+      "lifeLow": 20,
+      "lifeTypical": 20,
+      "lifeHigh": 20,
+      "usedPct": 21,
+      "remainingMin": "15.9",
+      "remainingMax": "15.9",
+      "status": "ok",
+      "statusLabel": "Well within expected life"
+    },
+    "old": {
+      "id": "old",
+      "serial": "9545J1152752044",
+      "input": {
+        "id": "old",
+        "serial": "9545J1152752044",
+        "type": "tankless",
+        "hardness": "veryHard",
+        "flushed": false,
+        "anode": false
+      },
+      "typeLabel": "tankless (gas or electric)",
+      "madeLabel": "May 2011",
+      "year": 2011,
+      "month": 5,
+      "latestYear": 2011,
+      "otherYears": [],
+      "pattern": "navien-yymdd",
+      "age": "15.5",
+      "baseLow": 20,
+      "baseTypical": 20,
+      "baseHigh": 20,
+      "hardDelta": -2,
+      "flushDelta": -1,
+      "anodeDelta": 0,
+      "lifeLow": 17,
+      "lifeTypical": 17,
+      "lifeHigh": 17,
+      "usedPct": 91,
+      "remainingMin": "1.5",
+      "remainingMax": "1.5",
+      "status": "bad",
+      "statusLabel": "Near or past expected life"
+    }
+  },
+  "formatRows": [
+    {
+      "id": "navien-yymdd",
+      "rule": "4-digit model code and 1 character, then year (2 digits), month (1 character: 1 to 9, X, Y, Z) and day (2 digits)",
+      "example": "7410*18709**** → July 9, 2018 (CPSC example)",
+      "era": "2010 and later (CPSC recall units 2018; third-party examples from 2011)",
+      "source": "U.S. CPSC recall notice",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning"
+    },
+    {
+      "id": "navien-dash-yyyymmdd",
+      "rule": "older tags: 4 digits, a hyphen, then the full date as year (4 digits), month (2) and day (2), a hyphen and 4 more digits",
+      "example": "8881-20100520-3026 → May 20, 2010 (older hyphenated tag)",
+      "era": "Older tags (third-party examples from 2008 and 2010)",
+      "source": "Building Intelligence Center (third party)",
+      "sourceUrl": "https://www.building-center.org/navien-water-heater-age"
+    }
+  ],
+  "client": {
+    "asOf": "2026-11-13",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "brandOptions": [
+      {
+        "id": "rheem",
+        "label": "Rheem / Ruud",
+        "decodeAs": "rheem"
+      },
+      {
+        "id": "ao-smith",
+        "label": "A. O. Smith",
+        "decodeAs": "ao-smith"
+      },
+      {
+        "id": "bradford-white",
+        "label": "Bradford White",
+        "decodeAs": "bradford-white"
+      },
+      {
+        "id": "state",
+        "label": "State",
+        "decodeAs": "state"
+      },
+      {
+        "id": "american",
+        "label": "American",
+        "decodeAs": "american"
+      },
+      {
+        "id": "whirlpool",
+        "label": "Whirlpool",
+        "decodeAs": "american",
+        "caveat": "Whirlpool water heaters are made by American (part of A. O. Smith), so the American code is used."
+      },
+      {
+        "id": "ge",
+        "label": "GE",
+        "decodeAs": "rheem",
+        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label.",
+        "page": "rheem-water-heater-age"
+      },
+      {
+        "id": "kenmore",
+        "label": "Kenmore",
+        "decodeAs": "state",
+        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label.",
+        "page": "state-water-heater-age"
+      },
+      {
+        "id": "navien",
+        "label": "Navien",
+        "decodeAs": "navien"
+      },
+      {
+        "id": "rinnai",
+        "label": "Rinnai",
+        "decodeAs": ""
+      },
+      {
+        "id": "noritz",
+        "label": "Noritz",
+        "decodeAs": ""
+      },
+      {
+        "id": "takagi",
+        "label": "Takagi",
+        "decodeAs": ""
+      },
+      {
+        "id": "bosch",
+        "label": "Bosch",
+        "decodeAs": ""
+      },
+      {
+        "id": "other",
+        "label": "Other or not sure",
+        "decodeAs": ""
+      }
+    ],
+    "brands": {
+      "bradford-white": {
+        "label": "Bradford White",
+        "patterns": [
+          {
+            "id": "bw-letter-year-month",
+            "regex": "^([A-HJ-NPSTW-Z])([A-HJ-M])",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "letterYear",
+                "letters": "ABCDEFGHJKLMNPSTWXYZ",
+                "cycleStarts": [
+                  1964,
+                  1984,
+                  2004,
+                  2024
+                ]
+              },
+              "month": {
+                "group": 2,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLM"
+              }
+            }
+          }
+        ]
+      },
+      "rheem": {
+        "label": "Rheem / Ruud",
+        "patterns": [
+          {
+            "id": "rheem-letter-mmyy-plant",
+            "regex": "^[A-Z](0[1-9]|1[0-2])(\\d{2})[A-Z]",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "mm"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2010
+          },
+          {
+            "id": "rheem-prefix-mmyy",
+            "regex": "^[A-Z]{2,4}(0[1-9]|1[0-2])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "mm"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2010
+          },
+          {
+            "id": "rheem-plant-wwyy",
+            "regex": "^[A-Z](0[1-9]|[1-4]\\d|5[0-3])(\\d{2})",
+            "fields": {
+              "week": {
+                "group": 1,
+                "type": "ww"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            }
+          },
+          {
+            "id": "rheem-mmyy",
+            "regex": "^(0[1-9]|1[0-2])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "mm"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            }
+          }
+        ]
+      },
+      "ao-smith": {
+        "label": "A. O. Smith",
+        "patterns": [
+          {
+            "id": "aos-yyww",
+            "regex": "^(\\d{2})(\\d{2})[A-Z]",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "week": {
+                "group": 2,
+                "type": "ww"
+              }
+            },
+            "validFromYear": 2008
+          },
+          {
+            "id": "aos-letter-month-yy",
+            "regex": "^[A-Z]([A-HJ-N])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2008
+          },
+          {
+            "id": "aos-first-letter-month-yy",
+            "regex": "^([A-HJ-N])(\\d{2})[A-Z]",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2008
+          }
+        ]
+      },
+      "state": {
+        "label": "State",
+        "patterns": [
+          {
+            "id": "state-yyww",
+            "regex": "^(\\d{2})(\\d{2})",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "week": {
+                "group": 2,
+                "type": "ww"
+              }
+            },
+            "validFromYear": 2008
+          },
+          {
+            "id": "state-letter-month-yy",
+            "regex": "^([A-HJ-N])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2008
+          },
+          {
+            "id": "state-factory-month-yy",
+            "regex": "^[A-Z]([A-HJ-N])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2004
+          }
+        ]
+      },
+      "american": {
+        "label": "American",
+        "patterns": [
+          {
+            "id": "american-yyww",
+            "regex": "^(\\d{2})(\\d{2})",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "week": {
+                "group": 2,
+                "type": "ww"
+              }
+            }
+          }
+        ]
+      },
+      "navien": {
+        "label": "Navien",
+        "patterns": [
+          {
+            "id": "navien-yymdd",
+            "regex": "^\\d{4}[A-Z0-9](\\d{2})([1-9XYZ])(0[1-9]|[12]\\d|3[01])",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "month": {
+                "group": 2,
+                "type": "letterMonth",
+                "letters": "123456789XYZ"
+              }
+            },
+            "validFromYear": 2010
+          },
+          {
+            "id": "navien-dash-yyyymmdd",
+            "regex": "^\\d{4}(20[01]\\d)(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yyyy"
+              },
+              "month": {
+                "group": 2,
+                "type": "mm"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "officialLookups": [
+      {
+        "brand": "Rheem",
+        "url": "https://www.rheem.com/how-old-is-my-equipment/",
+        "note": "Rheem's official age lookup (tank and tankless)"
+      },
+      {
+        "brand": "Ruud",
+        "url": "https://www.ruud.com/how-old-is-my-water-heater/",
+        "note": "Ruud's official water heater age calculator"
+      },
+      {
+        "brand": "Bradford White",
+        "url": "https://www.bradfordwhite.com/my-water-heater/",
+        "note": "Bradford White year and month letter table and rating plate location"
+      },
+      {
+        "brand": "Navien",
+        "url": "https://www.navieninc.com/warranty",
+        "note": "Navien warranty page: where the serial number is on the unit"
+      }
+    ],
+    "types": [
+      {
+        "id": "gas_tank",
+        "label": "Gas tank",
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      {
+        "id": "electric_tank",
+        "label": "Electric tank",
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      {
+        "id": "tankless",
+        "label": "Gas tankless",
+        "low": 20,
+        "typical": 20,
+        "high": 20
+      },
+      {
+        "id": "heat_pump",
+        "label": "Heat pump (hybrid)",
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      }
+    ],
+    "adjustments": {
+      "source": "Hot Water Math editorial assumption (documented on /methodology); not measured data",
+      "hardness": {
+        "soft": 0,
+        "moderate": 0,
+        "hard": -1,
+        "veryHard": -2
+      },
+      "noAnnualFlush": -1,
+      "anodeReplaced": 1,
+      "minimumLifeYears": 5,
+      "hardnessScale": {
+        "source": "U.S. Geological Survey, Hardness of Water (as calcium carbonate)",
+        "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/hardness-water",
+        "mapUrl": "https://www.usgs.gov/media/images/map-water-hardness-united-states",
+        "soft": {
+          "label": "Soft",
+          "mgPerL": "0 to 60"
+        },
+        "moderate": {
+          "label": "Moderately hard",
+          "mgPerL": "61 to 120"
+        },
+        "hard": {
+          "label": "Hard",
+          "mgPerL": "121 to 180"
+        },
+        "veryHard": {
+          "label": "Very hard",
+          "mgPerL": "more than 180"
+        }
+      }
+    },
+    "bands": {
+      "amberFrom": 0.6,
+      "redFrom": 0.9,
+      "source": "Hot Water Math editorial assumption: green below 60% of typical life, amber from 60%, red from 90%"
+    },
+    "statusLabels": {
+      "ok": "Well within expected life",
+      "warn": "Getting older: plan ahead",
+      "bad": "Near or past expected life"
+    }
+  }
+}

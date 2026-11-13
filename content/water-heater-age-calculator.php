@@ -52,7 +52,7 @@ $hwm_rows = (array) hwm_raw( $hwm_c, 'summaryRows' );
 		<tbody>
 			<?php foreach ( $hwm_rows as $hwm_r ) : ?>
 				<tr>
-					<th scope="row"><?php echo hwm_link( $hwm_r['id'] . '-water-heater-age', $hwm_r['brand'] ); // phpcs:ignore -- escaped in helper. ?></th>
+					<th scope="row"><?php echo hwm_link( (string) ( $hwm_r['page'] ?? $hwm_r['id'] . '-water-heater-age' ), $hwm_r['brand'] ); // phpcs:ignore -- escaped in helper. ?></th>
 					<td><?php echo esc_html( $hwm_r['rule'] ); ?><?php echo '' !== $hwm_r['note'] ? '. <em>' . esc_html( $hwm_r['note'] ) . '</em>' : ''; ?></td>
 					<td><?php echo esc_html( $hwm_r['example'] ); ?></td>
 				</tr>
