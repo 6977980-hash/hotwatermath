@@ -32,13 +32,15 @@
   - Rheem: M302112345 → Jul 2021 (lookup 07/27/2021), Q151512345 → Apr 2015 (04/09/2015), Q431912345 → Oct 2019, Q052412345 → Jan 2024, 0794F → Jul 1994 (Energy Trust), RH0806B17262 → Aug 2006 (InspectApedia).
   - State: 1115… → Apr 2011 (CPSC 2018), C05 → Mar 2005 (Energy Trust), M07A009387 → Dec 2007 (building-center + CPSC 2008 range), AF04A093001 → Jun 2004 (building-center).
 - No brand page title/H1 targets "water heater age calculator"; lifespan article H1 is the informational question, distinct from the tool page.
+- **Live after PR #7 (0.4.0), 2026-11-13:** all 5 pages 200, `noindex, follow`, server-rendered default result present; `/embed/rheem-water-heater-age/` 200; `npm run check` 195/195 (17 pages).
+- Live Playwright 360×640: no console errors, no sideways scroll; brand select ends at 615–623 px; typed serials give LK → Oct 2014, 1631… → Jul 2016, M3021… → Jul 2021, AF04A… → Jun 2004; the article's embedded calculator decodes XA… → Jan 2021; share URL carries the serial.
+- Lighthouse mobile (live): Bradford White 99/100/100/SEO 66, lifespan article 99/100/100/SEO 66; LCP 1.0–1.3 s, CLS 0. Only failing SEO audit is `is-crawlable` (draft noindex by design).
 
 **Known issues / TODOs carried forward:**
 - Rheem/Ruud lookup returned no date for R0804B10488, RH0806B17262, A141511869 (2026-11-13): older prefixed layouts rest on InspectApedia only.
 - Energy Trust says month letters "A through N" excluding I (13 letters); we treat N as unreadable (CPSC confirms L = Nov, M = Dec).
 - No State-published lifespan found; the State page says so.
 - Bradford White plate position is only shown in an image on its site; our text says "outer jacket".
-- Live checks (Lighthouse, schema validator, live Playwright) are recorded after deploy in the follow-up below.
 - Carried: Navien Y/Z months inferred; Rinnai/Noritz/Takagi/Bosch not decoded; tankless chart from 2016 Rinnai; labor/extras costs (Phase 4); Hostinger CDN may need a flush after deploys.
 
 **Notes for the next thread (Phase 2b thread 2):**
