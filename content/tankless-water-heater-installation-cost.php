@@ -79,7 +79,11 @@ hwm_part(
 <h2>Mistakes that raise a tankless quote later</h2>
 <ul>
 	<li><strong>Pricing the unit, not the job.</strong> The unit is about <?php echo $hwm_v( 'gT.unitShare' ); // phpcs:ignore ?>% of the cost when you switch from a tank.</li>
+<<<<<<< HEAD
 	<li><strong>Buying too small.</strong> A unit sized for one shower in a cold-water state runs out of flow with two. Check with the <?php echo hwm_link( 'tankless-water-heater-size-calculator', 'tankless size calculator' ); // phpcs:ignore ?> before you ask installers to price the job.</li>
+=======
+	<li><strong>Buying too small.</strong> A unit sized for one shower in a cold-water state runs out of flow with two. Check with the <?php echo hwm_link( 'tankless-water-heater-size-calculator', 'tankless size calculator' ); // phpcs:ignore ?> before you get quotes.</li>
+>>>>>>> origin/claude/project-thread-hmzubr
 	<li><strong>Assuming the old gas line is fine.</strong> Ask every installer whether the quote includes a gas line check and upsizing.</li>
 	<li><strong>Forgetting the condensate drain.</strong> A condensing unit needs a drain nearby, or a pump.</li>
 	<li><strong>Skipping descaling.</strong> In hard-water areas the manufacturer usually requires periodic flushing to keep the warranty.</li>
