@@ -23,7 +23,7 @@ get_header();
 			<?php hwm_part( 'page-intro', array( 'entry' => $hwm_entry ) ); ?>
 			<?php hwm_part( 'quick-answer', array( 'text' => $hwm_entry['quickAnswer'] ?? '' ) ); ?>
 			<?php hwm_part( 'calculator', array( 'tool' => $hwm_slug, 'inputs' => $hwm_out['calculator_inputs'], 'label' => $hwm_entry['title'] ) ); ?>
-			<?php hwm_part( 'next-steps', array( 'items' => $hwm_out['next_steps'] ) ); ?>
+			<?php hwm_part( 'next-steps', array( 'items' => $hwm_out['next_steps'], 'problems' => (array) ( $hwm_entry['problems'] ?? array() ) ) ); ?>
 			<?php hwm_ad( 'A' ); ?>
 			<div class="prose">
 				<?php echo $hwm_out['html']; // phpcs:ignore -- our own content file. ?>

@@ -3,7 +3,12 @@
     "source": "Page registry. URLs and intents from docs/STRATEGY.md §2 (Keyword Map).",
     "sourceUrl": "",
     "sourceDate": "2026-11-13",
-    "notes": "One entry per URL. status: live = indexable, in sitemap and hubs; draft = page exists but noindex, not in sitemap or hubs; planned = no page is created. Only the owner's OK moves a page to live (CLAUDE.md §8). type picks the template: home, utility, hub, tool, article. Body lives in content/<slug>.php (home uses content/home.php)."
+    "notes": "One entry per URL. status: live = indexable, in sitemap and hubs; draft = page exists but noindex, not in sitemap or hubs; planned = no page is created. Only the owner's OK moves a page to live (CLAUDE.md §8). type picks the template: home, utility, hub, tool, article. Body lives in content/<slug>.php (home uses content/home.php). group (articles only) picks the section on /guides; sections follow meta.articleGroups. problems (tools only) lists troubleshooting slugs shown as 'Common problems' in the What to do next box; problemLabel is the short anchor used there.",
+    "articleGroups": [
+      "Costs & Sizing",
+      "Lifespan & Replacement",
+      "Troubleshooting & Care"
+    ]
   },
   "pages": [
     {
@@ -162,6 +167,11 @@
         "water heater age by serial number",
         "water heater serial number lookup",
         "water heater serial number decoder"
+      ],
+      "problems": [
+        "water-heater-anode-rod",
+        "how-to-flush-a-water-heater",
+        "water-heater-leaking"
       ]
     },
     {
@@ -192,6 +202,10 @@
         "tankless gpm calculator",
         "tankless btu calculator",
         "temperature rise"
+      ],
+      "problems": [
+        "how-to-flush-a-water-heater",
+        "no-hot-water"
       ]
     },
     {
@@ -222,6 +236,10 @@
         "what size water heater for family of 5",
         "water heater size for 3 bedroom house",
         "first hour rating calculator"
+      ],
+      "problems": [
+        "no-hot-water",
+        "how-to-flush-a-water-heater"
       ]
     },
     {
@@ -249,6 +267,11 @@
         "is it worth repairing a 10 year old water heater",
         "can a leaking water heater be repaired",
         "50 percent rule water heater"
+      ],
+      "problems": [
+        "water-heater-leaking",
+        "no-hot-water",
+        "water-heater-anode-rod"
       ]
     },
     {
@@ -276,6 +299,10 @@
         "50 gallon water heater cost",
         "water heater installation labor cost",
         "do you need a permit to replace a water heater"
+      ],
+      "problems": [
+        "water-heater-leaking",
+        "no-hot-water"
       ]
     },
     {
@@ -354,7 +381,8 @@
         "water heater life expectancy",
         "how long do electric water heaters last",
         "how long do gas water heaters last"
-      ]
+      ],
+      "group": "Lifespan & Replacement"
     },
     {
       "slug": "tankless-water-heater-installation-cost",
@@ -362,7 +390,8 @@
       "status": "planned",
       "phase": "6",
       "title": "Tankless Water Heater Installation Cost",
-      "summary": "What installing a tankless water heater costs, by fuel and by the extra work a switch from a tank needs."
+      "summary": "What installing a tankless water heater costs, by fuel and by the extra work a switch from a tank needs.",
+      "group": "Costs & Sizing"
     },
     {
       "slug": "gas-line-size-for-tankless-water-heater",
@@ -591,6 +620,118 @@
       "parent": "water-heater-age-calculator",
       "title": "Rinnai Water Heater Age",
       "summary": "Read the build date from a Rinnai serial number, with every format and worked examples."
+    },
+    {
+      "slug": "water-heater-leaking",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Leaking",
+      "problemLabel": "Leaking",
+      "summary": "Where a tank leaks, what each leak point means, and what to do in the first minutes.",
+      "metaTitle": "Water Heater Leaking? Find the Source Fast | Hot Water Math",
+      "description": "Water heater leaking from the bottom, top or relief valve? See the six leak points, what each one means, and when a leak means replacing the tank.",
+      "h1": "Water heater leaking? Find where the water comes from",
+      "subtitle": "Six places a tank leaks, what each one means, and what to do right away.",
+      "quickAnswer": "Shut off the power or gas and the cold water first. Water from the tank bottom or body means the tank has failed and must be replaced; drips from fittings, valves or gaskets are usually repairable.",
+      "scripts": [
+        "repair-replace"
+      ],
+      "keywords": [
+        "water heater leaking from bottom",
+        "water heater leaking from top",
+        "water heater leaking from pressure relief valve",
+        "hot water heater leaking",
+        "what to do if water heater is leaking",
+        "can a leaking water heater be repaired"
+      ]
+    },
+    {
+      "slug": "how-to-flush-a-water-heater",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "How to Flush a Water Heater",
+      "problemLabel": "How to flush",
+      "summary": "The manufacturer steps to drain and flush a gas or electric tank, how often, and tankless descaling.",
+      "metaTitle": "How to Flush a Water Heater: Steps and Schedule | Hot Water Math",
+      "description": "How to flush a water heater the way manufacturers say: first flush at six months, then yearly. Steps for gas and electric tanks, and tankless descaling.",
+      "h1": "How to flush a water heater",
+      "subtitle": "The manufacturer steps for gas and electric tanks, how often to do it, and how a tankless unit is descaled.",
+      "quickAnswer": "Turn off the gas or power, let the water cool, close the cold supply and drain the tank through a hose until it runs clear. Manufacturers say flush after six months, then at least yearly.",
+      "scripts": [
+        "age"
+      ],
+      "keywords": [
+        "how often to flush water heater",
+        "how to drain a water heater",
+        "flushing a tankless water heater",
+        "how long does it take to flush a water heater",
+        "should i flush my old water heater",
+        "water heater flush with vinegar"
+      ]
+    },
+    {
+      "slug": "water-heater-anode-rod",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Anode Rod",
+      "problemLabel": "Anode rod",
+      "summary": "What the anode rod does, when to replace it, which type to buy, and what it costs.",
+      "metaTitle": "Water Heater Anode Rod: When to Replace, Cost | Hot Water Math",
+      "description": "A water heater anode rod corrodes so the tank does not. Replace it when 6 inches of core wire shows. Types, prices from $28, and how often to check it.",
+      "h1": "Water heater anode rod: what it does and when to replace it",
+      "subtitle": "How the rod protects the tank, how to tell it is used up, and the types and prices of replacements.",
+      "quickAnswer": "The anode rod is a metal rod inside the tank that corrodes so the steel tank does not. Inspect it every year and replace it once more than 6 inches of its core wire is exposed.",
+      "scripts": [
+        "age"
+      ],
+      "keywords": [
+        "when to replace anode rod in water heater",
+        "magnesium vs aluminum anode rod",
+        "anode rod replacement cost",
+        "powered anode rod",
+        "how long does an anode rod last",
+        "where is the anode rod on a water heater"
+      ]
+    },
+    {
+      "slug": "no-hot-water",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "No Hot Water",
+      "problemLabel": "No hot water",
+      "summary": "What to check first when the water heater stops heating, for electric, gas and tankless units.",
+      "metaTitle": "No Hot Water? What to Check by Heater Type | Hot Water Math",
+      "description": "No hot water or water heater not heating? Check the breaker, gas valve, pilot or error code first. Checks by heater type, and when to call a professional.",
+      "h1": "No hot water? What to check first",
+      "subtitle": "Checks in order for electric, gas and tankless water heaters, and how to tell a heater fault from a faucet fault.",
+      "quickAnswer": "First check whether every hot tap is cold. If so, check the breaker on an electric heater, the gas valve and pilot or status light on a gas heater, or the error code on a tankless unit.",
+      "scripts": [
+        "repair-replace"
+      ],
+      "keywords": [
+        "water heater not heating",
+        "no hot water in house",
+        "electric water heater not heating",
+        "gas water heater not heating",
+        "tankless water heater no hot water",
+        "hot water not working in one faucet"
+      ]
     }
   ]
 }

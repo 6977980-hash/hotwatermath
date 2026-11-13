@@ -231,6 +231,10 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 .next-steps { border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; background: var(--accent-soft); padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-5); }
 .next-steps h2 { font-size: var(--step-1); margin: 0 0 var(--space-2); }
 .next-steps ul { margin: 0; }
+.next-steps__problems { margin: var(--space-2) 0 0; }
+.safety-notice { border: 1px solid var(--line); border-left: 4px solid var(--bad); border-radius: 0 var(--radius) var(--radius) 0; background: var(--bad-soft); padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-5); }
+.safety-notice p { margin: 0 0 var(--space-2); }
+.safety-notice ul { margin: 0; padding-left: 1.2rem; }
 .notice { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-4); }
 .notice--warn { background: var(--warn-soft); border-color: #e7c873; }
 .author-line { font-size: var(--step--1); color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--space-3); margin-top: var(--space-6); }
