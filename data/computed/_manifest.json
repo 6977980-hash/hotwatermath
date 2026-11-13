@@ -47,11 +47,14 @@
     "water-heater-installation-cost-georgia",
     "water-heater-installation-cost-north-carolina",
     "water-heater-installation-cost-michigan",
-    "state-cost-index"
+    "state-cost-index",
+    "water-heater-temperature-setting",
+    "water-heater-pressure-relief-valve-leaking",
+    "water-heater-element-replacement"
   ],
   "inputs": {
-    "assets/js/formulas.js": "b8f22703f5ee9ba7",
-    "scripts/build-data.mjs": "75da7a1c09d1dd10",
+    "assets/js/formulas.js": "9f0fe9c7e1e87e8b",
+    "scripts/build-data.mjs": "de6d18a826f67d1d",
     "data/site.json": "7e62ca41c159ef00",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "d12d4080ac42b57b",
@@ -76,7 +79,7 @@
     "assets/js/repair-replace.js": "a1f60261eeb247c3",
     "data/household-size-guides.json": "7bfdcaed71e35006",
     "data/installation-costs.json": "67e2d874e470fcee",
-    "data/pages.json": "b5aaece1aa88098d",
+    "data/pages.json": "401c6995bda1d7c1",
     "assets/js/cost-model.js": "1c4ec89371ee61c8",
     "assets/js/cost-calculator.js": "5e0d11a582147e8f",
     "assets/js/tankless-vs-tank.js": "6f6ce82cb8db8ac5",
@@ -88,6 +91,7 @@
     "assets/js/expansion-tank.js": "11a8a996d6bdf038",
     "data/troubleshooting.json": "885f576226c17209",
     "data/state-pages.json": "c1604d2fb5053c47",
-    "data/metro-price-parities.json": "b3e2bb96ce8fc61f"
+    "data/metro-price-parities.json": "b3e2bb96ce8fc61f",
+    "data/safety.json": "0da75ea9d370f916"
   }
 }

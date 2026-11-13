@@ -701,3 +701,27 @@ export function hotGallonsDrawn(gpm, minutes, hotShare) {
 	if (!isNum(gpm) || !isNum(minutes) || !isNum(hotShare)) return null;
 	return round(gpm * minutes * hotShare, 2);
 }
+
+/**
+ * Cold resistance of a resistive heating element from its rating: R = V² ÷ W (Ohm's law, P = V² ÷ R).
+ * A good element reads close to this; a reading near zero means a short, no reading means it is open (burned out).
+ * @param {number} volts Rated voltage on the element and the heater's data plate.
+ * @param {number} watts Rated wattage.
+ * @returns {number|null} Ohms, or null for bad input.
+ */
+export function elementResistanceOhms(volts, watts) {
+	if (!isNum(volts) || !isNum(watts) || volts <= 0 || watts <= 0) return null;
+	return round((volts * volts) / watts, 2);
+}
+
+/**
+ * How much more mixed water a tank delivers at a hotter setting, for the same mixed temperature:
+ * the tank share falls, so each tank gallon stretches further. Extra = share(base) ÷ share(hotter) − 1.
+ * @param {number|null} baseShare hotShareOfMix at the base setting.
+ * @param {number|null} hotterShare hotShareOfMix at the hotter setting.
+ * @returns {number|null} 0.25 = 25% more mixed water.
+ */
+export function extraMixedWaterShare(baseShare, hotterShare) {
+	if (!isNum(baseShare) || !isNum(hotterShare) || hotterShare <= 0) return null;
+	return round(baseShare / hotterShare - 1, 4);
+}

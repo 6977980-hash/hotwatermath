@@ -1,0 +1,17 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/safety.json (relief valve figures) and data/computed/water-heater-expansion-tank-size.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Highest normal operating pressure = valve set pressure × Watts' 75% limit. Expansion = AMTROL factor for a 50-gallon tank heated from 40 °F (expansion tank calculator)."
+  },
+  "figures": {
+    "maxOperatingPsi": "112.5",
+    "sharePct": "75",
+    "heater": 50,
+    "exp120": "1.0",
+    "exp140": "1.5",
+    "exp120Gal": "0.50",
+    "tank": "2-gallon tank"
+  }
+}

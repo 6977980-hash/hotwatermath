@@ -110,7 +110,7 @@ hwm_part( 'safety-notice', array( 'gas' => true, 'power' => true, 'scald' => tru
 	<li><strong>Add or check the expansion tank.</strong> Our installation cost data puts an expansion tank, parts and labor, at $<?php echo $hwm_ic( 'extras.expansionTank.low' ); // phpcs:ignore ?> to $<?php echo $hwm_ic( 'extras.expansionTank.high' ); // phpcs:ignore ?> (typical $<?php echo $hwm_ic( 'extras.expansionTank.typical' ); // phpcs:ignore ?>).</li>
 	<li><strong>If pressure is right, an expansion tank is in place and it still drips,</strong> the valve may be broken. The manual says to have a qualified person replace it.</li>
 </ul>
-<p>A. O. Smith says homeowners should test the valve once a year by the instructions on its label, and a professional should inspect it every <?php echo $hwm_t( 'leak.tpInspectProYears' ); // phpcs:ignore ?> years. A full guide to the relief valve is on our list of safety pages; until it is published, follow the label on your valve and your heater's manual.</p>
+<p>A. O. Smith says homeowners should test the valve once a year by the instructions on its label, and a professional should inspect it every <?php echo $hwm_t( 'leak.tpInspectProYears' ); // phpcs:ignore ?> years. Our guide to a <?php echo hwm_link( 'water-heater-pressure-relief-valve-leaking', 'water heater pressure relief valve leaking' ); // phpcs:ignore ?> covers the pressure numbers, the test and the discharge pipe rules; the label on your valve and your heater's manual come first.</p>
 
 <h2>Gas and electric water heaters: leaks that need extra care</h2>
 <p>Both fuels leak in the same places, but each adds one spot where water and energy meet. Treat those two with more caution than a dripping pipe.</p>

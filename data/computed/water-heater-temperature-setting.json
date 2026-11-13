@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/safety.json (settings compared), data/troubleshooting.json (shower temperature, inlet example), data/fixture-flow-rates.json and data/site.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Tank share of a mixed shower = (shower − inlet) ÷ (tank − inlet), formulas.hotShareOfMix; tank gallons = flow × minutes × share, formulas.hotGallonsDrawn; extra mixed water = share at 120 °F ÷ share at the hotter setting − 1, formulas.extraMixedWaterShare. Only true when a mixing valve (or the user) mixes the water down to the same shower temperature. Heat loss in the pipes and in the tank is not counted, so real tanks deliver a little less in every row."
+  },
+  "figures": {
+    "base": 120,
+    "mixF": 105,
+    "inletF": 50,
+    "gpm": 2.5,
+    "minutes": 10,
+    "share120": 79,
+    "gal120": "19.6",
+    "share140": 61,
+    "gal140": "15.3",
+    "extra140": 29,
+    "extra130": 14,
+    "exp120": "1.0",
+    "exp140": "1.5"
+  },
+  "tables": {
+    "capacity": {
+      "caption": "How far a tank stretches at each setting (2.5 GPM shower at 105 °F, 50 °F incoming water, 10 minutes)",
+      "columns": [
+        {
+          "key": "t",
+          "label": "Tank setting",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "share",
+          "label": "Share of the shower from the tank",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "gal",
+          "label": "Tank water used",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "extra",
+          "label": "Mixed water vs 120 °F",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "t": "120",
+          "share": "79",
+          "gal": "19.6",
+          "extra": "Baseline"
+        },
+        {
+          "t": "130",
+          "share": "69",
+          "gal": "17.2",
+          "extra": "+14%"
+        },
+        {
+          "t": "140",
+          "share": "61",
+          "gal": "15.3",
+          "extra": "+29%"
+        },
+        {
+          "t": "150",
+          "share": "55",
+          "gal": "13.8",
+          "extra": "+43%"
+        }
+      ],
+      "source": "Computed with formulas.hotShareOfMix and hotGallonsDrawn; shower temperature from Stiebel Eltron's sizing sheet, winter inlet from A. O. Smith, shower flow is the federal maximum. Needs a mixing valve to hold the shower at the same temperature.",
+      "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

@@ -868,6 +868,93 @@
       ]
     },
     {
+      "slug": "water-heater-temperature-setting",
+      "type": "article",
+      "status": "draft",
+      "phase": "6d",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Temperature Setting",
+      "problemLabel": "Water too hot or not hot enough",
+      "summary": "What temperature to set a water heater to, 120 vs 140 °F, scald times, Legionella guidance and how to check your tap.",
+      "metaTitle": "Water Heater Temperature: 120 or 140 °F? | Hot Water Math",
+      "description": "Set your water heater to 120 °F, as the CPSC and DOE advise. When 140 °F makes sense, how fast each setting scalds, CDC Legionella advice and how to check.",
+      "h1": "Water heater temperature setting: 120 °F or 140 °F?",
+      "subtitle": "What the CPSC, DOE, CDC and manufacturers say, with scald times and how to check your own tap.",
+      "quickAnswer": "Set it to 120 °F, the setting the CPSC and the Department of Energy recommend. Go to 140 °F only with mixing valves at the taps, which lets the tank stay hot without scalding anyone.",
+      "scripts": [
+        "tank-size"
+      ],
+      "keywords": [
+        "what temperature should a water heater be set at",
+        "water heater temperature 120 vs 140",
+        "hot water heater temperature setting",
+        "water heater temperature legionella",
+        "how to adjust water heater temperature",
+        "water heater too hot",
+        "electric water heater thermostat setting"
+      ]
+    },
+    {
+      "slug": "water-heater-pressure-relief-valve-leaking",
+      "type": "article",
+      "status": "draft",
+      "phase": "6d",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Pressure Relief Valve Leaking",
+      "problemLabel": "Relief valve leaking",
+      "summary": "Why the temperature and pressure relief valve drips or gushes, the pressure numbers that matter, and when the valve needs replacing.",
+      "metaTitle": "Water Heater Relief Valve Leaking? Causes | Hot Water Math",
+      "description": "Water heater relief valve leaking? A drip usually means high water pressure or no expansion tank; hot water pouring out means overheating. What to do next.",
+      "h1": "Water heater pressure relief valve leaking: what it means",
+      "subtitle": "Why the T&P valve drips or gushes, the pressure numbers to check, and when the valve itself has failed.",
+      "quickAnswer": "A small drip usually means your water pressure is too high or the home needs a thermal expansion tank. Hot water pouring out means the tank is overheating: turn the heater off and call a qualified person.",
+      "scripts": [
+        "expansion-tank"
+      ],
+      "keywords": [
+        "water heater pressure relief valve leaking",
+        "t&p valve leaking",
+        "water heater relief valve dripping",
+        "pressure relief valve water heater keeps opening",
+        "how to test water heater pressure relief valve",
+        "replace water heater pressure relief valve cost",
+        "water heater relief valve discharge pipe"
+      ]
+    },
+    {
+      "slug": "water-heater-element-replacement",
+      "type": "article",
+      "status": "draft",
+      "phase": "6d",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Element Replacement",
+      "problemLabel": "Heating element failed",
+      "summary": "Signs of a bad heating element, what a good one reads in ohms, what parts cost, and the manufacturer's replacement steps.",
+      "metaTitle": "Water Heater Element Replacement Guide | Hot Water Math",
+      "description": "Water heater element replacement: a good 4500 W element reads 12.8 ohms and costs $9 to $60. Signs of a bad one, the maker's steps and the dry-fire rule.",
+      "h1": "Water heater element replacement: signs, test values and cost",
+      "subtitle": "Which element failed, what a good one reads, what parts cost, and what the manual says to do.",
+      "quickAnswer": "A failed lower element leaves you with some hot water that runs out fast; a failed upper element usually means none. Elements cost about $9 to $60, and the tank must be full before power goes back on.",
+      "scripts": [
+        "repair-replace"
+      ],
+      "keywords": [
+        "water heater element replacement",
+        "how to test water heater element",
+        "water heater element resistance",
+        "bad water heater element symptoms",
+        "upper vs lower water heater element",
+        "water heater element replacement cost",
+        "4500 watt water heater element"
+      ]
+    },
+    {
       "slug": "heat-pump-water-heater-cost",
       "type": "article",
       "status": "live",
