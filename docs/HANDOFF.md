@@ -14,7 +14,7 @@
 - `data/datasets.json` (registry) → `data/computed/datasets.json`; `data/computed/water-heater-installation-cost-index.json` (build:data block "Phase 8", guards on quoted figures)
 - `scripts/build-charts.mjs` (`npm run build:charts`) → `assets/charts/water-heater-cost-index.{svg,png,json}`
 - `scripts/check-embeds.mjs` (`npm run check-embeds`) — embed route + snippet + CSV checks
-- `inc/routes.php` `/data/<id>.csv` (404 while `/data/` is draft); `inc/schema.php` `hwm_schema_datasets()` (Dataset `@graph` on `/data/`, one Dataset on the index); `templates/embed.php` all in-frame links `nofollow` + new tab; `inc/helpers.php` snippet comment "credit optional"; `footer.php` Data/Embed links (only when live)
+- `inc/routes.php` `/data/<id>.csv` (served while `/data/` is draft or live); `inc/schema.php` `hwm_schema_datasets()` (Dataset `@graph` on `/data/`, one Dataset on the index); `templates/embed.php` all in-frame links `nofollow` + new tab; `inc/helpers.php` snippet comment "credit optional"; `footer.php` Data/Embed links (only when live)
 - `content/methodology.php` `#cost-index`; `content/water-heater-installation-cost.php` links the index (plain text until live)
 - `assets/css/global.css` dataset/cite/chart/press styles; `data/pages.json` 3 drafts; `assets/og/` 3 images; `docs/briefs/water-heater-installation-cost-index.md`; `docs/DECISIONS.md` 2 rows; `docs/OUTREACH.md` rewritten (3 templates, 30 targets with contact method, Reddit, Pinterest plan per tool, tracking)
 

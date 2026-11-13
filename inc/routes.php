@@ -115,12 +115,13 @@ function hwm_dataset( string $id ): ?array {
 
 /**
  * /data/<id>.csv : a dataset as CSV (rendering only; the columns and values are built by npm run build:data).
- * Served only while the /data/ page can be opened (live, or draft for logged-in editors), so drafts do not leak.
+ * Served while the /data/ page exists (draft or live; drafts are visible noindex pages, so their links must work).
  * The X-Robots-Tag keeps the raw files out of web search; the /data/ page carries the Dataset schema.
  */
 function hwm_send_csv( string $id ): void {
 	$set = hwm_dataset( $id );
-	if ( ! $set || ! hwm_can_open( hwm_page( 'data' ) ) ) {
+	$page = hwm_page( 'data' );
+	if ( ! $set || ! $page || 'planned' === ( $page['status'] ?? 'planned' ) ) {
 		return; // Falls through to WordPress, which answers 404.
 	}
 	$out = fopen( 'php://temp', 'r+' );
