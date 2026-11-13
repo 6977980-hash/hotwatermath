@@ -1,0 +1,454 @@
+{
+  "meta": {
+    "source": "A. O. Smith Residential Gas Water Heater Use & Care Guide (100400765) and Residential Electronic Thermostat Electric Water Heater Use & Care Guide (2000598248); U.S. CPSC Publication 5098; CDC Legionella control guidance; DOE FEMP; Watts relief valve warning tag and Series 100XL specification sheet; The Home Depot listing prices",
+    "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Facts used by the Phase 6d safety pages: water heater temperature setting, the temperature and pressure (T&P) relief valve, and heating element replacement. Every figure is quoted from the reference named in its record; every reference was opened on its 'checked' date and the quoted text was read in the document itself. Parts prices are retailer listing prices on that date and change often. Nothing here is our own measurement or advice of our own."
+  },
+  "references": {
+    "aos-gas-manual": {
+      "publisher": "A. O. Smith",
+      "title": "Residential Gas Water Heater Installation Instructions and Use & Care Guide (100400765)",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Table 1: Temperature / Time to Produce a Serious Burn: 120°F (49°C) More than 5 minutes; 125°F (52°C) 1-½ to 2 minutes; 130°F (54°C) About 30 seconds; 135°F (57°C) About 10 seconds; 140°F (60°C) Less than 5 seconds; 145°F (63°C) Less than 3 seconds; 150°F (66°C) About 1-½ seconds; 155°F (68°C) About 1 second.",
+        "Higher temperatures increase the risk of scalding, but even at 120°F, hot water can scald.",
+        "In some cases, repeated small draws of water can cause the hot and cold water in the tank to 'stack' in layers. If this happens, the water can be as much as thirty degrees hotter than the gas control valve setting.",
+        "According to a national standard American Society of Sanitary Engineering (ASSE 1070) and most local plumbing codes, the water heater's thermostat should not be used as the sole means to regulate water temperature and avoid scalds.",
+        "A higher temperature setting allows the tank to provide much more hot water ... Higher tank temperatures (140°F) also kill bacteria that cause a condition known as 'smelly water' and can reduce the levels of bacteria that cause water-borne diseases.",
+        "VAC 55°F; LOW 91°F; HOT 120°F; A 130°F; B 140°F; C 150°F; VERY HOT 155°F. NOTICE: The temperatures above are approximates.",
+        "If the hot water system has not been used for two weeks or more, open a hot water faucet for several minutes at the kitchen sink before using any electrical appliances connected to the hot water system.",
+        "Inspect and operate the Temperature and Pressure Relief Valve (T&P) annually (see the label on the T&P valve for maintenance schedule).",
+        "The T&P Relief Valve's relief pressure must not exceed the working pressure rating of the water heater as stated on the rating plate.",
+        "An explosion could occur if the T&P Relief Valve or discharge pipe is blocked. Do not cap or plug the T&P Relief Valve or discharge pipe.",
+        "Most codes allow a maximum incoming water pressure of 80 psi ... adjust the water pressure control to between 50 and 60 psi.",
+        "A small amount of water dripping from the Temperature and Pressure (T&P) Relief Valve usually means the home's water pressure is too high and/or you need a Thermal Expansion Tank.",
+        "If the T&P Relief Valve is discharging large amounts of very hot water, turn the gas supply valve off and call a qualified person.",
+        "If the water pressure is between 50 and 60 psi, a Thermal Expansion Tank is installed and properly pressurized, and the valve has been cleared of any debris, and it still drips, the valve may be broken — have a qualified person replace the T&P Relief Valve.",
+        "Expansion tanks are pre-charged with a minimum of 12 psi air charge. The expansion tank's air pressure must be adjusted to match the inlet pressure of your home but must not be higher than 80 psi.",
+        "A T&P Relief Valve that has been allowed to drip for an appreciable period of time should be inspected for mineral buildup.",
+        "If water does not flow freely from the end of the discharge pipe, turn the power to the water heater OFF. Call a qualified person to determine the cause.",
+        "The discharge pipe should be at least ¾\" inside diameter and sloped for proper drainage ... Terminate the discharge pipe a maximum of 6 inches above a floor drain or outside the building. Do not drain the discharge pipe into the drain pan ... Use only copper or CPVC pipe approved for discharge use ... Do not insert or install any reducer in the discharge pipe.",
+        "Do not reuse an old T&P Relief Valve.",
+        "Should overheating occur or the burner fail to shut off, turn off the manual gas supply valve to the water heater and call a qualified person.",
+        "Water expands when heated, and the increased volume of water must have a place to go, or thermal expansion will cause large increases in water pressure ... The Safe Drinking Water Act of 1974 requires the use of backflow preventers and check valves ... Backflow preventers are often installed in water meters and may not be readily visible. As a result, most all plumbing systems today are now 'closed,' and almost all homes now need a Thermal Expansion Tank.",
+        "Over the years, many utilities have increased water supply pressures so they can serve more homes. In some homes today, pressures can exceed 100 psi."
+      ]
+    },
+    "aos-electric-manual": {
+      "publisher": "A. O. Smith",
+      "title": "Residential Electronic Thermostat Electric Water Heater Use & Care Guide (2000598248)",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The thermostat(s) on this water heater have been factory set to approximately 120°F to reduce the risk of scalding.",
+        "Check element circuits for resistance of 5-25 ohms (replace if required).",
+        "If both elements test good, replace the thermostat.",
+        "If the lower heating element is not working, you will have some hot water but not as much as before. Because the lower element does most of the work, the lower element usually wears out before the upper element.",
+        "WARNING! Working on an energized circuit can result in severe injury or death from electrical shock. Turn power off. Check wires with a non-contact circuit tester to make sure power is off.",
+        "If you are not comfortable replacing a heating element or thermostat yourself, have this work done by a qualified person.",
+        "Check your water heater's data plate for the correct wattage and voltage.",
+        "Steps for Replacing the Heating Element: 1 Turn the power OFF at the circuit breaker or remove fuses. 2 ... Using a non-contact circuit tester, check the power wires to make certain the power is OFF. 3 Open a hot water faucet and let the hot water run until it is cool. 4 Connect a garden hose to the drain valve ... Turn OFF the cold water valve ... Open the drain valve. 5 Remove the upper control assembly or lower access panel ... fold back the insulation and remove the plastic element/thermostat cover. 6 With the tank drained and power off, remove the power wires from the element you intend to replace. 7 Remove the bad element using an element wrench. 8 Make sure the new element is the correct replacement by referring to the water heater's data plate for voltage and wattage information. 9 Clean the threads in the tank opening with a rag. Insert the new element equipped with a rubber gasket. 10 Refill the tank ... Allow the hot water to run full for at least three minutes ... 11 Check the newly installed element for leaks. 12 ... replace the power wires, thermostat cover, insulation, and access panel ... 13 Restore power to the water heater. It may take two hours for the tank to heat up.",
+        "Connecting electrical power to the tank before it is completely full of water (water must run FULL STREAM from a hot water tap for a full three minutes) may cause the upper heating element to burn out.",
+        "A non functioning thermostat or a shorted heating element can cause extremely hot water. If the Temperature and Pressure Relief Valve (T&P Valve) releases large amounts of very hot water, it is likely due to a shorted heating element.",
+        "No Hot Water ... possible causes are: No electric power ... Burned out upper element ... Tripped Energy Cut Off. At any given time, the control assembly only energizes one element at a time.",
+        "To save energy, lower the temperature setting on the thermostat if you plan to be gone for an extended time.",
+        "NOTICE: Do not turn power back on until the tank is completely full of water ... Failure to perform this step can activate the Dry-Fire diagnostic code.",
+        "If you cannot stop the leak, drain the tank and remove the element. Inspect the gasket for damage. If the gasket is damaged, replace the gasket and re-install the element.",
+        "Some regular sockets (1 1/2 inch) may work, but regular sockets are often beveled and may slip.",
+        "NOTICE: It is not necessary to drain the tank to replace a thermostat."
+      ]
+    },
+    "cpsc-scald": {
+      "publisher": "U.S. Consumer Product Safety Commission",
+      "title": "Avoiding Tap Water Scalds (Publication 5098)",
+      "sourceUrl": "https://www.cpsc.gov/s3fs-public/5098-Tap-Water-Scalds.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The U.S. Consumer Product Safety Commission (CPSC) urges all users to lower their water heaters to 120 degrees Fahrenheit. In addition to preventing accidents, this decrease in temperature will conserve energy and save money.",
+        "Most adults will suffer third-degree burns if exposed to 150 degree water for two seconds. Burns will also occur with a six-second exposure to 140 degree water or with a thirty second exposure to 130 degree water. Even if the temperature is 120 degrees, a five minute exposure could result in third-degree burns.",
+        "The majority of injuries and deaths involving tap water scalds are to the elderly and children under the age of five.",
+        "Hold a candy or meat thermometer under faucet for most accurate reading first thing in the morning or at least two hours after water use.",
+        "Most electric water heaters have two thermostats, both of which must be set to a common temperature for proper operation.",
+        "Electric water heaters. Call your local electric company to adjust the thermostat. Some companies offer this service at no-charge."
+      ]
+    },
+    "cdc-potable": {
+      "publisher": "U.S. Centers for Disease Control and Prevention",
+      "title": "Controlling Legionella in Potable Water Systems (Legionella Control Toolkit)",
+      "sourceUrl": "https://www.cdc.gov/control-legionella/php/toolkit/potable-water-systems-module.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Store hot water at temperatures above 140°F (60°C).",
+        "Ensure hot water in circulation does not fall below 120°F (49°C).",
+        "Thermostatic mixing valves help prevent scalding."
+      ]
+    },
+    "cdc-monitor": {
+      "publisher": "U.S. Centers for Disease Control and Prevention",
+      "title": "Monitoring Building Water",
+      "sourceUrl": "https://www.cdc.gov/control-legionella/php/guidance/monitor-water-guidance.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "There's potential for Legionella growth in the absence of other Legionella controls under either of the following conditions: Cold water temperatures rise above 77°F (25°C); Warm water temperatures fall below 120°F (49°C).",
+        "Maintain water heaters at appropriate temperatures while following local and state anti-scald regulations."
+      ]
+    },
+    "cdc-rental": {
+      "publisher": "U.S. Centers for Disease Control and Prevention",
+      "title": "Considerations for Vacation Rental Owners and Managers",
+      "sourceUrl": "https://www.cdc.gov/control-legionella/php/hospitality/considerations-for-vacation-rental-owners-and-managers.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Set your property's water heater at or above 120°F to minimize the growth of Legionella.",
+        "A hotter water temperature of 130–140°F can kill many harmful germs, but also increases the scalding risk.",
+        "If the water heater is set above 120°F, use thermostatic mixing valves at the faucet or shower to avoid scalding."
+      ]
+    },
+    "cdc-about": {
+      "publisher": "U.S. Centers for Disease Control and Prevention",
+      "title": "About Legionnaires' Disease",
+      "sourceUrl": "https://www.cdc.gov/legionella/about/index.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "People can get Legionnaires' disease by breathing in mist containing Legionella bacteria.",
+        "Certain people are at increased risk for this infection."
+      ]
+    },
+    "doe-femp": {
+      "publisher": "U.S. Department of Energy, Federal Energy Management Program",
+      "title": "Purchasing Energy-Efficient Residential Water Heaters",
+      "sourceUrl": "https://www.energy.gov/cmei/femp/purchasing-energy-efficient-residential-water-heaters",
+      "checked": "2026-11-13",
+      "quotes": [
+        "For most residential applications, set the temperature at 120°F.",
+        "For residential applications, set the temperature on this device, also known as a mixing valve, to 120°F."
+      ]
+    },
+    "watts-tag": {
+      "publisher": "Watts Regulator Co.",
+      "title": "Temperature and pressure relief valve warning tag (Tag-3L-RWH)",
+      "sourceUrl": "https://res.cloudinary.com/consolidated-supply/resource/raw/watts_0011086_manual.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "At least once per year the water heater Owner must manually operate this valve to ensure waterways are clear.",
+        "If no water flows when the lever is operated, TURN OFF THE WATER HEATER (see water heater instruction manual) and CALL A PLUMBER IMMEDIATELY.",
+        "At least every three years this valve should be inspected by a licensed plumbing contractor or qualified service technician and replaced if necessary.",
+        "If discharge occurs during normal operation CALL A PLUMBER IMMEDIATELY. Discharge indicates an unsafe temperature or pressure condition or a problem with this valve.",
+        "Repair or alteration of this valve by anyone is prohibited by national safety standards/local codes.",
+        "Discharge line shall terminate through plain (unthreaded) pipe with at least a 6\" (152mm) air gap ... In no case may a discharge line be directly connected to a sewer line ... Excessive length over 30' (9.14m), use of more than four elbows, or reducing discharge line size will cause a restriction and reduce the discharge capacity of the valve."
+      ]
+    },
+    "watts-spec": {
+      "publisher": "Watts",
+      "title": "Series 1L, 1XL, 10L, 100XL Temperature and Pressure Relief Valves, specification sheet (ES-10L/100XL)",
+      "sourceUrl": "https://image.stockpileexpress.com/ProductInfo/es-10l-100xl.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Temperature relief 210°F (99°C). Standard settings 75, 100, 125, 150psi.",
+        "The device shall be ANSI Z21.22 certified.",
+        "Maximum system operating pressure must not exceed 75% of valve set pressure.",
+        "The BTU discharge capacity of the device shall be in excess of the BTU input rating of the heater."
+      ]
+    },
+    "hd-tp-valves": {
+      "publisher": "The Home Depot",
+      "title": "Search: temperature pressure relief valve water heater (listing prices)",
+      "sourceUrl": "https://www.homedepot.com/s/temperature%20pressure%20relief%20valve%20water%20heater",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Rheem PROTECH 3 1/4 in. Standard Shank Water Heater Temperature and Pressure Relief Valve: $14.50",
+        "Cash Acme 3/4 in. Bronze NCLX Temperature and Pressure Relief Valve with 1-1/4 in. Shank: $23.97",
+        "Rheem PROTECH 4-1/4 in. Shank Temperature and Pressure Relief Valve for Electric and Gas Water Heaters: $27.79",
+        "Rheem PROTECH Long Shank Temperature and Pressure Relief Valve, 4-5/16 in. Shank: $33.99"
+      ]
+    },
+    "hd-elements": {
+      "publisher": "The Home Depot",
+      "title": "Search: water heater heating element 4500 watt (listing prices)",
+      "sourceUrl": "https://www.homedepot.com/s/water%20heater%20heating%20element%204500%20watt",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Rheem PROTECH 4500-Watt (240-Volt) Copper Element for Electric Water Heaters SP10552MH: $8.99",
+        "Everbilt 4500-Watt/240-Volt HWD Water Heater Element EBSE-4500-240: $12.98",
+        "Everbilt 4500-Watt/240-Volt Low-Watt Density Fold-Back Screw-In Stainless Steel Alloy element: $18.98",
+        "Rheem PROTECH 240-Volt, 4500-Watt Stainless Steel Fold-Back Heating Element: $22.94",
+        "Rheem PROTECH 240-Volt, 4500-Watt Stainless Steel Heating Element: $34.49",
+        "Westinghouse 240-Volt 4500-Watt Titanium Electric Water Heating Element for Universal Replacement: $59.99",
+        "Everbilt 4500-Watt/240-Volt Electric Water Heater Tune-Up Kit EBSE-4500KIT: $34.98"
+      ]
+    }
+  },
+  "temp": {
+    "cpscF": 120,
+    "fempF": 120,
+    "aosElectricFactoryF": 120,
+    "stackingF": 30,
+    "cdcStoreF": 140,
+    "cdcCirculateF": 120,
+    "cdcRentalMinF": 120,
+    "cdcKillLowF": 130,
+    "cdcKillHighF": 140,
+    "cdcColdGrowthF": 77,
+    "aosBacteriaF": 140,
+    "cpscMinutes": "five",
+    "thermometerWaitHours": "two",
+    "hydrogenWeeks": "two",
+    "vacationF": 55,
+    "capacitySettingsF": [
+      120,
+      130,
+      140,
+      150
+    ]
+  },
+  "tp": {
+    "tempReliefF": 210,
+    "setPsiOptions": "75, 100, 125 or 150",
+    "commonSetPsi": 150,
+    "maxOperatingShare": 0.75,
+    "codeMaxPsi": 80,
+    "prvLowPsi": 50,
+    "prvHighPsi": 60,
+    "expTankPrechargeMinPsi": 12,
+    "expTankPrechargeMaxPsi": 80,
+    "testEveryYears": 1,
+    "inspectEveryYears": 3,
+    "dischargeMinIn": "¾",
+    "terminateMaxIn": 6,
+    "airGapIn": 6,
+    "maxLengthFt": 30,
+    "maxElbows": 4,
+    "standard": "ANSI Z21.22",
+    "priceLow": "14.50",
+    "priceHigh": "33.99",
+    "someHomesPsi": 100
+  },
+  "element": {
+    "ohmsLow": 5,
+    "ohmsHigh": 25,
+    "fillMinutes": "three",
+    "heatUpHours": "two",
+    "priceLow": "8.99",
+    "priceHigh": "59.99",
+    "kitPrice": "34.98",
+    "ratings": [
+      {
+        "volts": 240,
+        "watts": 3500
+      },
+      {
+        "volts": 240,
+        "watts": 3800
+      },
+      {
+        "volts": 240,
+        "watts": 4500
+      },
+      {
+        "volts": 240,
+        "watts": 5500
+      },
+      {
+        "volts": 120,
+        "watts": 1500
+      },
+      {
+        "volts": 120,
+        "watts": 2000
+      }
+    ],
+    "ratingsSource": "Element ratings sold for residential water heaters (The Home Depot listings, 2026-11-13); the right one for your heater is the voltage and wattage on its data plate (A. O. Smith)"
+  },
+  "tables": {
+    "scald": {
+      "caption": "How fast hot water burns, and the gas control dial setting for each temperature",
+      "columns": [
+        {
+          "key": "t",
+          "label": "Water temperature"
+        },
+        {
+          "key": "dial",
+          "label": "A. O. Smith gas dial (approx.)"
+        },
+        {
+          "key": "aos",
+          "label": "Serious burn (A. O. Smith)"
+        },
+        {
+          "key": "cpsc",
+          "label": "Third-degree burn, adults (CPSC)"
+        }
+      ],
+      "rows": [
+        {
+          "t": "120 °F (49 °C)",
+          "dial": "HOT",
+          "aos": "More than 5 minutes",
+          "cpsc": "5 minutes"
+        },
+        {
+          "t": "125 °F (52 °C)",
+          "dial": "–",
+          "aos": "1½ to 2 minutes",
+          "cpsc": "–"
+        },
+        {
+          "t": "130 °F (54 °C)",
+          "dial": "A",
+          "aos": "About 30 seconds",
+          "cpsc": "30 seconds"
+        },
+        {
+          "t": "135 °F (57 °C)",
+          "dial": "–",
+          "aos": "About 10 seconds",
+          "cpsc": "–"
+        },
+        {
+          "t": "140 °F (60 °C)",
+          "dial": "B",
+          "aos": "Less than 5 seconds",
+          "cpsc": "6 seconds"
+        },
+        {
+          "t": "145 °F (63 °C)",
+          "dial": "–",
+          "aos": "Less than 3 seconds",
+          "cpsc": "–"
+        },
+        {
+          "t": "150 °F (66 °C)",
+          "dial": "C",
+          "aos": "About 1½ seconds",
+          "cpsc": "2 seconds"
+        },
+        {
+          "t": "155 °F (68 °C)",
+          "dial": "VERY HOT",
+          "aos": "About 1 second",
+          "cpsc": "–"
+        }
+      ],
+      "source": "A. O. Smith gas Use & Care Guide 100400765 (Table 1 and gas control settings); CPSC Publication 5098. A dash means the source gives no figure for that temperature.",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "tpCauses": {
+      "caption": "What a leaking relief valve is telling you",
+      "columns": [
+        {
+          "key": "see",
+          "label": "What you see"
+        },
+        {
+          "key": "cause",
+          "label": "Likely cause"
+        },
+        {
+          "key": "do",
+          "label": "What to do"
+        },
+        {
+          "key": "who",
+          "label": "Source"
+        }
+      ],
+      "rows": [
+        {
+          "see": "A small drip from the discharge pipe, often after hot water use or overnight",
+          "cause": "Water pressure too high, or no working thermal expansion tank",
+          "do": "Check pressure with a gauge; a pressure-reducing valve set to 50–60 psi and a sized expansion tank are the usual fixes",
+          "who": "A. O. Smith gas manual"
+        },
+        {
+          "see": "A drip that started after you tested the valve",
+          "cause": "Debris or mineral scale holding the seat open",
+          "do": "Operate the lever once more to flush it; if it keeps dripping, have the valve inspected",
+          "who": "A. O. Smith gas manual"
+        },
+        {
+          "see": "A drip with pressure at 50–60 psi and a working expansion tank",
+          "cause": "A worn or broken valve",
+          "do": "Have a qualified person replace the valve; do not repair it",
+          "who": "A. O. Smith gas manual; Watts tag"
+        },
+        {
+          "see": "A lot of very hot water or steam pouring out",
+          "cause": "The tank is overheating: a failed thermostat or gas control, or a shorted element on an electric tank",
+          "do": "Stand clear, turn the gas supply or the breaker off, and call a qualified person now",
+          "who": "A. O. Smith gas and electric manuals; Watts tag"
+        },
+        {
+          "see": "Nothing comes out when you lift the lever",
+          "cause": "The valve or its pipe is blocked by deposits",
+          "do": "Turn the water heater off and call a plumber; the tank has no working protection",
+          "who": "Watts tag; A. O. Smith gas manual"
+        },
+        {
+          "see": "A dripping expansion tank setup that still leaks",
+          "cause": "Expansion tank sized wrong, lost its air charge, or pressure still too high",
+          "do": "Check the tank's air charge matches house pressure (not above 80 psi) and its size",
+          "who": "A. O. Smith gas manual"
+        }
+      ],
+      "source": "A. O. Smith gas Use & Care Guide 100400765 (troubleshooting and T&P maintenance); A. O. Smith electric Use & Care Guide 2000598248; Watts relief valve warning tag",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "elementSymptoms": {
+      "caption": "Upper or lower element: what each failure looks like",
+      "columns": [
+        {
+          "key": "sign",
+          "label": "What you notice"
+        },
+        {
+          "key": "which",
+          "label": "Usual suspect"
+        },
+        {
+          "key": "why",
+          "label": "Why"
+        }
+      ],
+      "rows": [
+        {
+          "sign": "Some hot water, but it runs out much sooner than it used to",
+          "which": "Lower element",
+          "why": "A. O. Smith: the lower element does most of the work and usually wears out first; the upper one still heats the top of the tank"
+        },
+        {
+          "sign": "No hot water at all, breaker on, reset button not tripped",
+          "which": "Upper element (or upper thermostat)",
+          "why": "A. O. Smith lists a burned-out upper element among the causes of no hot water; its controls run only one element at a time"
+        },
+        {
+          "sign": "Reset button or breaker trips again soon after a reset",
+          "which": "A shorted or grounded element",
+          "why": "A. O. Smith: a shorted element lets the tank overheat or draws too much current"
+        },
+        {
+          "sign": "Relief valve releases a lot of very hot water",
+          "which": "A shorted element (rarely a thermostat)",
+          "why": "A. O. Smith electric manual; turn the breaker off first"
+        },
+        {
+          "sign": "Water seeping from the side of the tank at an access panel",
+          "which": "Element gasket",
+          "why": "A. O. Smith: failed gaskets let water seep from the side of the tank where the elements pass through the steel"
+        },
+        {
+          "sign": "Error code naming the upper or lower element circuit (electronic models)",
+          "which": "The element the code names",
+          "why": "A. O. Smith electronic models report which circuit failed"
+        }
+      ],
+      "source": "A. O. Smith electric Use & Care Guide 2000598248 (troubleshooting and diagnostic codes); A. O. Smith leaking guide",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

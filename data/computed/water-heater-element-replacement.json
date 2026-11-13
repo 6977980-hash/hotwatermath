@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/safety.json (element ratings) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Resistance = volts² ÷ watts, formulas.elementResistanceOhms; current = watts ÷ volts, formulas.electricAmps. These are the cold readings of a good element at its rated voltage; A. O. Smith's own pass range is wider (5–25 ohms) to cover tolerance and other ratings."
+  },
+  "figures": {
+    "ohms4500": "12.8",
+    "amps4500": "18.8",
+    "minOhms": "7.2",
+    "maxOhms": "16.5"
+  },
+  "tables": {
+    "ohms": {
+      "caption": "What a good heating element should read (cold, power off)",
+      "columns": [
+        {
+          "key": "rating",
+          "label": "Element rating"
+        },
+        {
+          "key": "ohms",
+          "label": "Resistance",
+          "unit": "Ω",
+          "num": true
+        },
+        {
+          "key": "amps",
+          "label": "Current when on",
+          "unit": "A",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "rating": "3,500 W, 240 V",
+          "ohms": "16.5",
+          "amps": "14.6"
+        },
+        {
+          "rating": "3,800 W, 240 V",
+          "ohms": "15.2",
+          "amps": "15.8"
+        },
+        {
+          "rating": "4,500 W, 240 V",
+          "ohms": "12.8",
+          "amps": "18.8"
+        },
+        {
+          "rating": "5,500 W, 240 V",
+          "ohms": "10.5",
+          "amps": "22.9"
+        },
+        {
+          "rating": "1,500 W, 120 V",
+          "ohms": "9.6",
+          "amps": "12.5"
+        },
+        {
+          "rating": "2,000 W, 120 V",
+          "ohms": "7.2",
+          "amps": "16.7"
+        }
+      ],
+      "source": "Ohm's law: resistance = volts² ÷ watts, current = watts ÷ volts (formulas.elementResistanceOhms, electricAmps). Element ratings sold for residential water heaters (The Home Depot listings, 2026-11-13); the right one for your heater is the voltage and wattage on its data plate (A. O. Smith). A. O. Smith's pass range: 5–25 ohms.",
+      "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

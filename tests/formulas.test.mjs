@@ -599,3 +599,17 @@ test('monthly mains temperature: stays inside the coldest/warmest band, coldest 
 	const mean = m.reduce((a, b) => a + b, 0) / 12;
 	assert.ok(Math.abs(mean - band.annualAvg) < 0.6);
 });
+
+test('elementResistanceOhms: 4500 W at 240 V → 12.8 Ω, 5500 W → 10.47 Ω, 1500 W at 120 V → 9.6 Ω; bad input → null', () => {
+	near(F.elementResistanceOhms(240, 4500), 12.8);
+	near(F.elementResistanceOhms(240, 5500), 10.47, 0.005);
+	near(F.elementResistanceOhms(120, 1500), 9.6);
+	assert.equal(F.elementResistanceOhms(240, 0), null);
+});
+
+test('extraMixedWaterShare: 105 °F shower, 50 °F inlet: a 140 °F tank gives 29% more mixed water than 120 °F', () => {
+	const a = F.hotShareOfMix(105, 120, 50); // 0.7857
+	const b = F.hotShareOfMix(105, 140, 50); // 0.6111
+	near(F.extraMixedWaterShare(a, b), 0.2857, 0.0005);
+	assert.equal(F.extraMixedWaterShare(a, 0), null);
+});

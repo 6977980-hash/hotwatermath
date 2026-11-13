@@ -274,6 +274,17 @@ $hwm_dr   = 'decision-rules';
 	<p>Inlet temperatures are the coldest and warmest monthly estimates described above under the tankless calculator. <strong>Limitations.</strong> Pipe heat losses, standby losses and shower habits are not modelled; real draws are a little higher.</p>
 </section>
 
+<section id="safety-pages">
+	<h3>Safety pages: tank setting, relief valve and heating element tables</h3>
+	<p>The safety pages restate official sources (CPSC, CDC, DOE) and manufacturer manuals; the only numbers that are ours are three small pieces of arithmetic:</p>
+	<ol>
+		<li><strong>Hot water at a higher setting</strong> (<?php echo hwm_link( 'water-heater-temperature-setting', 'water heater temperature setting' ); // phpcs:ignore ?>): the tank share of a <?php echo esc_html( hwm_value( 'troubleshooting', 'runsOut.showerMixF' ) ); ?> °F shower is (shower − inlet) ÷ (tank − inlet), as in the table above; extra mixed water = share at <?php echo esc_html( hwm_value( 'site', 'defaults.setpointTempF' ) ); ?> °F ÷ share at the hotter setting − 1. It only holds when a mixing valve holds the shower at the same temperature.</li>
+		<li><strong>Normal pressure limit</strong> (<?php echo hwm_link( 'water-heater-pressure-relief-valve-leaking', 'relief valve leaking' ); // phpcs:ignore ?>): the valve's set pressure × <?php echo esc_html( hwm_value( 'computed/water-heater-pressure-relief-valve-leaking', 'figures.sharePct' ) ); ?>%, Watts' stated maximum operating share.</li>
+		<li><strong>Element resistance</strong> (<?php echo hwm_link( 'water-heater-element-replacement', 'water heater element replacement' ); // phpcs:ignore ?>): Ohm's law, resistance = volts² ÷ watts and current = watts ÷ volts, for the ratings sold for home water heaters. A. O. Smith's pass range (<?php echo esc_html( hwm_value( 'safety', 'element.ohmsLow' ) ); ?>–<?php echo esc_html( hwm_value( 'safety', 'element.ohmsHigh' ) ); ?> ohms) is shown next to it.</li>
+	</ol>
+	<p><strong>Limitations.</strong> Pipe and tank heat losses are not modelled; element readings vary with tolerance and temperature. Every safety statement on these pages carries its own source, and none is our own advice.</p>
+</section>
+
 <section id="state-cost-pages">
 	<h3>State cost pages (installation cost by state)</h3>
 	<p>Each page under <?php echo hwm_link( 'water-heater-installation-cost', 'water heater replacement cost' ); // phpcs:ignore ?> for a state reuses the cost calculator's model and the state data files, so its numbers match the calculators to the dollar:</p>
@@ -293,6 +304,7 @@ $hwm_dr   = 'decision-rules';
 <?php
 $hwm_files = array(
 	'site'                      => 'Default setpoint and national energy prices',
+	'safety'                    => 'Scald times, CDC Legionella limits, relief valve and heating element facts (safety pages)',
 	'fixture-flow-rates'        => 'Fixture and appliance flow rates',
 	'groundwater-temp-by-state' => 'Air temperature normals and the mains water correlation',
 	'peak-hour-demand'          => 'Hot water per use for the peak-hour worksheet',

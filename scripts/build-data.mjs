@@ -69,6 +69,7 @@ export const INPUTS = [
 	'data/troubleshooting.json',
 	'data/state-pages.json',
 	'data/metro-price-parities.json',
+	'data/safety.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -1706,6 +1707,51 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		meta: { ...derived('the state cost pages'), notes: 'One row per built state page, for the parent replacement cost article (links to every state page).' },
 		rows: index.map((x) => ({ ...x, g50f: fmt(x.g50), e50f: fmt(x.e50), hp50f: fmt(x.hp50), multf: fmt(x.mult, 3), main: x.electricPct > x.gasPct ? 'Electric' : 'Gas' })),
 	};
+}
+
+/* ---------- Phase 6d batch 1: temperature setting, relief valve, heating element ---------- */
+{
+	const sf = d.safety;
+	const ro = d.troubleshooting.runsOut;
+	const shower = d['fixture-flow-rates'].fixtures.shower;
+	const mins = ro.exampleShowerMinutes;
+	const inletF = ro.winterInletHighF; // A. O. Smith's top of the winter range, same example as hot-water-runs-out-fast
+	const base = d.site.defaults.setpointTempF.value;
+	const et = out['water-heater-expansion-tank-size'].figures;
+	const shareBase = F.hotShareOfMix(ro.showerMixF, base, inletF);
+	const capRows = sf.temp.capacitySettingsF.map((t) => {
+		const s = F.hotShareOfMix(ro.showerMixF, t, inletF);
+		return { t, share: Math.round(s * 100), gal: F.hotGallonsDrawn(shower.gpm, mins, s), extra: Math.round(F.extraMixedWaterShare(shareBase, s) * 100) };
+	});
+	const at = (t) => capRows.find((x) => x.t === t);
+	out['water-heater-temperature-setting'] = {
+		meta: { ...derived('data/safety.json (settings compared), data/troubleshooting.json (shower temperature, inlet example), data/fixture-flow-rates.json and data/site.json'), notes: 'Tank share of a mixed shower = (shower − inlet) ÷ (tank − inlet), formulas.hotShareOfMix; tank gallons = flow × minutes × share, formulas.hotGallonsDrawn; extra mixed water = share at 120 °F ÷ share at the hotter setting − 1, formulas.extraMixedWaterShare. Only true when a mixing valve (or the user) mixes the water down to the same shower temperature. Heat loss in the pipes and in the tank is not counted, so real tanks deliver a little less in every row.' },
+		figures: { base, mixF: ro.showerMixF, inletF, gpm: shower.gpm, minutes: mins, share120: at(120).share, gal120: fmt(at(120).gal, 1), share140: at(140).share, gal140: fmt(at(140).gal, 1), extra140: at(140).extra, extra130: at(130).extra, exp120: et.f120, exp140: et.f140 },
+		tables: {
+			capacity: table(`How far a tank stretches at each setting (${fmt(shower.gpm, 1)} GPM shower at ${ro.showerMixF} °F, ${inletF} °F incoming water, ${mins} minutes)`, [{ key: 't', label: 'Tank setting', unit: '°F', num: true }, { key: 'share', label: 'Share of the shower from the tank', unit: '%', num: true }, { key: 'gal', label: 'Tank water used', unit: 'gal', num: true }, { key: 'extra', label: `Mixed water vs ${base} °F`, num: true }], capRows.map((x) => ({ t: fmt(x.t), share: fmt(x.share), gal: fmt(x.gal, 1), extra: x.t === base ? 'Baseline' : `+${x.extra}%` })), { source: 'Computed with formulas.hotShareOfMix and hotGallonsDrawn; shower temperature from Stiebel Eltron\'s sizing sheet, winter inlet from A. O. Smith, shower flow is the federal maximum. Needs a mixing valve to hold the shower at the same temperature.', sourceUrl: 'https://hotwatermath.com/methodology/#safety-pages', sourceDate: sf.meta.sourceDate }),
+		},
+	};
+	const tp = sf.tp;
+	out['water-heater-pressure-relief-valve-leaking'] = {
+		meta: { ...derived('data/safety.json (relief valve figures) and data/computed/water-heater-expansion-tank-size.json'), notes: 'Highest normal operating pressure = valve set pressure × Watts\' 75% limit. Expansion = AMTROL factor for a 50-gallon tank heated from 40 °F (expansion tank calculator).' },
+		figures: { maxOperatingPsi: fmt(tp.commonSetPsi * tp.maxOperatingShare, 1), sharePct: fmt(tp.maxOperatingShare * 100), heater: et.heater, exp120: et.f120, exp140: et.f140, exp120Gal: et.d0.expanded, tank: et.d0.tank },
+	};
+	const el = sf.element;
+	const elRows = el.ratings.map((x) => ({ volts: x.volts, watts: x.watts, ohms: F.elementResistanceOhms(x.volts, x.watts), amps: F.electricAmps(x.watts / 1000, x.volts) }));
+	const e4500 = elRows.find((x) => x.volts === 240 && x.watts === 4500);
+	out['water-heater-element-replacement'] = {
+		meta: { ...derived('data/safety.json (element ratings)'), notes: 'Resistance = volts² ÷ watts, formulas.elementResistanceOhms; current = watts ÷ volts, formulas.electricAmps. These are the cold readings of a good element at its rated voltage; A. O. Smith\'s own pass range is wider (5–25 ohms) to cover tolerance and other ratings.' },
+		figures: { ohms4500: fmt(e4500.ohms, 1), amps4500: fmt(e4500.amps, 1), minOhms: fmt(Math.min(...elRows.map((x) => x.ohms)), 1), maxOhms: fmt(Math.max(...elRows.map((x) => x.ohms)), 1) },
+		tables: {
+			ohms: table('What a good heating element should read (cold, power off)', [{ key: 'rating', label: 'Element rating' }, { key: 'ohms', label: 'Resistance', unit: 'Ω', num: true }, { key: 'amps', label: 'Current when on', unit: 'A', num: true }], elRows.map((x) => ({ rating: `${fmt(x.watts)} W, ${x.volts} V`, ohms: fmt(x.ohms, 1), amps: fmt(x.amps, 1) })), { source: `Ohm's law: resistance = volts² ÷ watts, current = watts ÷ volts (formulas.elementResistanceOhms, electricAmps). ${el.ratingsSource}. A. O. Smith's pass range: ${el.ohmsLow}–${el.ohmsHigh} ohms.`, sourceUrl: 'https://hotwatermath.com/methodology/#safety-pages', sourceDate: sf.meta.sourceDate }),
+		},
+	};
+	// Guard: the element page's description quotes the 4,500 W resistance and the rounded part price range.
+	{
+		const pg = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages.find((x) => x.slug === 'water-heater-element-replacement');
+		const want = [`${fmt(e4500.ohms, 1)} ohms`, `$${Math.round(Number(el.priceLow))} to $${Math.round(Number(el.priceHigh))}`];
+		for (const w of want) if (pg && pg.status !== 'planned' && !String(pg.description).includes(w)) throw new Error(`pages.json description for water-heater-element-replacement must contain "${w}"; update it.`);
+	}
 }
 
 /* ---------- write + manifest ---------- */

@@ -4,48 +4,44 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6c — State pages, 10 states (2026-11-13). Owner OK 2026-11-13: the 10 state pages and Phase 6b batch 2's 4 pages are now `live`.
-**Next phase to run:** Phase 6d — Safety-critical pages (built last), per `docs/PHASES.md`.
+**Last completed phase:** Phase 6d batch 1 — Safety pages: temperature setting, relief valve leaking, element replacement (2026-11-13). The 3 new pages are `draft` (noindex) until the owner OKs them (quality gate §8, PHASES 6d "owner has read each page before live").
+**Next phase to run:** Phase 6d batch 2 — gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (per `docs/PHASES.md` and `docs/DECISIONS.md` 6d row).
 
-**What exists now (new or changed in Phase 6c):**
-- `templates/state-cost.php` — shared template for `/water-heater-installation-cost/{state}/` (routed by `template: "state-cost"` in `inc/helpers.php`)
-- `content/water-heater-installation-cost-state.php` — shared body: cost vs U.S., "What stands out" highlights, metro table, itemized gas + electric, calculator preset to the state, sourced state notes, running cost + 10-year cost, fuel mix, winter tankless + month-by-month table, rebate status, FAQ (6), sources (8–10). Section order follows the state's main fuel.
-- `data/state-pages.json` — 10 states (Census Vintage 2025 rank), EIA RECS 2020 fuel shares, rebate status quoted from each official page (checked 2026-11-13), California strap-law note (Seismic Safety Commission)
-- `data/metro-price-parities.json` + `scripts/fetch-metro-rpp.mjs` (`npm run fetch:metros`) — 5 largest metros per state with BEA metro RPP via FRED; skipped metros without a series are recorded
-- `assets/js/formulas.js` + `monthlyMainsTemps`, `MID_MONTH_DAYS`, `MONTH_DAYS`; `data/groundwater-temp-by-state.json → correlation` + lag/sine terms (also in `scripts/fetch-sources.mjs`); `tests/formulas.test.mjs` +1 test
-- `scripts/build-data.mjs` — state block: `data/computed/water-heater-installation-cost-<state>.json` ×10 and `data/computed/state-cost-index.json`; guards on description/quick-answer prices and ≥2 highlights
-- `inc/pages-sync.php` — child pages: slug `a/b` → `post_name` b under parent a (parent must come first in the registry)
-- `inc/seo.php`, `scripts/build-og.mjs` — OG file for a child slug uses `-` for `/`; `assets/og/` 10 images
-- `content/water-heater-installation-cost.php` (live parent) — new table of the state pages (links show for visitors once a child is live); `content/methodology.php` section `#state-cost-pages`
-- `scripts/check-links.mjs` — parent ↔ child check (child links parent in body; parent links live children, names draft ones)
-- `data/pages.json` 10 drafts + group "Cost by State"; `style.css` 0.12.0; `docs/briefs/water-heater-installation-cost-states.md` (one brief for all 10, with quality check); `docs/DECISIONS.md` 2 rows
+**What exists now (new or changed in Phase 6d batch 1):**
+- `content/water-heater-temperature-setting.php` — 120 vs 140 °F table, scald table (A. O. Smith + CPSC + gas dial), CDC Legionella section, hotter-tank capacity table, embedded tank size calculator, CPSC thermometer method, gas/electric/tankless adjustment (owner-level only), vacation + hydrogen warning, FAQ 7, sources 8
+- `content/water-heater-pressure-relief-valve-leaking.php` — drip vs gush table, pressure scale SVG (50–60 / 80 / 112.5 / 150 psi), thermal expansion + embedded expansion tank calculator, annual test per label, no repair steps (Watts), part prices, discharge pipe rules table, FAQ 6, sources 6
+- `content/water-heater-element-replacement.php` — electrical notice, symptom table, ohms table (computed), buying by data plate, prices, embedded repair-or-replace, A. O. Smith's own replacement steps (attributed), dry-fire rule, upper vs lower table, FAQ 6, sources 5
+- `data/safety.json` — 12 references with quoted text (A. O. Smith gas + electric manuals, CPSC 5098, 4 CDC pages, DOE FEMP, Watts tag + spec sheet, 2 Home Depot searches), figures and 3 tables
+- `assets/js/formulas.js` + `elementResistanceOhms`, `extraMixedWaterShare`; `tests/formulas.test.mjs` +2 tests
+- `scripts/build-data.mjs` — 6d block: `data/computed/water-heater-{temperature-setting,pressure-relief-valve-leaking,element-replacement}.json`; guard: element description must quote the 4,500 W ohms and the rounded price range
+- `parts/expansion-tank-inputs.php` — shared inputs (tool page output unchanged, md5 identical before/after)
+- `content/water-heater-leaking.php` (live) — relief valve H2 now links the new page (plain text until it is live); `content/methodology.php` section `#safety-pages` + data file row
+- `data/pages.json` 3 drafts (group Troubleshooting & Care); `assets/og/` 3 images; `style.css` 0.13.0; `docs/briefs/` 3 briefs with claim → source lists and quality check; `docs/DECISIONS.md` 1 row
 
 **Verified (before deploy):**
-- `npm test` 64/64; `validate-data` 70 files OK; `--urls`: every new source 200 (47 FRED metro series, Census, EIA RECS, 8 state rebate pages, SSC); old known warnings only (InspectApedia 409, Watts 403).
-- Offline render (WP stubs): 0 PHP errors on all 10 pages, parent and methodology; 2,600–2,850 words each.
-- Uniqueness (state name masked): sentence/line diff 36–46% between every pair (acceptance ≥30%); strict word-level diff 13–43% (Texas vs Florida lowest).
-- Hand checks: Texas 50-gal gas = $899 + ($650 + $260) × 0.971 = $1,782; Texas winter tankless 189,050 BTU/h ÷ (8.34 × 60 × 59.3 °F) = 6.4 GPM; heat pump saving/payback equal the heat pump calculator's state table (Texas $296/yr, 4.6 yrs).
+- `npm test` 66/66; `validate-data` 74 files OK; `--urls`: every new source 200 (old known warnings only: InspectApedia 409, Watts ETP 403).
+- Offline render (WP stubs): 0 PHP errors on the 3 pages, the expansion tank tool, leaking and methodology; 2,600–2,900 words each.
+- Hand checks: 105 °F shower at 50 °F inlet: 55 ÷ 70 = 78.6% from a 120 °F tank, 55 ÷ 90 = 61.1% at 140 °F, 0.786 ÷ 0.611 − 1 = +29%; 240² ÷ 4,500 = 12.8 Ω, 4,500 ÷ 240 = 18.75 A; 150 psi × 75% = 112.5 psi.
+- §8b grep: every imperative gas/electrical step sits in a list introduced as A. O. Smith's or the valve label's own procedure; no gas work steps; no valve repair steps.
 
-**Verified live (after PR #31 deployed, 2026-11-13):**
-- style.css 0.12.0 served; `/?sync=` 200; the 10 child pages 200 at `/water-heater-installation-cost/<state>/` with `noindex, follow`, self canonical, one H1, BreadcrumbList Home › Guides › Water Heater Replacement Cost › state.
-- `npm run check -- --bust` 630/630; `npm run check-links -- --bust` 1216/1216 (50 pages, incl. the new parent ↔ child check).
-- Playwright 360x640 (TX, CA, NY, FL, NC, OH): no horizontal scroll, no console errors; calculator starts at the state (Texas electric $1,557, California gas with code items $2,073) and reacts (heat pump: Texas $2,913).
-- Note: any query string (even `?nocache=`) makes the cost calculator read the URL and re-tick the job's default extras, so California's preset code items drop off on such URLs. Pre-existing behavior of all calculators; harmless for real visitors.
+**Verified live:** see the line added after the deploy below.
 
 **Owner steps:**
-1. Done: owner OKed the 10 state pages and 4 batch-2 pages; they are `live` (style.css 0.12.1).
+1. Read the 3 safety drafts and reply OK to flip them `live` (§8 quality gate; PHASES 6d needs the owner to read each one).
 2. Flush the Hostinger CDN after this deploy (formulas.js changed).
-3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs.
+3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. PHASES 6d asks for GSC to show the tools indexed before these go live; GSC is not verified yet.
+4. Later: the post-launch plumber fact-check (§8b) should include these 3 pages.
 
 **Known issues / TODOs carried forward:**
-- Rebate status could not be confirmed for New York (NYSERDA 403), Ohio (no official status page found) and Michigan's remaining funds (michigan.gov 403); the pages say so. Re-check every 3 months with `data/incentives.json`.
-- Price differences between states are modest because only labor/permit/extras scale; the pages say the unit price is national.
-- Cleveland, Dayton and Kiryas Joel–Poughkeepsie have no BEA metro RPP series (redrawn areas); named on the page.
+- No sourced labor price for relief valve or element jobs; pages say so and send readers to the repair-or-replace calculator.
+- Watts spec sheet is a distributor-hosted copy (watts.com 403 to scripts); text matches Watts' product pages.
+- Batch 2 needs fuel gas pipe sizing tables (NFPA 54 / IFGC) and NEC rules; codes.iccsafe.org returns 403. Look for a state-adopted code PDF or a manufacturer installation manual that reprints the tables.
 - Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure.
 
 **Notes for the next thread:**
-- To make the state pages live, flip `status` in `data/pages.json`; the parent's state table then links them and `/guides/` shows the "Cost by State" group. Add more states only after GSC shows these 10 indexed (PHASES 6c task 5): add a record to `data/state-pages.json`, a registry entry, run `npm run fetch:metros` and `npm run build:data`.
-- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, is_user_logged_in → true, hwm_jsonld) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
+- Batch 2 slugs are already `planned` in `data/pages.json` (gas line, electrical); add the pilot light entry. Put their facts in `data/safety.json` (same reference pattern) and reuse `parts/safety-notice.php`.
+- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, hwm_jsonld) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
+- `npm run build:og` rewrites some unrelated PNGs; restore them with `git checkout` before committing.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -65,6 +61,7 @@
 - 2026-11-13 — Phase 6b batch 2 done — reset button, noise, runs out fast and rotten eggs articles (draft), 11 new sourced references, winter vs summer shower table from formulas.js.
 - 2026-11-13 — Go-live — owner OK: the 7 Phase 6 pages flipped to `live`.
 - 2026-11-13 — Phase 6c done — 10 state cost pages (draft) on one shared template as child pages of the replacement cost article: state and metro prices, EIA fuel mix and running costs, monthly incoming water, official rebate status.
+- 2026-11-13 — Phase 6d batch 1 done — temperature setting, relief valve leaking and element replacement (draft), sourced data/safety.json, scald/capacity/ohms tables, expansion tank and repair calculators embedded.
 
 ---
 
