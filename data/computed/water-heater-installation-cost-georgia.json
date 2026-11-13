@@ -1,0 +1,836 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the Georgia water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "electric_tank",
+      "size": "50",
+      "state": "GA",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,551 installed",
+      "explain": "50-gallon electric tank: the unit itself is about $819 ($559 to $1,429 in current listings). Installation adds about $732 for labor and 1 extra in Georgia (price factor 0.96). Range: $992 to $2,778.",
+      "formula": "Unit (typical) = $819\nLabor = $500 × 0.963 = $482\nPermit, haul-away and disposal of the old unit = $260 × 0.963 = $250\nTotal (typical) = $819 + $482 + $250 = $1,551\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon electric tank",
+            "low": "$559",
+            "typical": "$819",
+            "high": "$1,429"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$289",
+            "typical": "$482",
+            "high": "$867"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$144",
+            "typical": "$250",
+            "high": "$482"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$992",
+          "typical": "$1,551",
+          "high": "$2,778"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "GA",
+    "name": "Georgia",
+    "slug": "georgia",
+    "url": "/water-heater-installation-cost/georgia/",
+    "stateCount": 51,
+    "populationRank": 8,
+    "population": "11,302,748",
+    "popMillion": "11.3",
+    "mult": "0.963",
+    "multPct": -4,
+    "multVs": "4% below",
+    "multRank": 25,
+    "multRankOrd": "25th",
+    "multRankPhrase": "25th lowest",
+    "rpp": "96.3",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,012",
+      "typical": "1,635",
+      "high": "2,560",
+      "typicalNum": 1635,
+      "unit": "759",
+      "install": "876",
+      "unitShare": 46
+    },
+    "g50": {
+      "low": "1,230",
+      "typical": "1,775",
+      "high": "2,540",
+      "typicalNum": 1775,
+      "unit": "899",
+      "install": "876",
+      "unitShare": 51
+    },
+    "e40": {
+      "low": "892",
+      "typical": "1,416",
+      "high": "2,548",
+      "typicalNum": 1416,
+      "unit": "684",
+      "install": "732",
+      "unitShare": 48
+    },
+    "e50": {
+      "low": "992",
+      "typical": "1,551",
+      "high": "2,778",
+      "typicalNum": 1551,
+      "unit": "819",
+      "install": "732",
+      "unitShare": 53
+    },
+    "hp50": {
+      "low": "2,284",
+      "typical": "2,904",
+      "high": "4,334",
+      "typicalNum": 2904,
+      "unit": "1,787",
+      "install": "1,117",
+      "unitShare": 62
+    },
+    "hpGas": {
+      "low": "2,573",
+      "typical": "3,482",
+      "high": "5,490",
+      "typicalNum": 3482,
+      "unit": "1,787",
+      "install": "1,695",
+      "unitShare": 51
+    },
+    "gTl": {
+      "low": "1,591",
+      "typical": "2,177",
+      "high": "3,630",
+      "typicalNum": 2177,
+      "unit": "1,108",
+      "install": "1,069",
+      "unitShare": 51
+    },
+    "toTl": {
+      "low": "2,169",
+      "typical": "3,237",
+      "high": "5,556",
+      "typicalNum": 3237,
+      "unit": "1,108",
+      "install": "2,129",
+      "unitShare": 34
+    },
+    "eTl": {
+      "low": "959",
+      "typical": "1,502",
+      "high": "2,444",
+      "typicalNum": 1502,
+      "unit": "674",
+      "install": "828",
+      "unitShare": 45
+    },
+    "g50code": {
+      "low": "1,374",
+      "typical": "2,088",
+      "high": "3,214",
+      "typicalNum": 2088,
+      "unit": "899",
+      "install": "1,189",
+      "unitShare": 43
+    },
+    "g50Diff": "34",
+    "g50DiffSign": "less",
+    "e50Diff": "28",
+    "e50DiffSign": "less",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "626",
+    "laborE": "482",
+    "permit": "250",
+    "kwh": "0.147",
+    "kwhCents": "14.74",
+    "kwhYear": 2025,
+    "kwhRank": 20,
+    "kwhRankOrd": "20th",
+    "kwhVs": "14% below",
+    "therm": "1.98",
+    "thermYear": 2025,
+    "thermRank": 46,
+    "thermRankOrd": "46th",
+    "thermVs": "34% above",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "260",
+    "eYear": "387",
+    "hYear": "95",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Heat pump (hybrid), 240 V",
+    "cheapestId": "heat_pump",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "128",
+    "gasCheaperToRun": true,
+    "gasPremium": "224",
+    "gasPay": "about 1.8 years",
+    "hpSave": "293",
+    "hpExtra": "1,353",
+    "hpPay": "4.6",
+    "hpPayNum": 4.6,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "4,373",
+    "ownE": "5,425",
+    "ownH": "3,852",
+    "ownBest": "Heat pump (hybrid), 240 V",
+    "ownBestId": "heat_pump",
+    "inletAnnual": "70.2",
+    "inletWinter": "60.0",
+    "inletSummer": "80.4",
+    "riseW": "60.0",
+    "riseA": "49.8",
+    "riseS": "39.6",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "6.3",
+    "gpmA": "7.6",
+    "gpmS": "9.5",
+    "showerGpm": "2.5",
+    "showersW": 2,
+    "showersS": 3,
+    "seasonLossPct": 34,
+    "electricPct": 59,
+    "gasPct": 38,
+    "propanePct": 3,
+    "fuelOilPct": 0,
+    "homesMillion": "3.88",
+    "elecFirst": true,
+    "mainType": "electric_tank",
+    "mainLabel": "Electric tank",
+    "hpPaysInLife": true,
+    "elecMajority": true,
+    "gasMajority": false,
+    "fuelOilShown": false,
+    "gasTanklessSave": "86",
+    "gasTanklessYear": "174",
+    "tlPremium": "1,462",
+    "coldMonth": "January",
+    "coldMonthInlet": "60.4",
+    "coldMonthCost": "39",
+    "warmMonth": "August",
+    "warmMonthInlet": "80.1",
+    "warmMonthCost": "26",
+    "winterExtraPct": 49,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Macon-Bibb County, GA",
+      "g50": "1,704",
+      "e50": "1,492",
+      "rpp": "88.5"
+    },
+    "metroDear": {
+      "name": "Atlanta-Sandy Springs-Roswell, GA",
+      "g50": "1,810",
+      "e50": "1,579",
+      "rpp": "100.1"
+    },
+    "metroSpread": "106",
+    "metroSkipped": "",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "limited",
+      "program": "Georgia's Home Energy Rebates (HER and HEAR)",
+      "agency": "Georgia Environmental Finance Authority",
+      "sourceUrl": "https://energyrebates.georgia.gov/home-electric-appliance-rebates",
+      "checked": "2026-11-13",
+      "quote": "The HEAR program for single-family has reopened with limited measures.",
+      "summary": "The reopened appliance rebate is limited to wiring and panel upgrades done with a whole-home efficiency (HER) project, so it does not pay for a heat pump water heater on its own."
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "Electricity is cheaper than average in Georgia (14.74 cents per kWh, 14% below the U.S. average), so a standard electric tank costs about $387 a year to run here, against $260 for gas.",
+      "Natural gas costs more here than in most states ($1.98 per therm, the 6th highest), so gas's running-cost advantage is smaller than the national picture suggests.",
+      "Where you live inside Georgia matters: the same 50-gallon gas job is about $1,810 in the Atlanta-Sandy Springs-Roswell, GA area and $1,704 in the Macon-Bibb County, GA area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "Georgia vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "Georgia",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,635",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,775",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,416",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,551",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "2,904",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,177",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,237",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Georgia labor and extras × BEA price factor 0.963",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon electric tank replacement in Georgia",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "289",
+          "typical": "482",
+          "high": "867"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "144",
+          "typical": "250",
+          "high": "482"
+        },
+        {
+          "item": "Total",
+          "low": "992",
+          "typical": "1,551",
+          "high": "2,778"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon gas tank replacement in Georgia",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "337",
+          "typical": "626",
+          "high": "1,059"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "144",
+          "typical": "250",
+          "high": "482"
+        },
+        {
+          "item": "Total",
+          "low": "1,230",
+          "typical": "1,775",
+          "high": "2,540"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in Georgia (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "Georgia, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "387",
+          "us": "564",
+          "own": "5,425"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "95",
+          "us": "138",
+          "own": "3,852"
+        },
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "260",
+          "us": "242",
+          "own": "4,373"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "174",
+          "us": "162",
+          "own": "3,915"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "391",
+          "us": "570",
+          "own": "5,417"
+        }
+      ],
+      "source": "EIA 2025 Georgia residential prices ($0.147/kWh, $1.98/therm); Georgia incoming water 70.2 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in Georgia's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Atlanta-Sandy Springs-Roswell, GA",
+          "rpp": "100.1",
+          "g50": "1,810",
+          "e50": "1,579"
+        },
+        {
+          "name": "Augusta-Richmond County, GA-SC",
+          "rpp": "91.9",
+          "g50": "1,735",
+          "e50": "1,518"
+        },
+        {
+          "name": "Savannah, GA",
+          "rpp": "95.2",
+          "g50": "1,766",
+          "e50": "1,543"
+        },
+        {
+          "name": "Columbus, GA-AL",
+          "rpp": "89.3",
+          "g50": "1,711",
+          "e50": "1,498"
+        },
+        {
+          "name": "Macon-Bibb County, GA",
+          "rpp": "88.5",
+          "g50": "1,704",
+          "e50": "1,492"
+        },
+        {
+          "name": "Georgia statewide",
+          "rpp": "96.3",
+          "g50": "1,775",
+          "e50": "1,551"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL12060, RPPALL12260, RPPALL42340, RPPALL17980, RPPALL31420); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL12060",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "Georgia month by month: incoming water, tankless output and the electric tank energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Electric tank energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "46.7",
+          "inlet": "60.4",
+          "gpm": "6.3",
+          "cost": "39"
+        },
+        {
+          "month": "February",
+          "air": "50.2",
+          "inlet": "60.4",
+          "gpm": "6.3",
+          "cost": "36"
+        },
+        {
+          "month": "March",
+          "air": "56.7",
+          "inlet": "62.8",
+          "gpm": "6.6",
+          "cost": "38"
+        },
+        {
+          "month": "April",
+          "air": "63.5",
+          "inlet": "67.4",
+          "gpm": "7.2",
+          "cost": "34"
+        },
+        {
+          "month": "May",
+          "air": "71.3",
+          "inlet": "72.6",
+          "gpm": "8.0",
+          "cost": "31"
+        },
+        {
+          "month": "June",
+          "air": "77.7",
+          "inlet": "77.3",
+          "gpm": "8.9",
+          "cost": "27"
+        },
+        {
+          "month": "July",
+          "air": "80.5",
+          "inlet": "80.0",
+          "gpm": "9.4",
+          "cost": "26"
+        },
+        {
+          "month": "August",
+          "air": "79.6",
+          "inlet": "80.1",
+          "gpm": "9.5",
+          "cost": "26"
+        },
+        {
+          "month": "September",
+          "air": "74.8",
+          "inlet": "77.4",
+          "gpm": "8.9",
+          "cost": "27"
+        },
+        {
+          "month": "October",
+          "air": "65.1",
+          "inlet": "72.9",
+          "gpm": "8.0",
+          "cost": "31"
+        },
+        {
+          "month": "November",
+          "air": "55.2",
+          "inlet": "67.5",
+          "gpm": "7.2",
+          "cost": "34"
+        },
+        {
+          "month": "December",
+          "air": "49.0",
+          "inlet": "63.0",
+          "gpm": "6.6",
+          "cost": "38"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 Georgia prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in Georgia (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "60.0",
+          "rise": "60.0",
+          "gpm": "6.3",
+          "showers": 2
+        },
+        {
+          "season": "Year average",
+          "inlet": "70.2",
+          "rise": "49.8",
+          "gpm": "7.6",
+          "showers": 3
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "80.4",
+          "rise": "39.6",
+          "gpm": "9.5",
+          "showers": 3
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How Georgia homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "Georgia",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 59,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 38,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 3,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (3.88 million Georgia homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

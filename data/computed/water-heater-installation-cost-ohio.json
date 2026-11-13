@@ -1,0 +1,835 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the Ohio water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "OH",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,743 installed",
+      "explain": "50-gallon gas tank (natural gas, standard vent): the unit itself is about $899 ($749 to $999 in current listings). Installation adds about $844 for labor and 1 extra in Ohio (price factor 0.93). Range: $1,213 to $2,484.",
+      "formula": "Unit (typical) = $899\nLabor = $650 × 0.928 = $603\nPermit, haul-away and disposal of the old unit = $260 × 0.928 = $241\nTotal (typical) = $899 + $603 + $241 = $1,743\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon gas tank (natural gas, standard vent)",
+            "low": "$749",
+            "typical": "$899",
+            "high": "$999"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$325",
+            "typical": "$603",
+            "high": "$1,021"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$139",
+            "typical": "$241",
+            "high": "$464"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$1,213",
+          "typical": "$1,743",
+          "high": "$2,484"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "OH",
+    "name": "Ohio",
+    "slug": "ohio",
+    "url": "/water-heater-installation-cost/ohio/",
+    "stateCount": 51,
+    "populationRank": 7,
+    "population": "11,900,510",
+    "popMillion": "11.9",
+    "mult": "0.928",
+    "multPct": -7,
+    "multVs": "7% below",
+    "multRank": 17,
+    "multRankOrd": "17th",
+    "multRankPhrase": "17th lowest",
+    "rpp": "92.8",
+    "rppYear": 2024,
+    "g40": {
+      "low": "995",
+      "typical": "1,603",
+      "high": "2,504",
+      "typicalNum": 1603,
+      "unit": "759",
+      "install": "844",
+      "unitShare": 47
+    },
+    "g50": {
+      "low": "1,213",
+      "typical": "1,743",
+      "high": "2,484",
+      "typicalNum": 1743,
+      "unit": "899",
+      "install": "844",
+      "unitShare": 52
+    },
+    "e40": {
+      "low": "876",
+      "typical": "1,389",
+      "high": "2,498",
+      "typicalNum": 1389,
+      "unit": "684",
+      "install": "705",
+      "unitShare": 49
+    },
+    "e50": {
+      "low": "976",
+      "typical": "1,524",
+      "high": "2,728",
+      "typicalNum": 1524,
+      "unit": "819",
+      "install": "705",
+      "unitShare": 54
+    },
+    "hp50": {
+      "low": "2,261",
+      "typical": "2,863",
+      "high": "4,253",
+      "typicalNum": 2863,
+      "unit": "1,787",
+      "install": "1,076",
+      "unitShare": 62
+    },
+    "hpGas": {
+      "low": "2,539",
+      "typical": "3,420",
+      "high": "5,367",
+      "typicalNum": 3420,
+      "unit": "1,787",
+      "install": "1,633",
+      "unitShare": 52
+    },
+    "gTl": {
+      "low": "1,565",
+      "typical": "2,138",
+      "high": "3,559",
+      "typicalNum": 2138,
+      "unit": "1,108",
+      "install": "1,030",
+      "unitShare": 52
+    },
+    "toTl": {
+      "low": "2,121",
+      "typical": "3,159",
+      "high": "5,415",
+      "typicalNum": 3159,
+      "unit": "1,108",
+      "install": "2,051",
+      "unitShare": 35
+    },
+    "eTl": {
+      "low": "943",
+      "typical": "1,472",
+      "high": "2,391",
+      "typicalNum": 1472,
+      "unit": "674",
+      "install": "798",
+      "unitShare": 46
+    },
+    "g50code": {
+      "low": "1,352",
+      "typical": "2,044",
+      "high": "3,133",
+      "typicalNum": 2044,
+      "unit": "899",
+      "install": "1,145",
+      "unitShare": 44
+    },
+    "g50Diff": "66",
+    "g50DiffSign": "less",
+    "e50Diff": "55",
+    "e50DiffSign": "less",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "603",
+    "laborE": "464",
+    "permit": "241",
+    "kwh": "0.169",
+    "kwhCents": "16.90",
+    "kwhYear": 2025,
+    "kwhRank": 33,
+    "kwhRankOrd": "33rd",
+    "kwhVs": "2% below",
+    "therm": "1.30",
+    "thermYear": 2025,
+    "thermRank": 19,
+    "thermRankOrd": "19th",
+    "thermVs": "12% below",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "214",
+    "eYear": "556",
+    "hYear": "136",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Heat pump (hybrid), 240 V",
+    "cheapestId": "heat_pump",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "341",
+    "gasCheaperToRun": true,
+    "gasPremium": "219",
+    "gasPay": "under a year",
+    "hpSave": "420",
+    "hpExtra": "1,339",
+    "hpPay": "3.2",
+    "hpPayNum": 3.2,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "3,886",
+    "ownE": "7,079",
+    "ownH": "4,222",
+    "ownBest": "Gas tank (standard vent)",
+    "ownBestId": "gas_tank",
+    "inletAnnual": "57.7",
+    "inletWinter": "46.9",
+    "inletSummer": "68.5",
+    "riseW": "73.1",
+    "riseA": "62.3",
+    "riseS": "51.5",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "5.2",
+    "gpmA": "6.1",
+    "gpmS": "7.3",
+    "showerGpm": "2.5",
+    "showersW": 2,
+    "showersS": 2,
+    "seasonLossPct": 30,
+    "electricPct": 38,
+    "gasPct": 57,
+    "propanePct": 5,
+    "fuelOilPct": 0,
+    "homesMillion": "4.74",
+    "elecFirst": false,
+    "mainType": "gas_tank",
+    "mainLabel": "Gas tank (standard vent)",
+    "hpPaysInLife": true,
+    "elecMajority": false,
+    "gasMajority": true,
+    "fuelOilShown": false,
+    "gasTanklessSave": "71",
+    "gasTanklessYear": "143",
+    "tlPremium": "1,416",
+    "coldMonth": "February",
+    "coldMonthInlet": "46.9",
+    "coldMonthCost": "19",
+    "warmMonth": "August",
+    "warmMonthInlet": "68.5",
+    "warmMonthCost": "15",
+    "winterExtraPct": 42,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Youngstown-Warren, OH",
+      "g50": "1,694",
+      "e50": "1,483",
+      "rpp": "87.4"
+    },
+    "metroDear": {
+      "name": "Columbus, OH",
+      "g50": "1,768",
+      "e50": "1,545",
+      "rpp": "95.5"
+    },
+    "metroSpread": "74",
+    "metroSkipped": "Cleveland, OH; Dayton-Kettering-Beavercreek, OH",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "unconfirmed",
+      "program": "Ohio Home Energy Rebates (HOMES and HEEHR)",
+      "agency": "Ohio Department of Development",
+      "sourceUrl": "",
+      "checked": "2026-11-13",
+      "quote": "",
+      "summary": "We could not find a current status page from the Ohio Department of Development on the check date, and third-party trackers disagree. Ask the department or check the ENERGY STAR Rebate Finder before you count on a rebate."
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "Ohio is one of the cheaper states for installation labor: its price level is the 17th lowest of 51, so a gas tank's labor runs about $603 against $650 nationally.",
+      "Where you live inside Ohio matters: the same 50-gallon gas job is about $1,768 in the Columbus, OH area and $1,694 in the Youngstown-Warren, OH area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "Ohio vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "Ohio",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,603",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,743",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,389",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,524",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "2,863",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,138",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,159",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Ohio labor and extras × BEA price factor 0.928",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon gas tank replacement in Ohio",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "325",
+          "typical": "603",
+          "high": "1,021"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "139",
+          "typical": "241",
+          "high": "464"
+        },
+        {
+          "item": "Total",
+          "low": "1,213",
+          "typical": "1,743",
+          "high": "2,484"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon electric tank replacement in Ohio",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "278",
+          "typical": "464",
+          "high": "835"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "139",
+          "typical": "241",
+          "high": "464"
+        },
+        {
+          "item": "Total",
+          "low": "976",
+          "typical": "1,524",
+          "high": "2,728"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in Ohio (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "Ohio, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "214",
+          "us": "242",
+          "own": "3,886"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "143",
+          "us": "162",
+          "own": "3,570"
+        },
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "556",
+          "us": "564",
+          "own": "7,079"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "136",
+          "us": "138",
+          "own": "4,222"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "562",
+          "us": "570",
+          "own": "7,088"
+        }
+      ],
+      "source": "EIA 2025 Ohio residential prices ($0.169/kWh, $1.30/therm); Ohio incoming water 57.7 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in Ohio's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Cincinnati, OH-KY-IN",
+          "rpp": "95.4",
+          "g50": "1,767",
+          "e50": "1,544"
+        },
+        {
+          "name": "Columbus, OH",
+          "rpp": "95.5",
+          "g50": "1,768",
+          "e50": "1,545"
+        },
+        {
+          "name": "Akron, OH",
+          "rpp": "93.4",
+          "g50": "1,749",
+          "e50": "1,529"
+        },
+        {
+          "name": "Toledo, OH",
+          "rpp": "91.5",
+          "g50": "1,732",
+          "e50": "1,515"
+        },
+        {
+          "name": "Youngstown-Warren, OH",
+          "rpp": "87.4",
+          "g50": "1,694",
+          "e50": "1,483"
+        },
+        {
+          "name": "Ohio statewide",
+          "rpp": "92.8",
+          "g50": "1,743",
+          "e50": "1,524"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL17140, RPPALL18140, RPPALL10420, RPPALL45780, RPPALL49660); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL17140",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "Ohio month by month: incoming water, tankless output and the gas tank (standard vent) energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Gas tank (standard vent) energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "28.1",
+          "inlet": "48.1",
+          "gpm": "5.3",
+          "cost": "21"
+        },
+        {
+          "month": "February",
+          "air": "30.9",
+          "inlet": "46.9",
+          "gpm": "5.2",
+          "cost": "19"
+        },
+        {
+          "month": "March",
+          "air": "39.8",
+          "inlet": "48.5",
+          "gpm": "5.3",
+          "cost": "21"
+        },
+        {
+          "month": "April",
+          "air": "51.1",
+          "inlet": "52.6",
+          "gpm": "5.6",
+          "cost": "19"
+        },
+        {
+          "month": "May",
+          "air": "61.1",
+          "inlet": "58.0",
+          "gpm": "6.1",
+          "cost": "18"
+        },
+        {
+          "month": "June",
+          "air": "69.8",
+          "inlet": "63.4",
+          "gpm": "6.7",
+          "cost": "16"
+        },
+        {
+          "month": "July",
+          "air": "73.3",
+          "inlet": "67.2",
+          "gpm": "7.2",
+          "cost": "15"
+        },
+        {
+          "month": "August",
+          "air": "71.8",
+          "inlet": "68.5",
+          "gpm": "7.3",
+          "cost": "15"
+        },
+        {
+          "month": "September",
+          "air": "65.1",
+          "inlet": "66.8",
+          "gpm": "7.1",
+          "cost": "15"
+        },
+        {
+          "month": "October",
+          "air": "53.7",
+          "inlet": "62.7",
+          "gpm": "6.6",
+          "cost": "17"
+        },
+        {
+          "month": "November",
+          "air": "42.2",
+          "inlet": "57.2",
+          "gpm": "6.0",
+          "cost": "18"
+        },
+        {
+          "month": "December",
+          "air": "33.0",
+          "inlet": "51.9",
+          "gpm": "5.6",
+          "cost": "20"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Ohio prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in Ohio (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "46.9",
+          "rise": "73.1",
+          "gpm": "5.2",
+          "showers": 2
+        },
+        {
+          "season": "Year average",
+          "inlet": "57.7",
+          "rise": "62.3",
+          "gpm": "6.1",
+          "showers": 2
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "68.5",
+          "rise": "51.5",
+          "gpm": "7.3",
+          "showers": 2
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How Ohio homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "Ohio",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 38,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 57,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 5,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (4.74 million Ohio homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

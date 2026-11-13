@@ -290,6 +290,9 @@ add_filter(
 			'hub'     => 'templates/hub.php',
 		);
 		$file = $map[ $entry['type'] ?? '' ] ?? 'page.php';
+		if ( 'state-cost' === ( $entry['template'] ?? '' ) ) {
+			$file = 'templates/state-cost.php';
+		}
 		return HWM_DIR . '/' . $file;
 	},
 	99

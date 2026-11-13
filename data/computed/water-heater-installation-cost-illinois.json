@@ -1,0 +1,837 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the Illinois water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "IL",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,809 installed",
+      "explain": "50-gallon gas tank (natural gas, standard vent): the unit itself is about $899 ($749 to $999 in current listings). Installation adds about $910 for labor and 1 extra in Illinois (price factor 1.00). Range: $1,249 to $2,599.",
+      "formula": "Unit (typical) = $899\nLabor = $650 × 1.000 = $650\nPermit, haul-away and disposal of the old unit = $260 × 1.000 = $260\nTotal (typical) = $899 + $650 + $260 = $1,809\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon gas tank (natural gas, standard vent)",
+            "low": "$749",
+            "typical": "$899",
+            "high": "$999"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$350",
+            "typical": "$650",
+            "high": "$1,100"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$150",
+            "typical": "$260",
+            "high": "$500"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$1,249",
+          "typical": "$1,809",
+          "high": "$2,599"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "IL",
+    "name": "Illinois",
+    "slug": "illinois",
+    "url": "/water-heater-installation-cost/illinois/",
+    "stateCount": 51,
+    "populationRank": 6,
+    "population": "12,719,141",
+    "popMillion": "12.7",
+    "mult": "1.000",
+    "multPct": 0,
+    "multVs": "the same as",
+    "multRank": 33,
+    "multRankOrd": "33rd",
+    "multRankPhrase": "19th highest",
+    "rpp": "100.0",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,031",
+      "typical": "1,669",
+      "high": "2,619",
+      "typicalNum": 1669,
+      "unit": "759",
+      "install": "910",
+      "unitShare": 45
+    },
+    "g50": {
+      "low": "1,249",
+      "typical": "1,809",
+      "high": "2,599",
+      "typicalNum": 1809,
+      "unit": "899",
+      "install": "910",
+      "unitShare": 50
+    },
+    "e40": {
+      "low": "909",
+      "typical": "1,444",
+      "high": "2,599",
+      "typicalNum": 1444,
+      "unit": "684",
+      "install": "760",
+      "unitShare": 47
+    },
+    "e50": {
+      "low": "1,009",
+      "typical": "1,579",
+      "high": "2,829",
+      "typicalNum": 1579,
+      "unit": "819",
+      "install": "760",
+      "unitShare": 52
+    },
+    "hp50": {
+      "low": "2,308",
+      "typical": "2,947",
+      "high": "4,419",
+      "typicalNum": 2947,
+      "unit": "1,787",
+      "install": "1,160",
+      "unitShare": 61
+    },
+    "hpGas": {
+      "low": "2,608",
+      "typical": "3,547",
+      "high": "5,619",
+      "typicalNum": 3547,
+      "unit": "1,787",
+      "install": "1,760",
+      "unitShare": 50
+    },
+    "gTl": {
+      "low": "1,619",
+      "typical": "2,218",
+      "high": "3,703",
+      "typicalNum": 2218,
+      "unit": "1,108",
+      "install": "1,110",
+      "unitShare": 50
+    },
+    "toTl": {
+      "low": "2,219",
+      "typical": "3,318",
+      "high": "5,703",
+      "typicalNum": 3318,
+      "unit": "1,108",
+      "install": "2,210",
+      "unitShare": 33
+    },
+    "eTl": {
+      "low": "976",
+      "typical": "1,534",
+      "high": "2,499",
+      "typicalNum": 1534,
+      "unit": "674",
+      "install": "860",
+      "unitShare": 44
+    },
+    "g50code": {
+      "low": "1,399",
+      "typical": "2,134",
+      "high": "3,299",
+      "typicalNum": 2134,
+      "unit": "899",
+      "install": "1,235",
+      "unitShare": 42
+    },
+    "g50Diff": "0",
+    "g50DiffSign": "more",
+    "e50Diff": "0",
+    "e50DiffSign": "more",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "650",
+    "laborE": "500",
+    "permit": "260",
+    "kwh": "0.177",
+    "kwhCents": "17.67",
+    "kwhYear": 2025,
+    "kwhRank": 35,
+    "kwhRankOrd": "35th",
+    "kwhVs": "3% above",
+    "therm": "1.07",
+    "thermYear": 2025,
+    "thermRank": 12,
+    "thermRankOrd": "12th",
+    "thermVs": "28% below",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "174",
+    "eYear": "573",
+    "hYear": "140",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Gas tankless",
+    "cheapestId": "gas_tankless",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "399",
+    "gasCheaperToRun": true,
+    "gasPremium": "230",
+    "gasPay": "under a year",
+    "hpSave": "432",
+    "hpExtra": "1,368",
+    "hpPay": "3.2",
+    "hpPayNum": 3.2,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "3,546",
+    "ownE": "7,304",
+    "ownH": "4,348",
+    "ownBest": "Gas tank (standard vent)",
+    "ownBestId": "gas_tank",
+    "inletAnnual": "58.6",
+    "inletWinter": "46.8",
+    "inletSummer": "70.4",
+    "riseW": "73.2",
+    "riseA": "61.4",
+    "riseS": "49.6",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "5.2",
+    "gpmA": "6.2",
+    "gpmS": "7.6",
+    "showerGpm": "2.5",
+    "showersW": 2,
+    "showersS": 3,
+    "seasonLossPct": 32,
+    "electricPct": 28,
+    "gasPct": 69,
+    "propanePct": 3,
+    "fuelOilPct": 0,
+    "homesMillion": "4.90",
+    "elecFirst": false,
+    "mainType": "gas_tank",
+    "mainLabel": "Gas tank (standard vent)",
+    "hpPaysInLife": true,
+    "elecMajority": false,
+    "gasMajority": true,
+    "fuelOilShown": false,
+    "gasTanklessSave": "58",
+    "gasTanklessYear": "116",
+    "tlPremium": "1,509",
+    "coldMonth": "February",
+    "coldMonthInlet": "46.8",
+    "coldMonthCost": "16",
+    "warmMonth": "August",
+    "warmMonthInlet": "70.4",
+    "warmMonthCost": "12",
+    "winterExtraPct": 48,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Peoria, IL",
+      "g50": "1,729",
+      "e50": "1,512",
+      "rpp": "91.2"
+    },
+    "metroDear": {
+      "name": "Chicago-Naperville-Elgin, IL-IN",
+      "g50": "1,841",
+      "e50": "1,606",
+      "rpp": "103.6"
+    },
+    "metroSpread": "112",
+    "metroSkipped": "",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "notLaunched",
+      "program": "Illinois HEAR Rebate Program",
+      "agency": "Illinois EPA, Office of Energy",
+      "sourceUrl": "https://epa.illinois.gov/topics/energy/energy-rebates.html",
+      "checked": "2026-11-13",
+      "quote": "At this time, the Illinois EPA's IRA Section 50122 Home Electrification and Appliance Rebate Program, or HEAR Rebate Program, application has not yet been processed by USDOE or provided to Illinois EPA for administration or distribution.",
+      "summary": "The appliance rebate has not launched. Illinois says it plans to give the first rebates to low-income households and will not pay rebates for work done before launch."
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "Illinois's price level matches the U.S. average exactly, so its prices are the national prices; only your metro area moves them.",
+      "Natural gas is cheap in Illinois ($1.07 per therm, the 12th lowest of 51), so a gas tank costs only about $174 a year to run, and gas stays the cheapest tank to own over 10 years.",
+      "69% of Illinois homes heat water with natural gas, against 48% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.",
+      "Where you live inside Illinois matters: the same 50-gallon gas job is about $1,841 in the Chicago-Naperville-Elgin, IL-IN area and $1,729 in the Peoria, IL area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "Illinois vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "Illinois",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,669",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,809",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,444",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,579",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "2,947",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,218",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,318",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Illinois labor and extras × BEA price factor 1.000",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon gas tank replacement in Illinois",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "350",
+          "typical": "650",
+          "high": "1,100"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "150",
+          "typical": "260",
+          "high": "500"
+        },
+        {
+          "item": "Total",
+          "low": "1,249",
+          "typical": "1,809",
+          "high": "2,599"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon electric tank replacement in Illinois",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "300",
+          "typical": "500",
+          "high": "900"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "150",
+          "typical": "260",
+          "high": "500"
+        },
+        {
+          "item": "Total",
+          "low": "1,009",
+          "typical": "1,579",
+          "high": "2,829"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in Illinois (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "Illinois, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "174",
+          "us": "242",
+          "own": "3,546"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "116",
+          "us": "162",
+          "own": "3,379"
+        },
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "573",
+          "us": "564",
+          "own": "7,304"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "140",
+          "us": "138",
+          "own": "4,348"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "579",
+          "us": "570",
+          "own": "7,321"
+        }
+      ],
+      "source": "EIA 2025 Illinois residential prices ($0.177/kWh, $1.07/therm); Illinois incoming water 58.6 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in Illinois's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Chicago-Naperville-Elgin, IL-IN",
+          "rpp": "103.6",
+          "g50": "1,841",
+          "e50": "1,606"
+        },
+        {
+          "name": "Peoria, IL",
+          "rpp": "91.2",
+          "g50": "1,729",
+          "e50": "1,512"
+        },
+        {
+          "name": "Rockford, IL",
+          "rpp": "92.2",
+          "g50": "1,738",
+          "e50": "1,520"
+        },
+        {
+          "name": "Champaign-Urbana, IL",
+          "rpp": "92.7",
+          "g50": "1,743",
+          "e50": "1,524"
+        },
+        {
+          "name": "Springfield, IL",
+          "rpp": "92.7",
+          "g50": "1,743",
+          "e50": "1,524"
+        },
+        {
+          "name": "Illinois statewide",
+          "rpp": "100.0",
+          "g50": "1,809",
+          "e50": "1,579"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL16980, RPPALL37900, RPPALL40420, RPPALL16580, RPPALL44100); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL16980",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "Illinois month by month: incoming water, tankless output and the gas tank (standard vent) energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Gas tank (standard vent) energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "26.7",
+          "inlet": "48.0",
+          "gpm": "5.3",
+          "cost": "17"
+        },
+        {
+          "month": "February",
+          "air": "31.1",
+          "inlet": "46.8",
+          "gpm": "5.2",
+          "cost": "16"
+        },
+        {
+          "month": "March",
+          "air": "41.4",
+          "inlet": "48.6",
+          "gpm": "5.3",
+          "cost": "17"
+        },
+        {
+          "month": "April",
+          "air": "52.6",
+          "inlet": "53.2",
+          "gpm": "5.7",
+          "cost": "16"
+        },
+        {
+          "month": "May",
+          "air": "63.2",
+          "inlet": "59.1",
+          "gpm": "6.2",
+          "cost": "15"
+        },
+        {
+          "month": "June",
+          "air": "72.2",
+          "inlet": "65.0",
+          "gpm": "6.9",
+          "cost": "13"
+        },
+        {
+          "month": "July",
+          "air": "75.4",
+          "inlet": "69.1",
+          "gpm": "7.4",
+          "cost": "12"
+        },
+        {
+          "month": "August",
+          "air": "73.6",
+          "inlet": "70.4",
+          "gpm": "7.6",
+          "cost": "12"
+        },
+        {
+          "month": "September",
+          "air": "66.8",
+          "inlet": "68.5",
+          "gpm": "7.3",
+          "cost": "12"
+        },
+        {
+          "month": "October",
+          "air": "54.8",
+          "inlet": "63.9",
+          "gpm": "6.7",
+          "cost": "13"
+        },
+        {
+          "month": "November",
+          "air": "42.2",
+          "inlet": "57.8",
+          "gpm": "6.1",
+          "cost": "14"
+        },
+        {
+          "month": "December",
+          "air": "31.6",
+          "inlet": "52.1",
+          "gpm": "5.6",
+          "cost": "16"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Illinois prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in Illinois (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "46.8",
+          "rise": "73.2",
+          "gpm": "5.2",
+          "showers": 2
+        },
+        {
+          "season": "Year average",
+          "inlet": "58.6",
+          "rise": "61.4",
+          "gpm": "6.2",
+          "showers": 2
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "70.4",
+          "rise": "49.6",
+          "gpm": "7.6",
+          "showers": 3
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How Illinois homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "Illinois",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 28,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 69,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 3,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (4.90 million Illinois homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

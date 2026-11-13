@@ -1,0 +1,839 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the North Carolina water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "electric_tank",
+      "size": "50",
+      "state": "NC",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,536 installed",
+      "explain": "50-gallon electric tank: the unit itself is about $819 ($559 to $1,429 in current listings). Installation adds about $717 for labor and 1 extra in North Carolina (price factor 0.94). Range: $983 to $2,750.",
+      "formula": "Unit (typical) = $819\nLabor = $500 × 0.943 = $472\nPermit, haul-away and disposal of the old unit = $260 × 0.943 = $245\nTotal (typical) = $819 + $472 + $245 = $1,536\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon electric tank",
+            "low": "$559",
+            "typical": "$819",
+            "high": "$1,429"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$283",
+            "typical": "$472",
+            "high": "$849"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$141",
+            "typical": "$245",
+            "high": "$472"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$983",
+          "typical": "$1,536",
+          "high": "$2,750"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "NC",
+    "name": "North Carolina",
+    "slug": "north-carolina",
+    "url": "/water-heater-installation-cost/north-carolina/",
+    "stateCount": 51,
+    "populationRank": 9,
+    "population": "11,197,968",
+    "popMillion": "11.2",
+    "mult": "0.943",
+    "multPct": -6,
+    "multVs": "6% below",
+    "multRank": 21,
+    "multRankOrd": "21st",
+    "multRankPhrase": "21st lowest",
+    "rpp": "94.3",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,002",
+      "typical": "1,617",
+      "high": "2,528",
+      "typicalNum": 1617,
+      "unit": "759",
+      "install": "858",
+      "unitShare": 47
+    },
+    "g50": {
+      "low": "1,220",
+      "typical": "1,757",
+      "high": "2,508",
+      "typicalNum": 1757,
+      "unit": "899",
+      "install": "858",
+      "unitShare": 51
+    },
+    "e40": {
+      "low": "883",
+      "typical": "1,401",
+      "high": "2,520",
+      "typicalNum": 1401,
+      "unit": "684",
+      "install": "717",
+      "unitShare": 49
+    },
+    "e50": {
+      "low": "983",
+      "typical": "1,536",
+      "high": "2,750",
+      "typicalNum": 1536,
+      "unit": "819",
+      "install": "717",
+      "unitShare": 53
+    },
+    "hp50": {
+      "low": "2,271",
+      "typical": "2,881",
+      "high": "4,288",
+      "typicalNum": 2881,
+      "unit": "1,787",
+      "install": "1,094",
+      "unitShare": 62
+    },
+    "hpGas": {
+      "low": "2,554",
+      "typical": "3,447",
+      "high": "5,420",
+      "typicalNum": 3447,
+      "unit": "1,787",
+      "install": "1,660",
+      "unitShare": 52
+    },
+    "gTl": {
+      "low": "1,576",
+      "typical": "2,155",
+      "high": "3,590",
+      "typicalNum": 2155,
+      "unit": "1,108",
+      "install": "1,047",
+      "unitShare": 51
+    },
+    "toTl": {
+      "low": "2,142",
+      "typical": "3,193",
+      "high": "5,476",
+      "typicalNum": 3193,
+      "unit": "1,108",
+      "install": "2,085",
+      "unitShare": 35
+    },
+    "eTl": {
+      "low": "950",
+      "typical": "1,485",
+      "high": "2,414",
+      "typicalNum": 1485,
+      "unit": "674",
+      "install": "811",
+      "unitShare": 45
+    },
+    "g50code": {
+      "low": "1,361",
+      "typical": "2,063",
+      "high": "3,168",
+      "typicalNum": 2063,
+      "unit": "899",
+      "install": "1,164",
+      "unitShare": 44
+    },
+    "g50Diff": "52",
+    "g50DiffSign": "less",
+    "e50Diff": "43",
+    "e50DiffSign": "less",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "613",
+    "laborE": "472",
+    "permit": "245",
+    "kwh": "0.140",
+    "kwhCents": "14.00",
+    "kwhYear": 2025,
+    "kwhRank": 17,
+    "kwhRankOrd": "17th",
+    "kwhVs": "19% below",
+    "therm": "1.57",
+    "thermYear": 2024,
+    "thermRank": 30,
+    "thermRankOrd": "30th",
+    "thermVs": "6% above",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "226",
+    "eYear": "403",
+    "hYear": "99",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Heat pump (hybrid), 240 V",
+    "cheapestId": "heat_pump",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "177",
+    "gasCheaperToRun": true,
+    "gasPremium": "221",
+    "gasPay": "about 1.2 years",
+    "hpSave": "304",
+    "hpExtra": "1,345",
+    "hpPay": "4.4",
+    "hpPayNum": 4.4,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "4,013",
+    "ownE": "5,562",
+    "ownH": "3,867",
+    "ownBest": "Heat pump (hybrid), 240 V",
+    "ownBestId": "heat_pump",
+    "inletAnnual": "65.5",
+    "inletWinter": "55.2",
+    "inletSummer": "75.8",
+    "riseW": "64.8",
+    "riseA": "54.5",
+    "riseS": "44.2",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "5.8",
+    "gpmA": "6.9",
+    "gpmS": "8.6",
+    "showerGpm": "2.5",
+    "showersW": 2,
+    "showersS": 3,
+    "seasonLossPct": 32,
+    "electricPct": 75,
+    "gasPct": 22,
+    "propanePct": 3,
+    "fuelOilPct": 0,
+    "homesMillion": "4.01",
+    "elecFirst": true,
+    "mainType": "electric_tank",
+    "mainLabel": "Electric tank",
+    "hpPaysInLife": true,
+    "elecMajority": true,
+    "gasMajority": false,
+    "fuelOilShown": false,
+    "gasTanklessSave": "75",
+    "gasTanklessYear": "151",
+    "tlPremium": "1,436",
+    "coldMonth": "February",
+    "coldMonthInlet": "55.4",
+    "coldMonthCost": "37",
+    "warmMonth": "August",
+    "warmMonthInlet": "75.6",
+    "warmMonthCost": "28",
+    "winterExtraPct": 45,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Winston-Salem, NC",
+      "g50": "1,736",
+      "e50": "1,518",
+      "rpp": "92.0"
+    },
+    "metroDear": {
+      "name": "Raleigh-Cary, NC",
+      "g50": "1,792",
+      "e50": "1,565",
+      "rpp": "98.2"
+    },
+    "metroSpread": "56",
+    "metroSkipped": "",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "open",
+      "program": "Energy Saver North Carolina (HOMES and HEAR)",
+      "agency": "NC Department of Environmental Quality, State Energy Office",
+      "sourceUrl": "https://www.deq.nc.gov/energy-climate/state-energy-office/energy-saver-north-carolina",
+      "checked": "2026-11-13",
+      "quote": "Up to $1,750 for an ENERGY STAR-certified electric heat pump water heater.",
+      "summary": "The appliance rebate covers heat pump water heaters for households with income up to 150% of the area median, installed by a program contractor. Applications start at energysavernc.org.",
+      "hpwh": true,
+      "incomeMaxAmiPct": 150
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "Electricity is cheaper than average in North Carolina (14.00 cents per kWh, 19% below the U.S. average), so a standard electric tank costs about $403 a year to run here, against $226 for gas.",
+      "75% of North Carolina homes heat water with electricity, against 46% nationally, so most replacements here are electric-to-electric and need no gas or vent work.",
+      "Of the 10 states we cover, North Carolina is one where the state's official page confirms the federal appliance rebate pays for a heat pump water heater now: up to $1,750 for income-qualified homes.",
+      "Where you live inside North Carolina matters: the same 50-gallon gas job is about $1,792 in the Raleigh-Cary, NC area and $1,736 in the Winston-Salem, NC area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "North Carolina vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "North Carolina",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,617",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,757",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,401",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,536",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "2,881",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,155",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,193",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; North Carolina labor and extras × BEA price factor 0.943",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon electric tank replacement in North Carolina",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "283",
+          "typical": "472",
+          "high": "849"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "141",
+          "typical": "245",
+          "high": "472"
+        },
+        {
+          "item": "Total",
+          "low": "983",
+          "typical": "1,536",
+          "high": "2,750"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon gas tank replacement in North Carolina",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "330",
+          "typical": "613",
+          "high": "1,037"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "141",
+          "typical": "245",
+          "high": "472"
+        },
+        {
+          "item": "Total",
+          "low": "1,220",
+          "typical": "1,757",
+          "high": "2,508"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in North Carolina (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "North Carolina, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "403",
+          "us": "564",
+          "own": "5,562"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "99",
+          "us": "138",
+          "own": "3,867"
+        },
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "226",
+          "us": "242",
+          "own": "4,013"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "151",
+          "us": "162",
+          "own": "3,662"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "407",
+          "us": "570",
+          "own": "5,555"
+        }
+      ],
+      "source": "EIA 2025 North Carolina residential prices ($0.140/kWh, $1.57/therm); North Carolina incoming water 65.5 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in North Carolina's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Charlotte-Concord-Gastonia, NC-SC",
+          "rpp": "97.3",
+          "g50": "1,784",
+          "e50": "1,559"
+        },
+        {
+          "name": "Raleigh-Cary, NC",
+          "rpp": "98.2",
+          "g50": "1,792",
+          "e50": "1,565"
+        },
+        {
+          "name": "Greensboro-High Point, NC",
+          "rpp": "92.9",
+          "g50": "1,745",
+          "e50": "1,526"
+        },
+        {
+          "name": "Winston-Salem, NC",
+          "rpp": "92.0",
+          "g50": "1,736",
+          "e50": "1,518"
+        },
+        {
+          "name": "Durham-Chapel Hill, NC",
+          "rpp": "97.6",
+          "g50": "1,787",
+          "e50": "1,561"
+        },
+        {
+          "name": "North Carolina statewide",
+          "rpp": "94.3",
+          "g50": "1,757",
+          "e50": "1,536"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL16740, RPPALL39580, RPPALL24660, RPPALL49180, RPPALL20500); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL16740",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "North Carolina month by month: incoming water, tankless output and the electric tank energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Electric tank energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "40.8",
+          "inlet": "55.8",
+          "gpm": "5.9",
+          "cost": "40"
+        },
+        {
+          "month": "February",
+          "air": "43.8",
+          "inlet": "55.4",
+          "gpm": "5.9",
+          "cost": "37"
+        },
+        {
+          "month": "March",
+          "air": "50.3",
+          "inlet": "57.5",
+          "gpm": "6.0",
+          "cost": "39"
+        },
+        {
+          "month": "April",
+          "air": "59.0",
+          "inlet": "61.9",
+          "gpm": "6.5",
+          "cost": "35"
+        },
+        {
+          "month": "May",
+          "air": "66.9",
+          "inlet": "67.1",
+          "gpm": "7.1",
+          "cost": "33"
+        },
+        {
+          "month": "June",
+          "air": "74.4",
+          "inlet": "72.1",
+          "gpm": "7.9",
+          "cost": "29"
+        },
+        {
+          "month": "July",
+          "air": "77.9",
+          "inlet": "75.1",
+          "gpm": "8.4",
+          "cost": "28"
+        },
+        {
+          "month": "August",
+          "air": "76.4",
+          "inlet": "75.6",
+          "gpm": "8.5",
+          "cost": "28"
+        },
+        {
+          "month": "September",
+          "air": "70.8",
+          "inlet": "73.3",
+          "gpm": "8.1",
+          "cost": "28"
+        },
+        {
+          "month": "October",
+          "air": "60.4",
+          "inlet": "69.0",
+          "gpm": "7.4",
+          "cost": "32"
+        },
+        {
+          "month": "November",
+          "air": "50.3",
+          "inlet": "63.6",
+          "gpm": "6.7",
+          "cost": "34"
+        },
+        {
+          "month": "December",
+          "air": "43.6",
+          "inlet": "58.9",
+          "gpm": "6.2",
+          "cost": "38"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 North Carolina prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in North Carolina (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "55.2",
+          "rise": "64.8",
+          "gpm": "5.8",
+          "showers": 2
+        },
+        {
+          "season": "Year average",
+          "inlet": "65.5",
+          "rise": "54.5",
+          "gpm": "6.9",
+          "showers": 2
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "75.8",
+          "rise": "44.2",
+          "gpm": "8.6",
+          "showers": 3
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How North Carolina homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "North Carolina",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 75,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 22,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 3,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (4.01 million North Carolina homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

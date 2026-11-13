@@ -586,3 +586,16 @@ test('hotGallonsDrawn: 2.5 GPM for 10 minutes at 78.57% hot → 19.64 gallons fr
 	near(F.hotGallonsDrawn(2.5, 10, 0.7857), 19.64, 0.005);
 	assert.equal(F.hotGallonsDrawn(2.5, 10, null), null);
 });
+
+test('monthly mains temperature: stays inside the coldest/warmest band, coldest in late winter, matches the annual mean', () => {
+	const c = JSON.parse(readFileSync(new URL('../data/groundwater-temp-by-state.json', import.meta.url), 'utf8')).correlation;
+	// EnergyPlus example: Chicago O'Hare TMY2, 9.69 °C average (49.4 °F), 28.1 °C max monthly difference (50.6 °F).
+	const m = F.monthlyMainsTemps(49.4, 50.6, c);
+	const band = F.mainsWaterTemp(49.4, 50.6, c);
+	assert.equal(m.length, 12);
+	for (const t of m) assert.ok(t >= band.coldestMonth - 0.05 && t <= band.warmestMonth + 0.05);
+	const coldest = m.indexOf(Math.min(...m));
+	assert.ok(coldest === 1 || coldest === 2, `coldest month index ${coldest}`); // February or March: mains lag the air
+	const mean = m.reduce((a, b) => a + b, 0) / 12;
+	assert.ok(Math.abs(mean - band.annualAvg) < 0.6);
+});

@@ -1,0 +1,843 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the New York water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "NY",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,881 installed",
+      "explain": "50-gallon gas tank (natural gas, standard vent): the unit itself is about $899 ($749 to $999 in current listings). Installation adds about $982 for labor and 1 extra in New York (price factor 1.08). Range: $1,289 to $2,726.",
+      "formula": "Unit (typical) = $899\nLabor = $650 × 1.079 = $701\nPermit, haul-away and disposal of the old unit = $260 × 1.079 = $281\nTotal (typical) = $899 + $701 + $281 = $1,881\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon gas tank (natural gas, standard vent)",
+            "low": "$749",
+            "typical": "$899",
+            "high": "$999"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$378",
+            "typical": "$701",
+            "high": "$1,187"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$162",
+            "typical": "$281",
+            "high": "$540"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$1,289",
+          "typical": "$1,881",
+          "high": "$2,726"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "NY",
+    "name": "New York",
+    "slug": "new-york",
+    "url": "/water-heater-installation-cost/new-york/",
+    "stateCount": 51,
+    "populationRank": 4,
+    "population": "20,002,427",
+    "popMillion": "20.0",
+    "mult": "1.079",
+    "multPct": 8,
+    "multVs": "8% above",
+    "multRank": 47,
+    "multRankOrd": "47th",
+    "multRankPhrase": "5th highest",
+    "rpp": "107.9",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,071",
+      "typical": "1,741",
+      "high": "2,746",
+      "typicalNum": 1741,
+      "unit": "759",
+      "install": "982",
+      "unitShare": 44
+    },
+    "g50": {
+      "low": "1,289",
+      "typical": "1,881",
+      "high": "2,726",
+      "typicalNum": 1881,
+      "unit": "899",
+      "install": "982",
+      "unitShare": 48
+    },
+    "e40": {
+      "low": "945",
+      "typical": "1,505",
+      "high": "2,710",
+      "typicalNum": 1505,
+      "unit": "684",
+      "install": "821",
+      "unitShare": 45
+    },
+    "e50": {
+      "low": "1,045",
+      "typical": "1,640",
+      "high": "2,940",
+      "typicalNum": 1640,
+      "unit": "819",
+      "install": "821",
+      "unitShare": 50
+    },
+    "hp50": {
+      "low": "2,360",
+      "typical": "3,039",
+      "high": "4,601",
+      "typicalNum": 3039,
+      "unit": "1,787",
+      "install": "1,252",
+      "unitShare": 59
+    },
+    "hpGas": {
+      "low": "2,684",
+      "typical": "3,686",
+      "high": "5,896",
+      "typicalNum": 3686,
+      "unit": "1,787",
+      "install": "1,899",
+      "unitShare": 48
+    },
+    "gTl": {
+      "low": "1,678",
+      "typical": "2,306",
+      "high": "3,862",
+      "typicalNum": 2306,
+      "unit": "1,108",
+      "install": "1,198",
+      "unitShare": 48
+    },
+    "toTl": {
+      "low": "2,326",
+      "typical": "3,493",
+      "high": "6,020",
+      "typicalNum": 3493,
+      "unit": "1,108",
+      "install": "2,385",
+      "unitShare": 32
+    },
+    "eTl": {
+      "low": "1,012",
+      "typical": "1,602",
+      "high": "2,618",
+      "typicalNum": 1602,
+      "unit": "674",
+      "install": "928",
+      "unitShare": 42
+    },
+    "g50code": {
+      "low": "1,451",
+      "typical": "2,232",
+      "high": "3,482",
+      "typicalNum": 2232,
+      "unit": "899",
+      "install": "1,333",
+      "unitShare": 40
+    },
+    "g50Diff": "72",
+    "g50DiffSign": "more",
+    "e50Diff": "61",
+    "e50DiffSign": "more",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "701",
+    "laborE": "540",
+    "permit": "281",
+    "kwh": "0.264",
+    "kwhCents": "26.39",
+    "kwhYear": 2025,
+    "kwhRank": 45,
+    "kwhRankOrd": "45th",
+    "kwhVs": "53% above",
+    "therm": "1.70",
+    "thermYear": 2025,
+    "thermRank": 38,
+    "thermRankOrd": "38th",
+    "thermVs": "15% above",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "305",
+    "eYear": "947",
+    "hYear": "232",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Gas tankless",
+    "cheapestId": "gas_tankless",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "642",
+    "gasCheaperToRun": true,
+    "gasPremium": "241",
+    "gasPay": "under a year",
+    "hpSave": "715",
+    "hpExtra": "1,399",
+    "hpPay": "2.0",
+    "hpPayNum": 2,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "4,935",
+    "ownE": "11,109",
+    "ownH": "5,356",
+    "ownBest": "Gas tank (standard vent)",
+    "ownBestId": "gas_tank",
+    "inletAnnual": "52.0",
+    "inletWinter": "42.0",
+    "inletSummer": "62.0",
+    "riseW": "78.0",
+    "riseA": "68.0",
+    "riseS": "58.0",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "4.8",
+    "gpmA": "5.6",
+    "gpmS": "6.5",
+    "showerGpm": "2.5",
+    "showersW": 1,
+    "showersS": 2,
+    "seasonLossPct": 26,
+    "electricPct": 28,
+    "gasPct": 57,
+    "propanePct": 4,
+    "fuelOilPct": 11,
+    "homesMillion": "7.52",
+    "elecFirst": false,
+    "mainType": "gas_tank",
+    "mainLabel": "Gas tank (standard vent)",
+    "hpPaysInLife": true,
+    "elecMajority": false,
+    "gasMajority": true,
+    "fuelOilShown": true,
+    "gasTanklessSave": "101",
+    "gasTanklessYear": "204",
+    "tlPremium": "1,612",
+    "coldMonth": "February",
+    "coldMonthInlet": "42.1",
+    "coldMonthCost": "27",
+    "warmMonth": "August",
+    "warmMonthInlet": "61.9",
+    "warmMonthCost": "22",
+    "winterExtraPct": 34,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Syracuse, NY",
+      "g50": "1,770",
+      "e50": "1,547",
+      "rpp": "95.7"
+    },
+    "metroDear": {
+      "name": "New York-Newark-Jersey City, NY-NJ",
+      "g50": "1,924",
+      "e50": "1,675",
+      "rpp": "112.6"
+    },
+    "metroSpread": "154",
+    "metroSkipped": "Kiryas Joel-Poughkeepsie-Newburgh, NY",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "unconfirmed",
+      "program": "New York Home Energy Rebates (HER and HEAR)",
+      "agency": "NYSERDA",
+      "sourceUrl": "",
+      "checked": "2026-11-13",
+      "quote": "",
+      "summary": "NYSERDA's rebate pages refused our checker on the check date, so we could not confirm what is open today. Ask NYSERDA or check the ENERGY STAR Rebate Finder before you count on a rebate."
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "New York's price level is the 5th highest of 51 states and DC, so labor, permits and extras cost more here than almost anywhere: about $701 of labor on a gas tank against $650 nationally.",
+      "Electricity is expensive in New York (26.39 cents per kWh, the 7th highest), so a standard electric tank costs about $947 a year to run and a heat pump saves about $715 a year against it.",
+      "Incoming water drops to about 42.0 °F in the coldest month, so a whole-house tankless unit manages only one full-flow shower at a time in winter; a tank, or two tankless units, suits larger households better.",
+      "11% of New York homes still heat water with fuel oil, often from the heating boiler; those systems are priced differently from the tanks on this page.",
+      "Where you live inside New York matters: the same 50-gallon gas job is about $1,924 in the New York-Newark-Jersey City, NY-NJ area and $1,770 in the Syracuse, NY area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "New York vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "New York",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,741",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,881",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,505",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,640",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "3,039",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,306",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,493",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; New York labor and extras × BEA price factor 1.079",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon gas tank replacement in New York",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "378",
+          "typical": "701",
+          "high": "1,187"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "162",
+          "typical": "281",
+          "high": "540"
+        },
+        {
+          "item": "Total",
+          "low": "1,289",
+          "typical": "1,881",
+          "high": "2,726"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon electric tank replacement in New York",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "324",
+          "typical": "540",
+          "high": "971"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "162",
+          "typical": "281",
+          "high": "540"
+        },
+        {
+          "item": "Total",
+          "low": "1,045",
+          "typical": "1,640",
+          "high": "2,940"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in New York (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "New York, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "305",
+          "us": "242",
+          "own": "4,935"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "204",
+          "us": "162",
+          "own": "4,346"
+        },
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "947",
+          "us": "564",
+          "own": "11,109"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "232",
+          "us": "138",
+          "own": "5,356"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "957",
+          "us": "570",
+          "own": "11,174"
+        }
+      ],
+      "source": "EIA 2025 New York residential prices ($0.264/kWh, $1.70/therm); New York incoming water 52.0 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in New York's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "New York-Newark-Jersey City, NY-NJ",
+          "rpp": "112.6",
+          "g50": "1,924",
+          "e50": "1,675"
+        },
+        {
+          "name": "Buffalo-Cheektowaga, NY",
+          "rpp": "95.8",
+          "g50": "1,771",
+          "e50": "1,547"
+        },
+        {
+          "name": "Rochester, NY",
+          "rpp": "97.0",
+          "g50": "1,782",
+          "e50": "1,556"
+        },
+        {
+          "name": "Albany-Schenectady-Troy, NY",
+          "rpp": "99.6",
+          "g50": "1,805",
+          "e50": "1,576"
+        },
+        {
+          "name": "Syracuse, NY",
+          "rpp": "95.7",
+          "g50": "1,770",
+          "e50": "1,547"
+        },
+        {
+          "name": "New York statewide",
+          "rpp": "107.9",
+          "g50": "1,881",
+          "e50": "1,640"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL35620, RPPALL15380, RPPALL40380, RPPALL10580, RPPALL45060); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL35620",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "New York month by month: incoming water, tankless output and the gas tank (standard vent) energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Gas tank (standard vent) energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "21.6",
+          "inlet": "43.6",
+          "gpm": "4.9",
+          "cost": "29"
+        },
+        {
+          "month": "February",
+          "air": "23.5",
+          "inlet": "42.1",
+          "gpm": "4.9",
+          "cost": "27"
+        },
+        {
+          "month": "March",
+          "air": "31.6",
+          "inlet": "43.0",
+          "gpm": "4.9",
+          "cost": "29"
+        },
+        {
+          "month": "April",
+          "air": "43.9",
+          "inlet": "46.5",
+          "gpm": "5.1",
+          "cost": "27"
+        },
+        {
+          "month": "May",
+          "air": "55.8",
+          "inlet": "51.3",
+          "gpm": "5.5",
+          "cost": "26"
+        },
+        {
+          "month": "June",
+          "air": "64.4",
+          "inlet": "56.4",
+          "gpm": "5.9",
+          "cost": "23"
+        },
+        {
+          "month": "July",
+          "air": "69.0",
+          "inlet": "60.2",
+          "gpm": "6.3",
+          "cost": "23"
+        },
+        {
+          "month": "August",
+          "air": "67.4",
+          "inlet": "61.9",
+          "gpm": "6.5",
+          "cost": "22"
+        },
+        {
+          "month": "September",
+          "air": "60.4",
+          "inlet": "60.9",
+          "gpm": "6.4",
+          "cost": "22"
+        },
+        {
+          "month": "October",
+          "air": "48.8",
+          "inlet": "57.5",
+          "gpm": "6.0",
+          "cost": "24"
+        },
+        {
+          "month": "November",
+          "air": "37.9",
+          "inlet": "52.5",
+          "gpm": "5.6",
+          "cost": "25"
+        },
+        {
+          "month": "December",
+          "air": "27.8",
+          "inlet": "47.5",
+          "gpm": "5.2",
+          "cost": "28"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 New York prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in New York (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "42.0",
+          "rise": "78.0",
+          "gpm": "4.8",
+          "showers": 1
+        },
+        {
+          "season": "Year average",
+          "inlet": "52.0",
+          "rise": "68.0",
+          "gpm": "5.6",
+          "showers": 2
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "62.0",
+          "rise": "58.0",
+          "gpm": "6.5",
+          "showers": 2
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How New York homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "New York",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 28,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 57,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 4,
+          "us": 3
+        },
+        {
+          "fuel": "Fuel oil or kerosene",
+          "state": 11,
+          "us": 2
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (7.52 million New York homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

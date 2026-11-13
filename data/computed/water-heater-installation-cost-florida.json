@@ -1,0 +1,837 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the Florida water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "electric_tank",
+      "size": "50",
+      "state": "FL",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,605 installed",
+      "explain": "50-gallon electric tank: the unit itself is about $819 ($559 to $1,429 in current listings). Installation adds about $786 for labor and 1 extra in Florida (price factor 1.03). Range: $1,024 to $2,877.",
+      "formula": "Unit (typical) = $819\nLabor = $500 × 1.034 = $517\nPermit, haul-away and disposal of the old unit = $260 × 1.034 = $269\nTotal (typical) = $819 + $517 + $269 = $1,605\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon electric tank",
+            "low": "$559",
+            "typical": "$819",
+            "high": "$1,429"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$310",
+            "typical": "$517",
+            "high": "$931"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$155",
+            "typical": "$269",
+            "high": "$517"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$1,024",
+          "typical": "$1,605",
+          "high": "$2,877"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "FL",
+    "name": "Florida",
+    "slug": "florida",
+    "url": "/water-heater-installation-cost/florida/",
+    "stateCount": 51,
+    "populationRank": 3,
+    "population": "23,462,518",
+    "popMillion": "23.5",
+    "mult": "1.034",
+    "multPct": 3,
+    "multVs": "3% above",
+    "multRank": 40,
+    "multRankOrd": "40th",
+    "multRankPhrase": "12th highest",
+    "rpp": "103.4",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,048",
+      "typical": "1,700",
+      "high": "2,673",
+      "typicalNum": 1700,
+      "unit": "759",
+      "install": "941",
+      "unitShare": 45
+    },
+    "g50": {
+      "low": "1,266",
+      "typical": "1,840",
+      "high": "2,653",
+      "typicalNum": 1840,
+      "unit": "899",
+      "install": "941",
+      "unitShare": 49
+    },
+    "e40": {
+      "low": "924",
+      "typical": "1,470",
+      "high": "2,647",
+      "typicalNum": 1470,
+      "unit": "684",
+      "install": "786",
+      "unitShare": 47
+    },
+    "e50": {
+      "low": "1,024",
+      "typical": "1,605",
+      "high": "2,877",
+      "typicalNum": 1605,
+      "unit": "819",
+      "install": "786",
+      "unitShare": 51
+    },
+    "hp50": {
+      "low": "2,330",
+      "typical": "2,987",
+      "high": "4,497",
+      "typicalNum": 2987,
+      "unit": "1,787",
+      "install": "1,200",
+      "unitShare": 60
+    },
+    "hpGas": {
+      "low": "2,640",
+      "typical": "3,607",
+      "high": "5,738",
+      "typicalNum": 3607,
+      "unit": "1,787",
+      "install": "1,820",
+      "unitShare": 50
+    },
+    "gTl": {
+      "low": "1,644",
+      "typical": "2,256",
+      "high": "3,771",
+      "typicalNum": 2256,
+      "unit": "1,108",
+      "install": "1,148",
+      "unitShare": 49
+    },
+    "toTl": {
+      "low": "2,264",
+      "typical": "3,393",
+      "high": "5,839",
+      "typicalNum": 3393,
+      "unit": "1,108",
+      "install": "2,285",
+      "unitShare": 33
+    },
+    "eTl": {
+      "low": "991",
+      "typical": "1,563",
+      "high": "2,550",
+      "typicalNum": 1563,
+      "unit": "674",
+      "install": "889",
+      "unitShare": 43
+    },
+    "g50code": {
+      "low": "1,421",
+      "typical": "2,176",
+      "high": "3,377",
+      "typicalNum": 2176,
+      "unit": "899",
+      "install": "1,277",
+      "unitShare": 41
+    },
+    "g50Diff": "31",
+    "g50DiffSign": "more",
+    "e50Diff": "26",
+    "e50DiffSign": "more",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "672",
+    "laborE": "517",
+    "permit": "269",
+    "kwh": "0.152",
+    "kwhCents": "15.21",
+    "kwhYear": 2025,
+    "kwhRank": 23,
+    "kwhRankOrd": "23rd",
+    "kwhVs": "12% below",
+    "therm": "2.49",
+    "thermYear": 2025,
+    "thermRank": 50,
+    "thermRankOrd": "50th",
+    "thermVs": "68% above",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "279",
+    "eYear": "342",
+    "hYear": "84",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Heat pump (hybrid), 240 V",
+    "cheapestId": "heat_pump",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "63",
+    "gasCheaperToRun": true,
+    "gasPremium": "235",
+    "gasPay": "about 3.8 years",
+    "hpSave": "258",
+    "hpExtra": "1,382",
+    "hpPay": "5.4",
+    "hpPayNum": 5.4,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "4,634",
+    "ownE": "5,024",
+    "ownH": "3,824",
+    "ownBest": "Heat pump (hybrid), 240 V",
+    "ownBestId": "heat_pump",
+    "inletAnnual": "77.4",
+    "inletWinter": "69.3",
+    "inletSummer": "85.5",
+    "riseW": "50.7",
+    "riseA": "42.6",
+    "riseS": "34.5",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "7.5",
+    "gpmA": "8.9",
+    "gpmS": "11.0",
+    "showerGpm": "2.5",
+    "showersW": 2,
+    "showersS": 4,
+    "seasonLossPct": 32,
+    "electricPct": 88,
+    "gasPct": 10,
+    "propanePct": 1,
+    "fuelOilPct": 0,
+    "homesMillion": "8.06",
+    "elecFirst": true,
+    "mainType": "electric_tank",
+    "mainLabel": "Electric tank",
+    "hpPaysInLife": true,
+    "elecMajority": true,
+    "gasMajority": false,
+    "fuelOilShown": false,
+    "gasTanklessSave": "93",
+    "gasTanklessYear": "187",
+    "tlPremium": "1,553",
+    "coldMonth": "January",
+    "coldMonthInlet": "69.4",
+    "coldMonthCost": "34",
+    "warmMonth": "July",
+    "warmMonthInlet": "85.4",
+    "warmMonthCost": "24",
+    "winterExtraPct": 46,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Jacksonville, FL",
+      "g50": "1,805",
+      "e50": "1,576",
+      "rpp": "99.5"
+    },
+    "metroDear": {
+      "name": "Miami-Fort Lauderdale-West Palm Beach, FL",
+      "g50": "1,938",
+      "e50": "1,687",
+      "rpp": "114.2"
+    },
+    "metroSpread": "133",
+    "metroSkipped": "",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "notLaunched",
+      "program": "Florida Energy Saver Program (HOMES and HEEHR)",
+      "agency": "Florida Department of Agriculture and Consumer Services, Office of Energy",
+      "sourceUrl": "https://floridaenergysaverprogram.fdacs.gov/",
+      "checked": "2026-11-13",
+      "quote": "The High-Efficiency Electric Home Rebates (HEEHR) and Home Owner Managing Energy Savings (HOMES) programs are expected to launch in the future.",
+      "summary": "Neither program takes applications yet. The portal lets you register for news on the timeline."
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "Natural gas costs more here than in most states ($2.49 per therm, the 2nd highest), so gas's running-cost advantage is smaller than the national picture suggests.",
+      "88% of Florida homes heat water with electricity, against 46% nationally, so most replacements here are electric-to-electric and need no gas or vent work.",
+      "Incoming water stays near 69.3 °F even in the coldest month, so a single whole-house tankless unit can run 2 full-flow showers at once all year.",
+      "Where you live inside Florida matters: the same 50-gallon gas job is about $1,938 in the Miami-Fort Lauderdale-West Palm Beach, FL area and $1,805 in the Jacksonville, FL area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "Florida vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "Florida",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,700",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,840",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,470",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,605",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "2,987",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,256",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,393",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Florida labor and extras × BEA price factor 1.034",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon electric tank replacement in Florida",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "310",
+          "typical": "517",
+          "high": "931"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "155",
+          "typical": "269",
+          "high": "517"
+        },
+        {
+          "item": "Total",
+          "low": "1,024",
+          "typical": "1,605",
+          "high": "2,877"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon gas tank replacement in Florida",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "362",
+          "typical": "672",
+          "high": "1,137"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "155",
+          "typical": "269",
+          "high": "517"
+        },
+        {
+          "item": "Total",
+          "low": "1,266",
+          "typical": "1,840",
+          "high": "2,653"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in Florida (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "Florida, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "342",
+          "us": "564",
+          "own": "5,024"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "84",
+          "us": "138",
+          "own": "3,824"
+        },
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "279",
+          "us": "242",
+          "own": "4,634"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "187",
+          "us": "162",
+          "own": "4,125"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "346",
+          "us": "570",
+          "own": "5,019"
+        }
+      ],
+      "source": "EIA 2025 Florida residential prices ($0.152/kWh, $2.49/therm); Florida incoming water 77.4 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in Florida's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Miami-Fort Lauderdale-West Palm Beach, FL",
+          "rpp": "114.2",
+          "g50": "1,938",
+          "e50": "1,687"
+        },
+        {
+          "name": "Tampa-St. Petersburg-Clearwater, FL",
+          "rpp": "100.9",
+          "g50": "1,817",
+          "e50": "1,586"
+        },
+        {
+          "name": "Orlando-Kissimmee-Sanford, FL",
+          "rpp": "101.4",
+          "g50": "1,822",
+          "e50": "1,590"
+        },
+        {
+          "name": "Jacksonville, FL",
+          "rpp": "99.5",
+          "g50": "1,805",
+          "e50": "1,576"
+        },
+        {
+          "name": "North Port-Bradenton-Sarasota, FL",
+          "rpp": "102.4",
+          "g50": "1,831",
+          "e50": "1,597"
+        },
+        {
+          "name": "Florida statewide",
+          "rpp": "103.4",
+          "g50": "1,840",
+          "e50": "1,605"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL33100, RPPALL45300, RPPALL36740, RPPALL27260, RPPALL35840); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL33100",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "Florida month by month: incoming water, tankless output and the electric tank energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Electric tank energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "58.3",
+          "inlet": "69.4",
+          "gpm": "7.5",
+          "cost": "34"
+        },
+        {
+          "month": "February",
+          "air": "61.2",
+          "inlet": "70.0",
+          "gpm": "7.6",
+          "cost": "31"
+        },
+        {
+          "month": "March",
+          "air": "65.4",
+          "inlet": "72.3",
+          "gpm": "7.9",
+          "cost": "33"
+        },
+        {
+          "month": "April",
+          "air": "70.4",
+          "inlet": "76.2",
+          "gpm": "8.6",
+          "cost": "29"
+        },
+        {
+          "month": "May",
+          "air": "76.3",
+          "inlet": "80.3",
+          "gpm": "9.5",
+          "cost": "27"
+        },
+        {
+          "month": "June",
+          "air": "80.7",
+          "inlet": "83.7",
+          "gpm": "10.4",
+          "cost": "24"
+        },
+        {
+          "month": "July",
+          "air": "82.2",
+          "inlet": "85.4",
+          "gpm": "10.9",
+          "cost": "24"
+        },
+        {
+          "month": "August",
+          "air": "82.2",
+          "inlet": "84.9",
+          "gpm": "10.8",
+          "cost": "24"
+        },
+        {
+          "month": "September",
+          "air": "80.0",
+          "inlet": "82.3",
+          "gpm": "10.0",
+          "cost": "25"
+        },
+        {
+          "month": "October",
+          "air": "73.7",
+          "inlet": "78.6",
+          "gpm": "9.1",
+          "cost": "28"
+        },
+        {
+          "month": "November",
+          "air": "65.8",
+          "inlet": "74.4",
+          "gpm": "8.3",
+          "cost": "30"
+        },
+        {
+          "month": "December",
+          "air": "60.8",
+          "inlet": "71.1",
+          "gpm": "7.7",
+          "cost": "33"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 Florida prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in Florida (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "69.3",
+          "rise": "50.7",
+          "gpm": "7.5",
+          "showers": 2
+        },
+        {
+          "season": "Year average",
+          "inlet": "77.4",
+          "rise": "42.6",
+          "gpm": "8.9",
+          "showers": 3
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "85.5",
+          "rise": "34.5",
+          "gpm": "11.0",
+          "showers": 4
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How Florida homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "Florida",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 88,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 10,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 1,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (8.06 million Florida homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

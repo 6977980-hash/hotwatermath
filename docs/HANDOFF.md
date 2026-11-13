@@ -4,44 +4,42 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6b batch 2 — Troubleshooting (reset button, noise, runs out fast, rotten eggs) (2026-11-13). The 4 new pages are `draft` (noindex) until the owner OKs them. Phase 6's 7 pages went live in PR #28 (owner OK).
-**Next phase to run:** Phase 6c — State pages (10 states), then Phase 6d (safety pages), per `docs/PHASES.md`.
+**Last completed phase:** Phase 6c — State pages, 10 states (2026-11-13). The 10 new pages are `draft` (noindex) until the owner OKs them. Phase 6b batch 2's 4 pages are also still `draft`, waiting for the owner's OK.
+**Next phase to run:** Phase 6d — Safety-critical pages (built last), per `docs/PHASES.md`.
 
-**What exists now (new or changed in Phase 6b batch 2):**
-- `content/water-heater-reset-button.php` — ECO explained, SVG location diagram, safe reset steps, A. O. Smith vs GE view, causes table, breaker vs reset table, gas/tankless, repair-or-replace embed, FAQ (6)
-- `content/water-heater-making-noise.php` — 11-sound table with "Normal?", SVG cutaway, sections by sound, tankless + heat pump, hydrogen warning, repair-or-replace embed (noise ticked), FAQ (7)
-- `content/hot-water-runs-out-fast.php` — triage questions, 9-cause table, size calculator embed, 10-state winter vs summer table, dip tube, lower element, recovery table, tankless, FAQ (6)
-- `content/water-heater-smells-like-rotten-eggs.php` — gas leak first, SVG flowchart, smell-source table, fixes-by-duration table (sources disagree on anode metal), well water treatment by H2S level, age calculator embed, FAQ (6)
-- `data/troubleshooting.json` — 11 new references (A. O. Smith electric manual 2000598248, noise pages, reheat/heat-up pages, water quality; Rheem noise guide; GE ECO; Stiebel Eltron sizing sheet; Penn State Extension; Kansas Corporation Commission), blocks `reset`, `noise`, `runsOut`, `smell`, tables `resetCauses`, `noiseSounds`, `runsOutCauses`, `smellSources`, `h2sTreatment`
-- `assets/js/formulas.js` (+ hotShareOfMix, hotGallonsDrawn); `tests/formulas.test.mjs` +2 tests; `scripts/build-data.mjs` runs-out block + row-count guard; `data/computed/hot-water-runs-out-fast.json`
-- `content/methodology.php` — section `#hot-water-runs-out-fast` (method of the winter vs summer table)
-- `data/pages.json` 4 drafts; size calculator `problems` += runs out fast; repair-or-replace `problems` += noise; `assets/og/` 4 images; `style.css` 0.11.0
-- `docs/briefs/` 4 briefs with quality check; `docs/DECISIONS.md` 1 row
+**What exists now (new or changed in Phase 6c):**
+- `templates/state-cost.php` — shared template for `/water-heater-installation-cost/{state}/` (routed by `template: "state-cost"` in `inc/helpers.php`)
+- `content/water-heater-installation-cost-state.php` — shared body: cost vs U.S., "What stands out" highlights, metro table, itemized gas + electric, calculator preset to the state, sourced state notes, running cost + 10-year cost, fuel mix, winter tankless + month-by-month table, rebate status, FAQ (6), sources (8–10). Section order follows the state's main fuel.
+- `data/state-pages.json` — 10 states (Census Vintage 2025 rank), EIA RECS 2020 fuel shares, rebate status quoted from each official page (checked 2026-11-13), California strap-law note (Seismic Safety Commission)
+- `data/metro-price-parities.json` + `scripts/fetch-metro-rpp.mjs` (`npm run fetch:metros`) — 5 largest metros per state with BEA metro RPP via FRED; skipped metros without a series are recorded
+- `assets/js/formulas.js` + `monthlyMainsTemps`, `MID_MONTH_DAYS`, `MONTH_DAYS`; `data/groundwater-temp-by-state.json → correlation` + lag/sine terms (also in `scripts/fetch-sources.mjs`); `tests/formulas.test.mjs` +1 test
+- `scripts/build-data.mjs` — state block: `data/computed/water-heater-installation-cost-<state>.json` ×10 and `data/computed/state-cost-index.json`; guards on description/quick-answer prices and ≥2 highlights
+- `inc/pages-sync.php` — child pages: slug `a/b` → `post_name` b under parent a (parent must come first in the registry)
+- `inc/seo.php`, `scripts/build-og.mjs` — OG file for a child slug uses `-` for `/`; `assets/og/` 10 images
+- `content/water-heater-installation-cost.php` (live parent) — new table of the state pages (links show for visitors once a child is live); `content/methodology.php` section `#state-cost-pages`
+- `scripts/check-links.mjs` — parent ↔ child check (child links parent in body; parent links live children, names draft ones)
+- `data/pages.json` 10 drafts + group "Cost by State"; `style.css` 0.12.0; `docs/briefs/water-heater-installation-cost-states.md` (one brief for all 10, with quality check); `docs/DECISIONS.md` 2 rows
 
 **Verified (before deploy):**
-- `npm test` 63/63; `validate-data` 57 files OK; `--urls`: all new sources 200 (only the known InspectApedia 409 and Watts 403 warnings); `build:data` fresh.
-- Offline render (WP stubs): 0 PHP errors on the 4 pages; prose ~1,700–2,200 words each; hardcoded-number grep clean (digits only in document numbers and FAQ question wording).
-- Winter vs summer table: Minnesota 37 → 59 °F inlet, 20.5 vs 18.9 gal per 10-min shower (+9%), 36% longer reheat; hand check 105/120/50 °F → 79% hot.
-
-**Verified live (after PR #29 deployed, 2026-11-13):**
-- style.css 0.11.0 served; the 4 pages 200 with `noindex, follow`, one H1, FAQPage JSON-LD, no PHP errors.
-- `npm run check -- --bust` 520/520; `npm run check-links -- --bust` 955/955 (40 pages).
-- Playwright 360x640: no console errors; embedded calculators react (size check 69 → 99 gal FHR on a bigger household; repair tool at 14 years → "Borderline"). Three hand-written tables caused horizontal scroll (408–512 px); wrapped in `.table-wrap` in PR #30.
+- `npm test` 64/64; `validate-data` 70 files OK; `--urls`: every new source 200 (47 FRED metro series, Census, EIA RECS, 8 state rebate pages, SSC); old known warnings only (InspectApedia 409, Watts 403).
+- Offline render (WP stubs): 0 PHP errors on all 10 pages, parent and methodology; 2,600–2,850 words each.
+- Uniqueness (state name masked): sentence/line diff 36–46% between every pair (acceptance ≥30%); strict word-level diff 13–43% (Texas vs Florida lowest).
+- Hand checks: Texas 50-gal gas = $899 + ($650 + $260) × 0.971 = $1,782; Texas winter tankless 189,050 BTU/h ÷ (8.34 × 60 × 59.3 °F) = 6.4 GPM; heat pump saving/payback equal the heat pump calculator's state table (Texas $296/yr, 4.6 yrs).
 
 **Owner steps:**
-1. Read the 4 drafts and reply OK to flip them `live` (quality gate §8).
-2. Flush the Hostinger CDN after this deploy (formulas.js changed; import map versions it).
+1. Read the 10 state drafts (and the 4 batch-2 drafts) and reply OK to flip them `live` (quality gate §8).
+2. Flush the Hostinger CDN after this deploy (formulas.js changed).
 3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs.
 
 **Known issues / TODOs carried forward:**
-- No current manual we opened publishes the ECO trip temperature; the reset page says so and gives none.
-- Angi, HomeServe (403) and hometips (TLS) could not be opened for the briefs.
-- The A. O. Smith electric manual quoted is its electronic-thermostat model; its ECO and troubleshooting text matches the standard-tank info page.
+- Rebate status could not be confirmed for New York (NYSERDA 403), Ohio (no official status page found) and Michigan's remaining funds (michigan.gov 403); the pages say so. Re-check every 3 months with `data/incentives.json`.
+- Price differences between states are modest because only labor/permit/extras scale; the pages say the unit price is national.
+- Cleveland, Dayton and Kiryas Joel–Poughkeepsie have no BEA metro RPP series (redrawn areas); named on the page.
 - Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure.
 
 **Notes for the next thread:**
-- To make these 4 pages live, flip `status` in `data/pages.json`; hubs, sitemap and /llms.txt pick them up.
-- Offline render harness idea: stub WP functions (esc_*, selected, checked, add_action, is_user_logged_in → true, hwm_jsonld) and include `inc/data.php` + `inc/helpers.php`, then the content file.
+- To make the state pages live, flip `status` in `data/pages.json`; the parent's state table then links them and `/guides/` shows the "Cost by State" group. Add more states only after GSC shows these 10 indexed (PHASES 6c task 5): add a record to `data/state-pages.json`, a registry entry, run `npm run fetch:metros` and `npm run build:data`.
+- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, is_user_logged_in → true, hwm_jsonld) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -60,6 +58,7 @@
 - 2026-11-13 — Phase 6 done — 7 expansion pages as drafts (heat pump cost + savings calculator, replacement, tankless, gas, electric installation cost, 40 vs 50, expansion tank calculator), AMTROL and ENERGY STAR cross-checks.
 - 2026-11-13 — Phase 6b batch 2 done — reset button, noise, runs out fast and rotten eggs articles (draft), 11 new sourced references, winter vs summer shower table from formulas.js.
 - 2026-11-13 — Go-live — owner OK: the 7 Phase 6 pages flipped to `live`.
+- 2026-11-13 — Phase 6c done — 10 state cost pages (draft) on one shared template as child pages of the replacement cost article: state and metro prices, EIA fuel mix and running costs, monthly incoming water, official rebate status.
 
 ---
 

@@ -15,7 +15,8 @@
     "fetch:sources": "node scripts/fetch-sources.mjs",
     "build:og": "node scripts/build-og.mjs",
     "build:brand": "node scripts/build-brand.mjs",
-    "check-links": "node scripts/check-links.mjs"
+    "check-links": "node scripts/check-links.mjs",
+    "fetch:metros": "node scripts/fetch-metro-rpp.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2"
