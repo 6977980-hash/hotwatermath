@@ -24,7 +24,7 @@
 - Hand checks: 105 °F shower at 50 °F inlet: 55 ÷ 70 = 78.6% from a 120 °F tank, 55 ÷ 90 = 61.1% at 140 °F, 0.786 ÷ 0.611 − 1 = +29%; 240² ÷ 4,500 = 12.8 Ω, 4,500 ÷ 240 = 18.75 A; 150 psi × 75% = 112.5 psi.
 - §8b grep: every imperative gas/electrical step sits in a list introduced as A. O. Smith's or the valve label's own procedure; no gas work steps; no valve repair steps.
 
-**Verified live:** see the line added after the deploy below.
+**Verified live (after PR #34 deployed, 2026-11-13):** style.css 0.13.0 served; `/?sync=` 200; the 3 pages 200 with `noindex, follow`, self canonical, one H1. `npm run check -- --bust` 691/691; `npm run check-links -- --bust` 1350/1350 (one transient 307 on /privacy-policy/ right after the deploy, 200 on retry). Playwright 360x640: no horizontal scroll, no console errors; embedded calculators react (tank size 4 people → 55-gal gas; expansion tank 80 gal → 2-gal minimum, 4.4-gal safer; repair-or-replace updates).
 
 **Owner steps:**
 1. Read the 3 safety drafts and reply OK to flip them `live` (§8 quality gate; PHASES 6d needs the owner to read each one).
