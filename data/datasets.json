@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "source": "Dataset registry for the /data/ page. Each dataset is one table that a page on this site already shows; the numbers come from the named data or computed file, never typed here.",
+    "sourceUrl": "https://hotwatermath.com/data/",
+    "sourceDate": "2026-11-13",
+    "notes": "npm run build:data turns each entry into clean CSV columns (numbers without thousands separators, ranges split into low and high) in data/computed/datasets.json; the theme serves them at /data/<id>.csv. file + table point to a table { caption, columns, rows } in data/computed/<file>.json. basedOnFiles names the data files whose meta.sourceUrl (the primary sources) become Dataset.isBasedOn. page is the registry slug of the page that shows the table. License: CC BY 4.0 (credit Hot Water Math with a link)."
+  },
+  "license": {
+    "name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "datasets": [
+    {
+      "id": "water-heater-cost-index-by-state",
+      "name": "Water heater cost index by state: installed price and 10-year cost of a 50-gallon tank",
+      "description": "For all 50 states and DC: the typical installed price of a 50-gallon gas tank, electric tank and heat pump water heater (like-for-like replacement), the yearly energy cost of each for a typical household, and the 10-year cost of owning each.",
+      "file": "water-heater-installation-cost-index",
+      "table": "index",
+      "page": "water-heater-installation-cost-index",
+      "keywords": [
+        "water heater cost by state",
+        "water heater installation cost",
+        "heat pump water heater",
+        "cost of ownership"
+      ],
+      "basedOnFiles": [
+        "regional-cost-index",
+        "energy-prices",
+        "groundwater-temp-by-state",
+        "installation-costs",
+        "cost-ranges",
+        "uef-ranges"
+      ]
+    },
+    {
+      "id": "energy-prices-by-state",
+      "name": "Residential electricity and natural gas prices by state",
+      "description": "Average residential electricity price ($/kWh) and natural gas price ($/therm) for every state and DC, converted from EIA annual data with each state's gas heat content.",
+      "file": "energy-prices",
+      "table": "energyPrices",
+      "page": "gas-vs-electric-water-heater",
+      "keywords": [
+        "electricity price by state",
+        "natural gas price by state",
+        "EIA"
+      ],
+      "basedOnFiles": [
+        "energy-prices"
+      ]
+    },
+    {
+      "id": "incoming-water-temperature-by-state",
+      "name": "Estimated incoming (mains) water temperature by state",
+      "description": "Year-average and coldest-month incoming water temperature for every state and DC, estimated from NOAA 1991–2020 air temperature normals with the DOE/NREL mains water correlation used in EnergyPlus.",
+      "file": "inlet-temps",
+      "table": "inletTemps",
+      "page": "tankless-water-heater-size-calculator",
+      "keywords": [
+        "groundwater temperature by state",
+        "incoming water temperature",
+        "tankless sizing"
+      ],
+      "basedOnFiles": [
+        "groundwater-temp-by-state"
+      ]
+    },
+    {
+      "id": "regional-price-factor-by-state",
+      "name": "Regional price factor by state (BEA Regional Price Parity ÷ 100)",
+      "description": "The multiplier our cost calculators apply to installation labor and extras in each state; 1.00 is the U.S. average price level.",
+      "file": "regional-multipliers",
+      "table": "regional",
+      "page": "water-heater-cost-calculator",
+      "keywords": [
+        "regional price parity",
+        "cost of living by state",
+        "labor cost multiplier"
+      ],
+      "basedOnFiles": [
+        "regional-cost-index"
+      ]
+    },
+    {
+      "id": "installed-cost-by-type",
+      "name": "Water heater installed cost by type and size (U.S. average)",
+      "description": "Unit price, typical installed price and installed range for ten common water heaters, like-for-like replacement at U.S. average prices.",
+      "file": "water-heater-cost-calculator",
+      "table": "byUnit",
+      "page": "water-heater-cost-calculator",
+      "keywords": [
+        "water heater installation cost",
+        "water heater price",
+        "tankless installation cost"
+      ],
+      "basedOnFiles": [
+        "cost-ranges",
+        "installation-costs",
+        "regional-cost-index"
+      ]
+    },
+    {
+      "id": "installation-extras",
+      "name": "Water heater installation extras and their usual cost",
+      "description": "Permit, expansion tank, venting, gas line, electrical circuit and other add-ons, low / typical / high at U.S. average prices.",
+      "file": "water-heater-cost-calculator",
+      "table": "extras",
+      "page": "water-heater-cost-calculator",
+      "keywords": [
+        "water heater permit cost",
+        "expansion tank cost",
+        "venting cost"
+      ],
+      "basedOnFiles": [
+        "installation-costs"
+      ]
+    },
+    {
+      "id": "water-heater-lifespan-by-type",
+      "name": "Expected life by water heater type",
+      "description": "Typical and range of expected service life in years for gas tank, electric tank, heat pump, gas tankless and electric tankless water heaters.",
+      "file": "reference-tables",
+      "table": "lifespans",
+      "page": "how-long-does-a-water-heater-last",
+      "keywords": [
+        "water heater lifespan",
+        "how long does a water heater last"
+      ],
+      "basedOnFiles": [
+        "lifespans"
+      ]
+    },
+    {
+      "id": "uef-by-type",
+      "name": "Uniform Energy Factor (UEF) by water heater type",
+      "description": "Default and range of UEF ratings of current models by type, used for every running-cost estimate on the site.",
+      "file": "uef-defaults",
+      "table": "uef",
+      "page": "gas-vs-electric-water-heater",
+      "keywords": [
+        "UEF",
+        "water heater efficiency",
+        "energy factor"
+      ],
+      "basedOnFiles": [
+        "uef-ranges",
+        "energystar-water-heaters"
+      ]
+    },
+    {
+      "id": "fixture-flow-rates",
+      "name": "Hot water fixture flow rates for tankless sizing",
+      "description": "Default, low-flow and typical range of flow (GPM) for showers, faucets, tubs, dishwashers and clothes washers.",
+      "file": "reference-tables",
+      "table": "fixtures",
+      "page": "tankless-water-heater-size-calculator",
+      "keywords": [
+        "shower flow rate",
+        "fixture GPM",
+        "tankless sizing"
+      ],
+      "basedOnFiles": [
+        "fixture-flow-rates"
+      ]
+    },
+    {
+      "id": "peak-hour-hot-water-use",
+      "name": "Hot water per use for the peak-hour sizing worksheet",
+      "description": "Gallons of hot water per shower, bath, shave, dishwasher load and other uses, from the sizing worksheet used to pick a tank by first hour rating.",
+      "file": "reference-tables",
+      "table": "peakHour",
+      "page": "water-heater-size-calculator",
+      "keywords": [
+        "peak hour demand",
+        "first hour rating",
+        "water heater sizing"
+      ],
+      "basedOnFiles": [
+        "peak-hour-demand"
+      ]
+    },
+    {
+      "id": "tankless-gpm-by-temperature-rise",
+      "name": "Gas tankless output: maximum GPM by temperature rise",
+      "description": "Hot water flow a gas tankless heater of 120,000 to 199,000 BTU/h can deliver at each temperature rise, at UEF 0.95.",
+      "file": "tankless-water-heater-size-calculator",
+      "table": "gasChart",
+      "page": "tankless-water-heater-size-calculator",
+      "keywords": [
+        "tankless size chart",
+        "GPM by temperature rise"
+      ],
+      "basedOnFiles": [
+        "tankless-reference-units",
+        "uef-ranges"
+      ]
+    },
+    {
+      "id": "serial-number-date-codes",
+      "name": "Water heater serial number date codes by brand",
+      "description": "How each brand writes the manufacture date into its serial number, with an example, for the brands our age calculator decodes.",
+      "file": "reference-tables",
+      "table": "serialFormats",
+      "page": "water-heater-age-calculator",
+      "keywords": [
+        "water heater serial number age",
+        "water heater date code"
+      ],
+      "basedOnFiles": [
+        "serial-formats"
+      ]
+    }
+  ]
+}

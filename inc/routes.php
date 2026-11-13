@@ -77,6 +77,10 @@ add_action(
 		if ( preg_match( '#^/embed/([a-z0-9-]+)/?$#', $path, $m ) ) {
 			hwm_render_embed( $m[1] );
 		}
+
+		if ( preg_match( '#^/data/([a-z0-9-]+)\.csv$#', $path, $m ) ) {
+			hwm_send_csv( $m[1] );
+		}
 	},
 	0
 );
@@ -96,6 +100,45 @@ function hwm_render_embed( string $tool ): void {
 	hwm_security_headers( true );
 	$hwm_embed_entry = $entry;
 	include HWM_DIR . '/templates/embed.php';
+	exit;
+}
+
+/** One dataset from data/computed/datasets.json, or null. */
+function hwm_dataset( string $id ): ?array {
+	foreach ( (array) hwm_raw( 'computed/datasets', 'datasets' ) as $set ) {
+		if ( ( $set['id'] ?? '' ) === $id ) {
+			return $set;
+		}
+	}
+	return null;
+}
+
+/**
+ * /data/<id>.csv : a dataset as CSV (rendering only; the columns and values are built by npm run build:data).
+ * Served only while the /data/ page can be opened (live, or draft for logged-in editors), so drafts do not leak.
+ * The X-Robots-Tag keeps the raw files out of web search; the /data/ page carries the Dataset schema.
+ */
+function hwm_send_csv( string $id ): void {
+	$set = hwm_dataset( $id );
+	if ( ! $set || ! hwm_can_open( hwm_page( 'data' ) ) ) {
+		return; // Falls through to WordPress, which answers 404.
+	}
+	$out = fopen( 'php://temp', 'r+' );
+	fputcsv( $out, (array) $set['columns'], ',', '"', '' );
+	foreach ( (array) $set['rows'] as $row ) {
+		fputcsv( $out, array_map( static fn( $v ) => is_float( $v ) ? rtrim( rtrim( number_format( $v, 4, '.', '' ), '0' ), '.' ) : (string) $v, (array) $row ), ',', '"', '' );
+	}
+	rewind( $out );
+	$body = (string) stream_get_contents( $out );
+	fclose( $out );
+	status_header( 200 );
+	header( 'Content-Type: text/csv; charset=utf-8' );
+	header( 'Content-Disposition: inline; filename="hotwatermath-' . $id . '.csv"' );
+	header( 'Cache-Control: public, max-age=3600' );
+	header( 'X-Content-Type-Options: nosniff' );
+	header( 'X-Robots-Tag: noindex' );
+	header( 'Access-Control-Allow-Origin: *' );
+	echo "\xEF\xBB\xBF" . $body; // phpcs:ignore -- CSV body; BOM so Excel reads the degree and dash signs as UTF-8.
 	exit;
 }
 

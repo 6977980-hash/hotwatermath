@@ -271,7 +271,8 @@ function hwm_embed_snippet( string $tool ): string {
 	$entry = hwm_page( $tool );
 	$src   = hwm_origin() . '/embed/' . $tool . '/';
 	$title = (string) ( $entry['title'] ?? 'Calculator' );
-	return '<iframe src="' . $src . '" title="' . esc_attr( $title ) . '" width="100%" height="640" style="border:0;max-width:720px" loading="lazy"></iframe>' . "\n"
+	return '<!-- ' . hwm_site( 'brand' ) . ' calculator. The credit line under it is optional; you may remove it. -->' . "\n"
+		. '<iframe src="' . $src . '" title="' . esc_attr( $title ) . '" width="100%" height="640" style="border:0;max-width:720px" loading="lazy"></iframe>' . "\n"
 		. '<p style="font-size:13px">Calculator by <a href="' . hwm_url() . '" rel="nofollow">' . esc_html( (string) hwm_site( 'brand' ) ) . '</a></p>';
 }
 

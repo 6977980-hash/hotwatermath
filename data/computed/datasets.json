@@ -1,0 +1,2264 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/datasets.json and the computed tables it names with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Clean CSV columns for /data/<id>.csv and Dataset schema on /data/."
+  },
+  "license": {
+    "name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+    "url": "https://creativecommons.org/licenses/by/4.0/"
+  },
+  "datasets": [
+    {
+      "id": "water-heater-cost-index-by-state",
+      "name": "Water heater cost index by state: installed price and 10-year cost of a 50-gallon tank",
+      "description": "For all 50 states and DC: the typical installed price of a 50-gallon gas tank, electric tank and heat pump water heater (like-for-like replacement), the yearly energy cost of each for a typical household, and the 10-year cost of owning each.",
+      "caption": "Water heater cost index by state: 50-gallon tanks, installed price and 10-year cost (ranked, 1 = cheapest to own)",
+      "page": "water-heater-installation-cost-index",
+      "keywords": [
+        "water heater cost by state",
+        "water heater installation cost",
+        "heat pump water heater",
+        "cost of ownership"
+      ],
+      "basedOn": [
+        "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
+        "https://www.eia.gov/electricity/annual/html/epa_02_10.html",
+        "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/statewide/time-series/",
+        "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+        "https://www.homedepot.com/b/Plumbing-Water-Heaters/N-5yc1vZbqly",
+        "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      ],
+      "tableSource": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
+      "sourceDate": "2026-11-13",
+      "columns": [
+        "Rank",
+        "State",
+        "Price factor",
+        "Gas tank installed ($)",
+        "Electric tank installed ($)",
+        "Heat pump installed ($)",
+        "Gas tank energy ($/yr)",
+        "Electric tank energy ($/yr)",
+        "Heat pump energy ($/yr)",
+        "Gas tank, 10 years ($)",
+        "Electric tank, 10 years ($)",
+        "Heat pump, 10 years ($)",
+        "Cheapest over 10 years"
+      ],
+      "rows": [
+        [
+          1,
+          "Idaho",
+          0.955,
+          1768,
+          1545,
+          2895,
+          137,
+          438,
+          107,
+          3136,
+          5921,
+          3966,
+          "Gas tank (standard vent)"
+        ],
+        [
+          2,
+          "New Mexico",
+          0.922,
+          1738,
+          1520,
+          2857,
+          151,
+          466,
+          114,
+          3251,
+          6181,
+          3998,
+          "Gas tank (standard vent)"
+        ],
+        [
+          3,
+          "Montana",
+          0.946,
+          1760,
+          1538,
+          2884,
+          160,
+          490,
+          120,
+          3357,
+          6439,
+          4083,
+          "Gas tank (standard vent)"
+        ],
+        [
+          4,
+          "South Dakota",
+          0.886,
+          1705,
+          1492,
+          2814,
+          165,
+          481,
+          118,
+          3358,
+          6299,
+          3990,
+          "Gas tank (standard vent)"
+        ],
+        [
+          5,
+          "Tennessee",
+          0.919,
+          1735,
+          1518,
+          2853,
+          169,
+          388,
+          95,
+          3428,
+          5397,
+          3802,
+          "Gas tank (standard vent)"
+        ],
+        [
+          6,
+          "Iowa",
+          0.878,
+          1698,
+          1486,
+          2805,
+          173,
+          472,
+          116,
+          3432,
+          6208,
+          3960,
+          "Gas tank (standard vent)"
+        ],
+        [
+          7,
+          "North Dakota",
+          0.89,
+          1709,
+          1495,
+          2819,
+          175,
+          455,
+          111,
+          3455,
+          6048,
+          3934,
+          "Gas tank (standard vent)"
+        ],
+        [
+          8,
+          "Utah",
+          0.989,
+          1799,
+          1571,
+          2934,
+          166,
+          445,
+          109,
+          3458,
+          6022,
+          4024,
+          "Gas tank (standard vent)"
+        ],
+        [
+          9,
+          "Indiana",
+          0.933,
+          1748,
+          1529,
+          2870,
+          177,
+          520,
+          127,
+          3515,
+          6724,
+          4142,
+          "Gas tank (standard vent)"
+        ],
+        [
+          10,
+          "Illinois",
+          1,
+          1809,
+          1579,
+          2947,
+          174,
+          573,
+          140,
+          3546,
+          7304,
+          4348,
+          "Gas tank (standard vent)"
+        ],
+        [
+          11,
+          "Nebraska",
+          0.901,
+          1719,
+          1504,
+          2832,
+          184,
+          411,
+          101,
+          3558,
+          5611,
+          3837,
+          "Gas tank (standard vent)"
+        ],
+        [
+          12,
+          "Louisiana",
+          0.882,
+          1701,
+          1489,
+          2810,
+          211,
+          310,
+          76,
+          3810,
+          4588,
+          3569,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          13,
+          "Michigan",
+          0.962,
+          1774,
+          1550,
+          2903,
+          187,
+          727,
+          178,
+          3642,
+          8821,
+          4682,
+          "Gas tank (standard vent)"
+        ],
+        [
+          14,
+          "Wisconsin",
+          0.941,
+          1756,
+          1535,
+          2879,
+          190,
+          670,
+          164,
+          3651,
+          8232,
+          4517,
+          "Gas tank (standard vent)"
+        ],
+        [
+          15,
+          "Oklahoma",
+          0.878,
+          1698,
+          1486,
+          2805,
+          196,
+          374,
+          92,
+          3659,
+          5228,
+          3721,
+          "Gas tank (standard vent)"
+        ],
+        [
+          16,
+          "Arkansas",
+          0.869,
+          1690,
+          1480,
+          2795,
+          263,
+          360,
+          88,
+          4322,
+          5079,
+          3675,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          17,
+          "Mississippi",
+          0.87,
+          1691,
+          1480,
+          2796,
+          214,
+          369,
+          90,
+          3829,
+          5167,
+          3698,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          18,
+          "Colorado",
+          1.031,
+          1837,
+          1603,
+          2983,
+          187,
+          561,
+          137,
+          3711,
+          7215,
+          4357,
+          "Gas tank (standard vent)"
+        ],
+        [
+          19,
+          "West Virginia",
+          0.895,
+          1714,
+          1500,
+          2826,
+          206,
+          499,
+          122,
+          3770,
+          6486,
+          4046,
+          "Gas tank (standard vent)"
+        ],
+        [
+          20,
+          "Minnesota",
+          0.986,
+          1796,
+          1568,
+          2930,
+          198,
+          604,
+          148,
+          3780,
+          7607,
+          4409,
+          "Gas tank (standard vent)"
+        ],
+        [
+          21,
+          "Kentucky",
+          0.902,
+          1720,
+          1505,
+          2834,
+          206,
+          400,
+          98,
+          3784,
+          5502,
+          3812,
+          "Gas tank (standard vent)"
+        ],
+        [
+          22,
+          "Florida",
+          1.034,
+          1840,
+          1605,
+          2987,
+          279,
+          342,
+          84,
+          4634,
+          5024,
+          3824,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          23,
+          "Missouri",
+          0.908,
+          1725,
+          1509,
+          2840,
+          226,
+          412,
+          101,
+          3985,
+          5628,
+          3848,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          24,
+          "Wyoming",
+          0.927,
+          1743,
+          1524,
+          2862,
+          211,
+          506,
+          124,
+          3849,
+          6582,
+          4100,
+          "Gas tank (standard vent)"
+        ],
+        [
+          25,
+          "Georgia",
+          0.963,
+          1775,
+          1551,
+          2904,
+          260,
+          387,
+          95,
+          4373,
+          5425,
+          3852,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          26,
+          "South Carolina",
+          0.937,
+          1752,
+          1532,
+          2874,
+          218,
+          404,
+          99,
+          3929,
+          5569,
+          3861,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          27,
+          "Alabama",
+          0.888,
+          1707,
+          1494,
+          2817,
+          226,
+          428,
+          105,
+          3969,
+          5772,
+          3865,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          28,
+          "North Carolina",
+          0.943,
+          1757,
+          1536,
+          2881,
+          226,
+          403,
+          99,
+          4013,
+          5562,
+          3867,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          29,
+          "Texas",
+          0.971,
+          1782,
+          1557,
+          2913,
+          243,
+          392,
+          96,
+          4211,
+          5473,
+          3871,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          30,
+          "Ohio",
+          0.928,
+          1743,
+          1524,
+          2863,
+          214,
+          556,
+          136,
+          3886,
+          7079,
+          4222,
+          "Gas tank (standard vent)"
+        ],
+        [
+          31,
+          "Nevada",
+          1,
+          1809,
+          1579,
+          2947,
+          209,
+          441,
+          108,
+          3903,
+          5987,
+          4026,
+          "Gas tank (standard vent)"
+        ],
+        [
+          32,
+          "Kansas",
+          0.901,
+          1719,
+          1504,
+          2832,
+          222,
+          450,
+          110,
+          3936,
+          5999,
+          3932,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          33,
+          "Arizona",
+          1.007,
+          1816,
+          1584,
+          2955,
+          253,
+          426,
+          104,
+          4347,
+          5843,
+          3997,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          34,
+          "New Jersey",
+          1.088,
+          1889,
+          1646,
+          3049,
+          218,
+          716,
+          175,
+          4070,
+          8810,
+          4802,
+          "Gas tank (standard vent)"
+        ],
+        [
+          35,
+          "Virginia",
+          1.011,
+          1819,
+          1587,
+          2960,
+          245,
+          468,
+          114,
+          4272,
+          6263,
+          4104,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          36,
+          "Delaware",
+          0.998,
+          1807,
+          1577,
+          2944,
+          235,
+          523,
+          128,
+          4160,
+          6808,
+          4223,
+          "Gas tank (standard vent)"
+        ],
+        [
+          37,
+          "Washington",
+          1.07,
+          1873,
+          1632,
+          3028,
+          283,
+          463,
+          113,
+          4702,
+          6266,
+          4162,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          38,
+          "District of Columbia",
+          1.099,
+          1899,
+          1655,
+          3062,
+          232,
+          629,
+          154,
+          4215,
+          7946,
+          4601,
+          "Gas tank (standard vent)"
+        ],
+        [
+          39,
+          "Maryland",
+          1.05,
+          1855,
+          1617,
+          3005,
+          240,
+          604,
+          148,
+          4254,
+          7656,
+          4483,
+          "Gas tank (standard vent)"
+        ],
+        [
+          40,
+          "Pennsylvania",
+          0.976,
+          1787,
+          1561,
+          2919,
+          247,
+          656,
+          161,
+          4257,
+          8125,
+          4526,
+          "Gas tank (standard vent)"
+        ],
+        [
+          41,
+          "Oregon",
+          1.034,
+          1840,
+          1605,
+          2987,
+          271,
+          539,
+          132,
+          4549,
+          6997,
+          4307,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          42,
+          "Alaska",
+          1.024,
+          1831,
+          1597,
+          2975,
+          264,
+          1051,
+          257,
+          4471,
+          12109,
+          5547,
+          "Gas tank (standard vent)"
+        ],
+        [
+          43,
+          "Connecticut",
+          1.036,
+          1841,
+          1606,
+          2988,
+          276,
+          991,
+          243,
+          4599,
+          11519,
+          5415,
+          "Gas tank (standard vent)"
+        ],
+        [
+          44,
+          "Hawaii",
+          1.1,
+          1900,
+          1655,
+          3063,
+          536,
+          759,
+          186,
+          7264,
+          9242,
+          4921,
+          "Heat pump (hybrid), 240 V"
+        ],
+        [
+          45,
+          "New York",
+          1.079,
+          1881,
+          1640,
+          3039,
+          305,
+          947,
+          232,
+          4935,
+          11109,
+          5356,
+          "Gas tank (standard vent)"
+        ],
+        [
+          46,
+          "Vermont",
+          0.98,
+          1791,
+          1564,
+          2924,
+          322,
+          854,
+          209,
+          5007,
+          10101,
+          5014,
+          "Gas tank (standard vent)"
+        ],
+        [
+          47,
+          "California",
+          1.107,
+          1907,
+          1661,
+          3071,
+          312,
+          910,
+          223,
+          5030,
+          10759,
+          5297,
+          "Gas tank (standard vent)"
+        ],
+        [
+          48,
+          "New Hampshire",
+          1.042,
+          1847,
+          1611,
+          2996,
+          331,
+          906,
+          222,
+          5153,
+          10670,
+          5214,
+          "Gas tank (standard vent)"
+        ],
+        [
+          49,
+          "Maine",
+          0.971,
+          1782,
+          1557,
+          2913,
+          344,
+          1055,
+          258,
+          5224,
+          12104,
+          5494,
+          "Gas tank (standard vent)"
+        ],
+        [
+          50,
+          "Rhode Island",
+          1.023,
+          1830,
+          1596,
+          2974,
+          351,
+          985,
+          241,
+          5340,
+          11442,
+          5383,
+          "Gas tank (standard vent)"
+        ],
+        [
+          51,
+          "Massachusetts",
+          1.058,
+          1862,
+          1623,
+          3014,
+          418,
+          1046,
+          256,
+          6041,
+          12084,
+          5575,
+          "Heat pump (hybrid), 240 V"
+        ]
+      ],
+      "rowCount": 51
+    },
+    {
+      "id": "energy-prices-by-state",
+      "name": "Residential electricity and natural gas prices by state",
+      "description": "Average residential electricity price ($/kWh) and natural gas price ($/therm) for every state and DC, converted from EIA annual data with each state's gas heat content.",
+      "caption": "Average residential energy prices by state",
+      "page": "gas-vs-electric-water-heater",
+      "keywords": [
+        "electricity price by state",
+        "natural gas price by state",
+        "EIA"
+      ],
+      "basedOn": [
+        "https://www.eia.gov/electricity/annual/html/epa_02_10.html"
+      ],
+      "tableSource": "U.S. Energy Information Administration (EIA): Electric Power Annual table 2.10 (residential electricity price by state); Natural Gas Annual residential price and heat content of delivered gas by state",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "State",
+        "Electricity ($/kWh)",
+        "Natural gas ($/therm)",
+        "Gas price year"
+      ],
+      "rows": [
+        [
+          "Alabama",
+          0.161,
+          1.7,
+          2025
+        ],
+        [
+          "Alaska",
+          0.261,
+          1.31,
+          2025
+        ],
+        [
+          "Arizona",
+          0.153,
+          1.81,
+          2025
+        ],
+        [
+          "Arkansas",
+          0.129,
+          1.88,
+          2025
+        ],
+        [
+          "California",
+          0.314,
+          2.15,
+          2025
+        ],
+        [
+          "Colorado",
+          0.157,
+          1.05,
+          2025
+        ],
+        [
+          "Connecticut",
+          0.293,
+          1.63,
+          2024
+        ],
+        [
+          "Delaware",
+          0.172,
+          1.54,
+          2025
+        ],
+        [
+          "District of Columbia",
+          0.219,
+          1.62,
+          2025
+        ],
+        [
+          "Florida",
+          0.152,
+          2.49,
+          2025
+        ],
+        [
+          "Georgia",
+          0.147,
+          1.98,
+          2025
+        ],
+        [
+          "Hawaii",
+          0.404,
+          5.71,
+          2025
+        ],
+        [
+          "Idaho",
+          0.118,
+          0.74,
+          2025
+        ],
+        [
+          "Illinois",
+          0.177,
+          1.07,
+          2025
+        ],
+        [
+          "Indiana",
+          0.16,
+          1.09,
+          2025
+        ],
+        [
+          "Iowa",
+          0.136,
+          1,
+          2025
+        ],
+        [
+          "Kansas",
+          0.144,
+          1.43,
+          2025
+        ],
+        [
+          "Kentucky",
+          0.131,
+          1.36,
+          2025
+        ],
+        [
+          "Louisiana",
+          0.125,
+          1.71,
+          2025
+        ],
+        [
+          "Maine",
+          0.277,
+          1.81,
+          2024
+        ],
+        [
+          "Maryland",
+          0.195,
+          1.55,
+          2024
+        ],
+        [
+          "Massachusetts",
+          0.304,
+          2.43,
+          2025
+        ],
+        [
+          "Michigan",
+          0.2,
+          1.03,
+          2025
+        ],
+        [
+          "Minnesota",
+          0.158,
+          1.04,
+          2025
+        ],
+        [
+          "Mississippi",
+          0.14,
+          1.63,
+          2025
+        ],
+        [
+          "Missouri",
+          0.133,
+          1.46,
+          2025
+        ],
+        [
+          "Montana",
+          0.13,
+          0.85,
+          2025
+        ],
+        [
+          "Nebraska",
+          0.121,
+          1.08,
+          2025
+        ],
+        [
+          "Nevada",
+          0.133,
+          1.26,
+          2025
+        ],
+        [
+          "New Hampshire",
+          0.245,
+          1.79,
+          2025
+        ],
+        [
+          "New Jersey",
+          0.225,
+          1.37,
+          2025
+        ],
+        [
+          "New Mexico",
+          0.149,
+          0.96,
+          2025
+        ],
+        [
+          "New York",
+          0.264,
+          1.7,
+          2025
+        ],
+        [
+          "North Carolina",
+          0.14,
+          1.57,
+          2024
+        ],
+        [
+          "North Dakota",
+          0.118,
+          0.91,
+          2025
+        ],
+        [
+          "Ohio",
+          0.169,
+          1.3,
+          2025
+        ],
+        [
+          "Oklahoma",
+          0.132,
+          1.39,
+          2025
+        ],
+        [
+          "Oregon",
+          0.155,
+          1.55,
+          2025
+        ],
+        [
+          "Pennsylvania",
+          0.193,
+          1.45,
+          2025
+        ],
+        [
+          "Rhode Island",
+          0.295,
+          2.1,
+          2024
+        ],
+        [
+          "South Carolina",
+          0.151,
+          1.63,
+          2024
+        ],
+        [
+          "South Dakota",
+          0.133,
+          0.92,
+          2025
+        ],
+        [
+          "Tennessee",
+          0.132,
+          1.16,
+          2025
+        ],
+        [
+          "Texas",
+          0.154,
+          1.91,
+          2025
+        ],
+        [
+          "Utah",
+          0.13,
+          0.97,
+          2025
+        ],
+        [
+          "Vermont",
+          0.228,
+          1.72,
+          2025
+        ],
+        [
+          "Virginia",
+          0.153,
+          1.6,
+          2025
+        ],
+        [
+          "Washington",
+          0.132,
+          1.61,
+          2025
+        ],
+        [
+          "West Virginia",
+          0.154,
+          1.27,
+          2025
+        ],
+        [
+          "Wisconsin",
+          0.181,
+          1.02,
+          2025
+        ],
+        [
+          "Wyoming",
+          0.134,
+          1.11,
+          2025
+        ]
+      ],
+      "rowCount": 51
+    },
+    {
+      "id": "incoming-water-temperature-by-state",
+      "name": "Estimated incoming (mains) water temperature by state",
+      "description": "Year-average and coldest-month incoming water temperature for every state and DC, estimated from NOAA 1991–2020 air temperature normals with the DOE/NREL mains water correlation used in EnergyPlus.",
+      "caption": "Estimated incoming water temperature by state",
+      "page": "tankless-water-heater-size-calculator",
+      "keywords": [
+        "groundwater temperature by state",
+        "incoming water temperature",
+        "tankless sizing"
+      ],
+      "basedOn": [
+        "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/statewide/time-series/"
+      ],
+      "tableSource": "NOAA National Centers for Environmental Information, Climate at a Glance: monthly average air temperature, 1991–2020; mains water correlation by Christensen and Burch (Hendron et al. 2004) as published in the EnergyPlus Engineering Reference",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "State",
+        "Year average (°F)",
+        "Coldest month (°F)"
+      ],
+      "rows": [
+        [
+          "Alabama",
+          70,
+          59
+        ],
+        [
+          "Alaska",
+          44,
+          37
+        ],
+        [
+          "Arizona",
+          67,
+          56
+        ],
+        [
+          "Arkansas",
+          67,
+          56
+        ],
+        [
+          "California",
+          65,
+          56
+        ],
+        [
+          "Colorado",
+          52,
+          43
+        ],
+        [
+          "Connecticut",
+          56,
+          46
+        ],
+        [
+          "Delaware",
+          62,
+          51
+        ],
+        [
+          "District of Columbia",
+          66,
+          54
+        ],
+        [
+          "Florida",
+          77,
+          69
+        ],
+        [
+          "Georgia",
+          70,
+          60
+        ],
+        [
+          "Hawaii",
+          84,
+          81
+        ],
+        [
+          "Idaho",
+          50,
+          42
+        ],
+        [
+          "Illinois",
+          59,
+          47
+        ],
+        [
+          "Indiana",
+          58,
+          47
+        ],
+        [
+          "Iowa",
+          54,
+          42
+        ],
+        [
+          "Kansas",
+          61,
+          49
+        ],
+        [
+          "Kentucky",
+          62,
+          51
+        ],
+        [
+          "Louisiana",
+          73,
+          63
+        ],
+        [
+          "Maine",
+          48,
+          38
+        ],
+        [
+          "Maryland",
+          61,
+          50
+        ],
+        [
+          "Massachusetts",
+          55,
+          45
+        ],
+        [
+          "Michigan",
+          51,
+          41
+        ],
+        [
+          "Minnesota",
+          48,
+          37
+        ],
+        [
+          "Mississippi",
+          70,
+          60
+        ],
+        [
+          "Missouri",
+          61,
+          49
+        ],
+        [
+          "Montana",
+          49,
+          40
+        ],
+        [
+          "Nebraska",
+          55,
+          44
+        ],
+        [
+          "Nevada",
+          57,
+          47
+        ],
+        [
+          "New Hampshire",
+          50,
+          40
+        ],
+        [
+          "New Jersey",
+          60,
+          49
+        ],
+        [
+          "New Mexico",
+          61,
+          51
+        ],
+        [
+          "New York",
+          52,
+          42
+        ],
+        [
+          "North Carolina",
+          66,
+          55
+        ],
+        [
+          "North Dakota",
+          47,
+          36
+        ],
+        [
+          "Ohio",
+          58,
+          47
+        ],
+        [
+          "Oklahoma",
+          66,
+          54
+        ],
+        [
+          "Oregon",
+          54,
+          46
+        ],
+        [
+          "Pennsylvania",
+          56,
+          45
+        ],
+        [
+          "Rhode Island",
+          57,
+          47
+        ],
+        [
+          "South Carolina",
+          69,
+          59
+        ],
+        [
+          "South Dakota",
+          52,
+          40
+        ],
+        [
+          "Tennessee",
+          64,
+          54
+        ],
+        [
+          "Texas",
+          72,
+          61
+        ],
+        [
+          "Utah",
+          55,
+          45
+        ],
+        [
+          "Vermont",
+          49,
+          39
+        ],
+        [
+          "Virginia",
+          62,
+          52
+        ],
+        [
+          "Washington",
+          53,
+          46
+        ],
+        [
+          "West Virginia",
+          59,
+          49
+        ],
+        [
+          "Wisconsin",
+          50,
+          39
+        ],
+        [
+          "Wyoming",
+          48,
+          40
+        ]
+      ],
+      "rowCount": 51
+    },
+    {
+      "id": "regional-price-factor-by-state",
+      "name": "Regional price factor by state (BEA Regional Price Parity ÷ 100)",
+      "description": "The multiplier our cost calculators apply to installation labor and extras in each state; 1.00 is the U.S. average price level.",
+      "caption": "Regional cost multiplier by state (1.00 = U.S. average)",
+      "page": "water-heater-cost-calculator",
+      "keywords": [
+        "regional price parity",
+        "cost of living by state",
+        "labor cost multiplier"
+      ],
+      "basedOn": [
+        "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf"
+      ],
+      "tableSource": "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "State",
+        "Multiplier"
+      ],
+      "rows": [
+        [
+          "Alabama",
+          0.89
+        ],
+        [
+          "Alaska",
+          1.02
+        ],
+        [
+          "Arizona",
+          1.01
+        ],
+        [
+          "Arkansas",
+          0.87
+        ],
+        [
+          "California",
+          1.11
+        ],
+        [
+          "Colorado",
+          1.03
+        ],
+        [
+          "Connecticut",
+          1.04
+        ],
+        [
+          "Delaware",
+          1
+        ],
+        [
+          "District of Columbia",
+          1.1
+        ],
+        [
+          "Florida",
+          1.03
+        ],
+        [
+          "Georgia",
+          0.96
+        ],
+        [
+          "Hawaii",
+          1.1
+        ],
+        [
+          "Idaho",
+          0.96
+        ],
+        [
+          "Illinois",
+          1
+        ],
+        [
+          "Indiana",
+          0.93
+        ],
+        [
+          "Iowa",
+          0.88
+        ],
+        [
+          "Kansas",
+          0.9
+        ],
+        [
+          "Kentucky",
+          0.9
+        ],
+        [
+          "Louisiana",
+          0.88
+        ],
+        [
+          "Maine",
+          0.97
+        ],
+        [
+          "Maryland",
+          1.05
+        ],
+        [
+          "Massachusetts",
+          1.06
+        ],
+        [
+          "Michigan",
+          0.96
+        ],
+        [
+          "Minnesota",
+          0.99
+        ],
+        [
+          "Mississippi",
+          0.87
+        ],
+        [
+          "Missouri",
+          0.91
+        ],
+        [
+          "Montana",
+          0.95
+        ],
+        [
+          "Nebraska",
+          0.9
+        ],
+        [
+          "Nevada",
+          1
+        ],
+        [
+          "New Hampshire",
+          1.04
+        ],
+        [
+          "New Jersey",
+          1.09
+        ],
+        [
+          "New Mexico",
+          0.92
+        ],
+        [
+          "New York",
+          1.08
+        ],
+        [
+          "North Carolina",
+          0.94
+        ],
+        [
+          "North Dakota",
+          0.89
+        ],
+        [
+          "Ohio",
+          0.93
+        ],
+        [
+          "Oklahoma",
+          0.88
+        ],
+        [
+          "Oregon",
+          1.03
+        ],
+        [
+          "Pennsylvania",
+          0.98
+        ],
+        [
+          "Rhode Island",
+          1.02
+        ],
+        [
+          "South Carolina",
+          0.94
+        ],
+        [
+          "South Dakota",
+          0.89
+        ],
+        [
+          "Tennessee",
+          0.92
+        ],
+        [
+          "Texas",
+          0.97
+        ],
+        [
+          "Utah",
+          0.99
+        ],
+        [
+          "Vermont",
+          0.98
+        ],
+        [
+          "Virginia",
+          1.01
+        ],
+        [
+          "Washington",
+          1.07
+        ],
+        [
+          "West Virginia",
+          0.9
+        ],
+        [
+          "Wisconsin",
+          0.94
+        ],
+        [
+          "Wyoming",
+          0.93
+        ]
+      ],
+      "rowCount": 51
+    },
+    {
+      "id": "installed-cost-by-type",
+      "name": "Water heater installed cost by type and size (U.S. average)",
+      "description": "Unit price, typical installed price and installed range for ten common water heaters, like-for-like replacement at U.S. average prices.",
+      "caption": "Installed cost by type and size, like-for-like replacement, U.S. average",
+      "page": "water-heater-cost-calculator",
+      "keywords": [
+        "water heater installation cost",
+        "water heater price",
+        "tankless installation cost"
+      ],
+      "basedOn": [
+        "https://www.homedepot.com/b/Plumbing-Water-Heaters/N-5yc1vZbqly",
+        "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+        "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf"
+      ],
+      "tableSource": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: data/installation-costs.json (2026-11-13)",
+      "sourceDate": "2026-11-13",
+      "columns": [
+        "Water heater",
+        "Unit only ($)",
+        "Installed, typical ($)",
+        "Installed range ($) low",
+        "Installed range ($) high"
+      ],
+      "rows": [
+        [
+          "40-gallon gas tank (natural gas, standard vent)",
+          759,
+          1669,
+          1031,
+          2619
+        ],
+        [
+          "50-gallon gas tank (natural gas, standard vent)",
+          899,
+          1809,
+          1249,
+          2599
+        ],
+        [
+          "75-gallon gas tank (natural gas, standard vent)",
+          1319,
+          2229,
+          1649,
+          3059
+        ],
+        [
+          "40-gallon electric tank",
+          684,
+          1444,
+          909,
+          2599
+        ],
+        [
+          "50-gallon electric tank",
+          819,
+          1579,
+          1009,
+          2829
+        ],
+        [
+          "50-gallon heat pump (hybrid)",
+          1787,
+          2947,
+          2308,
+          4419
+        ],
+        [
+          "65-gallon heat pump (hybrid)",
+          1946,
+          3106,
+          2519,
+          4819
+        ],
+        [
+          "80-gallon heat pump (hybrid)",
+          2378,
+          3538,
+          2885,
+          5098
+        ],
+        [
+          "Gas tankless, whole house (8 GPM or more, natural gas)",
+          1108,
+          2218,
+          1619,
+          3703
+        ],
+        [
+          "Electric tankless, whole house (24 kW or more)",
+          674,
+          1534,
+          976,
+          2499
+        ]
+      ],
+      "rowCount": 10
+    },
+    {
+      "id": "installation-extras",
+      "name": "Water heater installation extras and their usual cost",
+      "description": "Permit, expansion tank, venting, gas line, electrical circuit and other add-ons, low / typical / high at U.S. average prices.",
+      "caption": "Extras and what they usually cost (U.S. average, before your state factor)",
+      "page": "water-heater-cost-calculator",
+      "keywords": [
+        "water heater permit cost",
+        "expansion tank cost",
+        "venting cost"
+      ],
+      "basedOn": [
+        "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf"
+      ],
+      "tableSource": "Hot Water Math installation cost ranges, anchored to the U.S. Department of Energy's 2024 consumer water heater rules (installation costs built from RSMeans) and Home Depot listing prices, and checked against published industry ranges",
+      "sourceDate": "2026-11-13",
+      "columns": [
+        "Extra",
+        "Typical ($)",
+        "Range ($) low",
+        "Range ($) high",
+        "Where the number comes from"
+      ],
+      "rows": [
+        [
+          "Permit, haul-away and disposal of the old unit",
+          260,
+          150,
+          500,
+          "Typical = DOE's $260 for permitting, removal and disposal; industry guides give $25-$300 for the permit and $100-$500 for removal."
+        ],
+        [
+          "Thermal expansion tank, parts and labor",
+          175,
+          100,
+          300,
+          "The tank itself lists for $34-$67 at Home Depot; the rest is about an hour of labor and fittings."
+        ],
+        [
+          "Code items: drain pan, seismic straps, relief valve piping",
+          150,
+          50,
+          400,
+          "A drain pan lists for about $12; strapping and drain work are mostly labor. Which items apply depends on your local code."
+        ],
+        [
+          "New or changed venting",
+          500,
+          300,
+          1000,
+          "DOE's earlier estimate was $499 for a non-condensing tankless vent and $263 for a condensing one; industry guides give $300-$1,000."
+        ],
+        [
+          "Gas line upgrade or new gas line",
+          600,
+          300,
+          1000,
+          "Industry guides give $275-$1,000; a tankless unit often needs a larger line than the tank it replaces."
+        ],
+        [
+          "New 240-volt circuit",
+          600,
+          300,
+          1200,
+          "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work."
+        ],
+        [
+          "Electrical panel upgrade (to 200 amps)",
+          1375,
+          750,
+          2000,
+          "DOE's range is about $750-$2,000; typical is the middle of that range."
+        ],
+        [
+          "Moving the heater to a new spot",
+          1000,
+          500,
+          2000,
+          "DOE says relocation can cost up to $2,000; new water, gas or power lines to the new spot are the main cost."
+        ],
+        [
+          "Heat pump space work (louvered door, ducting, condensate pump)",
+          2000,
+          500,
+          4000,
+          "DOE's adders for the most challenging heat pump installs run $0-$4,000 and average $2,000."
+        ]
+      ],
+      "rowCount": 9
+    },
+    {
+      "id": "water-heater-lifespan-by-type",
+      "name": "Expected life by water heater type",
+      "description": "Typical and range of expected service life in years for gas tank, electric tank, heat pump, gas tankless and electric tankless water heaters.",
+      "caption": "Expected life by water heater type",
+      "page": "how-long-does-a-water-heater-last",
+      "keywords": [
+        "water heater lifespan",
+        "how long does a water heater last"
+      ],
+      "basedOn": [
+        "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+      ],
+      "tableSource": "U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "Type",
+        "Typical (years)",
+        "Range (years)"
+      ],
+      "rows": [
+        [
+          "Gas tank",
+          13,
+          "10–15"
+        ],
+        [
+          "Electric tank",
+          13,
+          "10–15"
+        ],
+        [
+          "Heat pump (hybrid)",
+          13,
+          "10–15"
+        ],
+        [
+          "Gas tankless",
+          20,
+          "20 (DOE average; no range published)"
+        ],
+        [
+          "Electric tankless",
+          20,
+          "20 (DOE average; no range published)"
+        ]
+      ],
+      "rowCount": 5
+    },
+    {
+      "id": "uef-by-type",
+      "name": "Uniform Energy Factor (UEF) by water heater type",
+      "description": "Default and range of UEF ratings of current models by type, used for every running-cost estimate on the site.",
+      "caption": "Uniform Energy Factor (UEF) by water heater type",
+      "page": "gas-vs-electric-water-heater",
+      "keywords": [
+        "UEF",
+        "water heater efficiency",
+        "energy factor"
+      ],
+      "basedOn": [
+        "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+        "https://data.energystar.gov/Active-Specifications/ENERGY-STAR-Certified-Water-Heaters/pbpq-swnu"
+      ],
+      "tableSource": "Rheem spec sheets, ENERGY STAR certified list and criteria, 10 CFR 430.32(d)",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "Type",
+        "Default",
+        "Range low",
+        "Range high"
+      ],
+      "rows": [
+        [
+          "Gas tank (standard vent)",
+          0.64,
+          0.58,
+          0.66
+        ],
+        [
+          "Gas tank (high efficiency, ENERGY STAR)",
+          0.9,
+          0.86,
+          0.9
+        ],
+        [
+          "Electric tank",
+          0.93,
+          0.92,
+          0.93
+        ],
+        [
+          "Heat pump (hybrid), 240 V",
+          3.8,
+          3.3,
+          4.5
+        ],
+        [
+          "Gas tankless",
+          0.95,
+          0.81,
+          0.98
+        ],
+        [
+          "Electric tankless",
+          0.92,
+          0.91,
+          0.92
+        ]
+      ],
+      "rowCount": 6
+    },
+    {
+      "id": "fixture-flow-rates",
+      "name": "Hot water fixture flow rates for tankless sizing",
+      "description": "Default, low-flow and typical range of flow (GPM) for showers, faucets, tubs, dishwashers and clothes washers.",
+      "caption": "Fixture flow rates used for tankless sizing",
+      "page": "tankless-water-heater-size-calculator",
+      "keywords": [
+        "shower flow rate",
+        "fixture GPM",
+        "tankless sizing"
+      ],
+      "basedOn": [
+        "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      ],
+      "tableSource": "10 CFR 430.32, EPA WaterSense, PNNL Building America Solution Center (ASHRAE Handbook data)",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "Fixture",
+        "Default (GPM)",
+        "Low-flow (GPM)",
+        "Typical range (GPM) low",
+        "Typical range (GPM) high"
+      ],
+      "rows": [
+        [
+          "Shower",
+          2.5,
+          2,
+          0.8,
+          2.5
+        ],
+        [
+          "Bathroom faucet",
+          2.2,
+          1.5,
+          0.2,
+          2.2
+        ],
+        [
+          "Kitchen faucet",
+          2.2,
+          2.2,
+          1,
+          2.2
+        ],
+        [
+          "Dishwasher",
+          2,
+          2,
+          1,
+          3
+        ],
+        [
+          "Clothes washer",
+          3.5,
+          3.5,
+          1,
+          6
+        ],
+        [
+          "Bathtub filling",
+          3.5,
+          3.5,
+          1,
+          6
+        ]
+      ],
+      "rowCount": 6
+    },
+    {
+      "id": "peak-hour-hot-water-use",
+      "name": "Hot water per use for the peak-hour sizing worksheet",
+      "description": "Gallons of hot water per shower, bath, shave, dishwasher load and other uses, from the sizing worksheet used to pick a tank by first hour rating.",
+      "caption": "Hot water per use for the peak-hour worksheet",
+      "page": "water-heater-size-calculator",
+      "keywords": [
+        "peak hour demand",
+        "first hour rating",
+        "water heater sizing"
+      ],
+      "basedOn": [
+        "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf"
+      ],
+      "tableSource": "Air-Conditioning, Heating and Refrigeration Institute (AHRI), Water Heater Calculator: Worksheet for Estimating Peak Hour Demand/First Hour Rating (2011)",
+      "sourceDate": "2026-11-12",
+      "columns": [
+        "Use",
+        "Hot water per use (gal)"
+      ],
+      "rows": [
+        [
+          "Shower",
+          20
+        ],
+        [
+          "Bath",
+          20
+        ],
+        [
+          "Shaving",
+          2
+        ],
+        [
+          "Hands and face washing",
+          4
+        ],
+        [
+          "Hair shampoo",
+          4
+        ],
+        [
+          "Hand dishwashing",
+          4
+        ],
+        [
+          "Automatic dishwasher",
+          14
+        ],
+        [
+          "Food preparation",
+          5
+        ],
+        [
+          "Wringer clothes washer",
+          26
+        ],
+        [
+          "Automatic clothes washer",
+          32
+        ]
+      ],
+      "rowCount": 10
+    },
+    {
+      "id": "tankless-gpm-by-temperature-rise",
+      "name": "Gas tankless output: maximum GPM by temperature rise",
+      "description": "Hot water flow a gas tankless heater of 120,000 to 199,000 BTU/h can deliver at each temperature rise, at UEF 0.95.",
+      "caption": "Gas tankless size chart: maximum GPM by temperature rise (UEF 0.95)",
+      "page": "tankless-water-heater-size-calculator",
+      "keywords": [
+        "tankless size chart",
+        "GPM by temperature rise"
+      ],
+      "basedOn": [
+        "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+        "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      ],
+      "tableSource": "Computed with GPM = input × UEF ÷ (8.34 × 60 × rise); input sizes from the Rinnai model chart; UEF = ENERGY STAR median",
+      "sourceDate": "2026-11-13",
+      "columns": [
+        "Temperature rise",
+        "120,000 BTU/h (GPM)",
+        "150,000 BTU/h (GPM)",
+        "180,000 BTU/h (GPM)",
+        "199,000 BTU/h (GPM)"
+      ],
+      "rows": [
+        [
+          "30 °F",
+          7.6,
+          9.5,
+          11.4,
+          12.6
+        ],
+        [
+          "40 °F",
+          5.7,
+          7.1,
+          8.5,
+          9.4
+        ],
+        [
+          "50 °F",
+          4.6,
+          5.7,
+          6.8,
+          7.6
+        ],
+        [
+          "60 °F",
+          3.8,
+          4.8,
+          5.7,
+          6.3
+        ],
+        [
+          "70 °F",
+          3.3,
+          4.1,
+          4.9,
+          5.4
+        ],
+        [
+          "80 °F",
+          2.9,
+          3.6,
+          4.3,
+          4.7
+        ],
+        [
+          "90 °F",
+          2.5,
+          3.2,
+          3.8,
+          4.2
+        ]
+      ],
+      "rowCount": 7
+    },
+    {
+      "id": "serial-number-date-codes",
+      "name": "Water heater serial number date codes by brand",
+      "description": "How each brand writes the manufacture date into its serial number, with an example, for the brands our age calculator decodes.",
+      "caption": "Serial number date codes we can decode",
+      "page": "water-heater-age-calculator",
+      "keywords": [
+        "water heater serial number age",
+        "water heater date code"
+      ],
+      "basedOn": [
+        "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+      ],
+      "tableSource": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)",
+      "sourceDate": "2026-11-13",
+      "columns": [
+        "Brand",
+        "How the date is written",
+        "Example"
+      ],
+      "rows": [
+        [
+          "Bradford White",
+          "1st letter = year, 2nd letter = month",
+          "DF******* → June 1967, 1987, 2007 or 2027 (latest not in the future)"
+        ],
+        [
+          "Rheem / Ruud",
+          "older tags: 1 letter, then month (2 digits), year (2 digits) and a plant letter",
+          "R0804B***** → August 2004 (older tags, often printed as R 0804B…)"
+        ],
+        [
+          "",
+          "older tags: 2 to 4 letters, then month (2 digits) and year (2 digits)",
+          "RH0806B***** → August 2006 (Rheemglas Fury tag RH 0806B17262)"
+        ],
+        [
+          "",
+          "plant letter, then week (2 digits) and year (2 digits)",
+          "Q4319***** → week 43 of 2019 (Rheem/Ruud lookup: October 18, 2019)"
+        ],
+        [
+          "",
+          "older all-digit serials: month (2 digits), then year (2 digits)",
+          "0794****** → July 1994"
+        ],
+        [
+          "A. O. Smith",
+          "since 2008: year (2 digits), week (2 digits), then a letter",
+          "0805A****** → 2008, week 5"
+        ],
+        [
+          "",
+          "before 2008: factory letter, month letter, then year (2 digits)",
+          "*H06****** → August 2006"
+        ],
+        [
+          "",
+          "before 2008: month letter, year (2 digits), then a letter",
+          "L07A****** → November 2007"
+        ],
+        [
+          "State",
+          "since 2008: year (2 digits), then week (2 digits)",
+          "0904******* → 2009, week 4 (Energy Trust labels this example April 2009, which does not match its own year-week rule; we follow the rule)"
+        ],
+        [
+          "",
+          "before 2008: month letter, then year (2 digits)",
+          "C05******* → March 2005"
+        ],
+        [
+          "",
+          "before mid-2004: factory letter, month letter, then year (2 digits)",
+          "AF04A****** → June 2004"
+        ],
+        [
+          "American",
+          "year (2 digits), then week (2 digits)",
+          "9746****** → 1997, week 46 (Energy Trust); 1115…–1631… = April 2011 to August 2016 (CPSC recall range)"
+        ],
+        [
+          "Navien",
+          "4-digit model code and 1 character, then year (2 digits), month (1 character: 1 to 9, X, Y, Z) and day (2 digits)",
+          "7410*18709**** → July 9, 2018 (CPSC example)"
+        ],
+        [
+          "",
+          "older tags: 4 digits, a hyphen, then the full date as year (4 digits), month (2) and day (2), a hyphen and 4 more digits",
+          "8881-20100520-3026 → May 20, 2010 (older hyphenated tag)"
+        ]
+      ],
+      "rowCount": 14
+    }
+  ]
+}
