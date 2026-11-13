@@ -37,7 +37,7 @@ ob_start();
 		<input id="rr-repair" name="repair" type="text" inputmode="decimal" maxlength="7" value="<?php echo esc_attr( (string) ( $hwm_def['repairUsd'] ?? '' ) ); ?>" autocomplete="off">
 	</div>
 	<div class="field">
-		<label for="rr-replace">New unit price ($) <span class="hint">Assumed: typical equipment price, before installation. Type your installed quote if you have one.</span></label>
+		<label for="rr-replace">New unit, installed ($) <span class="hint">Assumed: typical installed price, U.S. average, from our cost calculator. Type your quote if you have one.</span></label>
 		<input id="rr-replace" name="replace" type="text" inputmode="decimal" maxlength="7" value="<?php echo esc_attr( (string) ( $hwm_def['replace'] ?? '' ) ); ?>" autocomplete="off">
 	</div>
 </div>
@@ -77,7 +77,7 @@ $hwm_vlabel = array( 'replace' => 'replace', 'borderline' => 'borderline', 'repa
 $hwm_gt  = (array) ( $hwm_types['gas_tank'] ?? array() );
 $hwm_tk  = (array) ( $hwm_types['tankless'] ?? array() );
 ?>
-<p class="notice"><strong>Where the numbers come from.</strong> Typical life is DOE's estimate from its 2024 efficiency rules, new-unit prices are current retail listings, and the decision rules are ours, written out below and checked against Rheem and A. O. Smith guidance on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#repair-or-replace-water-heater' ); ?>">our methodology page</a>.</p>
+<p class="notice"><strong>Where the numbers come from.</strong> Typical life is DOE's estimate from its 2024 efficiency rules, new-unit prices are installed prices from our cost model (retail listings plus sourced installation costs), and the decision rules are ours, written out below and checked against Rheem and A. O. Smith guidance on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#repair-or-replace-water-heater' ); ?>">our methodology page</a>.</p>
 
 <h2>Should you repair or replace your water heater?</h2>
 <p>Replace it if the tank itself leaks, if the repair costs more than <?php echo esc_html( (string) ( $hwm_pct['always'] ?? '' ) ); ?>% of a new unit, or if the heater has used <?php echo esc_html( (string) ( $hwm_pct['age'] ?? '' ) ); ?>% of its typical life and the repair costs more than <?php echo esc_html( (string) ( $hwm_pct['old'] ?? '' ) ); ?>%. Otherwise a repair is usually worth it. The flowchart shows the order in which the tool applies these rules.</p>
@@ -90,9 +90,9 @@ $hwm_tk  = (array) ( $hwm_types['tankless'] ?? array() );
 </dl>
 
 <h2>What is the most you should pay for a repair?</h2>
-<p>For a younger gas tank, the tool's limit is about $<?php echo $hwm_v( 'tables.limits.rows.0.young' ); // phpcs:ignore ?>, half of a typical $<?php echo $hwm_v( 'tables.limits.rows.0.price' ); // phpcs:ignore ?> new unit; once it is old, about $<?php echo $hwm_v( 'tables.limits.rows.0.old' ); // phpcs:ignore ?>. The table works it out for every type, using typical equipment prices. If your installed replacement quote is higher, the limits rise with it.</p>
+<p>For a younger gas tank, the tool's limit is about $<?php echo $hwm_v( 'tables.limits.rows.0.young' ); // phpcs:ignore ?>, half of a typical $<?php echo $hwm_v( 'tables.limits.rows.0.price' ); // phpcs:ignore ?> new unit; once it is old, about $<?php echo $hwm_v( 'tables.limits.rows.0.old' ); // phpcs:ignore ?>. The table works it out for every type, using typical installed replacement prices at U.S. average costs. If your replacement quote is higher, the limits rise with it.</p>
 <?php echo hwm_table( $hwm_c, 'limits' ); // phpcs:ignore -- escaped in the part. ?>
-<p>Tankless units are counted as old later because DOE estimates they last longer. A replacement quote usually includes installation, haul-away and sometimes code updates, so it is often well above the equipment price; type it into the calculator to get your own limit.</p>
+<p>Tankless units are counted as old later because DOE estimates they last longer. The installed prices include labor, the permit and haul-away of the old unit; they come from our <?php echo hwm_link( 'water-heater-cost-calculator', 'water heater cost calculator' ); // phpcs:ignore ?>, where you can price your own state and job. Type that figure, or a real quote, into the tool to get your own limit.</p>
 
 <h2>Which water heater problems can be repaired?</h2>
 <p>Most parts can be replaced: heating elements, thermostats, anode rods and valves are designed to be swapped out. The tank cannot. A leak from the tank body, or a heater that sat in a flood, means a new heater. The table lists what each problem usually means, with the manufacturer's words.</p>
@@ -114,7 +114,7 @@ $hwm_tk  = (array) ( $hwm_types['tankless'] ?? array() );
 <p class="notice notice--warn">Never cap or plug the temperature and pressure relief valve or its discharge pipe, even if it drips. A. O. Smith's manual warns that an explosion could occur if the valve or pipe is blocked.</p>
 
 <h2>Worked examples: three common cases</h2>
-<p>Each case uses the calculator's rules and typical equipment prices. Change any number in the tool to see how the answer moves.</p>
+<p>Each case uses the calculator's rules and typical installed prices. Change any number in the tool to see how the answer moves.</p>
 <ol>
 	<?php foreach ( $hwm_exs as $hwm_e ) : ?>
 		<li><strong><?php echo esc_html( (string) $hwm_e['age'] ); ?>-year-old <?php echo esc_html( strtolower( (string) $hwm_e['label'] ) ); ?>, $<?php echo esc_html( (string) $hwm_e['repairFmt'] ); ?> repair.</strong> It has used <?php echo esc_html( (string) $hwm_e['used'] ); ?>% of a <?php echo esc_html( (string) $hwm_e['life'] ); ?>-year life (old from <?php echo esc_html( (string) $hwm_e['oldFrom'] ); ?> years), and the repair is <?php echo esc_html( (string) $hwm_e['share'] ); ?>% of a $<?php echo esc_html( (string) $hwm_e['replace'] ); ?> new unit. Verdict: <strong><?php echo esc_html( $hwm_vlabel[ $hwm_e['verdict'] ] ?? '' ); ?></strong>.</li>
@@ -142,7 +142,7 @@ $hwm_tk  = (array) ( $hwm_types['tankless'] ?? array() );
 <p>Gas parts, venting, wiring and relief valves are safety systems, and replacing a heater usually needs a permit. Let a licensed plumber or electrician diagnose these and do the work; the manufacturer's manual says which owner maintenance is safe, such as testing the relief valve once a year. Use this tool to judge a quote, not to diagnose a fault.</p>
 
 <h2>Limitations of this estimate</h2>
-<p>The rules are our own judgment, not an industry standard; no government agency publishes one. Typical life is a national average, and your heater may fail sooner or last longer. New-unit prices are equipment only until we publish sourced installation costs, which makes replacing look cheaper than it is; enter your installed quote to correct for that. The tool cannot see corrosion inside the tank.</p>
+<p>The rules are our own judgment, not an industry standard; no government agency publishes one. Typical life is a national average, and your heater may fail sooner or last longer. New-unit prices are U.S. average installed prices for a like-for-like swap; a fuel switch, new venting or a tight space costs more, so enter your own quote when you have one. The tool cannot see corrosion inside the tank.</p>
 <?php
 $hwm_e0 = (array) ( $hwm_exs[0] ?? array() );
 $faq    = array(
@@ -176,6 +176,7 @@ $sources = array(
 	array( 'publisher' => 'A. O. Smith', 'title' => 'Residential electronic thermostat electric water heater: installation instructions and use and care guide (2021)', 'url' => 'https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf', 'accessed' => '2026-11-13' ),
 	array( 'publisher' => 'U.S. Department of Energy, Federal Register', 'title' => 'Energy conservation standards for consumer water heaters, final rule (May 6, 2024): product lifetime', 'url' => (string) hwm_raw( 'lifespans', 'meta.sourceUrl' ), 'accessed' => '2026-11-13' ),
 	array( 'publisher' => 'The Home Depot', 'title' => 'Water heater listings (equipment prices)', 'url' => (string) hwm_raw( 'cost-ranges', 'meta.sourceUrl' ), 'accessed' => '2026-11-12' ),
+	array( 'publisher' => 'U.S. Department of Energy, Federal Register', 'title' => 'Consumer gas-fired instantaneous water heaters final rule (December 26, 2024): installation, permit and disposal costs', 'url' => (string) hwm_raw( 'installation-costs', 'references.doe-gas-tankless-2024.sourceUrl' ), 'accessed' => '2026-11-13' ),
 	array( 'publisher' => 'ENERGY STAR', 'title' => 'Certified water heaters dataset (heat pump and high-efficiency gas UEF)', 'url' => (string) hwm_raw( 'energystar-water-heaters', 'meta.sourceUrl' ), 'accessed' => '2026-11-13' ),
 	array( 'publisher' => 'U.S. Energy Information Administration', 'title' => 'Average residential electricity and natural gas prices', 'url' => (string) hwm_raw( 'energy-prices', 'meta.sourceUrl' ), 'accessed' => '2026-11-13' ),
 	array( 'publisher' => 'U.S. DOE Federal Energy Management Program', 'title' => 'Purchasing energy-efficient residential water heaters (typical daily use)', 'url' => (string) hwm_raw( 'hot-water-use', 'typicalHouseholdGallonsPerDay.sourceUrl' ), 'accessed' => '2026-11-13' ),

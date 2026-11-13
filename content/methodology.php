@@ -165,9 +165,9 @@ $hwm_dr   = 'decision-rules';
 		<li>Replace when the heater has used at least <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.ageShare', 2 ) ); ?> × its expected life and the repair costs more than <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.repairShareWhenOld', 2 ) ); ?> × the price of a new one.</li>
 		<li>An old heater with a cheap repair is shown as borderline. Anything else is a repair.</li>
 	</ol>
-	<p><strong>Inputs.</strong> Typical life comes from DOE (see the age calculator above). Until installation costs are published with named sources, the new-unit price defaults to the typical equipment price from retail listings, and the tool asks for an installed quote instead. The running-cost comparison uses DOE's test-day use (<?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day at a <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.riseF' ) ); ?> °F rise), the median UEF of each type and U.S. average EIA prices: yearly cost = gallons × 365 × <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> × rise ÷ UEF, converted to kWh or therms and multiplied by the price.</p>
+	<p><strong>Inputs.</strong> Typical life comes from DOE (see the age calculator above). The new-unit price defaults to the typical installed price of a like-for-like replacement at U.S. average costs, from the cost calculator's model below; type a real quote to replace it. The running-cost comparison uses DOE's test-day use (<?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day at a <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.riseF' ) ); ?> °F rise), the median UEF of each type and U.S. average EIA prices: yearly cost = gallons × 365 × <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> × rise ÷ UEF, converted to kWh or therms and multiplied by the price.</p>
 	<?php echo hwm_table( 'computed/repair-or-replace-water-heater', 'limits' ); // phpcs:ignore ?>
-	<p><strong>Limitations.</strong> The thresholds are judgment calls, not measured data. Safety problems, such as a relief valve that keeps discharging, override any cost rule. Equipment-only prices make replacing look cheaper than it is, so an installed quote gives a fairer answer.</p>
+	<p><strong>Limitations.</strong> The thresholds are judgment calls, not measured data. Safety problems, such as a relief valve that keeps discharging, override any cost rule. A fuel switch or a hard install costs more than the like-for-like price, so a real quote gives a fairer answer.</p>
 	<p>The cross-check below runs our rules on cases that Rheem's repair-or-replace guide and A. O. Smith's manual answer directly. One case differs on purpose, and the table says why.</p>
 	<?php $hwm_xfilled( 'repair-or-replace-water-heater', 'repair or replace (Rheem guide, A. O. Smith manual)' ); ?>
 </section>
@@ -178,15 +178,20 @@ $hwm_dr   = 'decision-rules';
 	<ul>
 		<li><strong>Unit prices</strong> come from retail listings we checked by hand. The table shows the median and range for each size class.</li>
 		<li><strong>Regional factor</strong> = your state's Regional Price Parity from the U.S. Bureau of Economic Analysis ÷ 100. A factor above 1 means prices in your state are above the U.S. average. RPPs measure overall consumer prices, so they stand in for local labor costs; they are not a plumber wage survey.</li>
-		<li><strong>Labor and extras</strong> are not in our data yet. No primary source we could open publishes them; DOE itself uses paid RSMeans data. They will be added with named references when the cost calculator is built, never guessed.</li>
+		<li><strong>Labor and extras</strong> are our own low, typical and high ranges, written down in a data file with the reference each one leans on. No public source publishes plumber labor by job type: DOE builds its installation costs from RSMeans, a paid database, and publishes only averages. Where DOE gives a figure we use it as the typical value, for example $<?php echo esc_html( hwm_value( 'installation-costs', 'extras.permit.typical', 0 ) ); ?> for permit, removal and disposal; where it gives a range, such as $<?php echo esc_html( hwm_value( 'installation-costs', 'extras.panel.low', 0 ) ); ?> to $<?php echo esc_html( hwm_value( 'installation-costs', 'extras.panel.high', 0 ) ); ?> for a panel upgrade, low and high come from it. Industry cost guides are used only as a sanity check.</li>
+		<li><strong>The job</strong> (like-for-like, fuel switch, tank to tankless) ticks the extras such a job usually needs, for example venting and a larger gas line for a gas tank to tankless switch. You can change every tick.</li>
 	</ul>
+	<p>Low = cheapest listing + the low end of every installation line; high = dearest listing + the high end. The same model prices the tankless vs tank comparison and the installed replacement price in the repair-or-replace tool, so the three pages agree.</p>
+	<?php echo hwm_table( 'computed/water-heater-cost-calculator', 'labor' ); // phpcs:ignore ?>
+	<?php echo hwm_table( 'computed/water-heater-cost-calculator', 'extras' ); // phpcs:ignore ?>
 	<?php echo hwm_table( 'computed/unit-prices', 'unitPrices' ); // phpcs:ignore ?>
 	<details>
 		<summary>Regional price factor for all 50 states and DC</summary>
 		<?php echo hwm_table( 'computed/regional-multipliers', 'regional' ); // phpcs:ignore ?>
 	</details>
-	<p><strong>Limitations.</strong> Listing prices from one retailer on one day are a snapshot, so we recheck them every three months. A quote from an installer who has seen your home will always be more precise than any average.</p>
-	<?php $hwm_xcheck( 'installed cost (manufacturer list prices and published installation requirements)' ); ?>
+	<p><strong>Limitations.</strong> Listing prices from one retailer on one day are a snapshot, so we recheck them every three months. Labor ranges are our estimate, and DOE's anchors are in 2022 or 2023 dollars. A quote from an installer who has seen your home will always be more precise than any average.</p>
+	<p>No manufacturer publishes installed prices, so the cross-check compares our like-for-like totals with the average installed costs in DOE's 2024 rules, and with one industry average as a sanity check. Our totals are higher than DOE's for tanks; the table says why.</p>
+	<?php $hwm_xfilled( 'water-heater-cost-calculator', 'installed cost (DOE 2024 rules)' ); ?>
 </section>
 
 <section id="gas-vs-electric-water-heater">
@@ -206,8 +211,10 @@ $hwm_dr   = 'decision-rules';
 		<summary>Electricity and natural gas prices for all 50 states and DC</summary>
 		<?php echo hwm_table( 'computed/energy-prices', 'energyPrices' ); // phpcs:ignore ?>
 	</details>
+	<p><strong>Household size.</strong> When you pick a number of people, daily use = people × <?php echo esc_html( hwm_value( 'hot-water-use', 'perPersonGallonsPerDay.value' ) ); ?> gallons (DOE Buildings Energy Data Book); otherwise the typical day above. <strong>Incoming water</strong> is your state's year-average estimate (the U.S. average uses DOE's <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.inletF' ) ); ?> °F test temperature), and the setpoint defaults to <?php echo esc_html( hwm_value( 'site', 'defaults.setpointTempF' ) ); ?> °F.</p>
 	<p><strong>Limitations.</strong> Your bill's real rate includes fixed charges and time-of-use pricing that a yearly average hides; enter your own rate when you know it. Heat pump efficiency drops in a cold room, and the UEF test does not capture that. Propane prices are not in our data yet.</p>
-	<?php $hwm_xcheck( 'operating cost (manufacturer EnergyGuide label yearly cost estimates)' ); ?>
+	<p>The cross-check feeds each federal EnergyGuide label's own UEF, test-day use and price into our formula and compares the energy use with the label, ENERGY STAR or DOE FEMP figure.</p>
+	<?php $hwm_xfilled( 'gas-vs-electric-water-heater', 'operating cost (EnergyGuide labels, ENERGY STAR, DOE FEMP)' ); ?>
 </section>
 
 <section id="tankless-vs-tank-water-heater">
@@ -221,8 +228,10 @@ $hwm_dr   = 'decision-rules';
 	</ol>
 	<p>The default period is <?php echo esc_html( hwm_value( $hwm_dr, 'ownershipYearsDefault' ) ); ?> years. Expected lives come from the lifespan table above.</p>
 	<p><strong>Tax credits.</strong> The federal Energy Efficient Home Improvement Credit (25C) covered <?php echo esc_html( hwm_value( 'incentives', 'credits.0.percent' ) ); ?>% of the cost of a qualifying heat pump water heater, up to $<?php echo esc_html( hwm_value( 'incentives', 'credits.0.maxUsd', 0 ) ); ?>, and <?php echo esc_html( hwm_value( 'incentives', 'credits.1.percent' ) ); ?>% of a qualifying gas water heater, up to $<?php echo esc_html( hwm_value( 'incentives', 'credits.1.maxUsd', 0 ) ); ?>. According to the IRS, it applies only to property placed in service through <?php echo esc_html( hwm_date( hwm_value( 'incentives', 'credits.0.placedInServiceThrough' ) ) ); ?>, so our calculators use a federal credit of $0 for a heater installed now. State and utility rebates vary too much to model; ENERGY STAR's Rebate Finder lists them.</p>
-	<p><strong>Limitations.</strong> The comparison ignores price inflation and the time value of money, and it assumes your hot water use stays the same.</p>
-	<?php $hwm_xcheck( 'cost of ownership (manufacturer EnergyGuide label and lifetime figures)' ); ?>
+	<p><strong>Options compared.</strong> On gas: a 50-gallon gas tank (like-for-like), a gas tankless unit (tank-to-tankless job) and a 50-gallon heat pump (fuel switch). On electricity: a 50-gallon electric tank, an electric tankless unit and a 50-gallon heat pump. Installed costs come from the cost calculator's model and running costs from the gas vs electric formula, both for your state.</p>
+	<p><strong>Limitations.</strong> The comparison ignores price inflation and the time value of money, and it assumes your hot water use stays the same. A replacement inside the period is priced like the first install.</p>
+	<p>The cross-check compares our running costs and heat pump payback with DOE's 2024 life-cycle cost results (national averages, 2022 or 2023 dollars). No manufacturer publishes a cost of ownership we can test against.</p>
+	<?php $hwm_xfilled( 'tankless-vs-tank-water-heater', 'cost of ownership (DOE 2024 rules)' ); ?>
 </section>
 
 <h2>Where does our data come from?</h2>
@@ -242,6 +251,7 @@ $hwm_files = array(
 	'lifespans'                 => 'Expected life by type',
 	'serial-formats'            => 'Serial number date codes by brand',
 	'cost-ranges'               => 'Equipment prices from retail listings',
+	'installation-costs'        => 'Installation labor and extras (our ranges, anchored to DOE)',
 	'regional-cost-index'       => 'Regional price factor by state',
 	'incentives'                => 'Federal tax credits',
 	'decision-rules'            => 'Repair-or-replace thresholds (editorial)',
@@ -289,6 +299,7 @@ $hwm_files = array(
 		<tr><td>Anode rod replaced</td><td>+<?php echo esc_html( hwm_value( $hwm_life, 'adjustments.anodeReplaced' ) ); ?> year</td><td>The anode corrodes instead of the tank. Replacing it extends tank protection, but the gain depends on your water, so we keep it modest.</td></tr>
 		<tr><td>Shortest expected life we show</td><td><?php echo esc_html( hwm_value( $hwm_life, 'adjustments.minimumLifeYears' ) ); ?> years</td><td>Keeps adjustments from adding up to an unrealistic result.</td></tr>
 		<tr><td>Age status colors</td><td>Amber from <?php echo esc_html( hwm_value( $hwm_life, 'statusBands.amberFrom', 1 ) ); ?>, red from <?php echo esc_html( hwm_value( $hwm_life, 'statusBands.redFrom', 1 ) ); ?> × expected life</td><td>Gives you time to plan a replacement before the typical end of life.</td></tr>
+		<tr><td>Installation labor and extras ranges</td><td>See the water heater cost section</td><td>No public source publishes labor by job type; our ranges sit on DOE's averages and ranges, with industry guides as a sanity check.</td></tr>
 		<tr><td>Repair-or-replace thresholds</td><td>See the repair or replace section</td><td>Conservative rules of the kind homeowners already use, written down so you can check them.</td></tr>
 	</tbody>
 </table>

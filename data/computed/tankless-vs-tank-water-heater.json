@@ -1,0 +1,1558 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator and gas vs electric models plus data/lifespans.json and data/incentives.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result, ownership tables, state break-even table and DOE cross-checks for the tankless vs tank tool."
+  },
+  "default": {
+    "status": "warn",
+    "statusLabel": "Cheapest over 10 years: Gas tank (50 gal)",
+    "headline": "The gas tank (50 gal) stays cheapest over 10 years",
+    "explain": "Over 10 years at U.S. average prices, the gas tankless costs $4,937 in total against $4,230 for the gas tank (50 gal), so it does not pay back its higher price within 10 years. The heat pump (50 gal) totals $4,927 and does not pay back its higher price within 10 years. Hot water use: 55 gallons a day, heated by 62 °F.",
+    "formula": "Rise = 120 °F setpoint − 58.0 °F incoming water = 62.0 °F\nGas tank (50 gal): $1,809 installed + $242/yr × 10 yr = $4,230\nGas tankless: $3,318 installed + $162/yr × 10 yr = $4,937\nHeat pump (50 gal): $3,547 installed + $138/yr × 10 yr = $4,927\nBreak-even = first year the option's running total is at or below the tank's.\nFederal tax credit: $0 (25C ended for installs after 2025).",
+    "table": {
+      "caption": "Cost of ownership over 10 years",
+      "columns": [
+        {
+          "key": "option",
+          "label": "Option"
+        },
+        {
+          "key": "installed",
+          "label": "Installed",
+          "num": true
+        },
+        {
+          "key": "year",
+          "label": "Running cost/yr",
+          "num": true
+        },
+        {
+          "key": "repl",
+          "label": "Replacements",
+          "num": true
+        },
+        {
+          "key": "total",
+          "label": "10-year total",
+          "num": true
+        },
+        {
+          "key": "be",
+          "label": "Pays back",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "option": "Gas tank (50 gal)",
+          "installed": "$1,809",
+          "year": "$242",
+          "repl": "0",
+          "total": "$4,230",
+          "be": "—"
+        },
+        {
+          "option": "Gas tankless",
+          "installed": "$3,318",
+          "year": "$162",
+          "repl": "0",
+          "total": "$4,937",
+          "be": "No"
+        },
+        {
+          "option": "Heat pump (50 gal)",
+          "installed": "$3,547",
+          "year": "$138",
+          "repl": "0",
+          "total": "$4,927",
+          "be": "No"
+        }
+      ]
+    },
+    "sources": "Installed costs: same model as our cost calculator (2026-11-13). Running costs: same formula as our gas vs electric tool, EIA prices. Lifespans: DOE. Federal credit: $0 (IRS, 25C ended 2025). <a href=\"/methodology/#tankless-vs-tank-water-heater\">See our results checked against DOE</a>."
+  },
+  "figures": {
+    "gas": {
+      "gas_tank": {
+        "installed": "1,809",
+        "year": "242",
+        "total": "4,230",
+        "totalNum": 4230,
+        "be": 0,
+        "repl": 0,
+        "life": 13
+      },
+      "gas_tankless": {
+        "installed": "3,318",
+        "year": "162",
+        "total": "4,937",
+        "totalNum": 4937,
+        "be": 0,
+        "repl": 0,
+        "life": 20
+      },
+      "heat_pump": {
+        "installed": "3,547",
+        "year": "138",
+        "total": "4,927",
+        "totalNum": 4927,
+        "be": 0,
+        "repl": 0,
+        "life": 13
+      }
+    },
+    "electric": {
+      "electric_tank": {
+        "installed": "1,579",
+        "year": "564",
+        "total": "7,215",
+        "totalNum": 7215,
+        "be": 0,
+        "repl": 0,
+        "life": 13
+      },
+      "electric_tankless": {
+        "installed": "3,509",
+        "year": "570",
+        "total": "9,207",
+        "totalNum": 9207,
+        "be": 0,
+        "repl": 0,
+        "life": 20
+      },
+      "heat_pump": {
+        "installed": "2,947",
+        "year": "138",
+        "total": "4,327",
+        "totalNum": 4327,
+        "be": 4,
+        "repl": 0,
+        "life": 13
+      }
+    },
+    "gas20": {
+      "gas_tank": {
+        "installed": "1,809",
+        "year": "242",
+        "total": "8,461",
+        "totalNum": 8461,
+        "be": 0,
+        "repl": 1,
+        "life": 13
+      },
+      "gas_tankless": {
+        "installed": "3,318",
+        "year": "162",
+        "total": "6,555",
+        "totalNum": 6555,
+        "be": 13,
+        "repl": 0,
+        "life": 20
+      },
+      "heat_pump": {
+        "installed": "3,547",
+        "year": "138",
+        "total": "9,854",
+        "totalNum": 9854,
+        "be": 0,
+        "repl": 1,
+        "life": 13
+      }
+    },
+    "years": 10,
+    "years20": 20,
+    "gasTanklessSaving": "80",
+    "gas20Tank": {
+      "installed": "1,809",
+      "year": "242",
+      "total": "8,461",
+      "totalNum": 8461,
+      "be": 0,
+      "repl": 1,
+      "life": 13
+    },
+    "gasTanklessStatesPay": 1,
+    "stateCount": 51,
+    "people": [
+      {
+        "people": 2,
+        "tank": "4,010",
+        "tankless": "4,789",
+        "be": "Not in 10 years"
+      },
+      {
+        "people": 4,
+        "tank": "6,210",
+        "tankless": "6,261",
+        "be": "Not in 10 years"
+      },
+      {
+        "people": 6,
+        "tank": "8,456",
+        "tankless": "7,761",
+        "be": "Year 7"
+      }
+    ],
+    "perPerson": 25.1,
+    "lifeTank": 13,
+    "lifeTankless": 20
+  },
+  "stateOptions": [
+    {
+      "id": "US",
+      "name": "U.S. average"
+    },
+    {
+      "id": "AL",
+      "name": "Alabama"
+    },
+    {
+      "id": "AK",
+      "name": "Alaska"
+    },
+    {
+      "id": "AZ",
+      "name": "Arizona"
+    },
+    {
+      "id": "AR",
+      "name": "Arkansas"
+    },
+    {
+      "id": "CA",
+      "name": "California"
+    },
+    {
+      "id": "CO",
+      "name": "Colorado"
+    },
+    {
+      "id": "CT",
+      "name": "Connecticut"
+    },
+    {
+      "id": "DE",
+      "name": "Delaware"
+    },
+    {
+      "id": "DC",
+      "name": "District of Columbia"
+    },
+    {
+      "id": "FL",
+      "name": "Florida"
+    },
+    {
+      "id": "GA",
+      "name": "Georgia"
+    },
+    {
+      "id": "HI",
+      "name": "Hawaii"
+    },
+    {
+      "id": "ID",
+      "name": "Idaho"
+    },
+    {
+      "id": "IL",
+      "name": "Illinois"
+    },
+    {
+      "id": "IN",
+      "name": "Indiana"
+    },
+    {
+      "id": "IA",
+      "name": "Iowa"
+    },
+    {
+      "id": "KS",
+      "name": "Kansas"
+    },
+    {
+      "id": "KY",
+      "name": "Kentucky"
+    },
+    {
+      "id": "LA",
+      "name": "Louisiana"
+    },
+    {
+      "id": "ME",
+      "name": "Maine"
+    },
+    {
+      "id": "MD",
+      "name": "Maryland"
+    },
+    {
+      "id": "MA",
+      "name": "Massachusetts"
+    },
+    {
+      "id": "MI",
+      "name": "Michigan"
+    },
+    {
+      "id": "MN",
+      "name": "Minnesota"
+    },
+    {
+      "id": "MS",
+      "name": "Mississippi"
+    },
+    {
+      "id": "MO",
+      "name": "Missouri"
+    },
+    {
+      "id": "MT",
+      "name": "Montana"
+    },
+    {
+      "id": "NE",
+      "name": "Nebraska"
+    },
+    {
+      "id": "NV",
+      "name": "Nevada"
+    },
+    {
+      "id": "NH",
+      "name": "New Hampshire"
+    },
+    {
+      "id": "NJ",
+      "name": "New Jersey"
+    },
+    {
+      "id": "NM",
+      "name": "New Mexico"
+    },
+    {
+      "id": "NY",
+      "name": "New York"
+    },
+    {
+      "id": "NC",
+      "name": "North Carolina"
+    },
+    {
+      "id": "ND",
+      "name": "North Dakota"
+    },
+    {
+      "id": "OH",
+      "name": "Ohio"
+    },
+    {
+      "id": "OK",
+      "name": "Oklahoma"
+    },
+    {
+      "id": "OR",
+      "name": "Oregon"
+    },
+    {
+      "id": "PA",
+      "name": "Pennsylvania"
+    },
+    {
+      "id": "RI",
+      "name": "Rhode Island"
+    },
+    {
+      "id": "SC",
+      "name": "South Carolina"
+    },
+    {
+      "id": "SD",
+      "name": "South Dakota"
+    },
+    {
+      "id": "TN",
+      "name": "Tennessee"
+    },
+    {
+      "id": "TX",
+      "name": "Texas"
+    },
+    {
+      "id": "UT",
+      "name": "Utah"
+    },
+    {
+      "id": "VT",
+      "name": "Vermont"
+    },
+    {
+      "id": "VA",
+      "name": "Virginia"
+    },
+    {
+      "id": "WA",
+      "name": "Washington"
+    },
+    {
+      "id": "WV",
+      "name": "West Virginia"
+    },
+    {
+      "id": "WI",
+      "name": "Wisconsin"
+    },
+    {
+      "id": "WY",
+      "name": "Wyoming"
+    }
+  ],
+  "crossChecks": [
+    {
+      "id": "doe-hp-payback",
+      "label": "Heat pump instead of an electric tank: simple payback",
+      "ours": "3.2 years (extra 1,368 ÷ 426 saved a year)",
+      "published": "DOE: 5.6 years (Table V.8, 2022 dollars)",
+      "diffPct": -42.9,
+      "why": "Same order. DOE used 2022 prices and its own equipment cost model; our heat pump listings carry a larger price gap today.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-el-op",
+      "label": "Electric tank, first-year running cost",
+      "ours": "$564",
+      "published": "DOE: $340 (2022 dollars, field use)",
+      "diffPct": 65.8,
+      "why": "DOE models each household’s real use and 2022 prices; we use a typical 55-gallon day and 2025 EIA prices. Electricity cost more in 2025.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-hp-op",
+      "label": "Heat pump, first-year running cost",
+      "ours": "$138",
+      "published": "DOE: $171 (2022 dollars)",
+      "diffPct": -19.3,
+      "why": "Our median UEF comes from today’s ENERGY STAR list, which is higher than DOE’s first heat pump level.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-gt-op",
+      "label": "Gas tankless, first-year running cost",
+      "ours": "$162",
+      "published": "DOE: $303 (2023 dollars, baseline gas tankless)",
+      "diffPct": -46.6,
+      "why": "DOE’s households with tankless units use more hot water than a typical day, and its figure includes electricity for the burner fan and controls, which UEF-based math leaves out.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer gas-fired instantaneous water heaters, final rule (89 FR 105188, December 26, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf"
+    }
+  ],
+  "tables": {
+    "byState": {
+      "caption": "When the extra cost pays back, by state (typical household, 10 years)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "gt",
+          "label": "Gas tankless vs gas tank"
+        },
+        {
+          "key": "hpg",
+          "label": "Heat pump vs gas tank"
+        },
+        {
+          "key": "hpe",
+          "label": "Heat pump vs electric tank"
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Alaska",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 2"
+        },
+        {
+          "name": "Arizona",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Arkansas",
+          "gt": "No",
+          "hpg": "Year 10",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "California",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Colorado",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Connecticut",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 2"
+        },
+        {
+          "name": "Delaware",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "District of Columbia",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Florida",
+          "gt": "No",
+          "hpg": "Year 10",
+          "hpe": "Year 6"
+        },
+        {
+          "name": "Georgia",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Hawaii",
+          "gt": "Year 10",
+          "hpg": "Year 6",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Idaho",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Illinois",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Indiana",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Iowa",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Kansas",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Kentucky",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Louisiana",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 6"
+        },
+        {
+          "name": "Maine",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 2"
+        },
+        {
+          "name": "Maryland",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Massachusetts",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 2"
+        },
+        {
+          "name": "Michigan",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Minnesota",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Mississippi",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Missouri",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Montana",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Nebraska",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Nevada",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "New Hampshire",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "New Jersey",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "New Mexico",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "New York",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 2"
+        },
+        {
+          "name": "North Carolina",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "North Dakota",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Ohio",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Oklahoma",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Oregon",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Pennsylvania",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Rhode Island",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 2"
+        },
+        {
+          "name": "South Carolina",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "South Dakota",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Tennessee",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Texas",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Utah",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 5"
+        },
+        {
+          "name": "Vermont",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Virginia",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Washington",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "West Virginia",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        },
+        {
+          "name": "Wisconsin",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 3"
+        },
+        {
+          "name": "Wyoming",
+          "gt": "No",
+          "hpg": "No",
+          "hpe": "Year 4"
+        }
+      ],
+      "source": "Computed with the tool’s own model: installed costs (listings + data/installation-costs.json × state factor), EIA state prices, state incoming water temperature, DOE lifespans",
+      "sourceUrl": "https://hotwatermath.com/methodology/#tankless-vs-tank-water-heater",
+      "sourceDate": "2026-11-13"
+    }
+  },
+  "client": {
+    "model": {
+      "units": {
+        "gas_tank_40": {
+          "type": "gas_tank",
+          "label": "40-gallon gas tank (natural gas, standard vent)",
+          "low": 531,
+          "typical": 759,
+          "high": 1019,
+          "n": 9,
+          "sourceKey": "gas_tank_40"
+        },
+        "gas_tank_50": {
+          "type": "gas_tank",
+          "label": "50-gallon gas tank (natural gas, standard vent)",
+          "low": 749,
+          "typical": 899,
+          "high": 999,
+          "n": 9,
+          "sourceKey": "gas_tank_50"
+        },
+        "gas_tank_75": {
+          "type": "gas_tank",
+          "label": "75-gallon gas tank (natural gas, standard vent)",
+          "low": 1149,
+          "typical": 1319,
+          "high": 1459,
+          "n": 3,
+          "sourceKey": "gas_tank_75"
+        },
+        "electric_tank_40": {
+          "type": "electric_tank",
+          "label": "40-gallon electric tank",
+          "low": 459,
+          "typical": 684,
+          "high": 1199,
+          "n": 18,
+          "sourceKey": "electric_tank_40"
+        },
+        "electric_tank_50": {
+          "type": "electric_tank",
+          "label": "50-gallon electric tank",
+          "low": 559,
+          "typical": 819,
+          "high": 1429,
+          "n": 22,
+          "sourceKey": "electric_tank_50"
+        },
+        "heat_pump_50": {
+          "type": "heat_pump",
+          "label": "50-gallon heat pump (hybrid)",
+          "low": 1658,
+          "typical": 1787,
+          "high": 2119,
+          "n": 4,
+          "sourceKey": "heat_pump_50"
+        },
+        "heat_pump_65": {
+          "type": "heat_pump",
+          "label": "65-gallon heat pump (hybrid)",
+          "low": 1869,
+          "typical": 1946,
+          "high": 2519,
+          "n": 3,
+          "sourceKey": "heat_pump_65"
+        },
+        "heat_pump_80": {
+          "type": "heat_pump",
+          "label": "80-gallon heat pump (hybrid)",
+          "low": 2235,
+          "typical": 2378,
+          "high": 2798,
+          "n": 3,
+          "sourceKey": "heat_pump_80"
+        },
+        "gas_tankless_whole": {
+          "type": "gas_tankless",
+          "label": "Gas tankless, whole house (8 GPM or more, natural gas)",
+          "low": 869,
+          "typical": 1108,
+          "high": 1703,
+          "n": 14,
+          "sourceKey": "gas_tankless_whole_house"
+        },
+        "electric_tankless_whole": {
+          "type": "electric_tankless",
+          "label": "Electric tankless, whole house (24 kW or more)",
+          "low": 526,
+          "typical": 674,
+          "high": 999,
+          "n": 10,
+          "sourceKey": "electric_tankless_whole_house"
+        }
+      },
+      "types": {
+        "gas_tank": {
+          "label": "Gas tank (standard vent)",
+          "fuel": "gas",
+          "uef": 0.635,
+          "life": 13,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "40",
+              "label": "40 gallons"
+            },
+            {
+              "id": "50",
+              "label": "50 gallons"
+            },
+            {
+              "id": "75",
+              "label": "75 gallons"
+            }
+          ],
+          "defaultSize": "50"
+        },
+        "electric_tank": {
+          "label": "Electric tank",
+          "fuel": "electric",
+          "uef": 0.93,
+          "life": 13,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "40",
+              "label": "40 gallons"
+            },
+            {
+              "id": "50",
+              "label": "50 gallons"
+            }
+          ],
+          "defaultSize": "50"
+        },
+        "heat_pump": {
+          "label": "Heat pump (hybrid), 240 V",
+          "fuel": "electric",
+          "uef": 3.8,
+          "life": 13,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "50",
+              "label": "50 gallons"
+            },
+            {
+              "id": "65",
+              "label": "65 gallons"
+            },
+            {
+              "id": "80",
+              "label": "80 gallons"
+            }
+          ],
+          "defaultSize": "50"
+        },
+        "gas_tankless": {
+          "label": "Gas tankless",
+          "fuel": "gas",
+          "uef": 0.95,
+          "life": 20,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "whole",
+              "label": "Whole house"
+            }
+          ],
+          "defaultSize": "whole"
+        },
+        "electric_tankless": {
+          "label": "Electric tankless",
+          "fuel": "electric",
+          "uef": 0.92,
+          "life": 20,
+          "credit": 0,
+          "sizes": [
+            {
+              "id": "whole",
+              "label": "Whole house"
+            }
+          ],
+          "defaultSize": "whole"
+        }
+      },
+      "typeOrder": [
+        "gas_tank",
+        "electric_tank",
+        "heat_pump",
+        "gas_tankless",
+        "electric_tankless"
+      ],
+      "labor": {
+        "gas_tank": {
+          "low": 350,
+          "typical": 650,
+          "high": 1100
+        },
+        "electric_tank": {
+          "low": 300,
+          "typical": 500,
+          "high": 900
+        },
+        "heat_pump": {
+          "low": 500,
+          "typical": 900,
+          "high": 1800
+        },
+        "gas_tankless": {
+          "low": 600,
+          "typical": 850,
+          "high": 1500
+        },
+        "electric_tankless": {
+          "low": 300,
+          "typical": 600,
+          "high": 1000
+        }
+      },
+      "extras": {
+        "permit": {
+          "label": "Permit, haul-away and disposal of the old unit",
+          "low": 150,
+          "typical": 260,
+          "high": 500
+        },
+        "expansionTank": {
+          "label": "Thermal expansion tank, parts and labor",
+          "low": 100,
+          "typical": 175,
+          "high": 300
+        },
+        "codeItems": {
+          "label": "Code items: drain pan, seismic straps, relief valve piping",
+          "low": 50,
+          "typical": 150,
+          "high": 400
+        },
+        "venting": {
+          "label": "New or changed venting",
+          "low": 300,
+          "typical": 500,
+          "high": 1000
+        },
+        "gasLine": {
+          "label": "Gas line upgrade or new gas line",
+          "low": 300,
+          "typical": 600,
+          "high": 1000
+        },
+        "circuit": {
+          "label": "New 240-volt circuit",
+          "low": 300,
+          "typical": 600,
+          "high": 1200
+        },
+        "panel": {
+          "label": "Electrical panel upgrade (to 200 amps)",
+          "low": 750,
+          "typical": 1375,
+          "high": 2000
+        },
+        "relocation": {
+          "label": "Moving the heater to a new spot",
+          "low": 500,
+          "typical": 1000,
+          "high": 2000
+        },
+        "heatPumpSpace": {
+          "label": "Heat pump space work (louvered door, ducting, condensate pump)",
+          "low": 500,
+          "typical": 2000,
+          "high": 4000
+        }
+      },
+      "scenarios": {
+        "replace": {
+          "label": "Replacing a heater of the same kind",
+          "defaultExtras": {
+            "gas_tank": [
+              "permit"
+            ],
+            "electric_tank": [
+              "permit"
+            ],
+            "heat_pump": [
+              "permit"
+            ],
+            "gas_tankless": [
+              "permit"
+            ],
+            "electric_tankless": [
+              "permit"
+            ]
+          }
+        },
+        "fuelSwitch": {
+          "label": "Switching fuel (gas to electric or electric to gas)",
+          "defaultExtras": {
+            "gas_tank": [
+              "permit",
+              "gasLine",
+              "venting"
+            ],
+            "electric_tank": [
+              "permit",
+              "circuit"
+            ],
+            "heat_pump": [
+              "permit",
+              "circuit"
+            ],
+            "gas_tankless": [
+              "permit",
+              "gasLine",
+              "venting"
+            ],
+            "electric_tankless": [
+              "permit",
+              "circuit",
+              "panel"
+            ]
+          }
+        },
+        "toTankless": {
+          "label": "Replacing a tank with a tankless unit",
+          "defaultExtras": {
+            "gas_tank": [
+              "permit"
+            ],
+            "electric_tank": [
+              "permit"
+            ],
+            "heat_pump": [
+              "permit"
+            ],
+            "gas_tankless": [
+              "permit",
+              "venting",
+              "gasLine"
+            ],
+            "electric_tankless": [
+              "permit",
+              "circuit",
+              "panel"
+            ]
+          }
+        }
+      },
+      "states": {
+        "AL": {
+          "name": "Alabama",
+          "multiplier": 0.888,
+          "usdPerKwh": 0.1609,
+          "usdPerTherm": 1.702,
+          "inletF": 69.6
+        },
+        "AK": {
+          "name": "Alaska",
+          "multiplier": 1.024,
+          "usdPerKwh": 0.2611,
+          "usdPerTherm": 1.312,
+          "inletF": 43.7
+        },
+        "AZ": {
+          "name": "Arizona",
+          "multiplier": 1.007,
+          "usdPerKwh": 0.1526,
+          "usdPerTherm": 1.814,
+          "inletF": 67.1
+        },
+        "AR": {
+          "name": "Arkansas",
+          "multiplier": 0.869,
+          "usdPerKwh": 0.1287,
+          "usdPerTherm": 1.884,
+          "inletF": 67
+        },
+        "CA": {
+          "name": "California",
+          "multiplier": 1.107,
+          "usdPerKwh": 0.3135,
+          "usdPerTherm": 2.154,
+          "inletF": 65
+        },
+        "CO": {
+          "name": "Colorado",
+          "multiplier": 1.031,
+          "usdPerKwh": 0.1569,
+          "usdPerTherm": 1.048,
+          "inletF": 52.2
+        },
+        "CT": {
+          "name": "Connecticut",
+          "multiplier": 1.036,
+          "usdPerKwh": 0.2931,
+          "usdPerTherm": 1.632,
+          "inletF": 55.9
+        },
+        "DE": {
+          "name": "Delaware",
+          "multiplier": 0.998,
+          "usdPerKwh": 0.1715,
+          "usdPerTherm": 1.544,
+          "inletF": 62.2
+        },
+        "DC": {
+          "name": "District of Columbia",
+          "multiplier": 1.099,
+          "usdPerKwh": 0.2192,
+          "usdPerTherm": 1.615,
+          "inletF": 65.6
+        },
+        "FL": {
+          "name": "Florida",
+          "multiplier": 1.034,
+          "usdPerKwh": 0.1521,
+          "usdPerTherm": 2.488,
+          "inletF": 77.4
+        },
+        "GA": {
+          "name": "Georgia",
+          "multiplier": 0.963,
+          "usdPerKwh": 0.1474,
+          "usdPerTherm": 1.979,
+          "inletF": 70.2
+        },
+        "HI": {
+          "name": "Hawaii",
+          "multiplier": 1.1,
+          "usdPerKwh": 0.404,
+          "usdPerTherm": 5.712,
+          "inletF": 84.4
+        },
+        "ID": {
+          "name": "Idaho",
+          "multiplier": 0.955,
+          "usdPerKwh": 0.1183,
+          "usdPerTherm": 0.74,
+          "inletF": 49.9
+        },
+        "IL": {
+          "name": "Illinois",
+          "multiplier": 1,
+          "usdPerKwh": 0.1767,
+          "usdPerTherm": 1.073,
+          "inletF": 58.6
+        },
+        "IN": {
+          "name": "Indiana",
+          "multiplier": 0.933,
+          "usdPerKwh": 0.1596,
+          "usdPerTherm": 1.086,
+          "inletF": 58.3
+        },
+        "IA": {
+          "name": "Iowa",
+          "multiplier": 0.878,
+          "usdPerKwh": 0.1362,
+          "usdPerTherm": 1.001,
+          "inletF": 54.3
+        },
+        "KS": {
+          "name": "Kansas",
+          "multiplier": 0.901,
+          "usdPerKwh": 0.1444,
+          "usdPerTherm": 1.425,
+          "inletF": 61
+        },
+        "KY": {
+          "name": "Kentucky",
+          "multiplier": 0.902,
+          "usdPerKwh": 0.1313,
+          "usdPerTherm": 1.357,
+          "inletF": 62.3
+        },
+        "LA": {
+          "name": "Louisiana",
+          "multiplier": 0.882,
+          "usdPerKwh": 0.1252,
+          "usdPerTherm": 1.705,
+          "inletF": 73.1
+        },
+        "ME": {
+          "name": "Maine",
+          "multiplier": 0.971,
+          "usdPerKwh": 0.2769,
+          "usdPerTherm": 1.808,
+          "inletF": 47.8
+        },
+        "MD": {
+          "name": "Maryland",
+          "multiplier": 1.05,
+          "usdPerKwh": 0.1953,
+          "usdPerTherm": 1.553,
+          "inletF": 61.4
+        },
+        "MA": {
+          "name": "Massachusetts",
+          "multiplier": 1.058,
+          "usdPerKwh": 0.3041,
+          "usdPerTherm": 2.431,
+          "inletF": 54.8
+        },
+        "MI": {
+          "name": "Michigan",
+          "multiplier": 0.962,
+          "usdPerKwh": 0.2003,
+          "usdPerTherm": 1.03,
+          "inletF": 51.2
+        },
+        "MN": {
+          "name": "Minnesota",
+          "multiplier": 0.986,
+          "usdPerKwh": 0.1583,
+          "usdPerTherm": 1.041,
+          "inletF": 47.7
+        },
+        "MS": {
+          "name": "Mississippi",
+          "multiplier": 0.87,
+          "usdPerKwh": 0.1403,
+          "usdPerTherm": 1.628,
+          "inletF": 70.2
+        },
+        "MO": {
+          "name": "Missouri",
+          "multiplier": 0.908,
+          "usdPerKwh": 0.133,
+          "usdPerTherm": 1.46,
+          "inletF": 61.3
+        },
+        "MT": {
+          "name": "Montana",
+          "multiplier": 0.946,
+          "usdPerKwh": 0.1299,
+          "usdPerTherm": 0.847,
+          "inletF": 48.5
+        },
+        "NE": {
+          "name": "Nebraska",
+          "multiplier": 0.901,
+          "usdPerKwh": 0.1205,
+          "usdPerTherm": 1.08,
+          "inletF": 55.4
+        },
+        "NV": {
+          "name": "Nevada",
+          "multiplier": 1,
+          "usdPerKwh": 0.1326,
+          "usdPerTherm": 1.261,
+          "inletF": 57
+        },
+        "NH": {
+          "name": "New Hampshire",
+          "multiplier": 1.042,
+          "usdPerKwh": 0.2453,
+          "usdPerTherm": 1.791,
+          "inletF": 50
+        },
+        "NJ": {
+          "name": "New Jersey",
+          "multiplier": 1.088,
+          "usdPerKwh": 0.2248,
+          "usdPerTherm": 1.369,
+          "inletF": 59.6
+        },
+        "NM": {
+          "name": "New Mexico",
+          "multiplier": 0.922,
+          "usdPerKwh": 0.1485,
+          "usdPerTherm": 0.964,
+          "inletF": 60.5
+        },
+        "NY": {
+          "name": "New York",
+          "multiplier": 1.079,
+          "usdPerKwh": 0.2639,
+          "usdPerTherm": 1.703,
+          "inletF": 52
+        },
+        "NC": {
+          "name": "North Carolina",
+          "multiplier": 0.943,
+          "usdPerKwh": 0.14,
+          "usdPerTherm": 1.57,
+          "inletF": 65.5
+        },
+        "ND": {
+          "name": "North Dakota",
+          "multiplier": 0.89,
+          "usdPerKwh": 0.1182,
+          "usdPerTherm": 0.907,
+          "inletF": 47
+        },
+        "OH": {
+          "name": "Ohio",
+          "multiplier": 0.928,
+          "usdPerKwh": 0.169,
+          "usdPerTherm": 1.304,
+          "inletF": 57.7
+        },
+        "OK": {
+          "name": "Oklahoma",
+          "multiplier": 0.878,
+          "usdPerKwh": 0.1321,
+          "usdPerTherm": 1.385,
+          "inletF": 66.3
+        },
+        "OR": {
+          "name": "Oregon",
+          "multiplier": 1.034,
+          "usdPerKwh": 0.1546,
+          "usdPerTherm": 1.554,
+          "inletF": 53.9
+        },
+        "PA": {
+          "name": "Pennsylvania",
+          "multiplier": 0.976,
+          "usdPerKwh": 0.1929,
+          "usdPerTherm": 1.452,
+          "inletF": 55.5
+        },
+        "RI": {
+          "name": "Rhode Island",
+          "multiplier": 1.023,
+          "usdPerKwh": 0.2948,
+          "usdPerTherm": 2.103,
+          "inletF": 56.7
+        },
+        "SC": {
+          "name": "South Carolina",
+          "multiplier": 0.937,
+          "usdPerKwh": 0.1512,
+          "usdPerTherm": 1.632,
+          "inletF": 69.4
+        },
+        "SD": {
+          "name": "South Dakota",
+          "multiplier": 0.886,
+          "usdPerKwh": 0.1332,
+          "usdPerTherm": 0.917,
+          "inletF": 51.6
+        },
+        "TN": {
+          "name": "Tennessee",
+          "multiplier": 0.919,
+          "usdPerKwh": 0.1322,
+          "usdPerTherm": 1.155,
+          "inletF": 64.4
+        },
+        "TX": {
+          "name": "Texas",
+          "multiplier": 0.971,
+          "usdPerKwh": 0.154,
+          "usdPerTherm": 1.911,
+          "inletF": 71.8
+        },
+        "UT": {
+          "name": "Utah",
+          "multiplier": 0.989,
+          "usdPerKwh": 0.1302,
+          "usdPerTherm": 0.971,
+          "inletF": 55.2
+        },
+        "VT": {
+          "name": "Vermont",
+          "multiplier": 0.98,
+          "usdPerKwh": 0.2279,
+          "usdPerTherm": 1.718,
+          "inletF": 49
+        },
+        "VA": {
+          "name": "Virginia",
+          "multiplier": 1.011,
+          "usdPerKwh": 0.1528,
+          "usdPerTherm": 1.604,
+          "inletF": 62
+        },
+        "WA": {
+          "name": "Washington",
+          "multiplier": 1.07,
+          "usdPerKwh": 0.1317,
+          "usdPerTherm": 1.608,
+          "inletF": 53.3
+        },
+        "WV": {
+          "name": "West Virginia",
+          "multiplier": 0.895,
+          "usdPerKwh": 0.1539,
+          "usdPerTherm": 1.27,
+          "inletF": 58.6
+        },
+        "WI": {
+          "name": "Wisconsin",
+          "multiplier": 0.941,
+          "usdPerKwh": 0.1808,
+          "usdPerTherm": 1.024,
+          "inletF": 49.8
+        },
+        "WY": {
+          "name": "Wyoming",
+          "multiplier": 0.927,
+          "usdPerKwh": 0.1337,
+          "usdPerTherm": 1.114,
+          "inletF": 48.3
+        }
+      },
+      "us": {
+        "name": "U.S. average",
+        "multiplier": 1,
+        "usdPerKwh": 0.1723,
+        "usdPerTherm": 1.481,
+        "inletF": 58
+      },
+      "setpointF": 120,
+      "typicalGallons": 55,
+      "perPersonGallons": 25.1,
+      "lastReviewed": "2026-11-13"
+    },
+    "options": {
+      "gas": [
+        {
+          "type": "gas_tank",
+          "size": "50",
+          "scenario": "replace",
+          "label": "Gas tank (50 gal)"
+        },
+        {
+          "type": "gas_tankless",
+          "size": "whole",
+          "scenario": "toTankless",
+          "label": "Gas tankless"
+        },
+        {
+          "type": "heat_pump",
+          "size": "50",
+          "scenario": "fuelSwitch",
+          "label": "Heat pump (50 gal)"
+        }
+      ],
+      "electric": [
+        {
+          "type": "electric_tank",
+          "size": "50",
+          "scenario": "replace",
+          "label": "Electric tank (50 gal)"
+        },
+        {
+          "type": "electric_tankless",
+          "size": "whole",
+          "scenario": "toTankless",
+          "label": "Electric tankless"
+        },
+        {
+          "type": "heat_pump",
+          "size": "50",
+          "scenario": "replace",
+          "label": "Heat pump (50 gal)"
+        }
+      ]
+    },
+    "defaults": {
+      "fuel": "gas",
+      "household": "typical",
+      "state": "US",
+      "years": 10
+    }
+  }
+}

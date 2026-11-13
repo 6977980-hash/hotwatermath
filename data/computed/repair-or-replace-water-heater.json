@@ -3,29 +3,29 @@
     "source": "Computed by npm run build:data from data/decision-rules.json, data/lifespans.json, data/cost-ranges.json, data/uef-ranges.json, data/hot-water-use.json and data/energy-prices.json with assets/js/formulas.js",
     "sourceUrl": "https://hotwatermath.com/methodology/",
     "sourceDate": "2026-11-12",
-    "notes": "Default result, repair limits by type, energy comparison and cross-check for the repair-or-replace tool. Replacement prices are equipment only until labor data is added."
+    "notes": "Default result, repair limits by type, energy comparison and cross-check for the repair-or-replace tool. Replacement prices are installed prices (equipment + labor + permit and haul-away, U.S. average) from the shared cost model in assets/js/cost-model.js."
   },
   "defaultInputs": {
     "ageYears": 8,
     "type": "gas_tank",
     "repairUsd": 250,
     "note": "Example inputs for the server-rendered default result; not data about any real home.",
-    "replace": 899
+    "replace": 1809
   },
   "default": {
-    "status": "warn",
-    "statusLabel": "Borderline",
-    "headline": "Repair is possible, but the quote is high for a young heater",
-    "explain": "At 8.0 years it has used 62% of a 13-year typical life. The repair is 28% of the replacement price, more than 25%. Get a second quote, or ask what else is worn before you decide. If you replace it, a high-efficiency ENERGY STAR gas tank (UEF 0.9) would cost about $77 a year less to run than a standard gas tank.",
-    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $899 = 28%\nRules: leak or flood → replace; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair\nRunning cost (55 gal/day, 67 °F rise): Gas tank UEF 0.635 = $262/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $185/yr; difference $77/yr",
-    "sources": "Rules: ours, stated on /methodology. Typical life: DOE (13 years for tanks, 20 for tankless). New-unit price: typical equipment price from Home Depot listings (2026-11-12), before installation; type your installed quote if you have one. <a href=\"/methodology/#repair-or-replace-water-heater\">See our rules checked against Rheem and A. O. Smith guidance</a>."
+    "status": "ok",
+    "statusLabel": "Repair",
+    "headline": "Repair it: the quote is small and the heater is young",
+    "explain": "At 8.0 years it has used 62% of a 13-year typical life. The repair is 14% of the replacement price.",
+    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $1,809 = 14%\nRules: leak or flood → replace; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair\nRunning cost (55 gal/day, 67 °F rise): Gas tank UEF 0.635 = $262/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $185/yr; difference $77/yr",
+    "sources": "Rules: ours, stated on /methodology. Typical life: DOE (13 years for tanks, 20 for tankless). New-unit price: typical installed price, U.S. average (equipment from Home Depot listings, 2026-11-12, plus labor, permit and haul-away from our cost model); type your own quote if you have one. <a href=\"/methodology/#repair-or-replace-water-heater\">See our rules checked against Rheem and A. O. Smith guidance</a>."
   },
   "defaultCase": {
     "age": 8,
     "repair": "250",
-    "replace": "899",
-    "share": 28,
-    "verdict": "borderline",
+    "replace": "1,809",
+    "share": 14,
+    "verdict": "repair",
     "life": 13,
     "oldFrom": "9.75"
   },
@@ -41,11 +41,11 @@
       "repair": 350,
       "label": "Gas tank",
       "life": 13,
-      "replace": "899",
+      "replace": "1,809",
       "repairFmt": "350",
-      "share": 39,
+      "share": 19,
       "used": 85,
-      "verdict": "replace",
+      "verdict": "borderline",
       "oldFrom": "9.75"
     },
     {
@@ -54,9 +54,9 @@
       "repair": 150,
       "label": "Electric tank",
       "life": 13,
-      "replace": "819",
+      "replace": "1,579",
       "repairFmt": "150",
-      "share": 18,
+      "share": 10,
       "used": 31,
       "verdict": "repair",
       "oldFrom": "9.75"
@@ -64,12 +64,12 @@
     {
       "age": 9,
       "type": "heat_pump",
-      "repair": 600,
+      "repair": 900,
       "label": "Heat pump (hybrid)",
       "life": 13,
-      "replace": "1,787",
-      "repairFmt": "600",
-      "share": 34,
+      "replace": "2,947",
+      "repairFmt": "900",
+      "share": 31,
       "used": 69,
       "verdict": "borderline",
       "oldFrom": "9.75"
@@ -111,7 +111,7 @@
     },
     {
       "id": "over-half",
-      "label": "5-year-old gas tank, repair 539 vs 899 new (60%)",
+      "label": "5-year-old gas tank, repair 1,085 vs 1,809 new (60%)",
       "ours": "replace",
       "published": "Repair over 50% of a new unit: replacement is typically better",
       "match": true,
@@ -121,7 +121,7 @@
     },
     {
       "id": "young-cheap",
-      "label": "5-year-old electric tank, element repair 123 (15% of new)",
+      "label": "5-year-old electric tank, element repair 237 (15% of new)",
       "ours": "repair",
       "published": "Under 6–8 years, no tank corrosion or leak, repair well below 50%: repair",
       "match": true,
@@ -131,7 +131,7 @@
     },
     {
       "id": "young-mid",
-      "label": "6-year-old gas tank, repair 315 (35% of new)",
+      "label": "6-year-old gas tank, repair 633 (35% of new)",
       "ours": "borderline",
       "published": "Under 6–8 years and below 50%: repair",
       "match": false,
@@ -141,7 +141,7 @@
     },
     {
       "id": "old-mid",
-      "label": "12-year-old gas tank, repair 270 (30% of new)",
+      "label": "12-year-old gas tank, repair 543 (30% of new)",
       "ours": "replace",
       "published": "10–15+ years with recurring issues: generally replace",
       "match": true,
@@ -162,7 +162,7 @@
   ],
   "tables": {
     "limits": {
-      "caption": "Most to pay for a repair, by type (our rules applied to typical equipment prices)",
+      "caption": "Most to pay for a repair, by type (our rules applied to typical installed replacement prices)",
       "columns": [
         {
           "key": "label",
@@ -170,7 +170,7 @@
         },
         {
           "key": "price",
-          "label": "New unit (equipment)",
+          "label": "New unit, installed",
           "unit": "$",
           "num": true
         },
@@ -196,41 +196,41 @@
       "rows": [
         {
           "label": "Gas tank",
-          "price": "899",
-          "young": "450",
+          "price": "1,809",
+          "young": "905",
           "oldFrom": "9.8",
-          "old": "225"
+          "old": "452"
         },
         {
           "label": "Electric tank",
-          "price": "819",
-          "young": "410",
+          "price": "1,579",
+          "young": "790",
           "oldFrom": "9.8",
-          "old": "205"
+          "old": "395"
         },
         {
           "label": "Heat pump (hybrid)",
-          "price": "1,787",
-          "young": "894",
+          "price": "2,947",
+          "young": "1,474",
           "oldFrom": "9.8",
-          "old": "447"
+          "old": "737"
         },
         {
           "label": "Gas tankless",
-          "price": "1,108",
-          "young": "554",
+          "price": "2,218",
+          "young": "1,109",
           "oldFrom": "15.0",
-          "old": "277"
+          "old": "555"
         },
         {
           "label": "Electric tankless",
-          "price": "674",
-          "young": "337",
+          "price": "1,534",
+          "young": "767",
           "oldFrom": "15.0",
-          "old": "169"
+          "old": "384"
         }
       ],
-      "source": "Rules from data/decision-rules.json (50% / 75% of life / 25%); typical life from DOE; equipment prices from Home Depot listings (2026-11-12), before installation",
+      "source": "Rules from data/decision-rules.json (50% / 75% of life / 25%); typical life from DOE; installed prices = Home Depot equipment listings (2026-11-12) + our installation ranges (2026-11-13), U.S. average",
       "sourceUrl": "https://hotwatermath.com/methodology/#repair-or-replace-water-heater",
       "sourceDate": "2026-11-12"
     },
@@ -300,9 +300,12 @@
         "uefId": "gas_tank",
         "uef": 0.635,
         "fuel": "gas",
-        "replacementUsd": 899,
+        "replacementUsd": 1809,
+        "equipmentUsd": 899,
+        "costType": "gas_tank",
+        "costSize": "50",
         "replacementLabel": "50-gallon gas tank (natural gas, standard vent)",
-        "replacementRange": "749–999",
+        "replacementRange": "1,249–2,599",
         "upgrade": {
           "id": "gas_tank_high_efficiency",
           "label": "Gas tank (high efficiency, ENERGY STAR)",
@@ -317,9 +320,12 @@
         "uefId": "electric_tank",
         "uef": 0.93,
         "fuel": "electric",
-        "replacementUsd": 819,
+        "replacementUsd": 1579,
+        "equipmentUsd": 819,
+        "costType": "electric_tank",
+        "costSize": "50",
         "replacementLabel": "50-gallon electric tank",
-        "replacementRange": "559–1,429",
+        "replacementRange": "1,009–2,829",
         "upgrade": {
           "id": "heat_pump",
           "label": "Heat pump (hybrid), 240 V",
@@ -334,9 +340,12 @@
         "uefId": "heat_pump",
         "uef": 3.8,
         "fuel": "electric",
-        "replacementUsd": 1787,
+        "replacementUsd": 2947,
+        "equipmentUsd": 1787,
+        "costType": "heat_pump",
+        "costSize": "50",
         "replacementLabel": "50-gallon heat pump (hybrid)",
-        "replacementRange": "1,658–2,119",
+        "replacementRange": "2,308–4,419",
         "upgrade": {
           "id": "heat_pump",
           "label": "Heat pump (hybrid), 240 V",
@@ -351,9 +360,12 @@
         "uefId": "gas_tankless",
         "uef": 0.95,
         "fuel": "gas",
-        "replacementUsd": 1108,
+        "replacementUsd": 2218,
+        "equipmentUsd": 1108,
+        "costType": "gas_tankless",
+        "costSize": "whole",
         "replacementLabel": "Gas tankless, whole house (8 GPM or more, natural gas)",
-        "replacementRange": "869–1,703",
+        "replacementRange": "1,619–3,703",
         "upgrade": {
           "id": "gas_tankless",
           "label": "Gas tankless",
@@ -368,9 +380,12 @@
         "uefId": "electric_tankless",
         "uef": 0.92,
         "fuel": "electric",
-        "replacementUsd": 674,
+        "replacementUsd": 1534,
+        "equipmentUsd": 674,
+        "costType": "electric_tankless",
+        "costSize": "whole",
         "replacementLabel": "Electric tankless, whole house (24 kW or more)",
-        "replacementRange": "526–999",
+        "replacementRange": "976–2,499",
         "upgrade": {
           "id": "heat_pump",
           "label": "Heat pump (hybrid), 240 V",

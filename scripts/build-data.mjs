@@ -17,6 +17,10 @@ import { describe as describeAge } from '../assets/js/age.js';
 import { describe as describeTankless, FIXTURE_KEYS } from '../assets/js/tankless-size.js';
 import { describe as describeTank, ACTIVITY_KEYS } from '../assets/js/tank-size.js';
 import { describe as describeRepair } from '../assets/js/repair-replace.js';
+import { estimateInstalled, defaultExtras, operatingCosts, gallonsFor } from '../assets/js/cost-model.js';
+import { describe as describeCost } from '../assets/js/cost-calculator.js';
+import { describe as describeTco } from '../assets/js/tankless-vs-tank.js';
+import { describe as describeOp } from '../assets/js/gas-vs-electric.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'data/computed');
@@ -49,6 +53,13 @@ export const INPUTS = [
 	'assets/js/tank-size.js',
 	'assets/js/repair-replace.js',
 	'data/household-size-guides.json',
+	'data/installation-costs.json',
+	'data/pages.json',
+	'assets/js/cost-model.js',
+	'assets/js/cost-calculator.js',
+	'assets/js/tankless-vs-tank.js',
+	'assets/js/gas-vs-electric.js',
+	'assets/js/ui.js',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -211,6 +222,47 @@ const out = {};
 		},
 	};
 }
+
+/* ---------- Phase 4: shared cost model (cost calculator, tankless vs tank, gas vs electric, repair) ---------- */
+// One object, copied into each tool's client data, so every page prices and runs the same household the same way.
+const model = (() => {
+	const ic = d['installation-costs'];
+	const up = out['unit-prices'].units;
+	const uef = out['uef-defaults'].types;
+	const ls = d.lifespans;
+	const hw = d['hot-water-use'];
+	const ep = out['energy-prices'];
+	const inlet = out['inlet-temps'].states;
+	const rm = out['regional-multipliers'].states;
+	const credits = d.incentives.currentFederalCreditUsd;
+	const fuelOf = { gas_tank: 'gas', electric_tank: 'electric', heat_pump: 'electric', gas_tankless: 'gas', electric_tankless: 'electric' };
+	const typeOrder = ['gas_tank', 'electric_tank', 'heat_pump', 'gas_tankless', 'electric_tankless'];
+	const sizeLabel = (x) => (x.nominalGallons ? `${x.nominalGallons} gallons` : 'Whole house');
+	const units = {};
+	const sizes = Object.fromEntries(typeOrder.map((t) => [t, []]));
+	for (const [key, x] of Object.entries(d['cost-ranges'].units)) {
+		const id = x.nominalGallons ? String(x.nominalGallons) : 'whole';
+		units[`${x.type}_${id}`] = { ...up[key], sourceKey: key };
+		sizes[x.type].push({ id, label: sizeLabel(x) });
+	}
+	const defaultSize = { gas_tank: '50', electric_tank: '50', heat_pump: '50', gas_tankless: 'whole', electric_tankless: 'whole' };
+	const types = Object.fromEntries(typeOrder.map((t) => [t, { label: uef[t].label, fuel: fuelOf[t], uef: uef[t].typical, life: ls.types[t].typical, credit: credits[t], sizes: sizes[t], defaultSize: defaultSize[t] }]));
+	const strip = (o) => ({ low: o.low, typical: o.typical, high: o.high });
+	const states = Object.fromEntries(Object.keys(rm).map((k) => [k, { name: rm[k].name, multiplier: rm[k].multiplier, usdPerKwh: ep.states[k].usdPerKwh, usdPerTherm: ep.states[k].usdPerTherm, inletF: inlet[k].annualAvg }]));
+	return {
+		units, types, typeOrder,
+		labor: Object.fromEntries(typeOrder.map((t) => [t, strip(ic.labor[t])])),
+		extras: Object.fromEntries(Object.entries(ic.extras).map(([k, x]) => [k, { label: x.label, ...strip(x) }])),
+		scenarios: ic.scenarios,
+		states,
+		us: { name: 'U.S. average', multiplier: 1, usdPerKwh: ep.us.usdPerKwh, usdPerTherm: ep.us.usdPerTherm, inletF: hw.testConditions.inletF },
+		setpointF: d.site.defaults.setpointTempF.value,
+		typicalGallons: hw.typicalHouseholdGallonsPerDay.value,
+		perPersonGallons: hw.perPersonGallonsPerDay.value,
+		lastReviewed: ic.lastReviewed,
+	};
+})();
+const stateOptions = [{ id: 'US', name: 'U.S. average' }, ...states.map(([k, s]) => ({ id: k, name: s.name }))];
 
 /* ---------- reference tables (rendered straight from data) ---------- */
 {
@@ -816,9 +868,13 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const types = Object.fromEntries(typeDefs.map((t) => {
 		const priceKey = dr.replacementPriceKey[t.id];
 		const upId = dr.upgradeTo[t.id];
+		// Installed replacement price (Phase 4): same model as the cost calculator, like-for-like job, U.S. average.
+		const src = d['cost-ranges'].units[priceKey];
+		const est = estimateInstalled(model, { type: src.type, size: src.nominalGallons ? String(src.nominalGallons) : 'whole', state: 'US', extras: defaultExtras(model, 'replace', src.type) });
 		return [t.id, {
 			label: t.label, life: t.life, uefId: t.uefId, uef: uef[t.uefId].typical, fuel: dr.fuelOf[t.id],
-			replacementUsd: up[priceKey].typical, replacementLabel: up[priceKey].label, replacementRange: `${fmt(up[priceKey].low)}–${fmt(up[priceKey].high)}`,
+			replacementUsd: est.typical, equipmentUsd: up[priceKey].typical, costType: src.type, costSize: src.nominalGallons ? String(src.nominalGallons) : 'whole',
+			replacementLabel: up[priceKey].label, replacementRange: `${fmt(est.low)}–${fmt(est.high)}`,
 			upgrade: { id: upId, label: uef[upId].label, short: dr.upgradeLabel[upId], uef: uef[upId].typical, fuel: dr.fuelOf[upId] },
 		}];
 	}));
@@ -871,7 +927,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const di = dr.defaultInputs;
 	const ex1 = ask(di.ageYears, di.type, di.repairUsd);
 	out['repair-or-replace-water-heater'] = {
-		meta: { ...derived('data/decision-rules.json, data/lifespans.json, data/cost-ranges.json, data/uef-ranges.json, data/hot-water-use.json and data/energy-prices.json'), notes: 'Default result, repair limits by type, energy comparison and cross-check for the repair-or-replace tool. Replacement prices are equipment only until labor data is added.' },
+		meta: { ...derived('data/decision-rules.json, data/lifespans.json, data/cost-ranges.json, data/uef-ranges.json, data/hot-water-use.json and data/energy-prices.json'), notes: 'Default result, repair limits by type, energy comparison and cross-check for the repair-or-replace tool. Replacement prices are installed prices (equipment + labor + permit and haul-away, U.S. average) from the shared cost model in assets/js/cost-model.js.' },
 		defaultInputs: { ...di, replace: types[di.type].replacementUsd },
 		default: null,
 		defaultCase: { age: di.ageYears, repair: fmt(di.repairUsd), replace: fmt(types[di.type].replacementUsd), share: Math.round(ex1.share * 100), verdict: ex1.verdict, life: types[di.type].life, oldFrom: fmt(ex1.oldFromYears, 2) },
@@ -879,22 +935,22 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		examples: [
 			{ age: 11, type: 'gas_tank', repair: 350 },
 			{ age: 4, type: 'electric_tank', repair: 150 },
-			{ age: 9, type: 'heat_pump', repair: 600 },
+			{ age: 9, type: 'heat_pump', repair: 900 },
 		].map((e) => { const x = ask(e.age, e.type, e.repair); return { ...e, label: types[e.type].label, life: types[e.type].life, replace: fmt(types[e.type].replacementUsd), repairFmt: fmt(e.repair), share: Math.round(x.share * 100), used: Math.round(x.lifeUsed * 100), verdict: x.verdict, oldFrom: fmt(x.oldFromYears, 2) }; }),
 		energy,
 		crossChecks: xc,
 		tables: {
 			limits: table(
-				'Most to pay for a repair, by type (our rules applied to typical equipment prices)',
+				'Most to pay for a repair, by type (our rules applied to typical installed replacement prices)',
 				[
 					{ key: 'label', label: 'Type' },
-					{ key: 'price', label: 'New unit (equipment)', unit: '$', num: true },
+					{ key: 'price', label: 'New unit, installed', unit: '$', num: true },
 					{ key: 'young', label: 'Repair limit, younger unit', unit: '$', num: true },
 					{ key: 'oldFrom', label: '"Old" from', unit: 'years', num: true },
 					{ key: 'old', label: 'Repair limit, old unit', unit: '$', num: true },
 				],
 				limits,
-				{ source: `Rules from data/decision-rules.json (${Math.round(rules.repairShareAlways * 100)}% / ${Math.round(rules.ageShare * 100)}% of life / ${Math.round(rules.repairShareWhenOld * 100)}%); typical life from DOE; equipment prices from Home Depot listings (${d['cost-ranges'].lastReviewed}), before installation`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['cost-ranges'].lastReviewed },
+				{ source: `Rules from data/decision-rules.json (${Math.round(rules.repairShareAlways * 100)}% / ${Math.round(rules.ageShare * 100)}% of life / ${Math.round(rules.repairShareWhenOld * 100)}%); typical life from DOE; installed prices = Home Depot equipment listings (${d['cost-ranges'].lastReviewed}) + our installation ranges (${d['installation-costs'].lastReviewed}), U.S. average`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['cost-ranges'].lastReviewed },
 			),
 			energy: table(
 				'Yearly running cost: a standard new unit vs the efficient upgrade',
@@ -909,8 +965,174 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const rd = describeRepair({ age: di.ageYears, type: di.type, repair: di.repairUsd, replace: types[di.type].replacementUsd }, client);
 	rz.default = {
 		status: rd.status, statusLabel: rd.statusLabel, headline: rd.headline, explain: rd.explain, formula: rd.formula,
-		sources: `Rules: ours, stated on /methodology. Typical life: DOE (${types.gas_tank.life} years for tanks, ${types.tankless.life} for tankless). New-unit price: typical equipment price from Home Depot listings (${d['cost-ranges'].lastReviewed}), before installation; type your installed quote if you have one. <a href="/methodology/#repair-or-replace-water-heater">See our rules checked against Rheem and A. O. Smith guidance</a>.`,
+		sources: `Rules: ours, stated on /methodology. Typical life: DOE (${types.gas_tank.life} years for tanks, ${types.tankless.life} for tankless). New-unit price: typical installed price, U.S. average (equipment from Home Depot listings, ${d['cost-ranges'].lastReviewed}, plus labor, permit and haul-away from our cost model); type your own quote if you have one. <a href="/methodology/#repair-or-replace-water-heater">See our rules checked against Rheem and A. O. Smith guidance</a>.`,
 	};
+}
+
+/* ---------- Phase 4 tools: water heater cost calculator ---------- */
+const ic = d['installation-costs'];
+const refLink = (id) => ({ source: `${ic.references[id].publisher}: ${ic.references[id].title}`, sourceUrl: ic.references[id].sourceUrl });
+const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
+{
+	const df = ic.defaults;
+	const like = (type, size, state = 'US') => estimateInstalled(model, { type, size, state, extras: defaultExtras(model, 'replace', type) });
+	const byUnit = Object.entries(model.units).map(([key, u]) => {
+		const size = key.slice(u.type.length + 1);
+		const e = like(u.type, size);
+		return { key, type: u.type, size, label: u.label, unit: fmt(u.typical), low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high), typicalNum: e.typical };
+	});
+	const g = (key) => byUnit.find((x) => x.key === key);
+	const stateRows = states.map(([k, s]) => { const e = like('gas_tank', '50', k); return { code: k, name: s.name, m: fmt(model.states[k].multiplier, 2), typical: fmt(e.typical), typicalNum: e.typical, low: fmt(e.low), high: fmt(e.high) }; });
+	const sortedStates = [...stateRows].sort((a, b) => a.typicalNum - b.typicalNum);
+	const scenarioRows = [
+		['Gas tank to gas tank (50 gal)', 'gas_tank', '50', 'replace'],
+		['Electric tank to electric tank (50 gal)', 'electric_tank', '50', 'replace'],
+		['Electric tank to heat pump (50 gal)', 'heat_pump', '50', 'replace'],
+		['Gas tank to heat pump (50 gal)', 'heat_pump', '50', 'fuelSwitch'],
+		['Gas tank to gas tankless', 'gas_tankless', 'whole', 'toTankless'],
+		['Electric tank to electric tankless', 'electric_tankless', 'whole', 'toTankless'],
+		['Electric tank to gas tank (50 gal)', 'gas_tank', '50', 'fuelSwitch'],
+	].map(([label, type, size, sc]) => { const e = estimateInstalled(model, { type, size, state: 'US', extras: defaultExtras(model, sc, type) }); return { label, extras: defaultExtras(model, sc, type).map((x) => model.extras[x].label.split(' (')[0].split(',')[0]).join(', '), low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high), typicalNum: e.typical }; });
+	// Cross-checks: our like-for-like national estimates vs DOE's average installed costs (and two industry averages).
+	const xc = [
+		{ id: 'doe-gas', label: '50-gal gas tank, like-for-like, U.S. average', ours: `$${g('gas_tank_50').typical}`, published: 'DOE average installed cost $1,432 (2022 dollars, baseline gas storage)', diffPct: pct(g('gas_tank_50').typicalNum, 1432), why: 'Ours is in today’s listing prices; DOE’s is 2022 dollars and averages all sizes from 20 to 55 gallons. PHCC told DOE its RSMeans-based installation costs are too low.', ...refLink('doe-storage-2024') },
+		{ id: 'doe-electric', label: '50-gal electric tank, like-for-like, U.S. average', ours: `$${g('electric_tank_50').typical}`, published: 'DOE average installed cost $902 (2022 dollars, baseline electric storage)', diffPct: pct(g('electric_tank_50').typicalNum, 902), why: 'The largest gap. DOE’s figure is 2022 dollars, includes smaller tanks and many new-construction installs; current 50-gallon listings alone are near $820.', ...refLink('doe-storage-2024') },
+		{ id: 'doe-hp', label: '50-gal heat pump, replacing an electric tank, U.S. average', ours: `$${g('heat_pump_50').typical}`, published: 'DOE average installed cost $1,855 (2022 dollars, heat pump level)', diffPct: pct(g('heat_pump_50').typicalNum, 1855), why: 'DOE priced heat pump units from its own cost model for the 2030 market; today’s retail listings are higher. Space work for tight closets is an extra in both.', ...refLink('doe-storage-2024') },
+		{ id: 'doe-tankless', label: 'Gas tankless replacing a gas tankless, U.S. average', ours: `$${g('gas_tankless_whole').typical}`, published: 'DOE average installed cost $2,087 (2023 dollars, baseline gas tankless)', diffPct: pct(g('gas_tankless_whole').typicalNum, 2087), why: 'Close. Our equipment median is a whole-house unit (8 GPM or more); our labor plus permit ($1,110 typical) matches DOE’s $1,102 installation average.', ...refLink('doe-gas-tankless-2024') },
+		{ id: 'hd', label: 'Typical water heater installation, all types', ours: `$${g('gas_tank_50').typical} (50-gal gas) to $${g('heat_pump_50').typical} (heat pump)`, published: 'Home Depot data (via This Old House): $1,950 average, $1,600-$5,400 range', match: true, why: 'Industry average, used only as a sanity check: it sits inside our range of common jobs.', ...refLink('industry-this-old-house') },
+	];
+	const client = { model, defaults: { type: df.type, size: df.size, state: df.state, scenario: df.scenario } };
+	const v0 = { type: df.type, size: df.size, state: df.state, scenario: df.scenario, ...Object.fromEntries(defaultExtras(model, df.scenario, df.type).map((x) => [x, true])) };
+	const dd = describeCost(v0, client);
+	const mult = Object.values(model.states).map((x) => x.multiplier);
+	out['water-heater-cost-calculator'] = {
+		meta: { ...derived('data/cost-ranges.json, data/installation-costs.json and data/regional-cost-index.json'), notes: 'Default result, installed cost tables, state table and cross-checks for the cost calculator.' },
+		defaultInputs: v0,
+		default: { status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline, explain: dd.explain, formula: dd.formula, table: dd.table, sources: `Unit: Home Depot listings (${d['cost-ranges'].lastReviewed}). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (${ic.lastReviewed}). State factor: BEA price parities. <a href="/methodology/#water-heater-cost-calculator">See our numbers checked against DOE's installed costs</a>.` },
+		figures: {
+			gas40: g('gas_tank_40'), gas50: g('gas_tank_50'), gas75: g('gas_tank_75'), el40: g('electric_tank_40'), el50: g('electric_tank_50'), hp50: g('heat_pump_50'), gasTankless: g('gas_tankless_whole'), elTankless: g('electric_tankless_whole'),
+			laborGas: model.labor.gas_tank, laborElectric: model.labor.electric_tank, laborTankless: model.labor.gas_tankless, permit: model.extras.permit,
+			cheapState: sortedStates[0], dearState: sortedStates[sortedStates.length - 1], multLow: fmt(Math.min(...mult), 2), multHigh: fmt(Math.max(...mult), 2),
+			scenarios: scenarioRows, lastReviewed: ic.lastReviewed,
+		},
+		stateOptions,
+		crossChecks: xc,
+		tables: {
+			byUnit: table('Installed cost by type and size, like-for-like replacement, U.S. average', [{ key: 'label', label: 'Water heater' }, { key: 'unit', label: 'Unit only', unit: '$', num: true }, { key: 'typical', label: 'Installed, typical', unit: '$', num: true }, { key: 'range', label: 'Installed range', unit: '$', num: true }], byUnit.map((x) => ({ label: x.label, unit: x.unit, typical: x.typical, range: `${x.low}–${x.high}` })), { source: `Equipment: Home Depot listings (${d['cost-ranges'].lastReviewed}); labor, permit and haul-away: data/installation-costs.json (${ic.lastReviewed})`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed }),
+			extras: table('Extras and what they usually cost (U.S. average, before your state factor)', [{ key: 'label', label: 'Extra' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }, { key: 'why', label: 'Where the number comes from' }], Object.values(ic.extras).map((x) => ({ label: x.label, typical: fmt(x.typical), range: `${fmt(x.low)}–${fmt(x.high)}`, why: x.why })), { source: ic.meta.source, sourceUrl: ic.meta.sourceUrl, sourceDate: ic.meta.sourceDate }),
+			labor: table('Installation labor by type, like-for-like (U.S. average)', [{ key: 'label', label: 'Type' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }, { key: 'why', label: 'Why' }], model.typeOrder.map((t) => ({ label: model.types[t].label, typical: fmt(ic.labor[t].typical), range: `${fmt(ic.labor[t].low)}–${fmt(ic.labor[t].high)}`, why: ic.labor[t].why })), { source: ic.meta.source, sourceUrl: ic.meta.sourceUrl, sourceDate: ic.meta.sourceDate }),
+			scenarios: table('Common jobs and their installed cost (U.S. average)', [{ key: 'label', label: 'Job' }, { key: 'extras', label: 'Extras included' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], scenarioRows.map((x) => ({ label: x.label, extras: x.extras, typical: x.typical, range: `${x.low}–${x.high}` })), { source: 'Computed with the cost calculator’s own model (equipment listings + data/installation-costs.json)', sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed }),
+			byState: table('50-gallon gas tank, like-for-like, installed cost by state', [{ key: 'name', label: 'State' }, { key: 'm', label: 'Price factor', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], stateRows.map((x) => ({ name: x.name, m: x.m, typical: x.typical, range: `${x.low}–${x.high}` })), { source: 'Equipment listings + data/installation-costs.json, labor and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+		},
+		client,
+	};
+}
+
+/* ---------- Phase 4 tools: gas vs electric operating cost ---------- */
+{
+	const client = { model, defaults: { household: 'typical', state: 'US' } };
+	const run = (state, household = 'typical') => describeOp({ household, state }, client);
+	const d0 = run('US');
+	const op0 = Object.fromEntries(d0.rows.map((x) => [x.id, x]));
+	const stateRows = states.map(([k, s]) => { const o = Object.fromEntries(run(k).rows.map((x) => [x.id, x])); return { name: s.name, gas: o.gas_tank.year, el: o.electric_tank.year, hp: o.heat_pump.year }; });
+	const gasWins = stateRows.filter((x) => x.gas < x.el).length;
+	const hpVsGas = stateRows.filter((x) => x.hp < x.gas).length;
+	const people = [1, 2, 3, 4, 5, 6].map((n) => { const o = Object.fromEntries(run('US', n).rows.map((x) => [x.id, x])); return { people: n, gallons: gallonsFor(model, n), gas: fmt(o.gas_tank.year), el: fmt(o.electric_tank.year), hp: fmt(o.heat_pump.year), gtl: fmt(o.gas_tankless.year), etl: fmt(o.electric_tankless.year) }; });
+	// Cross-checks: our formula with each label's own UEF, draw pattern and FTC price vs the federal EnergyGuide label / ENERGY STAR / FEMP figure.
+	const hw = d['hot-water-use'];
+	const pat = Object.fromEntries(hw.drawPatterns.map((p) => [p.id, p.gallonsPerDay]));
+	const rise = hw.testConditions.riseF;
+	const kwh = (gal, u) => F.annualEnergyUse(F.annualHeatBtu(gal, rise), 'electric', u).kwh;
+	const th = (gal, u) => F.annualEnergyUse(F.annualHeatBtu(gal, rise), 'gas', u).therms;
+	const xc = [
+		{ id: 'eg-electric', label: 'Rheem XE50T06ST45U1 electric tank: UEF 0.93, medium draw (55 gal/day)', ours: `${fmt(kwh(pat.medium, 0.93))} kWh/yr; $${fmt(r(kwh(pat.medium, 0.93) * 0.14))} at 14.00 ¢/kWh`, published: 'EnergyGuide label: 3,493 kWh/yr, $489', diffPct: pct(kwh(pat.medium, 0.93), 3493), why: 'Within 1.5%. The label uses the model’s unrounded test result; we use the rounded UEF.', source: 'Rheem EnergyGuide label (via Home Depot listing)', sourceUrl: 'https://images.thdstatic.com/catalog/pdfImages/22/22032cf2-1800-482d-b21c-8526c5c35cdd.pdf' },
+		{ id: 'eg-gas', label: 'Rheem XG50T06EC38U1 gas tank: UEF 0.63, high draw (84 gal/day)', ours: `${fmt(th(pat.high, 0.63))} therms/yr; $${fmt(r(th(pat.high, 0.63) * 1.21))} at $1.21/therm`, published: 'EnergyGuide label: 269 therms/yr, $325', diffPct: pct(th(pat.high, 0.63), 269), why: 'Within 1.5%, same reason (rounded UEF).', source: 'Rheem EnergyGuide label (via Home Depot listing)', sourceUrl: 'https://images.thdstatic.com/catalog/pdfImages/5d/5df0a059-bf89-46bb-8edd-faacf8b52e0a.pdf' },
+		{ id: 'eg-hp', label: 'Rheem XE50T10HS45U1 heat pump: UEF 3.88 (ENERGY STAR), medium draw', ours: `${fmt(kwh(pat.medium, 3.88))} kWh/yr`, published: 'EnergyGuide label: 837 kWh/yr ($117); ENERGY STAR list: 846 kWh/yr', diffPct: pct(kwh(pat.medium, 3.88), 846), why: 'Matches the ENERGY STAR figure; the label’s 837 kWh is 1.2% lower than both.', source: 'ENERGY STAR certified water heaters', sourceUrl: 'https://images.thdstatic.com/catalog/pdfImages/a8/a86691b3-d01e-4e2a-b392-8daf1711eddb.pdf' },
+		{ id: 'es-tankless', label: 'American GT-240-NEH gas tankless: UEF 0.95, high draw', ours: `${fmt(th(pat.high, 0.95))} therms/yr`, published: 'ENERGY STAR list: 178 therms/yr', diffPct: pct(th(pat.high, 0.95), 178), why: 'Within 1.5%.', source: 'ENERGY STAR certified water heaters dataset', sourceUrl: d['energystar-water-heaters'].meta.sourceUrl },
+		{ id: 'femp', label: 'Electric tank UEF 0.95, 20,075 gal/yr (DOE FEMP)', ours: `${fmt(kwh(hw.typicalHouseholdGallonsPerDay.value, hw.femp.electricUef))} kWh/yr`, published: `DOE FEMP: ${fmt(hw.femp.annualKwh)} kWh/yr`, diffPct: pct(kwh(hw.typicalHouseholdGallonsPerDay.value, hw.femp.electricUef), hw.femp.annualKwh), why: 'Within 1%.', source: 'DOE FEMP', sourceUrl: hw.femp.sourceUrl },
+	];
+	const elKw = F.summarize(d['fhr-to-tank-size'].models.electric.map((x) => x.elementKw));
+	out['gas-vs-electric-water-heater'] = {
+		meta: { ...derived('data/energy-prices.json, data/groundwater-temp-by-state.json, data/uef-ranges.json and data/hot-water-use.json'), notes: 'Default result, per-state and per-household tables and EnergyGuide cross-checks for the gas vs electric tool.' },
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: `Prices: EIA, ${d['energy-prices'].meta.sourceDate.slice(0, 4)} data. Efficiency: median UEF of real models (Rheem spec sheets, ENERGY STAR). Use: DOE FEMP typical day. <a href="/methodology/#gas-vs-electric-water-heater">See our formula checked against federal EnergyGuide labels</a>.` },
+		figures: {
+			us: Object.fromEntries(Object.entries(op0).map(([k, x]) => [k, { year: fmt(x.year), month: fmt(x.month), kwh: x.use.kwh !== undefined ? fmt(x.use.kwh) : '', kwhMonth: x.use.kwh !== undefined ? fmt(x.use.kwh / 12) : '', therms: x.use.therms !== undefined ? fmt(x.use.therms) : '', thermsMonth: x.use.therms !== undefined ? fmt(x.use.therms / 12, 1) : '', uef: fmt(x.uef, 2) }])),
+			gasWins, hpVsGas, stateCount: stateRows.length,
+			tanklessKwLow: fmt(Math.min(...d.electrical.referenceUnits.map((u) => u.kw))), tanklessKwHigh: fmt(Math.max(...d.electrical.referenceUnits.map((u) => u.kw))),
+			kwhPriceLow: fmt(Math.min(...Object.values(out['energy-prices'].states).map((x) => x.usdPerKwh)), 3), kwhPriceHigh: fmt(Math.max(...Object.values(out['energy-prices'].states).map((x) => x.usdPerKwh)), 3),
+			hpShare: Math.round((op0.heat_pump.use.kwh / op0.electric_tank.use.kwh) * 100),
+			elementKw: fmt(elKw.typical, 1), elementKwLow: fmt(elKw.low, 1), elementKwHigh: fmt(elKw.high, 1),
+			gallons: model.typicalGallons, rise: fmt(model.setpointF - model.us.inletF), setpoint: model.setpointF, inlet: model.us.inletF,
+			kwhPrice: model.us.usdPerKwh, thermPrice: model.us.usdPerTherm,
+		},
+		stateOptions,
+		crossChecks: xc,
+		labelMaxDiffPct: fmt(Math.max(...xc.map((x) => Math.abs(x.diffPct))), 1),
+		tables: {
+			people: table('Yearly running cost by household size (U.S. average prices)', [{ key: 'people', label: 'People', num: true }, { key: 'gallons', label: 'Gal/day', num: true }, { key: 'gas', label: 'Gas tank', unit: '$', num: true }, { key: 'el', label: 'Electric tank', unit: '$', num: true }, { key: 'hp', label: 'Heat pump', unit: '$', num: true }, { key: 'gtl', label: 'Gas tankless', unit: '$', num: true }, { key: 'etl', label: 'Electric tankless', unit: '$', num: true }], people, { source: `Computed: ${hw.perPersonGallonsPerDay.value} gal per person a day (DOE Buildings Energy Data Book), ${model.setpointF} °F setpoint, ${model.us.inletF} °F incoming water (DOE test), median UEFs, EIA prices`, sourceUrl: 'https://hotwatermath.com/methodology/#gas-vs-electric-water-heater', sourceDate: d['energy-prices'].meta.sourceDate }),
+			byState: table('Yearly running cost by state: gas tank vs electric tank vs heat pump (typical household)', [{ key: 'name', label: 'State' }, { key: 'gas', label: 'Gas tank', unit: '$/yr', num: true }, { key: 'el', label: 'Electric tank', unit: '$/yr', num: true }, { key: 'hp', label: 'Heat pump', unit: '$/yr', num: true }, { key: 'win', label: 'Cheaper tank' }], stateRows.map((x) => ({ name: x.name, gas: fmt(x.gas), el: fmt(x.el), hp: fmt(x.hp), win: x.gas < x.el ? 'Gas' : 'Electric' })), { source: `Computed: ${model.typicalGallons} gal/day, ${model.setpointF} °F setpoint, each state’s average incoming water temperature (NOAA-based estimate), EIA state prices, median UEFs`, sourceUrl: d['energy-prices'].meta.sourceUrl, sourceDate: d['energy-prices'].meta.sourceDate }),
+		},
+		client,
+	};
+}
+
+/* ---------- Phase 4 tools: tankless vs tank cost of ownership ---------- */
+{
+	const options = {
+		gas: [{ type: 'gas_tank', size: '50', scenario: 'replace', label: 'Gas tank (50 gal)' }, { type: 'gas_tankless', size: 'whole', scenario: 'toTankless', label: 'Gas tankless' }, { type: 'heat_pump', size: '50', scenario: 'fuelSwitch', label: 'Heat pump (50 gal)' }],
+		electric: [{ type: 'electric_tank', size: '50', scenario: 'replace', label: 'Electric tank (50 gal)' }, { type: 'electric_tankless', size: 'whole', scenario: 'toTankless', label: 'Electric tankless' }, { type: 'heat_pump', size: '50', scenario: 'replace', label: 'Heat pump (50 gal)' }],
+	};
+	const years = d['decision-rules'].ownershipYearsDefault;
+	const client = { model, options, defaults: { fuel: 'gas', household: 'typical', state: 'US', years } };
+	const run = (fuel, state = 'US', household = 'typical', y = years) => describeTco({ fuel, state, household, years: y }, client);
+	const g0 = run('gas');
+	const e0 = run('electric');
+	const pick = (res) => Object.fromEntries(res.result.map((o) => [o.id, { installed: fmt(o.installed), year: fmt(o.annualOperating), total: fmt(o.total), totalNum: o.total, be: o.breakEven || 0, repl: o.replacements, life: o.lifeYears }]));
+	const g = pick(g0);
+	const e = pick(e0);
+	const g20 = pick(run('gas', 'US', 'typical', 20));
+	const stateRows = states.map(([k, s]) => { const x = pick(run('gas', k)); const y = pick(run('electric', k)); return { name: s.name, gt: x.gas_tankless.be ? `Year ${x.gas_tankless.be}` : 'No', hpg: x.heat_pump.be ? `Year ${x.heat_pump.be}` : 'No', hpe: y.heat_pump.be ? `Year ${y.heat_pump.be}` : 'No', gtNum: x.gas_tankless.be }; });
+	const people = [2, 4, 6].map((n) => { const x = pick(run('gas', 'US', n)); return { people: n, tank: x.gas_tank.total, tankless: x.gas_tankless.total, be: x.gas_tankless.be ? `Year ${x.gas_tankless.be}` : `Not in ${years} years` }; });
+	// Cross-checks against DOE's 2024 rules (first-year operating cost and heat pump payback, national averages).
+	const op = operatingCosts(model, { gallonsPerDay: model.typicalGallons, setpointF: model.setpointF, inletF: model.us.inletF, prices: { usdPerKwh: model.us.usdPerKwh, usdPerTherm: model.us.usdPerTherm } });
+	const opBy = Object.fromEntries(op.rows.map((x) => [x.id, x]));
+	const hpInst = estimateInstalled(model, { type: 'heat_pump', size: '50', state: 'US', extras: defaultExtras(model, 'replace', 'heat_pump') }).typical;
+	const elInst = estimateInstalled(model, { type: 'electric_tank', size: '50', state: 'US', extras: defaultExtras(model, 'replace', 'electric_tank') }).typical;
+	const payback = r((hpInst - elInst) / (opBy.electric_tank.year - opBy.heat_pump.year), 1);
+	const xc = [
+		{ id: 'doe-hp-payback', label: 'Heat pump instead of an electric tank: simple payback', ours: `${fmt(payback, 1)} years (extra ${fmt(hpInst - elInst)} ÷ ${fmt(opBy.electric_tank.year - opBy.heat_pump.year)} saved a year)`, published: 'DOE: 5.6 years (Table V.8, 2022 dollars)', diffPct: pct(payback, 5.6), why: 'Same order. DOE used 2022 prices and its own equipment cost model; our heat pump listings carry a larger price gap today.', ...refLink('doe-storage-2024') },
+		{ id: 'doe-el-op', label: 'Electric tank, first-year running cost', ours: `$${fmt(opBy.electric_tank.year)}`, published: 'DOE: $340 (2022 dollars, field use)', diffPct: pct(opBy.electric_tank.year, 340), why: 'DOE models each household’s real use and 2022 prices; we use a typical 55-gallon day and 2025 EIA prices. Electricity cost more in 2025.', ...refLink('doe-storage-2024') },
+		{ id: 'doe-hp-op', label: 'Heat pump, first-year running cost', ours: `$${fmt(opBy.heat_pump.year)}`, published: 'DOE: $171 (2022 dollars)', diffPct: pct(opBy.heat_pump.year, 171), why: 'Our median UEF comes from today’s ENERGY STAR list, which is higher than DOE’s first heat pump level.', ...refLink('doe-storage-2024') },
+		{ id: 'doe-gt-op', label: 'Gas tankless, first-year running cost', ours: `$${fmt(opBy.gas_tankless.year)}`, published: 'DOE: $303 (2023 dollars, baseline gas tankless)', diffPct: pct(opBy.gas_tankless.year, 303), why: 'DOE’s households with tankless units use more hot water than a typical day, and its figure includes electricity for the burner fan and controls, which UEF-based math leaves out.', ...refLink('doe-gas-tankless-2024') },
+	];
+	out['tankless-vs-tank-water-heater'] = {
+		meta: { ...derived('the cost calculator and gas vs electric models plus data/lifespans.json and data/incentives.json'), notes: 'Default result, ownership tables, state break-even table and DOE cross-checks for the tankless vs tank tool.' },
+		default: { status: g0.status, statusLabel: g0.statusLabel, headline: g0.headline, explain: g0.explain, formula: g0.formula, table: g0.table, sources: `Installed costs: same model as our cost calculator (${ic.lastReviewed}). Running costs: same formula as our gas vs electric tool, EIA prices. Lifespans: DOE. Federal credit: $0 (IRS, 25C ended 2025). <a href="/methodology/#tankless-vs-tank-water-heater">See our results checked against DOE</a>.` },
+		figures: { gas: g, electric: e, gas20: g20, years, years20: 20, gasTanklessSaving: fmt(g0.result[0].annualOperating - g0.result[1].annualOperating), gas20Tank: g20.gas_tank, gasTanklessStatesPay: stateRows.filter((x) => x.gtNum).length, stateCount: stateRows.length, people, perPerson: model.perPersonGallons, lifeTank: model.types.gas_tank.life, lifeTankless: model.types.gas_tankless.life },
+		stateOptions,
+		crossChecks: xc,
+		tables: {
+			byState: table(`When the extra cost pays back, by state (typical household, ${years} years)`, [{ key: 'name', label: 'State' }, { key: 'gt', label: 'Gas tankless vs gas tank' }, { key: 'hpg', label: 'Heat pump vs gas tank' }, { key: 'hpe', label: 'Heat pump vs electric tank' }], stateRows.map(({ gtNum, ...x }) => x), { source: 'Computed with the tool’s own model: installed costs (listings + data/installation-costs.json × state factor), EIA state prices, state incoming water temperature, DOE lifespans', sourceUrl: 'https://hotwatermath.com/methodology/#tankless-vs-tank-water-heater', sourceDate: ic.lastReviewed }),
+		},
+		client,
+	};
+}
+
+/* ---------- Phase 4: Quick Answers in pages.json must quote the computed numbers (CLAUDE.md §5) ---------- */
+{
+	const pages = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages;
+	const qa = (slug) => pages.find((p) => p.slug === slug)?.quickAnswer || '';
+	const cf = out['water-heater-cost-calculator'].figures;
+	const of = out['gas-vs-electric-water-heater'].figures.us;
+	const tf = out['tankless-vs-tank-water-heater'].figures;
+	const usd = (v) => '$' + v;
+	const must = [
+		['water-heater-cost-calculator', [usd(cf.gas50.typical), usd(cf.el50.typical)]],
+		['gas-vs-electric-water-heater', [usd(of.gas_tank.year), usd(of.electric_tank.year), usd(of.heat_pump.year)]],
+		['tankless-vs-tank-water-heater', [tf.years + ' years', tf.electric.heat_pump.be + ' years']],
+	];
+	for (const [slug, parts] of must) for (const part of parts) if (!qa(slug).includes(part)) throw new Error('pages.json quickAnswer for ' + slug + ' must contain "' + part + '" (computed); update it.');
+	if (tf.gas.gas_tankless.be) throw new Error('tankless-vs-tank quickAnswer says gas tankless does not pay back in the default period; computed says it does.');
 }
 
 /* ---------- write + manifest ---------- */

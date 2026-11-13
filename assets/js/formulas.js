@@ -523,6 +523,17 @@ export function annualCost(use, prices) {
 	return { year: round(year, 2), month: round(year / PHYSICS.monthsPerYear, 2) };
 }
 
+/**
+ * Daily hot water use for a household: people × gallons per person, rounded to whole gallons.
+ * @param {number} people Household size; anything not above 0 means "not given".
+ * @param {number} perPersonGallons Gallons a day per person (data/hot-water-use.json).
+ * @param {number} fallbackGallons Used when no household size is given (DOE typical day).
+ * @returns {number} gallons per day
+ */
+export function householdGallonsPerDay(people, perPersonGallons, fallbackGallons) {
+	return isNum(people) && people > 0 ? round(people * perPersonGallons) : fallbackGallons;
+}
+
 /* ---------- 3.6 Tankless vs tank, cost of ownership ---------- */
 
 /**

@@ -7,6 +7,9 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import * as F from '../assets/js/formulas.js';
+import { describe as describeCost } from '../assets/js/cost-calculator.js';
+import { describe as describeTco } from '../assets/js/tankless-vs-tank.js';
+import { describe as describeOp } from '../assets/js/gas-vs-electric.js';
 
 const data = (f) => JSON.parse(readFileSync(new URL(`../data/${f}.json`, import.meta.url), 'utf8'));
 const near = (a, b, tol = 1e-9) => assert.ok(Math.abs(a - b) <= tol, `${a} ≉ ${b} (±${tol})`);
@@ -403,15 +406,18 @@ test('tank describe: 2 showers + hands/face + food prep = 49 gal → 30 gal gas;
 	assert.equal(describeTank({ fuel: 'gas' }, tankCfg).formula, ''); // nothing counted
 });
 
-test('repair describe: 8-yr gas tank, $250 vs $899 = 28% → borderline; 11-yr, $350 = 39% → replace; leak → replace; 4-yr electric $150 = 18% → repair', () => {
+test('repair describe (installed prices since Phase 4): 8-yr gas tank $250 vs $1,809 = 14% → repair; $500 = 28% → borderline; 11-yr $350 = 19% → borderline; 11-yr $500 = 28% → replace; leak → replace', () => {
 	const gp = repairCfg.types.gas_tank.replacementUsd;
+	assert.equal(gp, 1809); // 899 unit + 650 labor + 260 permit and haul-away
 	const a = describeRepair({ age: 8, type: 'gas_tank', repair: 250, replace: gp }, repairCfg);
-	assert.equal(a.decision.verdict, 'borderline');
-	assert.equal(Math.round(a.decision.share * 100), 28);
-	assert.equal(describeRepair({ age: 11, type: 'gas_tank', repair: 350, replace: gp }, repairCfg).decision.verdict, 'replace');
+	assert.equal(a.decision.verdict, 'repair');
+	assert.equal(Math.round(a.decision.share * 100), 14);
+	assert.equal(describeRepair({ age: 8, type: 'gas_tank', repair: 500, replace: gp }, repairCfg).decision.verdict, 'borderline');
+	assert.equal(describeRepair({ age: 11, type: 'gas_tank', repair: 350, replace: gp }, repairCfg).decision.verdict, 'borderline');
+	assert.equal(describeRepair({ age: 11, type: 'gas_tank', repair: 500, replace: gp }, repairCfg).decision.verdict, 'replace');
 	assert.equal(describeRepair({ age: 2, type: 'gas_tank', repair: null, tankLeak: true }, repairCfg).decision.verdict, 'replace');
 	assert.equal(describeRepair({ age: 4, type: 'electric_tank', repair: 150, replace: repairCfg.types.electric_tank.replacementUsd }, repairCfg).decision.verdict, 'repair');
-	assert.equal(describeRepair({ age: 12, type: 'tankless', repair: 300, replace: repairCfg.types.tankless.replacementUsd }, repairCfg).decision.verdict, 'borderline'); // tankless old only from 15 years
+	assert.equal(describeRepair({ age: 12, type: 'tankless', repair: 600, replace: repairCfg.types.tankless.replacementUsd }, repairCfg).decision.verdict, 'borderline'); // 27%, tankless old only from 15 years
 });
 
 test('yearlyEnergyCost: 55 gal/day, 67 °F, electric UEF 0.93 at $0.1723 → 55×365×8.34×67 ÷ 3412 ÷ 0.93 = 3,535 kWh ≈ $609', () => {
@@ -419,4 +425,59 @@ test('yearlyEnergyCost: 55 gal/day, 67 °F, electric UEF 0.93 at $0.1723 → 55�
 	assert.equal(c.use.kwh, 3535);
 	assert.ok(Math.abs(c.year - 609.08) < 0.5);
 	assert.equal(F.yearlySaving({ year: 609.4 }, { year: 149.2 }), 460);
+});
+
+/* ---------- Phase 4: cost, cost of ownership, operating cost ---------- */
+const costCfg = data('computed/water-heater-cost-calculator').client;
+const tcoCfg = data('computed/tankless-vs-tank-water-heater').client;
+const opCfg = data('computed/gas-vs-electric-water-heater').client;
+
+test('householdGallonsPerDay: 4 people × 25.1 = 100.4 → 100; none → fallback', () => {
+	assert.equal(F.householdGallonsPerDay(4, 25.1, 55), 100);
+	assert.equal(F.householdGallonsPerDay(NaN, 25.1, 55), 55);
+	assert.equal(F.householdGallonsPerDay(0, 25.1, 55), 55);
+});
+
+test('cost describe: 50-gal gas tank, like-for-like, U.S. average = 899 + 650 + 260 = $1,809 (range 749+350+150 = 1,249 to 999+1,100+500 = 2,599)', () => {
+	const r = describeCost({ type: 'gas_tank', size: '50', state: 'US', scenario: 'replace', permit: true }, costCfg);
+	assert.equal(r.estimate.typical, 1809);
+	assert.equal(r.estimate.low, 1249);
+	assert.equal(r.estimate.high, 2599);
+	assert.equal(r.table.rows.length, 3);
+});
+
+test('cost describe: state factor scales labor and extras only (California RPP 110.7 → 1.107)', () => {
+	const r = describeCost({ type: 'gas_tank', size: '50', state: 'CA', scenario: 'replace', permit: true }, costCfg);
+	assert.equal(costCfg.model.states.CA.multiplier, 1.107);
+	assert.equal(r.estimate.typical, 899 + Math.round(650 * 1.107) + Math.round(260 * 1.107)); // 899 + 720 + 288 = 1,907
+});
+
+test('cost describe: gas tank to tankless adds venting and gas line: 1,108 + 850 + 260 + 500 + 600 = $3,318', () => {
+	const extras = costCfg.model.scenarios.toTankless.defaultExtras.gas_tankless;
+	const v = { type: 'gas_tankless', size: 'whole', state: 'US', scenario: 'toTankless', ...Object.fromEntries(extras.map((x) => [x, true])) };
+	assert.equal(describeCost(v, costCfg).estimate.typical, 3318);
+});
+
+test('operating cost: 55 gal/day, 120 − 58 = 62 °F rise, electric tank UEF 0.93 at the U.S. price → 55×365×8.34×62 ÷ 3412 ÷ 0.93 = 3,271 kWh', () => {
+	const r = describeOp({ household: 'typical', state: 'US' }, opCfg);
+	const el = r.rows.find((x) => x.id === 'electric_tank');
+	assert.equal(el.use.kwh, 3271);
+	near(el.year, 3271 * opCfg.model.us.usdPerKwh, 0.01);
+});
+
+test('consistency across pages: same household → same installed and running cost on cost, TCO and operating pages', () => {
+	const tco = describeTco({ fuel: 'gas', household: 'typical', state: 'TX', years: 10 }, tcoCfg);
+	const op = describeOp({ household: 'typical', state: 'TX' }, opCfg);
+	const cost = describeCost({ type: 'gas_tank', size: '50', state: 'TX', scenario: 'replace', permit: true }, costCfg);
+	const tank = tco.result.find((o) => o.id === 'gas_tank');
+	assert.equal(tank.installed, cost.estimate.typical);
+	assert.equal(tank.annualOperating, op.rows.find((x) => x.id === 'gas_tank').year);
+});
+
+test('cost of ownership: gas tank vs tankless over 20 years: tank replaced once at year 13, tankless breaks even that year', () => {
+	const r = describeTco({ fuel: 'gas', household: 'typical', state: 'US', years: 20 }, tcoCfg);
+	const [tank, tankless] = r.result;
+	assert.equal(tank.replacements, 1);
+	assert.equal(tankless.replacements, 0);
+	assert.equal(tankless.breakEven, 13);
 });
