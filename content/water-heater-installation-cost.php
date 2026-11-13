@@ -94,6 +94,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-cost-calculator', 'inputs
 	</table>
 	<p class="table-source">Source: our cost model scaled by each state's BEA price factor; main fuel from EIA's 2020 Residential Energy Consumption Survey.</p>
 </div>
+<p>To compare what each type costs to install <em>and</em> run for ten years in every state, ranked, see our <?php echo hwm_link( 'water-heater-installation-cost-index', 'water heater cost index by state' ); // phpcs:ignore ?>.</p>
 <p>The price factor is the state's Regional Price Parity from the Bureau of Economic Analysis divided by 100: a factor above 1 means local prices run above the U.S. average, and below 1 means they run under it. Big cities usually run higher than their state average, and rural areas lower.</p>
 
 <h2>Is it worth replacing a water heater before it fails?</h2>

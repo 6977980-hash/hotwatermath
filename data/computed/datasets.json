@@ -26,9 +26,17 @@
         "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
         "https://www.eia.gov/electricity/annual/html/epa_02_10.html",
         "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/statewide/time-series/",
-        "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+        "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
         "https://www.homedepot.com/b/Plumbing-Water-Heaters/N-5yc1vZbqly",
         "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      ],
+      "basedOnNames": [
+        "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)",
+        "U.S. Energy Information Administration (EIA): Electric Power Annual table 2.10 (residential electricity price by state); Natural Gas Annual residential price and heat content of delivered gas by state",
+        "NOAA National Centers for Environmental Information, Climate at a Glance: monthly average air temperature, 1991–2020; mains water correlation by Christensen and Burch (Hendron et al. 2004) as published in the EnergyPlus Engineering Reference",
+        "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+        "Retail listing prices at The Home Depot (homedepot.com search results), checked 2026-11-12",
+        "Federal minimum UEF (10 CFR 430.32(d)); ENERGY STAR Version 5.0 criteria; Rheem Performance spec sheets (standard gas and electric tanks); ENERGY STAR certified list (heat pump and gas tankless)"
       ],
       "tableSource": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
       "sourceDate": "2026-11-13",
@@ -830,6 +838,9 @@
       "basedOn": [
         "https://www.eia.gov/electricity/annual/html/epa_02_10.html"
       ],
+      "basedOnNames": [
+        "U.S. Energy Information Administration (EIA): Electric Power Annual table 2.10 (residential electricity price by state); Natural Gas Annual residential price and heat content of delivered gas by state"
+      ],
       "tableSource": "U.S. Energy Information Administration (EIA): Electric Power Annual table 2.10 (residential electricity price by state); Natural Gas Annual residential price and heat content of delivered gas by state",
       "sourceDate": "2026-11-12",
       "columns": [
@@ -1162,6 +1173,9 @@
       "basedOn": [
         "https://www.ncei.noaa.gov/access/monitoring/climate-at-a-glance/statewide/time-series/"
       ],
+      "basedOnNames": [
+        "NOAA National Centers for Environmental Information, Climate at a Glance: monthly average air temperature, 1991–2020; mains water correlation by Christensen and Burch (Hendron et al. 2004) as published in the EnergyPlus Engineering Reference"
+      ],
       "tableSource": "NOAA National Centers for Environmental Information, Climate at a Glance: monthly average air temperature, 1991–2020; mains water correlation by Christensen and Burch (Hendron et al. 2004) as published in the EnergyPlus Engineering Reference",
       "sourceDate": "2026-11-12",
       "columns": [
@@ -1442,6 +1456,9 @@
       "basedOn": [
         "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf"
       ],
+      "basedOnNames": [
+        "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)"
+      ],
       "tableSource": "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)",
       "sourceDate": "2026-11-12",
       "columns": [
@@ -1669,8 +1686,13 @@
       ],
       "basedOn": [
         "https://www.homedepot.com/b/Plumbing-Water-Heaters/N-5yc1vZbqly",
-        "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf",
+        "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
         "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf"
+      ],
+      "basedOnNames": [
+        "Retail listing prices at The Home Depot (homedepot.com search results), checked 2026-11-12",
+        "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+        "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)"
       ],
       "tableSource": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: data/installation-costs.json (2026-11-13)",
       "sourceDate": "2026-11-13",
@@ -1767,7 +1789,10 @@
         "venting cost"
       ],
       "basedOn": [
-        "https://www.govinfo.gov/content/pkg/FR-2024-12-26/pdf/2024-30369.pdf"
+        "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+      ],
+      "basedOnNames": [
+        "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)"
       ],
       "tableSource": "Hot Water Math installation cost ranges, anchored to the U.S. Department of Energy's 2024 consumer water heater rules (installation costs built from RSMeans) and Home Depot listing prices, and checked against published industry ranges",
       "sourceDate": "2026-11-13",
@@ -1858,6 +1883,9 @@
       "basedOn": [
         "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
       ],
+      "basedOnNames": [
+        "U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP"
+      ],
       "tableSource": "U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP",
       "sourceDate": "2026-11-12",
       "columns": [
@@ -1908,6 +1936,10 @@
       "basedOn": [
         "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
         "https://data.energystar.gov/Active-Specifications/ENERGY-STAR-Certified-Water-Heaters/pbpq-swnu"
+      ],
+      "basedOnNames": [
+        "Federal minimum UEF (10 CFR 430.32(d)); ENERGY STAR Version 5.0 criteria; Rheem Performance spec sheets (standard gas and electric tanks); ENERGY STAR certified list (heat pump and gas tankless)",
+        "ENERGY STAR Certified Water Heaters dataset (U.S. EPA), Version 5.0 program requirements"
       ],
       "tableSource": "Rheem spec sheets, ENERGY STAR certified list and criteria, 10 CFR 430.32(d)",
       "sourceDate": "2026-11-12",
@@ -1970,6 +2002,9 @@
       ],
       "basedOn": [
         "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      ],
+      "basedOnNames": [
+        "Federal maximum flow rates (10 CFR 430.32(o) faucets, 430.32(p) showerheads); EPA WaterSense specifications; typical appliance fill rates from the DOE Building America Solution Center (PNNL) table based on the ASHRAE Handbook"
       ],
       "tableSource": "10 CFR 430.32, EPA WaterSense, PNNL Building America Solution Center (ASHRAE Handbook data)",
       "sourceDate": "2026-11-12",
@@ -2040,6 +2075,9 @@
       "basedOn": [
         "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf"
       ],
+      "basedOnNames": [
+        "Air-Conditioning, Heating and Refrigeration Institute (AHRI), Water Heater Calculator: Worksheet for Estimating Peak Hour Demand/First Hour Rating (2011)"
+      ],
       "tableSource": "Air-Conditioning, Heating and Refrigeration Institute (AHRI), Water Heater Calculator: Worksheet for Estimating Peak Hour Demand/First Hour Rating (2011)",
       "sourceDate": "2026-11-12",
       "columns": [
@@ -2103,6 +2141,10 @@
       "basedOn": [
         "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
         "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      ],
+      "basedOnNames": [
+        "Rinnai America Corporation, tankless water heater model chart and specifications (2016), hosted by Lowe's; Noritz, How to Size a Tankless (printable, 2024); Lochinvar, Tankless Water Heater Sizing Guide",
+        "Federal minimum UEF (10 CFR 430.32(d)); ENERGY STAR Version 5.0 criteria; Rheem Performance spec sheets (standard gas and electric tanks); ENERGY STAR certified list (heat pump and gas tankless)"
       ],
       "tableSource": "Computed with GPM = input × UEF ÷ (8.34 × 60 × rise); input sizes from the Rinnai model chart; UEF = ENERGY STAR median",
       "sourceDate": "2026-11-13",
@@ -2178,6 +2220,9 @@
       ],
       "basedOn": [
         "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+      ],
+      "basedOnNames": [
+        "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)"
       ],
       "tableSource": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)",
       "sourceDate": "2026-11-13",

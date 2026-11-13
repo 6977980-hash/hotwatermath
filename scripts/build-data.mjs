@@ -1892,7 +1892,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		gasRunsCheaper: count((x) => x.g.yearly < x.e.yearly), hpRunsCheaperThanGas: count((x) => x.h.yearly < x.g.yearly),
 		hpBeatsElOwn: count((x) => x.h.own < x.e.own), hpBeatsGasOwn: count((x) => x.h.own < x.g.own),
 		elOverGasOwn: count((x) => x.e.own > x.g.own),
-		usHpVsElOwn: fmt(us.e.own - us.h.own), hpVsElOwn: ends((x) => x.e.own - x.h.own), usBest: label(us.best), usHpPremium: fmt(us.h.installed - us.e.installed),
+		usHpVsElOwn: fmt(us.e.own - us.h.own), hpVsElOwn: ends((x) => x.e.own - x.h.own), usBest: label(us.best), hpShare: Math.round((us.h.yearly / us.e.yearly) * 100), usHpPremium: fmt(us.h.installed - us.e.installed),
 		installSpreadPct: pctOver(by((x) => x.g.installed).at(-1).g.installed, by((x) => x.g.installed)[0].g.installed),
 		cheapest5: ranked.slice(0, 5).map((x) => ({ name: x.name, own: fmt(x.bestOwn), best: label(x.best) })),
 		dearest5: ranked.slice(-5).reverse().map((x) => ({ name: x.name, own: fmt(x.bestOwn), best: label(x.best) })),
@@ -1948,11 +1948,19 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 				getters.push((r) => (r[c.key] === undefined ? '' : String(r[c.key])));
 			}
 		}
-		const basedOn = [...new Set(x.basedOnFiles.map((f) => d[f]?.meta?.sourceUrl).filter(Boolean))];
-		if (basedOn.length !== x.basedOnFiles.length) throw new Error(`data/datasets.json: ${x.id} basedOnFiles has a file without meta.sourceUrl`);
+		// "file" uses the file's meta; "file:references.key" uses one reference record (publisher + title + sourceUrl).
+		const refOf = (spec) => {
+			const [f, path] = spec.split(':');
+			const node = path ? path.split('.').reduce((o, k) => o?.[k], d[f]) : d[f]?.meta;
+			if (!node?.sourceUrl) throw new Error(`data/datasets.json: ${x.id} basedOnFiles entry ${spec} has no sourceUrl`);
+			return { url: node.sourceUrl, name: path ? `${node.publisher}: ${node.title}` : node.source };
+		};
+		const refs = x.basedOnFiles.map(refOf).filter((r, i, a) => a.findIndex((y) => y.url === r.url) === i);
+		const basedOn = refs.map((r) => r.url);
+		const basedOnNames = refs.map((r) => r.name);
 		const reg2 = d.pages.pages.find((p) => p.slug === x.page);
 		if (!reg2) throw new Error(`data/datasets.json: ${x.id} page ${x.page} is not in pages.json`);
-		return { id: x.id, name: x.name, description: x.description, caption: t.caption, page: x.page, keywords: x.keywords, basedOn, tableSource: t.source, sourceDate: t.sourceDate || ds.meta.sourceDate, columns: head, rows: t.rows.map((r) => getters.map((g) => g(r))), rowCount: t.rows.length };
+		return { id: x.id, name: x.name, description: x.description, caption: t.caption, page: x.page, keywords: x.keywords, basedOn, basedOnNames, tableSource: t.source, sourceDate: t.sourceDate || ds.meta.sourceDate, columns: head, rows: t.rows.map((r) => getters.map((g) => g(r))), rowCount: t.rows.length };
 	});
 	const dataReg = d.pages.pages.find((x) => x.slug === 'data');
 	if (dataReg && dataReg.status !== 'planned' && !String(dataReg.description).includes(`${list.length} sourced`)) throw new Error(`pages.json description for /data/ must say "${list.length} sourced"; update it.`);

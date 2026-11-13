@@ -4,45 +4,48 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6d batch 2 — Safety pages: gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (2026-11-13). The 3 pages are `draft` (noindex) until the owner OKs them (style 0.14.0). Phase 6d is complete with this batch.
-**Next phase to run:** Phase 8 — Authority & links (`/data` page, installation cost index article, embed checks, OUTREACH materials). Phase 7 needs GSC query data, and GSC is not verified yet, so it waits for the owner.
+**Last completed phase:** Phase 8 — Authority & links: cost index, `/data/`, embed landing page, outreach materials (2026-11-13). The 3 new pages are `draft` (noindex) until the owner OKs them (style 0.15.0). Phase 6d batch 2 pages (gas line size, tankless electrical, pilot light) are also still draft, waiting for the owner's OK.
+**Next phase to run:** Phase 7 — Post-launch optimization, as soon as GSC is verified and has about 4 weeks of query data. Until then there is no further build phase in PHASES.md; good fill-ins on request: more Pinterest charts (`scripts/build-charts.mjs`, plan in OUTREACH.md §6), the repair-or-replace query-string fix below.
 
-**What exists now (new or changed in Phase 6d batch 2):**
-- `content/gas-line-size-for-tankless-water-heater.php` — gas + installer notices, BTU → CFH, size lookup tables at 0.5 and 3.0 in. w.c. (computed), Rinnai cross-check (12 of 14 match, 2 explained), IFGC 2021 Table 402.4(2)/(3) rows, Rheem meter example, propane/CSST/altitude, embedded tankless calculator (gas), FAQ 7, sources 5
-- `content/tankless-water-heater-electrical-requirements.php` — electrical notice, Stiebel Eltron + Rheem unit table (draw per circuit, breaker vs draw), 125% rule placed correctly (IRC E3702.10 vs E4101.4.1), ampacity table 60/75 °C, service minimums, 208 V table, gas tankless 120 V, embedded tankless calculator (electric), FAQ 6, sources 5
-- `content/water-heater-pilot-light-wont-stay-lit.php` — gas/vapor/CO notices, timing diagnosis table, A. O. Smith status light codes, label lighting steps (attributed), causes table, FVIR, part prices, embedded repair-or-replace, FAQ 7, sources 6
-- `data/safety.json` — +13 references with quotes; blocks `gasLine`, `electrical`, `pilot`; tables `pilotStatus`, `pilotCauses`
-- `assets/js/formulas.js` + `gasCfh`, `gasPipeSize`, `gasMaxLengthFt`, `powerAtVoltage`; `tests/formulas.test.mjs` +3 tests
-- `scripts/build-data.mjs` — batch 2 block: `data/computed/{gas-line-size-for-tankless-water-heater,tankless-water-heater-electrical-requirements}.json`; guards: Rinnai mismatch list, 208 V check, description figures
-- `parts/tankless-inputs.php` — shared tankless inputs with optional `fuel` preset (tool page output unchanged, md5 identical)
-- `content/methodology.php` (#safety-pages batch 2 items, code quoting note, limitations); `content/no-hot-water.php` and `content/tankless-water-heater-installation-cost.php` link the new pages (plain text until live)
-- `data/pages.json` 3 drafts; `assets/og/` 3 images; `docs/briefs/` 3 briefs with quality check; `docs/DECISIONS.md` 1 row
+**What exists now (new or changed in Phase 8):**
+- `content/water-heater-installation-cost-index.php` — cost index article: press-style key findings (5 bullets), inline SVG chart, top 5/bottom 5, full 51-row index + U.S. row, spread table, gas/electric/heat pump section, embedded cost calculator, method + limitations, chart embed code, cite box, FAQ 6, sources 6
+- `content/data.php` — `/data/`: 12 datasets with columns, rows, how built, primary sources, CSV download, cite box, license, FAQ 4
+- `content/embed-calculators.php` — `/embed-calculators/`: how to embed, rules (free, no ads, optional nofollow credit, never traded for a link), snippet per core tool, brand decoder URLs, privacy note, FAQ 4
+- `data/datasets.json` (registry) → `data/computed/datasets.json`; `data/computed/water-heater-installation-cost-index.json` (build:data block "Phase 8", guards on quoted figures)
+- `scripts/build-charts.mjs` (`npm run build:charts`) → `assets/charts/water-heater-cost-index.{svg,png,json}`
+- `scripts/check-embeds.mjs` (`npm run check-embeds`) — embed route + snippet + CSV checks
+- `inc/routes.php` `/data/<id>.csv` (404 while `/data/` is draft); `inc/schema.php` `hwm_schema_datasets()` (Dataset `@graph` on `/data/`, one Dataset on the index); `templates/embed.php` all in-frame links `nofollow` + new tab; `inc/helpers.php` snippet comment "credit optional"; `footer.php` Data/Embed links (only when live)
+- `content/methodology.php` `#cost-index`; `content/water-heater-installation-cost.php` links the index (plain text until live)
+- `assets/css/global.css` dataset/cite/chart/press styles; `data/pages.json` 3 drafts; `assets/og/` 3 images; `docs/briefs/water-heater-installation-cost-index.md`; `docs/DECISIONS.md` 2 rows; `docs/OUTREACH.md` rewritten (3 templates, 30 targets with contact method, Reddit, Pinterest plan per tool, tracking)
 
 **Verified (before deploy):**
-- `npm test` 69/69; `validate-data` 76 files OK; `--urls`: all new sources 200 except the two codes.iccsafe.org pages (403 to scripts, read in the owner's ICC view) plus old known warnings (InspectApedia 409, Watts ETP 403).
-- Offline render (WP stubs): 0 PHP errors; gas ~2,900 words, electrical ~2,170, pilot ~2,660.
-- Hand checks: 199,000 BTU/h ÷ 1,000 = 199 CFH → 0.5 in. w.c. table needs 1 in at 40 ft, 3/4 in at 20 ft; Rheem example 394,900 ÷ 1,024 = 386 CFH > 250 CFH meter; Tempra 24: 24,000 W ÷ 240 V = 100 A, 2 × 50 A circuits; 24 kW × (208/240)² = 18.0 kW (Stiebel publishes 18.0); RETEX-18: 37.5 A per circuit on 40 A = 107%.
-- §8b grep: no gas or wiring steps; the only procedure is A. O. Smith's label lighting steps, attributed.
-
-**Verified live (after PR #37 deployed, 2026-11-13):** style.css 0.14.0 served; `/?sync=` 200; the 3 pages 200 with `noindex, follow`, self canonical, one H1; tankless tool still `index`. `npm run check -- --bust` 730/730; `npm run check-links -- --bust` 1429/1429 (56 pages). Playwright 360x640: no horizontal scroll, no console errors on the 3 pages and the tankless tool; gas page embed defaults to gas (184,358 BTU/h; 1 shower → 92,179), electrical embed defaults to electric (51.3 kW / 214 A; 1 shower → 25.7 kW / 107 A); pilot embed has "no hot water" pre-ticked and updates (age 14 → Borderline).
+- `npm test` 69/69; `validate-data` 79 files OK; offline render (WP stubs) 0 PHP notices on the 3 pages, methodology and replacement cost; `php -l` clean.
+- Sources opened 2026-11-13: BEA RPP PDF, EIA Table 2.10 (Idaho 11.83 ¢, Massachusetts 30.41 ¢ = our file), EIA gas prices, NOAA, DOE 89 FR 37778, Home Depot listings, ENERGY STAR data, AHRI worksheet, Lowe's Rinnai poster, Energy Trust decoder, CC BY 4.0: all 200. FRED IDRPPALL 2024 = 95.494 (file 95.5).
+- Embeds on the old live code: all 200, noindex, `frame-ancestors *`, 23–28 KB gzip incl. CSS/JS; in-frame methodology/source links were followed links (fixed in this PR).
+- Chart checked by eye (PNG); palette validated (CVD ΔE 9.2, contrast warn on aqua → table view + shapes).
 
 **Owner steps:**
-1. Read the 3 pages (draft) and reply OK to flip them `live`.
-2. Flush the Hostinger CDN after this deploy (formulas.js changed).
-3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. Phase 7 needs GSC data.
-4. Later: the post-launch plumber fact-check (§8b) should include all 6 safety pages; the gas and electrical pages ideally also by a licensed electrician/gas fitter.
+1. Read the 3 drafts (`/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/`) and the 3 Phase 6d batch 2 drafts; reply OK to flip them `live`. Pitch only after the index and `/data/` are live.
+2. Flush the Hostinger CDN after this deploy (CSS and pages changed).
+3. Outreach (OUTREACH.md): create LinkedIn page, X and Pinterest with identical branding and send Claude the URLs (they go into `data/site.json → social` → `Organization.sameAs`); sign up for HARO/Qwoted/Featured; send the first 20 pitches (start with targets 15, 16, 21, 30); post helpful Reddit answers weekly; log results monthly in the table below.
+4. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. Phase 7 needs GSC data. Post-launch plumber fact-check of the 6 safety pages.
+
+**Link tracking (monthly; owner fills, Claude can update on request)**
+
+| Month | Followed editorial referring domains (new / total) | Pitches sent | Replies | Embeds seen in GA4 (`embed_view`, awareness only) | Notes |
+|---|---|---|---|---|---|
+| 2026-11 | 0 / 0 | 0 | 0 | — (GA4 not set up) | Assets built (draft) |
 
 **Known issues / TODOs carried forward:**
-- codes.iccsafe.org and NFPA LiNK cannot be checked by script; IFGC/IRC rows were read in the owner's ICC view 2026-11-13. Full code excerpts stay in `/mnt/project-files/code-data/` (copyrighted, never commit).
-- Rinnai FAQ lists RUC80i 3/4 in at 166 ft (our table lookup gives 250 ft); the page shows Rinnai's shorter figure and explains.
-- No sourced labor price for pilot repairs; page says so.
-- Repair-or-replace embeds: any query string (even `?utm_source=` or a cache-buster) counts as shared state and clears the pre-ticked symptom (`assets/js/repair-replace.js` line ~116, `ui.js readState` returns `params.size > 0`). Without a query string the preset works. Small fix for a later thread: only treat known field names as state.
-- Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure.
+- The index's "cheapest to own" assumes a home with gas service; stated on the page. Rebates excluded (they change often).
+- `/data/` CSVs are `noindex` files; Google Dataset Search reads the `Dataset` markup on `/data/`. Validate it in the Rich Results Test / Schema validator once live.
+- Embed chart image URL is the theme path (`/wp-content/themes/hotwatermath/assets/charts/…png`); keep the theme folder name stable.
+- Carried: repair-or-replace query-string preset bug (`assets/js/repair-replace.js` ~116); IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure; codes.iccsafe.org not script-checkable.
 
 **Notes for the next thread:**
-- When the 3 pages go live, the `hwm_link` mentions on no-hot-water and tankless installation cost turn into links automatically; consider adding the pilot slug to the repair tool's "problems" list.
-- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, hwm_jsonld, hwm_adsense_client, hwm_adsense_unit) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
-- `npm run build:og` needs `npm ci` first and rewrites some unrelated PNGs; restore them with `git checkout`.
+- Annual refresh of the index: update `data/energy-prices.json` / `data/regional-cost-index.json` when EIA/BEA release, then `npm run build:data && npm run build:charts`, bump `dateModified` of the index, and re-check the quick answer guard.
+- `npm run build:charts` and `build:og` need `npm ci`; `build:og` rewrites some unrelated PNGs, restore them with `git checkout`.
+- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, home_url, wp_parse_url, wp_json_encode, wp_strip_all_tags, hwm_adsense_client, hwm_adsense_unit) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -64,6 +67,7 @@
 - 2026-11-13 — Phase 6c done — 10 state cost pages (draft) on one shared template as child pages of the replacement cost article: state and metro prices, EIA fuel mix and running costs, monthly incoming water, official rebate status.
 - 2026-11-13 — Phase 6d batch 1 done — temperature setting, relief valve leaking and element replacement (draft), sourced data/safety.json, scald/capacity/ohms tables, expansion tank and repair calculators embedded.
 - 2026-11-13 — Phase 6d batch 2 done — gas line size, tankless electrical requirements and pilot light (draft), IFGC/IRC rows with Rinnai and Stiebel cross-checks, gas/208 V formulas, tankless inputs shared part.
+- 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
 ---
 

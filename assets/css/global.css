@@ -311,3 +311,19 @@ details.disclosure > :not(summary) { margin: 0 var(--space-3) var(--space-3); }
 .link-columns li { break-inside: avoid; }
 .recent-list { list-style: none; padding: 0; }
 .recent-list__date { color: var(--muted); font-size: var(--step--1); }
+
+/* Phase 8: /data/, cost index chart, cite and embed boxes */
+.dataset { border-top: 1px solid var(--line); padding-top: var(--space-4); margin-top: var(--space-4); scroll-margin-top: 4rem; }
+.dataset__meta { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-1); margin: 0 0 var(--space-3); }
+.dataset__meta dt { font-weight: 700; margin-top: var(--space-2); }
+.dataset__meta dd { margin: 0; overflow-wrap: anywhere; }
+.dataset__meta ul { margin: 0; padding-left: 1.2rem; }
+@media (min-width: 700px) { .dataset__meta { grid-template-columns: 11rem minmax(0, 1fr); } .dataset__meta dt { margin-top: 0; } }
+.cite-box { border: 1px solid var(--line); border-left: 4px solid var(--brand); border-radius: 0 var(--radius) var(--radius) 0; background: var(--brand-soft); padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-4); }
+.cite-box__label { font-weight: 700; margin: 0 0 var(--space-2); }
+.cite-box textarea { width: 100%; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; background: #fff; }
+.chart-figure { margin: 0 0 var(--space-4); }
+.chart-figure svg { display: block; width: 100%; height: auto; max-width: 760px; }
+.chart-figure figcaption { font-size: var(--step--1); color: var(--muted, #4a5668); margin-top: var(--space-2); }
+.press-summary { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--space-3) var(--space-4); margin: 0 0 var(--space-4); background: var(--surface); }
+.press-summary h2 { margin-top: 0; }

@@ -136,6 +136,7 @@
       "ratio": "6.5"
     },
     "usBest": "Gas tank (standard vent)",
+    "hpShare": 24,
     "usHpPremium": "1,368",
     "installSpreadPct": 13,
     "cheapest5": [

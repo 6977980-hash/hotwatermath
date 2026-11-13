@@ -16,7 +16,9 @@
     "build:og": "node scripts/build-og.mjs",
     "build:brand": "node scripts/build-brand.mjs",
     "check-links": "node scripts/check-links.mjs",
-    "fetch:metros": "node scripts/fetch-metro-rpp.mjs"
+    "fetch:metros": "node scripts/fetch-metro-rpp.mjs",
+    "build:charts": "node scripts/build-charts.mjs",
+    "check-embeds": "node scripts/check-embeds.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2"

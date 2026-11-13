@@ -3,7 +3,7 @@
     "source": "Dataset registry for the /data/ page. Each dataset is one table that a page on this site already shows; the numbers come from the named data or computed file, never typed here.",
     "sourceUrl": "https://hotwatermath.com/data/",
     "sourceDate": "2026-11-13",
-    "notes": "npm run build:data turns each entry into clean CSV columns (numbers without thousands separators, ranges split into low and high) in data/computed/datasets.json; the theme serves them at /data/<id>.csv. file + table point to a table { caption, columns, rows } in data/computed/<file>.json. basedOnFiles names the data files whose meta.sourceUrl (the primary sources) become Dataset.isBasedOn. page is the registry slug of the page that shows the table. License: CC BY 4.0 (credit Hot Water Math with a link)."
+    "notes": "npm run build:data turns each entry into clean CSV columns (numbers without thousands separators, ranges split into low and high) in data/computed/datasets.json; the theme serves them at /data/<id>.csv. file + table point to a table { caption, columns, rows } in data/computed/<file>.json. basedOnFiles names the data files whose meta.sourceUrl (or, as \"file:references.key\", one reference record) become Dataset.isBasedOn. page is the registry slug of the page that shows the table. License: CC BY 4.0 (credit Hot Water Math with a link)."
   },
   "license": {
     "name": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
@@ -27,7 +27,7 @@
         "regional-cost-index",
         "energy-prices",
         "groundwater-temp-by-state",
-        "installation-costs",
+        "installation-costs:references.doe-storage-2024",
         "cost-ranges",
         "uef-ranges"
       ]
@@ -94,7 +94,7 @@
       ],
       "basedOnFiles": [
         "cost-ranges",
-        "installation-costs",
+        "installation-costs:references.doe-storage-2024",
         "regional-cost-index"
       ]
     },
@@ -111,7 +111,7 @@
         "venting cost"
       ],
       "basedOnFiles": [
-        "installation-costs"
+        "installation-costs:references.doe-storage-2024"
       ]
     },
     {

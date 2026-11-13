@@ -58,7 +58,7 @@
   ],
   "inputs": {
     "assets/js/formulas.js": "f46476d618affebe",
-    "scripts/build-data.mjs": "b25ad3360b88fc7b",
+    "scripts/build-data.mjs": "58d24c3fb3acef94",
     "data/site.json": "7e62ca41c159ef00",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "d12d4080ac42b57b",
@@ -97,6 +97,6 @@
     "data/state-pages.json": "c1604d2fb5053c47",
     "data/metro-price-parities.json": "b3e2bb96ce8fc61f",
     "data/safety.json": "d18b7dd0936ed822",
-    "data/datasets.json": "c5b5afb9292b6492"
+    "data/datasets.json": "8a8b5d8fa0f7cd48"
   }
 }
