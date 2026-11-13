@@ -24,7 +24,10 @@
 - Offline render (PHP stub): 0 PHP errors for the 4 articles, /guides/, /calculators/ and the tools that changed (visitor and editor views); prose 1,785–2,367 words per article (excluding calculator and tables); no horizontal scroll at 360 px; SVGs checked at 360 and 1200 px. Visitors see no links to the drafts; editors see "Common problems" on tool pages.
 - Hardcoded-number grep on the 4 content files: only the diagram label "(6)"; every figure renders from data.
 
-**Verified live:** see the Log line and the PR's follow-up commit (filled after deploy).
+**Verified live (after PR #21 deployed, 2026-11-13):**
+- style.css 0.9.0 served; all 4 articles 200 with `noindex, follow`; /guides/ shows groups and no draft links for visitors; tools render with no PHP errors.
+- `npm run check-links -- --bust` 646/646 (29 pages). `npm run check -- --bust` 375/377: two titles were over 60 characters (flush 64, anode 62), shortened in the follow-up PR (now 58 and 56).
+- Playwright at 360x640 on the live drafts: no horizontal scroll, no console errors; the embedded repair tool switches to "Replace it rather than pay for this repair" when "Water leaking from the tank itself" is ticked; the embedded age calculator runs.
 
 **Owner steps:**
 1. Review the four drafts and reply OK to make them `live`: /water-heater-leaking/, /how-to-flush-a-water-heater/, /water-heater-anode-rod/, /no-hot-water/.
