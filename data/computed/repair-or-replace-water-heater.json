@@ -1,0 +1,447 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/decision-rules.json, data/lifespans.json, data/cost-ranges.json, data/uef-ranges.json, data/hot-water-use.json and data/energy-prices.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result, repair limits by type, energy comparison and cross-check for the repair-or-replace tool. Replacement prices are equipment only until labor data is added."
+  },
+  "defaultInputs": {
+    "ageYears": 8,
+    "type": "gas_tank",
+    "repairUsd": 250,
+    "note": "Example inputs for the server-rendered default result; not data about any real home.",
+    "replace": 899
+  },
+  "default": {
+    "status": "warn",
+    "statusLabel": "Borderline",
+    "headline": "Repair is possible, but the quote is high for a young heater",
+    "explain": "At 8.0 years it has used 62% of a 13-year typical life. The repair is 28% of the replacement price, more than 25%. Get a second quote, or ask what else is worn before you decide. If you replace it, a high-efficiency ENERGY STAR gas tank (UEF 0.9) would cost about $77 a year less to run than a standard gas tank.",
+    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $899 = 28%\nRules: leak or flood → replace; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair\nRunning cost (55 gal/day, 67 °F rise): Gas tank UEF 0.635 = $262/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $185/yr; difference $77/yr",
+    "sources": "Rules: ours, stated on /methodology. Typical life: DOE (13 years for tanks, 20 for tankless). New-unit price: typical equipment price from Home Depot listings (2026-11-12), before installation; type your installed quote if you have one. <a href=\"/methodology/#repair-or-replace-water-heater\">See our rules checked against Rheem and A. O. Smith guidance</a>."
+  },
+  "defaultCase": {
+    "age": 8,
+    "repair": "250",
+    "replace": "899",
+    "share": 28,
+    "verdict": "borderline",
+    "life": 13,
+    "oldFrom": "9.75"
+  },
+  "rulesPct": {
+    "always": 50,
+    "age": 75,
+    "old": 25
+  },
+  "examples": [
+    {
+      "age": 11,
+      "type": "gas_tank",
+      "repair": 350,
+      "label": "Gas tank",
+      "life": 13,
+      "replace": "899",
+      "repairFmt": "350",
+      "share": 39,
+      "used": 85,
+      "verdict": "replace",
+      "oldFrom": "9.75"
+    },
+    {
+      "age": 4,
+      "type": "electric_tank",
+      "repair": 150,
+      "label": "Electric tank",
+      "life": 13,
+      "replace": "819",
+      "repairFmt": "150",
+      "share": 18,
+      "used": 31,
+      "verdict": "repair",
+      "oldFrom": "9.75"
+    },
+    {
+      "age": 9,
+      "type": "heat_pump",
+      "repair": 600,
+      "label": "Heat pump (hybrid)",
+      "life": 13,
+      "replace": "1,787",
+      "repairFmt": "600",
+      "share": 34,
+      "used": 69,
+      "verdict": "borderline",
+      "oldFrom": "9.75"
+    }
+  ],
+  "energy": [
+    {
+      "label": "Gas tank",
+      "now": "262",
+      "up": "Gas tank (high efficiency, ENERGY STAR)",
+      "next": "185",
+      "save": "77"
+    },
+    {
+      "label": "Electric tank",
+      "now": "609",
+      "up": "Heat pump (hybrid), 240 V",
+      "next": "149",
+      "save": "460"
+    },
+    {
+      "label": "Electric tankless",
+      "now": "616",
+      "up": "Heat pump (hybrid), 240 V",
+      "next": "149",
+      "save": "467"
+    }
+  ],
+  "crossChecks": [
+    {
+      "id": "leak",
+      "label": "4-year-old gas tank, leak from the tank body",
+      "ours": "replace",
+      "published": "Replacement usually required",
+      "match": true,
+      "why": "Same answer at any age or repair price.",
+      "source": "Rheem, When to Repair vs. Replace (2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+    },
+    {
+      "id": "over-half",
+      "label": "5-year-old gas tank, repair 539 vs 899 new (60%)",
+      "ours": "replace",
+      "published": "Repair over 50% of a new unit: replacement is typically better",
+      "match": true,
+      "why": "Same 50% rule.",
+      "source": "Rheem, When to Repair vs. Replace (2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+    },
+    {
+      "id": "young-cheap",
+      "label": "5-year-old electric tank, element repair 123 (15% of new)",
+      "ours": "repair",
+      "published": "Under 6–8 years, no tank corrosion or leak, repair well below 50%: repair",
+      "match": true,
+      "why": "Same answer.",
+      "source": "Rheem, When to Repair vs. Replace (2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+    },
+    {
+      "id": "young-mid",
+      "label": "6-year-old gas tank, repair 315 (35% of new)",
+      "ours": "borderline",
+      "published": "Under 6–8 years and below 50%: repair",
+      "match": false,
+      "why": "We are stricter: between 25% and 50% we say borderline and suggest a second quote, because Rheem's \"well below 50%\" has no number.",
+      "source": "Rheem, When to Repair vs. Replace (2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+    },
+    {
+      "id": "old-mid",
+      "label": "12-year-old gas tank, repair 270 (30% of new)",
+      "ours": "replace",
+      "published": "10–15+ years with recurring issues: generally replace",
+      "match": true,
+      "why": "Same direction. Our \"old\" line is 0.75 × 13 = 9.75 years (DOE-based life), close to Rheem's 10 years.",
+      "source": "Rheem, When to Repair vs. Replace (2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+    },
+    {
+      "id": "flood",
+      "label": "3-year-old electric tank whose thermostats were under water",
+      "ours": "replace",
+      "published": "The entire water heater must be replaced",
+      "match": true,
+      "why": "Same answer.",
+      "source": "A. O. Smith Use and Care Guide (2021)",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf"
+    }
+  ],
+  "tables": {
+    "limits": {
+      "caption": "Most to pay for a repair, by type (our rules applied to typical equipment prices)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "price",
+          "label": "New unit (equipment)",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "young",
+          "label": "Repair limit, younger unit",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "oldFrom",
+          "label": "\"Old\" from",
+          "unit": "years",
+          "num": true
+        },
+        {
+          "key": "old",
+          "label": "Repair limit, old unit",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank",
+          "price": "899",
+          "young": "450",
+          "oldFrom": "9.8",
+          "old": "225"
+        },
+        {
+          "label": "Electric tank",
+          "price": "819",
+          "young": "410",
+          "oldFrom": "9.8",
+          "old": "205"
+        },
+        {
+          "label": "Heat pump (hybrid)",
+          "price": "1,787",
+          "young": "894",
+          "oldFrom": "9.8",
+          "old": "447"
+        },
+        {
+          "label": "Gas tankless",
+          "price": "1,108",
+          "young": "554",
+          "oldFrom": "15.0",
+          "old": "277"
+        },
+        {
+          "label": "Electric tankless",
+          "price": "674",
+          "young": "337",
+          "oldFrom": "15.0",
+          "old": "169"
+        }
+      ],
+      "source": "Rules from data/decision-rules.json (50% / 75% of life / 25%); typical life from DOE; equipment prices from Home Depot listings (2026-11-12), before installation",
+      "sourceUrl": "https://hotwatermath.com/methodology/#repair-or-replace-water-heater",
+      "sourceDate": "2026-11-12"
+    },
+    "energy": {
+      "caption": "Yearly running cost: a standard new unit vs the efficient upgrade",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Replacing a"
+        },
+        {
+          "key": "now",
+          "label": "Standard new unit",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "up",
+          "label": "Upgrade"
+        },
+        {
+          "key": "next",
+          "label": "Upgrade cost",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "save",
+          "label": "Saving",
+          "unit": "$/yr",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank",
+          "now": "262",
+          "up": "Gas tank (high efficiency, ENERGY STAR)",
+          "next": "185",
+          "save": "77"
+        },
+        {
+          "label": "Electric tank",
+          "now": "609",
+          "up": "Heat pump (hybrid), 240 V",
+          "next": "149",
+          "save": "460"
+        },
+        {
+          "label": "Electric tankless",
+          "now": "616",
+          "up": "Heat pump (hybrid), 240 V",
+          "next": "149",
+          "save": "467"
+        }
+      ],
+      "source": "Computed: 55 gal/day at a 67 °F rise (DOE test day), UEF medians (Rheem spec sheets, ENERGY STAR), U.S. average prices $0.1723/kWh and $1.481/therm (EIA)",
+      "sourceUrl": "https://hotwatermath.com/methodology/#repair-or-replace-water-heater",
+      "sourceDate": "2026-11-12"
+    }
+  },
+  "client": {
+    "types": {
+      "gas_tank": {
+        "label": "Gas tank",
+        "life": 13,
+        "uefId": "gas_tank",
+        "uef": 0.635,
+        "fuel": "gas",
+        "replacementUsd": 899,
+        "replacementLabel": "50-gallon gas tank (natural gas, standard vent)",
+        "replacementRange": "749–999",
+        "upgrade": {
+          "id": "gas_tank_high_efficiency",
+          "label": "Gas tank (high efficiency, ENERGY STAR)",
+          "short": "high-efficiency ENERGY STAR gas tank",
+          "uef": 0.9,
+          "fuel": "gas"
+        }
+      },
+      "electric_tank": {
+        "label": "Electric tank",
+        "life": 13,
+        "uefId": "electric_tank",
+        "uef": 0.93,
+        "fuel": "electric",
+        "replacementUsd": 819,
+        "replacementLabel": "50-gallon electric tank",
+        "replacementRange": "559–1,429",
+        "upgrade": {
+          "id": "heat_pump",
+          "label": "Heat pump (hybrid), 240 V",
+          "short": "heat pump water heater",
+          "uef": 3.8,
+          "fuel": "electric"
+        }
+      },
+      "heat_pump": {
+        "label": "Heat pump (hybrid)",
+        "life": 13,
+        "uefId": "heat_pump",
+        "uef": 3.8,
+        "fuel": "electric",
+        "replacementUsd": 1787,
+        "replacementLabel": "50-gallon heat pump (hybrid)",
+        "replacementRange": "1,658–2,119",
+        "upgrade": {
+          "id": "heat_pump",
+          "label": "Heat pump (hybrid), 240 V",
+          "short": "heat pump water heater",
+          "uef": 3.8,
+          "fuel": "electric"
+        }
+      },
+      "tankless": {
+        "label": "Gas tankless",
+        "life": 20,
+        "uefId": "gas_tankless",
+        "uef": 0.95,
+        "fuel": "gas",
+        "replacementUsd": 1108,
+        "replacementLabel": "Gas tankless, whole house (8 GPM or more, natural gas)",
+        "replacementRange": "869–1,703",
+        "upgrade": {
+          "id": "gas_tankless",
+          "label": "Gas tankless",
+          "short": "condensing gas tankless",
+          "uef": 0.95,
+          "fuel": "gas"
+        }
+      },
+      "electric_tankless": {
+        "label": "Electric tankless",
+        "life": 20,
+        "uefId": "electric_tankless",
+        "uef": 0.92,
+        "fuel": "electric",
+        "replacementUsd": 674,
+        "replacementLabel": "Electric tankless, whole house (24 kW or more)",
+        "replacementRange": "526–999",
+        "upgrade": {
+          "id": "heat_pump",
+          "label": "Heat pump (hybrid), 240 V",
+          "short": "heat pump water heater",
+          "uef": 3.8,
+          "fuel": "electric"
+        }
+      }
+    },
+    "rules": {
+      "repairShareAlways": 0.5,
+      "ageShare": 0.75,
+      "repairShareWhenOld": 0.25
+    },
+    "defaultInputs": {
+      "ageYears": 8,
+      "type": "gas_tank",
+      "repairUsd": 250,
+      "note": "Example inputs for the server-rendered default result; not data about any real home."
+    },
+    "symptoms": [
+      {
+        "id": "tankLeak",
+        "label": "Water leaking from the tank itself",
+        "effect": "replace",
+        "note": "A leak from the tank body cannot be fixed; the heater has to be replaced. Check first that the water is not coming from a pipe, valve or fitting above it, because leaks are often in the plumbing, not the heater."
+      },
+      {
+        "id": "fittingLeak",
+        "label": "Drip at a valve, pipe or fitting",
+        "effect": "repair",
+        "note": "Small valve or fitting leaks are often repairable."
+      },
+      {
+        "id": "rusty",
+        "label": "Rusty or discolored hot water",
+        "effect": "warn",
+        "note": "Rheem lists rusty or discolored hot water as a sign the heater should be replaced. Rusty water can also come from old pipes, so check whether the cold water is clear."
+      },
+      {
+        "id": "noise",
+        "label": "Rumbling or popping noise",
+        "effect": "warn",
+        "note": "Persistent rumbling or popping comes from hardened sediment on the tank floor; Rheem counts it among the signs of replacement."
+      },
+      {
+        "id": "noHot",
+        "label": "No hot water, or not enough",
+        "effect": "repair",
+        "note": "Often a heating element, thermostat or (on gas units) the ignition parts. Heating elements, thermostats and anode rods are designed to be replaced."
+      },
+      {
+        "id": "reliefValve",
+        "label": "Relief valve dripping or discharging",
+        "effect": "safety",
+        "note": "The temperature and pressure (T&P) relief valve is a safety device. Never cap or plug it or its discharge pipe; have the cause checked."
+      },
+      {
+        "id": "flooded",
+        "label": "Heater was in a flood",
+        "effect": "replace",
+        "note": "If the heater was flooded or its controls were under water, the manufacturer says the whole unit must be replaced."
+      }
+    ],
+    "prices": {
+      "usdPerKwh": 0.1723,
+      "usdPerTherm": 1.481
+    },
+    "use": {
+      "gallonsPerDay": 55,
+      "riseF": 67
+    }
+  }
+}

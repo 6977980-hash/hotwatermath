@@ -1,0 +1,624 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/peak-hour-demand.json, data/fhr-to-tank-size.json, data/energystar-water-heaters.json and data/household-size-guides.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result, household table, worked example and manufacturer cross-check for the tank size calculator."
+  },
+  "defaultInputs": {
+    "people": 4,
+    "counts": {
+      "shower": 3,
+      "handsFace": 1,
+      "foodPrep": 1
+    },
+    "fuel": "gas",
+    "margin": false
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "Most models of this size meet it",
+    "headline": "50-gallon gas tank (first hour rating 69+ gal)",
+    "explain": "Your busiest hour uses about 69 gallons of hot water, so choose a heater with a first hour rating (FHR) of at least 69 gallons. Other fuels: 55-gallon electric (typical first hour rating 74 gal); 65-gallon heat pump (typical first hour rating 75 gal). American Water Heater suggests an FHR of 62–74 gal for 4 people; your busy hour is inside that range.",
+    "formula": "Peak-hour demand = 3 × 20 gal (shower) + 1 × 4 gal (hands and face washing) + 1 × 5 gal (food preparation) = 69 gal\nRequired FHR = 69 × 1 = 69 gal (rounded up)\nGas: 50 gal; that size rates 75–86 gal, typical 81 (4 models)\nElectric: 55 gal; that size rates 74–74 gal, typical 74 (1 model)\nHeat pump: 65 gal; that size rates 54–82 gal, typical 75 (24 models)",
+    "sources": "Per-use gallons: AHRI peak-hour worksheet. First hour ratings: Rheem spec sheets (gas, electric) and the ENERGY STAR certified list (heat pump). The 4-person busy hour is our assumption; change the counts. <a href=\"/methodology/#water-heater-size-calculator\">See our results checked against American, Rheem and A. O. Smith sizing guides</a>."
+  },
+  "defaultCase": {
+    "phd": "69",
+    "fhr": "69",
+    "gas": 50,
+    "electric": 55,
+    "heatpump": 65,
+    "marginFhr": "76",
+    "marginPct": "10",
+    "preset": "3 shower, 1 hands and face washing, 1 food preparation"
+  },
+  "example": {
+    "counts": {
+      "shower": 3,
+      "handsFace": 1,
+      "foodPrep": 1
+    },
+    "people": 4,
+    "lines": [
+      {
+        "label": "Shower",
+        "count": 3,
+        "gallons": 20,
+        "total": 60
+      },
+      {
+        "label": "Hands and face washing",
+        "count": 1,
+        "gallons": 4,
+        "total": 4
+      },
+      {
+        "label": "Food preparation",
+        "count": 1,
+        "gallons": 5,
+        "total": 5
+      }
+    ],
+    "phd": "69",
+    "fhr": "69",
+    "gas": 50,
+    "gasFhr": "81",
+    "electric": 55,
+    "electricFhr": "74",
+    "heatpump": 65,
+    "heatpumpFhr": "75"
+  },
+  "ahri": {
+    "phd": "70",
+    "published": 70
+  },
+  "compare": {
+    "gas40": "69",
+    "gas50": "81",
+    "elec40": "55",
+    "elec50": "62",
+    "hp50": "65",
+    "gas40Range": "64–84",
+    "gas50Range": "75–86",
+    "gasVsElec50": "19",
+    "step40to50Gas": "13",
+    "step40to50Elec": "8"
+  },
+  "byPeople": [
+    {
+      "n": 1,
+      "phd": "29",
+      "fhr": "29",
+      "gas": 30,
+      "electric": 30,
+      "heatpump": 50
+    },
+    {
+      "n": 2,
+      "phd": "49",
+      "fhr": "49",
+      "gas": 30,
+      "electric": 40,
+      "heatpump": 50
+    },
+    {
+      "n": 3,
+      "phd": "57",
+      "fhr": "57",
+      "gas": 40,
+      "electric": 50,
+      "heatpump": 50
+    },
+    {
+      "n": 4,
+      "phd": "69",
+      "fhr": "69",
+      "gas": 50,
+      "electric": 55,
+      "heatpump": 65
+    },
+    {
+      "n": 5,
+      "phd": "91",
+      "fhr": "91",
+      "gas": 55,
+      "electric": "",
+      "heatpump": 80
+    },
+    {
+      "n": 6,
+      "phd": "99",
+      "fhr": "99",
+      "gas": 75,
+      "electric": "",
+      "heatpump": ""
+    }
+  ],
+  "crossChecks": [
+    {
+      "id": "american-2",
+      "label": "2 people: our typical busy hour (2 shower, 1 hands and face washing, 1 food preparation)",
+      "ours": "49 gal peak-hour demand → FHR 49+",
+      "published": "FHR 38–49 gal",
+      "match": true,
+      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
+      "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
+    },
+    {
+      "id": "american-3",
+      "label": "3 people: our typical busy hour (2 shower, 2 hands and face washing, 1 hand dishwashing, 1 food preparation)",
+      "ours": "57 gal peak-hour demand → FHR 57+",
+      "published": "FHR 49–62 gal",
+      "match": true,
+      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
+      "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
+    },
+    {
+      "id": "american-4",
+      "label": "4 people: our typical busy hour (3 shower, 1 hands and face washing, 1 food preparation)",
+      "ours": "69 gal peak-hour demand → FHR 69+",
+      "published": "FHR 62–74 gal",
+      "match": true,
+      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
+      "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
+    },
+    {
+      "id": "american-5",
+      "label": "5 people: our typical busy hour (4 shower, 1 shaving, 1 hands and face washing, 1 food preparation)",
+      "ours": "91 gal peak-hour demand → FHR 91+",
+      "published": "FHR 74–95 gal",
+      "match": true,
+      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
+      "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
+    },
+    {
+      "id": "american-6",
+      "label": "6 people: our typical busy hour (4 shower, 1 shaving, 2 hands and face washing, 1 hand dishwashing, 1 food preparation)",
+      "ours": "99 gal peak-hour demand → FHR 99+",
+      "published": "FHR 95–124 gal",
+      "match": true,
+      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
+      "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
+    },
+    {
+      "id": "rheem-2",
+      "label": "2 people, gas tank",
+      "ours": "30 gal",
+      "published": "1 to 2 people: 30–40 gal; 2 to 4 people: 40–50 gal",
+      "match": true,
+      "why": "Inside Rheem's range (Rheem's rows overlap, so two rows apply).",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/"
+    },
+    {
+      "id": "rheem-3",
+      "label": "3 people, gas tank",
+      "ours": "40 gal",
+      "published": "2 to 4 people: 40–50 gal",
+      "match": true,
+      "why": "Inside Rheem's range.",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/"
+    },
+    {
+      "id": "rheem-4",
+      "label": "4 people, gas tank",
+      "ours": "50 gal",
+      "published": "2 to 4 people: 40–50 gal; 4 to 5 people: 50–55 gal",
+      "match": true,
+      "why": "Inside Rheem's range (Rheem's rows overlap, so two rows apply).",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/"
+    },
+    {
+      "id": "rheem-5",
+      "label": "5 people, gas tank",
+      "ours": "55 gal",
+      "published": "4 to 5 people: 50–55 gal; 5 or more people: 75 gal",
+      "match": true,
+      "why": "Inside Rheem's range (Rheem's rows overlap, so two rows apply).",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/"
+    },
+    {
+      "id": "rheem-6",
+      "label": "6 people, gas tank",
+      "ours": "75 gal",
+      "published": "5 or more people: 75 gal",
+      "match": true,
+      "why": "Inside Rheem's range.",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/"
+    },
+    {
+      "id": "rheem-example",
+      "label": "Rheem's worked example: two showers, one load of laundry and kitchen use",
+      "ours": "77 gal (AHRI per-use values)",
+      "published": "55 gal, so FHR 55+",
+      "diffPct": 40,
+      "why": "Same method, different per-use gallons: AHRI counts 20 gal per shower and 32 per washer load, Rheem 15 and 20. Our figure errs on the large side, which avoids running out; you can lower the counts if your showers are short.",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/"
+    },
+    {
+      "id": "aosmith-3",
+      "label": "3 people, any fuel",
+      "ours": "Gas 40 gal; Electric 50 gal; Heat pump 50 gal",
+      "published": "40–50 gal",
+      "match": true,
+      "why": "At least one fuel lands in the published range; gas needs fewer gallons because it reheats faster.",
+      "source": "A. O. Smith, What Size Water Heater Is Right for You? (storage tank size guide by family size)",
+      "sourceUrl": "https://www.hotwater.com/info-center/what-size-water-heater-do-I-need.html"
+    },
+    {
+      "id": "aosmith-4",
+      "label": "4 people, any fuel",
+      "ours": "Gas 50 gal; Electric 55 gal; Heat pump 65 gal",
+      "published": "50–75 gal",
+      "match": true,
+      "why": "At least one fuel lands in the published range; gas needs fewer gallons because it reheats faster.",
+      "source": "A. O. Smith, What Size Water Heater Is Right for You? (storage tank size guide by family size)",
+      "sourceUrl": "https://www.hotwater.com/info-center/what-size-water-heater-do-I-need.html"
+    },
+    {
+      "id": "aosmith-5",
+      "label": "5 people, any fuel",
+      "ours": "Gas 55 gal; Electric none (largest 55 gal rates 74); Heat pump 80 gal (some models)",
+      "published": "75–100 gal",
+      "match": true,
+      "why": "At least one fuel lands in the published range; gas needs fewer gallons because it reheats faster.",
+      "source": "A. O. Smith, What Size Water Heater Is Right for You? (storage tank size guide by family size)",
+      "sourceUrl": "https://www.hotwater.com/info-center/what-size-water-heater-do-I-need.html"
+    }
+  ],
+  "tables": {
+    "households": {
+      "caption": "Tank size by household size: our busy-hour preset vs manufacturer guides",
+      "columns": [
+        {
+          "key": "people",
+          "label": "People"
+        },
+        {
+          "key": "phd",
+          "label": "Our peak hour",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "gas",
+          "label": "Gas",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "electric",
+          "label": "Electric",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "hp",
+          "label": "Heat pump",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "am",
+          "label": "American FHR",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "rh",
+          "label": "Rheem gas",
+          "unit": "gal",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "people": "1",
+          "phd": "29",
+          "gas": "30 gal",
+          "electric": "30 gal",
+          "hp": "50 gal",
+          "am": "–",
+          "rh": "30–40"
+        },
+        {
+          "people": "2",
+          "phd": "49",
+          "gas": "30 gal",
+          "electric": "40 gal",
+          "hp": "50 gal",
+          "am": "38–49",
+          "rh": "30–40"
+        },
+        {
+          "people": "3",
+          "phd": "57",
+          "gas": "40 gal",
+          "electric": "50 gal",
+          "hp": "50 gal",
+          "am": "49–62",
+          "rh": "40–50"
+        },
+        {
+          "people": "4",
+          "phd": "69",
+          "gas": "50 gal",
+          "electric": "55 gal",
+          "hp": "65 gal",
+          "am": "62–74",
+          "rh": "40–50"
+        },
+        {
+          "people": "5",
+          "phd": "91",
+          "gas": "55 gal",
+          "electric": "heat pump",
+          "hp": "80 gal (some models)",
+          "am": "74–95",
+          "rh": "50–55"
+        },
+        {
+          "people": "6",
+          "phd": "99",
+          "gas": "75 gal",
+          "electric": "heat pump",
+          "hp": "none (largest 80 gal rates 95)",
+          "am": "95–124",
+          "rh": "75"
+        }
+      ],
+      "source": "Computed with the calculator (AHRI per-use gallons, FHR of real models); American Water Heater selection guide; Rheem household-size guide",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-size-calculator",
+      "sourceDate": "2026-11-13"
+    }
+  },
+  "client": {
+    "activities": {
+      "shower": {
+        "label": "Shower",
+        "gallons": 20
+      },
+      "bath": {
+        "label": "Bath",
+        "gallons": 20
+      },
+      "shaving": {
+        "label": "Shaving",
+        "gallons": 2
+      },
+      "handsFace": {
+        "label": "Hands and face washing",
+        "gallons": 4
+      },
+      "shampoo": {
+        "label": "Hair shampoo",
+        "gallons": 4
+      },
+      "handDishwashing": {
+        "label": "Hand dishwashing",
+        "gallons": 4
+      },
+      "dishwasher": {
+        "label": "Automatic dishwasher",
+        "gallons": 14
+      },
+      "foodPrep": {
+        "label": "Food preparation",
+        "gallons": 5
+      },
+      "clothesWasher": {
+        "label": "Automatic clothes washer",
+        "gallons": 32
+      }
+    },
+    "presets": {
+      "1": {
+        "shower": 1,
+        "bath": 0,
+        "shaving": 0,
+        "handsFace": 1,
+        "shampoo": 0,
+        "handDishwashing": 0,
+        "dishwasher": 0,
+        "foodPrep": 1,
+        "clothesWasher": 0
+      },
+      "2": {
+        "shower": 2,
+        "bath": 0,
+        "shaving": 0,
+        "handsFace": 1,
+        "shampoo": 0,
+        "handDishwashing": 0,
+        "dishwasher": 0,
+        "foodPrep": 1,
+        "clothesWasher": 0
+      },
+      "3": {
+        "shower": 2,
+        "bath": 0,
+        "shaving": 0,
+        "handsFace": 2,
+        "shampoo": 0,
+        "handDishwashing": 1,
+        "dishwasher": 0,
+        "foodPrep": 1,
+        "clothesWasher": 0
+      },
+      "4": {
+        "shower": 3,
+        "bath": 0,
+        "shaving": 0,
+        "handsFace": 1,
+        "shampoo": 0,
+        "handDishwashing": 0,
+        "dishwasher": 0,
+        "foodPrep": 1,
+        "clothesWasher": 0
+      },
+      "5": {
+        "shower": 4,
+        "bath": 0,
+        "shaving": 1,
+        "handsFace": 1,
+        "shampoo": 0,
+        "handDishwashing": 0,
+        "dishwasher": 0,
+        "foodPrep": 1,
+        "clothesWasher": 0
+      },
+      "6": {
+        "shower": 4,
+        "bath": 0,
+        "shaving": 1,
+        "handsFace": 2,
+        "shampoo": 0,
+        "handDishwashing": 1,
+        "dishwasher": 0,
+        "foodPrep": 1,
+        "clothesWasher": 0
+      }
+    },
+    "fhrRatio": 1,
+    "margin": 0.1,
+    "fhrTable": [
+      {
+        "fuel": "gas",
+        "nominalGallons": 30,
+        "fhrLow": 55,
+        "fhrTypical": 55,
+        "fhrHigh": 55,
+        "n": 1
+      },
+      {
+        "fuel": "gas",
+        "nominalGallons": 40,
+        "fhrLow": 64,
+        "fhrTypical": 68.5,
+        "fhrHigh": 84,
+        "n": 4
+      },
+      {
+        "fuel": "gas",
+        "nominalGallons": 50,
+        "fhrLow": 75,
+        "fhrTypical": 81,
+        "fhrHigh": 86,
+        "n": 4
+      },
+      {
+        "fuel": "gas",
+        "nominalGallons": 55,
+        "fhrLow": 97,
+        "fhrTypical": 97,
+        "fhrHigh": 97,
+        "n": 1
+      },
+      {
+        "fuel": "gas",
+        "nominalGallons": 75,
+        "fhrLow": 100,
+        "fhrTypical": 100,
+        "fhrHigh": 100,
+        "n": 1
+      },
+      {
+        "fuel": "electric",
+        "nominalGallons": 30,
+        "fhrLow": 45,
+        "fhrTypical": 45.5,
+        "fhrHigh": 46,
+        "n": 2
+      },
+      {
+        "fuel": "electric",
+        "nominalGallons": 40,
+        "fhrLow": 53,
+        "fhrTypical": 54.5,
+        "fhrHigh": 55,
+        "n": 4
+      },
+      {
+        "fuel": "electric",
+        "nominalGallons": 50,
+        "fhrLow": 61,
+        "fhrTypical": 62,
+        "fhrHigh": 63,
+        "n": 4
+      },
+      {
+        "fuel": "electric",
+        "nominalGallons": 55,
+        "fhrLow": 74,
+        "fhrTypical": 74,
+        "fhrHigh": 74,
+        "n": 1
+      },
+      {
+        "fuel": "heatpump",
+        "nominalGallons": 50,
+        "fhrLow": 51,
+        "fhrTypical": 65,
+        "fhrHigh": 67,
+        "n": 25
+      },
+      {
+        "fuel": "heatpump",
+        "nominalGallons": 65,
+        "fhrLow": 54,
+        "fhrTypical": 75,
+        "fhrHigh": 82,
+        "n": 24
+      },
+      {
+        "fuel": "heatpump",
+        "nominalGallons": 80,
+        "fhrLow": 67,
+        "fhrTypical": 86.5,
+        "fhrHigh": 95,
+        "n": 22
+      }
+    ],
+    "guide": {
+      "label": "American Water Heater",
+      "rows": [
+        {
+          "people": 2,
+          "low": 38,
+          "high": 49
+        },
+        {
+          "people": 3,
+          "low": 49,
+          "high": 62
+        },
+        {
+          "people": 4,
+          "low": 62,
+          "high": 74
+        },
+        {
+          "people": 5,
+          "low": 74,
+          "high": 95
+        },
+        {
+          "people": 6,
+          "low": 95,
+          "high": 124
+        }
+      ]
+    }
+  }
+}

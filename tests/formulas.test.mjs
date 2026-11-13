@@ -182,12 +182,13 @@ test('drawPatternForFhr: DOE Appendix E bins (FHR 50 → low, 51 → medium, 75 
 test('repairOrReplace: leak, 50% rule, old + 25%, borderline and repair', () => {
 	const rules = data('decision-rules').repairOrReplace;
 	const base = { ageYears: 5, expectedLife: 13, repairCost: 200, replacementCost: 2000, tankLeaking: false };
-	assert.equal(F.repairOrReplace({ ...base, tankLeaking: true }).verdict ?? F.repairOrReplace({ ...base, tankLeaking: true }, rules).verdict, 'replace');
+	assert.equal(F.repairOrReplace({ ...base, tankLeaking: true }, rules).verdict, 'replace');
 	assert.equal(F.repairOrReplace({ ...base, repairCost: 1100 }, rules).verdict, 'replace'); // 55% > 50%
 	assert.equal(F.repairOrReplace({ ...base, ageYears: 10, repairCost: 600 }, rules).verdict, 'replace'); // 10 ≥ 9.75 and 30% > 25%
 	assert.equal(F.repairOrReplace({ ...base, ageYears: 10, repairCost: 200 }, rules).verdict, 'borderline'); // old, cheap repair
 	assert.equal(F.repairOrReplace({ ...base, repairCost: 600 }, rules).verdict, 'borderline'); // young, 30%
-	assert.deepEqual(F.repairOrReplace(base, rules), { verdict: 'repair', reasons: ['young', 'repair-cheap'] });
+	{ const x = F.repairOrReplace(base, rules); assert.equal(x.verdict, 'repair'); assert.deepEqual(x.reasons, ['young', 'repair-cheap']); assert.equal(x.share, 0.1); assert.equal(x.oldFromYears, 9.75); }
+	assert.deepEqual(F.repairOrReplace({ ...base, flooded: true }, rules).reasons, ['flooded']);
 	assert.equal(F.repairOrReplace({ ...base, replacementCost: 0 }, rules).verdict, 'replace'); // no replacement price → share = 1
 });
 
@@ -370,4 +371,52 @@ test('brand-pages.json: every hand-check decodes to the date its source gives', 
 			assert.ok(m.year === c.year || (c.cycle && m.otherYears.includes(c.year)), `${brand} ${c.serial} year`);
 		}
 	}
+});
+
+/* ---------- Phase 3: tank size and repair or replace (hand-checked) ---------- */
+
+const tankCfg = JSON.parse(readFileSync(new URL('../data/computed/water-heater-size-calculator.json', import.meta.url), 'utf8')).client;
+const repairCfg = JSON.parse(readFileSync(new URL('../data/computed/repair-or-replace-water-heater.json', import.meta.url), 'utf8')).client;
+const { describe: describeTank } = await import('../assets/js/tank-size.js');
+const { describe: describeRepair } = await import('../assets/js/repair-replace.js');
+
+test('tankSizing: 3 showers + hands/face + food prep = 60 + 4 + 5 = 69 gal → 50 gal gas (typical FHR 81), 55 electric (74), 65 heat pump (75)', () => {
+	const s = F.tankSizing([{ count: 3, gallons: 20 }, { count: 1, gallons: 4 }, { count: 1, gallons: 5 }], 0, 1, tankCfg.fhrTable);
+	assert.equal(s.phd, 69);
+	assert.equal(s.fhr, 69);
+	assert.equal(s.gas.nominalGallons, 50);
+	assert.equal(s.electric.nominalGallons, 55);
+	assert.equal(s.heatpump.nominalGallons, 65);
+	assert.equal(F.tankSizing([{ count: 3, gallons: 20 }, { count: 1, gallons: 4 }, { count: 1, gallons: 5 }], 0.1, 1, tankCfg.fhrTable).fhr, 76); // 69 × 1.1 = 75.9 → 76
+});
+
+test('tank describe: 2 showers + hands/face + food prep = 49 gal → 30 gal gas; 4 showers + hands + shave + food = 91 → 55 gal gas, no electric tank', () => {
+	const two = describeTank({ people: '2', fuel: 'gas', shower: 2, handsFace: 1, foodPrep: 1 }, tankCfg);
+	assert.equal(two.sizing.phd, 49);
+	assert.equal(two.sizing.gas.nominalGallons, 30);
+	assert.match(two.explain, /inside that range/); // American: 2 people 38–49
+	const five = describeTank({ people: '5', fuel: 'electric', shower: 4, handsFace: 1, shaving: 1, foodPrep: 1 }, tankCfg);
+	assert.equal(five.sizing.phd, 91);
+	assert.equal(five.sizing.gas.nominalGallons, 55);
+	assert.equal(five.sizing.electric.fits, 'none');
+	assert.equal(five.status, 'warn');
+	assert.equal(describeTank({ fuel: 'gas' }, tankCfg).formula, ''); // nothing counted
+});
+
+test('repair describe: 8-yr gas tank, $250 vs $899 = 28% → borderline; 11-yr, $350 = 39% → replace; leak → replace; 4-yr electric $150 = 18% → repair', () => {
+	const gp = repairCfg.types.gas_tank.replacementUsd;
+	const a = describeRepair({ age: 8, type: 'gas_tank', repair: 250, replace: gp }, repairCfg);
+	assert.equal(a.decision.verdict, 'borderline');
+	assert.equal(Math.round(a.decision.share * 100), 28);
+	assert.equal(describeRepair({ age: 11, type: 'gas_tank', repair: 350, replace: gp }, repairCfg).decision.verdict, 'replace');
+	assert.equal(describeRepair({ age: 2, type: 'gas_tank', repair: null, tankLeak: true }, repairCfg).decision.verdict, 'replace');
+	assert.equal(describeRepair({ age: 4, type: 'electric_tank', repair: 150, replace: repairCfg.types.electric_tank.replacementUsd }, repairCfg).decision.verdict, 'repair');
+	assert.equal(describeRepair({ age: 12, type: 'tankless', repair: 300, replace: repairCfg.types.tankless.replacementUsd }, repairCfg).decision.verdict, 'borderline'); // tankless old only from 15 years
+});
+
+test('yearlyEnergyCost: 55 gal/day, 67 °F, electric UEF 0.93 at $0.1723 → 55×365×8.34×67 ÷ 3412 ÷ 0.93 = 3,535 kWh ≈ $609', () => {
+	const c = F.yearlyEnergyCost(55, 67, 'electric', 0.93, { usdPerKwh: 0.1723 });
+	assert.equal(c.use.kwh, 3535);
+	assert.ok(Math.abs(c.year - 609.08) < 0.5);
+	assert.equal(F.yearlySaving({ year: 609.4 }, { year: 149.2 }), 460);
 });

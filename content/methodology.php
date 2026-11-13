@@ -133,7 +133,9 @@ $hwm_dr   = 'decision-rules';
 	<p>Typical FHR by size comes from real models: manufacturer spec sheets for gas and electric tanks, and the ENERGY STAR certified list for heat pump water heaters. The table shows the median and range of the models we found for each size.</p>
 	<?php echo hwm_table( 'computed/fhr-table', 'fhr' ); // phpcs:ignore ?>
 	<p><strong>Limitations.</strong> Your busiest hour is a guess you make about your own habits. FHR varies between models of the same size, so check the label of the unit you plan to buy. Federal efficiency rules effectively require large electric storage tanks to be heat pump models, which is why the electric rows stop at <?php echo esc_html( hwm_value( 'uef-ranges', 'federalMinimums.electricResistanceMaxGallons' ) ); ?> gallons.</p>
-	<?php $hwm_xcheck( 'tank sizing (A. O. Smith, Bradford White, Rheem sizing guides)' ); ?>
+	<p><strong>Household presets.</strong> Picking a household size fills in a typical busiest hour. These presets are our assumption, set so that the peak-hour demand falls inside American Water Heater's first hour rating range for the same family size; you can change every count. An optional <?php echo esc_html( hwm_value( 'computed/water-heater-size-calculator', 'defaultCase.marginPct' ) ); ?>% margin, also our assumption, is offered for homes that often run several uses at once.</p>
+	<p>The cross-check below compares our results with three manufacturers' household guides (American's first hour rating ranges, Rheem's gas tank sizes, A. O. Smith's tank volumes) and with Rheem's worked example. Matches against American are expected, because the presets are tuned to it; Rheem and A. O. Smith are independent checks.</p>
+	<?php $hwm_xfilled( 'water-heater-size-calculator', 'tank sizing (American, Rheem, A. O. Smith sizing guides)' ); ?>
 </section>
 
 <section id="water-heater-age-calculator">
@@ -158,13 +160,16 @@ $hwm_dr   = 'decision-rules';
 	<h3>Repair or replace</h3>
 	<p>No government agency publishes a repair-or-replace rule for water heaters, so this tool uses rules we chose and state openly. You can judge them for yourself:</p>
 	<ol>
-		<li>A leaking tank is always a replacement, because the tank itself cannot be repaired.</li>
+		<li>A leaking tank is always a replacement, because the tank itself cannot be repaired. So is a heater that was flooded, as A. O. Smith's manual requires.</li>
 		<li>Replace when the repair costs more than <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.repairShareAlways', 2 ) ); ?> × the price of a new installed unit.</li>
 		<li>Replace when the heater has used at least <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.ageShare', 2 ) ); ?> × its expected life and the repair costs more than <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.repairShareWhenOld', 2 ) ); ?> × the price of a new one.</li>
 		<li>An old heater with a cheap repair is shown as borderline. Anything else is a repair.</li>
 	</ol>
-	<p><strong>Limitations.</strong> The thresholds are judgment calls, not measured data. Safety problems, such as a faulty relief valve or a gas smell, override any cost rule.</p>
-	<?php $hwm_xcheck( 'repair or replace (manufacturer warranty and service guidance)' ); ?>
+	<p><strong>Inputs.</strong> Typical life comes from DOE (see the age calculator above). Until installation costs are published with named sources, the new-unit price defaults to the typical equipment price from retail listings, and the tool asks for an installed quote instead. The running-cost comparison uses DOE's test-day use (<?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day at a <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.riseF' ) ); ?> °F rise), the median UEF of each type and U.S. average EIA prices: yearly cost = gallons × 365 × <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> × rise ÷ UEF, converted to kWh or therms and multiplied by the price.</p>
+	<?php echo hwm_table( 'computed/repair-or-replace-water-heater', 'limits' ); // phpcs:ignore ?>
+	<p><strong>Limitations.</strong> The thresholds are judgment calls, not measured data. Safety problems, such as a relief valve that keeps discharging, override any cost rule. Equipment-only prices make replacing look cheaper than it is, so an installed quote gives a fairer answer.</p>
+	<p>The cross-check below runs our rules on cases that Rheem's repair-or-replace guide and A. O. Smith's manual answer directly. One case differs on purpose, and the table says why.</p>
+	<?php $hwm_xfilled( 'repair-or-replace-water-heater', 'repair or replace (Rheem guide, A. O. Smith manual)' ); ?>
 </section>
 
 <section id="water-heater-cost-calculator">

@@ -380,19 +380,65 @@ export function drawPatternForFhr(fhrGallons, patterns) {
 
 /**
  * Repair / replace / borderline decision with reason codes (content turns codes into sentences).
- * @param {{ageYears:number, expectedLife:number, repairCost:number, replacementCost:number, tankLeaking:boolean}} input
+ * @param {{ageYears:number, expectedLife:number, repairCost:number, replacementCost:number, tankLeaking:boolean, flooded?:boolean}} input
  * @param {{ageShare:number, repairShareWhenOld:number, repairShareAlways:number}} rules Thresholds from data/decision-rules.json.
- * @returns {{verdict:'repair'|'replace'|'borderline', reasons:string[]}}
+ * @returns {{verdict:'repair'|'replace'|'borderline', reasons:string[], share:number, lifeUsed:number, oldFromYears:number}}
+ *   share = repair ÷ replacement; lifeUsed = age ÷ expected life; oldFromYears = age at which the "old" rule starts.
  */
 export function repairOrReplace(input, rules) {
-	if (input.tankLeaking) return { verdict: 'replace', reasons: ['tank-leak'] };
 	const share = input.replacementCost > 0 ? input.repairCost / input.replacementCost : 1;
+	const lifeUsed = input.expectedLife > 0 ? input.ageYears / input.expectedLife : 1;
+	const extra = { share: round(share, 3), lifeUsed: round(lifeUsed, 3), oldFromYears: round(rules.ageShare * input.expectedLife, 2) };
+	const out = (verdict, reasons) => ({ verdict, reasons, ...extra });
+	if (input.tankLeaking) return out('replace', ['tank-leak']);
+	if (input.flooded) return out('replace', ['flooded']);
 	const old = input.expectedLife > 0 && input.ageYears >= rules.ageShare * input.expectedLife;
-	if (share > rules.repairShareAlways) return { verdict: 'replace', reasons: ['repair-over-always-share'] };
-	if (old && share > rules.repairShareWhenOld) return { verdict: 'replace', reasons: ['old', 'repair-over-old-share'] };
-	if (old) return { verdict: 'borderline', reasons: ['old', 'repair-cheap'] };
-	if (share > rules.repairShareWhenOld) return { verdict: 'borderline', reasons: ['young', 'repair-over-old-share'] };
-	return { verdict: 'repair', reasons: ['young', 'repair-cheap'] };
+	if (share > rules.repairShareAlways) return out('replace', ['repair-over-always-share']);
+	if (old && share > rules.repairShareWhenOld) return out('replace', ['old', 'repair-over-old-share']);
+	if (old) return out('borderline', ['old', 'repair-cheap']);
+	if (share > rules.repairShareWhenOld) return out('borderline', ['young', 'repair-over-old-share']);
+	return out('repair', ['young', 'repair-cheap']);
+}
+
+/**
+ * Yearly energy cost of one water heater type for a household: heat ÷ efficiency × price.
+ * Composes annualHeatBtu, annualEnergyUse and annualCost.
+ * @param {number} gallonsPerDay
+ * @param {number} riseF
+ * @param {'gas'|'electric'} fuel
+ * @param {number} uef
+ * @param {{usdPerKwh?:number, usdPerTherm?:number}} prices
+ * @returns {{use:{kwh?:number, therms?:number}, year:number, month:number}}
+ */
+export function yearlyEnergyCost(gallonsPerDay, riseF, fuel, uef, prices) {
+	const use = annualEnergyUse(annualHeatBtu(gallonsPerDay, riseF), fuel, uef);
+	return { use, ...annualCost(use, prices) };
+}
+
+/**
+ * Yearly saving of moving from one water heater to another (positive = the new one is cheaper to run).
+ * @param {{year:number}} current From yearlyEnergyCost().
+ * @param {{year:number}} next From yearlyEnergyCost().
+ * @returns {number} USD per year, rounded to whole dollars
+ */
+export function yearlySaving(current, next) {
+	return round(current.year - next.year);
+}
+
+/* ---------- 3.3 Tank size: recommendation for every fuel ---------- */
+
+/**
+ * Peak-hour demand, required first hour rating and the recommended tank for each fuel.
+ * @param {Array<{count:number, gallons:number}>} activities
+ * @param {number} marginShare 0 for none, e.g. 0.1 for +10% (optional margin).
+ * @param {number} fhrToPhdRatio Minimum FHR ÷ peak-hour demand (1.0 per AHRI/PNNL).
+ * @param {Array<object>} table Rows of data/computed/fhr-table.json.
+ * @returns {{phd:number, fhr:number, gas:object|null, electric:object|null, heatpump:object|null}}
+ */
+export function tankSizing(activities, marginShare, fhrToPhdRatio, table) {
+	const phd = peakHourDemand(activities);
+	const fhr = Math.ceil(round(phd * fhrToPhdRatio * (1 + (isNum(marginShare) ? marginShare : 0)), 6));
+	return { phd, fhr, gas: tankForFhr(fhr, 'gas', table), electric: tankForFhr(fhr, 'electric', table), heatpump: tankForFhr(fhr, 'heatpump', table) };
 }
 
 /* ---------- 3.5 Installed cost ---------- */
