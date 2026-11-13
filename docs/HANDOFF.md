@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6 — Expansion articles (2026-11-13). All 7 new pages are `draft` (noindex) until the owner OKs them.
+**Last completed phase:** Phase 6 — Expansion articles (2026-11-13). Owner OK received the same day: all 7 pages are `live`.
 **Next phase to run:** Phase 6b batch 2 (reset button, noise, runs out fast, rotten eggs), then the rest of Phase 6 / 6d per `docs/PHASES.md`.
 
 **What exists now (new or changed in Phase 6):**
@@ -34,7 +34,7 @@
 - Playwright at 360x640: no horizontal scroll and no console errors on the 7 pages. The calculators react: heat pump vs gas → $104 a year and 16.7 years; tankless in California → $3,555; expansion tank at 80 gal / 80 psi → 2-gallon minimum, 4.4-gallon safer.
 
 **Owner steps:**
-1. Read the 7 drafts and reply OK to flip them `live` (quality gate §8).
+1. Done: owner OK'd the 7 pages and flushed the CDN; they are `live` (go-live PR).
 2. Flush the Hostinger CDN after this deploy (new JS files and import-map versions).
 3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs.
 
@@ -63,6 +63,7 @@
 - 2026-11-13 — Go-live — owner OK: leaking, flush, anode rod, no hot water flipped to `live`.
 - 2026-11-13 — Phase 6b batch 1 done — leaking, how to flush, anode rod and no hot water articles (draft), sourced troubleshooting data file, /guides/ groups, Common problems links on tools.
 - 2026-11-13 — Phase 6 done — 7 expansion pages as drafts (heat pump cost + savings calculator, replacement, tankless, gas, electric installation cost, 40 vs 50, expansion tank calculator), AMTROL and ENERGY STAR cross-checks.
+- 2026-11-13 — Go-live — owner OK: the 7 Phase 6 pages flipped to `live`.
 
 ---
 
