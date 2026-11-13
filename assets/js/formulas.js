@@ -336,6 +336,28 @@ export function mainsWaterTemp(annualAvgAirF, maxMonthlyDiffF, c) {
 	return { annualAvg: round(avg, 1), coldestMonth: round(avg - swing, 1), warmestMonth: round(avg + swing, 1) };
 }
 
+/** Julian day in the middle of each month (non-leap year), used for monthly mains temperatures. */
+export const MID_MONTH_DAYS = Object.freeze([15, 46, 74, 105, 135, 166, 196, 227, 258, 288, 319, 349]);
+/** Days in each month of a non-leap year (the year has 365 days in annualHeatBtu as well). */
+export const MONTH_DAYS = Object.freeze([31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]);
+
+/**
+ * Month-by-month water mains (inlet) temperature with the full Christensen–Burch correlation (EnergyPlus Engineering
+ * Reference): Tmains = (Tavg + offset) + ratio × (ΔTmax / 2) × sin(degPerDay × (day − dayOffset − lag) − phase),
+ * lag = lagBase − lagSlope × (Tavg − refTemp) days, angles in degrees. Mains water lags the air by about a month.
+ * @param {number} annualAvgAirF Average annual outdoor air temperature, °F.
+ * @param {number} maxMonthlyDiffF Warmest minus coldest monthly average air temperature, °F.
+ * @param {{offsetF:number, ratioBase:number, ratioSlope:number, refTempF:number, lagBaseDays:number, lagSlopeDaysPerF:number, degPerDay:number, dayOffset:number, phaseDeg:number}} c
+ * @returns {number[]} 12 values, January first, °F with one decimal
+ */
+export function monthlyMainsTemps(annualAvgAirF, maxMonthlyDiffF, c) {
+	const avg = annualAvgAirF + c.offsetF;
+	const ratio = c.ratioBase + c.ratioSlope * (annualAvgAirF - c.refTempF);
+	const lag = c.lagBaseDays - c.lagSlopeDaysPerF * (annualAvgAirF - c.refTempF);
+	const rad = Math.PI / 180;
+	return MID_MONTH_DAYS.map((day) => round(avg + ratio * (maxMonthlyDiffF / 2) * Math.sin(rad * (c.degPerDay * (day - c.dayOffset - lag) - c.phaseDeg)), 1));
+}
+
 /* ---------- 3.3 Tank size ---------- */
 
 /**

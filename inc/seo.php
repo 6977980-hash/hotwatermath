@@ -39,10 +39,10 @@ function hwm_canonical(): string {
 	return $entry ? hwm_url( (string) $entry['slug'] ) : '';
 }
 
-/** OG image for the current page: assets/og/<slug>.png (home = home.png), else default.png. */
+/** OG image for the current page: assets/og/<slug>.png (home = home.png; a child slug's "/" becomes "-"), else default.png. */
 function hwm_og_image(): array {
 	$entry = hwm_current();
-	$name  = $entry ? ( '' === $entry['slug'] ? 'home' : $entry['slug'] ) : 'default';
+	$name  = $entry ? ( '' === $entry['slug'] ? 'home' : str_replace( '/', '-', (string) $entry['slug'] ) ) : 'default';
 	if ( ! is_readable( HWM_DIR . '/assets/og/' . $name . '.png' ) ) {
 		$name = 'default';
 	}

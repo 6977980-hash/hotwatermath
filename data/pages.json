@@ -3,9 +3,10 @@
     "source": "Page registry. URLs and intents from docs/STRATEGY.md §2 (Keyword Map).",
     "sourceUrl": "",
     "sourceDate": "2026-11-13",
-    "notes": "One entry per URL. status: live = indexable, in sitemap and hubs; draft = page exists but noindex, not in sitemap or hubs; planned = no page is created. Only the owner's OK moves a page to live (CLAUDE.md §8). type picks the template: home, utility, hub, tool, article. Body lives in content/<slug>.php (home uses content/home.php). group (articles only) picks the section on /guides; sections follow meta.articleGroups. problems (tools only) lists troubleshooting slugs shown as 'Common problems' in the What to do next box; problemLabel is the short anchor used there.",
+    "notes": "One entry per URL. status: live = indexable, in sitemap and hubs; draft = page exists but noindex, not in sitemap or hubs; planned = no page is created. Only the owner's OK moves a page to live (CLAUDE.md §8). type picks the template: home, utility, hub, tool, article. Body lives in content/<slug>.php (home uses content/home.php). group (articles only) picks the section on /guides; sections follow meta.articleGroups. problems (tools only) lists troubleshooting slugs shown as 'Common problems' in the What to do next box; problemLabel is the short anchor used there. A slug with \"/\" is a child page under the slug before it (state cost pages: water-heater-installation-cost/<state>), synced as a WordPress child page; template \"state-cost\" renders it with templates/state-cost.php and content/water-heater-installation-cost-state.php, and state is its two-letter code in data/state-pages.json.",
     "articleGroups": [
       "Costs & Sizing",
+      "Cost by State",
       "Lifespan & Replacement",
       "Troubleshooting & Care"
     ]
@@ -922,6 +923,286 @@
         "water heater installation labor cost",
         "new water heater installation cost",
         "hot water heater replacement cost"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/california",
+      "type": "article",
+      "template": "state-cost",
+      "state": "CA",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in California",
+      "summary": "What a new water heater costs installed in California, itemized, with California energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Install Cost in California | Hot Water Math",
+      "description": "Water heater installation cost in California: $1,907 for a 50-gallon gas tank and $1,661 electric, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in California",
+      "subtitle": "Installed prices for California, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In California, replacing a 50-gallon water heater costs about $1,907 installed for gas and $1,661 for electric, with labor 11% above the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost california",
+        "water heater replacement cost california",
+        "cost to replace water heater in california",
+        "tankless water heater installation cost california"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/texas",
+      "type": "article",
+      "template": "state-cost",
+      "state": "TX",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Texas",
+      "summary": "What a new water heater costs installed in Texas, itemized, with Texas energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in Texas | Hot Water Math",
+      "description": "Water heater installation cost in Texas: about $1,557 for a 50-gallon electric tank and $1,782 gas, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in Texas",
+      "subtitle": "Installed prices for Texas, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Texas, replacing a 50-gallon water heater costs about $1,557 installed for electric and $1,782 for gas, with labor 3% below the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost texas",
+        "water heater replacement cost texas",
+        "cost to replace water heater in texas",
+        "tankless water heater installation cost texas"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/florida",
+      "type": "article",
+      "template": "state-cost",
+      "state": "FL",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Florida",
+      "summary": "What a new water heater costs installed in Florida, itemized, with Florida energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in Florida | Hot Water Math",
+      "description": "Water heater installation cost in Florida: about $1,605 for a 50-gallon electric tank and $1,840 gas, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in Florida",
+      "subtitle": "Installed prices for Florida, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Florida, replacing a 50-gallon water heater costs about $1,605 installed for electric and $1,840 for gas, with labor 3% above the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost florida",
+        "water heater replacement cost florida",
+        "cost to replace water heater in florida",
+        "tankless water heater installation cost florida"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/new-york",
+      "type": "article",
+      "template": "state-cost",
+      "state": "NY",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in New York",
+      "summary": "What a new water heater costs installed in New York, itemized, with New York energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in New York | Hot Water Math",
+      "description": "Water heater installation cost in New York: about $1,881 for a 50-gallon gas tank and $1,640 electric, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in New York",
+      "subtitle": "Installed prices for New York, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In New York, replacing a 50-gallon water heater costs about $1,881 installed for gas and $1,640 for electric, with labor 8% above the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost new york",
+        "water heater replacement cost new york",
+        "cost to replace water heater in new york",
+        "tankless water heater installation cost new york"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/pennsylvania",
+      "type": "article",
+      "template": "state-cost",
+      "state": "PA",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Pennsylvania",
+      "summary": "What a new water heater costs installed in Pennsylvania, itemized, with Pennsylvania energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Install Cost in Pennsylvania | Hot Water Math",
+      "description": "Water heater installation cost in Pennsylvania: $1,787 for a 50-gallon gas tank and $1,561 electric, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in Pennsylvania",
+      "subtitle": "Installed prices for Pennsylvania, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Pennsylvania, replacing a 50-gallon water heater costs about $1,787 installed for gas and $1,561 for electric, with labor 2% below the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost pennsylvania",
+        "water heater replacement cost pennsylvania",
+        "cost to replace water heater in pennsylvania",
+        "tankless water heater installation cost pennsylvania"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/illinois",
+      "type": "article",
+      "template": "state-cost",
+      "state": "IL",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Illinois",
+      "summary": "What a new water heater costs installed in Illinois, itemized, with Illinois energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in Illinois | Hot Water Math",
+      "description": "Water heater installation cost in Illinois: about $1,809 for a 50-gallon gas tank and $1,579 electric, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in Illinois",
+      "subtitle": "Installed prices for Illinois, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Illinois, replacing a 50-gallon water heater costs about $1,809 installed for gas and $1,579 for electric, with labor right at the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost illinois",
+        "water heater replacement cost illinois",
+        "cost to replace water heater in illinois",
+        "tankless water heater installation cost illinois"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/ohio",
+      "type": "article",
+      "template": "state-cost",
+      "state": "OH",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Ohio",
+      "summary": "What a new water heater costs installed in Ohio, itemized, with Ohio energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in Ohio | Hot Water Math",
+      "description": "Water heater installation cost in Ohio: about $1,743 for a 50-gallon gas tank and $1,524 electric, installed. Itemized, with Ohio energy costs and rebates.",
+      "h1": "Water heater installation cost in Ohio",
+      "subtitle": "Installed prices for Ohio, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Ohio, replacing a 50-gallon water heater costs about $1,743 installed for gas and $1,524 for electric, with labor 7% below the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost ohio",
+        "water heater replacement cost ohio",
+        "cost to replace water heater in ohio",
+        "tankless water heater installation cost ohio"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/georgia",
+      "type": "article",
+      "template": "state-cost",
+      "state": "GA",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Georgia",
+      "summary": "What a new water heater costs installed in Georgia, itemized, with Georgia energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in Georgia | Hot Water Math",
+      "description": "Water heater installation cost in Georgia: about $1,551 for a 50-gallon electric tank and $1,775 gas, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in Georgia",
+      "subtitle": "Installed prices for Georgia, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Georgia, replacing a 50-gallon water heater costs about $1,551 installed for electric and $1,775 for gas, with labor 4% below the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost georgia",
+        "water heater replacement cost georgia",
+        "cost to replace water heater in georgia",
+        "tankless water heater installation cost georgia"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/north-carolina",
+      "type": "article",
+      "template": "state-cost",
+      "state": "NC",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in North Carolina",
+      "summary": "What a new water heater costs installed in North Carolina, itemized, with North Carolina energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Install Cost in North Carolina | Hot Water Math",
+      "description": "Water heater installation cost in North Carolina: $1,536 for a 50-gallon electric tank and $1,757 gas, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in North Carolina",
+      "subtitle": "Installed prices for North Carolina, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In North Carolina, replacing a 50-gallon water heater costs about $1,536 installed for electric and $1,757 for gas, with labor 6% below the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost north carolina",
+        "water heater replacement cost north carolina",
+        "cost to replace water heater in north carolina",
+        "tankless water heater installation cost north carolina"
+      ]
+    },
+    {
+      "slug": "water-heater-installation-cost/michigan",
+      "type": "article",
+      "template": "state-cost",
+      "state": "MI",
+      "parent": "water-heater-installation-cost",
+      "status": "draft",
+      "phase": "6c",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Installation Cost in Michigan",
+      "summary": "What a new water heater costs installed in Michigan, itemized, with Michigan energy prices, incoming water temperature and rebate status.",
+      "metaTitle": "Water Heater Installation Cost in Michigan | Hot Water Math",
+      "description": "Water heater installation cost in Michigan: about $1,774 for a 50-gallon gas tank and $1,550 electric, installed. Itemized, with energy costs and rebates.",
+      "h1": "Water heater installation cost in Michigan",
+      "subtitle": "Installed prices for Michigan, line by line, plus what each type costs to run here.",
+      "quickAnswer": "In Michigan, replacing a 50-gallon water heater costs about $1,774 installed for gas and $1,550 for electric, with labor 4% below the U.S. average. The unit costs the same everywhere; labor and permits do not.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater installation cost michigan",
+        "water heater replacement cost michigan",
+        "cost to replace water heater in michigan",
+        "tankless water heater installation cost michigan"
       ]
     },
     {

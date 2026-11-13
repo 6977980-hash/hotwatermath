@@ -64,7 +64,7 @@ let failed = false;
 const jobs = [{ name: 'default', title: site.tagline, subtitle: site.description }];
 for (const p of pages) {
 	if (p.status === 'planned') continue;
-	jobs.push({ name: p.slug === '' ? 'home' : p.slug, title: p.h1 || p.title, subtitle: p.subtitle || p.description || '' });
+	jobs.push({ name: p.slug === '' ? 'home' : p.slug.replace('/', '-'), title: p.h1 || p.title, subtitle: p.subtitle || p.description || '' });
 }
 for (const job of jobs) {
 	const buf = render(card(job.title, job.subtitle));

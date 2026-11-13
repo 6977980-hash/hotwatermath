@@ -145,5 +145,16 @@ for (const p of pages.filter((x) => x.status === 'live')) {
 	if (p.type === 'article') ok(guides.has(path), '/guides/', `does not link live article ${path}`);
 }
 
+// Parent ↔ child pages (state cost pages under the replacement cost article, PHASES.md 6c).
+// The child always links its parent (in the body, not only the breadcrumb); the parent links a child once the child is live
+// (drafts are never linked for visitors, so the parent shows a draft child's name as plain text).
+for (const p of pages.filter((x) => x.parent && x.slug.includes('/') && (x.status === 'live' || x.status === 'draft'))) {
+	const childBody = ((fetched.get(p.slug) || '').match(/<main\b[\s\S]*<\/main>/i)?.[0] || '').replace(/<nav[^>]*class="[^"]*breadcrumb[^"]*"[\s\S]*?<\/nav>/i, '');
+	ok(new Set(internalLinks(childBody)).has(pathOf(p.parent)), pathOf(p.slug), `does not link its parent ${pathOf(p.parent)} in the body`);
+	const parentHtml = fetched.get(p.parent) || '';
+	if (p.status === 'live') ok(linksOn(p.parent).has(pathOf(p.slug)), pathOf(p.parent), `does not link live child ${pathOf(p.slug)}`);
+	else ok(parentHtml.includes(`Water heater cost in ${p.title.replace('Water Heater Installation Cost in ', '')}`), pathOf(p.parent), `does not name draft child ${p.slug}`);
+}
+
 console.log(`\n${passes} passed, ${failures} failed — ${visible.length} pages, ${linkStatus.size} distinct internal targets (${base})`);
 process.exit(failures ? 1 : 0);

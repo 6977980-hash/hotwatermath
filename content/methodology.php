@@ -274,6 +274,20 @@ $hwm_dr   = 'decision-rules';
 	<p>Inlet temperatures are the coldest and warmest monthly estimates described above under the tankless calculator. <strong>Limitations.</strong> Pipe heat losses, standby losses and shower habits are not modelled; real draws are a little higher.</p>
 </section>
 
+<section id="state-cost-pages">
+	<h3>State cost pages (installation cost by state)</h3>
+	<p>Each page under <?php echo hwm_link( 'water-heater-installation-cost', 'water heater replacement cost' ); // phpcs:ignore ?> for a state reuses the cost calculator's model and the state data files, so its numbers match the calculators to the dollar:</p>
+	<ol>
+		<li><strong>Installed cost</strong> = unit price + (labor + permit + extras) × the state's price factor (BEA Regional Price Parity ÷ 100), exactly as in the cost calculator.</li>
+		<li><strong>Metro areas</strong>: the same job with the metro area's own BEA price parity in place of the state's. The five most populous metropolitan areas of the state that have a parity series are listed (Census Vintage 2025 populations); areas redrawn after BEA's last metro release have no series and are named on the page.</li>
+		<li><strong>Running cost</strong>: the gas vs electric formula with the state's EIA residential prices and its average incoming water temperature; heat pump saving and payback come from the heat pump savings calculator with the state selected.</li>
+		<li><strong>Month by month</strong>: incoming water uses the full Christensen–Burch correlation from the EnergyPlus Engineering Reference, Tmains = (Tavg + <?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'correlation.offsetF' ) ); ?>) + ratio × (ΔTmax ÷ 2) × sin(<?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'correlation.degPerDay' ) ); ?> × (day − <?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'correlation.dayOffset' ) ); ?> − lag) − <?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'correlation.phaseDeg' ) ); ?>), with lag = <?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'correlation.lagBaseDays' ) ); ?> − (Tavg − <?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'correlation.refTempF' ) ); ?>) days, evaluated mid-month. Tankless flow = unit output ÷ (<?php echo esc_html( hwm_value( 'computed/reference-tables', 'physics.lbPerGallon' ) ); ?> × <?php echo esc_html( hwm_value( 'computed/reference-tables', 'physics.minutesPerHour' ) ); ?> × rise) for the <?php echo esc_html( hwm_value( 'tankless-reference-units', 'gasUnits.0.inputBtuh', 0 ) ); ?> BTU/h condensing unit in Rinnai's chart; the monthly energy bill is the yearly formula for that month's rise × days ÷ 365.</li>
+		<li><strong>Fuel mix</strong>: EIA's 2020 Residential Energy Consumption Survey, main water heating fuel by state. <strong>Rebates</strong>: the state energy office's own page, quoted with the date we checked it; where we could not open an official page we say so instead of guessing.</li>
+		<li><strong>Which states</strong>: the ten most populous by the Census Vintage 2025 estimate. Other states get a page only after these ten are indexed and ranking.</li>
+	</ol>
+	<p><strong>Limitations.</strong> The price factor measures all consumer prices, including rent, not plumber wages; within a metro area, prices still vary by neighborhood and by contractor.</p>
+</section>
+
 <h2>Where does our data come from?</h2>
 <p>Every number lives in a data file with a named source, a link and the date we last checked it. We prefer government sources first, then codes and standards, then manufacturer spec sheets. Other websites' cost guides are never used as the source of a number.</p>
 <?php

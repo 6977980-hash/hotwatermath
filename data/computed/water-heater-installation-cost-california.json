@@ -1,0 +1,859 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the California water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "CA",
+      "scenario": "replace",
+      "permit": true,
+      "codeItems": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $2,073 installed",
+      "explain": "50-gallon gas tank (natural gas, standard vent): the unit itself is about $899 ($749 to $999 in current listings). Installation adds about $1,174 for labor and 2 extras in California (price factor 1.11). Range: $1,357 to $3,214.",
+      "formula": "Unit (typical) = $899\nLabor = $650 × 1.107 = $720\nPermit, haul-away and disposal of the old unit = $260 × 1.107 = $288\nCode items: drain pan, seismic straps, relief valve piping = $150 × 1.107 = $166\nTotal (typical) = $899 + $720 + $288 + $166 = $2,073\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon gas tank (natural gas, standard vent)",
+            "low": "$749",
+            "typical": "$899",
+            "high": "$999"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$387",
+            "typical": "$720",
+            "high": "$1,218"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$166",
+            "typical": "$288",
+            "high": "$554"
+          },
+          {
+            "item": "Code items: drain pan, seismic straps, relief valve piping",
+            "low": "$55",
+            "typical": "$166",
+            "high": "$443"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$1,357",
+          "typical": "$2,073",
+          "high": "$3,214"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "CA",
+    "name": "California",
+    "slug": "california",
+    "url": "/water-heater-installation-cost/california/",
+    "stateCount": 51,
+    "populationRank": 1,
+    "population": "39,355,309",
+    "popMillion": "39.4",
+    "mult": "1.107",
+    "multPct": 11,
+    "multVs": "11% above",
+    "multRank": 51,
+    "multRankOrd": "51st",
+    "multRankPhrase": "highest",
+    "rpp": "110.7",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,084",
+      "typical": "1,767",
+      "high": "2,791",
+      "typicalNum": 1767,
+      "unit": "759",
+      "install": "1,008",
+      "unitShare": 43
+    },
+    "g50": {
+      "low": "1,302",
+      "typical": "1,907",
+      "high": "2,771",
+      "typicalNum": 1907,
+      "unit": "899",
+      "install": "1,008",
+      "unitShare": 47
+    },
+    "e40": {
+      "low": "957",
+      "typical": "1,526",
+      "high": "2,749",
+      "typicalNum": 1526,
+      "unit": "684",
+      "install": "842",
+      "unitShare": 45
+    },
+    "e50": {
+      "low": "1,057",
+      "typical": "1,661",
+      "high": "2,979",
+      "typicalNum": 1661,
+      "unit": "819",
+      "install": "842",
+      "unitShare": 49
+    },
+    "hp50": {
+      "low": "2,378",
+      "typical": "3,071",
+      "high": "4,666",
+      "typicalNum": 3071,
+      "unit": "1,787",
+      "install": "1,284",
+      "unitShare": 58
+    },
+    "hpGas": {
+      "low": "2,710",
+      "typical": "3,735",
+      "high": "5,994",
+      "typicalNum": 3735,
+      "unit": "1,787",
+      "install": "1,948",
+      "unitShare": 48
+    },
+    "gTl": {
+      "low": "1,699",
+      "typical": "2,337",
+      "high": "3,918",
+      "typicalNum": 2337,
+      "unit": "1,108",
+      "install": "1,229",
+      "unitShare": 47
+    },
+    "toTl": {
+      "low": "2,363",
+      "typical": "3,555",
+      "high": "6,132",
+      "typicalNum": 3555,
+      "unit": "1,108",
+      "install": "2,447",
+      "unitShare": 31
+    },
+    "eTl": {
+      "low": "1,024",
+      "typical": "1,626",
+      "high": "2,660",
+      "typicalNum": 1626,
+      "unit": "674",
+      "install": "952",
+      "unitShare": 41
+    },
+    "g50code": {
+      "low": "1,468",
+      "typical": "2,267",
+      "high": "3,546",
+      "typicalNum": 2267,
+      "unit": "899",
+      "install": "1,368",
+      "unitShare": 40
+    },
+    "g50Diff": "98",
+    "g50DiffSign": "more",
+    "e50Diff": "82",
+    "e50DiffSign": "more",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "720",
+    "laborE": "554",
+    "permit": "288",
+    "kwh": "0.314",
+    "kwhCents": "31.35",
+    "kwhYear": 2025,
+    "kwhRank": 50,
+    "kwhRankOrd": "50th",
+    "kwhVs": "82% above",
+    "therm": "2.15",
+    "thermYear": 2025,
+    "thermRank": 48,
+    "thermRankOrd": "48th",
+    "thermVs": "45% above",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "312",
+    "eYear": "910",
+    "hYear": "223",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Gas tankless",
+    "cheapestId": "gas_tankless",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "597",
+    "gasCheaperToRun": true,
+    "gasPremium": "246",
+    "gasPay": "under a year",
+    "hpSave": "687",
+    "hpExtra": "1,410",
+    "hpPay": "2.1",
+    "hpPayNum": 2.1,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "5,030",
+    "ownE": "10,759",
+    "ownH": "5,297",
+    "ownBest": "Gas tank (standard vent)",
+    "ownBestId": "gas_tank",
+    "inletAnnual": "65.0",
+    "inletWinter": "56.1",
+    "inletSummer": "73.9",
+    "riseW": "63.9",
+    "riseA": "55.0",
+    "riseS": "46.1",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "5.9",
+    "gpmA": "6.9",
+    "gpmS": "8.2",
+    "showerGpm": "2.5",
+    "showersW": 2,
+    "showersS": 3,
+    "seasonLossPct": 28,
+    "electricPct": 19,
+    "gasPct": 78,
+    "propanePct": 3,
+    "fuelOilPct": 0,
+    "homesMillion": "13.18",
+    "elecFirst": false,
+    "mainType": "gas_tank",
+    "mainLabel": "Gas tank (standard vent)",
+    "hpPaysInLife": true,
+    "elecMajority": false,
+    "gasMajority": true,
+    "fuelOilShown": false,
+    "gasTanklessSave": "104",
+    "gasTanklessYear": "209",
+    "tlPremium": "1,648",
+    "coldMonth": "February",
+    "coldMonthInlet": "56.3",
+    "coldMonthCost": "28",
+    "warmMonth": "August",
+    "warmMonthInlet": "73.7",
+    "warmMonthCost": "22",
+    "winterExtraPct": 38,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Riverside-San Bernardino-Ontario, CA",
+      "g50": "1,868",
+      "e50": "1,628",
+      "rpp": "106.4"
+    },
+    "metroDear": {
+      "name": "San Francisco-Oakland-Fremont, CA",
+      "g50": "1,951",
+      "e50": "1,698",
+      "rpp": "115.6"
+    },
+    "metroSpread": "83",
+    "metroSkipped": "",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "closed",
+      "program": "HEEHRA (Home Electrification and Appliance Rebates)",
+      "agency": "California Energy Commission",
+      "sourceUrl": "https://www.energy.ca.gov/programs-and-topics/programs/inflation-reduction-act-residential-energy-rebate-programs",
+      "checked": "2026-11-13",
+      "quote": "As of August 31, 2026, HEEHRA rebates for Phase I are fully reserved.",
+      "summary": "Phase I paid only for heat pump HVAC systems, not water heaters, and its money is fully reserved. Phase II has not been announced."
+    },
+    "notes": [
+      {
+        "id": "seismic",
+        "heading": "California requires earthquake straps",
+        "text": "California law requires every new and replacement water heater to be anchored or strapped so it cannot fall in an earthquake, and home sellers must certify that the water heater is braced. Budget for straps on any California replacement; in the calculator they are part of the code items extra.",
+        "source": "California Seismic Safety Commission, FAQs",
+        "sourceUrl": "https://www.ssc.ca.gov/about/faqs/",
+        "quote": "New and replacement water heaters are required by law to be anchored or strapped to resist falling during earthquakes. Home sellers must certify to buyers that water heaters are braced.",
+        "checked": "2026-11-13",
+        "presetExtra": "codeItems"
+      }
+    ],
+    "heehrMax": "1,750",
+    "presetExtras": [
+      "codeItems"
+    ],
+    "highlights": [
+      "California's price level is the highest of 51 states and DC, so labor, permits and extras cost more here than almost anywhere: about $720 of labor on a gas tank against $650 nationally.",
+      "Electricity is expensive in California (31.35 cents per kWh, the 2nd highest), so a standard electric tank costs about $910 a year to run and a heat pump saves about $687 a year against it.",
+      "Natural gas costs more here than in most states ($2.15 per therm, the 4th highest), so gas's running-cost advantage is smaller than the national picture suggests.",
+      "78% of California homes heat water with natural gas, against 48% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.",
+      "Where you live inside California matters: the same 50-gallon gas job is about $1,951 in the San Francisco-Oakland-Fremont, CA area and $1,868 in the Riverside-San Bernardino-Ontario, CA area.",
+      "California requires earthquake straps."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "California vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "California",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,767",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,907",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,526",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,661",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "3,071",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,337",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,555",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; California labor and extras × BEA price factor 1.107",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon gas tank replacement in California",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "387",
+          "typical": "720",
+          "high": "1,218"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "166",
+          "typical": "288",
+          "high": "554"
+        },
+        {
+          "item": "Total",
+          "low": "1,302",
+          "typical": "1,907",
+          "high": "2,771"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon electric tank replacement in California",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "332",
+          "typical": "554",
+          "high": "996"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "166",
+          "typical": "288",
+          "high": "554"
+        },
+        {
+          "item": "Total",
+          "low": "1,057",
+          "typical": "1,661",
+          "high": "2,979"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in California (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "California, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "312",
+          "us": "242",
+          "own": "5,030"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "209",
+          "us": "162",
+          "own": "4,424"
+        },
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "910",
+          "us": "564",
+          "own": "10,759"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "223",
+          "us": "138",
+          "own": "5,297"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "920",
+          "us": "570",
+          "own": "10,824"
+        }
+      ],
+      "source": "EIA 2025 California residential prices ($0.314/kWh, $2.15/therm); California incoming water 65.0 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in California's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Los Angeles-Long Beach-Anaheim, CA",
+          "rpp": "113.6",
+          "g50": "1,932",
+          "e50": "1,682"
+        },
+        {
+          "name": "Riverside-San Bernardino-Ontario, CA",
+          "rpp": "106.4",
+          "g50": "1,868",
+          "e50": "1,628"
+        },
+        {
+          "name": "San Francisco-Oakland-Fremont, CA",
+          "rpp": "115.6",
+          "g50": "1,951",
+          "e50": "1,698"
+        },
+        {
+          "name": "San Diego-Chula Vista-Carlsbad, CA",
+          "rpp": "111.9",
+          "g50": "1,917",
+          "e50": "1,670"
+        },
+        {
+          "name": "Sacramento-Roseville-Folsom, CA",
+          "rpp": "106.7",
+          "g50": "1,870",
+          "e50": "1,630"
+        },
+        {
+          "name": "California statewide",
+          "rpp": "110.7",
+          "g50": "1,907",
+          "e50": "1,661"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL31080, RPPALL40140, RPPALL41860, RPPALL41740, RPPALL40900); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL31080",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "California month by month: incoming water, tankless output and the gas tank (standard vent) energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Gas tank (standard vent) energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "44.9",
+          "inlet": "56.7",
+          "gpm": "6.0",
+          "cost": "31"
+        },
+        {
+          "month": "February",
+          "air": "46.8",
+          "inlet": "56.3",
+          "gpm": "5.9",
+          "cost": "28"
+        },
+        {
+          "month": "March",
+          "air": "50.8",
+          "inlet": "58.1",
+          "gpm": "6.1",
+          "cost": "30"
+        },
+        {
+          "month": "April",
+          "air": "55.1",
+          "inlet": "61.8",
+          "gpm": "6.5",
+          "cost": "27"
+        },
+        {
+          "month": "May",
+          "air": "62.3",
+          "inlet": "66.3",
+          "gpm": "7.0",
+          "cost": "26"
+        },
+        {
+          "month": "June",
+          "air": "70.0",
+          "inlet": "70.6",
+          "gpm": "7.7",
+          "cost": "23"
+        },
+        {
+          "month": "July",
+          "air": "76.2",
+          "inlet": "73.3",
+          "gpm": "8.1",
+          "cost": "23"
+        },
+        {
+          "month": "August",
+          "air": "75.5",
+          "inlet": "73.7",
+          "gpm": "8.2",
+          "cost": "22"
+        },
+        {
+          "month": "September",
+          "air": "70.6",
+          "inlet": "71.8",
+          "gpm": "7.8",
+          "cost": "23"
+        },
+        {
+          "month": "October",
+          "air": "61.1",
+          "inlet": "68.1",
+          "gpm": "7.3",
+          "cost": "25"
+        },
+        {
+          "month": "November",
+          "air": "50.8",
+          "inlet": "63.5",
+          "gpm": "6.7",
+          "cost": "26"
+        },
+        {
+          "month": "December",
+          "air": "44.0",
+          "inlet": "59.4",
+          "gpm": "6.2",
+          "cost": "29"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 California prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in California (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "56.1",
+          "rise": "63.9",
+          "gpm": "5.9",
+          "showers": 2
+        },
+        {
+          "season": "Year average",
+          "inlet": "65.0",
+          "rise": "55.0",
+          "gpm": "6.9",
+          "showers": 2
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "73.9",
+          "rise": "46.1",
+          "gpm": "8.2",
+          "showers": 3
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How California homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "California",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 19,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 78,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 3,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (13.18 million California homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

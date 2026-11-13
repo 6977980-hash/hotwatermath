@@ -197,6 +197,11 @@ async function noaa() {
 			ratioBase: 0.4,
 			ratioSlope: 0.01,
 			refTempF: 44,
+			lagBaseDays: 35,
+			lagSlopeDaysPerF: 1,
+			degPerDay: 0.986,
+			dayOffset: 15,
+			phaseDeg: 90,
 		},
 		states,
 	});

@@ -81,6 +81,19 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-cost-calculator', 'inputs
 	<summary>Replacement cost in all 50 states and DC (50-gallon tanks)</summary>
 	<?php echo hwm_table( $hwm_c, 'byState' ); // phpcs:ignore ?>
 </details>
+<p>The <?php echo esc_html( (string) count( (array) hwm_raw( 'computed/state-cost-index', 'rows' ) ) ); ?> most populous states have their own page with itemized prices, running costs, winter tankless output and rebate status:</p>
+<div class="table-wrap" role="region" aria-label="State cost pages" tabindex="0">
+	<table>
+		<caption>Water heater installation cost by state: 50-gallon tanks, typical installed price</caption>
+		<thead><tr><th scope="col">State</th><th scope="col" class="num">Gas ($)</th><th scope="col" class="num">Electric ($)</th><th scope="col" class="num">Heat pump ($)</th><th scope="col">Main fuel in homes</th></tr></thead>
+		<tbody>
+			<?php foreach ( (array) hwm_raw( 'computed/state-cost-index', 'rows' ) as $hwm_row ) : ?>
+				<tr><th scope="row"><?php echo hwm_link( (string) $hwm_row['slug'], 'Water heater cost in ' . (string) $hwm_row['name'] ); // phpcs:ignore ?></th><td class="num"><?php echo esc_html( (string) $hwm_row['g50f'] ); ?></td><td class="num"><?php echo esc_html( (string) $hwm_row['e50f'] ); ?></td><td class="num"><?php echo esc_html( (string) $hwm_row['hp50f'] ); ?></td><td><?php echo esc_html( (string) $hwm_row['main'] ); ?></td></tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<p class="table-source">Source: our cost model scaled by each state's BEA price factor; main fuel from EIA's 2020 Residential Energy Consumption Survey.</p>
+</div>
 <p>The price factor is the state's Regional Price Parity from the Bureau of Economic Analysis divided by 100: a factor above 1 means local prices run above the U.S. average, and below 1 means they run under it. Big cities usually run higher than their state average, and rural areas lower.</p>
 
 <h2>Is it worth replacing a water heater before it fails?</h2>

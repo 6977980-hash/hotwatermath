@@ -1,0 +1,837 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json, data/tankless-reference-units.json and data/state-pages.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures, tables and calculator preset for the Michigan water heater installation cost page."
+  },
+  "calculator": {
+    "inputs": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "MI",
+      "scenario": "replace",
+      "permit": true
+    },
+    "default": {
+      "statusLabel": "Installed estimate",
+      "headline": "About $1,774 installed",
+      "explain": "50-gallon gas tank (natural gas, standard vent): the unit itself is about $899 ($749 to $999 in current listings). Installation adds about $875 for labor and 1 extra in Michigan (price factor 0.96). Range: $1,230 to $2,538.",
+      "formula": "Unit (typical) = $899\nLabor = $650 × 0.962 = $625\nPermit, haul-away and disposal of the old unit = $260 × 0.962 = $250\nTotal (typical) = $899 + $625 + $250 = $1,774\nLow and high use the low and high end of every line the same way.",
+      "table": {
+        "caption": "Itemized estimate",
+        "columns": [
+          {
+            "key": "item",
+            "label": "Item"
+          },
+          {
+            "key": "low",
+            "label": "Low",
+            "num": true
+          },
+          {
+            "key": "typical",
+            "label": "Typical",
+            "num": true
+          },
+          {
+            "key": "high",
+            "label": "High",
+            "num": true
+          }
+        ],
+        "rows": [
+          {
+            "item": "50-gallon gas tank (natural gas, standard vent)",
+            "low": "$749",
+            "typical": "$899",
+            "high": "$999"
+          },
+          {
+            "item": "Installation labor",
+            "low": "$337",
+            "typical": "$625",
+            "high": "$1,058"
+          },
+          {
+            "item": "Permit, haul-away and disposal of the old unit",
+            "low": "$144",
+            "typical": "$250",
+            "high": "$481"
+          }
+        ],
+        "total": {
+          "item": "Total",
+          "low": "$1,230",
+          "typical": "$1,774",
+          "high": "$2,538"
+        }
+      },
+      "sources": "Unit: Home Depot listings (2026-11-12). Labor and extras: our ranges anchored to DOE's 2024 water heater rules (2026-11-13). State factor: BEA price parities. <a href=\"/methodology/#water-heater-cost-calculator\">See our numbers checked against DOE's installed costs</a>."
+    }
+  },
+  "figures": {
+    "code": "MI",
+    "name": "Michigan",
+    "slug": "michigan",
+    "url": "/water-heater-installation-cost/michigan/",
+    "stateCount": 51,
+    "populationRank": 10,
+    "population": "10,127,884",
+    "popMillion": "10.1",
+    "mult": "0.962",
+    "multPct": -4,
+    "multVs": "4% below",
+    "multRank": 24,
+    "multRankOrd": "24th",
+    "multRankPhrase": "24th lowest",
+    "rpp": "96.2",
+    "rppYear": 2024,
+    "g40": {
+      "low": "1,012",
+      "typical": "1,634",
+      "high": "2,558",
+      "typicalNum": 1634,
+      "unit": "759",
+      "install": "875",
+      "unitShare": 46
+    },
+    "g50": {
+      "low": "1,230",
+      "typical": "1,774",
+      "high": "2,538",
+      "typicalNum": 1774,
+      "unit": "899",
+      "install": "875",
+      "unitShare": 51
+    },
+    "e40": {
+      "low": "892",
+      "typical": "1,415",
+      "high": "2,546",
+      "typicalNum": 1415,
+      "unit": "684",
+      "install": "731",
+      "unitShare": 48
+    },
+    "e50": {
+      "low": "992",
+      "typical": "1,550",
+      "high": "2,776",
+      "typicalNum": 1550,
+      "unit": "819",
+      "install": "731",
+      "unitShare": 53
+    },
+    "hp50": {
+      "low": "2,283",
+      "typical": "2,903",
+      "high": "4,332",
+      "typicalNum": 2903,
+      "unit": "1,787",
+      "install": "1,116",
+      "unitShare": 62
+    },
+    "hpGas": {
+      "low": "2,572",
+      "typical": "3,480",
+      "high": "5,486",
+      "typicalNum": 3480,
+      "unit": "1,787",
+      "install": "1,693",
+      "unitShare": 51
+    },
+    "gTl": {
+      "low": "1,590",
+      "typical": "2,176",
+      "high": "3,627",
+      "typicalNum": 2176,
+      "unit": "1,108",
+      "install": "1,068",
+      "unitShare": 51
+    },
+    "toTl": {
+      "low": "2,168",
+      "typical": "3,234",
+      "high": "5,551",
+      "typicalNum": 3234,
+      "unit": "1,108",
+      "install": "2,126",
+      "unitShare": 34
+    },
+    "eTl": {
+      "low": "959",
+      "typical": "1,501",
+      "high": "2,442",
+      "typicalNum": 1501,
+      "unit": "674",
+      "install": "827",
+      "unitShare": 45
+    },
+    "g50code": {
+      "low": "1,374",
+      "typical": "2,086",
+      "high": "3,212",
+      "typicalNum": 2086,
+      "unit": "899",
+      "install": "1,187",
+      "unitShare": 43
+    },
+    "g50Diff": "35",
+    "g50DiffSign": "less",
+    "e50Diff": "29",
+    "e50DiffSign": "less",
+    "usG50": "1,809",
+    "usE50": "1,579",
+    "usHp50": "2,947",
+    "usToTl": "3,318",
+    "laborG": "625",
+    "laborE": "481",
+    "permit": "250",
+    "kwh": "0.200",
+    "kwhCents": "20.03",
+    "kwhYear": 2025,
+    "kwhRank": 39,
+    "kwhRankOrd": "39th",
+    "kwhVs": "16% above",
+    "therm": "1.03",
+    "thermYear": 2025,
+    "thermRank": 9,
+    "thermRankOrd": "9th",
+    "thermVs": "30% below",
+    "usKwh": "0.172",
+    "usTherm": "1.48",
+    "gYear": "187",
+    "eYear": "727",
+    "hYear": "178",
+    "usGYear": "242",
+    "usEYear": "564",
+    "usHYear": "138",
+    "cheapest": "Gas tankless",
+    "cheapestId": "gas_tankless",
+    "gallons": 55,
+    "setpointF": 120,
+    "gasVsElecYear": "540",
+    "gasCheaperToRun": true,
+    "gasPremium": "224",
+    "gasPay": "under a year",
+    "hpSave": "549",
+    "hpExtra": "1,353",
+    "hpPay": "2.5",
+    "hpPayNum": 2.5,
+    "hpLife": 13,
+    "years": 10,
+    "ownG": "3,642",
+    "ownE": "8,821",
+    "ownH": "4,682",
+    "ownBest": "Gas tank (standard vent)",
+    "ownBestId": "gas_tank",
+    "inletAnnual": "51.2",
+    "inletWinter": "41.2",
+    "inletSummer": "61.2",
+    "riseW": "78.8",
+    "riseA": "68.8",
+    "riseS": "58.8",
+    "refModel": "Rinnai RUR98i",
+    "refInput": "199,000",
+    "gpmW": "4.8",
+    "gpmA": "5.5",
+    "gpmS": "6.4",
+    "showerGpm": "2.5",
+    "showersW": 1,
+    "showersS": 2,
+    "seasonLossPct": 26,
+    "electricPct": 27,
+    "gasPct": 66,
+    "propanePct": 5,
+    "fuelOilPct": 0,
+    "homesMillion": "3.92",
+    "elecFirst": false,
+    "mainType": "gas_tank",
+    "mainLabel": "Gas tank (standard vent)",
+    "hpPaysInLife": true,
+    "elecMajority": false,
+    "gasMajority": true,
+    "fuelOilShown": false,
+    "gasTanklessSave": "62",
+    "gasTanklessYear": "125",
+    "tlPremium": "1,460",
+    "coldMonth": "February",
+    "coldMonthInlet": "41.2",
+    "coldMonthCost": "16",
+    "warmMonth": "August",
+    "warmMonthInlet": "61.2",
+    "warmMonthCost": "14",
+    "winterExtraPct": 34,
+    "metroCount": 5,
+    "metroCheap": {
+      "name": "Flint, MI",
+      "g50": "1,746",
+      "e50": "1,526",
+      "rpp": "93.0"
+    },
+    "metroDear": {
+      "name": "Ann Arbor, MI",
+      "g50": "1,817",
+      "e50": "1,586",
+      "rpp": "100.9"
+    },
+    "metroSpread": "71",
+    "metroSkipped": "",
+    "metroYear": 2024,
+    "rebate": {
+      "status": "unconfirmed",
+      "program": "Michigan Home Energy Rebates (MiHER: HER and HEAR)",
+      "agency": "Michigan EGLE",
+      "sourceUrl": "https://content.govdelivery.com/accounts/MIDEQ/bulletins/3dd47d0",
+      "checked": "2026-11-13",
+      "quote": "Governor Gretchen Whitmer announced the statewide launch of the Michigan Home Energy Rebates Program (MiHER)",
+      "summary": "Michigan launched its rebates statewide in April 2025, including the appliance rebate for income-qualified homes. EGLE's own site refused our checker, so we could not confirm how much money is left today."
+    },
+    "notes": [],
+    "heehrMax": "1,750",
+    "presetExtras": [],
+    "highlights": [
+      "Natural gas is cheap in Michigan ($1.03 per therm, the 9th lowest of 51), so a gas tank costs only about $187 a year to run, and gas stays the cheapest tank to own over 10 years.",
+      "66% of Michigan homes heat water with natural gas, against 48% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.",
+      "Incoming water drops to about 41.2 °F in the coldest month, so a whole-house tankless unit manages only one full-flow shower at a time in winter; a tank, or two tankless units, suits larger households better.",
+      "Where you live inside Michigan matters: the same 50-gallon gas job is about $1,817 in the Ann Arbor, MI area and $1,746 in the Flint, MI area."
+    ]
+  },
+  "tables": {
+    "compare": {
+      "caption": "Michigan vs U.S. average: installed cost, typical",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Job (like-for-like replacement)"
+        },
+        {
+          "key": "state",
+          "label": "Michigan",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "40-gallon gas tank",
+          "state": "1,634",
+          "us": "1,669"
+        },
+        {
+          "label": "50-gallon gas tank",
+          "state": "1,774",
+          "us": "1,809"
+        },
+        {
+          "label": "40-gallon electric tank",
+          "state": "1,415",
+          "us": "1,444"
+        },
+        {
+          "label": "50-gallon electric tank",
+          "state": "1,550",
+          "us": "1,579"
+        },
+        {
+          "label": "50-gallon heat pump (replacing electric)",
+          "state": "2,903",
+          "us": "2,947"
+        },
+        {
+          "label": "Gas tankless (replacing tankless)",
+          "state": "2,176",
+          "us": "2,218"
+        },
+        {
+          "label": "Gas tank to gas tankless",
+          "state": "3,234",
+          "us": "3,318"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Michigan labor and extras × BEA price factor 0.962",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsMain": {
+      "caption": "Itemized: 50-gallon gas tank replacement in Michigan",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "low": "749",
+          "typical": "899",
+          "high": "999"
+        },
+        {
+          "item": "Installation labor",
+          "low": "337",
+          "typical": "625",
+          "high": "1,058"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "144",
+          "typical": "250",
+          "high": "481"
+        },
+        {
+          "item": "Total",
+          "low": "1,230",
+          "typical": "1,774",
+          "high": "2,538"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "itemsOther": {
+      "caption": "Itemized: 50-gallon electric tank replacement in Michigan",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "low",
+          "label": "Low",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "high",
+          "label": "High",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon electric tank",
+          "low": "559",
+          "typical": "819",
+          "high": "1,429"
+        },
+        {
+          "item": "Installation labor",
+          "low": "289",
+          "typical": "481",
+          "high": "866"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "low": "144",
+          "typical": "250",
+          "high": "481"
+        },
+        {
+          "item": "Total",
+          "low": "992",
+          "typical": "1,550",
+          "high": "2,776"
+        }
+      ],
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
+      "sourceDate": "2026-11-13"
+    },
+    "running": {
+      "caption": "Yearly energy cost and 10-year cost in Michigan (55 gal/day, 120 °F)",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Type"
+        },
+        {
+          "key": "uef",
+          "label": "UEF",
+          "num": true
+        },
+        {
+          "key": "state",
+          "label": "Michigan, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S. average, per year",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "own",
+          "label": "Installed + 10 years of energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "label": "Gas tank (standard vent)",
+          "uef": "0.64",
+          "state": "187",
+          "us": "242",
+          "own": "3,642"
+        },
+        {
+          "label": "Gas tankless",
+          "uef": "0.95",
+          "state": "125",
+          "us": "162",
+          "own": "3,425"
+        },
+        {
+          "label": "Electric tank",
+          "uef": "0.93",
+          "state": "727",
+          "us": "564",
+          "own": "8,821"
+        },
+        {
+          "label": "Heat pump (hybrid), 240 V",
+          "uef": "3.80",
+          "state": "178",
+          "us": "138",
+          "own": "4,682"
+        },
+        {
+          "label": "Electric tankless",
+          "uef": "0.92",
+          "state": "735",
+          "us": "570",
+          "own": "8,852"
+        }
+      ],
+      "source": "EIA 2025 Michigan residential prices ($0.200/kWh, $1.03/therm); Michigan incoming water 51.2 °F; median UEF by type; installed cost from our cost model",
+      "sourceUrl": "https://hotwatermath.com/methodology/#state-cost-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "metros": {
+      "caption": "50-gallon replacement in Michigan's largest metro areas (typical installed price)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "Metro area"
+        },
+        {
+          "key": "rpp",
+          "label": "Price level (U.S. = 100, 2024)",
+          "num": true
+        },
+        {
+          "key": "g50",
+          "label": "Gas tank",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "e50",
+          "label": "Electric tank",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Detroit-Warren-Dearborn, MI",
+          "rpp": "100.3",
+          "g50": "1,812",
+          "e50": "1,581"
+        },
+        {
+          "name": "Grand Rapids-Wyoming-Kentwood, MI",
+          "rpp": "95.5",
+          "g50": "1,768",
+          "e50": "1,545"
+        },
+        {
+          "name": "Lansing-East Lansing, MI",
+          "rpp": "95.0",
+          "g50": "1,764",
+          "e50": "1,541"
+        },
+        {
+          "name": "Flint, MI",
+          "rpp": "93.0",
+          "g50": "1,746",
+          "e50": "1,526"
+        },
+        {
+          "name": "Ann Arbor, MI",
+          "rpp": "100.9",
+          "g50": "1,817",
+          "e50": "1,586"
+        },
+        {
+          "name": "Michigan statewide",
+          "rpp": "96.2",
+          "g50": "1,774",
+          "e50": "1,550"
+        }
+      ],
+      "source": "BEA Regional Price Parities by metro area via FRED (RPPALL19820, RPPALL24340, RPPALL29620, RPPALL22420, RPPALL11460); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RPPALL19820",
+      "sourceDate": "2026-11-13"
+    },
+    "months": {
+      "caption": "Michigan month by month: incoming water, tankless output and the gas tank (standard vent) energy bill",
+      "columns": [
+        {
+          "key": "month",
+          "label": "Month"
+        },
+        {
+          "key": "air",
+          "label": "Outdoor air",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Tankless flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "cost",
+          "label": "Gas tank (standard vent) energy",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "month": "January",
+          "air": "20.2",
+          "inlet": "42.8",
+          "gpm": "4.9",
+          "cost": "18"
+        },
+        {
+          "month": "February",
+          "air": "21.9",
+          "inlet": "41.2",
+          "gpm": "4.8",
+          "cost": "16"
+        },
+        {
+          "month": "March",
+          "air": "31.1",
+          "inlet": "42.1",
+          "gpm": "4.9",
+          "cost": "18"
+        },
+        {
+          "month": "April",
+          "air": "42.9",
+          "inlet": "45.5",
+          "gpm": "5.1",
+          "cost": "17"
+        },
+        {
+          "month": "May",
+          "air": "54.9",
+          "inlet": "50.3",
+          "gpm": "5.4",
+          "cost": "16"
+        },
+        {
+          "month": "June",
+          "air": "64.6",
+          "inlet": "55.5",
+          "gpm": "5.9",
+          "cost": "14"
+        },
+        {
+          "month": "July",
+          "air": "68.8",
+          "inlet": "59.4",
+          "gpm": "6.2",
+          "cost": "14"
+        },
+        {
+          "month": "August",
+          "air": "67.3",
+          "inlet": "61.2",
+          "gpm": "6.4",
+          "cost": "14"
+        },
+        {
+          "month": "September",
+          "air": "59.9",
+          "inlet": "60.2",
+          "gpm": "6.3",
+          "cost": "13"
+        },
+        {
+          "month": "October",
+          "air": "48.1",
+          "inlet": "56.8",
+          "gpm": "6.0",
+          "cost": "15"
+        },
+        {
+          "month": "November",
+          "air": "36.3",
+          "inlet": "51.8",
+          "gpm": "5.5",
+          "cost": "15"
+        },
+        {
+          "month": "December",
+          "air": "26.2",
+          "inlet": "46.8",
+          "gpm": "5.2",
+          "cost": "17"
+        }
+      ],
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Michigan prices",
+      "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
+      "sourceDate": "2026-11-12"
+    },
+    "tankless": {
+      "caption": "What one whole-house gas tankless delivers in Michigan (Rinnai RUR98i, 199,000 BTU/h)",
+      "columns": [
+        {
+          "key": "season",
+          "label": "Season"
+        },
+        {
+          "key": "inlet",
+          "label": "Incoming water",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "rise",
+          "label": "Rise to 120 °F",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "gpm",
+          "label": "Hot water flow",
+          "unit": "GPM",
+          "num": true
+        },
+        {
+          "key": "showers",
+          "label": "2.5 GPM showers at once",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "season": "Coldest month",
+          "inlet": "41.2",
+          "rise": "78.8",
+          "gpm": "4.8",
+          "showers": 1
+        },
+        {
+          "season": "Year average",
+          "inlet": "51.2",
+          "rise": "68.8",
+          "gpm": "5.5",
+          "showers": 2
+        },
+        {
+          "season": "Warmest month",
+          "inlet": "61.2",
+          "rise": "58.8",
+          "gpm": "6.4",
+          "showers": 2
+        }
+      ],
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "fuelMix": {
+      "caption": "How Michigan homes heat water (main fuel, share of homes)",
+      "columns": [
+        {
+          "key": "fuel",
+          "label": "Main water heating fuel"
+        },
+        {
+          "key": "state",
+          "label": "Michigan",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "us",
+          "label": "U.S.",
+          "unit": "%",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "fuel": "Electricity",
+          "state": 27,
+          "us": 46
+        },
+        {
+          "fuel": "Natural gas",
+          "state": 66,
+          "us": 48
+        },
+        {
+          "fuel": "Propane",
+          "state": 5,
+          "us": 3
+        }
+      ],
+      "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (3.92 million Michigan homes)",
+      "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

@@ -43,6 +43,10 @@ function hwm_sync_pages(): array {
 		$existing[ (string) get_post_meta( $post->ID, '_hwm_slug', true ) ] = $post;
 	}
 
+	$ids = array();
+	foreach ( $existing as $known_slug => $known_post ) {
+		$ids[ $known_slug ] = (int) $known_post->ID;
+	}
 	foreach ( hwm_pages() as $slug => $entry ) {
 		$status = $entry['status'] ?? 'planned';
 		if ( 'planned' === $status ) {
@@ -52,13 +56,23 @@ function hwm_sync_pages(): array {
 			}
 			continue;
 		}
+		// A slug with a "/" is a child page (e.g. water-heater-installation-cost/texas): WordPress stores the last
+		// segment as post_name under the parent page, which must come earlier in the registry.
+		$slug     = (string) $slug;
+		$cut      = strrpos( $slug, '/' );
+		$leaf     = false === $cut ? $slug : substr( $slug, $cut + 1 );
+		$parent_id = false === $cut ? 0 : (int) ( $ids[ substr( $slug, 0, $cut ) ] ?? 0 );
+		if ( false !== $cut && ! $parent_id ) {
+			$log[] = "skipped {$slug} (parent page missing)";
+			continue;
+		}
 		$postarr = array(
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
 			'post_title'     => (string) ( $entry['title'] ?? $slug ),
-			'post_name'      => '' === $slug ? 'home' : $slug,
+			'post_name'      => '' === $slug ? 'home' : $leaf,
 			'post_content'   => '',
-			'post_parent'    => 0,
+			'post_parent'    => $parent_id,
 			'comment_status' => 'closed',
 			'ping_status'    => 'closed',
 		);
@@ -70,7 +84,7 @@ function hwm_sync_pages(): array {
 		$postarr['edit_date']     = true;
 		if ( isset( $existing[ $slug ] ) ) {
 			$post = $existing[ $slug ];
-			if ( $post->post_title !== $postarr['post_title'] || $post->post_name !== $postarr['post_name'] || 'publish' !== $post->post_status || $post->post_date_gmt > current_time( 'mysql', true ) ) {
+			if ( $post->post_title !== $postarr['post_title'] || $post->post_name !== $postarr['post_name'] || (int) $post->post_parent !== $parent_id || 'publish' !== $post->post_status || $post->post_date_gmt > current_time( 'mysql', true ) ) {
 				$postarr['ID'] = $post->ID;
 				wp_update_post( $postarr );
 				$log[] = "updated {$slug}";
@@ -78,7 +92,7 @@ function hwm_sync_pages(): array {
 			$id = $post->ID;
 		} else {
 			// A page with this path may already exist (made by hand); adopt it instead of creating a duplicate.
-			$found = get_page_by_path( $postarr['post_name'], OBJECT, 'page' );
+			$found = get_page_by_path( '' === $slug ? 'home' : $slug, OBJECT, 'page' );
 			if ( $found ) {
 				$postarr['ID'] = $found->ID;
 				$id            = wp_update_post( $postarr );
@@ -90,6 +104,9 @@ function hwm_sync_pages(): array {
 			if ( $id && ! is_wp_error( $id ) ) {
 				update_post_meta( $id, '_hwm_slug', $slug );
 			}
+		}
+		if ( $id && ! is_wp_error( $id ) ) {
+			$ids[ $slug ] = (int) $id;
 		}
 		if ( '' === $slug && $id && ! is_wp_error( $id ) ) {
 			update_option( 'show_on_front', 'page' );
