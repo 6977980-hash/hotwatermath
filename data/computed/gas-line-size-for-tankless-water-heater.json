@@ -1,0 +1,535 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/safety.json (IFGC 2021 Tables 402.4(2) and 402.4(3) rows, Rinnai and Rheem figures) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "CFH = BTU/h ÷ 1,000 BTU per cubic foot (formulas.gasCfh, Rinnai's basis); pipe size = smallest size whose table capacity covers the CFH at the next longer table length (formulas.gasPipeSize); maximum length = longest table row a size still covers (formulas.gasMaxLengthFt). Schedule 40 steel pipe, natural gas, one appliance on its own run from the meter; fittings must be added as equivalent length."
+  },
+  "figures": {
+    "cfh199": "199",
+    "half199at40": "1/2",
+    "s05at40": "1",
+    "s05at20": "3/4",
+    "exTotal": "394,900",
+    "exCfh": "395",
+    "exRheemCfh": "386",
+    "exTank": "235,000",
+    "exTankCfh": "235",
+    "meter": "250",
+    "exTankless": "199,900",
+    "exFurnace": "75,000",
+    "exRange": "55,000",
+    "exDryer": "25,000",
+    "exLogs": "40,000",
+    "tankBtuh": "40,000",
+    "rinnaiMatches": 12,
+    "rinnaiChecks": 14,
+    "cfhLow": "120",
+    "big": "199,000",
+    "low": "120,000",
+    "q05max": 30,
+    "h30max": 40,
+    "q30max": 175,
+    "ruc80Rq": 166,
+    "ruc80Oq": 250,
+    "ru199Rh": 50,
+    "ru199Oh": 40,
+    "q05cap10Btuh": "360,000",
+    "q05cap100Btuh": "104,000",
+    "q05cap10": "360",
+    "q05cap100": "104"
+  },
+  "tables": {
+    "size05": {
+      "caption": "Smallest steel pipe at a 0.5 in. w.c. pressure drop (Table 402.4(2), 2021 International Fuel Gas Code), one tankless unit on its own run",
+      "columns": [
+        {
+          "key": "btuh",
+          "label": "Tankless input"
+        },
+        {
+          "key": "l10",
+          "label": "10 ft"
+        },
+        {
+          "key": "l20",
+          "label": "20 ft"
+        },
+        {
+          "key": "l30",
+          "label": "30 ft"
+        },
+        {
+          "key": "l40",
+          "label": "40 ft"
+        },
+        {
+          "key": "l60",
+          "label": "60 ft"
+        },
+        {
+          "key": "l80",
+          "label": "80 ft"
+        },
+        {
+          "key": "l100",
+          "label": "100 ft"
+        }
+      ],
+      "rows": [
+        {
+          "btuh": "120,000 BTU/h (120 CFH)",
+          "l10": "1/2 in",
+          "l20": "3/4 in",
+          "l30": "3/4 in",
+          "l40": "3/4 in",
+          "l60": "3/4 in",
+          "l80": "1 in",
+          "l100": "1 in"
+        },
+        {
+          "btuh": "150,000 BTU/h (150 CFH)",
+          "l10": "1/2 in",
+          "l20": "3/4 in",
+          "l30": "3/4 in",
+          "l40": "3/4 in",
+          "l60": "1 in",
+          "l80": "1 in",
+          "l100": "1 in"
+        },
+        {
+          "btuh": "180,000 BTU/h (180 CFH)",
+          "l10": "3/4 in",
+          "l20": "3/4 in",
+          "l30": "3/4 in",
+          "l40": "1 in",
+          "l60": "1 in",
+          "l80": "1 in",
+          "l100": "1 in"
+        },
+        {
+          "btuh": "199,000 BTU/h (199 CFH)",
+          "l10": "3/4 in",
+          "l20": "3/4 in",
+          "l30": "3/4 in",
+          "l40": "1 in",
+          "l60": "1 in",
+          "l80": "1 in",
+          "l100": "1-1/4 in"
+        }
+      ],
+      "source": "Looked up in 2021 International Fuel Gas Code Table 402.4(2) (Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity) with formulas.gasPipeSize; CFH = BTU/h ÷ 1,000 (Rinnai). Lengths include fittings as equivalent length. For discussion with your installer, not a design.",
+      "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "size30": {
+      "caption": "Smallest steel pipe at a 3.0 in. w.c. pressure drop (Table 402.4(3), 2021 International Fuel Gas Code), only where the supply is 8 in. w.c. or more",
+      "columns": [
+        {
+          "key": "btuh",
+          "label": "Tankless input"
+        },
+        {
+          "key": "l10",
+          "label": "10 ft"
+        },
+        {
+          "key": "l20",
+          "label": "20 ft"
+        },
+        {
+          "key": "l30",
+          "label": "30 ft"
+        },
+        {
+          "key": "l40",
+          "label": "40 ft"
+        },
+        {
+          "key": "l60",
+          "label": "60 ft"
+        },
+        {
+          "key": "l80",
+          "label": "80 ft"
+        },
+        {
+          "key": "l100",
+          "label": "100 ft"
+        }
+      ],
+      "rows": [
+        {
+          "btuh": "120,000 BTU/h (120 CFH)",
+          "l10": "1/2 in",
+          "l20": "1/2 in",
+          "l30": "1/2 in",
+          "l40": "1/2 in",
+          "l60": "1/2 in",
+          "l80": "1/2 in",
+          "l100": "1/2 in"
+        },
+        {
+          "btuh": "150,000 BTU/h (150 CFH)",
+          "l10": "1/2 in",
+          "l20": "1/2 in",
+          "l30": "1/2 in",
+          "l40": "1/2 in",
+          "l60": "1/2 in",
+          "l80": "3/4 in",
+          "l100": "3/4 in"
+        },
+        {
+          "btuh": "180,000 BTU/h (180 CFH)",
+          "l10": "1/2 in",
+          "l20": "1/2 in",
+          "l30": "1/2 in",
+          "l40": "1/2 in",
+          "l60": "3/4 in",
+          "l80": "3/4 in",
+          "l100": "3/4 in"
+        },
+        {
+          "btuh": "199,000 BTU/h (199 CFH)",
+          "l10": "1/2 in",
+          "l20": "1/2 in",
+          "l30": "1/2 in",
+          "l40": "1/2 in",
+          "l60": "3/4 in",
+          "l80": "3/4 in",
+          "l100": "3/4 in"
+        }
+      ],
+      "source": "Looked up in 2021 International Fuel Gas Code Table 402.4(3) (Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity; intended use: initial supply pressure of 8.0 in. w.c. or greater) with formulas.gasPipeSize; CFH = BTU/h ÷ 1,000 (Rinnai). For discussion with your installer, not a design.",
+      "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "code05": {
+      "caption": "What Table 402.4(2) says: capacity of Schedule 40 steel pipe, natural gas, 0.5 in. w.c. drop (excerpt)",
+      "columns": [
+        {
+          "key": "len",
+          "label": "Length (ft)"
+        },
+        {
+          "key": "s0",
+          "label": "1/2 in",
+          "unit": "CFH",
+          "num": true
+        },
+        {
+          "key": "s1",
+          "label": "3/4 in",
+          "unit": "CFH",
+          "num": true
+        },
+        {
+          "key": "s2",
+          "label": "1 in",
+          "unit": "CFH",
+          "num": true
+        },
+        {
+          "key": "s3",
+          "label": "1-1/4 in",
+          "unit": "CFH",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "len": "10",
+          "s0": "172",
+          "s1": "360",
+          "s2": "678",
+          "s3": "1,390"
+        },
+        {
+          "len": "20",
+          "s0": "118",
+          "s1": "247",
+          "s2": "466",
+          "s3": "957"
+        },
+        {
+          "len": "30",
+          "s0": "95",
+          "s1": "199",
+          "s2": "374",
+          "s3": "768"
+        },
+        {
+          "len": "40",
+          "s0": "81",
+          "s1": "170",
+          "s2": "320",
+          "s3": "657"
+        },
+        {
+          "len": "50",
+          "s0": "72",
+          "s1": "151",
+          "s2": "284",
+          "s3": "583"
+        },
+        {
+          "len": "60",
+          "s0": "65",
+          "s1": "137",
+          "s2": "257",
+          "s3": "528"
+        },
+        {
+          "len": "70",
+          "s0": "60",
+          "s1": "126",
+          "s2": "237",
+          "s3": "486"
+        },
+        {
+          "len": "80",
+          "s0": "56",
+          "s1": "117",
+          "s2": "220",
+          "s3": "452"
+        },
+        {
+          "len": "90",
+          "s0": "52",
+          "s1": "110",
+          "s2": "207",
+          "s3": "424"
+        },
+        {
+          "len": "100",
+          "s0": "50",
+          "s1": "104",
+          "s2": "195",
+          "s3": "400"
+        }
+      ],
+      "source": "2021 International Fuel Gas Code, Table 402.4(2), rows for 10 to 100 ft and four sizes only. Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity. Entries rounded to three significant digits by the code.",
+      "sourceUrl": "https://codes.iccsafe.org/content/IFGC2021P1/chapter-4-gas-piping-installations",
+      "sourceDate": "2026-11-13"
+    },
+    "code30": {
+      "caption": "What Table 402.4(3) says: the same pipe at a 3.0 in. w.c. drop (excerpt)",
+      "columns": [
+        {
+          "key": "len",
+          "label": "Length (ft)"
+        },
+        {
+          "key": "s0",
+          "label": "1/2 in",
+          "unit": "CFH",
+          "num": true
+        },
+        {
+          "key": "s1",
+          "label": "3/4 in",
+          "unit": "CFH",
+          "num": true
+        },
+        {
+          "key": "s2",
+          "label": "1 in",
+          "unit": "CFH",
+          "num": true
+        },
+        {
+          "key": "s3",
+          "label": "1-1/4 in",
+          "unit": "CFH",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "len": "10",
+          "s0": "454",
+          "s1": "949",
+          "s2": "1,790",
+          "s3": "3,670"
+        },
+        {
+          "len": "20",
+          "s0": "312",
+          "s1": "652",
+          "s2": "1,230",
+          "s3": "2,520"
+        },
+        {
+          "len": "30",
+          "s0": "250",
+          "s1": "524",
+          "s2": "986",
+          "s3": "2,030"
+        },
+        {
+          "len": "40",
+          "s0": "214",
+          "s1": "448",
+          "s2": "844",
+          "s3": "1,730"
+        },
+        {
+          "len": "50",
+          "s0": "190",
+          "s1": "397",
+          "s2": "748",
+          "s3": "1,540"
+        },
+        {
+          "len": "60",
+          "s0": "172",
+          "s1": "360",
+          "s2": "678",
+          "s3": "1,390"
+        },
+        {
+          "len": "70",
+          "s0": "158",
+          "s1": "331",
+          "s2": "624",
+          "s3": "1,280"
+        },
+        {
+          "len": "80",
+          "s0": "147",
+          "s1": "308",
+          "s2": "580",
+          "s3": "1,190"
+        },
+        {
+          "len": "90",
+          "s0": "138",
+          "s1": "289",
+          "s2": "544",
+          "s3": "1,120"
+        },
+        {
+          "len": "100",
+          "s0": "131",
+          "s1": "273",
+          "s2": "514",
+          "s3": "1,060"
+        }
+      ],
+      "source": "2021 International Fuel Gas Code, Table 402.4(3), rows for 10 to 100 ft and four sizes only. Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity; intended use: initial supply pressure of 8.0 in. w.c. or greater.",
+      "sourceUrl": "https://codes.iccsafe.org/content/IFGC2021P1/chapter-4-gas-piping-installations",
+      "sourceDate": "2026-11-13"
+    },
+    "rinnai": {
+      "caption": "Cross-check: our lookup in Table 402.4(3) vs Rinnai's published maximum lengths (natural gas)",
+      "columns": [
+        {
+          "key": "model",
+          "label": "Rinnai model"
+        },
+        {
+          "key": "btuh",
+          "label": "Input",
+          "unit": "BTU/h",
+          "num": true
+        },
+        {
+          "key": "rh",
+          "label": "Rinnai, 1/2 in",
+          "unit": "ft",
+          "num": true
+        },
+        {
+          "key": "oh",
+          "label": "Our lookup, 1/2 in",
+          "unit": "ft",
+          "num": true
+        },
+        {
+          "key": "rq",
+          "label": "Rinnai, 3/4 in",
+          "unit": "ft",
+          "num": true
+        },
+        {
+          "key": "oq",
+          "label": "Our lookup, 3/4 in",
+          "unit": "ft",
+          "num": true
+        },
+        {
+          "key": "same",
+          "label": "Same?"
+        }
+      ],
+      "rows": [
+        {
+          "model": "V53e",
+          "btuh": "120,000",
+          "rh": "100",
+          "oh": "100",
+          "rq": "450",
+          "oq": "450",
+          "same": "Yes"
+        },
+        {
+          "model": "V65i",
+          "btuh": "150,000",
+          "rh": "70",
+          "oh": "70",
+          "rq": "300",
+          "oq": "300",
+          "same": "Yes"
+        },
+        {
+          "model": "RUC80i",
+          "btuh": "152,000",
+          "rh": "70",
+          "oh": "70",
+          "rq": "166",
+          "oq": "250",
+          "same": "No, see note"
+        },
+        {
+          "model": "RL75i",
+          "btuh": "180,000",
+          "rh": "50",
+          "oh": "50",
+          "rq": "200",
+          "oq": "200",
+          "same": "Yes"
+        },
+        {
+          "model": "RLX94i",
+          "btuh": "192,000",
+          "rh": "40",
+          "oh": "40",
+          "rq": "175",
+          "oq": "175",
+          "same": "Yes"
+        },
+        {
+          "model": "RUC98i",
+          "btuh": "199,000",
+          "rh": "40",
+          "oh": "40",
+          "rq": "175",
+          "oq": "175",
+          "same": "Yes"
+        },
+        {
+          "model": "RU199i",
+          "btuh": "199,000",
+          "rh": "50",
+          "oh": "40",
+          "rq": "175",
+          "oq": "175",
+          "same": "No, see note"
+        }
+      ],
+      "source": "Rinnai professional FAQ, Table 1 (natural gas, 8.0 in. w.c. or greater supply, 3.0 in. w.c. drop, 1,000 BTU per cubic foot), checked 2026-11-13; our figure = longest row of Table 402.4(3) that still carries the unit's CFH (formulas.gasMaxLengthFt).",
+      "sourceUrl": "https://www.rinnai.us/professional/faq",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

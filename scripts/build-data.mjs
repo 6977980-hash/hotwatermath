@@ -1754,6 +1754,106 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	}
 }
 
+/* ---------- Phase 6d batch 2: gas line size, tankless electrical requirements ---------- */
+{
+	const sf = d.safety;
+	const g = sf.gasLine;
+	const t05 = g.tables.drop05;
+	const t30 = g.tables.drop30;
+	const meth = 'https://hotwatermath.com/methodology/#safety-pages';
+	const cfh = (b) => F.gasCfh(b, g.btuPerCf);
+	const lookup = (t) => g.inputsBtuh.map((b) => {
+		const row = { btuh: `${fmt(b)} BTU/h (${fmt(cfh(b))} CFH)` };
+		for (const L of g.exampleLengthsFt) row[`l${L}`] = F.gasPipeSize(cfh(b), L, t.rows, g.sizes).size ? `${F.gasPipeSize(cfh(b), L, t.rows, g.sizes).size} in` : `over ${g.sizes[g.sizes.length - 1]} in`;
+		return row;
+	});
+	const lookupCols = [{ key: 'btuh', label: 'Tankless input' }, ...g.exampleLengthsFt.map((L) => ({ key: `l${L}`, label: `${L} ft` }))];
+	const codeRows = (t, maxFt) => t.rows.filter((r) => r.lengthFt <= maxFt).map((r) => ({ len: fmt(r.lengthFt), ...Object.fromEntries(g.sizes.map((s, i) => [`s${i}`, fmt(r.cfh[i])])) }));
+	const codeCols = [{ key: 'len', label: 'Length (ft)' }, ...g.sizes.map((s, i) => ({ key: `s${i}`, label: `${s} in`, unit: 'CFH', num: true }))];
+	const rin = g.rinnaiMaxFt.map((m) => {
+		const c = cfh(m.btuh);
+		const half = F.gasMaxLengthFt(c, t30.rows, 0);
+		const tq = F.gasMaxLengthFt(c, t30.rows, 1);
+		return { m, c, half, tq, ok: half === m.half && tq === m.threeQuarter };
+	});
+	const ex = g.example;
+	const exTotal = ex.tankless + ex.furnace + ex.range + ex.dryer + ex.logs;
+	const exTank = exTotal - ex.tankless + g.tankBtuh;
+	const c199 = cfh(199000);
+	const half199at40 = F.gasPipeSize(c199, 40, t30.rows, g.sizes);
+	const s05at40 = F.gasPipeSize(c199, 40, t05.rows, g.sizes);
+	const s05at20 = F.gasPipeSize(c199, 20, t05.rows, g.sizes);
+	const matches = rin.filter((x) => x.half === x.m.half).length + rin.filter((x) => x.tq === x.m.threeQuarter).length;
+	out['gas-line-size-for-tankless-water-heater'] = {
+		meta: { ...derived('data/safety.json (IFGC 2021 Tables 402.4(2) and 402.4(3) rows, Rinnai and Rheem figures)'), notes: 'CFH = BTU/h ÷ 1,000 BTU per cubic foot (formulas.gasCfh, Rinnai\'s basis); pipe size = smallest size whose table capacity covers the CFH at the next longer table length (formulas.gasPipeSize); maximum length = longest table row a size still covers (formulas.gasMaxLengthFt). Schedule 40 steel pipe, natural gas, one appliance on its own run from the meter; fittings must be added as equivalent length.' },
+		figures: {
+			cfh199: fmt(c199), half199at40: half199at40.size, s05at40: s05at40.size, s05at20: s05at20.size,
+			exTotal: fmt(exTotal), exCfh: fmt(cfh(exTotal)), exRheemCfh: fmt(ex.rheemCfh), exTank: fmt(exTank), exTankCfh: fmt(cfh(exTank)), meter: fmt(g.meterTypicalCfh),
+			exTankless: fmt(ex.tankless), exFurnace: fmt(ex.furnace), exRange: fmt(ex.range), exDryer: fmt(ex.dryer), exLogs: fmt(ex.logs), tankBtuh: fmt(g.tankBtuh),
+			rinnaiMatches: matches, rinnaiChecks: rin.length * 2,
+			cfhLow: fmt(cfh(g.inputsBtuh[0])),
+			big: fmt(g.inputsBtuh[g.inputsBtuh.length - 1]), low: fmt(g.inputsBtuh[0]),
+			q05max: F.gasMaxLengthFt(c199, t05.rows, 1), h30max: F.gasMaxLengthFt(c199, t30.rows, 0), q30max: F.gasMaxLengthFt(c199, t30.rows, 1),
+			ruc80Rq: rin.find((x) => x.m.model === 'RUC80i').m.threeQuarter, ruc80Oq: rin.find((x) => x.m.model === 'RUC80i').tq,
+			ru199Rh: rin.find((x) => x.m.model === 'RU199i').m.half, ru199Oh: rin.find((x) => x.m.model === 'RU199i').half,
+			q05cap10Btuh: fmt(t05.rows[0].cfh[1] * g.btuPerCf), q05cap100Btuh: fmt(t05.rows.find((r) => r.lengthFt === 100).cfh[1] * g.btuPerCf),
+			q05cap10: fmt(t05.rows[0].cfh[1]), q05cap100: fmt(t05.rows.find((r) => r.lengthFt === 100).cfh[1]),
+		},
+		tables: {
+			size05: table(`Smallest steel pipe at a 0.5 in. w.c. pressure drop (${t05.table}, ${g.edition}), one tankless unit on its own run`, lookupCols, lookup(t05), { source: `Looked up in ${g.edition} ${t05.table} (${t05.note}) with formulas.gasPipeSize; CFH = BTU/h ÷ ${fmt(g.btuPerCf)} (Rinnai). Lengths include fittings as equivalent length. For discussion with your installer, not a design.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			size30: table(`Smallest steel pipe at a 3.0 in. w.c. pressure drop (${t30.table}, ${g.edition}), only where the supply is ${g.drop30MinSupplyInWc} in. w.c. or more`, lookupCols, lookup(t30), { source: `Looked up in ${g.edition} ${t30.table} (${t30.note}) with formulas.gasPipeSize; CFH = BTU/h ÷ ${fmt(g.btuPerCf)} (Rinnai). For discussion with your installer, not a design.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			code05: table(`What ${t05.table} says: capacity of Schedule 40 steel pipe, natural gas, 0.5 in. w.c. drop (excerpt)`, codeCols, codeRows(t05, 100), { source: `${g.edition}, ${t05.table}, rows for 10 to 100 ft and four sizes only. ${t05.note}. Entries rounded to three significant digits by the code.`, sourceUrl: sf.references['ifgc-2021-ch4'].sourceUrl, sourceDate: sf.references['ifgc-2021-ch4'].checked }),
+			code30: table(`What ${t30.table} says: the same pipe at a 3.0 in. w.c. drop (excerpt)`, codeCols, codeRows(t30, 100), { source: `${g.edition}, ${t30.table}, rows for 10 to 100 ft and four sizes only. ${t30.note}.`, sourceUrl: sf.references['ifgc-2021-ch4'].sourceUrl, sourceDate: sf.references['ifgc-2021-ch4'].checked }),
+			rinnai: table(`Cross-check: our lookup in ${t30.table} vs Rinnai's published maximum lengths (natural gas)`, [{ key: 'model', label: 'Rinnai model' }, { key: 'btuh', label: 'Input', unit: 'BTU/h', num: true }, { key: 'rh', label: 'Rinnai, 1/2 in', unit: 'ft', num: true }, { key: 'oh', label: 'Our lookup, 1/2 in', unit: 'ft', num: true }, { key: 'rq', label: 'Rinnai, 3/4 in', unit: 'ft', num: true }, { key: 'oq', label: 'Our lookup, 3/4 in', unit: 'ft', num: true }, { key: 'same', label: 'Same?' }], rin.map((x) => ({ model: x.m.model, btuh: fmt(x.m.btuh), rh: fmt(x.m.half), oh: fmt(x.half), rq: fmt(x.m.threeQuarter), oq: fmt(x.tq), same: x.ok ? 'Yes' : 'No, see note' })), { source: `Rinnai professional FAQ, Table 1 (natural gas, 8.0 in. w.c. or greater supply, 3.0 in. w.c. drop, 1,000 BTU per cubic foot), checked ${sf.references['rinnai-faq'].checked}; our figure = longest row of ${t30.table} that still carries the unit's CFH (formulas.gasMaxLengthFt).`, sourceUrl: sf.references['rinnai-faq'].sourceUrl, sourceDate: sf.references['rinnai-faq'].checked }),
+		},
+	};
+	// Guard: the cross-check must keep matching where we say it does (all but the two rows explained on the page).
+	{
+		const bad = rin.filter((x) => !x.ok).map((x) => x.m.model).sort().join(',');
+		if (bad !== 'RU199i,RUC80i') throw new Error(`Rinnai cross-check changed: mismatches now ${bad || 'none'}; update the gas line page text.`);
+	}
+
+	const e = sf.electrical;
+	const std = e.standardBreakersA.map((a) => ({ a }));
+	const units = e.units.map((u) => {
+		const total = F.electricAmps(u.kw, 240);
+		const per = total / u.circuits;
+		return { ...u, total, per, pct: Math.round((u.breakerA / per) * 100), at125: F.smallestAtLeast(per * e.storageRulePct / 100, std, 'a')?.a ?? null };
+	});
+	const tempra24 = units.find((u) => u.model === 'Tempra 24');
+	const retex18 = units.find((u) => u.model === 'RETEX-18');
+	const v = units.filter((u) => u.kw208);
+	const lowPct = Math.round((F.powerAtVoltage(1, 240, e.lowVolts)) * 100);
+	out['tankless-water-heater-electrical-requirements'] = {
+		meta: { ...derived('data/safety.json (Stiebel Eltron and Rheem published requirements, IRC 2021 ampacity rows)'), notes: 'Amps = kW × 1,000 ÷ 240 V (formulas.electricAmps); per circuit = amps ÷ number of circuits; breaker as % of draw = breaker ÷ amps per circuit; "125% would give" = the next standard breaker size (IRC Table E3705.6) at or above 125% of the amps per circuit, shown only to explain why manufacturer tables differ from the storage-tank rule; power on 208 V = kW × (208 ÷ 240)² (formulas.powerAtVoltage).' },
+		figures: {
+			t24Amps: fmt(tempra24.total), t24Per: fmt(tempra24.per), t24Breaker: tempra24.breakerA, t24Circuits: tempra24.circuits, t24At125: tempra24.at125,
+			r18Amps: fmt(retex18.total), r18Per: fmt(retex18.per, 1), r18Breaker: retex18.breakerA, r18Pct: retex18.pct,
+			lowPct, lowLossPct: 100 - lowPct, t24kw208: fmt(F.powerAtVoltage(24, 240, e.lowVolts), 1),
+			t24kw: fmt(tempra24.kw), t24Watts: fmt(tempra24.kw * 1000), r18kw: fmt(retex18.kw), r18Circuits: retex18.circuits, maxKw: fmt(Math.max(...units.map((u) => u.kw))),
+			maxAmps: fmt(Math.max(...units.map((u) => u.total))), minPct: Math.min(...units.map((u) => u.pct)), maxPct: Math.max(...units.map((u) => u.pct)),
+		},
+		tables: {
+			units: table('What two manufacturers specify for their electric tankless units (240 V)', [{ key: 'model', label: 'Model' }, { key: 'kw', label: 'Power', unit: 'kW', num: true }, { key: 'amps', label: 'Total draw', unit: 'A', num: true }, { key: 'breakers', label: 'Breakers (double-pole)' }, { key: 'per', label: 'Draw per circuit', unit: 'A', num: true }, { key: 'pct', label: 'Breaker vs draw', num: true }, { key: 'wire', label: 'Copper wire per circuit' }, { key: 'service', label: 'Main service (maker)' }], units.map((u) => ({ model: `${u.maker} ${u.model}`, kw: fmt(u.kw, 1), amps: fmt(u.total, 1), breakers: `${u.circuits} × ${u.breakerA} A`, per: fmt(u.per, 1), pct: `${u.pct}%`, wire: u.wire, service: u.serviceA ? `${u.serviceA} A minimum` : 'Not stated' })), { source: `Breakers, wire and service minimums as published by Stiebel Eltron (Tempra Trend/Plus specifications, rev. 6.2025) and Rheem (form THD-PTE Rev. 2), checked ${sf.references['stiebel-tempra'].checked}. Draw = kW × 1,000 ÷ 240 V (formulas.electricAmps); draw per circuit assumes the load is split evenly. Not a wiring design: the installation manual of your unit and your local code decide.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			ampacity: table(`Copper wire ampacity in the code (${e.edition}, Table E3705.1, excerpt)`, [{ key: 'awg', label: 'Copper wire' }, { key: 'c60', label: '60 °C column (NM cable)', unit: 'A', num: true }, { key: 'c75', label: '75 °C column', unit: 'A', num: true }, { key: 'c90', label: '90 °C column', unit: 'A', num: true }], e.ampacity.map((r) => ({ awg: `${r.awg} AWG`, c60: fmt(r.c60), c75: fmt(r.c75), c90: fmt(r.c90) })), { source: `${e.edition}, Table E3705.1 [NEC 310.16], copper rows 10 to 4 AWG only. NM cable is held to the 60 °C column (E3705.4.4 [334.80]); terminations on circuits of 100 A or less use 60 °C unless the equipment is marked otherwise (E3705.4.1 [110.14(C)]). Ambient temperature and bundling corrections also apply.`, sourceUrl: sf.references['irc-2021-electrical'].sourceUrl, sourceDate: sf.references['irc-2021-electrical'].checked }),
+			v208: table('The same unit on 208 V instead of 240 V', [{ key: 'model', label: 'Model' }, { key: 'kw', label: 'At 240 V', unit: 'kW', num: true }, { key: 'calc', label: 'Ohm\'s law at 208 V', unit: 'kW', num: true }, { key: 'maker', label: 'Maker lists at 208 V', unit: 'kW', num: true }], v.map((u) => ({ model: `${u.maker} ${u.model}`, kw: fmt(u.kw, 1), calc: fmt(F.powerAtVoltage(u.kw, 240, e.lowVolts), 1), maker: fmt(u.kw208, 1) })), { source: `kW × (208 ÷ 240)², formulas.powerAtVoltage; maker figures from the Stiebel Eltron Tempra specifications. Rheem: 240 V units on 208 V give "25% reduced temperature output".`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+		},
+		tanklessDefault: (() => {
+			const tk = out['tankless-water-heater-size-calculator'];
+			const di = tk.defaultInputs;
+			const r = describeTankless({ state: '', inlet: di.inletF, setpoint: di.setpointF, fuel: 'electric', efficiency: di.efficiency, lowflow: false, ...Object.fromEntries(FIXTURE_KEYS.map((k) => [k, di.counts[k] || 0])) }, tk.client);
+			return { status: r.status, statusLabel: r.statusLabel, headline: r.headline, explain: r.explain, formula: r.formula, sources: tk.default.sources };
+		})(),
+	};
+	// Guards: page text quotes these.
+	if (F.powerAtVoltage(24, 240, 208).toFixed(1) !== '18.0') throw new Error('208 V check changed; update the electrical page.');
+	for (const slug of ['gas-line-size-for-tankless-water-heater', 'tankless-water-heater-electrical-requirements']) {
+		const pg = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages.find((x) => x.slug === slug);
+		const want = slug.startsWith('gas') ? [`${fmt(c199)} CFH`] : [`${fmt(tempra24.total)} amps`];
+		for (const w of want) if (pg && pg.status !== 'planned' && !String(pg.description).includes(w)) throw new Error(`pages.json description for ${slug} must contain "${w}"; update it.`);
+	}
+}
+
 /* ---------- write + manifest ---------- */
 for (const [name, obj] of Object.entries(out)) {
 	writeFileSync(join(outDir, `${name}.json`), JSON.stringify(obj, null, 2) + '\n');

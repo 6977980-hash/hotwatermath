@@ -417,18 +417,58 @@
     {
       "slug": "gas-line-size-for-tankless-water-heater",
       "type": "article",
-      "status": "planned",
+      "status": "draft",
       "phase": "6d",
+      "group": "Costs & Sizing",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
       "title": "Gas Line Size for a Tankless Water Heater",
-      "summary": "What the fuel gas code tables say about pipe size for a tankless water heater, for discussion with your installer."
+      "summary": "What the fuel gas code tables say about pipe size for a tankless water heater, for discussion with your installer.",
+      "metaTitle": "Gas Line Size for Tankless Water Heater | Hot Water Math",
+      "description": "Gas line size for a tankless water heater: a 199,000 BTU unit burns 199 CFH, so 3/4 or 1 inch pipe is common. Code table rows, the 1/2 inch case, meters.",
+      "h1": "Gas line size for a tankless water heater",
+      "subtitle": "What the fuel gas code tables say for your unit and pipe length, to discuss with your installer.",
+      "quickAnswer": "Most whole-house gas tankless units need 3/4-inch pipe, or 1 inch on long runs, because a 199,000 BTU/h unit burns about 199 cubic feet of gas an hour. Half-inch pipe works only on short runs with higher supply pressure.",
+      "scripts": [
+        "tankless-size"
+      ],
+      "keywords": [
+        "gas line size for tankless water heater",
+        "what size gas line for tankless water heater",
+        "1/2 inch gas line tankless water heater",
+        "3/4 inch gas line tankless",
+        "gas pipe sizing chart tankless",
+        "tankless water heater gas meter size",
+        "propane tankless water heater gas line"
+      ]
     },
     {
       "slug": "tankless-water-heater-electrical-requirements",
       "type": "article",
-      "status": "planned",
+      "status": "draft",
       "phase": "6d",
+      "group": "Costs & Sizing",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
       "title": "Tankless Water Heater Electrical Requirements",
-      "summary": "Breakers, wire and service capacity for electric tankless units, from manufacturer manuals and the electrical code."
+      "summary": "Breakers, wire and service capacity for electric tankless units, from manufacturer manuals and the electrical code.",
+      "metaTitle": "Tankless Water Heater Breaker and Wire Size | Hot Water Math",
+      "description": "Tankless water heater electrical requirements: a 24 kW unit draws 100 amps on 2 or 3 breakers. Maker breaker and wire tables, the 125% rule and 208 V.",
+      "h1": "Tankless water heater electrical requirements: breakers, wire and service",
+      "subtitle": "What two manufacturers specify, what the electrical code says, and what to ask your electrician.",
+      "quickAnswer": "A whole-house electric tankless unit draws about 50 to 150 amps at 240 volts on one to four double-pole breakers, and its maker may ask for a 100 to 300 amp service. The unit’s manual sets breaker and wire size.",
+      "scripts": [
+        "tankless-size"
+      ],
+      "keywords": [
+        "tankless water heater electrical requirements",
+        "tankless water heater breaker size",
+        "tankless water heater wire size",
+        "electric tankless water heater amp draw",
+        "200 amp service for tankless water heater",
+        "tankless water heater on 208 volts",
+        "gas tankless water heater outlet"
+      ]
     },
     {
       "slug": "bradford-white-water-heater-age",
@@ -952,6 +992,35 @@
         "upper vs lower water heater element",
         "water heater element replacement cost",
         "4500 watt water heater element"
+      ]
+    },
+    {
+      "slug": "water-heater-pilot-light-wont-stay-lit",
+      "type": "article",
+      "status": "draft",
+      "phase": "6d",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Pilot Light Won’t Stay Lit",
+      "problemLabel": "Pilot light won’t stay lit",
+      "summary": "Why a gas water heater pilot goes out, what the status light means, and which fixes the manuals leave to a technician.",
+      "metaTitle": "Water Heater Pilot Light Won’t Stay Lit | Hot Water Math",
+      "description": "Water heater pilot light won’t stay lit? The causes in the makers’ manuals, what each status light flash means, the 10-minute rule and part prices from $8.",
+      "h1": "Water heater pilot light won’t stay lit: causes and what to do",
+      "subtitle": "Why the pilot goes out, what the status light is telling you, and which fixes are a technician’s job.",
+      "quickAnswer": "Usually the thermocouple or thermopile can’t hold the gas valve open, or drafts, low gas pressure or too little air put the flame out. Relight only by the label on your heater; if it keeps going out, call a technician.",
+      "scripts": [
+        "repair-replace"
+      ],
+      "keywords": [
+        "water heater pilot light won’t stay lit",
+        "water heater pilot light keeps going out",
+        "water heater thermocouple",
+        "water heater thermopile",
+        "water heater status light blinking",
+        "how to relight a water heater pilot light",
+        "flammable vapor sensor lockout"
       ]
     },
     {

@@ -1,9 +1,9 @@
 {
   "meta": {
-    "source": "A. O. Smith Residential Gas Water Heater Use & Care Guide (100400765) and Residential Electronic Thermostat Electric Water Heater Use & Care Guide (2000598248); U.S. CPSC Publication 5098; CDC Legionella control guidance; DOE FEMP; Watts relief valve warning tag and Series 100XL specification sheet; The Home Depot listing prices",
+    "source": "A. O. Smith Residential Gas Water Heater Use & Care Guide (100400765) and Residential Electronic Thermostat Electric Water Heater Use & Care Guide (2000598248); U.S. CPSC Publication 5098; CDC Legionella control guidance; DOE FEMP; Watts relief valve warning tag and Series 100XL specification sheet; The Home Depot listing prices; ICC 2021 IFGC Chapter 4 and 2021 IRC Part VIII (restating the NEC); Rheem gas piping brochure, GG Series manual and RETEX spec sheet; Rinnai TB-111 and professional FAQ; Stiebel Eltron Tempra specifications; A. O. Smith Signature 100 manual and pilot light guide",
     "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
     "sourceDate": "2026-11-13",
-    "notes": "Facts used by the Phase 6d safety pages: water heater temperature setting, the temperature and pressure (T&P) relief valve, and heating element replacement. Every figure is quoted from the reference named in its record; every reference was opened on its 'checked' date and the quoted text was read in the document itself. Parts prices are retailer listing prices on that date and change often. Nothing here is our own measurement or advice of our own."
+    "notes": "Facts used by the Phase 6d safety pages: water heater temperature setting, the temperature and pressure (T&P) relief valve, heating element replacement, gas line size for a tankless water heater, tankless electrical requirements and a pilot light that will not stay lit. Code text (IFGC, IRC) is copyrighted: only the rows and sentences a page needs are quoted, with section or table number and edition. Every figure is quoted from the reference named in its record; every reference was opened on its 'checked' date and the quoted text was read in the document itself. Parts prices are retailer listing prices on that date and change often. Nothing here is our own measurement or advice of our own."
   },
   "references": {
     "aos-gas-manual": {
@@ -177,6 +177,193 @@
         "Rheem PROTECH 240-Volt, 4500-Watt Stainless Steel Heating Element: $34.49",
         "Westinghouse 240-Volt 4500-Watt Titanium Electric Water Heating Element for Universal Replacement: $59.99",
         "Everbilt 4500-Watt/240-Volt Electric Water Heater Tune-Up Kit EBSE-4500KIT: $34.98"
+      ]
+    },
+    "ifgc-2021-ch4": {
+      "publisher": "International Code Council",
+      "title": "2021 International Fuel Gas Code, Chapter 4 Gas Piping Installations (Sections 401-402, Tables 402.4(2) and 402.4(3))",
+      "sourceUrl": "https://codes.iccsafe.org/content/IFGC2021P1/chapter-4-gas-piping-installations",
+      "checked": "2026-11-13",
+      "note": "Read in the ICC Digital Codes free view. The site answers scripts with 403, so the automatic link check cannot confirm it. Only the rows the gas line page needs are quoted here, with table number and edition.",
+      "quotes": [
+        "401.4 Additional appliances. Where an additional appliance is to be served, the existing piping shall be checked to determine if it has adequate capacity for all appliances served. If inadequate, the existing system shall be enlarged as required or separate piping of adequate capacity shall be provided.",
+        "402.1 General considerations. Piping systems shall be of such size and so installed as to provide a supply of gas sufficient to meet the maximum demand and supply gas to each appliance inlet at not less than the minimum supply pressure required by the appliance.",
+        "402.2 Maximum gas demand. The volumetric flow rate of gas to be provided shall be the sum of the maximum input of the appliances served. The total connected hourly load shall be used as the basis for pipe sizing, assuming that all appliances could be operating at full capacity simultaneously. ... The volumetric flow rate of gas to be provided shall be adjusted for altitude where the installation is above 2,000 feet (610 m) in elevation.",
+        "402.3 Sizing. Gas piping shall be sized in accordance with one of the following: 1. Pipe sizing tables or sizing equations in accordance with Section 402.4 or 402.5 as applicable. 2. The sizing tables included in a listed piping system’s manufacturer’s installation instructions. 3. Engineering methods.",
+        "TABLE 402.4(2) SCHEDULE 40 METALLIC PIPE. Gas: Natural. Inlet Pressure: Less than 2 psi. Pressure Drop: 0.5 in. w.c. Specific Gravity: 0.60. Capacity in Cubic Feet of Gas Per Hour.",
+        "TABLE 402.4(3) SCHEDULE 40 METALLIC PIPE. Gas: Natural. Inlet Pressure: Less than 2 psi. Pressure Drop: 3.0 in. w.c. Specific Gravity: 0.60. INTENDED USE: INITIAL SUPPLY PRESSURE OF 8.0-INCH W.C. OR GREATER.",
+        "Table entries have been rounded to three significant digits."
+      ]
+    },
+    "rheem-gas-piping": {
+      "publisher": "Rheem Manufacturing",
+      "title": "Gas Piping Information for Tankless Water Heaters (2018)",
+      "sourceUrl": "https://images.kleen-ritecorp.com/Documents/Manuals/Rheem/RH1000-P/Gas%20Line%20Information%202018.pdf",
+      "checked": "2026-11-13",
+      "note": "Rheem brochure hosted by a distributor (Kleen-Rite). Rheem says its information comes from NFPA 54 / ANSI Z223.1 (2012) and covers low-pressure natural gas in rigid iron pipe.",
+      "quotes": [
+        "most tankless water heaters have a BTU capacity ranging from 140,000 to 200,000 or more, which makes a tankless water heater one of the largest single appliances on a typical gas system.",
+        "A typical residential gas system is a low-pressure system, meaning that the home is supplied with a gas pressure around 7 in. w.c. (inches of water column). The piping must be sized sufficiently enough so that the pressure drop is a half an inch of water column or less, when all the gas appliances are on.",
+        "In all cases, a near 200,000 BTU gas appliance will require a minimum of a ¾-inch gas supply line.",
+        "In the 2012 National Fuel Gas Code (NFPA54. ANSI Z223.1), a 3.0 in. w.c. pressure drop chart was added for certain conditions. This chart allows a 200,000 BTU gas appliance to be installed on a ½-inch gas line up to 40 ft. in length. However, the following conditions must be met: The minimum static gas pressure must be 8 in. w.c. or greater; The calculated dropped pressure (the static pressure minus the 3.0 in. pressure drop), must be greater than the highest minimum gas pressure required by any of the gas appliances on the system.",
+        "Each meter has a capacity in Cubic Feet per Hour (CFH). Locate that number regulator and multiply it by 1,024 (BTUH/CFH) to give you an approximate BTUH capacity for natural gas.",
+        "199,900 BTU Tankless, a 75,000 BTU Furnace, a 55,000 BTU Range, a 25,000 BTU Dryer, and a 40,000 BTU Gas Log Fireplace. The sum of these appliances is 394,900 BTU. ... Divide total BTU by 1,024 to get the estimated Cubic Feet per Hour (CFH) requirement for the meter and regulator; 386 CFH in our example.",
+        "If the water heater was a typical tank type at 40,000 BTU, then the overall system requirement would have been just 235,000 BTU with a meter and regulator rated at 235 Cubic Feet per Hour. A typical household meter and regulator is commonly rated at 250 Cubic Feet per Hour.",
+        "The local gas utility can provide more information on upgrading the meter and regulator for the home.",
+        "An undersized gas system can cause poor performance in the appliances. It could cause the burners to soot, pilots lights and burners to go out, or cause condensate to form in the heat exchanger of the furnace or water heater.",
+        "While a negative pressure gas valve in an appliance can operate at a very low gas pressure, it can have adverse effects on an undersized gas system. This style of appliance can actually rob the gas from other appliances, such as a furnace and possibly cause nuisance outages.",
+        "Each appliance is required to have a rating plate. This plate will list the BTU ratings of the appliance and required gas pressures for proper operation.",
+        "Items such as elbows, tees, and valves are not included in these sample calculations. Their equivalent pipe length should be included when sizing gas systems. It is recommend that a licensed gas tradesman size, design, and install the gas system."
+      ]
+    },
+    "rinnai-tb111": {
+      "publisher": "Rinnai America",
+      "title": "Technical Bulletin TB-111: 1/2-inch gas line piping information",
+      "sourceUrl": "https://media.rinnai.us/salsify_asset/s-f905168b-b0a9-4b7c-a205-bbb8071597bb/TB-111%20Half%20Inch%20Gas%20line.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Rinnai Tankless Water Heaters typically require a 3/4\" gas line to provide a sufficient gas supply to the unit’s burner. However, if there is sufficient pressure and the gas line is short enough, there are some cases where a 1/2\" gas line can be used, which is the most common size used in the United States and Canada.",
+        "The gas to be used has specific gravity of 0.60 and a heating value of 1000 Btu/ft3.",
+        "[H] Rinnai Tankless Water Heater: 152 CFH; 52’, round to 60’= 1/2\"",
+        "a Rinnai RUC80i tankless water heater with a capacity of 152,000 BTU would require a 1-inch gas pipe size, given that the distance from the meter is approximately 60 feet equivalent length and based on the conventional 0.3 in w.c. pressure drop (Table 2). Still, most important is the fact that said RU80i will require only a 1/2\" gas pipe size if based on the 3 in w.c. pressure drop (Table 4), all else being equal.",
+        "for simplicity other appurtenances such as elbows, tees, and valves were not included in these sample calculations, their respective equivalent pipe length must be included when sizing an actual gas piping system",
+        "Gas systems should be designed, installed, and inspected by a licensed professional (Plumber, gas fitter, engineer etc.)."
+      ]
+    },
+    "rinnai-faq": {
+      "publisher": "Rinnai America",
+      "title": "Professional FAQ: gas line sizing table and power supply",
+      "sourceUrl": "https://www.rinnai.us/professional/faq",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Rinnai Tankless Water Heaters are designed to provide maximum performance and efficiency using either a 3/4\" or 1/2\" gas line, as long as sufficient gas flow is available.",
+        "all Rinnai tankless water heaters are equipped with technology that safely ceases operation if they detect an inadequate gas flow.",
+        "Table 1: Intended for Natural Gas ... SCH 40 Metallic Pipe Size (Maximum Equivalent Length) 1/2 Inch 3/4 Inch: V53e 120,000 100' 450'; V65e, V65i 150,000 70' 300'; RUC80i, RU80i 152,000 70' 166'; RL75i, RL75e 180,000 50' 200'; RLX94i 192,000 40' 175'; RUC98i, RU98e 199,000 40' 175'; RU199i, RU199e, RUR199i, RUR199e 199,000 50' 175'",
+        "Rating is based on 1 Ci. Ft. Nat’l gas = 1,000 BTU INTENDED USE: Initial Supply Pressure: 8.0\" w.c. or greater; Inlet Pressure: <2 psi; Pressure Drop: 3.0\" w.c.; Specific Gravity: 0.60 Source: NFPA 54/ ANSI Z223.1 National Fuel Gas Code",
+        "Table 2: Intended for (Low-Pressure) Propane Gas ... V53e 120,000 50' 300'; RUC98i, RU98e 199,000 20' 80'",
+        "Rinnai Tankless Water Heaters require 120 volts AC, 60 Hz and less than three amps."
+      ]
+    },
+    "irc-2021-electrical": {
+      "publisher": "International Code Council",
+      "title": "2021 International Residential Code, Part VIII Electrical: Chapter 37 (E3702.10, Tables E3705.1 and E3705.6, E3705.4) and Chapter 41 (E4101.4.1), with the NEC sections they restate",
+      "sourceUrl": "https://codes.iccsafe.org/content/IRC2021P2/chapter-37-branch-circuit-and-feeder-requirements",
+      "checked": "2026-11-13",
+      "note": "Read in the ICC Digital Codes free view (Chapter 37 and Chapter 41, https://codes.iccsafe.org/content/IRC2021P2/chapter-41-appliance-installation). The site answers scripts with 403. NEC section numbers are the ones the IRC prints in brackets. The NEC itself (NFPA 70) did not load in NFPA LiNK.",
+      "quotes": [
+        "E3702.10 item 1: The branch circuit conductors and overcurrent protective device supplying fixed storage-type water heaters having a capacity of 120 gallons (450 L) or less shall be sized not less than 125 percent of the water heater rating. [422.13]",
+        "E4101.4.1 [422.11(E)]: overcurrent protection for a single non-motor-operated appliance shall not exceed the overcurrent protection rating marked on the appliance; where no rating is marked and the appliance is rated over 13.3 amperes, it shall not exceed 150 percent of the rated current (summary).",
+        "TABLE E3705.1 ALLOWABLE AMPACITIES, copper (60 °C TW, UF | 75 °C THW, THWN, XHHW | 90 °C THHN, THWN-2): 10 AWG 30 | 35 | 40; 8 AWG 40 | 50 | 55; 6 AWG 55 | 65 | 75; 4 AWG 70 | 85 | 95. [310.16]",
+        "E3705.4.1 [110.14(C)(1)(a)]: terminations for circuits rated 100 amperes or less, or for 14 through 1 AWG conductors, use the 60 °C ampacity unless the equipment is marked otherwise (summary).",
+        "E3705.4.4 [334.80]: the ampacity of Type NM cable shall not exceed that of 60 °C rated conductors (summary).",
+        "TABLE E3705.6 [240.6] standard overcurrent device ratings: 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200 amperes and up."
+      ]
+    },
+    "stiebel-tempra": {
+      "publisher": "Stiebel Eltron",
+      "title": "Tempra Trend / Plus technical specifications (rev. 6.2025)",
+      "sourceUrl": "https://www.stiebel-eltron-usa.com/sites/default/files/pdf/tech-specs-tempra-trend-plus.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Voltage 240 V or 208 V. Wattage 12 kW 9 kW; 14.4 kW 10.8 kW; 19.2 kW 14.4 kW; 24 kW 18 kW; 28.8 kW 21.6 kW; 36 kW 27 kW (240 V figure, then 208 V).",
+        "Amperage draw: 50 A 44 A; 2 x 30 A 2 x 26 A; 2 x 40 A 2 x 35 A; 2 x 50 A 2 x 44 A; 3 x 40 A 3 x 35 A; 3 x 50 A 3 x 44 A.",
+        "Number & min. recommended size of circuit breakers (DP): 1 x 50 A; 2 x 30 A; 2 x 40 A (2 x 35 A at 208 V); 2 x 50 A; 3 x 40 A (3 x 35 A at 208 V); 3 x 50 A.",
+        "Number of runs & min. recommended wire size (copper): 1 x 8/2 AWG; 2 x 10/2 AWG; 2 x 8/2 AWG; 2 x 8/2 AWG; 3 x 8/2 AWG; 3 x 8/2 AWG.",
+        "Depending on total electric load at the installation site, we recommend these minimums for main service: 100 A for Tempra 12 or 15 Trend/Plus; 125 A for Tempra 20 Trend/Plus; 150 A for Tempra 24 Trend/Plus; 200 A for Tempra 29 Trend/Plus; 300 A for Tempra 36 Trend/Plus",
+        "Overcurrent protection sized at 100% of load. Tankless water heaters are considered a non-continuous load.",
+        "Copper conductors with a temperature rating of 75 °C or greater must be used. Conductors should be sized to maintain a voltage drop of less than 3% under load.",
+        "These are our recommendations. Check local codes for compliance if necessary."
+      ]
+    },
+    "rheem-retex": {
+      "publisher": "Rheem Manufacturing",
+      "title": "Performance tankless electric water heaters, form THD-PTE Rev. 2 (12/20)",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/16/16165a91-f5a8-48e0-a0eb-797076638ebd.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "RETEX-08 7.3 kW 33A (1x40)A 240 8 AWG; RETEX-11 11.8 46A (1x50)A 240 6 AWG; RETEX-13 13.0 54A (1x60)A 240 6 AWG; RETEX-18 18.0 75A (2x40)A 240 8 AWG; RETEX-24 24.0 100A (3x40)A 240 8 AWG; RETEX-27 27.0 113A (3x40)A 240 8 AWG; RETEX-36 36.0 150A (4x40)A 240 8 AWG",
+        "240V units can be used on 208V single phase with 25% reduced temperature output. Please note per UL standards the rating plate and installation instructions will all be according to a 240V applied voltage. Check with local officials prior to derating the electrical infrastructure."
+      ]
+    },
+    "aos-pilot-guide": {
+      "publisher": "A. O. Smith",
+      "title": "How to relight a water heater’s pilot light",
+      "sourceUrl": "https://www.hotwater.com/info-center/how-to-light-a-pilot-light.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The information on this page should be considered secondary to the information in your water heater's instruction manual.",
+        "If the pilot light goes out, the thermocouple or thermopile will not be energized and the pilot safety valve will open. Gas will stop flowing to the pilot burner and the water heater shuts off.",
+        "But if the thermocouple itself is broken, the pilot safety valve in the gas valve will not receive power, and the pilot will not remain lit once the pilot knob is released.",
+        "The pilot light on a water heater is susceptible to changes in gas pressure. ... in some cases, gas pressure becomes an ongoing problem. This typically indicates an issue outside the water heater, perhaps with the external gas lines.",
+        "be on the lookout for drafts that could blow out the pilot light. Sometimes, an open door ... could be enough to allow a gust of wild to extinguish that small, somewhat fragile flame.",
+        "Without enough air, it may be impossible for your water heater to properly burn off fuel. This issue can result in unburned fuel and/or carbon monoxide being released into your home. It’s a dangerous situation. If you suspect a lack of air is causing issues with your pilot light, it’s vital you bring in a tech",
+        "Another possible reason your water heater’s pilot won’t light could be a kink or clog in the flex tubes linking your fuel supply and your gas controller.",
+        "the pilot control valve in your water heater can fail over time. If this is the reason behind an extinguished pilot light, you’ll need to call for a service visit, and the valve will most likely need to be replaced.",
+        "Most pilot lights can easily be relit at home by a homeowner or other resident",
+        "Do not continue if you smell gas.",
+        "review the lighting instructions for your water heater as located on the water heater’s label and/or in the owner’s manual that came with your unit. These instructions supersede the instructions in this guide."
+      ]
+    },
+    "aos-signature-manual": {
+      "publisher": "A. O. Smith",
+      "title": "Signature 100 residential gas water heaters, direct vent: Installation Instructions and Use & Care Guide (100341469, March 2021)",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1692/signature-100-series-direct-vent-100341469.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Turn the gas control/temperature knob counterclockwise to the \"OFF\" setting. Wait ten (10) minutes to clear out any gas. If you then smell gas, STOP!",
+        "Press the gas control/temperature knob all the way in and hold it in. The knob should travel in about 1/4 inch if it is set to \"PILOT\" correctly. While holding the gas control/temperature knob in, click the igniter button continuously (about once a second) for up to 90 seconds or until Status Light begins to blink.",
+        "If the status light does not start blinking within 90 seconds, repeat steps 2 through 5 up to THREE (3) times, waiting 10 minutes between lighting attempts. The circuitry in this advanced gas valve requires that you wait 10 minutes between lighting attempts.",
+        "If the status light does not start blinking after three lighting attempts, turn the gas control/temperature knob to \"OFF\" and call a qualified service technician or your gas supplier.",
+        "PILOT WILL NOT LIGHT OR REMAIN LIT: 1. Air in gas line 2. No gas 3. Dirt in gas lines 4. Pilot line or orifice clogged 5. Defective thermopile 6. Insufficient combustion air 7. Gas control/thermostat ECO switch open 8. Defective igniter or electrode 9. Low gas pressure 10. Incorrect gas",
+        "0 FLASHES (LED NOT LIT): Pilot light is not lit or thermopile has not yet reached normal operating temperature. ... It may take up to 90 seconds of continuous Pilot operation before the thermopile reaches normal operating temperature and the Status Light starts to blink. ... If the Pilot is visible and the Status Light does not blink after 90 seconds of continuous Pilot operation, the Pilot flame may not be heating the thermopile sufficiently (weak Pilot), the thermopile may be defective, or wiring connectors may be loose.",
+        "RED LIGHT ON (SOLID): Pilot light was recently extinguished and the thermopile is cooling down. Turn Gas Control Valve/Thermostat knob to \"OFF\". Wait 10 minutes for the thermopile to cool",
+        "1 FLASH (EVERY 3 SECONDS): Normal operation. No corrective action necessary.",
+        "2 FLASHES: Pilot is lit but the thermopile is not producing the required output voltage. ... The thermopile is probably defective, but loose wiring connections or a weak Pilot flame can also cause this symptom.",
+        "4 FLASHES: The Gas Control Valve’s temperature sensor has detected that the water temperature was too high. ... Replace the Gas Control Valve/Thermostat.",
+        "5 FLASHES: The temperature sensor (thermistor) is defective.",
+        "7 FLASHES: Gas Control Valve failure. ... Replace the Gas Control Valve/Thermostat.",
+        "8 FLASHES: ... the pilot valve is stuck open. Turn the main gas supply \"OFF\". Replace the gas control valve/thermostat."
+      ]
+    },
+    "rheem-gg-manual": {
+      "publisher": "Rheem Manufacturing",
+      "title": "Gas Residential Water Heaters, GG Series 60, 75 and 100 gallon: Use & Care Manual (AP12172-5, 2003), standing pilot with thermocouple",
+      "sourceUrl": "https://images.salsify.com/image/upload/s--oKC7zDs2--/04ce5276836ea03f19273715f1199fe19020203a.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Pilot does not stay lit when the RED button is released: Loose thermocouple. The connection at the gas control (thermostat) should be tightened by a qualified service technician. Thermocouple breakdown. The thermocouple should be replaced by a qualified service technician. Safety magnet breakdown. The gas control (thermostat) should be replaced by a qualified service technician. Thermostat’s single use gas shut-off device has opened. The gas control (thermostat) should be replaced by a qualified service technician.",
+        "Unable to light the pilot: Gas Cock Knob not correctly positioned. ... Pilot orifice clogged. The pilot should be cleaned or replaced by a qualified service technician. ... Air in gas line. Contact a qualified service technician to purge the air from the gas line.",
+        "CAUTION: For your safety DO NOT attempt repair of gas piping, gas control (thermostat), burners, vent connectors or other safety devices. Refer repairs to qualified service personnel."
+      ]
+    },
+    "hd-pilot-parts": {
+      "publisher": "The Home Depot",
+      "title": "Search: water heater thermocouple and thermopile (listing prices)",
+      "sourceUrl": "https://www.homedepot.com/s/water%20heater%20thermocouple",
+      "checked": "2026-11-13",
+      "note": "Also searched https://www.homedepot.com/s/water%20heater%20thermopile the same day.",
+      "quotes": [
+        "30 Millivolt Universal Gas Water Heater and Furnace Thermocouple: $8.49",
+        "24 in. Gas Water Heater Thermocouple: $11.98",
+        "White-Rodgers 24 in. Copper Universal Thermocouple: $14.22",
+        "White-Rodgers 48 in. Copper Universal Thermocouple: $32.01",
+        "Natural Gas Pilot Assembly: $39.99",
+        "Pilot Assembly W/R Natural Gas: $44.99",
+        "Thermopile 233-46535-00: $106.17",
+        "KIT-PILOT Assembly SIT RES Natural (SVC) 660425: $184.18"
+      ]
+    },
+    "hd-gas-controls": {
+      "publisher": "The Home Depot",
+      "title": "Search: water heater gas control valve (listing prices)",
+      "sourceUrl": "https://www.homedepot.com/s/water%20heater%20gas%20control%20valve",
+      "checked": "2026-11-13",
+      "quotes": [
+        "OEM Natural Gas Control Valve: $91.71",
+        "Gas Valve Thermostat - Natural Gas: $138.09",
+        "Rheem White-Rodgers Gas Control Thermostat: $143.81",
+        "Gas Control Thermostat (NG): $159.99",
+        "Natural Gas Control Replacement Kit: $388.37"
       ]
     }
   },
@@ -449,6 +636,692 @@
       "source": "A. O. Smith electric Use & Care Guide 2000598248 (troubleshooting and diagnostic codes); A. O. Smith leaking guide",
       "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf",
       "sourceDate": "2026-11-13"
+    },
+    "pilotStatus": {
+      "caption": "What the status light on a thermopile gas control means (A. O. Smith)",
+      "columns": [
+        {
+          "key": "led",
+          "label": "Status light"
+        },
+        {
+          "key": "means",
+          "label": "What the manual says it means"
+        },
+        {
+          "key": "who",
+          "label": "Our advice"
+        }
+      ],
+      "rows": [
+        {
+          "led": "Off (no flashes)",
+          "means": "Pilot not lit, or lit but the thermopile has not warmed up yet; that can take up to 90 seconds of pilot flame",
+          "who": "Relight by the label; after three tries, a qualified technician or the gas supplier"
+        },
+        {
+          "led": "Solid red",
+          "means": "The pilot went out recently and the thermopile is cooling",
+          "who": "Knob to Off, wait 10 minutes, then relight by the label"
+        },
+        {
+          "led": "1 flash every 3 seconds",
+          "means": "Normal operation",
+          "who": "Nothing to do"
+        },
+        {
+          "led": "2 flashes",
+          "means": "Pilot is lit but the thermopile is not making enough voltage (weak pilot, loose wiring or a failed thermopile)",
+          "who": "Qualified technician"
+        },
+        {
+          "led": "4 flashes",
+          "means": "The control saw water that was too hot and shut the pilot and burner off",
+          "who": "Gas control replacement: qualified technician"
+        },
+        {
+          "led": "5 flashes",
+          "means": "Temperature sensor (thermistor) failed",
+          "who": "Qualified technician"
+        },
+        {
+          "led": "7 flashes",
+          "means": "Gas control valve failure",
+          "who": "Gas control replacement: qualified technician"
+        },
+        {
+          "led": "8 flashes",
+          "means": "The thermopile is still making power with the knob off; the pilot valve may be stuck open",
+          "who": "Turn the main gas supply off; qualified technician"
+        }
+      ],
+      "source": "A. O. Smith Signature 100 Use & Care Guide 100341469 (March 2021), status light and diagnostic code chart (meanings). The advice column is ours: where the manual's fix is a part replacement, we send it to a qualified technician. Other controls use other codes: read the chart in your own manual."
+    },
+    "pilotCauses": {
+      "caption": "Why a pilot will not light or stay lit, and who fixes it",
+      "columns": [
+        {
+          "key": "cause",
+          "label": "Cause the manuals list"
+        },
+        {
+          "key": "sign",
+          "label": "What you might notice"
+        },
+        {
+          "key": "who",
+          "label": "Who the manual says fixes it"
+        }
+      ],
+      "rows": [
+        {
+          "cause": "Air in the gas line",
+          "sign": "New heater or gas work just done; several tries before the pilot catches",
+          "who": "A. O. Smith: it may take several lighting attempts; Rheem: a qualified technician purges the line"
+        },
+        {
+          "cause": "No gas, low gas pressure or the wrong gas",
+          "sign": "Other gas appliances also act up; weak or small pilot flame",
+          "who": "Your gas utility or supplier (A. O. Smith)"
+        },
+        {
+          "cause": "Drafts or not enough combustion air",
+          "sign": "Pilot goes out at random, near an open door, vent or fan; yellow or lazy flame",
+          "who": "A technician, before relighting, if air supply is the problem (A. O. Smith); clear the area of clutter"
+        },
+        {
+          "cause": "Thermocouple or thermopile not making enough power",
+          "sign": "Pilot lights but goes out when you let go of the knob, or 2 flashes on the status light",
+          "who": "Qualified service technician (Rheem)"
+        },
+        {
+          "cause": "Clogged pilot orifice, pilot tube or dirt in the gas line",
+          "sign": "Pilot will not light, or the flame is small",
+          "who": "Qualified service technician (Rheem); utility for dirt in the line (A. O. Smith)"
+        },
+        {
+          "cause": "Energy cutoff (ECO) or thermal switch opened",
+          "sign": "Pilot and burner shut off after the water overheated; a code such as 4 flashes",
+          "who": "Gas control replacement by a qualified technician (Rheem)"
+        },
+        {
+          "cause": "Failed gas control (pilot safety valve)",
+          "sign": "Everything else checks out; 7 or 8 flashes",
+          "who": "Service visit; the valve usually has to be replaced (A. O. Smith)"
+        },
+        {
+          "cause": "Flammable vapor system (FVIR) has shut the heater down",
+          "sign": "After paint, gasoline or solvent use nearby, or a blocked air intake",
+          "who": "Do not relight; call a qualified person (A. O. Smith)"
+        }
+      ],
+      "source": "A. O. Smith Signature 100 Use & Care Guide 100341469 troubleshooting chart, A. O. Smith residential gas Use & Care Guide 100400765, A. O. Smith pilot light guide, Rheem GG Series Use & Care Manual troubleshooting chart."
     }
+  },
+  "gasLine": {
+    "edition": "2021 International Fuel Gas Code",
+    "sizes": [
+      "1/2",
+      "3/4",
+      "1",
+      "1-1/4"
+    ],
+    "btuPerCf": 1000,
+    "btuPerCfRef": "rinnai-faq",
+    "rheemBtuPerCf": 1024,
+    "typicalSupplyInWc": 7,
+    "drop30MinSupplyInWc": 8,
+    "meterTypicalCfh": 250,
+    "tankBtuh": 40000,
+    "example": {
+      "tankless": 199900,
+      "furnace": 75000,
+      "range": 55000,
+      "dryer": 25000,
+      "logs": 40000,
+      "rheemCfh": 386
+    },
+    "inputsBtuh": [
+      120000,
+      150000,
+      180000,
+      199000
+    ],
+    "exampleLengthsFt": [
+      10,
+      20,
+      30,
+      40,
+      60,
+      80,
+      100
+    ],
+    "tables": {
+      "drop05": {
+        "table": "Table 402.4(2)",
+        "dropInWc": 0.5,
+        "note": "Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity",
+        "rows": [
+          {
+            "lengthFt": 10,
+            "cfh": [
+              172,
+              360,
+              678,
+              1390
+            ]
+          },
+          {
+            "lengthFt": 20,
+            "cfh": [
+              118,
+              247,
+              466,
+              957
+            ]
+          },
+          {
+            "lengthFt": 30,
+            "cfh": [
+              95,
+              199,
+              374,
+              768
+            ]
+          },
+          {
+            "lengthFt": 40,
+            "cfh": [
+              81,
+              170,
+              320,
+              657
+            ]
+          },
+          {
+            "lengthFt": 50,
+            "cfh": [
+              72,
+              151,
+              284,
+              583
+            ]
+          },
+          {
+            "lengthFt": 60,
+            "cfh": [
+              65,
+              137,
+              257,
+              528
+            ]
+          },
+          {
+            "lengthFt": 70,
+            "cfh": [
+              60,
+              126,
+              237,
+              486
+            ]
+          },
+          {
+            "lengthFt": 80,
+            "cfh": [
+              56,
+              117,
+              220,
+              452
+            ]
+          },
+          {
+            "lengthFt": 90,
+            "cfh": [
+              52,
+              110,
+              207,
+              424
+            ]
+          },
+          {
+            "lengthFt": 100,
+            "cfh": [
+              50,
+              104,
+              195,
+              400
+            ]
+          }
+        ]
+      },
+      "drop30": {
+        "table": "Table 402.4(3)",
+        "dropInWc": 3.0,
+        "note": "Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity; intended use: initial supply pressure of 8.0 in. w.c. or greater",
+        "rows": [
+          {
+            "lengthFt": 10,
+            "cfh": [
+              454,
+              949,
+              1790,
+              3670
+            ]
+          },
+          {
+            "lengthFt": 20,
+            "cfh": [
+              312,
+              652,
+              1230,
+              2520
+            ]
+          },
+          {
+            "lengthFt": 30,
+            "cfh": [
+              250,
+              524,
+              986,
+              2030
+            ]
+          },
+          {
+            "lengthFt": 40,
+            "cfh": [
+              214,
+              448,
+              844,
+              1730
+            ]
+          },
+          {
+            "lengthFt": 50,
+            "cfh": [
+              190,
+              397,
+              748,
+              1540
+            ]
+          },
+          {
+            "lengthFt": 60,
+            "cfh": [
+              172,
+              360,
+              678,
+              1390
+            ]
+          },
+          {
+            "lengthFt": 70,
+            "cfh": [
+              158,
+              331,
+              624,
+              1280
+            ]
+          },
+          {
+            "lengthFt": 80,
+            "cfh": [
+              147,
+              308,
+              580,
+              1190
+            ]
+          },
+          {
+            "lengthFt": 90,
+            "cfh": [
+              138,
+              289,
+              544,
+              1120
+            ]
+          },
+          {
+            "lengthFt": 100,
+            "cfh": [
+              131,
+              273,
+              514,
+              1060
+            ]
+          },
+          {
+            "lengthFt": 125,
+            "cfh": [
+              116,
+              242,
+              456,
+              936
+            ]
+          },
+          {
+            "lengthFt": 150,
+            "cfh": [
+              105,
+              219,
+              413,
+              848
+            ]
+          },
+          {
+            "lengthFt": 175,
+            "cfh": [
+              96,
+              202,
+              380,
+              780
+            ]
+          },
+          {
+            "lengthFt": 200,
+            "cfh": [
+              90,
+              188,
+              353,
+              726
+            ]
+          },
+          {
+            "lengthFt": 250,
+            "cfh": [
+              80,
+              166,
+              313,
+              643
+            ]
+          },
+          {
+            "lengthFt": 300,
+            "cfh": [
+              72,
+              151,
+              284,
+              583
+            ]
+          },
+          {
+            "lengthFt": 350,
+            "cfh": [
+              66,
+              139,
+              261,
+              536
+            ]
+          },
+          {
+            "lengthFt": 400,
+            "cfh": [
+              62,
+              129,
+              243,
+              499
+            ]
+          },
+          {
+            "lengthFt": 450,
+            "cfh": [
+              58,
+              121,
+              228,
+              468
+            ]
+          },
+          {
+            "lengthFt": 500,
+            "cfh": [
+              55,
+              114,
+              215,
+              442
+            ]
+          }
+        ]
+      }
+    },
+    "rinnaiMaxFt": [
+      {
+        "model": "V53e",
+        "btuh": 120000,
+        "half": 100,
+        "threeQuarter": 450
+      },
+      {
+        "model": "V65i",
+        "btuh": 150000,
+        "half": 70,
+        "threeQuarter": 300
+      },
+      {
+        "model": "RUC80i",
+        "btuh": 152000,
+        "half": 70,
+        "threeQuarter": 166
+      },
+      {
+        "model": "RL75i",
+        "btuh": 180000,
+        "half": 50,
+        "threeQuarter": 200
+      },
+      {
+        "model": "RLX94i",
+        "btuh": 192000,
+        "half": 40,
+        "threeQuarter": 175
+      },
+      {
+        "model": "RUC98i",
+        "btuh": 199000,
+        "half": 40,
+        "threeQuarter": 175
+      },
+      {
+        "model": "RU199i",
+        "btuh": 199000,
+        "half": 50,
+        "threeQuarter": 175
+      }
+    ],
+    "rinnaiPropane199": {
+      "half": 20,
+      "threeQuarter": 80
+    },
+    "rinnaiPropane120": {
+      "half": 50,
+      "threeQuarter": 300
+    },
+    "tanklessBtuLow": 140000,
+    "tanklessBtuHigh": 200000,
+    "altitudeFt": 2000
+  },
+  "electrical": {
+    "edition": "2021 International Residential Code, Part VIII",
+    "storageRulePct": 125,
+    "storageMaxGallons": 120,
+    "unmarkedPct": 150,
+    "unmarkedAmps": 13.3,
+    "stiebelVoltageDropPct": 3,
+    "stiebelConductorC": 75,
+    "gasTanklessVolts": 120,
+    "gasTanklessAmps": "three",
+    "lowVolts": 208,
+    "rheemLowVoltPct": 25,
+    "ampacity": [
+      {
+        "awg": "10",
+        "c60": 30,
+        "c75": 35,
+        "c90": 40
+      },
+      {
+        "awg": "8",
+        "c60": 40,
+        "c75": 50,
+        "c90": 55
+      },
+      {
+        "awg": "6",
+        "c60": 55,
+        "c75": 65,
+        "c90": 75
+      },
+      {
+        "awg": "4",
+        "c60": 70,
+        "c75": 85,
+        "c90": 95
+      }
+    ],
+    "units": [
+      {
+        "maker": "Stiebel Eltron",
+        "model": "Tempra 12",
+        "kw": 12.0,
+        "kw208": 9.0,
+        "circuits": 1,
+        "breakerA": 50,
+        "wire": "8 AWG",
+        "serviceA": 100,
+        "ref": "stiebel-tempra"
+      },
+      {
+        "maker": "Stiebel Eltron",
+        "model": "Tempra 15",
+        "kw": 14.4,
+        "kw208": 10.8,
+        "circuits": 2,
+        "breakerA": 30,
+        "wire": "10 AWG",
+        "serviceA": 100,
+        "ref": "stiebel-tempra"
+      },
+      {
+        "maker": "Stiebel Eltron",
+        "model": "Tempra 20",
+        "kw": 19.2,
+        "kw208": 14.4,
+        "circuits": 2,
+        "breakerA": 40,
+        "wire": "8 AWG",
+        "serviceA": 125,
+        "ref": "stiebel-tempra"
+      },
+      {
+        "maker": "Stiebel Eltron",
+        "model": "Tempra 24",
+        "kw": 24.0,
+        "kw208": 18.0,
+        "circuits": 2,
+        "breakerA": 50,
+        "wire": "8 AWG",
+        "serviceA": 150,
+        "ref": "stiebel-tempra"
+      },
+      {
+        "maker": "Stiebel Eltron",
+        "model": "Tempra 29",
+        "kw": 28.8,
+        "kw208": 21.6,
+        "circuits": 3,
+        "breakerA": 40,
+        "wire": "8 AWG",
+        "serviceA": 200,
+        "ref": "stiebel-tempra"
+      },
+      {
+        "maker": "Stiebel Eltron",
+        "model": "Tempra 36",
+        "kw": 36.0,
+        "kw208": 27.0,
+        "circuits": 3,
+        "breakerA": 50,
+        "wire": "8 AWG",
+        "serviceA": 300,
+        "ref": "stiebel-tempra"
+      },
+      {
+        "maker": "Rheem",
+        "model": "RETEX-13",
+        "kw": 13.0,
+        "circuits": 1,
+        "breakerA": 60,
+        "wire": "6 AWG",
+        "ref": "rheem-retex"
+      },
+      {
+        "maker": "Rheem",
+        "model": "RETEX-18",
+        "kw": 18.0,
+        "circuits": 2,
+        "breakerA": 40,
+        "wire": "8 AWG",
+        "ref": "rheem-retex"
+      },
+      {
+        "maker": "Rheem",
+        "model": "RETEX-24",
+        "kw": 24.0,
+        "circuits": 3,
+        "breakerA": 40,
+        "wire": "8 AWG",
+        "ref": "rheem-retex"
+      },
+      {
+        "maker": "Rheem",
+        "model": "RETEX-27",
+        "kw": 27.0,
+        "circuits": 3,
+        "breakerA": 40,
+        "wire": "8 AWG",
+        "ref": "rheem-retex"
+      },
+      {
+        "maker": "Rheem",
+        "model": "RETEX-36",
+        "kw": 36.0,
+        "circuits": 4,
+        "breakerA": 40,
+        "wire": "8 AWG",
+        "ref": "rheem-retex"
+      }
+    ],
+    "standardBreakersA": [
+      15,
+      20,
+      25,
+      30,
+      35,
+      40,
+      45,
+      50,
+      60,
+      70,
+      80,
+      90,
+      100,
+      110,
+      125,
+      150,
+      175,
+      200
+    ],
+    "unitsNote": "Rheem RETEX-08 and RETEX-11 are left out: their published amps (33 A, 46 A) do not equal kW × 1,000 ÷ 240 V (30.4 A, 49.2 A), so we cannot show them on the same basis."
+  },
+  "pilot": {
+    "waitMinutes": 10,
+    "knobTravelIn": "1/4",
+    "igniterSeconds": 90,
+    "attempts": "three",
+    "normalFlashSeconds": 3,
+    "thermocoupleLow": "8.49",
+    "thermocoupleHigh": "32.01",
+    "pilotAssemblyLow": "39.99",
+    "pilotAssemblyHigh": "184.18",
+    "gasControlLow": "91.71",
+    "gasControlHigh": "388.37"
   }
 }

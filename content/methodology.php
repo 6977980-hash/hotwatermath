@@ -275,14 +275,21 @@ $hwm_dr   = 'decision-rules';
 </section>
 
 <section id="safety-pages">
-	<h3>Safety pages: tank setting, relief valve and heating element tables</h3>
+	<h3>Safety pages: tank setting, relief valve, heating element, gas line and electrical tables</h3>
 	<p>The safety pages restate official sources (CPSC, CDC, DOE) and manufacturer manuals; the only numbers that are ours are three small pieces of arithmetic:</p>
 	<ol>
 		<li><strong>Hot water at a higher setting</strong> (<?php echo hwm_link( 'water-heater-temperature-setting', 'water heater temperature setting' ); // phpcs:ignore ?>): the tank share of a <?php echo esc_html( hwm_value( 'troubleshooting', 'runsOut.showerMixF' ) ); ?> °F shower is (shower − inlet) ÷ (tank − inlet), as in the table above; extra mixed water = share at <?php echo esc_html( hwm_value( 'site', 'defaults.setpointTempF' ) ); ?> °F ÷ share at the hotter setting − 1. It only holds when a mixing valve holds the shower at the same temperature.</li>
 		<li><strong>Normal pressure limit</strong> (<?php echo hwm_link( 'water-heater-pressure-relief-valve-leaking', 'relief valve leaking' ); // phpcs:ignore ?>): the valve's set pressure × <?php echo esc_html( hwm_value( 'computed/water-heater-pressure-relief-valve-leaking', 'figures.sharePct' ) ); ?>%, Watts' stated maximum operating share.</li>
 		<li><strong>Element resistance</strong> (<?php echo hwm_link( 'water-heater-element-replacement', 'water heater element replacement' ); // phpcs:ignore ?>): Ohm's law, resistance = volts² ÷ watts and current = watts ÷ volts, for the ratings sold for home water heaters. A. O. Smith's pass range (<?php echo esc_html( hwm_value( 'safety', 'element.ohmsLow' ) ); ?>–<?php echo esc_html( hwm_value( 'safety', 'element.ohmsHigh' ) ); ?> ohms) is shown next to it.</li>
 	</ol>
-	<p><strong>Limitations.</strong> Pipe and tank heat losses are not modelled; element readings vary with tolerance and temperature. Every safety statement on these pages carries its own source, and none is our own advice.</p>
+	<p>The gas, electrical and pilot pages add three more:</p>
+	<ol start="4">
+		<li><strong>Gas pipe lookup</strong> (<?php echo hwm_link( 'gas-line-size-for-tankless-water-heater', 'gas line size for a tankless water heater' ); // phpcs:ignore ?>): gas flow = BTU/h ÷ <?php echo esc_html( number_format( (float) hwm_raw( 'safety', 'gasLine.btuPerCf' ) ) ); ?> BTU per cubic foot (Rinnai's basis); the length is rounded up to the next row of <?php echo esc_html( (string) hwm_raw( 'safety', 'gasLine.edition' ) ); ?> <?php echo esc_html( (string) hwm_raw( 'safety', 'gasLine.tables.drop05.table' ) ); ?> or <?php echo esc_html( (string) hwm_raw( 'safety', 'gasLine.tables.drop30.table' ) ); ?> and the smallest pipe size whose capacity covers the flow is chosen. <strong>Cross-check:</strong> the reverse lookup (longest length a size still carries) reproduces <?php echo esc_html( hwm_value( 'computed/gas-line-size-for-tankless-water-heater', 'figures.rinnaiMatches' ) ); ?> of the <?php echo esc_html( hwm_value( 'computed/gas-line-size-for-tankless-water-heater', 'figures.rinnaiChecks' ) ); ?> maximum lengths in Rinnai's published natural gas table; the two differences are explained on the page, and we show the shorter figure.</li>
+		<li><strong>Amps per circuit</strong> (<?php echo hwm_link( 'tankless-water-heater-electrical-requirements', 'tankless electrical requirements' ); // phpcs:ignore ?>): kW × 1,000 ÷ 240 V, divided evenly over the circuits the maker specifies, and compared with the maker's breaker. Power on 208 V = kW × (208 ÷ 240)²; it matches Stiebel Eltron's six published 208-volt ratings to the tenth of a kW.</li>
+		<li><strong>Pilot light page</strong> (<?php echo hwm_link( 'water-heater-pilot-light-wont-stay-lit', 'water heater pilot light won\'t stay lit' ); // phpcs:ignore ?>): no arithmetic; causes, status codes and the lighting procedure are restated from A. O. Smith and Rheem manuals.</li>
+	</ol>
+	<p>Code text (2021 IFGC and 2021 IRC, which restates the NEC) is copyrighted; we quote only the rows and sentences a page needs, with the table or section number and edition, and the local code official decides what applies.</p>
+	<p><strong>Limitations.</strong> Pipe and tank heat losses are not modelled; element readings vary with tolerance and temperature. The gas lookup covers Schedule 40 steel pipe and natural gas only. Every safety statement on these pages carries its own source, and none is our own advice.</p>
 </section>
 
 <section id="state-cost-pages">
