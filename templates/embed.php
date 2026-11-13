@@ -22,7 +22,12 @@ $hwm_out  = hwm_tool_content( $hwm_slug, $hwm_embed_entry );
 <link rel="stylesheet" href="<?php echo esc_url( hwm_asset( 'css/global.css' ) ); ?>">
 </head>
 <body class="embed-body">
-<?php hwm_part( 'calculator', array( 'tool' => $hwm_slug, 'inputs' => $hwm_out['calculator_inputs'], 'label' => $hwm_embed_entry['title'] ) ); ?>
+<?php
+// Links inside the frame open in a new tab and carry rel="nofollow" like the credit (CLAUDE.md §7b).
+ob_start();
+hwm_part( 'calculator', array( 'tool' => $hwm_slug, 'inputs' => $hwm_out['calculator_inputs'], 'label' => $hwm_embed_entry['title'] ) );
+echo preg_replace( '/<a (?![^>]*\brel=)([^>]*)>/', '<a $1 target="_blank" rel="nofollow noopener">', (string) ob_get_clean() ); // phpcs:ignore -- our own escaped markup.
+?>
 <p class="embed-credit">Calculator by <a href="<?php echo esc_url( hwm_url( $hwm_slug ) ); ?>" target="_blank" rel="nofollow noopener"><?php echo esc_html( (string) hwm_site( 'brand' ) ); ?></a></p>
 <?php if ( ! empty( $hwm_embed_entry['scripts'] ) ) { echo hwm_importmap(); } // phpcs:ignore -- JSON of our own asset URLs. ?>
 <?php foreach ( (array) ( $hwm_embed_entry['scripts'] ?? array() ) as $hwm_script ) : ?>

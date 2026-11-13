@@ -306,6 +306,18 @@ $hwm_dr   = 'decision-rules';
 	<p><strong>Limitations.</strong> The price factor measures all consumer prices, including rent, not plumber wages; within a metro area, prices still vary by neighborhood and by contractor.</p>
 </section>
 
+<section id="cost-index">
+	<h3>Water heater cost index by state</h3>
+	<p>The <?php echo hwm_link( 'water-heater-installation-cost-index', 'water heater cost index' ); // phpcs:ignore ?> applies the same model to all 50 states and DC for three 50-gallon tanks (gas, electric, heat pump), like for like:</p>
+	<ol>
+		<li><strong>Installed price</strong>: as on the state cost pages (unit + labor, permit and haul-away × the state's price factor).</li>
+		<li><strong>Yearly energy</strong>: the gas vs electric formula for a typical household (<?php echo esc_html( hwm_value( 'computed/water-heater-installation-cost-index', 'figures.gallons' ) ); ?> gal/day, <?php echo esc_html( hwm_value( 'computed/water-heater-installation-cost-index', 'figures.setpoint' ) ); ?> °F) with the state's EIA prices and average incoming water temperature.</li>
+		<li><strong><?php echo esc_html( hwm_value( 'computed/water-heater-installation-cost-index', 'figures.years' ) ); ?>-year cost</strong> = installed price + years × yearly energy (<code>formulas.costOfOwnership</code>, no rebates, no discounting; all three tanks outlast the window, so no replacement is added). States are ranked by the lowest of the three.</li>
+		<li><strong>Chart</strong>: drawn from the same computed file by <code>npm run build:charts</code>; the PNG used in the chart embed code is rendered from the same SVG.</li>
+	</ol>
+	<p>Every table behind the index is a CSV on the <?php echo hwm_link( 'data', 'data downloads page' ); // phpcs:ignore ?>.</p>
+</section>
+
 <h2>Where does our data come from?</h2>
 <p>Every number lives in a data file with a named source, a link and the date we last checked it. We prefer government sources first, then codes and standards, then manufacturer spec sheets. Other websites' cost guides are never used as the source of a number.</p>
 <?php

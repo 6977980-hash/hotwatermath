@@ -1,0 +1,1542 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json and data/regional-cost-index.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Water heater cost index by state (Phase 8 linkable asset): one row per state + DC, ranked by the cheapest 10-year cost of the three 50-gallon tank options. chart = rows for scripts/build-charts.mjs."
+  },
+  "figures": {
+    "years": 10,
+    "stateCount": 51,
+    "gallons": 55,
+    "setpoint": 120,
+    "us": {
+      "g": {
+        "installed": "1,809",
+        "yearly": "242",
+        "own": "4,230"
+      },
+      "e": {
+        "installed": "1,579",
+        "yearly": "564",
+        "own": "7,215"
+      },
+      "h": {
+        "installed": "2,947",
+        "yearly": "138",
+        "own": "4,327"
+      }
+    },
+    "installG": {
+      "low": {
+        "name": "Arkansas",
+        "v": "1,690"
+      },
+      "high": {
+        "name": "California",
+        "v": "1,907"
+      },
+      "ratio": "1.1"
+    },
+    "installE": {
+      "low": {
+        "name": "Arkansas",
+        "v": "1,480"
+      },
+      "high": {
+        "name": "California",
+        "v": "1,661"
+      },
+      "ratio": "1.1"
+    },
+    "installH": {
+      "low": {
+        "name": "Arkansas",
+        "v": "2,795"
+      },
+      "high": {
+        "name": "California",
+        "v": "3,071"
+      },
+      "ratio": "1.1"
+    },
+    "yearlyG": {
+      "low": {
+        "name": "Idaho",
+        "v": "137"
+      },
+      "high": {
+        "name": "Hawaii",
+        "v": "536"
+      },
+      "ratio": "3.9"
+    },
+    "yearlyE": {
+      "low": {
+        "name": "Louisiana",
+        "v": "310"
+      },
+      "high": {
+        "name": "Maine",
+        "v": "1,055"
+      },
+      "ratio": "3.4"
+    },
+    "yearlyH": {
+      "low": {
+        "name": "Louisiana",
+        "v": "76"
+      },
+      "high": {
+        "name": "Maine",
+        "v": "258"
+      },
+      "ratio": "3.4"
+    },
+    "ownBest": {
+      "low": {
+        "name": "Idaho",
+        "v": "3,136"
+      },
+      "high": {
+        "name": "Massachusetts",
+        "v": "5,575"
+      },
+      "ratio": "1.8"
+    },
+    "ownE": {
+      "low": {
+        "name": "Louisiana",
+        "v": "4,588"
+      },
+      "high": {
+        "name": "Alaska",
+        "v": "12,109"
+      },
+      "ratio": "2.6"
+    },
+    "bestGas": 34,
+    "bestEl": 0,
+    "bestHp": 17,
+    "gasRunsCheaper": 51,
+    "hpRunsCheaperThanGas": 51,
+    "hpBeatsElOwn": 51,
+    "hpBeatsGasOwn": 17,
+    "elOverGasOwn": 51,
+    "usHpVsElOwn": "2,888",
+    "hpVsElOwn": {
+      "low": {
+        "name": "Louisiana",
+        "v": "1,019"
+      },
+      "high": {
+        "name": "Maine",
+        "v": "6,610"
+      },
+      "ratio": "6.5"
+    },
+    "usBest": "Gas tank (standard vent)",
+    "hpShare": 24,
+    "usHpPremium": "1,368",
+    "installSpreadPct": 13,
+    "cheapest5": [
+      {
+        "name": "Idaho",
+        "own": "3,136",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "New Mexico",
+        "own": "3,251",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "Montana",
+        "own": "3,357",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "South Dakota",
+        "own": "3,358",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "Tennessee",
+        "own": "3,428",
+        "best": "Gas tank (standard vent)"
+      }
+    ],
+    "dearest5": [
+      {
+        "name": "Massachusetts",
+        "own": "5,575",
+        "best": "Heat pump (hybrid), 240 V"
+      },
+      {
+        "name": "Rhode Island",
+        "own": "5,340",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "Maine",
+        "own": "5,224",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "New Hampshire",
+        "own": "5,153",
+        "best": "Gas tank (standard vent)"
+      },
+      {
+        "name": "California",
+        "own": "5,030",
+        "best": "Gas tank (standard vent)"
+      }
+    ],
+    "dataYear": {
+      "electric": 2025,
+      "gas": 2025,
+      "rpp": "2024"
+    },
+    "lastReviewed": "2026-11-13",
+    "unitsReviewed": "2026-11-12",
+    "labels": {
+      "g": "Gas tank (standard vent)",
+      "e": "Electric tank",
+      "h": "Heat pump (hybrid), 240 V"
+    }
+  },
+  "usRow": {
+    "gi": "1,809",
+    "ei": "1,579",
+    "hi": "2,947",
+    "gy": "242",
+    "ey": "564",
+    "hy": "138",
+    "go": "4,230",
+    "eo": "7,215",
+    "ho": "4,327",
+    "best": "Gas tank (standard vent)"
+  },
+  "links": {
+    "California": "water-heater-installation-cost/california",
+    "Florida": "water-heater-installation-cost/florida",
+    "Georgia": "water-heater-installation-cost/georgia",
+    "Illinois": "water-heater-installation-cost/illinois",
+    "Michigan": "water-heater-installation-cost/michigan",
+    "New York": "water-heater-installation-cost/new-york",
+    "North Carolina": "water-heater-installation-cost/north-carolina",
+    "Ohio": "water-heater-installation-cost/ohio",
+    "Pennsylvania": "water-heater-installation-cost/pennsylvania",
+    "Texas": "water-heater-installation-cost/texas"
+  },
+  "chart": {
+    "years": 10,
+    "labels": {
+      "g": "Gas tank (standard vent)",
+      "e": "Electric tank",
+      "h": "Heat pump (hybrid), 240 V"
+    },
+    "us": {
+      "g": 4230,
+      "e": 7215,
+      "h": 4327
+    },
+    "rows": [
+      {
+        "name": "Idaho",
+        "code": "ID",
+        "g": 3136,
+        "e": 5921,
+        "h": 3966
+      },
+      {
+        "name": "New Mexico",
+        "code": "NM",
+        "g": 3251,
+        "e": 6181,
+        "h": 3998
+      },
+      {
+        "name": "Montana",
+        "code": "MT",
+        "g": 3357,
+        "e": 6439,
+        "h": 4083
+      },
+      {
+        "name": "South Dakota",
+        "code": "SD",
+        "g": 3358,
+        "e": 6299,
+        "h": 3990
+      },
+      {
+        "name": "Tennessee",
+        "code": "TN",
+        "g": 3428,
+        "e": 5397,
+        "h": 3802
+      },
+      {
+        "name": "Iowa",
+        "code": "IA",
+        "g": 3432,
+        "e": 6208,
+        "h": 3960
+      },
+      {
+        "name": "North Dakota",
+        "code": "ND",
+        "g": 3455,
+        "e": 6048,
+        "h": 3934
+      },
+      {
+        "name": "Utah",
+        "code": "UT",
+        "g": 3458,
+        "e": 6022,
+        "h": 4024
+      },
+      {
+        "name": "Indiana",
+        "code": "IN",
+        "g": 3515,
+        "e": 6724,
+        "h": 4142
+      },
+      {
+        "name": "Illinois",
+        "code": "IL",
+        "g": 3546,
+        "e": 7304,
+        "h": 4348
+      },
+      {
+        "name": "Nebraska",
+        "code": "NE",
+        "g": 3558,
+        "e": 5611,
+        "h": 3837
+      },
+      {
+        "name": "Louisiana",
+        "code": "LA",
+        "g": 3810,
+        "e": 4588,
+        "h": 3569
+      },
+      {
+        "name": "Michigan",
+        "code": "MI",
+        "g": 3642,
+        "e": 8821,
+        "h": 4682
+      },
+      {
+        "name": "Wisconsin",
+        "code": "WI",
+        "g": 3651,
+        "e": 8232,
+        "h": 4517
+      },
+      {
+        "name": "Oklahoma",
+        "code": "OK",
+        "g": 3659,
+        "e": 5228,
+        "h": 3721
+      },
+      {
+        "name": "Arkansas",
+        "code": "AR",
+        "g": 4322,
+        "e": 5079,
+        "h": 3675
+      },
+      {
+        "name": "Mississippi",
+        "code": "MS",
+        "g": 3829,
+        "e": 5167,
+        "h": 3698
+      },
+      {
+        "name": "Colorado",
+        "code": "CO",
+        "g": 3711,
+        "e": 7215,
+        "h": 4357
+      },
+      {
+        "name": "West Virginia",
+        "code": "WV",
+        "g": 3770,
+        "e": 6486,
+        "h": 4046
+      },
+      {
+        "name": "Minnesota",
+        "code": "MN",
+        "g": 3780,
+        "e": 7607,
+        "h": 4409
+      },
+      {
+        "name": "Kentucky",
+        "code": "KY",
+        "g": 3784,
+        "e": 5502,
+        "h": 3812
+      },
+      {
+        "name": "Florida",
+        "code": "FL",
+        "g": 4634,
+        "e": 5024,
+        "h": 3824
+      },
+      {
+        "name": "Missouri",
+        "code": "MO",
+        "g": 3985,
+        "e": 5628,
+        "h": 3848
+      },
+      {
+        "name": "Wyoming",
+        "code": "WY",
+        "g": 3849,
+        "e": 6582,
+        "h": 4100
+      },
+      {
+        "name": "Georgia",
+        "code": "GA",
+        "g": 4373,
+        "e": 5425,
+        "h": 3852
+      },
+      {
+        "name": "South Carolina",
+        "code": "SC",
+        "g": 3929,
+        "e": 5569,
+        "h": 3861
+      },
+      {
+        "name": "Alabama",
+        "code": "AL",
+        "g": 3969,
+        "e": 5772,
+        "h": 3865
+      },
+      {
+        "name": "North Carolina",
+        "code": "NC",
+        "g": 4013,
+        "e": 5562,
+        "h": 3867
+      },
+      {
+        "name": "Texas",
+        "code": "TX",
+        "g": 4211,
+        "e": 5473,
+        "h": 3871
+      },
+      {
+        "name": "Ohio",
+        "code": "OH",
+        "g": 3886,
+        "e": 7079,
+        "h": 4222
+      },
+      {
+        "name": "Nevada",
+        "code": "NV",
+        "g": 3903,
+        "e": 5987,
+        "h": 4026
+      },
+      {
+        "name": "Kansas",
+        "code": "KS",
+        "g": 3936,
+        "e": 5999,
+        "h": 3932
+      },
+      {
+        "name": "Arizona",
+        "code": "AZ",
+        "g": 4347,
+        "e": 5843,
+        "h": 3997
+      },
+      {
+        "name": "New Jersey",
+        "code": "NJ",
+        "g": 4070,
+        "e": 8810,
+        "h": 4802
+      },
+      {
+        "name": "Virginia",
+        "code": "VA",
+        "g": 4272,
+        "e": 6263,
+        "h": 4104
+      },
+      {
+        "name": "Delaware",
+        "code": "DE",
+        "g": 4160,
+        "e": 6808,
+        "h": 4223
+      },
+      {
+        "name": "Washington",
+        "code": "WA",
+        "g": 4702,
+        "e": 6266,
+        "h": 4162
+      },
+      {
+        "name": "District of Columbia",
+        "code": "DC",
+        "g": 4215,
+        "e": 7946,
+        "h": 4601
+      },
+      {
+        "name": "Maryland",
+        "code": "MD",
+        "g": 4254,
+        "e": 7656,
+        "h": 4483
+      },
+      {
+        "name": "Pennsylvania",
+        "code": "PA",
+        "g": 4257,
+        "e": 8125,
+        "h": 4526
+      },
+      {
+        "name": "Oregon",
+        "code": "OR",
+        "g": 4549,
+        "e": 6997,
+        "h": 4307
+      },
+      {
+        "name": "Alaska",
+        "code": "AK",
+        "g": 4471,
+        "e": 12109,
+        "h": 5547
+      },
+      {
+        "name": "Connecticut",
+        "code": "CT",
+        "g": 4599,
+        "e": 11519,
+        "h": 5415
+      },
+      {
+        "name": "Hawaii",
+        "code": "HI",
+        "g": 7264,
+        "e": 9242,
+        "h": 4921
+      },
+      {
+        "name": "New York",
+        "code": "NY",
+        "g": 4935,
+        "e": 11109,
+        "h": 5356
+      },
+      {
+        "name": "Vermont",
+        "code": "VT",
+        "g": 5007,
+        "e": 10101,
+        "h": 5014
+      },
+      {
+        "name": "California",
+        "code": "CA",
+        "g": 5030,
+        "e": 10759,
+        "h": 5297
+      },
+      {
+        "name": "New Hampshire",
+        "code": "NH",
+        "g": 5153,
+        "e": 10670,
+        "h": 5214
+      },
+      {
+        "name": "Maine",
+        "code": "ME",
+        "g": 5224,
+        "e": 12104,
+        "h": 5494
+      },
+      {
+        "name": "Rhode Island",
+        "code": "RI",
+        "g": 5340,
+        "e": 11442,
+        "h": 5383
+      },
+      {
+        "name": "Massachusetts",
+        "code": "MA",
+        "g": 6041,
+        "e": 12084,
+        "h": 5575
+      }
+    ]
+  },
+  "tables": {
+    "index": {
+      "caption": "Water heater cost index by state: 50-gallon tanks, installed price and 10-year cost (ranked, 1 = cheapest to own)",
+      "columns": [
+        {
+          "key": "rank",
+          "label": "Rank",
+          "num": true
+        },
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "m",
+          "label": "Price factor",
+          "num": true
+        },
+        {
+          "key": "gi",
+          "label": "Gas tank installed",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "ei",
+          "label": "Electric tank installed",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "hi",
+          "label": "Heat pump installed",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "gy",
+          "label": "Gas tank energy",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "ey",
+          "label": "Electric tank energy",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "hy",
+          "label": "Heat pump energy",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "go",
+          "label": "Gas tank, 10 years",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "eo",
+          "label": "Electric tank, 10 years",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "ho",
+          "label": "Heat pump, 10 years",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "best",
+          "label": "Cheapest over 10 years"
+        }
+      ],
+      "rows": [
+        {
+          "rank": 1,
+          "name": "Idaho",
+          "m": "0.955",
+          "gi": "1,768",
+          "ei": "1,545",
+          "hi": "2,895",
+          "gy": "137",
+          "ey": "438",
+          "hy": "107",
+          "go": "3,136",
+          "eo": "5,921",
+          "ho": "3,966",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 2,
+          "name": "New Mexico",
+          "m": "0.922",
+          "gi": "1,738",
+          "ei": "1,520",
+          "hi": "2,857",
+          "gy": "151",
+          "ey": "466",
+          "hy": "114",
+          "go": "3,251",
+          "eo": "6,181",
+          "ho": "3,998",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 3,
+          "name": "Montana",
+          "m": "0.946",
+          "gi": "1,760",
+          "ei": "1,538",
+          "hi": "2,884",
+          "gy": "160",
+          "ey": "490",
+          "hy": "120",
+          "go": "3,357",
+          "eo": "6,439",
+          "ho": "4,083",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 4,
+          "name": "South Dakota",
+          "m": "0.886",
+          "gi": "1,705",
+          "ei": "1,492",
+          "hi": "2,814",
+          "gy": "165",
+          "ey": "481",
+          "hy": "118",
+          "go": "3,358",
+          "eo": "6,299",
+          "ho": "3,990",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 5,
+          "name": "Tennessee",
+          "m": "0.919",
+          "gi": "1,735",
+          "ei": "1,518",
+          "hi": "2,853",
+          "gy": "169",
+          "ey": "388",
+          "hy": "95",
+          "go": "3,428",
+          "eo": "5,397",
+          "ho": "3,802",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 6,
+          "name": "Iowa",
+          "m": "0.878",
+          "gi": "1,698",
+          "ei": "1,486",
+          "hi": "2,805",
+          "gy": "173",
+          "ey": "472",
+          "hy": "116",
+          "go": "3,432",
+          "eo": "6,208",
+          "ho": "3,960",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 7,
+          "name": "North Dakota",
+          "m": "0.890",
+          "gi": "1,709",
+          "ei": "1,495",
+          "hi": "2,819",
+          "gy": "175",
+          "ey": "455",
+          "hy": "111",
+          "go": "3,455",
+          "eo": "6,048",
+          "ho": "3,934",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 8,
+          "name": "Utah",
+          "m": "0.989",
+          "gi": "1,799",
+          "ei": "1,571",
+          "hi": "2,934",
+          "gy": "166",
+          "ey": "445",
+          "hy": "109",
+          "go": "3,458",
+          "eo": "6,022",
+          "ho": "4,024",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 9,
+          "name": "Indiana",
+          "m": "0.933",
+          "gi": "1,748",
+          "ei": "1,529",
+          "hi": "2,870",
+          "gy": "177",
+          "ey": "520",
+          "hy": "127",
+          "go": "3,515",
+          "eo": "6,724",
+          "ho": "4,142",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 10,
+          "name": "Illinois",
+          "m": "1.000",
+          "gi": "1,809",
+          "ei": "1,579",
+          "hi": "2,947",
+          "gy": "174",
+          "ey": "573",
+          "hy": "140",
+          "go": "3,546",
+          "eo": "7,304",
+          "ho": "4,348",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 11,
+          "name": "Nebraska",
+          "m": "0.901",
+          "gi": "1,719",
+          "ei": "1,504",
+          "hi": "2,832",
+          "gy": "184",
+          "ey": "411",
+          "hy": "101",
+          "go": "3,558",
+          "eo": "5,611",
+          "ho": "3,837",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 12,
+          "name": "Louisiana",
+          "m": "0.882",
+          "gi": "1,701",
+          "ei": "1,489",
+          "hi": "2,810",
+          "gy": "211",
+          "ey": "310",
+          "hy": "76",
+          "go": "3,810",
+          "eo": "4,588",
+          "ho": "3,569",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 13,
+          "name": "Michigan",
+          "m": "0.962",
+          "gi": "1,774",
+          "ei": "1,550",
+          "hi": "2,903",
+          "gy": "187",
+          "ey": "727",
+          "hy": "178",
+          "go": "3,642",
+          "eo": "8,821",
+          "ho": "4,682",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 14,
+          "name": "Wisconsin",
+          "m": "0.941",
+          "gi": "1,756",
+          "ei": "1,535",
+          "hi": "2,879",
+          "gy": "190",
+          "ey": "670",
+          "hy": "164",
+          "go": "3,651",
+          "eo": "8,232",
+          "ho": "4,517",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 15,
+          "name": "Oklahoma",
+          "m": "0.878",
+          "gi": "1,698",
+          "ei": "1,486",
+          "hi": "2,805",
+          "gy": "196",
+          "ey": "374",
+          "hy": "92",
+          "go": "3,659",
+          "eo": "5,228",
+          "ho": "3,721",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 16,
+          "name": "Arkansas",
+          "m": "0.869",
+          "gi": "1,690",
+          "ei": "1,480",
+          "hi": "2,795",
+          "gy": "263",
+          "ey": "360",
+          "hy": "88",
+          "go": "4,322",
+          "eo": "5,079",
+          "ho": "3,675",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 17,
+          "name": "Mississippi",
+          "m": "0.870",
+          "gi": "1,691",
+          "ei": "1,480",
+          "hi": "2,796",
+          "gy": "214",
+          "ey": "369",
+          "hy": "90",
+          "go": "3,829",
+          "eo": "5,167",
+          "ho": "3,698",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 18,
+          "name": "Colorado",
+          "m": "1.031",
+          "gi": "1,837",
+          "ei": "1,603",
+          "hi": "2,983",
+          "gy": "187",
+          "ey": "561",
+          "hy": "137",
+          "go": "3,711",
+          "eo": "7,215",
+          "ho": "4,357",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 19,
+          "name": "West Virginia",
+          "m": "0.895",
+          "gi": "1,714",
+          "ei": "1,500",
+          "hi": "2,826",
+          "gy": "206",
+          "ey": "499",
+          "hy": "122",
+          "go": "3,770",
+          "eo": "6,486",
+          "ho": "4,046",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 20,
+          "name": "Minnesota",
+          "m": "0.986",
+          "gi": "1,796",
+          "ei": "1,568",
+          "hi": "2,930",
+          "gy": "198",
+          "ey": "604",
+          "hy": "148",
+          "go": "3,780",
+          "eo": "7,607",
+          "ho": "4,409",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 21,
+          "name": "Kentucky",
+          "m": "0.902",
+          "gi": "1,720",
+          "ei": "1,505",
+          "hi": "2,834",
+          "gy": "206",
+          "ey": "400",
+          "hy": "98",
+          "go": "3,784",
+          "eo": "5,502",
+          "ho": "3,812",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 22,
+          "name": "Florida",
+          "m": "1.034",
+          "gi": "1,840",
+          "ei": "1,605",
+          "hi": "2,987",
+          "gy": "279",
+          "ey": "342",
+          "hy": "84",
+          "go": "4,634",
+          "eo": "5,024",
+          "ho": "3,824",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 23,
+          "name": "Missouri",
+          "m": "0.908",
+          "gi": "1,725",
+          "ei": "1,509",
+          "hi": "2,840",
+          "gy": "226",
+          "ey": "412",
+          "hy": "101",
+          "go": "3,985",
+          "eo": "5,628",
+          "ho": "3,848",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 24,
+          "name": "Wyoming",
+          "m": "0.927",
+          "gi": "1,743",
+          "ei": "1,524",
+          "hi": "2,862",
+          "gy": "211",
+          "ey": "506",
+          "hy": "124",
+          "go": "3,849",
+          "eo": "6,582",
+          "ho": "4,100",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 25,
+          "name": "Georgia",
+          "m": "0.963",
+          "gi": "1,775",
+          "ei": "1,551",
+          "hi": "2,904",
+          "gy": "260",
+          "ey": "387",
+          "hy": "95",
+          "go": "4,373",
+          "eo": "5,425",
+          "ho": "3,852",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 26,
+          "name": "South Carolina",
+          "m": "0.937",
+          "gi": "1,752",
+          "ei": "1,532",
+          "hi": "2,874",
+          "gy": "218",
+          "ey": "404",
+          "hy": "99",
+          "go": "3,929",
+          "eo": "5,569",
+          "ho": "3,861",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 27,
+          "name": "Alabama",
+          "m": "0.888",
+          "gi": "1,707",
+          "ei": "1,494",
+          "hi": "2,817",
+          "gy": "226",
+          "ey": "428",
+          "hy": "105",
+          "go": "3,969",
+          "eo": "5,772",
+          "ho": "3,865",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 28,
+          "name": "North Carolina",
+          "m": "0.943",
+          "gi": "1,757",
+          "ei": "1,536",
+          "hi": "2,881",
+          "gy": "226",
+          "ey": "403",
+          "hy": "99",
+          "go": "4,013",
+          "eo": "5,562",
+          "ho": "3,867",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 29,
+          "name": "Texas",
+          "m": "0.971",
+          "gi": "1,782",
+          "ei": "1,557",
+          "hi": "2,913",
+          "gy": "243",
+          "ey": "392",
+          "hy": "96",
+          "go": "4,211",
+          "eo": "5,473",
+          "ho": "3,871",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 30,
+          "name": "Ohio",
+          "m": "0.928",
+          "gi": "1,743",
+          "ei": "1,524",
+          "hi": "2,863",
+          "gy": "214",
+          "ey": "556",
+          "hy": "136",
+          "go": "3,886",
+          "eo": "7,079",
+          "ho": "4,222",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 31,
+          "name": "Nevada",
+          "m": "1.000",
+          "gi": "1,809",
+          "ei": "1,579",
+          "hi": "2,947",
+          "gy": "209",
+          "ey": "441",
+          "hy": "108",
+          "go": "3,903",
+          "eo": "5,987",
+          "ho": "4,026",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 32,
+          "name": "Kansas",
+          "m": "0.901",
+          "gi": "1,719",
+          "ei": "1,504",
+          "hi": "2,832",
+          "gy": "222",
+          "ey": "450",
+          "hy": "110",
+          "go": "3,936",
+          "eo": "5,999",
+          "ho": "3,932",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 33,
+          "name": "Arizona",
+          "m": "1.007",
+          "gi": "1,816",
+          "ei": "1,584",
+          "hi": "2,955",
+          "gy": "253",
+          "ey": "426",
+          "hy": "104",
+          "go": "4,347",
+          "eo": "5,843",
+          "ho": "3,997",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 34,
+          "name": "New Jersey",
+          "m": "1.088",
+          "gi": "1,889",
+          "ei": "1,646",
+          "hi": "3,049",
+          "gy": "218",
+          "ey": "716",
+          "hy": "175",
+          "go": "4,070",
+          "eo": "8,810",
+          "ho": "4,802",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 35,
+          "name": "Virginia",
+          "m": "1.011",
+          "gi": "1,819",
+          "ei": "1,587",
+          "hi": "2,960",
+          "gy": "245",
+          "ey": "468",
+          "hy": "114",
+          "go": "4,272",
+          "eo": "6,263",
+          "ho": "4,104",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 36,
+          "name": "Delaware",
+          "m": "0.998",
+          "gi": "1,807",
+          "ei": "1,577",
+          "hi": "2,944",
+          "gy": "235",
+          "ey": "523",
+          "hy": "128",
+          "go": "4,160",
+          "eo": "6,808",
+          "ho": "4,223",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 37,
+          "name": "Washington",
+          "m": "1.070",
+          "gi": "1,873",
+          "ei": "1,632",
+          "hi": "3,028",
+          "gy": "283",
+          "ey": "463",
+          "hy": "113",
+          "go": "4,702",
+          "eo": "6,266",
+          "ho": "4,162",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 38,
+          "name": "District of Columbia",
+          "m": "1.099",
+          "gi": "1,899",
+          "ei": "1,655",
+          "hi": "3,062",
+          "gy": "232",
+          "ey": "629",
+          "hy": "154",
+          "go": "4,215",
+          "eo": "7,946",
+          "ho": "4,601",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 39,
+          "name": "Maryland",
+          "m": "1.050",
+          "gi": "1,855",
+          "ei": "1,617",
+          "hi": "3,005",
+          "gy": "240",
+          "ey": "604",
+          "hy": "148",
+          "go": "4,254",
+          "eo": "7,656",
+          "ho": "4,483",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 40,
+          "name": "Pennsylvania",
+          "m": "0.976",
+          "gi": "1,787",
+          "ei": "1,561",
+          "hi": "2,919",
+          "gy": "247",
+          "ey": "656",
+          "hy": "161",
+          "go": "4,257",
+          "eo": "8,125",
+          "ho": "4,526",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 41,
+          "name": "Oregon",
+          "m": "1.034",
+          "gi": "1,840",
+          "ei": "1,605",
+          "hi": "2,987",
+          "gy": "271",
+          "ey": "539",
+          "hy": "132",
+          "go": "4,549",
+          "eo": "6,997",
+          "ho": "4,307",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 42,
+          "name": "Alaska",
+          "m": "1.024",
+          "gi": "1,831",
+          "ei": "1,597",
+          "hi": "2,975",
+          "gy": "264",
+          "ey": "1,051",
+          "hy": "257",
+          "go": "4,471",
+          "eo": "12,109",
+          "ho": "5,547",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 43,
+          "name": "Connecticut",
+          "m": "1.036",
+          "gi": "1,841",
+          "ei": "1,606",
+          "hi": "2,988",
+          "gy": "276",
+          "ey": "991",
+          "hy": "243",
+          "go": "4,599",
+          "eo": "11,519",
+          "ho": "5,415",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 44,
+          "name": "Hawaii",
+          "m": "1.100",
+          "gi": "1,900",
+          "ei": "1,655",
+          "hi": "3,063",
+          "gy": "536",
+          "ey": "759",
+          "hy": "186",
+          "go": "7,264",
+          "eo": "9,242",
+          "ho": "4,921",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "rank": 45,
+          "name": "New York",
+          "m": "1.079",
+          "gi": "1,881",
+          "ei": "1,640",
+          "hi": "3,039",
+          "gy": "305",
+          "ey": "947",
+          "hy": "232",
+          "go": "4,935",
+          "eo": "11,109",
+          "ho": "5,356",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 46,
+          "name": "Vermont",
+          "m": "0.980",
+          "gi": "1,791",
+          "ei": "1,564",
+          "hi": "2,924",
+          "gy": "322",
+          "ey": "854",
+          "hy": "209",
+          "go": "5,007",
+          "eo": "10,101",
+          "ho": "5,014",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 47,
+          "name": "California",
+          "m": "1.107",
+          "gi": "1,907",
+          "ei": "1,661",
+          "hi": "3,071",
+          "gy": "312",
+          "ey": "910",
+          "hy": "223",
+          "go": "5,030",
+          "eo": "10,759",
+          "ho": "5,297",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 48,
+          "name": "New Hampshire",
+          "m": "1.042",
+          "gi": "1,847",
+          "ei": "1,611",
+          "hi": "2,996",
+          "gy": "331",
+          "ey": "906",
+          "hy": "222",
+          "go": "5,153",
+          "eo": "10,670",
+          "ho": "5,214",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 49,
+          "name": "Maine",
+          "m": "0.971",
+          "gi": "1,782",
+          "ei": "1,557",
+          "hi": "2,913",
+          "gy": "344",
+          "ey": "1,055",
+          "hy": "258",
+          "go": "5,224",
+          "eo": "12,104",
+          "ho": "5,494",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 50,
+          "name": "Rhode Island",
+          "m": "1.023",
+          "gi": "1,830",
+          "ei": "1,596",
+          "hi": "2,974",
+          "gy": "351",
+          "ey": "985",
+          "hy": "241",
+          "go": "5,340",
+          "eo": "11,442",
+          "ho": "5,383",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "rank": 51,
+          "name": "Massachusetts",
+          "m": "1.058",
+          "gi": "1,862",
+          "ei": "1,623",
+          "hi": "3,014",
+          "gy": "418",
+          "ey": "1,046",
+          "hy": "256",
+          "go": "6,041",
+          "eo": "12,084",
+          "ho": "5,575",
+          "best": "Heat pump (hybrid), 240 V"
+        }
+      ],
+      "source": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
+      "sourceUrl": "https://hotwatermath.com/methodology/#cost-index",
+      "sourceDate": "2026-11-13"
+    },
+    "top": {
+      "caption": "The 5 cheapest and 5 most expensive states to own a water heater (10 years, cheapest of the three tanks)",
+      "columns": [
+        {
+          "key": "pos",
+          "label": "Group"
+        },
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "own",
+          "label": "10-year cost",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "best",
+          "label": "Cheapest option"
+        }
+      ],
+      "rows": [
+        {
+          "pos": "Cheapest",
+          "name": "Idaho",
+          "own": "3,136",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Cheapest",
+          "name": "New Mexico",
+          "own": "3,251",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Cheapest",
+          "name": "Montana",
+          "own": "3,357",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Cheapest",
+          "name": "South Dakota",
+          "own": "3,358",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Cheapest",
+          "name": "Tennessee",
+          "own": "3,428",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Most expensive",
+          "name": "Massachusetts",
+          "own": "5,575",
+          "best": "Heat pump (hybrid), 240 V"
+        },
+        {
+          "pos": "Most expensive",
+          "name": "Rhode Island",
+          "own": "5,340",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Most expensive",
+          "name": "Maine",
+          "own": "5,224",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Most expensive",
+          "name": "New Hampshire",
+          "own": "5,153",
+          "best": "Gas tank (standard vent)"
+        },
+        {
+          "pos": "Most expensive",
+          "name": "California",
+          "own": "5,030",
+          "best": "Gas tank (standard vent)"
+        }
+      ],
+      "source": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
+      "sourceUrl": "https://hotwatermath.com/methodology/#cost-index",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}

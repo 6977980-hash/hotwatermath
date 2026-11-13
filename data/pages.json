@@ -146,6 +146,34 @@
       "dateModified": "2026-11-13"
     },
     {
+      "slug": "data",
+      "type": "utility",
+      "status": "draft",
+      "phase": "8",
+      "title": "Water Heater Data Downloads",
+      "metaTitle": "Water Heater Data Downloads (CSV) | Hot Water Math",
+      "description": "Download 12 sourced water heater datasets as CSV: cost by state, energy prices, incoming water temperature, lifespans and sizing tables. Free, CC BY 4.0.",
+      "h1": "Water heater data downloads",
+      "subtitle": "Every table our calculators use, as a free CSV with its primary source and date.",
+      "quickAnswer": "Every table our calculators use is free to download as CSV under CC BY 4.0. Credit Hot Water Math with a link, and check each dataset's primary source and date below.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
+      "slug": "embed-calculators",
+      "type": "utility",
+      "status": "draft",
+      "phase": "8",
+      "title": "Embed Our Calculators",
+      "metaTitle": "Embed a Free Water Heater Calculator | Hot Water Math",
+      "description": "Add a free water heater calculator to your website with one line of iframe code. No ads inside, works on phones, and the credit link is optional.",
+      "h1": "Embed a water heater calculator on your site",
+      "subtitle": "One line of code, free, no ads inside the calculator.",
+      "quickAnswer": "Copy the one-line iframe code for the calculator you want and paste it into your page. It is free, shows no ads, and the small credit line under it is optional.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13"
+    },
+    {
       "slug": "water-heater-age-calculator",
       "type": "tool",
       "status": "live",
@@ -1441,6 +1469,34 @@
         "40 vs 50 gallon water heater cost",
         "difference between 40 and 50 gallon water heater"
       ]
+    },
+    {
+      "slug": "water-heater-installation-cost-index",
+      "type": "article",
+      "status": "draft",
+      "phase": "8",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "group": "Cost by State",
+      "title": "Water Heater Cost Index by State",
+      "summary": "Installed price and 10-year cost of a 50-gallon gas, electric and heat pump water heater in all 50 states and DC, ranked, with a chart and free data.",
+      "metaTitle": "Water Heater Cost Index 2026: All 50 States | Hot Water Math",
+      "description": "Water heater cost index 2026: a 50-gallon tank plus 10 years of energy costs $3,136 in Idaho to $5,575 in Massachusetts. All 50 states, free CSV.",
+      "h1": "Water heater cost index by state, 2026",
+      "subtitle": "Installed price and 10-year cost of a 50-gallon gas, electric or heat pump water heater in every state.",
+      "quickAnswer": "Owning a 50-gallon water heater for 10 years costs least in Idaho ($3,136) and most in Massachusetts ($5,575), counting installed price and energy. A heat pump beats an electric tank in all 51 states.",
+      "scripts": [
+        "cost-calculator"
+      ],
+      "keywords": [
+        "water heater cost index",
+        "water heater cost by state",
+        "water heater installation cost by state",
+        "cheapest state to replace a water heater",
+        "most expensive state for water heater replacement",
+        "water heater running cost by state"
+      ],
+      "methodAnchor": "cost-index"
     },
     {
       "slug": "water-heater-expansion-tank-size",

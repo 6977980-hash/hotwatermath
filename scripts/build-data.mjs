@@ -70,6 +70,7 @@ export const INPUTS = [
 	'data/state-pages.json',
 	'data/metro-price-parities.json',
 	'data/safety.json',
+	'data/datasets.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -1852,6 +1853,118 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		const want = slug.startsWith('gas') ? [`${fmt(c199)} CFH`] : [`${fmt(tempra24.total)} amps`];
 		for (const w of want) if (pg && pg.status !== 'planned' && !String(pg.description).includes(w)) throw new Error(`pages.json description for ${slug} must contain "${w}"; update it.`);
 	}
+}
+
+/* ---------- Phase 8: water heater cost index by state + /data/ datasets ---------- */
+{
+	const years = d['decision-rules'].ownershipYearsDefault;
+	const opClient = { model, defaults: { household: 'typical', state: 'US' } };
+	const TYPES = [['gas_tank', 'g'], ['electric_tank', 'e'], ['heat_pump', 'h']];
+	const builtStates = new Map(d['state-pages'].statePages.map((x) => [x.code, `water-heater-installation-cost/${x.slug}`]));
+	const rowFor = (k) => {
+		const ops = Object.fromEntries(describeOp({ household: 'typical', state: k }, opClient).rows.map((x) => [x.id, x]));
+		const o = {};
+		for (const [t, p] of TYPES) {
+			const installed = job(t, '50', 'replace', k).typical;
+			const yearly = ops[t].year;
+			o[p] = { installed, yearly, own: F.costOfOwnership({ installed, annualOperating: yearly, lifeYears: model.types[t].life, credit: 0 }, years).total };
+		}
+		const best = TYPES.map(([t, p]) => ({ t, p, own: o[p].own })).sort((a, b) => a.own - b.own)[0];
+		return { code: k, ...o, best: best.t, bestOwn: best.own };
+	};
+	const us = rowFor('US');
+	const rows = states.map(([k, s]) => ({ name: s.name, m: model.states[k].multiplier, slug: builtStates.get(k) || '', ...rowFor(k) }));
+	const ranked = [...rows].sort((a, b) => a.bestOwn - b.bestOwn);
+	ranked.forEach((x, i) => { x.rank = i + 1; });
+	const label = (t) => model.types[t].label;
+	const by = (fn) => [...rows].sort((a, b) => fn(a) - fn(b));
+	const ends = (fn) => { const s = by(fn); return { low: { name: s[0].name, v: fmt(fn(s[0])) }, high: { name: s[s.length - 1].name, v: fmt(fn(s[s.length - 1])) }, ratio: fmt(fn(s[s.length - 1]) / fn(s[0]), 1) }; };
+	const count = (fn) => rows.filter(fn).length;
+	const bestCounts = Object.fromEntries(TYPES.map(([t]) => [t, count((x) => x.best === t)]));
+	const pctOver = (a, b) => Math.round(((a - b) / b) * 100);
+	const figures = {
+		years, stateCount: rows.length, gallons: model.typicalGallons, setpoint: model.setpointF,
+		us: Object.fromEntries(TYPES.map(([t, p]) => [p, { installed: fmt(us[p].installed), yearly: fmt(us[p].yearly), own: fmt(us[p].own) }])),
+		installG: ends((x) => x.g.installed), installE: ends((x) => x.e.installed), installH: ends((x) => x.h.installed),
+		yearlyG: ends((x) => x.g.yearly), yearlyE: ends((x) => x.e.yearly), yearlyH: ends((x) => x.h.yearly),
+		ownBest: ends((x) => x.bestOwn), ownE: ends((x) => x.e.own),
+		bestGas: bestCounts.gas_tank, bestEl: bestCounts.electric_tank, bestHp: bestCounts.heat_pump,
+		gasRunsCheaper: count((x) => x.g.yearly < x.e.yearly), hpRunsCheaperThanGas: count((x) => x.h.yearly < x.g.yearly),
+		hpBeatsElOwn: count((x) => x.h.own < x.e.own), hpBeatsGasOwn: count((x) => x.h.own < x.g.own),
+		elOverGasOwn: count((x) => x.e.own > x.g.own),
+		usHpVsElOwn: fmt(us.e.own - us.h.own), hpVsElOwn: ends((x) => x.e.own - x.h.own), usBest: label(us.best), hpShare: Math.round((us.h.yearly / us.e.yearly) * 100), usHpPremium: fmt(us.h.installed - us.e.installed),
+		installSpreadPct: pctOver(by((x) => x.g.installed).at(-1).g.installed, by((x) => x.g.installed)[0].g.installed),
+		cheapest5: ranked.slice(0, 5).map((x) => ({ name: x.name, own: fmt(x.bestOwn), best: label(x.best) })),
+		dearest5: ranked.slice(-5).reverse().map((x) => ({ name: x.name, own: fmt(x.bestOwn), best: label(x.best) })),
+		dataYear: { electric: Math.max(...Object.values(out['energy-prices'].states).map((x) => x.electricYear)), gas: Math.max(...Object.values(out['energy-prices'].states).map((x) => x.gasYear)), rpp: d['regional-cost-index'].meta.source.match(/\b(20\d\d)\b/)[1] },
+		lastReviewed: ic.lastReviewed, unitsReviewed: d['cost-ranges'].lastReviewed,
+		labels: { g: label('gas_tank'), e: label('electric_tank'), h: label('heat_pump') },
+	};
+	const src = { source: `Installed: equipment listings (${d['cost-ranges'].lastReviewed}) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, ${model.typicalGallons} gal/day at ${model.setpointF} °F from each state's average incoming water temperature (NOAA-based), median UEFs. ${years}-year cost = installed + ${years} × yearly energy (no rebates, no discounting).`, sourceUrl: 'https://hotwatermath.com/methodology/#cost-index', sourceDate: ic.lastReviewed };
+	const cols = [
+		{ key: 'rank', label: 'Rank', num: true }, { key: 'name', label: 'State' }, { key: 'm', label: 'Price factor', num: true },
+		{ key: 'gi', label: 'Gas tank installed', unit: '$', num: true }, { key: 'ei', label: 'Electric tank installed', unit: '$', num: true }, { key: 'hi', label: 'Heat pump installed', unit: '$', num: true },
+		{ key: 'gy', label: 'Gas tank energy', unit: '$/yr', num: true }, { key: 'ey', label: 'Electric tank energy', unit: '$/yr', num: true }, { key: 'hy', label: 'Heat pump energy', unit: '$/yr', num: true },
+		{ key: 'go', label: `Gas tank, ${years} years`, unit: '$', num: true }, { key: 'eo', label: `Electric tank, ${years} years`, unit: '$', num: true }, { key: 'ho', label: `Heat pump, ${years} years`, unit: '$', num: true },
+		{ key: 'best', label: `Cheapest over ${years} years` },
+	];
+	const rowOut = (x) => ({ rank: x.rank, name: x.name, m: fmt(x.m, 3), gi: fmt(x.g.installed), ei: fmt(x.e.installed), hi: fmt(x.h.installed), gy: fmt(x.g.yearly), ey: fmt(x.e.yearly), hy: fmt(x.h.yearly), go: fmt(x.g.own), eo: fmt(x.e.own), ho: fmt(x.h.own), best: label(x.best) });
+	out['water-heater-installation-cost-index'] = {
+		meta: { ...derived('the cost calculator model, data/energy-prices.json, data/groundwater-temp-by-state.json and data/regional-cost-index.json'), notes: 'Water heater cost index by state (Phase 8 linkable asset): one row per state + DC, ranked by the cheapest 10-year cost of the three 50-gallon tank options. chart = rows for scripts/build-charts.mjs.' },
+		figures,
+		usRow: { gi: fmt(us.g.installed), ei: fmt(us.e.installed), hi: fmt(us.h.installed), gy: fmt(us.g.yearly), ey: fmt(us.e.yearly), hy: fmt(us.h.yearly), go: fmt(us.g.own), eo: fmt(us.e.own), ho: fmt(us.h.own), best: label(us.best) },
+		links: Object.fromEntries(rows.filter((x) => x.slug).map((x) => [x.name, x.slug])),
+		chart: { years, labels: figures.labels, us: { g: us.g.own, e: us.e.own, h: us.h.own }, rows: ranked.map((x) => ({ name: x.name, code: x.code, g: x.g.own, e: x.e.own, h: x.h.own })) },
+		tables: {
+			index: table(`Water heater cost index by state: 50-gallon tanks, installed price and ${years}-year cost (ranked, 1 = cheapest to own)`, cols, ranked.map(rowOut), src),
+			top: table(`The 5 cheapest and 5 most expensive states to own a water heater (${years} years, cheapest of the three tanks)`, [{ key: 'pos', label: 'Group' }, { key: 'name', label: 'State' }, { key: 'own', label: `${years}-year cost`, unit: '$', num: true }, { key: 'best', label: 'Cheapest option' }], [...figures.cheapest5.map((x) => ({ pos: 'Cheapest', ...x })), ...figures.dearest5.map((x) => ({ pos: 'Most expensive', ...x }))], src),
+		},
+	};
+	// Guard: the registry's description and quick answer quote these figures.
+	const reg = d.pages.pages.find((x) => x.slug === 'water-heater-installation-cost-index');
+	if (reg && reg.status !== 'planned') for (const field of ['quickAnswer', 'description']) for (const n of [figures.ownBest.low.name, figures.ownBest.high.name, `$${figures.ownBest.low.v}`, `$${figures.ownBest.high.v}`]) if (!String(reg[field]).includes(n)) throw new Error(`pages.json ${field} for the cost index must contain ${n}; update it.`);
+
+	/* /data/ page: every dataset as clean CSV columns */
+	const ds = d.datasets;
+	const isNum = (v) => typeof v === 'number' || /^-?\$?[\d,]+(\.\d+)?$/.test(String(v).trim());
+	const toNum = (v) => (typeof v === 'number' ? v : Number(String(v).replace(/[$,]/g, '')));
+	const isRange = (v) => /^[\d,.]+\s*[–-]\s*[\d,.]+$/.test(String(v).trim());
+	const list = ds.datasets.map((x) => {
+		const t = out[x.file]?.tables?.[x.table];
+		if (!t) throw new Error(`data/datasets.json: ${x.id} points to a missing table ${x.file}.${x.table}`);
+		const head = [];
+		const getters = [];
+		for (const c of t.columns) {
+			const vals = t.rows.map((r) => r[c.key]);
+			const name = c.unit ? `${c.label} (${c.unit})` : c.label;
+			if (vals.every((v) => v !== undefined && v !== '' && isRange(v))) {
+				head.push(`${name} low`, `${name} high`);
+				getters.push((r) => toNum(String(r[c.key]).split(/\s*[–-]\s*/)[0]), (r) => toNum(String(r[c.key]).split(/\s*[–-]\s*/)[1]));
+			} else if (vals.every((v) => v !== undefined && v !== '' && isNum(v))) {
+				head.push(name);
+				getters.push((r) => toNum(r[c.key]));
+			} else {
+				head.push(name);
+				getters.push((r) => (r[c.key] === undefined ? '' : String(r[c.key])));
+			}
+		}
+		// "file" uses the file's meta; "file:references.key" uses one reference record (publisher + title + sourceUrl).
+		const refOf = (spec) => {
+			const [f, path] = spec.split(':');
+			const node = path ? path.split('.').reduce((o, k) => o?.[k], d[f]) : d[f]?.meta;
+			if (!node?.sourceUrl) throw new Error(`data/datasets.json: ${x.id} basedOnFiles entry ${spec} has no sourceUrl`);
+			return { url: node.sourceUrl, name: path ? `${node.publisher}: ${node.title}` : node.source };
+		};
+		const refs = x.basedOnFiles.map(refOf).filter((r, i, a) => a.findIndex((y) => y.url === r.url) === i);
+		const basedOn = refs.map((r) => r.url);
+		const basedOnNames = refs.map((r) => r.name);
+		const reg2 = d.pages.pages.find((p) => p.slug === x.page);
+		if (!reg2) throw new Error(`data/datasets.json: ${x.id} page ${x.page} is not in pages.json`);
+		return { id: x.id, name: x.name, description: x.description, caption: t.caption, page: x.page, keywords: x.keywords, basedOn, basedOnNames, tableSource: t.source, sourceDate: t.sourceDate || ds.meta.sourceDate, columns: head, rows: t.rows.map((r) => getters.map((g) => g(r))), rowCount: t.rows.length };
+	});
+	const dataReg = d.pages.pages.find((x) => x.slug === 'data');
+	if (dataReg && dataReg.status !== 'planned' && !String(dataReg.description).includes(`${list.length} sourced`)) throw new Error(`pages.json description for /data/ must say "${list.length} sourced"; update it.`);
+	out.datasets = { meta: { ...derived('data/datasets.json and the computed tables it names'), notes: 'Clean CSV columns for /data/<id>.csv and Dataset schema on /data/.' }, license: ds.license, datasets: list };
 }
 
 /* ---------- write + manifest ---------- */

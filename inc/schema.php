@@ -191,6 +191,49 @@ function hwm_schema_article( array $entry ): array {
 	);
 }
 
+/**
+ * Dataset schema (CLAUDE.md §6): every dataset on /data/, and on the page that shows a dataset's table
+ * only that dataset (the cost index). Built from data/computed/datasets.json; CSV at /data/<id>.csv.
+ */
+function hwm_schema_datasets( string $slug ): array {
+	$sets = (array) hwm_raw( 'computed/datasets', 'datasets' );
+	$lic  = (array) hwm_raw( 'computed/datasets', 'license' );
+	$ids  = hwm_schema_ids();
+	$out  = array();
+	foreach ( $sets as $set ) {
+		if ( 'data' !== $slug && ( $set['page'] ?? '' ) !== $slug ) {
+			continue;
+		}
+		if ( 'data' !== $slug && 'water-heater-installation-cost-index' !== $slug ) {
+			continue; // Only /data/ and the index article print Dataset markup.
+		}
+		$csv   = hwm_origin() . '/data/' . $set['id'] . '.csv';
+		$out[] = array(
+			'@type'               => 'Dataset',
+			'@id'                 => hwm_url( 'data' ) . '#' . $set['id'],
+			'name'                => (string) $set['name'],
+			'description'         => (string) $set['description'] . ' Source: ' . (string) $set['tableSource'],
+			'url'                 => hwm_url( 'data' ) . '#' . $set['id'],
+			'keywords'            => (array) ( $set['keywords'] ?? array() ),
+			'license'             => (string) ( $lic['url'] ?? '' ),
+			'isAccessibleForFree' => true,
+			'creator'             => array( '@type' => 'Organization', '@id' => $ids['org'], 'name' => (string) hwm_site( 'brand' ), 'url' => hwm_url() ),
+			'publisher'           => array( '@id' => $ids['org'] ),
+			'dateModified'        => (string) $set['sourceDate'],
+			'isBasedOn'           => array_values( (array) $set['basedOn'] ),
+			'spatialCoverage'     => array( '@type' => 'Place', 'name' => 'United States' ),
+			'distribution'        => array(
+				array(
+					'@type'          => 'DataDownload',
+					'encodingFormat' => 'text/csv',
+					'contentUrl'     => $csv,
+				),
+			),
+		);
+	}
+	return $out;
+}
+
 /** FAQPage from [ [ 'q' => ..., 'a' => ... ] ]. Answers are plain text or simple HTML. */
 function hwm_schema_faq( array $faq, string $url ): array {
 	$items = array();
@@ -234,6 +277,10 @@ add_action(
 		}
 		if ( 'article' === $type ) {
 			hwm_jsonld( hwm_schema_article( $entry ) );
+		}
+		$datasets = hwm_schema_datasets( (string) $entry['slug'] );
+		if ( $datasets ) {
+			hwm_jsonld( 1 === count( $datasets ) ? $datasets[0] : array( '@graph' => $datasets ) );
 		}
 	},
 	5

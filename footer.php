@@ -22,6 +22,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<li><a href="<?php echo esc_url( hwm_url( 'calculators' ) ); ?>">Calculators</a></li>
 					<li><a href="<?php echo esc_url( hwm_url( 'guides' ) ); ?>">Guides</a></li>
 					<li><a href="<?php echo esc_url( hwm_url( 'methodology' ) ); ?>">Methodology</a></li>
+					<?php foreach ( array( 'data' => 'Data downloads', 'embed-calculators' => 'Embed a calculator' ) as $hwm_fslug => $hwm_flabel ) : ?>
+						<?php if ( hwm_is_live( hwm_page( $hwm_fslug ) ) ) : ?>
+							<li><a href="<?php echo esc_url( hwm_url( $hwm_fslug ) ); ?>"><?php echo esc_html( $hwm_flabel ); ?></a></li>
+						<?php endif; ?>
+					<?php endforeach; ?>
 				</ul>
 			</nav>
 			<nav aria-label="Legal">
