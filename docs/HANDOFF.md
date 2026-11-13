@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6c — State pages, 10 states (2026-11-13). The 10 new pages are `draft` (noindex) until the owner OKs them. Phase 6b batch 2's 4 pages are also still `draft`, waiting for the owner's OK.
+**Last completed phase:** Phase 6c — State pages, 10 states (2026-11-13). Owner OK 2026-11-13: the 10 state pages and Phase 6b batch 2's 4 pages are now `live`.
 **Next phase to run:** Phase 6d — Safety-critical pages (built last), per `docs/PHASES.md`.
 
 **What exists now (new or changed in Phase 6c):**
@@ -33,7 +33,7 @@
 - Note: any query string (even `?nocache=`) makes the cost calculator read the URL and re-tick the job's default extras, so California's preset code items drop off on such URLs. Pre-existing behavior of all calculators; harmless for real visitors.
 
 **Owner steps:**
-1. Read the 10 state drafts (and the 4 batch-2 drafts) and reply OK to flip them `live` (quality gate §8).
+1. Done: owner OKed the 10 state pages and 4 batch-2 pages; they are `live` (style.css 0.12.1).
 2. Flush the Hostinger CDN after this deploy (formulas.js changed).
 3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs.
 
@@ -95,3 +95,4 @@
 - 2026-11-13 — Owner decisions: founder LinkedIn added for E-E-A-T; Claude runs the per-page quality gate and source verification; owner handles outreach and post-launch plumber fact-check.
 - 2026-11-13 — Owner instruction: one phase per new thread, PR auto-merged when the phase checklist passes, HANDOFF note for the next phase (CLAUDE.md §9, phase map in PHASES.md).
 - 2026-11-12 — Phase 0 done — custom WordPress theme foundation: registry-driven pages, SEO/schema output, clean-up, utility pages, brand assets, check script.
+- 2026-11-13 — Go-live — owner OK: 10 state cost pages (Phase 6c) and 4 troubleshooting pages (Phase 6b batch 2) flipped to live.
