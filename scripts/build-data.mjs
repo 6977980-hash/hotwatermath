@@ -41,6 +41,8 @@ export const INPUTS = [
 	'data/incentives.json',
 	'data/decision-rules.json',
 	'data/tankless-reference-units.json',
+	'data/brand-pages.json',
+	'assets/js/age.js',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -257,6 +259,7 @@ const out = {};
 }
 
 function describePattern(p) {
+	if (p.layout) return p.layout;
 	const parts = Object.entries(p.fields).sort((a, b) => a[1].group - b[1].group).map(([, s]) => ({ yy: 'two-digit year', mm: 'two-digit month', ww: 'two-digit week', letterYear: 'year letter', letterMonth: 'month letter' })[s.type]);
 	const when = p.validFromYear ? ` (${p.validFromYear} and later)` : p.validToYear ? ` (up to ${p.validToYear})` : '';
 	return `${parts.join(', then ')}${when}`;
@@ -412,6 +415,167 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		formula: dd.formula,
 		sources: 'Rheem date code: checked against Rheem/Ruud\'s own lookup. Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions. <a href="/methodology/#water-heater-age-calculator">See the decoder checked against Rheem/Ruud, Bradford White and CPSC</a>.',
 	};
+}
+
+/* ---------- Phase 2b: brand age pages + lifespan article ---------- */
+{
+	const sf = d['serial-formats'];
+	const ls = d.lifespans;
+	const bp = d['brand-pages'];
+	const ageOut = out['water-heater-age-calculator'];
+	const adj = ls.adjustments;
+	const lifeFor = (typeId) => ls.types[ls.toolTypes.options.find((o) => o.id === typeId).life];
+	const typeLabel = (typeId) => ls.toolTypes.options.find((o) => o.id === typeId).label;
+	const deltas = (hardness, flushed, anode, typeId) => [adj.hardness[hardness] ?? 0, flushed ? 0 : adj.noAnnualFlush, anode && typeId !== 'tankless' ? adj.anodeReplaced : 0];
+	const statusLabel = ageOut.statusLabels;
+	const pct = (f) => Math.round(f * 100);
+	const SOURCE_NAMES = { 'insider.energytrust.org': 'Energy Trust of Oregon', 'www.cpsc.gov': 'U.S. CPSC recall notice', 'www.ruud.com': 'Rheem/Ruud lookup', 'www.bradfordwhite.com': 'Bradford White', 'inspectapedia.com': 'InspectApedia (third party)', 'building-center.org': 'Building Intelligence Center (third party)' };
+	const sourceName = (url) => SOURCE_NAMES[new URL(url).host] || new URL(url).host;
+
+	for (const [brandId, b] of Object.entries(bp.brands)) {
+		const asOfIso = d.site.dateVerified[b.slug] || d.site.dateVerified['water-heater-age-calculator'];
+		const asOf = new Date(`${asOfIso}T12:00:00Z`);
+		const refYear = asOf.getUTCFullYear();
+		const code = sf.brands[brandId];
+		const option = sf.brandOptions.options.find((o) => o.id === b.option);
+		const checks = b.checks.map((c) => {
+			const m = F.decodeSerial(c.serial, code.patterns, refYear);
+			const yearOk = m && (m.year === c.year || (c.cycle && m.otherYears.includes(c.year)));
+			return {
+				serial: c.serial,
+				ours: m ? `${madeLabel(m)}${m.week ? ` (week ${m.week})` : ''}${m.otherYears.length ? `; also possible: ${m.otherYears.join(', ')}` : ''}` : 'not decoded',
+				pattern: m ? m.patternId : '',
+				published: c.published,
+				match: Boolean(m && yearOk && m.month === c.month),
+				cycle: Boolean(c.cycle),
+				source: c.source,
+				sourceUrl: c.sourceUrl,
+			};
+		});
+		const bad = checks.filter((c) => !c.match);
+		if (bad.length) throw new Error(`brand-pages ${brandId}: hand-check mismatch ${bad.map((c) => c.serial).join(', ')}`);
+		const examples = b.examples.map((x) => {
+			const m0 = F.decodeSerial(x.serial, code.patterns, refYear);
+			const made = x.useOtherYear ? { ...m0, year: m0.otherYears[0], otherYears: [m0.year, ...m0.otherYears.slice(1)] } : m0;
+			const base = lifeFor(x.type);
+			const est = F.ageEstimate(made, asOf, base, deltas(x.hardness, x.flushed, x.anode, x.type), adj.minimumLifeYears, ls.statusBands);
+			return {
+				id: x.id, serial: x.serial, input: x,
+				typeLabel: typeLabel(x.type).toLowerCase(),
+				madeLabel: madeLabel(made), year: made.year, month: made.month, ...(m0.week ? { week: m0.week } : {}),
+				latestYear: m0.year, otherYears: m0.otherYears, pattern: m0.patternId,
+				age: fmt(est.age, 1),
+				baseLow: base.low, baseTypical: base.typical, baseHigh: base.high,
+				hardDelta: adj.hardness[x.hardness] ?? 0, flushDelta: x.flushed ? 0 : adj.noAnnualFlush, anodeDelta: x.anode && x.type !== 'tankless' ? adj.anodeReplaced : 0,
+				lifeLow: est.life.low, lifeTypical: est.life.typical, lifeHigh: est.life.high,
+				usedPct: pct(est.usedFraction),
+				remainingMin: fmt(Math.max(0, est.remaining.min), 1), remainingMax: fmt(Math.max(0, est.remaining.max), 1),
+				status: est.status, statusLabel: statusLabel[est.status],
+			};
+		});
+		const formatRows = code.patterns.map((p) => ({
+			id: p.id,
+			rule: describePattern(p),
+			example: p.example,
+			era: p.era ? p.era : p.validFromYear ? `${p.validFromYear} and later` : p.validToYear ? `Up to about ${p.validToYear}` : 'All years',
+			source: sourceName(p.sourceUrl || code.sourceUrl),
+			sourceUrl: p.sourceUrl || code.sourceUrl,
+		}));
+		const def = { brand: b.option, serial: b.defaultSerial, type: 'gas_tank', hardness: 'moderate', flushed: true, anode: false };
+		const dd = describeAge({ ...def, madeYear: null, madeMonth: '' }, ageOut.client, asOf);
+		const o = {
+			meta: { ...derived('data/brand-pages.json, data/serial-formats.json and data/lifespans.json'), notes: `Brand page for ${code.label}. Default result, hand-checks and worked examples are computed as of ${asOfIso}. The live calculator uses the visitor's date.` },
+			asOf: asOfIso,
+			brand: brandId,
+			label: code.label,
+			alsoSoldAs: code.alsoSoldAs,
+			caveat: option.caveat || '',
+			defaultInputs: def,
+			default: {
+				status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline,
+				explain: `${dd.explain} (Example serial in the ${code.label} format, as of ${asOfIso}; type yours.)`,
+				formula: dd.formula,
+				sources: `${code.label} date code: ${[...new Set(formatRows.map((f) => f.source))].join(', ')}. Lifespan: DOE 2024 water heater rule and DOE FEMP. Adjustments are our editorial assumptions. <a href="/methodology/#water-heater-age-calculator">See every decoder test case</a>.`,
+			},
+			checks,
+			checksMatched: checks.filter((c) => c.match).length,
+			examples: Object.fromEntries(examples.map((e) => [e.id, e])),
+			formatRows,
+			client: ageOut.client,
+		};
+		if (brandId === 'bradford-white') {
+			const y = code.patterns[0].fields.year;
+			const mo = code.patterns[0].fields.month;
+			o.yearLetters = [...y.letters].map((L, i) => ({ letter: L, years: y.cycleStarts.map((c) => c + i).join(', ') }));
+			o.monthLetters = [...mo.letters].map((L, i) => ({ letter: L, month: MONTHS[i] }));
+			o.cycleYears = y.cycleStarts[1] - y.cycleStarts[0];
+			o.cycleStarts = y.cycleStarts;
+		}
+		if (code.patterns.some((p) => Object.values(p.fields).some((f) => f.type === 'ww'))) {
+			const byMonth = new Map();
+			for (let w = 1; w <= 53; w++) { const m = F.monthFromWeek(w); byMonth.set(m, [...(byMonth.get(m) || []), w]); }
+			o.weekToMonth = [...byMonth.entries()].map(([m, ws]) => ({ month: MONTHS[m - 1], weeks: `${ws[0]}–${ws[ws.length - 1]}` }));
+		}
+		if (b.lookupMisses) o.lookupMisses = b.lookupMisses;
+		out[b.slug] = o;
+		// Methodology cross-check table: add the brand hand-checks that the age page does not already list.
+		const have = new Set(ageOut.crossChecks.map((c) => c.label));
+		for (const c of checks) {
+			const label = `${code.label} serial ${c.serial}`;
+			if (have.has(label) || ageOut.crossChecks.some((x) => x.id.endsWith(c.serial))) continue;
+			ageOut.crossChecks.push({ id: `${brandId}-${c.serial}`, label, ours: c.ours, published: c.published, match: c.match, why: c.cycle ? `Same month. ${code.label} year letters repeat every 20 years; the decoder shows the latest year first and lists ${c.ours.split('also possible: ')[1] || ''}, which includes the date this source gives.` : 'Same month.', source: c.source, sourceUrl: c.sourceUrl });
+		}
+	}
+
+	/* Lifespan article: how much of the expected life a unit of a given age has used. */
+	{
+		const asOfIso = d.site.dateVerified['how-long-does-a-water-heater-last'] || d.site.dateVerified['water-heater-age-calculator'];
+		const asOf = new Date(`${asOfIso}T12:00:00Z`);
+		const ages = [3, 6, 9, 12, 15, 18];
+		const kinds = [
+			{ key: 'tank', label: 'Tank (gas, electric or heat pump)', life: ls.types.gas_tank },
+			{ key: 'tankless', label: 'Tankless', life: ls.types.gas_tankless },
+		];
+		const rows = ages.map((a) => {
+			const made = { year: asOf.getUTCFullYear() - a, month: asOf.getUTCMonth() + 1, week: null };
+			const row = { age: a };
+			for (const k of kinds) {
+				const e = F.ageEstimate(made, asOf, k.life, [], adj.minimumLifeYears, ls.statusBands);
+				row[k.key] = `${pct(e.usedFraction)}% (${statusLabel[e.status].toLowerCase()})`;
+			}
+			return row;
+		});
+		const hard = F.adjustedLifespan(ls.types.gas_tank, [adj.hardness.veryHard, adj.noAnnualFlush], adj.minimumLifeYears);
+		const care = F.adjustedLifespan(ls.types.gas_tank, [adj.anodeReplaced], adj.minimumLifeYears);
+		const mv = ls.manufacturerViews;
+		out['how-long-does-a-water-heater-last'] = {
+			meta: { ...derived('data/lifespans.json'), notes: `Share of expected life used by a unit of each age, as of ${asOfIso}. Bars: lifespan ranges in years, scaled for the SVG chart.` },
+			asOf: asOfIso,
+			worstCase: { low: hard.low, typical: hard.typical, high: hard.high },
+			bestCase: { low: care.low, typical: care.typical, high: care.high },
+			tables: {
+				ageShare: table(
+					'How much of its expected life a water heater of each age has used',
+					[{ key: 'age', label: 'Age (years)', num: true }, ...kinds.map((k) => ({ key: k.key, label: `${k.label}: ${k.life.typical}-year ${k.life.low === k.life.high ? 'average' : 'typical'} life` }))],
+					rows,
+					{ source: `Computed with the age calculator's formula (age ÷ typical life; bands: amber from ${pct(ls.statusBands.amberFrom)}%, red from ${pct(ls.statusBands.redFrom)}%) and DOE lifetimes from ${ls.meta.source}`, sourceUrl: ls.meta.sourceUrl, sourceDate: ls.meta.sourceDate },
+				),
+			},
+			bars: (() => {
+				const maxYears = 25;
+				const scale = (y) => r((y / maxYears) * 100, 2);
+				const list = [
+					{ label: 'DOE: storage tank', low: ls.types.gas_tank.low, high: ls.types.gas_tank.high, typical: ls.types.gas_tank.typical, kind: 'doe' },
+					{ label: 'DOE: tankless', low: ls.types.gas_tankless.low, high: ls.types.gas_tankless.high, typical: ls.types.gas_tankless.typical, kind: 'doe' },
+					{ label: `${mv.rheem.label}: tank`, low: mv.rheem.tankLow, high: mv.rheem.tankHigh, kind: 'maker' },
+					{ label: `${mv['ao-smith'].label}: tank`, low: mv['ao-smith'].tankLow, high: mv['ao-smith'].tankHigh, kind: 'maker' },
+					{ label: `${mv.rheem.label}: tankless`, low: mv.rheem.tanklessLow, high: mv.rheem.tanklessHigh, kind: 'maker' },
+					{ label: `${mv['ao-smith'].label}: tankless`, low: mv['ao-smith'].tanklessLow, high: mv['ao-smith'].tanklessHigh, kind: 'maker' },
+				];
+				return { maxYears, ticks: [0, 5, 10, 15, 20, 25].map((t) => ({ t, x: scale(t) })), rows: list.map((b) => ({ ...b, x: scale(b.low), w: r(Math.max(scale(b.high) - scale(b.low), 0.8), 2), ...(b.typical ? { tx: scale(b.typical) } : {}) })) };
+			})(),
+		};
+	}
 }
 
 /* ---------- Phase 2 tools: tankless size calculator ---------- */

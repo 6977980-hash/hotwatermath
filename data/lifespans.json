@@ -133,8 +133,43 @@
         "rusty or discolored hot water",
         "persistent rumbling or popping sounds caused by hardened sediment on the tank floor"
       ],
-      "source": "Rheem, Water Heater Lifespan: When to Repair vs. Replace (March 25, 2026): tank units typically last 8–12 years; tankless 15–20+ years with proper care",
-      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+      "source": "Rheem, Water Heater Lifespan: When to Repair vs. Replace (March 25, 2026): tank units typically last 8–12 years; tankless 15–20+ years with proper care; maintenance: flush the tank annually, replace the anode rod every 3–4 years, aim for 40–60 psi; replace when a repair costs more than 50% of a new unit",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/",
+      "anodeEveryYearsLow": 3,
+      "anodeEveryYearsHigh": 4,
+      "pressurePsiLow": 40,
+      "pressurePsiHigh": 60,
+      "repairShareOfNewPct": 50,
+      "label": "Rheem"
+    },
+    "ao-smith": {
+      "label": "A. O. Smith",
+      "tankLow": 8,
+      "tankHigh": 12,
+      "tanklessLow": 15,
+      "tanklessHigh": 20,
+      "signs": [
+        "banging, rumbling or popping noises from mineral buildup or worn parts",
+        "any leaking around the unit",
+        "the same error code coming back"
+      ],
+      "hardWaterNote": "Hard water is the biggest threat to a tankless unit: mineral buildup damages the heat exchanger",
+      "source": "A. O. Smith, How long do water heaters last? (hotwater.com info center, checked 2026-11-13): tankless 15 to 20 years with proper care; traditional tanks 8 to 12 years",
+      "sourceUrl": "https://www.hotwater.com/info-center/how-long-do-water-heaters-last.html"
+    },
+    "bradford-white": {
+      "label": "Bradford White",
+      "tankLow": 10,
+      "source": "Bradford White FAQ (checked 2026-11-13): with a professional installation and proper maintenance, our water heaters can last 10 years or more; harsh water and natural gas quality can shorten that lifespan (Bradford White, my water heater page)",
+      "sourceUrl": "https://www.bradfordwhite.com/faq"
     }
+  },
+  "doeFigures": {
+    "storage2024AverageYears": 15,
+    "storage2010AverageYears": 13,
+    "ahriLowYears": 10,
+    "ahriHighYears": 13,
+    "source": "DOE final rule, 89 FR (May 6, 2024), section IV.F.6: average lifetime around 15 years (2024 analysis); 2010 rulemaking 13 years; AHRI assumes 10-13 years (comments quoted)",
+    "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
   }
 }

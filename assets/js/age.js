@@ -96,7 +96,8 @@ export function describe(v, cfg, today) {
 
 /* ---------- browser wiring ---------- */
 if (typeof document !== 'undefined') {
-	const root = document.querySelector('.calc[data-tool="water-heater-age-calculator"]');
+	// The age calculator page, the brand age pages (/<brand>-water-heater-age/) and the lifespan article share this module.
+	const root = document.querySelector('.calc[data-tool="water-heater-age-calculator"], .calc[data-tool$="-water-heater-age"]');
 	const cfgEl = document.getElementById('hwm-age-data');
 	if (root && cfgEl) {
 		const cfg = JSON.parse(cfgEl.textContent);
@@ -108,7 +109,7 @@ if (typeof document !== 'undefined') {
 			renderResult(root, last);
 			if (record) {
 				writeState(values);
-				if (last.status) track('calc_result', { tool: 'water-heater-age-calculator', brand: values.brand, unit_type: values.type, age_bucket: last.age < 5 ? '0-5' : last.age < 10 ? '5-10' : last.age < 15 ? '10-15' : '15+' });
+				if (last.status) track('calc_result', { tool: root.dataset.tool, brand: values.brand, unit_type: values.type, age_bucket: last.age < 5 ? '0-5' : last.age < 10 ? '5-10' : last.age < 15 ? '10-15' : '15+' });
 			}
 		};
 		const deferred = debounce(() => run(true), 400);
@@ -121,6 +122,6 @@ if (typeof document !== 'undefined') {
 		}
 		run(fromUrl);
 		wireActions(root, () => (last ? `${last.headline}. ${last.explain} ${window.location.href}` : window.location.href));
-		if (window.self !== window.top) track('embed_view', { tool: 'water-heater-age-calculator', referrer: document.referrer });
+		if (window.self !== window.top) track('embed_view', { tool: root.dataset.tool, referrer: document.referrer });
 	}
 }

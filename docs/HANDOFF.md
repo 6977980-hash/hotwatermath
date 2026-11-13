@@ -4,60 +4,47 @@
 
 ## Current State
 
-**Last completed phase:** Phase 2 — Tools 1 & 2: Age Calculator + Tankless Size Calculator (2026-11-13)
-**Next phase to run:** Phase 2b — Lifespan article + per-brand serial decoder pages, thread 1 (lifespan + Bradford White, A. O. Smith, Rheem, State) (see `docs/PHASES.md`)
+**Last completed phase:** Phase 2b, thread 1 — lifespan article + Bradford White, A. O. Smith, Rheem, State age pages (2026-11-13)
+**Next phase to run:** Phase 2b, thread 2 — remaining brand pages (Whirlpool, American, GE, Kenmore, Navien, Rinnai), see notes below (see `docs/PHASES.md`)
 
-**What exists now (new or changed in Phase 2):**
-- `content/water-heater-age-calculator.php` — tool page: decoder inputs, all-brands summary table (brand cells link to the planned brand pages once they exist), rating-plate SVG, worked example, lifespan section, FAQ (7), sources (9)
-- `content/tankless-water-heater-size-calculator.php` — tool page: state + fixtures + fuel inputs, gas and electric size charts, state inlet table, worked example (Minnesota), family-of-4 table by climate, electric reference table, FAQ (7), sources (11)
-- `assets/js/age.js`, `assets/js/tankless-size.js` — calculator modules; each exports `describe()` (also used by build-data for the default result), URL-param state, copy/share, GA4 `calc_result` and `embed_view` (no-op until GA loads)
-- `assets/js/formulas.js` — added `ageEstimate`, `smallestAtLeast`, `unitsNeeded`, `tanklessSizing`; PHYSICS + `litersPerGallon`, `fahrenheitPerCelsius`
-- `data/computed/water-heater-age-calculator.json`, `data/computed/tankless-water-heater-size-calculator.json` — default result, worked examples, charts, cross-checks, `client` (inline JSON for the browser)
-- `data/tankless-reference-units.json` (new) — Rinnai chart units, Noritz examples, Lochinvar guide, cold-climate rule
-- `data/serial-formats.json` — Rheem plant-letter + week + year pattern (checked against Rheem/Ruud's lookup), Navien (CPSC), `brandOptions` dropdown with aliases, official lookups (Rheem, Ruud, Bradford White, Navien)
-- `data/lifespans.json` — USGS hardness scale, `toolTypes`, Rheem's published lifespan/signs (`manufacturerViews`)
-- `data/site.json` — `dateVerified` set for both tools (2026-11-13)
-- `data/pages.json` — both tools `draft` with SEO fields + `scripts`; planned entries added: 10 brand pages (Phase 2b), tankless installation cost (6), gas line size and electrical requirements (6d)
-- `content/methodology.php` — both manufacturer cross-check tables filled from computed data; age section notes aliases and undecoded brands
-- `inc/helpers.php` — `hwm_link()` (links only to visible pages) and `hwm_tool_data_script()`
-- `assets/css/global.css` — `.field-grid`, `.figure`, `[hidden]`
-- `assets/og/water-heater-age-calculator.png`, `assets/og/tankless-water-heater-size-calculator.png`
-- `docs/briefs/water-heater-age-calculator.md`, `docs/briefs/tankless-water-heater-size-calculator.md` — SERP briefs + quality check (sources table)
-- `tests/formulas.test.mjs` — 33 tests; `style.css` Version 0.3.1; 5 new `docs/DECISIONS.md` rows
+**What exists now (new or changed in Phase 2b thread 1):**
+- `content/how-long-does-a-water-heater-last.php` — article (draft): lifespan table, DOE vs maker SVG chart, why sources disagree, gas/electric/tankless/heat pump, what shortens life, embedded age calculator, "how old is too old" table, signs, warranty, FAQ (6), sources (7)
+- `content/bradford-white-water-heater-age.php`, `content/ao-smith-water-heater-age.php`, `content/rheem-water-heater-age.php`, `content/state-water-heater-age.php` — brand tool pages (draft), decoder preset per brand, format table, test-case table, serial SVG, worked examples, lifespan/warranty notes, FAQ (6 each)
+- `parts/age-inputs.php` (shared age inputs; the age page now uses it, output unchanged), `parts/serial-figure.php`, `parts/decoder-checks.php`, `parts/serial-formats-table.php`
+- `data/brand-pages.json` (new) — per-brand default serial, hand-checks with sources, worked examples, CPSC recall facts
+- `data/serial-formats.json` — new patterns: Rheem older prefixed tags (InspectApedia), A. O. Smith one-letter month (CPSC 2008 range), State pre-2004 two-letter (Building Intelligence Center); `layout` and `era` text per pattern
+- `data/lifespans.json` — `manufacturerViews` for A. O. Smith and Bradford White, Rheem maintenance numbers, `doeFigures` (15 / 13 / AHRI 10–13)
+- `data/computed/<brand>-water-heater-age.json` ×4, `data/computed/how-long-does-a-water-heater-last.json`; age `crossChecks` now include the brand cases (shown on /methodology)
+- `scripts/build-data.mjs` — Phase 2b block; build fails if a brand hand-check stops matching its source
+- `assets/js/age.js` — root also matches `.calc[data-tool$="-water-heater-age"]`; GA4 events use the page's tool slug
+- `parts/calculator.php` — "How we calculated" anchor from `pages.json → methodAnchor`
+- `data/pages.json` — the 5 pages `draft` with SEO fields; `data/site.json` dateVerified for them; `assets/og/` 5 new images
+- `docs/briefs/` — 5 new briefs with SERP table, verdict and quality check; 3 `docs/DECISIONS.md` rows; `tests/formulas.test.mjs` 37 tests; `style.css` 0.4.0
 
 **Verified (before deploy):**
-- `npm test` 33/33; `npm run validate-data` 30 files OK, computed fresh; `--urls` 90/90 source URLs 200 (2026-11-13).
-- Offline render (PHP stub of the WP helpers) of both pages and /methodology: no PHP notices; Playwright at 360 px: no console errors, no sideways scroll, first input inside the first 640 px (age: brand select ends at 590 px; tankless: state select ends at 617 px).
-- Prose word count excluding tables and FAQ: age 1,465, tankless 1,440.
-- Hand-checked calculator cases (as of 2026-11-13):
-  - Age: Rheem `Q431912345`, gas tank, moderate water, flushed → built Oct 2019, 7.1 yr, 55% of 13 → green. (Rheem/Ruud lookup: 10/18/2019.)
-  - Age: Bradford White `SF1234567`, electric tank, hard water, never flushed → June 2018, 8.4 yr, life 13 − 1 − 1 = 11, 76% → amber, also 1998/1978.
-  - Age: Navien `7410A18709ABCD`, tankless → July 2018 (CPSC: July 9, 2018).
-  - Tankless: 2 showers × 2.5 GPM, 50 °F in, 120 °F out, UEF 0.95 → 5 GPM, 70 °F rise, 175,140 BTU/h output, 184,358 BTU/h input (one 199,000 unit), 51.3 kW / 214 A (more than one 36 kW unit).
-  - Tankless: Minnesota coldest month 36.6 °F, 2 showers + kitchen faucet → 7.2 GPM, 83.4 °F rise, 316,295 BTU/h → 2 gas units; 88.1 kW electric → not realistic.
-  - Tankless: 1 shower, 70 °F in → 2.5 GPM, 50 °F rise, 18.3 kW → RETEX-24 (18 kW too small).
-- Manufacturer cross-checks (on /methodology): Rinnai RUR98i/RL94i/V65i flow at 70 and 50 °F rise within −0.9% to −2.5%; Noritz examples same GPM and rise (6 GPM case: our input is 3.2% above one 199,000 unit, Noritz picks one large unit — explained); Rheem RETEX-36 within 1%; age decoder matches Rheem/Ruud lookup (3/3), Bradford White table (2/2) and CPSC Navien example.
-- Hardcoded-digit grep on both content files: only regulation names (10 CFR 430.32, 89 FR), years of sources (2024 rules, 1991–2020 normals), "24-hour test" (DOE test name), "50 states", question wording ("family of 4", "2 or 3 bathrooms"), "the digits 0 and 1" and source access dates. All data numbers render from data/computed files.
-- Live after PR #5 (0.3.0) and the follow-up PR (0.3.1), 2026-11-13: both pages 200, `noindex, follow`, server-rendered default result present; `/embed/<tool>/` 200 for both. `npm run check` 140/140 with and without `--bust`.
-- Live Playwright at 360×640: no console errors, no sideways scroll; age brand select ends at 590 px, tankless state select at 617 px; Minnesota case gives 7.2 GPM / 83 °F / 316,295 BTU/h (matches the worked example); share-link URL reloads to the same result; embed works.
-- Lighthouse mobile (live): age 100 / 100 / 100 / SEO 66, tankless 100 / 100 / 100 / SEO 66; LCP 1.0–1.1 s, CLS 0. The only failing SEO audit is `is-crawlable` (the pages are noindex drafts by design); every other SEO audit passes, so SEO is 100 once the owner flips them live.
-- Schema.org validator (live): age page 0 errors (WebPage, BreadcrumbList, WebApplication, FAQPage). Tankless page: the validator rate-limited further requests; its markup comes from the same functions.
-- Follow-up fix (0.3.1): the age form's year field was named `year`, a WordPress query var, so a shared link with a year answered 404. Renamed to `madeYear` / `madeMonth`. Never name a form field after a WordPress query var (`year`, `monthnum`, `day`, `m`, `p`, `s`, `page`, `name`, `cat`, `tag`, `author`, `feed`, `order`).
+- `npm test` 37/37; `npm run validate-data` 36 files OK; `--urls` 97 URLs, all 200 except InspectApedia (409 to scripts; opened with a browser-style fetch 2026-11-13).
+- Offline render (PHP stub of the WP helpers) of all 5 pages + age page + /methodology: no PHP notices; age page markup identical after the input refactor.
+- Playwright 360 px (offline, theme CSS + age.js): no console errors, no sideways scroll; brand select ends at 558–566 px without the header (≈ 615–625 px with it, inside 640).
+- Prose words (no tables/FAQ): lifespan 1,615; Bradford White 1,291; A. O. Smith 1,306; Rheem 1,042; State 965. Body text difference between brand pages: 67–81% (A. O. Smith vs State lowest).
+- Hand-checked serials (decoder = source; all asserted in build-data and tests):
+  - Bradford White: SF → June 2018, XA → Jan 2021, LK → Oct 2014 (Bradford White chart); YD1395234 → Apr 2022 first, 2002 listed (CPSC 2002 recall: sold Apr–May 2002).
+  - A. O. Smith: 1115… → Apr 2011, 1631… → Jul 2016 (CPSC 2018: made Apr 8, 2011–Aug 1, 2016); L07A071460 → Nov 2007 (CPSC 2008: sold Nov 2007–Jan 2008); 0805A → Jan 2008 week 5 (Energy Trust).
+  - Rheem: M302112345 → Jul 2021 (lookup 07/27/2021), Q151512345 → Apr 2015 (04/09/2015), Q431912345 → Oct 2019, Q052412345 → Jan 2024, 0794F → Jul 1994 (Energy Trust), RH0806B17262 → Aug 2006 (InspectApedia).
+  - State: 1115… → Apr 2011 (CPSC 2018), C05 → Mar 2005 (Energy Trust), M07A009387 → Dec 2007 (building-center + CPSC 2008 range), AF04A093001 → Jun 2004 (building-center).
+- No brand page title/H1 targets "water heater age calculator"; lifespan article H1 is the informational question, distinct from the tool page.
 
 **Known issues / TODOs carried forward:**
-- Navien months Y/Z (Nov/Dec) are inferred, not shown in an opened source (noted in data). Rinnai, Noritz, Takagi, Bosch not decoded (no source); Phase 2b Navien/Rinnai brand pages must find a manufacturer source first.
-- Angi and propane.com block automated fetches (403); judged from search snippets in the tankless brief.
-- STRATEGY §3.2 "125% breaker rule" not shown (no confirmed source for tankless); Phase 6d electrical page should settle it from the NEC/manual.
-- Tankless gas sizes come from a 2016 Rinnai chart (Energy Factor era); refresh with a current spec sheet when convenient.
-- Age default result and example are frozen "as of" `dateVerified`; re-run `npm run build:data` when `dateVerified` changes.
-- Links to drafts/planned pages render as plain text for visitors (by design): Next-steps and Related cards stay empty for anonymous visitors until those pages are live.
-- Carried from Phase 1: labor/extras costs missing (Phase 4); Hostinger CDN may need a flush after deploys.
+- Rheem/Ruud lookup returned no date for R0804B10488, RH0806B17262, A141511869 (2026-11-13): older prefixed layouts rest on InspectApedia only.
+- Energy Trust says month letters "A through N" excluding I (13 letters); we treat N as unreadable (CPSC confirms L = Nov, M = Dec).
+- No State-published lifespan found; the State page says so.
+- Bradford White plate position is only shown in an image on its site; our text says "outer jacket".
+- Live checks (Lighthouse, schema validator, live Playwright) are recorded after deploy in the follow-up below.
+- Carried: Navien Y/Z months inferred; Rinnai/Noritz/Takagi/Bosch not decoded; tankless chart from 2016 Rinnai; labor/extras costs (Phase 4); Hostinger CDN may need a flush after deploys.
 
-**Notes for the next thread (Phase 2b):**
-- Brand pages are registered as `planned` with `parent: water-heater-age-calculator`; flip to `draft` when built. The age page's summary table links each brand cell automatically once the page is visible.
-- Brand page decoder: reuse `assets/js/age.js` (it reads `#hwm-age-data`); preset with `?brand=<id>` or by setting the select default in the content file.
-- Rheem lookup endpoint used for checks: `https://www.ruud.com/media/getData.php?service=getWaterHeaterAge&SerialNumber=<serial>` (returns JSON with ManufacturingDate). Use sparingly, test serials only.
-- Lifespan article must use `data/lifespans.json` (DOE 15/20 years averages, FEMP 13, Rheem 8–12 / 15–20+ in `manufacturerViews`).
+**Notes for the next thread (Phase 2b thread 2):**
+- PHASES rule 3: only build a brand page if it has a sourced, distinct format. American and Whirlpool share the American year-week code (Whirlpool is made by American): build ONE page or make sure the two differ by ≥40%; GE uses the Rheem code and Kenmore the State code: probably a short section on the Rheem/State pages or a combined page, not separate copies. Navien is decodable (CPSC). Rinnai has no source yet: do not build until one is found.
+- Pattern to copy: add a brand to `data/brand-pages.json` (slug, option, defaultSerial, checks with sources, examples), flip its `pages.json` entry to `draft` with SEO fields + `scripts: ["age"]` + `methodAnchor`, write `content/<slug>.php` using the parts above, add `dateVerified`, `npm run build:data`, `npm run build:og`.
+- The age page summary table links each brand automatically once its page is visible (drafts only for logged-in editors).
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -65,6 +52,7 @@
 - 2026-11-12 — Phase 0 done — WordPress theme foundation, live on hotwatermath.com (PRs #1, #2).
 - 2026-11-12 — Phase 1 done — sourced data layer (17 data files, 83/83 sources 200), formulas + tests, computed tables, full /methodology.
 - 2026-11-13 — Phase 2 done — age calculator (Rheem code checked against Rheem/Ruud lookup, Navien via CPSC) and tankless size calculator (state inlet temps, size charts, Rinnai/Noritz/Rheem cross-checks); both draft.
+- 2026-11-13 — Phase 2b (thread 1) done — lifespan article + Bradford White, A. O. Smith, Rheem, State age pages (draft), decoder checked against Rheem/Ruud lookup, Bradford White chart and CPSC recalls.
 
 ---
 

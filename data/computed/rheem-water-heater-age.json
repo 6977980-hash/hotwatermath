@@ -1,0 +1,680 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/brand-pages.json, data/serial-formats.json and data/lifespans.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Brand page for Rheem / Ruud. Default result, hand-checks and worked examples are computed as of 2026-11-13. The live calculator uses the visitor's date."
+  },
+  "asOf": "2026-11-13",
+  "brand": "rheem",
+  "label": "Rheem / Ruud",
+  "alsoSoldAs": [
+    "Ruud",
+    "Richmond",
+    "General Electric (older units)",
+    "Vanguard",
+    "Intertherm"
+  ],
+  "caveat": "",
+  "defaultInputs": {
+    "brand": "rheem",
+    "serial": "M302112345",
+    "type": "gas_tank",
+    "hardness": "moderate",
+    "flushed": true,
+    "anode": false
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "Well within expected life",
+    "headline": "About 5.3 years old (built July 2021)",
+    "explain": "That is about 41% of the 13-year typical life for this type (gas tank). Estimated remaining life: 4.7 to 9.7 years. (Example serial in the Rheem / Ruud format, as of 2026-11-13; type yours.)",
+    "formula": "Built: July 2021 (Rheem / Ruud code: week 30, year 2021)\nAge = today − July 2021 = 5.3 years\nExpected life (gas tank) = 10–15 years, typical 13; adjustments: none\nShare used = 5.3 ÷ 13 = 41%",
+    "sources": "Rheem / Ruud date code: InspectApedia (third party), Rheem/Ruud lookup, Energy Trust of Oregon. Lifespan: DOE 2024 water heater rule and DOE FEMP. Adjustments are our editorial assumptions. <a href=\"/methodology/#water-heater-age-calculator\">See every decoder test case</a>."
+  },
+  "checks": [
+    {
+      "serial": "M302112345",
+      "ours": "July 2021 (week 30)",
+      "pattern": "rheem-plant-wwyy",
+      "published": "July 27, 2021",
+      "match": true,
+      "cycle": false,
+      "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+      "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+    },
+    {
+      "serial": "Q151512345",
+      "ours": "April 2015 (week 15)",
+      "pattern": "rheem-plant-wwyy",
+      "published": "April 9, 2015",
+      "match": true,
+      "cycle": false,
+      "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+      "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+    },
+    {
+      "serial": "Q431912345",
+      "ours": "October 2019 (week 43)",
+      "pattern": "rheem-plant-wwyy",
+      "published": "October 18, 2019",
+      "match": true,
+      "cycle": false,
+      "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+      "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+    },
+    {
+      "serial": "Q052412345",
+      "ours": "January 2024 (week 5)",
+      "pattern": "rheem-plant-wwyy",
+      "published": "January 25, 2024",
+      "match": true,
+      "cycle": false,
+      "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+      "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+    },
+    {
+      "serial": "0794F12345",
+      "ours": "July 1994",
+      "pattern": "rheem-mmyy",
+      "published": "July 1994 (example 0794F…)",
+      "match": true,
+      "cycle": false,
+      "source": "Energy Trust of Oregon decoder",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+    },
+    {
+      "serial": "RH0806B17262",
+      "ours": "August 2006",
+      "pattern": "rheem-prefix-mmyy",
+      "published": "August 2006 (Rheemglas Fury tag RH 0806B17262)",
+      "match": true,
+      "cycle": false,
+      "source": "InspectApedia Rheem decoder (third party)",
+      "sourceUrl": "https://inspectapedia.com/plumbing/Rheem-Water-Heater-Age-Decoder.php"
+    }
+  ],
+  "checksMatched": 6,
+  "examples": {
+    "current": {
+      "id": "current",
+      "serial": "M302112345",
+      "input": {
+        "id": "current",
+        "serial": "M302112345",
+        "type": "electric_tank",
+        "hardness": "hard",
+        "flushed": false,
+        "anode": false
+      },
+      "typeLabel": "electric tank",
+      "madeLabel": "July 2021",
+      "year": 2021,
+      "month": 7,
+      "week": 30,
+      "latestYear": 2021,
+      "otherYears": [],
+      "pattern": "rheem-plant-wwyy",
+      "age": "5.3",
+      "baseLow": 10,
+      "baseTypical": 13,
+      "baseHigh": 15,
+      "hardDelta": -1,
+      "flushDelta": -1,
+      "anodeDelta": 0,
+      "lifeLow": 8,
+      "lifeTypical": 11,
+      "lifeHigh": 13,
+      "usedPct": 48,
+      "remainingMin": "2.7",
+      "remainingMax": "7.7",
+      "status": "ok",
+      "statusLabel": "Well within expected life"
+    },
+    "old": {
+      "id": "old",
+      "serial": "RH0806B17262",
+      "input": {
+        "id": "old",
+        "serial": "RH0806B17262",
+        "type": "gas_tank",
+        "hardness": "moderate",
+        "flushed": true,
+        "anode": true
+      },
+      "typeLabel": "gas tank",
+      "madeLabel": "August 2006",
+      "year": 2006,
+      "month": 8,
+      "latestYear": 2006,
+      "otherYears": [],
+      "pattern": "rheem-prefix-mmyy",
+      "age": "20.3",
+      "baseLow": 10,
+      "baseTypical": 13,
+      "baseHigh": 15,
+      "hardDelta": 0,
+      "flushDelta": 0,
+      "anodeDelta": 1,
+      "lifeLow": 11,
+      "lifeTypical": 14,
+      "lifeHigh": 16,
+      "usedPct": 145,
+      "remainingMin": "0.0",
+      "remainingMax": "0.0",
+      "status": "bad",
+      "statusLabel": "Near or past expected life"
+    }
+  },
+  "formatRows": [
+    {
+      "id": "rheem-letter-mmyy-plant",
+      "rule": "older tags: 1 letter, then month (2 digits), year (2 digits) and a plant letter",
+      "example": "R0804B***** → August 2004 (older tags, often printed as R 0804B…)",
+      "era": "Older tags",
+      "source": "InspectApedia (third party)",
+      "sourceUrl": "https://inspectapedia.com/plumbing/Rheem-Water-Heater-Age-Decoder.php"
+    },
+    {
+      "id": "rheem-prefix-mmyy",
+      "rule": "older tags: 2 to 4 letters, then month (2 digits) and year (2 digits)",
+      "example": "RH0806B***** → August 2006 (Rheemglas Fury tag RH 0806B17262)",
+      "era": "Older tags",
+      "source": "InspectApedia (third party)",
+      "sourceUrl": "https://inspectapedia.com/plumbing/Rheem-Water-Heater-Age-Decoder.php"
+    },
+    {
+      "id": "rheem-plant-wwyy",
+      "rule": "plant letter, then week (2 digits) and year (2 digits)",
+      "example": "Q4319***** → week 43 of 2019 (Rheem/Ruud lookup: October 18, 2019)",
+      "era": "Current serials",
+      "source": "Rheem/Ruud lookup",
+      "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+    },
+    {
+      "id": "rheem-mmyy",
+      "rule": "older all-digit serials: month (2 digits), then year (2 digits)",
+      "example": "0794****** → July 1994",
+      "era": "Older all-digit serials",
+      "source": "Energy Trust of Oregon",
+      "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+    }
+  ],
+  "client": {
+    "asOf": "2026-11-13",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "brandOptions": [
+      {
+        "id": "rheem",
+        "label": "Rheem / Ruud",
+        "decodeAs": "rheem"
+      },
+      {
+        "id": "ao-smith",
+        "label": "A. O. Smith",
+        "decodeAs": "ao-smith"
+      },
+      {
+        "id": "bradford-white",
+        "label": "Bradford White",
+        "decodeAs": "bradford-white"
+      },
+      {
+        "id": "state",
+        "label": "State",
+        "decodeAs": "state"
+      },
+      {
+        "id": "american",
+        "label": "American",
+        "decodeAs": "american"
+      },
+      {
+        "id": "whirlpool",
+        "label": "Whirlpool",
+        "decodeAs": "american",
+        "caveat": "Whirlpool water heaters are made by American (part of A. O. Smith), so the American code is used."
+      },
+      {
+        "id": "ge",
+        "label": "GE",
+        "decodeAs": "rheem",
+        "caveat": "Older GE water heaters were made by Rheem, so the Rheem code is used. Newer GE units may use another maker's code; if the date looks wrong, enter the year from the label."
+      },
+      {
+        "id": "kenmore",
+        "label": "Kenmore",
+        "decodeAs": "state",
+        "caveat": "Kenmore units were made by more than one manufacturer. The State code is used, which fits State-made Kenmore units only; check the year against the label."
+      },
+      {
+        "id": "navien",
+        "label": "Navien",
+        "decodeAs": "navien"
+      },
+      {
+        "id": "rinnai",
+        "label": "Rinnai",
+        "decodeAs": ""
+      },
+      {
+        "id": "noritz",
+        "label": "Noritz",
+        "decodeAs": ""
+      },
+      {
+        "id": "takagi",
+        "label": "Takagi",
+        "decodeAs": ""
+      },
+      {
+        "id": "bosch",
+        "label": "Bosch",
+        "decodeAs": ""
+      },
+      {
+        "id": "other",
+        "label": "Other or not sure",
+        "decodeAs": ""
+      }
+    ],
+    "brands": {
+      "bradford-white": {
+        "label": "Bradford White",
+        "patterns": [
+          {
+            "id": "bw-letter-year-month",
+            "regex": "^([A-HJ-NPSTW-Z])([A-HJ-M])",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "letterYear",
+                "letters": "ABCDEFGHJKLMNPSTWXYZ",
+                "cycleStarts": [
+                  1964,
+                  1984,
+                  2004,
+                  2024
+                ]
+              },
+              "month": {
+                "group": 2,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLM"
+              }
+            }
+          }
+        ]
+      },
+      "rheem": {
+        "label": "Rheem / Ruud",
+        "patterns": [
+          {
+            "id": "rheem-letter-mmyy-plant",
+            "regex": "^[A-Z](0[1-9]|1[0-2])(\\d{2})[A-Z]",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "mm"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2010
+          },
+          {
+            "id": "rheem-prefix-mmyy",
+            "regex": "^[A-Z]{2,4}(0[1-9]|1[0-2])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "mm"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2010
+          },
+          {
+            "id": "rheem-plant-wwyy",
+            "regex": "^[A-Z](0[1-9]|[1-4]\\d|5[0-3])(\\d{2})",
+            "fields": {
+              "week": {
+                "group": 1,
+                "type": "ww"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            }
+          },
+          {
+            "id": "rheem-mmyy",
+            "regex": "^(0[1-9]|1[0-2])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "mm"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            }
+          }
+        ]
+      },
+      "ao-smith": {
+        "label": "A. O. Smith",
+        "patterns": [
+          {
+            "id": "aos-yyww",
+            "regex": "^(\\d{2})(\\d{2})[A-Z]",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "week": {
+                "group": 2,
+                "type": "ww"
+              }
+            },
+            "validFromYear": 2008
+          },
+          {
+            "id": "aos-letter-month-yy",
+            "regex": "^[A-Z]([A-HJ-N])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2008
+          },
+          {
+            "id": "aos-first-letter-month-yy",
+            "regex": "^([A-HJ-N])(\\d{2})[A-Z]",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2008
+          }
+        ]
+      },
+      "state": {
+        "label": "State",
+        "patterns": [
+          {
+            "id": "state-yyww",
+            "regex": "^(\\d{2})(\\d{2})",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "week": {
+                "group": 2,
+                "type": "ww"
+              }
+            },
+            "validFromYear": 2008
+          },
+          {
+            "id": "state-letter-month-yy",
+            "regex": "^([A-HJ-N])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2008
+          },
+          {
+            "id": "state-factory-month-yy",
+            "regex": "^[A-Z]([A-HJ-N])(\\d{2})",
+            "fields": {
+              "month": {
+                "group": 1,
+                "type": "letterMonth",
+                "letters": "ABCDEFGHJKLMN"
+              },
+              "year": {
+                "group": 2,
+                "type": "yy"
+              }
+            },
+            "validToYear": 2004
+          }
+        ]
+      },
+      "american": {
+        "label": "American",
+        "patterns": [
+          {
+            "id": "american-yyww",
+            "regex": "^(\\d{2})(\\d{2})",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "week": {
+                "group": 2,
+                "type": "ww"
+              }
+            }
+          }
+        ]
+      },
+      "navien": {
+        "label": "Navien",
+        "patterns": [
+          {
+            "id": "navien-yymdd",
+            "regex": "^\\d{4}[A-Z0-9](\\d{2})([1-9XYZ])(0[1-9]|[12]\\d|3[01])",
+            "fields": {
+              "year": {
+                "group": 1,
+                "type": "yy"
+              },
+              "month": {
+                "group": 2,
+                "type": "letterMonth",
+                "letters": "123456789XYZ"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "officialLookups": [
+      {
+        "brand": "Rheem",
+        "url": "https://www.rheem.com/how-old-is-my-equipment/",
+        "note": "Rheem's official age lookup (tank and tankless)"
+      },
+      {
+        "brand": "Ruud",
+        "url": "https://www.ruud.com/how-old-is-my-water-heater/",
+        "note": "Ruud's official water heater age calculator"
+      },
+      {
+        "brand": "Bradford White",
+        "url": "https://www.bradfordwhite.com/my-water-heater/",
+        "note": "Bradford White year and month letter table and rating plate location"
+      },
+      {
+        "brand": "Navien",
+        "url": "https://www.navieninc.com/warranty",
+        "note": "Navien warranty page: where the serial number is on the unit"
+      }
+    ],
+    "types": [
+      {
+        "id": "gas_tank",
+        "label": "Gas tank",
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      {
+        "id": "electric_tank",
+        "label": "Electric tank",
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      {
+        "id": "tankless",
+        "label": "Gas tankless",
+        "low": 20,
+        "typical": 20,
+        "high": 20
+      },
+      {
+        "id": "heat_pump",
+        "label": "Heat pump (hybrid)",
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      }
+    ],
+    "adjustments": {
+      "source": "Hot Water Math editorial assumption (documented on /methodology); not measured data",
+      "hardness": {
+        "soft": 0,
+        "moderate": 0,
+        "hard": -1,
+        "veryHard": -2
+      },
+      "noAnnualFlush": -1,
+      "anodeReplaced": 1,
+      "minimumLifeYears": 5,
+      "hardnessScale": {
+        "source": "U.S. Geological Survey, Hardness of Water (as calcium carbonate)",
+        "sourceUrl": "https://www.usgs.gov/special-topics/water-science-school/science/hardness-water",
+        "mapUrl": "https://www.usgs.gov/media/images/map-water-hardness-united-states",
+        "soft": {
+          "label": "Soft",
+          "mgPerL": "0 to 60"
+        },
+        "moderate": {
+          "label": "Moderately hard",
+          "mgPerL": "61 to 120"
+        },
+        "hard": {
+          "label": "Hard",
+          "mgPerL": "121 to 180"
+        },
+        "veryHard": {
+          "label": "Very hard",
+          "mgPerL": "more than 180"
+        }
+      }
+    },
+    "bands": {
+      "amberFrom": 0.6,
+      "redFrom": 0.9,
+      "source": "Hot Water Math editorial assumption: green below 60% of typical life, amber from 60%, red from 90%"
+    },
+    "statusLabels": {
+      "ok": "Well within expected life",
+      "warn": "Getting older: plan ahead",
+      "bad": "Near or past expected life"
+    }
+  },
+  "weekToMonth": [
+    {
+      "month": "January",
+      "weeks": "1–5"
+    },
+    {
+      "month": "February",
+      "weeks": "6–9"
+    },
+    {
+      "month": "March",
+      "weeks": "10–13"
+    },
+    {
+      "month": "April",
+      "weeks": "14–18"
+    },
+    {
+      "month": "May",
+      "weeks": "19–22"
+    },
+    {
+      "month": "June",
+      "weeks": "23–26"
+    },
+    {
+      "month": "July",
+      "weeks": "27–31"
+    },
+    {
+      "month": "August",
+      "weeks": "32–35"
+    },
+    {
+      "month": "September",
+      "weeks": "36–39"
+    },
+    {
+      "month": "October",
+      "weeks": "40–44"
+    },
+    {
+      "month": "November",
+      "weeks": "45–48"
+    },
+    {
+      "month": "December",
+      "weeks": "49–53"
+    }
+  ],
+  "lookupMisses": [
+    "R0804B10488",
+    "RH0806B17262",
+    "A141511869"
+  ]
+}

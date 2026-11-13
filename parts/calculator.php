@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $hwm_tool    = (string) ( $args['tool'] ?? '' );
 $hwm_default = (array) ( hwm_raw( 'computed/' . $hwm_tool, 'default' ) ?? array() );
 $hwm_state   = in_array( $hwm_default['status'] ?? '', array( 'ok', 'warn', 'bad' ), true ) ? ' result--' . $hwm_default['status'] : '';
+$hwm_anchor  = (string) ( hwm_page( $hwm_tool )['methodAnchor'] ?? $hwm_tool );
 $hwm_allowed = array( 'strong' => array(), 'em' => array(), 'a' => array( 'href' => true ), 'br' => array(), 'span' => array( 'class' => true ) );
 ?>
 <section class="calc" id="calculator" data-tool="<?php echo esc_attr( $hwm_tool ); ?>" aria-label="<?php echo esc_attr( (string) ( $args['label'] ?? 'Calculator' ) ); ?>">
@@ -31,7 +32,7 @@ $hwm_allowed = array( 'strong' => array(), 'em' => array(), 'a' => array( 'href'
 			<details class="disclosure">
 				<summary>How we calculated this</summary>
 				<pre class="formula" data-result-formula><?php echo esc_html( (string) ( $hwm_default['formula'] ?? '' ) ); ?></pre>
-				<p><a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#' . $hwm_tool ); ?>">Full formula, sources and manufacturer cross-check</a></p>
+				<p><a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#' . $hwm_anchor ); ?>">Full formula, sources and manufacturer cross-check</a></p>
 			</details>
 			<?php if ( ! empty( $hwm_default['sources'] ) ) : ?>
 				<p class="result__sources" data-result-sources><?php echo wp_kses( (string) $hwm_default['sources'], $hwm_allowed ); ?></p>
