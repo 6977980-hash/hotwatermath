@@ -28,7 +28,10 @@
 - Expansion tank: AMTROL worked example and all 45 quick-chart cells (37 same, 7 = our safer pick, 1 explained). Heat pump: ENERGY STAR and DOE cross-checks on /methodology.
 - 40 vs 50 household fit changed to the size calculator's presets (40 gas = 3 people, 50 gas = 4) so the two pages agree.
 
-**Verified live:** see the Log line and the follow-up note below (filled in after deploy).
+**Verified live (after PR #24 deployed, 2026-11-13):**
+- style.css 0.10.0 served; all 7 pages 200 with `noindex, follow`, one H1, no PHP errors; server-rendered defaults match the computed numbers.
+- `npm run check -- --bust` 454/463 at first: all 9 failures were one empty response for /american-water-heater-age/ (a transient; 200 and a full page when re-fetched). `npm run check-links -- --bust` 820/821: the phrase "get quotes" on the tankless page tripped the banned-phrase rule; reworded in the follow-up PR.
+- Playwright at 360x640: no horizontal scroll and no console errors on the 7 pages. The calculators react: heat pump vs gas → $104 a year and 16.7 years; tankless in California → $3,555; expansion tank at 80 gal / 80 psi → 2-gallon minimum, 4.4-gallon safer.
 
 **Owner steps:**
 1. Read the 7 drafts and reply OK to flip them `live` (quality gate §8).
