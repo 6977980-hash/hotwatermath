@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed phase:** Phase 8 — Authority & links: cost index, `/data/`, embed landing page, outreach materials (2026-11-13). The 3 new pages are `draft` (noindex) until the owner OKs them (style 0.15.0). Phase 6d batch 2 pages (gas line size, tankless electrical, pilot light) are also still draft, waiting for the owner's OK.
+**Last completed phase:** Phase 8 — Authority & links: cost index, `/data/`, embed landing page, outreach materials (2026-11-13). The 3 new pages are `draft` (noindex) until the owner OKs them (style 0.15.0). Phase 6d batch 2 pages went live on the owner's OK (PR #39).
 **Next phase to run:** Phase 7 — Post-launch optimization, as soon as GSC is verified and has about 4 weeks of query data. Until then there is no further build phase in PHASES.md; good fill-ins on request: more Pinterest charts (`scripts/build-charts.mjs`, plan in OUTREACH.md §6), the repair-or-replace query-string fix below.
 
 **What exists now (new or changed in Phase 8):**
@@ -25,7 +25,7 @@
 - Chart checked by eye (PNG); palette validated (CVD ΔE 9.2, contrast warn on aqua → table view + shapes).
 
 **Owner steps:**
-1. Read the 3 drafts (`/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/`) and the 3 Phase 6d batch 2 drafts; reply OK to flip them `live`. Pitch only after the index and `/data/` are live.
+1. Read the 3 drafts (`/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/`); reply OK to flip them `live`. Pitch only after the index and `/data/` are live.
 2. Flush the Hostinger CDN after this deploy (CSS and pages changed).
 3. Outreach (OUTREACH.md): create LinkedIn page, X and Pinterest with identical branding and send Claude the URLs (they go into `data/site.json → social` → `Organization.sameAs`); sign up for HARO/Qwoted/Featured; send the first 20 pitches (start with targets 15, 16, 21, 30); post helpful Reddit answers weekly; log results monthly in the table below.
 4. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. Phase 7 needs GSC data. Post-launch plumber fact-check of the 6 safety pages.
@@ -67,6 +67,7 @@
 - 2026-11-13 — Phase 6c done — 10 state cost pages (draft) on one shared template as child pages of the replacement cost article: state and metro prices, EIA fuel mix and running costs, monthly incoming water, official rebate status.
 - 2026-11-13 — Phase 6d batch 1 done — temperature setting, relief valve leaking and element replacement (draft), sourced data/safety.json, scald/capacity/ohms tables, expansion tank and repair calculators embedded.
 - 2026-11-13 — Phase 6d batch 2 done — gas line size, tankless electrical requirements and pilot light (draft), IFGC/IRC rows with Rinnai and Stiebel cross-checks, gas/208 V formulas, tankless inputs shared part.
+- 2026-11-13 — Go-live — owner OK: gas line size, tankless electrical requirements and pilot light flipped to `live`.
 - 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
 ---
