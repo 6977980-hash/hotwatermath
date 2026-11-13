@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6d batch 2 — Safety pages: gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (2026-11-13). The 3 pages are `draft` (noindex) until the owner OKs them (style 0.14.0). Phase 6d is complete with this batch.
+**Last completed phase:** Phase 6d batch 2 — Safety pages: gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (2026-11-13). Owner OKed the 3 pages on 2026-11-13 ("ok"); they are `live` (style 0.14.1). Phase 6d is complete with this batch.
 **Next phase to run:** Phase 8 — Authority & links (`/data` page, installation cost index article, embed checks, OUTREACH materials). Phase 7 needs GSC query data, and GSC is not verified yet, so it waits for the owner.
 
 **What exists now (new or changed in Phase 6d batch 2):**
@@ -27,7 +27,7 @@
 **Verified live (after PR #37 deployed, 2026-11-13):** style.css 0.14.0 served; `/?sync=` 200; the 3 pages 200 with `noindex, follow`, self canonical, one H1; tankless tool still `index`. `npm run check -- --bust` 730/730; `npm run check-links -- --bust` 1429/1429 (56 pages). Playwright 360x640: no horizontal scroll, no console errors on the 3 pages and the tankless tool; gas page embed defaults to gas (184,358 BTU/h; 1 shower → 92,179), electrical embed defaults to electric (51.3 kW / 214 A; 1 shower → 25.7 kW / 107 A); pilot embed has "no hot water" pre-ticked and updates (age 14 → Borderline).
 
 **Owner steps:**
-1. Read the 3 pages (draft) and reply OK to flip them `live`.
+1. Done 2026-11-13: owner OKed the 3 pages; flipped `live`.
 2. Flush the Hostinger CDN after this deploy (formulas.js changed).
 3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. Phase 7 needs GSC data.
 4. Later: the post-launch plumber fact-check (§8b) should include all 6 safety pages; the gas and electrical pages ideally also by a licensed electrician/gas fitter.
@@ -64,6 +64,7 @@
 - 2026-11-13 — Phase 6c done — 10 state cost pages (draft) on one shared template as child pages of the replacement cost article: state and metro prices, EIA fuel mix and running costs, monthly incoming water, official rebate status.
 - 2026-11-13 — Phase 6d batch 1 done — temperature setting, relief valve leaking and element replacement (draft), sourced data/safety.json, scald/capacity/ohms tables, expansion tank and repair calculators embedded.
 - 2026-11-13 — Phase 6d batch 2 done — gas line size, tankless electrical requirements and pilot light (draft), IFGC/IRC rows with Rinnai and Stiebel cross-checks, gas/208 V formulas, tankless inputs shared part.
+- 2026-11-13 — Go-live — owner OK: gas line size, tankless electrical requirements and pilot light flipped to `live`.
 
 ---
 
