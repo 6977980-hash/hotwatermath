@@ -10,7 +10,7 @@
       "slug": "",
       "contentFile": "home",
       "type": "home",
-      "status": "draft",
+      "status": "live",
       "title": "Hot Water Math",
       "metaTitle": "Water Heater Calculators That Show the Math | Hot Water Math",
       "description": "Free water heater calculators for US homes: tank and tankless sizing, unit age from the serial number, and cost, each with its formula and named sources.",
@@ -24,7 +24,7 @@
       "slug": "calculators",
       "type": "hub",
       "hub": "tool",
-      "status": "draft",
+      "status": "live",
       "title": "Water Heater Calculators",
       "metaTitle": "Water Heater Calculators: Size, Age, Cost | Hot Water Math",
       "description": "All Hot Water Math water heater calculators in one place: tank size, tankless size, age from serial number and cost, each with its formula and sources.",
@@ -38,7 +38,7 @@
       "slug": "guides",
       "type": "hub",
       "hub": "article",
-      "status": "draft",
+      "status": "live",
       "title": "Water Heater Guides",
       "metaTitle": "Water Heater Guides: Cost, Lifespan, Care | Hot Water Math",
       "description": "Water heater guides from Hot Water Math on lifespan, replacement cost, care and troubleshooting, written answer-first with sourced numbers and calculators.",
@@ -51,7 +51,7 @@
     {
       "slug": "about",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "About Hot Water Math",
       "metaTitle": "About Hot Water Math: Who Builds These Calculators",
       "description": "Who runs Hot Water Math, why the site exists, how each calculator is built and checked against manufacturer sizing guides, and what the site is not.",
@@ -64,7 +64,7 @@
     {
       "slug": "methodology",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "Methodology",
       "metaTitle": "Methodology: Formulas and Sources | Hot Water Math",
       "description": "How Hot Water Math calculates water heater size, age and cost: the formulas, the data sources behind each default, manufacturer cross-checks and limits.",
@@ -77,7 +77,7 @@
     {
       "slug": "editorial-policy",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "Editorial Policy",
       "metaTitle": "Editorial Policy: Sourcing and Corrections | Hot Water Math",
       "description": "How Hot Water Math chooses sources, checks every number, corrects mistakes, and keeps ads and affiliate links from changing any calculator result or page.",
@@ -90,7 +90,7 @@
     {
       "slug": "contact",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "Contact",
       "metaTitle": "Contact Hot Water Math: Corrections and Questions",
       "description": "Contact Hot Water Math by email to report an error, ask about a calculator, or request a correction. We read every message and reply within a few days.",
@@ -103,7 +103,7 @@
     {
       "slug": "privacy-policy",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "Privacy Policy",
       "metaTitle": "Privacy Policy: Cookies, Ads and Analytics | Hot Water Math",
       "description": "What Hot Water Math collects, how Google Analytics and Google AdSense use cookies on this site, your consent choices, and how to opt out of ad tracking.",
@@ -116,7 +116,7 @@
     {
       "slug": "terms",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "Terms of Use",
       "metaTitle": "Terms of Use: Using Our Calculators | Hot Water Math",
       "description": "Terms for using Hot Water Math: calculator results are planning estimates, not professional advice. Covers acceptable use, embeds, liability and changes.",
@@ -129,7 +129,7 @@
     {
       "slug": "affiliate-disclosure",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "title": "Affiliate Disclosure",
       "metaTitle": "Affiliate Disclosure: How We Earn Money | Hot Water Math",
       "description": "How Hot Water Math earns money: display ads and, on some sizing results, labeled retailer affiliate links. Neither one ever changes a calculator result.",
@@ -142,7 +142,7 @@
     {
       "slug": "water-heater-age-calculator",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2",
       "title": "Water Heater Age Calculator",
       "summary": "Find a water heater's age from its serial number, for every major brand, and see how much of its expected life is used.",
@@ -167,7 +167,7 @@
     {
       "slug": "tankless-water-heater-size-calculator",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2",
       "title": "Tankless Water Heater Size Calculator",
       "summary": "Work out the flow rate and temperature rise your home needs, with your state's groundwater temperature built in.",
@@ -197,7 +197,7 @@
     {
       "slug": "water-heater-size-calculator",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "3",
       "title": "Water Heater Size Calculator",
       "summary": "Size a tank water heater from your peak-hour demand and first hour rating, not just household size.",
@@ -227,7 +227,7 @@
     {
       "slug": "repair-or-replace-water-heater",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "3",
       "title": "Repair or Replace Water Heater",
       "summary": "Decide whether a repair quote is worth paying, based on the unit's age, the symptoms and replacement cost.",
@@ -254,7 +254,7 @@
     {
       "slug": "water-heater-cost-calculator",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "4",
       "title": "Water Heater Cost Calculator",
       "summary": "Estimate the installed cost of a new water heater by type, size, state and the extras your job needs.",
@@ -281,7 +281,7 @@
     {
       "slug": "tankless-vs-tank-water-heater",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "4",
       "title": "Tankless vs Tank Water Heater",
       "summary": "Compare the cost of ownership of a tank, tankless and heat pump water heater with your state prices.",
@@ -307,7 +307,7 @@
     {
       "slug": "gas-vs-electric-water-heater",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "4",
       "title": "Gas vs Electric Water Heater",
       "summary": "Compare yearly operating cost for gas, electric, heat pump and tankless water heaters in your state.",
@@ -334,7 +334,7 @@
     {
       "slug": "how-long-does-a-water-heater-last",
       "type": "article",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "title": "How Long Does a Water Heater Last",
       "summary": "Expected lifespan by water heater type, what shortens it, and how to check your own unit's age.",
@@ -383,7 +383,7 @@
     {
       "slug": "bradford-white-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Bradford White Water Heater Age",
@@ -409,7 +409,7 @@
     {
       "slug": "ao-smith-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "A. O. Smith Water Heater Age",
@@ -435,7 +435,7 @@
     {
       "slug": "rheem-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Rheem Water Heater Age",
@@ -461,7 +461,7 @@
     {
       "slug": "state-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "State Water Heater Age",
@@ -487,7 +487,7 @@
     {
       "slug": "whirlpool-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Whirlpool Water Heater Age",
@@ -514,7 +514,7 @@
     {
       "slug": "american-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "American Water Heater Age",
@@ -559,7 +559,7 @@
     {
       "slug": "navien-water-heater-age",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Navien Water Heater Age",
