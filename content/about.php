@@ -28,7 +28,7 @@ $hwm_email    = (string) hwm_site( 'contact.email' );
 <h2>What we are not</h2>
 <ul>
 	<li><strong>We are not plumbers or electricians</strong> and we do not claim trade credentials. Our work is data and calculation.</li>
-	<li><strong>We are not a referral service.</strong> We never recommend, name or link a plumber, installer or contractor, and there are no "get quotes" forms on this site.</li>
+	<li><strong>We are not a referral service.</strong> We never recommend, name or link a plumber, installer or contractor, and there are no quote-request or lead forms on this site.</li>
 	<li><strong>We take no paid recommendations.</strong> The site is paid for by display advertising and, on some sizing results, clearly labeled retailer links. Neither changes a result. See the <a href="<?php echo esc_url( hwm_url( 'affiliate-disclosure' ) ); ?>">affiliate disclosure</a>.</li>
 </ul>
 <p>For anything involving gas lines, venting or electrical circuits, our pages explain what the codes and manuals say and when the job needs a licensed professional. They are not installation instructions.</p>

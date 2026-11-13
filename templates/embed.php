@@ -18,6 +18,7 @@ $hwm_out  = hwm_tool_content( $hwm_slug, $hwm_embed_entry );
 <meta name="robots" content="noindex, follow">
 <title><?php echo esc_html( $hwm_embed_entry['title'] . ' | ' . hwm_site( 'brand' ) ); ?></title>
 <link rel="canonical" href="<?php echo esc_url( hwm_url( $hwm_slug ) ); ?>">
+<?php hwm_integrations_head( false ); // GA4 + consent only, for the embed_view event; never ads. ?>
 <link rel="stylesheet" href="<?php echo esc_url( hwm_asset( 'css/global.css' ) ); ?>">
 </head>
 <body class="embed-body">

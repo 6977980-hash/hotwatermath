@@ -291,3 +291,19 @@ details.disclosure > :not(summary) { margin: 0 var(--space-3) var(--space-3); }
 .result__table { margin: 0 0 var(--space-3); background: var(--bg, #fff); }
 .result__table table { font-size: var(--step--1); }
 .result__table caption { text-align: left; font-weight: 700; padding: var(--space-2) var(--space-2) 0; }
+
+/* Ad units fill the reserved box exactly (fixed height, no data-ad-format), so they never push content (CLS 0). */
+.ad-slot ins.adsbygoogle { display: block; width: 100%; height: 250px; }
+@media (min-width: 760px) { .ad-slot ins.adsbygoogle { height: 220px; } }
+.ad-slot[data-slot="S"] ins.adsbygoogle { width: 300px; height: 600px; }
+.ad-slot[data-slot="S"] { min-height: 0; }
+@media (min-width: 1100px) { .ad-slot[data-slot="S"] { min-height: 630px; } }
+
+/* Home page */
+.trust-strip { background: var(--brand-soft); border-radius: var(--radius); padding: var(--space-4) var(--space-5); margin: var(--space-6) 0; }
+.trust-strip h2 { margin-top: 0; }
+.trust-strip ul { padding-left: 1.2em; }
+.link-columns { columns: 2 12rem; column-gap: var(--space-5); }
+.link-columns li { break-inside: avoid; }
+.recent-list { list-style: none; padding: 0; }
+.recent-list__date { color: var(--muted); font-size: var(--step--1); }

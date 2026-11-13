@@ -27,10 +27,16 @@
   "social": [],
   "integrations": {
     "adsenseClient": "",
+    "adsenseSlots": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "S": ""
+    },
     "ga4Id": "",
     "gscToken": "",
     "bingToken": "",
-    "indexNowKey": ""
+    "indexNowKey": "ba2ff6ca8e6c1daca44777baadc13239"
   },
   "defaults": {
     "setpointTempF": {

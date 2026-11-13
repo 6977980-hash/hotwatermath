@@ -4,47 +4,51 @@
 
 ## Current State
 
-**Last completed phase:** Phase 4 — Tools 5, 6, 7: cost calculator, tankless vs tank, gas vs electric (2026-11-13).
-**Next phase to run:** Phase 5 — Launch: home, hubs, interlinking audit, ads, QA, deploy (see `docs/PHASES.md`).
+**Last completed phase:** Phase 5 — Launch: home, hubs, link audit, ads/consent, GA4, IndexNow (2026-11-13).
+**Next phase to run:** Phase 6b batch 1 — Troubleshooting: leaking, how to flush, anode rod, no hot water (see `docs/PHASES.md`).
 
-**What exists now (new or changed in Phase 4):**
-- `content/water-heater-cost-calculator.php` — tool page (draft): type, size, state, job, extras checkboxes; itemized low/typical/high table; H2s: what drives the price, price by type and size, labor, extras, job types, by state, worked example, fair-quote checklist, mistakes, pro, limitations; FAQ 7; sources 6
-- `content/tankless-vs-tank-water-heater.php` — tool page (draft): fuel, household, state, years, prices; 10-year totals for both fuels, household table, state break-even table, 20-year view; FAQ 6; sources 6
-- `content/gas-vs-electric-water-heater.php` — tool page (draft): household, state, prices, setpoint, UEF per type; running cost of 5 types, by household and by state, EnergyGuide cross-check; FAQ 7; sources 6
-- `content/repair-or-replace-water-heater.php` — new-unit price is now installed (label, hint, examples, limitations)
-- `assets/js/cost-model.js` (shared model), `assets/js/{cost-calculator,tankless-vs-tank,gas-vs-electric}.js` (tool modules with `describe()`); `formulas.js` + `householdGallonsPerDay()`; `ui.js` + `renderTable()`; `tank-size.js` and `repair-replace.js` deep-link the cost calculator with `?type=&size=`
-- `parts/result-table.php` (server-rendered result table), `parts/calculator.php` prints it; `assets/css/global.css` result table styles and mobile grid fix (`.calc` one `minmax(0,1fr)` column, `fieldset { min-width: 0 }`)
-- `data/installation-costs.json` (new: labor, extras, scenarios, references to DOE 2024 rules + Home Depot parts); `inc/helpers.php` import map adds `cost-model`
-- `scripts/build-data.mjs` — shared model, Phase 4 sections, cross-checks, Quick Answer guard; `data/computed/{water-heater-cost-calculator,tankless-vs-tank-water-heater,gas-vs-electric-water-heater}.json`; repair computed file uses installed prices
-- `content/methodology.php` — installation-costs data row, cost/operating/TCO sections and three filled cross-check tables
-- `data/pages.json` (3 pages draft + SEO fields), `data/site.json` dateVerified, `assets/og/` 3 images, `docs/briefs/` 3 briefs with Quality check, 5 `docs/DECISIONS.md` rows, `tests/formulas.test.mjs` 50 tests, `style.css` 0.7.0
+**What exists now (new or changed in Phase 5):**
+- `content/home.php` — launch home: 7 core tool cards, question → calculator table (definition + comparison table), trust strip with live counts (sourced data files, cross-check cases), brand decoder links, recently updated, guides
+- `templates/hub.php` — /calculators/ groups core tools and "Serial number decoders by brand"; `inc/schema.php` CollectionPage `mainEntity` ItemList of live children; Person `worksFor` typed (schema.org validator 0 errors)
+- `inc/integrations.php` — Consent Mode v2 defaults (denied EEA/UK/CH, granted elsewhere), GA4 + AdSense loaded after `load`, `google-adsense-account` meta; embeds get GA4 only
+- `parts/ad-slot.php` — box only when client + slot unit ID set; fixed-height `<ins>` (CSS in `global.css`)
+- `data/site.json` → `integrations.adsenseSlots {A,B,C,S}` (new), `indexNowKey` set (`/ba2ff6ca8e6c1daca44777baadc13239.txt`)
+- `scripts/check-links.mjs` (`npm run check-links`) — internal links 200, ≥3 body links, hub/home coverage, AuthorLine + disclaimer, embed/affiliate rel, banned phrases
+- `docs/OUTREACH.md` — owner playbook (pitch templates, HARO/Qwoted/Featured routine, 20 resource-page targets, Reddit, Pinterest, entity profiles)
+- `README.md` integrations table; `docs/DECISIONS.md` 4 rows; `content/about.php`, `content/editorial-policy.php` reworded (no banned phrases even in negative sentences); A. O. Smith / American summaries grammar; `style.css` 0.8.0
+- All 25 non-planned pages are `live` (flipped by the go-live PR #17 with the owner's OK).
 
-**Verified (before deploy):**
-- `npm test` 50/50; `npm run validate-data` 46 files OK; `--urls` 117/117 source URLs 200.
-- Offline render (PHP stub + Playwright, 360×640): no PHP notices, no JS errors, no horizontal scroll on all 5 tool pages after the grid fix; first input top 572 px on the three new pages (513 on repair/tank). Prose words (no tables/FAQ): cost 1,538; tankless vs tank 1,096; gas vs electric 1,172; repair 1,375.
-- Hand-checked cost: 50-gal gas, U.S. = 899 + 650 + 260 = $1,809 (range 1,249–2,599); electric 50 = $1,579; California gas 50 = 899 + 720 + 288 = $1,907; California gas → tankless = 1,108 + (850 + 260 + 500 + 600) × 1.107 = $3,555.
-- Hand-checked running cost: 55 gal × 365 × 8.34 × 62 °F ÷ 3,412 ÷ 0.93 = 3,271 kWh × $0.1723 = $564 (electric tank); ÷ 100,000 ÷ 0.635 = 163 therms × $1.481 = $242 (gas tank); heat pump $138; Texas gas $243 / electric $392.
-- Hand-checked ownership: gas 10 yr tank $4,230 vs tankless $4,937 (no payback), heat pump $4,927; electric 10 yr tank $7,215 vs heat pump $4,327 (year 4); gas 20 yr tankless pays back in year 13; 6-person gas home → heat pump saves $1,122 over 10 years.
-- Consistency test: same state and household → same installed price on cost and TCO pages and same running cost on TCO and gas vs electric pages.
-- Cross-checks (on /methodology): installed cost vs DOE 2024 (gas +26%, electric +75%, heat pump +59%, gas tankless +6%, explained: 2022/2023 dollars vs 2025 listings); running energy vs EnergyGuide labels within 1.3% (Rheem electric, gas, heat pump; American gas) and FEMP 0.7%; ownership vs DOE heat pump payback 3.2 vs 5.6 years and first-year costs (explained).
+**Verified (before deploy, offline render: PHP stub + Playwright, all pages as live):**
+- `npm test` 50/50; `validate-data` 46 files OK; `build:data` fresh; `check-links` 564/564; `check` page checks all pass (stub-only failures for WP routing ignored).
+- Lighthouse mobile, ads off: home, /calculators/, /guides/ 100/100/100/100. With a test AdSense client + unit IDs + test GA4 ID: home 93 (TBT 300 ms from Google scripts), cost calculator 98/100/100/100, /privacy-policy/ 100; CLS 0.000–0.008 at 320/360/1280 px with slots reserved (A/B 280 px mobile, 250 desktop, S 630).
+- 320 px and 360 px: no horizontal scroll on home, hubs, tools, article, about; first calculator input at 546–605 px (inside 640).
+- html-validate: only `wcag/h32` (calculator form has no submit button: results update live) — accepted.
+- schema.org validator: 0 errors, 0 warnings on home, /about/, /contact/, /methodology/, /guides/, /calculators/, a tool, a brand page, the article.
+- Trust pass: AuthorLine + disclaimer on all 14 live tool pages; /methodology has filled cross-check tables for all 7 tools (4–34 cases each, with run date); /about and /editorial-policy state what we are not and ads/affiliate independence; no "reviewed by", "licensed plumber recommends", "find a pro", "get quotes" anywhere.
 
-**Verified live (after PR #15 deployed, 2026-11-13):**
-- style.css 0.7.0 served; `npm run check` 283/283 with and without `--bust`.
-- All 3 new pages and repair: 200, `noindex, follow`, JSON-LD WebPage + BreadcrumbList + WebApplication + FAQPage; server-rendered defaults $1,809 installed / gas tank $242 vs electric $564 / tank cheapest over 10 years.
-- 360×640 live: first input top 573 px (repair 514), no horizontal scroll, no console errors; share links work (`?type=electric_tank&state=CA…` → $1,661; `?fuel=electric` → heat pump saves $2,888; `?state=TX` → $243 vs $392).
-- Lighthouse mobile (P/A/BP/SEO): 100/100/100/66 on all three; SEO 66 only from draft noindex. CLS 0, LCP 1.0–1.3 s.
+**Owner steps (dashboard clicks; Claude cannot do these):**
+1. **Google Search Console:** add a Domain property for `hotwatermath.com` (DNS TXT in Hostinger) or a URL-prefix property with the HTML tag (send Claude the tag value → `integrations.gscToken`). Then Sitemaps → submit `https://hotwatermath.com/wp-sitemap.xml`; URL Inspection → Request indexing for the home page and the 7 tools.
+2. **Bing Webmaster Tools:** "Import from Google Search Console" (fastest) or add the site with the `msvalidate.01` tag (→ `integrations.bingToken`). Submit the same sitemap. IndexNow already pings Bing on each publish.
+3. **GA4:** create a property + web stream for `https://hotwatermath.com`, send Claude the `G-…` ID (→ `integrations.ga4Id`). Mark `calc_result` as a key event.
+4. **AdSense (when ready; site already has ≥15 live pages and all utility pages):** sign up with `https://hotwatermath.com`, send Claude the `pub-…` ID (→ `adsenseClient`; this switches on /ads.txt and the verification meta). In AdSense → Privacy & messaging, create and publish the **European regulations (GDPR)** message and the **US state regulations** message. After approval create 4 Display ad units (Responsive) and send their IDs for slots A, B, C, S. Keep **Auto ads off**.
+5. **LiteSpeed Cache:** keep it on; after each deploy Purge All (theme also purges on version change). Hostinger CDN: flush if a page looks stale.
+6. Make sure `contact@hotwatermath.com` receives mail; add hotwatermath.com to your LinkedIn profile.
+
+**Post-launch watchlist (Search Console → Performance, check weekly for 8 weeks):**
+- Tools: water heater age calculator; how old is my water heater; what size tankless water heater do i need; tankless water heater size calculator; what size water heater do i need; water heater size calculator; repair or replace water heater; how much is a new water heater; water heater cost calculator; tankless vs traditional water heater; gas vs electric water heater.
+- Articles/brands: how long does a water heater last; bradford white water heater age; rheem / a.o. smith / state / whirlpool / american / navien water heater age (and "serial number lookup").
+- Pages report: all 25 live URLs "Indexed"; Core Web Vitals report once field data arrives (fix any URL group that is not "Good").
 
 **Known issues / TODOs carried forward:**
-- Labor/extras ranges are editorial, anchored to DOE (2022/2023 dollars) and Home Depot parts; Angi/HomeAdvisor/BLS pages were blocked, so no current trade survey backs the "typical" labor values. Re-check when a primary labor source is found.
-- Gas tankless running cost ignores fan/controls electricity (DOE includes it); stated on the page.
-- Hubs and `/llms.txt` list `live` pages only, so the three new drafts appear there only after the owner's OK.
-- 2026-11-13: owner said "pages live kro": all 25 draft pages flipped to `live` (PR after #16); `planned` pages stay planned.
-- Carried: tank size presets editorial; Navien Y/Z months third party; GE/Kenmore sections only; Rinnai not decoded; Hostinger CDN may need a flush after deploys; new pages still start as `draft` and need the owner's OK.
+- With real AdSense on, Lighthouse Performance on the home page may drop to ~93 (Google scripts' TBT); scripts already load after `load` + idle. Re-measure once real ads run.
+- Calculator forms have no submit button (html-validate wcag/h32); results update live with `aria-live`.
+- IndexNow ping result is stored in the WP option `hwm_indexnow_last` (not visible from outside); live check done by a direct API call (see live results).
+- Carried from Phase 4: labor ranges editorial (DOE-anchored); gas tankless fan electricity ignored; tank presets editorial; Navien Y/Z months third party; GE/Kenmore sections only; Rinnai not decoded.
 
-**Notes for the next thread (Phase 5):**
-- Any new tool module must import `./formulas.js`, `./ui.js` or `./cost-model.js` by those exact paths (import map) and be listed in `INPUTS` in `scripts/build-data.mjs`.
-- If you edit a Phase 4 Quick Answer in `data/pages.json`, `npm run build:data` will fail unless it still quotes the computed numbers.
-- Offline render recipe as in Phase 3 (PHP stub + Playwright `page.route`), stub needs `apply_filters`, `wp_kses`, `is_front_page`, `is_page` shims too.
+**Notes for the next thread (Phase 6b batch 1):**
+- `npm run check-links` must pass after deploy; new articles must be linked from /guides/ (automatic when `live`) and have ≥3 body links.
+- Phase 6b acceptance needs /guides/ to group "Troubleshooting" separately from "Costs & Sizing": the hub template now groups by `parent` for tools; add a `group` field to article entries and group on it the same way.
+- New pages stay `draft` until the owner's OK; the home "Recently updated" list and hubs pick them up automatically once live.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -57,6 +61,7 @@
 - 2026-11-13 — Phase 3 done — tank size calculator and repair-or-replace tool (draft), cross-checked against American, Rheem and A. O. Smith guidance; age → repair link passes age and type.
 - 2026-11-13 — Phase 4 done — cost calculator, tankless vs tank and gas vs electric tools (draft) on one shared cost model, checked against DOE 2024 rules and EnergyGuide labels; repair tool now uses installed prices.
 - 2026-11-13 — Go-live — owner OK: 25 draft pages (tools, brand pages, article, hubs, utility pages) flipped to `live`.
+- 2026-11-13 — Phase 5 done — launch home, hubs with ItemList schema, consent-gated GA4/AdSense loader, IndexNow key, check-links audit, OUTREACH playbook.
 
 ---
 

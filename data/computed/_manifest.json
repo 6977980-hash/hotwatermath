@@ -33,7 +33,7 @@
   "inputs": {
     "assets/js/formulas.js": "f4ae602b6732a01f",
     "scripts/build-data.mjs": "68b922cadd41bb26",
-    "data/site.json": "8c172f664fb84b86",
+    "data/site.json": "af4737d413b85557",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "a1f9b690f93635a0",
     "data/regional-cost-index.json": "a176162a982ec7a9",
@@ -57,7 +57,7 @@
     "assets/js/repair-replace.js": "a1f60261eeb247c3",
     "data/household-size-guides.json": "7bfdcaed71e35006",
     "data/installation-costs.json": "67e2d874e470fcee",
-    "data/pages.json": "7465e1e634a597ea",
+    "data/pages.json": "9dfe6e1721159bee",
     "assets/js/cost-model.js": "1c4ec89371ee61c8",
     "assets/js/cost-calculator.js": "5e0d11a582147e8f",
     "assets/js/tankless-vs-tank.js": "6f6ce82cb8db8ac5",

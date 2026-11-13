@@ -318,3 +318,26 @@ function hwm_tool_data_script( string $id, string $file ): string {
 	$client = hwm_raw( $file, 'client' );
 	return '<script type="application/json" id="' . esc_attr( $id ) . '">' . wp_json_encode( $client, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP ) . '</script>';
 }
+
+/** True when the current visitor may open the page: live, or draft for logged-in editors. Planned pages never. */
+function hwm_can_open( ?array $entry ): bool {
+	return $entry && ( hwm_is_live( $entry ) || ( 'draft' === ( $entry['status'] ?? '' ) && hwm_is_draft_preview() ) );
+}
+
+/** The core calculators: tool pages that are not a child of another tool (the per-brand decoders are). */
+function hwm_core_tools( array $statuses = array( 'live' ) ): array {
+	return array_values( array_filter( hwm_pages_of( 'tool', $statuses ), static fn( $e ) => empty( $e['parent'] ) ) );
+}
+
+/** Pages the visitor can open, newest dateModified first (home "Recently updated" list). */
+function hwm_recent_pages( int $limit = 6 ): array {
+	$items = array_filter(
+		hwm_pages(),
+		static fn( $e ) => in_array( $e['type'] ?? '', array( 'tool', 'article' ), true ) && hwm_can_open( $e ) && ! empty( $e['dateModified'] )
+	);
+	uasort(
+		$items,
+		static fn( $a, $b ) => array( $b['dateModified'], $a['title'] ) <=> array( $a['dateModified'], $b['title'] )
+	);
+	return array_slice( array_values( $items ), 0, $limit );
+}

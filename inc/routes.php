@@ -35,9 +35,8 @@ add_action(
 		$path = hwm_request_path();
 
 		if ( '/ads.txt' === $path ) {
-			$client = (string) hwm_site( 'integrations.adsenseClient' );
-			$pub    = preg_replace( '/^ca-/', '', $client );
-			$body   = preg_match( '/^pub-\d{10,20}$/', (string) $pub ) ? "google.com, {$pub}, DIRECT, f08c47fec0942fa0\n" : "# No ad network is configured yet.\n";
+			$pub  = preg_replace( '/^ca-/', '', hwm_adsense_client() );
+			$body = '' !== $pub ? "google.com, {$pub}, DIRECT, f08c47fec0942fa0\n" : "# No ad network is configured yet.\n";
 			hwm_send_text( $body );
 		}
 
