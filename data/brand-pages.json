@@ -1,0 +1,287 @@
+{
+  "meta": {
+    "source": "Bradford White; Rheem/Ruud official age lookup; U.S. CPSC recall notices (2002, 2008, 2018); Energy Trust of Oregon decoder; InspectApedia and Building Intelligence Center for older styles",
+    "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Per-brand page inputs: the example serial preset in each brand page's decoder, the hand-check cases (serial, the date a source gives, and that source), and the worked examples. The serials marked 'test serial' are made-up serials in the brand's real format (only the date characters matter); recall serials are real ranges from CPSC notices. Rheem/Ruud lookup answers were recorded on 2026-11-13. npm run build:data decodes every case with formulas.js and the brand pages print the results."
+  },
+  "brands": {
+    "bradford-white": {
+      "slug": "bradford-white-water-heater-age",
+      "option": "bradford-white",
+      "defaultSerial": "XA1234567",
+      "checks": [
+        {
+          "serial": "SF1234567",
+          "year": 2018,
+          "month": 6,
+          "published": "June 2018 (S = 2018 or 2038, F = June)",
+          "source": "Bradford White year and month letter table",
+          "sourceUrl": "https://www.bradfordwhite.com/my-water-heater/"
+        },
+        {
+          "serial": "XA1234567",
+          "year": 2021,
+          "month": 1,
+          "published": "January 2021 (X = 2021 or 2041, A = January)",
+          "source": "Bradford White year and month letter table",
+          "sourceUrl": "https://www.bradfordwhite.com/my-water-heater/"
+        },
+        {
+          "serial": "LK1234567",
+          "year": 2014,
+          "month": 10,
+          "published": "October 2014 (L = 2014 or 2034, K = October)",
+          "source": "Bradford White year and month letter table",
+          "sourceUrl": "https://www.bradfordwhite.com/my-water-heater/"
+        },
+        {
+          "serial": "YD1395234",
+          "year": 2002,
+          "month": 4,
+          "cycle": true,
+          "published": "April 2002 (recalled serials \"YD\" through YE 1395234 were sold April to May 2002)",
+          "source": "U.S. CPSC, Bradford White recall of 75-gallon power-vented gas water heaters (August 15, 2002)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2002/cpsc-bradford-white-corporation-announce-recall-of-gas-water-heater"
+        }
+      ],
+      "examples": [
+        {
+          "id": "gas",
+          "serial": "XA1234567",
+          "type": "gas_tank",
+          "hardness": "moderate",
+          "flushed": true,
+          "anode": false
+        },
+        {
+          "id": "cycle",
+          "serial": "YD1395234",
+          "type": "gas_tank",
+          "hardness": "hard",
+          "flushed": false,
+          "anode": false,
+          "useOtherYear": true
+        }
+      ]
+    },
+    "ao-smith": {
+      "slug": "ao-smith-water-heater-age",
+      "option": "ao-smith",
+      "defaultSerial": "2105A012345",
+      "checks": [
+        {
+          "serial": "1115A000001",
+          "year": 2011,
+          "month": 4,
+          "published": "First recalled unit: made April 8, 2011 (serials whose first four digits are 1115 to 1631; the notice says they are the year and week)",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "1631A000001",
+          "year": 2016,
+          "month": 7,
+          "published": "Last recalled unit: made through August 1, 2016 (week 31 of 2016 spans late July and early August)",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "L07A071460",
+          "year": 2007,
+          "month": 11,
+          "published": "Sold November 2007 to January 2008 (recalled serials L07A071460 to L07A144966)",
+          "source": "U.S. CPSC, A. O. Smith gas water heater recall (April 3, 2008)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards"
+        },
+        {
+          "serial": "0805A000001",
+          "year": 2008,
+          "month": 1,
+          "published": "2008, week 5 (example 0805A…)",
+          "source": "Energy Trust of Oregon decoder",
+          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+        }
+      ],
+      "examples": [
+        {
+          "id": "current",
+          "serial": "2105A012345",
+          "type": "gas_tank",
+          "hardness": "moderate",
+          "flushed": true,
+          "anode": false
+        },
+        {
+          "id": "old",
+          "serial": "L07A071460",
+          "type": "gas_tank",
+          "hardness": "hard",
+          "flushed": false,
+          "anode": true
+        }
+      ],
+      "recalls": {
+        "cpsc2018": {
+          "firstDigits": "1115",
+          "lastDigits": "1631",
+          "madeFrom": "April 8, 2011",
+          "madeTo": "August 1, 2016",
+          "firstWeek": 15,
+          "firstYear": 2011,
+          "lastWeek": 31,
+          "lastYear": 2016,
+          "brands": "American, A. O. Smith, Kenmore, Reliance, State, U.S. Craftmaster and Whirlpool",
+          "source": "U.S. CPSC recall notice (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        "cpsc2008": {
+          "prefixes": [
+            "L07A",
+            "M07A"
+          ],
+          "soldFrom": "November 2007",
+          "soldTo": "January 2008",
+          "source": "U.S. CPSC recall notice (April 3, 2008)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards"
+        }
+      }
+    },
+    "rheem": {
+      "slug": "rheem-water-heater-age",
+      "option": "rheem",
+      "defaultSerial": "M302112345",
+      "checks": [
+        {
+          "serial": "M302112345",
+          "year": 2021,
+          "month": 7,
+          "published": "July 27, 2021",
+          "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+          "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+        },
+        {
+          "serial": "Q151512345",
+          "year": 2015,
+          "month": 4,
+          "published": "April 9, 2015",
+          "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+          "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+        },
+        {
+          "serial": "Q431912345",
+          "year": 2019,
+          "month": 10,
+          "published": "October 18, 2019",
+          "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+          "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+        },
+        {
+          "serial": "Q052412345",
+          "year": 2024,
+          "month": 1,
+          "published": "January 25, 2024",
+          "source": "Rheem/Ruud official age lookup (test serial, 2026-11-13)",
+          "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/"
+        },
+        {
+          "serial": "0794F12345",
+          "year": 1994,
+          "month": 7,
+          "published": "July 1994 (example 0794F…)",
+          "source": "Energy Trust of Oregon decoder",
+          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+        },
+        {
+          "serial": "RH0806B17262",
+          "year": 2006,
+          "month": 8,
+          "published": "August 2006 (Rheemglas Fury tag RH 0806B17262)",
+          "source": "InspectApedia Rheem decoder (third party)",
+          "sourceUrl": "https://inspectapedia.com/plumbing/Rheem-Water-Heater-Age-Decoder.php"
+        }
+      ],
+      "examples": [
+        {
+          "id": "current",
+          "serial": "M302112345",
+          "type": "electric_tank",
+          "hardness": "hard",
+          "flushed": false,
+          "anode": false
+        },
+        {
+          "id": "old",
+          "serial": "RH0806B17262",
+          "type": "gas_tank",
+          "hardness": "moderate",
+          "flushed": true,
+          "anode": true
+        }
+      ],
+      "lookupMisses": [
+        "R0804B10488",
+        "RH0806B17262",
+        "A141511869"
+      ],
+      "lookupMissesNote": "Older-style and some current-style serials returned 'this serial number isn't coming up' from the Rheem/Ruud lookup on 2026-11-13 (test serials)."
+    },
+    "state": {
+      "slug": "state-water-heater-age",
+      "option": "state",
+      "defaultSerial": "1907A012345",
+      "checks": [
+        {
+          "serial": "1115A000001",
+          "year": 2011,
+          "month": 4,
+          "published": "First recalled unit: made April 8, 2011 (State is one of the brands covered; first four digits = year and week)",
+          "source": "U.S. CPSC, A. O. Smith Ultra-Low NOx water heater recall (November 8, 2018)",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard"
+        },
+        {
+          "serial": "C05000001",
+          "year": 2005,
+          "month": 3,
+          "published": "March 2005 (example C05…)",
+          "source": "Energy Trust of Oregon decoder",
+          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+        },
+        {
+          "serial": "M07A009387",
+          "year": 2007,
+          "month": 12,
+          "published": "December 2007: Building Intelligence Center gives M07A009387 as its one-letter State example, and the same serial opens an A. O. Smith range in the CPSC 2008 recall, sold November 2007 to January 2008",
+          "source": "U.S. CPSC, A. O. Smith gas water heater recall (April 3, 2008), A. O. Smith and State models",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards"
+        },
+        {
+          "serial": "AF04A093001",
+          "year": 2004,
+          "month": 6,
+          "published": "June 2004 (two-letter style, discontinued July 2004)",
+          "source": "Building Intelligence Center, STATE water heater age (third party)",
+          "sourceUrl": "https://building-center.org/state-water-heater-age/"
+        }
+      ],
+      "examples": [
+        {
+          "id": "current",
+          "serial": "1907A012345",
+          "type": "electric_tank",
+          "hardness": "moderate",
+          "flushed": true,
+          "anode": false
+        },
+        {
+          "id": "old",
+          "serial": "C05000001",
+          "type": "gas_tank",
+          "hardness": "veryHard",
+          "flushed": false,
+          "anode": false
+        }
+      ]
+    }
+  }
+}

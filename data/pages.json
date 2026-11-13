@@ -237,10 +237,27 @@
     {
       "slug": "how-long-does-a-water-heater-last",
       "type": "article",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "title": "How Long Does a Water Heater Last",
-      "summary": "Expected lifespan by water heater type, what shortens it, and how to check your own unit's age."
+      "summary": "Expected lifespan by water heater type, what shortens it, and how to check your own unit's age.",
+      "metaTitle": "How Long Does a Water Heater Last? DOE Data | Hot Water Math",
+      "description": "A tank water heater lasts about 13 years and a tankless unit about 20, per DOE data. See life by type, what shortens it, and check your own unit's age.",
+      "h1": "How long does a water heater last?",
+      "subtitle": "Lifespan by type from U.S. Department of Energy data, what shortens it, and a check for your own unit.",
+      "quickAnswer": "A storage tank water heater, gas or electric, typically lasts about 13 years, usually 10 to 15. A tankless water heater averages about 20 years. Hard water and skipped flushing shorten both.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "keywords": [
+        "water heater lifespan",
+        "how long does a tankless water heater last",
+        "water heater life expectancy",
+        "how long do electric water heaters last",
+        "how long do gas water heaters last"
+      ]
     },
     {
       "slug": "tankless-water-heater-installation-cost",
@@ -269,38 +286,106 @@
     {
       "slug": "bradford-white-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Bradford White Water Heater Age",
-      "summary": "Read the build date from a Bradford White serial number, with every format and worked examples."
+      "summary": "Read the build date from a Bradford White serial number, with every format and worked examples.",
+      "metaTitle": "Bradford White Water Heater Age by Serial | Hot Water Math",
+      "description": "Read a Bradford White water heater's age from the first two letters of its serial number: year and month letter charts, worked examples and a decoder.",
+      "h1": "Bradford White water heater age",
+      "subtitle": "Read the year and month letters in the serial.",
+      "quickAnswer": "The first letter of a Bradford White serial is the year and the second is the month: XA means January 2021. Year letters repeat every 20 years.",
+      "keywords": [
+        "bradford white water heater serial number lookup",
+        "bradford white serial number age",
+        "how old is my bradford white water heater",
+        "bradford white date code"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "ao-smith-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "A. O. Smith Water Heater Age",
-      "summary": "Read the build date from a A. O. Smith serial number, with every format and worked examples."
+      "summary": "Read the build date from a A. O. Smith serial number, with every format and worked examples.",
+      "metaTitle": "A. O. Smith Water Heater Age by Serial | Hot Water Math",
+      "description": "Find an A. O. Smith water heater's age from its serial number: year and week since 2008, month letters before, CPSC-checked examples and a decoder.",
+      "h1": "A. O. Smith water heater age",
+      "subtitle": "Read the build date from any A. O. Smith serial.",
+      "quickAnswer": "Since 2008, the first four digits of an A. O. Smith serial are the year and week: 2105 is week 5 of 2021. Older serials use a month letter.",
+      "keywords": [
+        "ao smith water heater serial number lookup",
+        "ao smith water heater age",
+        "how old is my ao smith water heater",
+        "a.o. smith serial number date"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "rheem-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "Rheem Water Heater Age",
-      "summary": "Read the build date from a Rheem serial number, with every format and worked examples."
+      "summary": "Read the build date from a Rheem serial number, with every format and worked examples.",
+      "metaTitle": "Rheem Water Heater Age by Serial Number | Hot Water Math",
+      "description": "Read a Rheem or Ruud water heater's age from its serial number: plant letter, week and year, older month codes, examples checked against Rheem's lookup.",
+      "h1": "Rheem water heater age",
+      "subtitle": "Decode Rheem and Ruud serial numbers, old and new.",
+      "quickAnswer": "Current Rheem and Ruud serials start with a plant letter, then the week and year: M3021 is week 30 of 2021. Older tags put the month first.",
+      "keywords": [
+        "rheem water heater serial number lookup",
+        "rheem water heater age",
+        "ruud water heater age",
+        "how old is my rheem water heater"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "state-water-heater-age",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "2b",
       "parent": "water-heater-age-calculator",
       "title": "State Water Heater Age",
-      "summary": "Read the build date from a State serial number, with every format and worked examples."
+      "summary": "Read the build date from a State serial number, with every format and worked examples.",
+      "metaTitle": "State Water Heater Age by Serial Number | Hot Water Math",
+      "description": "Find a State water heater's age from its serial number: year and week since 2008, month letter codes before, recall-checked examples and a decoder.",
+      "h1": "State water heater age",
+      "subtitle": "Read the build date from a State serial, any era.",
+      "quickAnswer": "Since 2008, a State serial starts with the year and week: 1907 is week 7 of 2019. Before that, a month letter comes first: C05 is March 2005.",
+      "keywords": [
+        "state water heater serial number lookup",
+        "state water heater age",
+        "how old is my state water heater",
+        "state industries serial number"
+      ],
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "age"
+      ],
+      "methodAnchor": "water-heater-age-calculator"
     },
     {
       "slug": "whirlpool-water-heater-age",

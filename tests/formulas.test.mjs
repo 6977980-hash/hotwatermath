@@ -313,3 +313,42 @@ test('tanklessSizing: one shower, warm climate fits one electric unit', () => {
 	assert.equal(s.kw, 18.3);
 	assert.equal(s.electricUnit.model, 'RETEX-24');
 });
+
+/* ---------- Phase 2b additions ---------- */
+
+test('decodeSerial: Rheem older tags (prefix letters, then month and year) and current serials still read as week + year', () => {
+	const p = sf.rheem.patterns;
+	const at = (s) => (({ year, month, patternId }) => ({ year, month, patternId }))(F.decodeSerial(s, p, 2026));
+	assert.deepEqual(at('R0804B10488'), { year: 2004, month: 8, patternId: 'rheem-letter-mmyy-plant' }); // InspectApedia style 1
+	assert.deepEqual(at('RH0806B17262'), { year: 2006, month: 8, patternId: 'rheem-prefix-mmyy' }); // Rheemglas Fury tag
+	// Official Rheem/Ruud lookup answers recorded 2026-11-13: M302112345 → 07/27/2021, Q151512345 → 04/09/2015.
+	assert.deepEqual(at('M302112345'), { year: 2021, month: 7, patternId: 'rheem-plant-wwyy' });
+	assert.deepEqual(at('Q151512345'), { year: 2015, month: 4, patternId: 'rheem-plant-wwyy' });
+});
+
+test('decodeSerial: A. O. Smith CPSC recall ranges (1115–1631 = year + week; L07A = November 2007)', () => {
+	const p = sf['ao-smith'].patterns;
+	assert.deepEqual([F.decodeSerial('1115A000001', p, 2026).year, F.decodeSerial('1115A000001', p, 2026).month], [2011, 4]);
+	assert.deepEqual([F.decodeSerial('1631A000001', p, 2026).year, F.decodeSerial('1631A000001', p, 2026).month], [2016, 7]);
+	assert.deepEqual([F.decodeSerial('L07A071460', p, 2026).year, F.decodeSerial('L07A071460', p, 2026).month], [2007, 11]);
+	assert.equal(F.decodeSerial('N07A071460', p, 2026), null); // N would be a 13th month letter
+});
+
+test('decodeSerial: State pre-2004 two-letter style and one-letter style', () => {
+	const p = sf.state.patterns;
+	assert.deepEqual([F.decodeSerial('AF04A093001', p, 2026).year, F.decodeSerial('AF04A093001', p, 2026).month], [2004, 6]);
+	assert.deepEqual([F.decodeSerial('M07A009387', p, 2026).year, F.decodeSerial('M07A009387', p, 2026).month], [2007, 12]);
+	assert.equal(F.decodeSerial('AF09A093001', p, 2026), null); // two-letter style ended in 2004
+});
+
+test('brand-pages.json: every hand-check decodes to the date its source gives', () => {
+	const bp = data('brand-pages').brands;
+	for (const [brand, b] of Object.entries(bp)) {
+		for (const c of b.checks) {
+			const m = F.decodeSerial(c.serial, sf[brand].patterns, 2026);
+			assert.ok(m, `${brand} ${c.serial} did not decode`);
+			assert.equal(m.month, c.month, `${brand} ${c.serial} month`);
+			assert.ok(m.year === c.year || (c.cycle && m.otherYears.includes(c.year)), `${brand} ${c.serial} year`);
+		}
+	}
+});

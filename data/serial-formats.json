@@ -3,7 +3,7 @@
     "source": "Energy Trust of Oregon, Water Heater Serial Number Decoder (2025); Bradford White, Determine the Age of My Water Heater; Rheem/Ruud official age lookup; U.S. CPSC recall notices (Navien)",
     "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
     "sourceDate": "2026-11-13",
-    "notes": "Only brands whose format we could confirm in an opened source are listed. Patterns are tried in order. Two-digit years take the latest matching year that is not in the future. Letter-year codes repeat every 20 years, so the decoder returns the latest year and lists the earlier ones; the unit's look and the dates on its labels settle which is right. Rinnai, Noritz, Takagi and Bosch are not decoded: no manufacturer or government source for their date code could be opened (third-party guides disagree with each other), so the calculator asks for the manufacture year. Rheem and Ruud also offer their own lookup, which beats any decoder."
+    "notes": "Only brands whose format we could confirm in an opened source are listed. Patterns are tried in order. Two-digit years take the latest matching year that is not in the future. Letter-year codes repeat every 20 years, so the decoder returns the latest year and lists the earlier ones; the unit's look and the dates on its labels settle which is right. Rinnai, Noritz, Takagi and Bosch are not decoded: no manufacturer or government source for their date code could be opened (third-party guides disagree with each other), so the calculator asks for the manufacture year. Rheem and Ruud also offer their own lookup, which beats any decoder. Patterns marked as from a third-party decoder (InspectApedia, Building Intelligence Center) cover older serials that no manufacturer source documents; the brand pages say so next to each."
   },
   "brands": {
     "bradford-white": {
@@ -35,7 +35,9 @@
               "type": "letterMonth",
               "letters": "ABCDEFGHJKLM"
             }
-          }
+          },
+          "layout": "1st letter = year, 2nd letter = month",
+          "era": "All years (letters repeat every 20 years)"
         }
       ]
     },
@@ -52,6 +54,46 @@
       "sourceUrl": "https://www.ruud.com/how-old-is-my-water-heater/",
       "patterns": [
         {
+          "id": "rheem-letter-mmyy-plant",
+          "regex": "^[A-Z](0[1-9]|1[0-2])(\\d{2})[A-Z]",
+          "validToYear": 2010,
+          "example": "R0804B***** → August 2004 (older tags, often printed as R 0804B…)",
+          "source": "InspectApedia Rheem decoder (style 1: one letter, then two-digit month, two-digit year and a plant letter, example R 0804B10488); documented third-party decoder, not a Rheem source. Rheem/Ruud's own lookup returned no date for this style when we tested it on 2026-11-13.",
+          "sourceUrl": "https://inspectapedia.com/plumbing/Rheem-Water-Heater-Age-Decoder.php",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "mm"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          },
+          "layout": "older tags: 1 letter, then month (2 digits), year (2 digits) and a plant letter",
+          "era": "Older tags"
+        },
+        {
+          "id": "rheem-prefix-mmyy",
+          "regex": "^[A-Z]{2,4}(0[1-9]|1[0-2])(\\d{2})",
+          "validToYear": 2010,
+          "example": "RH0806B***** → August 2006 (Rheemglas Fury tag RH 0806B17262)",
+          "source": "InspectApedia Rheem decoder (styles 2 and 5: a two- to four-letter prefix such as RH, RHLN or RHNG, then two-digit month and two-digit year; example tag RH 0806B17262 = August 2006); documented third-party decoder, not a Rheem source",
+          "sourceUrl": "https://inspectapedia.com/plumbing/Rheem-Water-Heater-Age-Decoder.php",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "mm"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          },
+          "layout": "older tags: 2 to 4 letters, then month (2 digits) and year (2 digits)",
+          "era": "Older tags"
+        },
+        {
           "id": "rheem-plant-wwyy",
           "regex": "^[A-Z](0[1-9]|[1-4]\\d|5[0-3])(\\d{2})",
           "example": "Q4319***** → week 43 of 2019 (Rheem/Ruud lookup: October 18, 2019)",
@@ -66,7 +108,9 @@
               "group": 2,
               "type": "yy"
             }
-          }
+          },
+          "layout": "plant letter, then week (2 digits) and year (2 digits)",
+          "era": "Current serials"
         },
         {
           "id": "rheem-mmyy",
@@ -83,7 +127,9 @@
             }
           },
           "source": "Energy Trust of Oregon decoder: 0794****** or 0794F***** = July 1994",
-          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf"
+          "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
+          "layout": "older all-digit serials: month (2 digits), then year (2 digits)",
+          "era": "Older all-digit serials"
         }
       ]
     },
@@ -93,7 +139,7 @@
         "Glascote",
         "PermaGlas"
       ],
-      "source": "Energy Trust of Oregon: since 2008, an 11-character serial whose first two positions are the year followed by a two-digit week (example 0805A…); before 2008 the second letter is the month (A to N, no I) followed by a two-digit year (example *H06… = August 2006)",
+      "source": "Energy Trust of Oregon: since 2008, an 11-character serial whose first two positions are the year followed by a two-digit week (example 0805A…); before 2008 the second letter is the month (A to N, no I) followed by a two-digit year (example *H06… = August 2006); U.S. CPSC recall notices (2008, 2018) for A. O. Smith serial ranges",
       "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
       "patterns": [
         {
@@ -110,7 +156,8 @@
               "group": 2,
               "type": "ww"
             }
-          }
+          },
+          "layout": "since 2008: year (2 digits), week (2 digits), then a letter"
         },
         {
           "id": "aos-letter-month-yy",
@@ -127,7 +174,28 @@
               "group": 2,
               "type": "yy"
             }
-          }
+          },
+          "layout": "before 2008: factory letter, month letter, then year (2 digits)"
+        },
+        {
+          "id": "aos-first-letter-month-yy",
+          "regex": "^([A-HJ-N])(\\d{2})[A-Z]",
+          "validToYear": 2008,
+          "example": "L07A****** → November 2007",
+          "source": "U.S. CPSC 2008 recall of A. O. Smith FCG-75 gas water heaters: serials L07A071460 to L07A144966 and M07A009387 to M07A072884, sold November 2007 to January 2008. That fits a first-letter month (L = November, M = December) and a two-digit year; the notice itself does not explain the code. Building Intelligence Center lists the same one-letter style.",
+          "sourceUrl": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "letterMonth",
+              "letters": "ABCDEFGHJKLMN"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          },
+          "layout": "before 2008: month letter, year (2 digits), then a letter"
         }
       ]
     },
@@ -139,7 +207,7 @@
         "Ace",
         "Patriot"
       ],
-      "source": "Energy Trust of Oregon: since 2008 State uses the A. O. Smith code (two-digit year, two-digit week); before 2008 a one-letter month (A to N, no I) followed by a two-digit year (example C05… = March 2005)",
+      "source": "Energy Trust of Oregon: since 2008 State uses the A. O. Smith code (two-digit year, two-digit week); before 2008 a one-letter month (A to N, no I) followed by a two-digit year (example C05… = March 2005); U.S. CPSC 2018 recall (State is among the A. O. Smith brands covered; first four digits = year and week); Building Intelligence Center for the pre-2004 two-letter style",
       "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
       "patterns": [
         {
@@ -156,7 +224,8 @@
               "group": 2,
               "type": "ww"
             }
-          }
+          },
+          "layout": "since 2008: year (2 digits), then week (2 digits)"
         },
         {
           "id": "state-letter-month-yy",
@@ -173,7 +242,28 @@
               "group": 2,
               "type": "yy"
             }
-          }
+          },
+          "layout": "before 2008: month letter, then year (2 digits)"
+        },
+        {
+          "id": "state-factory-month-yy",
+          "regex": "^[A-Z]([A-HJ-N])(\\d{2})",
+          "validToYear": 2004,
+          "example": "AF04A****** → June 2004",
+          "source": "Building Intelligence Center, STATE water heater age (style 3, two leading letters, discontinued July 2004: first letter is the factory, second the month, then a two-digit year; example AF04A093001 = June 2004); documented third-party decoder. Energy Trust of Oregon gives the same two-letter style for A. O. Smith (*H06 = August 2006).",
+          "sourceUrl": "https://building-center.org/state-water-heater-age/",
+          "fields": {
+            "month": {
+              "group": 1,
+              "type": "letterMonth",
+              "letters": "ABCDEFGHJKLMN"
+            },
+            "year": {
+              "group": 2,
+              "type": "yy"
+            }
+          },
+          "layout": "before mid-2004: factory letter, month letter, then year (2 digits)"
         }
       ]
     },
@@ -201,7 +291,8 @@
               "group": 2,
               "type": "ww"
             }
-          }
+          },
+          "layout": "year (2 digits), then week (2 digits)"
         }
       ]
     },
@@ -226,7 +317,8 @@
               "type": "letterMonth",
               "letters": "123456789XYZ"
             }
-          }
+          },
+          "layout": "4-digit model code and 1 character, then year (2 digits), month (1 character) and day (2 digits)"
         }
       ]
     }

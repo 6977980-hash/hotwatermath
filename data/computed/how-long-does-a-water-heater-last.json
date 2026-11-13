@@ -1,0 +1,157 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/lifespans.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Share of expected life used by a unit of each age, as of 2026-11-13. Bars: lifespan ranges in years, scaled for the SVG chart."
+  },
+  "asOf": "2026-11-13",
+  "worstCase": {
+    "low": 7,
+    "typical": 10,
+    "high": 12
+  },
+  "bestCase": {
+    "low": 11,
+    "typical": 14,
+    "high": 16
+  },
+  "tables": {
+    "ageShare": {
+      "caption": "How much of its expected life a water heater of each age has used",
+      "columns": [
+        {
+          "key": "age",
+          "label": "Age (years)",
+          "num": true
+        },
+        {
+          "key": "tank",
+          "label": "Tank (gas, electric or heat pump): 13-year typical life"
+        },
+        {
+          "key": "tankless",
+          "label": "Tankless: 20-year average life"
+        }
+      ],
+      "rows": [
+        {
+          "age": 3,
+          "tank": "23% (well within expected life)",
+          "tankless": "15% (well within expected life)"
+        },
+        {
+          "age": 6,
+          "tank": "46% (well within expected life)",
+          "tankless": "30% (well within expected life)"
+        },
+        {
+          "age": 9,
+          "tank": "69% (getting older: plan ahead)",
+          "tankless": "45% (well within expected life)"
+        },
+        {
+          "age": 12,
+          "tank": "92% (near or past expected life)",
+          "tankless": "60% (getting older: plan ahead)"
+        },
+        {
+          "age": 15,
+          "tank": "115% (near or past expected life)",
+          "tankless": "75% (getting older: plan ahead)"
+        },
+        {
+          "age": 18,
+          "tank": "139% (near or past expected life)",
+          "tankless": "90% (near or past expected life)"
+        }
+      ],
+      "source": "Computed with the age calculator's formula (age ÷ typical life; bands: amber from 60%, red from 90%) and DOE lifetimes from U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
+      "sourceDate": "2026-11-12"
+    }
+  },
+  "bars": {
+    "maxYears": 25,
+    "ticks": [
+      {
+        "t": 0,
+        "x": 0
+      },
+      {
+        "t": 5,
+        "x": 20
+      },
+      {
+        "t": 10,
+        "x": 40
+      },
+      {
+        "t": 15,
+        "x": 60
+      },
+      {
+        "t": 20,
+        "x": 80
+      },
+      {
+        "t": 25,
+        "x": 100
+      }
+    ],
+    "rows": [
+      {
+        "label": "DOE: storage tank",
+        "low": 10,
+        "high": 15,
+        "typical": 13,
+        "kind": "doe",
+        "x": 40,
+        "w": 20,
+        "tx": 52
+      },
+      {
+        "label": "DOE: tankless",
+        "low": 20,
+        "high": 20,
+        "typical": 20,
+        "kind": "doe",
+        "x": 80,
+        "w": 0.8,
+        "tx": 80
+      },
+      {
+        "label": "Rheem: tank",
+        "low": 8,
+        "high": 12,
+        "kind": "maker",
+        "x": 32,
+        "w": 16
+      },
+      {
+        "label": "A. O. Smith: tank",
+        "low": 8,
+        "high": 12,
+        "kind": "maker",
+        "x": 32,
+        "w": 16
+      },
+      {
+        "label": "Rheem: tankless",
+        "low": 15,
+        "high": 20,
+        "kind": "maker",
+        "x": 60,
+        "w": 20
+      },
+      {
+        "label": "A. O. Smith: tankless",
+        "low": 15,
+        "high": 20,
+        "kind": "maker",
+        "x": 60,
+        "w": 20
+      }
+    ]
+  }
+}

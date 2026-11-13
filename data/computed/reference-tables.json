@@ -333,47 +333,67 @@
       "rows": [
         {
           "brand": "Bradford White",
-          "rule": "year letter, then month letter",
+          "rule": "1st letter = year, 2nd letter = month",
           "example": "DF******* → June 1967, 1987, 2007 or 2027 (latest not in the future)"
         },
         {
           "brand": "Rheem / Ruud",
-          "rule": "two-digit week, then two-digit year",
+          "rule": "older tags: 1 letter, then month (2 digits), year (2 digits) and a plant letter",
+          "example": "R0804B***** → August 2004 (older tags, often printed as R 0804B…)"
+        },
+        {
+          "brand": "",
+          "rule": "older tags: 2 to 4 letters, then month (2 digits) and year (2 digits)",
+          "example": "RH0806B***** → August 2006 (Rheemglas Fury tag RH 0806B17262)"
+        },
+        {
+          "brand": "",
+          "rule": "plant letter, then week (2 digits) and year (2 digits)",
           "example": "Q4319***** → week 43 of 2019 (Rheem/Ruud lookup: October 18, 2019)"
         },
         {
           "brand": "",
-          "rule": "two-digit month, then two-digit year",
+          "rule": "older all-digit serials: month (2 digits), then year (2 digits)",
           "example": "0794****** → July 1994"
         },
         {
           "brand": "A. O. Smith",
-          "rule": "two-digit year, then two-digit week (2008 and later)",
+          "rule": "since 2008: year (2 digits), week (2 digits), then a letter",
           "example": "0805A****** → 2008, week 5"
         },
         {
           "brand": "",
-          "rule": "month letter, then two-digit year (up to 2008)",
+          "rule": "before 2008: factory letter, month letter, then year (2 digits)",
           "example": "*H06****** → August 2006"
         },
         {
+          "brand": "",
+          "rule": "before 2008: month letter, year (2 digits), then a letter",
+          "example": "L07A****** → November 2007"
+        },
+        {
           "brand": "State",
-          "rule": "two-digit year, then two-digit week (2008 and later)",
+          "rule": "since 2008: year (2 digits), then week (2 digits)",
           "example": "0904******* → 2009, week 4 (Energy Trust labels this example April 2009, which does not match its own year-week rule; we follow the rule)"
         },
         {
           "brand": "",
-          "rule": "month letter, then two-digit year (up to 2008)",
+          "rule": "before 2008: month letter, then year (2 digits)",
           "example": "C05******* → March 2005"
         },
         {
+          "brand": "",
+          "rule": "before mid-2004: factory letter, month letter, then year (2 digits)",
+          "example": "AF04A****** → June 2004"
+        },
+        {
           "brand": "American",
-          "rule": "two-digit year, then two-digit week",
+          "rule": "year (2 digits), then week (2 digits)",
           "example": "9746****** → 1997, week 46"
         },
         {
           "brand": "Navien",
-          "rule": "two-digit year, then month letter",
+          "rule": "4-digit model code and 1 character, then year (2 digits), month (1 character) and day (2 digits)",
           "example": "7410*18709**** → July 9, 2018 (CPSC example)"
         }
       ],
