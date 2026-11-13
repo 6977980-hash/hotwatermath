@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6d batch 1 — Safety pages: temperature setting, relief valve leaking, element replacement (2026-11-13). The 3 new pages are `draft` (noindex) until the owner OKs them (quality gate §8, PHASES 6d "owner has read each page before live").
+**Last completed phase:** Phase 6d batch 1 — Safety pages: temperature setting, relief valve leaking, element replacement (2026-11-13). Owner OKed the 3 pages on 2026-11-13 ("ok live krdo"); they are `live` (style 0.13.1).
 **Next phase to run:** Phase 6d batch 2 — gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (per `docs/PHASES.md` and `docs/DECISIONS.md` 6d row).
 
 **What exists now (new or changed in Phase 6d batch 1):**
@@ -27,7 +27,7 @@
 **Verified live (after PR #34 deployed, 2026-11-13):** style.css 0.13.0 served; `/?sync=` 200; the 3 pages 200 with `noindex, follow`, self canonical, one H1. `npm run check -- --bust` 691/691; `npm run check-links -- --bust` 1350/1350 (one transient 307 on /privacy-policy/ right after the deploy, 200 on retry). Playwright 360x640: no horizontal scroll, no console errors; embedded calculators react (tank size 4 people → 55-gal gas; expansion tank 80 gal → 2-gal minimum, 4.4-gal safer; repair-or-replace updates).
 
 **Owner steps:**
-1. Read the 3 safety drafts and reply OK to flip them `live` (§8 quality gate; PHASES 6d needs the owner to read each one).
+1. Done 2026-11-13: owner OKed the 3 safety pages; flipped `live`.
 2. Flush the Hostinger CDN after this deploy (formulas.js changed).
 3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. PHASES 6d asks for GSC to show the tools indexed before these go live; GSC is not verified yet.
 4. Later: the post-launch plumber fact-check (§8b) should include these 3 pages.
@@ -35,7 +35,7 @@
 **Known issues / TODOs carried forward:**
 - No sourced labor price for relief valve or element jobs; pages say so and send readers to the repair-or-replace calculator.
 - Watts spec sheet is a distributor-hosted copy (watts.com 403 to scripts); text matches Watts' product pages.
-- Batch 2 needs fuel gas pipe sizing tables (NFPA 54 / IFGC) and NEC rules; codes.iccsafe.org returns 403. Look for a state-adopted code PDF or a manufacturer installation manual that reprints the tables.
+- Batch 2 code text: the owner opened ICC in their Chrome; internal excerpts (copyrighted, never commit) are in `/mnt/project-files/code-data/` (IFGC 2021 Ch. 4 gas tables 402.4(1)-(16); IRC 2021 Ch. 37 + E4101.4.1 electrical rules with NEC refs). NFPA LiNK did not load. Quote only the rows a page needs, with table number and edition.
 - Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure.
 
 **Notes for the next thread:**
@@ -93,3 +93,4 @@
 - 2026-11-13 — Owner instruction: one phase per new thread, PR auto-merged when the phase checklist passes, HANDOFF note for the next phase (CLAUDE.md §9, phase map in PHASES.md).
 - 2026-11-12 — Phase 0 done — custom WordPress theme foundation: registry-driven pages, SEO/schema output, clean-up, utility pages, brand assets, check script.
 - 2026-11-13 — Go-live — owner OK: 10 state cost pages (Phase 6c) and 4 troubleshooting pages (Phase 6b batch 2) flipped to live.
+- 2026-11-13 — Phase 6d batch 1 pages live — owner OK; temperature setting, relief valve leaking, element replacement flipped live.
