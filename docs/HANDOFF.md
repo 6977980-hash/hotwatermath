@@ -26,6 +26,12 @@
 - Uniqueness (state name masked): sentence/line diff 36–46% between every pair (acceptance ≥30%); strict word-level diff 13–43% (Texas vs Florida lowest).
 - Hand checks: Texas 50-gal gas = $899 + ($650 + $260) × 0.971 = $1,782; Texas winter tankless 189,050 BTU/h ÷ (8.34 × 60 × 59.3 °F) = 6.4 GPM; heat pump saving/payback equal the heat pump calculator's state table (Texas $296/yr, 4.6 yrs).
 
+**Verified live (after PR #31 deployed, 2026-11-13):**
+- style.css 0.12.0 served; `/?sync=` 200; the 10 child pages 200 at `/water-heater-installation-cost/<state>/` with `noindex, follow`, self canonical, one H1, BreadcrumbList Home › Guides › Water Heater Replacement Cost › state.
+- `npm run check -- --bust` 630/630; `npm run check-links -- --bust` 1216/1216 (50 pages, incl. the new parent ↔ child check).
+- Playwright 360x640 (TX, CA, NY, FL, NC, OH): no horizontal scroll, no console errors; calculator starts at the state (Texas electric $1,557, California gas with code items $2,073) and reacts (heat pump: Texas $2,913).
+- Note: any query string (even `?nocache=`) makes the cost calculator read the URL and re-tick the job's default extras, so California's preset code items drop off on such URLs. Pre-existing behavior of all calculators; harmless for real visitors.
+
 **Owner steps:**
 1. Read the 10 state drafts (and the 4 batch-2 drafts) and reply OK to flip them `live` (quality gate §8).
 2. Flush the Hostinger CDN after this deploy (formulas.js changed).
