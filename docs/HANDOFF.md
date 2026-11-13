@@ -23,7 +23,10 @@
 - Offline render (WP stubs): 0 PHP errors on the 4 pages; prose ~1,700–2,200 words each; hardcoded-number grep clean (digits only in document numbers and FAQ question wording).
 - Winter vs summer table: Minnesota 37 → 59 °F inlet, 20.5 vs 18.9 gal per 10-min shower (+9%), 36% longer reheat; hand check 105/120/50 °F → 79% hot.
 
-**Verified live:** see the Log line and the PR; filled in after deploy.
+**Verified live (after PR #29 deployed, 2026-11-13):**
+- style.css 0.11.0 served; the 4 pages 200 with `noindex, follow`, one H1, FAQPage JSON-LD, no PHP errors.
+- `npm run check -- --bust` 520/520; `npm run check-links -- --bust` 955/955 (40 pages).
+- Playwright 360x640: no console errors; embedded calculators react (size check 69 → 99 gal FHR on a bigger household; repair tool at 14 years → "Borderline"). Three hand-written tables caused horizontal scroll (408–512 px); wrapped in `.table-wrap` in PR #30.
 
 **Owner steps:**
 1. Read the 4 drafts and reply OK to flip them `live` (quality gate §8).

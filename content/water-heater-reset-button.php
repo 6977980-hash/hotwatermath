@@ -87,6 +87,7 @@ hwm_part( 'safety-notice', array( 'gas' => true, 'power' => true, 'scald' => tru
 
 <h2>Reset button or circuit breaker?</h2>
 <p>They protect against different things. Check the breaker first, because A. O. Smith calls a tripped breaker a very common reason an electric water heater stops working.</p>
+<div class="table-wrap" role="region" aria-label="Breaker vs reset button on an electric water heater" tabindex="0">
 <table>
 	<caption>Breaker vs reset button on an electric water heater</caption>
 	<thead>
@@ -99,6 +100,7 @@ hwm_part( 'safety-notice', array( 'gas' => true, 'power' => true, 'scald' => tru
 		<tr><th scope="row">Trips again after one reset</th><td>Leave it off; have the circuit and element checked</td><td>Leave the power off; have the elements and thermostats checked</td></tr>
 	</tbody>
 </table>
+</div>
 <p class="table-source">Source: A. O. Smith troubleshooting page and electric Use &amp; Care Guide, checked <?php echo esc_html( (string) hwm_raw( $hwm_f, 'references.aos-electric-manual.checked' ) ); ?>.</p>
 
 <h2>Gas water heater reset button</h2>
