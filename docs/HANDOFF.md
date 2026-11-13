@@ -24,6 +24,12 @@
 - Hand-checked repair cases: 8-yr gas tank, $250 / $899 = 28% → borderline; 11-yr, $350 = 39%, 85% of life → replace; 4-yr electric, $150 / $819 = 18% → repair; leak or flood → replace at any age; 12-yr tankless (old from 15) → borderline; electric tank → heat pump saves $460/yr (55 gal/day, 67 °F, UEF 0.93 vs 3.8, $0.1723/kWh).
 - Cross-checks: American FHR ranges 5/5 inside (presets tuned to them, stated); Rheem gas sizes 5/5 inside; A. O. Smith volume 3/3 for at least one fuel; Rheem worked example 77 vs 55 gal (+40%, per-use gallons differ, explained); repair 5/6 match Rheem/A. O. Smith, 1 stricter on purpose (explained).
 
+**Verified live (after PR #13 deployed, 2026-11-13):**
+- style.css 0.6.0 served; `npm run check` 250/250 with and without `--bust`.
+- Both pages 200, `noindex, follow`, JSON-LD WebPage + BreadcrumbList + WebApplication + FAQPage (8 / 6 questions) parse.
+- 360×640 live: first input top 514 px, no horizontal scroll, no console errors; share links work (`?people=5…` → 55-gallon gas, FHR 91+; `?age=12.4&type=electric_tank` → Replace).
+- Lighthouse mobile (P/A/BP/SEO): tank size 100/100/100/66, repair 97/100/100/66; SEO 66 only from `is-crawlable` (draft noindex). CLS 0, LCP 0.95 s / 1.06 s.
+
 **Known issues / TODOs carried forward:**
 - Repair tool's new-unit price is equipment only until Phase 4 adds sourced labor/extras (Phase 4 should switch the default to the installed typical and update the methodology text and DECISIONS row).
 - Gas/electric FHR sample is mostly Rheem; heat pump from ENERGY STAR. Household presets and the 10% margin are editorial.
