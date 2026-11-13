@@ -20,11 +20,24 @@ get_header();
 	<?php hwm_part( 'quick-answer', array( 'text' => $hwm_entry['quickAnswer'] ?? '' ) ); ?>
 
 	<?php
-	// Calculators hub: the core tools first, then the per-brand serial decoders (children of the age calculator).
-	$hwm_groups = array( array( 'tool' === $hwm_type ? 'Sizing, age and cost calculators' : 'All water heater guides', array_values( array_filter( $hwm_items, static fn( $e ) => empty( $e['parent'] ) ) ) ) );
-	$hwm_kids   = array_values( array_filter( $hwm_items, static fn( $e ) => ! empty( $e['parent'] ) ) );
-	if ( $hwm_kids ) {
-		$hwm_groups[] = array( 'Serial number decoders by brand', $hwm_kids );
+	if ( 'tool' === $hwm_type ) {
+		// Calculators hub: the core tools first, then the per-brand serial decoders (children of the age calculator).
+		$hwm_groups = array( array( 'Sizing, age and cost calculators', array_values( array_filter( $hwm_items, static fn( $e ) => empty( $e['parent'] ) ) ) ) );
+		$hwm_kids   = array_values( array_filter( $hwm_items, static fn( $e ) => ! empty( $e['parent'] ) ) );
+		if ( $hwm_kids ) {
+			$hwm_groups[] = array( 'Serial number decoders by brand', $hwm_kids );
+		}
+	} else {
+		// Guides hub: one section per article group, in the order set in data/pages.json meta.articleGroups.
+		$hwm_order  = (array) ( hwm_raw( 'pages', 'meta.articleGroups' ) ?? array() );
+		$hwm_groups = array();
+		foreach ( $hwm_order as $hwm_g ) {
+			$hwm_groups[] = array( (string) $hwm_g, array_values( array_filter( $hwm_items, static fn( $e ) => (string) ( $e['group'] ?? '' ) === (string) $hwm_g ) ) );
+		}
+		$hwm_rest = array_values( array_filter( $hwm_items, static fn( $e ) => ! in_array( (string) ( $e['group'] ?? '' ), $hwm_order, true ) ) );
+		if ( $hwm_rest ) {
+			$hwm_groups[] = array( 'More guides', $hwm_rest );
+		}
 	}
 	?>
 	<?php foreach ( $hwm_groups as $hwm_group ) : ?>

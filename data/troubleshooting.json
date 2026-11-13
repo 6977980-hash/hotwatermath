@@ -1,0 +1,490 @@
+{
+  "meta": {
+    "source": "A. O. Smith Residential Gas Water Heater Installation Instructions and Use & Care Guide (document 100400765, 2025/2026 edition) and A. O. Smith consumer info-center pages; GE Appliances anode rod service note; Rinnai flushing procedure; U.S. CPSC Publication 5098; Rheem; The Home Depot listing prices",
+    "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Facts used by the troubleshooting and care articles (Phase 6b): where tanks leak, the maintenance schedule manufacturers publish, anode rod rules and parts prices, and the checks for no hot water. Every figure is quoted from the reference named in its record; all references were opened on the date in 'checked'. Parts prices are retailer listing prices on that date and change often. Nothing here is our own measurement."
+  },
+  "references": {
+    "aos-manual": {
+      "publisher": "A. O. Smith",
+      "title": "Residential Gas Water Heater: Installation Instructions and Use & Care Guide (document 100400765)",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Drain and flush tank, clean condensate pan, and remove and inspect anode rod after first six months of operation and at least annually thereafter.",
+        "Depending on the hardness of your water, repeat this process at least annually, or more frequently if needed.",
+        "Failure to drain and flush the water heater of sediment can deteriorate the tank and drain valve and cause leaks resulting in property damage.",
+        "Note that sediment in the bottom of the tank may clog the valve and prevent it from draining. If you cannot get the tank to drain, contact a qualified person.",
+        "Allow a hot water faucet to run full for at least three minutes to make sure the tank has all the air removed and is completely full of water.",
+        "It may take an hour or more for the tank of cold water to heat up.",
+        "If you use a water softener, your anode rod will deplete faster than normal.",
+        "Anode rods are a consumable item and are not covered under warranty.",
+        "A small amount of water dripping from the Temperature and Pressure (T&P) Relief Valve usually means the home's water pressure is too high and/or you need a Thermal Expansion Tank.",
+        "Install a Pressure Reducing Valve (PRV) on the main cold water supply line. Adjust the PRV to between 50 and 60 psi.",
+        "Do not cap or plug the T&P Relief Valve or discharge pipe, and do not operate the water heater without a functioning T&P Relief Valve; this could cause an explosion.",
+        "If the T&P Relief Valve is discharging large amounts of very hot water, turn the gas supply valve off and call a qualified person.",
+        "When a gas water heater is first lit and the tank is cold, condensation often forms inside the water heater... Condensation is not a leak and will go away once the tank reaches normal operating temperature.",
+        "If you have no hot water after two hours, refer to the Troubleshooting Section.",
+        "Plumbing Leak. Even a small leak in the hot water side of the home's plumbing system can make it appear that the water heater is producing little to no hot water.",
+        "Harmless bacteria normally present in tap water can multiply in water heaters and give off a 'rotten egg' smell... the standard anode rod ... can be replaced with a special zinc anode rod which may help reduce or eliminate the odor.",
+        "To protect the tank, an anode rod must be installed in the water heater at all times or the warranty is void.",
+        "WHAT TO DO IF YOU SMELL GAS: Do not try to light any appliance. Do not touch any electrical switch; do not use any phone in your building. Immediately call your gas supplier from a neighbor's phone.",
+        "The 'HOT' setting sets the water temperature to approximately 120°F, reducing the risk of scald injury.",
+        "Most codes allow a maximum incoming water pressure of 80 psi (we recommend a working pressure no higher than 50-60 psi).",
+        "Connect the water pressure gauge to an outside faucet and measure the maximum water pressure experienced throughout a 24-hour period (highest water pressures often occur at night).",
+        "Install a metal drain pan... Install an automatic leak detection... device.",
+        "Apply thread sealant tape or pipe joint compound and reinstall the anode rod tightly using a 1-1/16\" socket wrench with an extension."
+      ]
+    },
+    "aos-leaking": {
+      "publisher": "A. O. Smith",
+      "title": "What to do when your hot water heater is leaking",
+      "sourceUrl": "https://www.hotwater.com/info-center/what-to-do-when-your-hot-water-heater-is-leaking.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Wipe the area completely dry with towels, then watch for new moisture. If it reappears within a few hours, you have a leak.",
+        "Leaks typically develop at four points on your tank.",
+        "Tank water heaters hold 30-80 gallons, and a more serious leak can flood your home in a matter of hours.",
+        "Water pressure above 80 PSI can turn a small crack into a gushing leak.",
+        "Most residential tanks take 20-30 minutes to empty.",
+        "Water soaking into drywall, flooring, or insulation creates mold growth within 24-48 hours.",
+        "Electric Water Heater Leaks: Failed gaskets around heating elements cause water to seep from the side of the tank where elements penetrate through the steel.",
+        "Gas Water Heater Leaks: Moisture near the burner assembly or gas line connection requires immediate professional help since water can interfere with combustion and create carbon monoxide risks."
+      ]
+    },
+    "aos-leak-guide": {
+      "publisher": "A. O. Smith",
+      "title": "Water heater leaking: causes, signs and fixes",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-leaking.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The anode rod, or 'sacrificial' rod, corrodes over time to protect the tank from rusting. These rods usually last 3-5 years before they need to be replaced.",
+        "If the T&P valve is leaking due to high pressure, turning down the thermostat could stop the leak. The addition of a properly sized and charged expansion tank is the solution to this issue.",
+        "A water leak coming from the base of the heater is often the first indication of a serious problem."
+      ]
+    },
+    "aos-not-working": {
+      "publisher": "A. O. Smith",
+      "title": "Water heater not working? Common problems and fixes",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-not-working.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "A very common reason for an electric water heater not working is a tripped circuit breaker.",
+        "Thermostat Issues: Causes temperature inconsistencies and can trip the high-limit safety switch (red reset button), often due to a grounded heating element or a faulty lower thermostat.",
+        "Gas Supply Problems: Prevents burner ignition and can also cause the pilot to extinguish.",
+        "Plan your showers around recovery time: gas tanks need 30-40 minutes, electric tanks need 60-90 minutes.",
+        "Electric Water Heaters: Turn off power at the circuit breaker before touching anything.",
+        "If you smell rotten eggs or suspect a gas leak for any reason, turn off the gas supply valve immediately and call a professional.",
+        "Check water pressure, which should be 50-60 PSI and no higher than 80 PSI, and install a thermal expansion tank.",
+        "Fix: Flush the water heater with a solution of water and hydrogen peroxide. For persistent issues, increase the water temperature to 140 degrees F for a short period to kill bacteria, then return to a safer temperature. Install mixing valves to prevent scalding. Alternatively, installing an aluminum/zinc composite anode rod can also help eliminate odor-causing bacteria."
+      ]
+    },
+    "aos-maintenance": {
+      "publisher": "A. O. Smith",
+      "title": "Water heater maintenance (draining, flushing, anode rod, T&P valve)",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-maintenance.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Most types of tank water heaters require flushing at least once per year. If you live in a hard water area, you may need to flush your water heater more often.",
+        "Ideally, you should turn your water heater off for a few hours before draining the tank.",
+        "For an electric water heater, it is critical to make sure the tank is full before turning the power back on.",
+        "A rod in good working condition should be smooth and around a half inch in diameter. If the sacrificial anode rod shows signs of deterioration or has several inches of exposed core wire, replace it.",
+        "How long an anode rod will last depends on what chemicals are in the water, how much hot water is used, and whether or not a water softener is installed.",
+        "The T&P valve should be inspected once a year by the consumer and every 5 years by a professional."
+      ]
+    },
+    "aos-checklist": {
+      "publisher": "A. O. Smith",
+      "title": "Water heater maintenance checklist",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-maintenance-checklist.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Have your hot water heater serviced once a year. If you have hard water in your area, get it serviced twice a year since mineral buildup happens faster.",
+        "Tankless models skip these tasks but need descaling, which means flushing out mineral deposits that build up inside the unit where water gets heated.",
+        "Once the rod's mostly gone or 6 inches of core wire is exposed, your tank starts rusting from the inside out."
+      ]
+    },
+    "ge-anode": {
+      "publisher": "GE Appliances",
+      "title": "Water heater: anode rod maintenance and service",
+      "sourceUrl": "https://products.geappliances.com/appliance/gea-support-search-content?contentId=39725",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The anode rod must be removed from the water heater's tank and inspected annually, and replaced when more than 6\" (15.2 cm) of core wire is exposed at either end of the rod.",
+        "Please be aware that artificially-softened water will cause the anode rod to consume more rapidly.",
+        "Operation with the anode rod removed will shorten the life of the glass-lined tank and will void warranty coverage.",
+        "Some areas have water conditions that may cause an odor to develop in the water heater. Special alloy replacement rods are available to address the condition.",
+        "Failure to replace the anode rod when consumed voids the warranty for the tank."
+      ]
+    },
+    "rinnai-flush": {
+      "publisher": "Rinnai",
+      "title": "13-step tankless water heater flushing procedure",
+      "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater",
+      "checked": "2026-11-13",
+      "quotes": [
+        "It's important to flush those mineral deposits at least once a year.",
+        "Use 4 gallons (15.1 liters) of undiluted white vinegar to clean your tankless water heater. Never use chemical solutions of any kind.",
+        "This procedure may take up to 45 minutes."
+      ]
+    },
+    "cpsc-scald": {
+      "publisher": "U.S. Consumer Product Safety Commission",
+      "title": "Avoiding Tap Water Scalds (Publication 5098)",
+      "sourceUrl": "https://www.cpsc.gov/s3fs-public/5098-Tap-Water-Scalds.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The U.S. Consumer Product Safety Commission (CPSC) urges all users to lower their water heaters to 120 degrees Fahrenheit.",
+        "Most adults will suffer third-degree burns if exposed to 150 degree water for two seconds."
+      ]
+    },
+    "rheem-lifespan": {
+      "publisher": "Rheem Manufacturing",
+      "title": "Water heater lifespan: when to repair vs. replace (March 25, 2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Flush the tank annually; replace the anode rod every 3-4 years; aim for 40-60 psi.",
+        "If the leak is from the tank itself, replacement is usually required."
+      ]
+    },
+    "home-depot-anodes": {
+      "publisher": "The Home Depot",
+      "title": "Listing prices for replacement anode rods (product pages)",
+      "sourceUrl": "https://www.homedepot.com/p/Rheem-PROTECH-0-750-in-Dia-x-44-3-8-in-L-Magnesium-Water-Heater-Anode-Rod-SP11309C/308811585",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Rheem PROTECH 0.750 in. x 44-3/8 in. magnesium anode rod SP11309C: $28.09",
+        "CMI 3/4 in. NPT x 44 in. 4-section magnesium anode rod M341444: $29.68",
+        "Everbilt 3/4 in. NPT x 42 in. 3-section aluminum anode rod EBAR-42-07: $34.98",
+        "EASTMAN 45 in. flexible magnesium anode rod 60296: $38.90",
+        "EASTMAN 42 in. aluminum/zinc anode rod with 5 in. nipple fitting 60289: $40.16",
+        "CORRO-PROTEC powered anode rod for 40-89 gal. residential water heater 96387: $179.95"
+      ]
+    },
+    "corro-protec": {
+      "publisher": "Corro-Protec",
+      "title": "How a powered anode rod works",
+      "sourceUrl": "https://www.corroprotec.com/powered-anode-rod/",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Unlike traditional rods, which sacrifice themselves, they use a small electrical current to prevent corrosion.",
+        "Diagram of a standard powered anode rod with power supply, indicator light."
+      ]
+    },
+    "rinnai-tb": {
+      "publisher": "Rinnai",
+      "title": "Technical Bulletin TB-188: Sensei enhanced flush procedure",
+      "sourceUrl": "https://media.rinnai.us/salsify_asset/s-9d6a83e9-c52a-47d5-83f9-b3a459b7b79d/TB-188%20Sensei%20Enhanced%20Flush%20Procedure.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "When unit has finished draining, remove the in-line filter at the cold water inlet and clean out any residue.",
+        "Clean filters immediately after flush is complete."
+      ]
+    }
+  },
+  "safety": {
+    "gasSmell": "If you smell gas, do not light anything, do not touch electrical switches or use a phone in the building, and call your gas supplier from a neighbor's phone.",
+    "gasSmellRef": "aos-manual",
+    "powerOff": "On an electric water heater, turn the power off at the circuit breaker before you touch anything.",
+    "powerOffRef": "aos-not-working",
+    "scaldF": 150,
+    "scaldSeconds": "two",
+    "scaldRef": "cpsc-scald",
+    "cpscSetpointF": 120
+  },
+  "leak": {
+    "condensationWatchHours": "a few",
+    "tankGallonsLow": 30,
+    "tankGallonsHigh": 80,
+    "drainMinutesLow": 20,
+    "drainMinutesHigh": 30,
+    "moldHoursLow": 24,
+    "moldHoursHigh": 48,
+    "pressureMaxPsi": 80,
+    "pressurePrvLowPsi": 50,
+    "pressurePrvHighPsi": 60,
+    "rheemPsiLow": 40,
+    "rheemPsiHigh": 60,
+    "tpInspectConsumerYears": 1,
+    "tpInspectProYears": 5,
+    "pointsCount": "four"
+  },
+  "flush": {
+    "firstFlushMonths": "six",
+    "thenEvery": "at least once a year",
+    "hardWaterService": "twice a year",
+    "coolHours": "a few hours",
+    "refillFaucetMinutes": "three",
+    "reheatHours": "an hour or more",
+    "tanklessVinegarGallons": 4,
+    "tanklessVinegarLiters": 15.1,
+    "tanklessMinutes": 45,
+    "tanklessEvery": "at least once a year"
+  },
+  "anode": {
+    "coreWireInches": 6,
+    "coreWireCm": 15.2,
+    "healthyDiameterIn": "a half inch",
+    "lifeYearsLow": 3,
+    "lifeYearsHigh": 5,
+    "rheemReplaceYearsLow": 3,
+    "rheemReplaceYearsHigh": 4,
+    "socket": "1-1/16 inch",
+    "priceLow": "$28",
+    "priceHigh": "$40",
+    "poweredPrice": "$180",
+    "pricesChecked": "November 13, 2026",
+    "odorBoostF": 140
+  },
+  "noHot": {
+    "waitHours": "two",
+    "recoveryGasMinLow": 30,
+    "recoveryGasMinHigh": 40,
+    "recoveryElectricMinLow": 60,
+    "recoveryElectricMinHigh": 90,
+    "statusFlashSeconds": "four"
+  },
+  "tables": {
+    "leakPoints": {
+      "caption": "Where a tank water heater leaks, what it usually means, and what fixes it",
+      "columns": [
+        {
+          "key": "where",
+          "label": "Where the water is"
+        },
+        {
+          "key": "cause",
+          "label": "Usual cause"
+        },
+        {
+          "key": "fix",
+          "label": "Usual fix"
+        },
+        {
+          "key": "verdict",
+          "label": "Repair or replace?"
+        }
+      ],
+      "rows": [
+        {
+          "where": "Pipe connections on top of the tank",
+          "cause": "Loose or corroded fittings on the hot outlet or cold inlet",
+          "fix": "Tighten gently; replace corroded fittings",
+          "verdict": "Repair"
+        },
+        {
+          "where": "Relief valve on the side or top, or its discharge pipe",
+          "cause": "Water pressure too high, thermal expansion, debris in the valve, or a failed valve",
+          "fix": "Check pressure, add an expansion tank, replace a failed valve (never plug it)",
+          "verdict": "Repair (safety device)"
+        },
+        {
+          "where": "Drain valve near the bottom",
+          "cause": "Valve not fully closed, worn washer, or a failed valve",
+          "fix": "Close it fully; replace the valve if it keeps dripping",
+          "verdict": "Repair"
+        },
+        {
+          "where": "Side of an electric tank, at an element",
+          "cause": "Failed heating element gasket",
+          "fix": "Power off, drain, replace the gasket or element",
+          "verdict": "Repair"
+        },
+        {
+          "where": "Around the burner of a gas tank",
+          "cause": "Condensation on a cold tank, or water reaching the burner from a leak above",
+          "fix": "Condensation clears as the tank heats; any other water near the burner needs a professional",
+          "verdict": "Check first (safety)"
+        },
+        {
+          "where": "Tank bottom or a wet tank body",
+          "cause": "Steel tank corroded through",
+          "fix": "None: the tank cannot be repaired",
+          "verdict": "Replace"
+        }
+      ],
+      "source": "A. O. Smith leaking guide, troubleshooting page and Use & Care Guide (100400765); Rheem",
+      "sourceUrl": "https://www.hotwater.com/info-center/what-to-do-when-your-hot-water-heater-is-leaking.html",
+      "sourceDate": "2026-11-13"
+    },
+    "flushSchedule": {
+      "caption": "How often to flush, by water heater type and water (manufacturer guidance)",
+      "columns": [
+        {
+          "key": "type",
+          "label": "Water heater"
+        },
+        {
+          "key": "first",
+          "label": "First flush"
+        },
+        {
+          "key": "after",
+          "label": "After that"
+        },
+        {
+          "key": "also",
+          "label": "At the same visit"
+        },
+        {
+          "key": "who",
+          "label": "Source"
+        }
+      ],
+      "rows": [
+        {
+          "type": "Gas tank",
+          "first": "After the first six months",
+          "after": "At least once a year, more often with hard water",
+          "also": "Inspect the anode rod; operate the relief valve per its label",
+          "who": "A. O. Smith manual"
+        },
+        {
+          "type": "Electric tank",
+          "first": "After the first six months",
+          "after": "At least once a year, more often with hard water",
+          "also": "Inspect the anode rod; refill fully before power goes back on",
+          "who": "A. O. Smith"
+        },
+        {
+          "type": "Tank on hard water",
+          "first": "After the first six months",
+          "after": "Service twice a year",
+          "also": "Check the anode more often",
+          "who": "A. O. Smith checklist"
+        },
+        {
+          "type": "Tank on softened water",
+          "first": "After the first six months",
+          "after": "At least once a year",
+          "also": "Inspect the anode more often: softened water uses it up faster",
+          "who": "A. O. Smith manual; GE"
+        },
+        {
+          "type": "Tankless (gas or electric)",
+          "first": "Per the manual",
+          "after": "Descale at least once a year",
+          "also": "Clean the inlet water filter",
+          "who": "Rinnai; A. O. Smith"
+        }
+      ],
+      "source": "A. O. Smith Use & Care Guide (100400765) and maintenance checklist; GE Appliances; Rinnai; Rinnai TB-188 (inlet filter)",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "anodeTypes": {
+      "caption": "Replacement anode rod types and listing prices",
+      "columns": [
+        {
+          "key": "type",
+          "label": "Anode type"
+        },
+        {
+          "key": "good",
+          "label": "Best for"
+        },
+        {
+          "key": "watch",
+          "label": "Trade-off"
+        },
+        {
+          "key": "price",
+          "label": "Example listing price"
+        }
+      ],
+      "rows": [
+        {
+          "type": "Magnesium",
+          "good": "One of the three standard rod metals A. O. Smith names",
+          "watch": "If the hot water smells of rotten eggs, makers suggest a special alloy rod instead",
+          "price": "$28.09 (Rheem SP11309C)"
+        },
+        {
+          "type": "Aluminum",
+          "good": "One of the three standard rod metals A. O. Smith names",
+          "watch": "Use the metal and size your manual specifies for your model",
+          "price": "$34.98 (Everbilt, 3 sections)"
+        },
+        {
+          "type": "Zinc or aluminum/zinc",
+          "good": "Rotten-egg smell: the special rod A. O. Smith and GE point to",
+          "watch": "May reduce or end the smell; A. O. Smith says killing the bacteria is the only sure fix",
+          "price": "$40.16 (EASTMAN, with 5 in. nipple)"
+        },
+        {
+          "type": "Linked (flexible) rod",
+          "good": "Made of linked sections instead of one solid rod",
+          "watch": "Check thread size and length against your tank's manual",
+          "price": "$38.90 (EASTMAN 45 in. magnesium)"
+        },
+        {
+          "type": "Powered",
+          "good": "Not a metal rod that wears away; the seller's listing gives a 20-year warranty",
+          "watch": "Several times the price of a metal rod; check your tank warranty's terms first",
+          "price": "$179.95 (CORRO-PROTEC, 40-89 gal)"
+        }
+      ],
+      "source": "A. O. Smith Use & Care Guide and maintenance page; GE Appliances; listing prices from The Home Depot product pages, checked November 13, 2026",
+      "sourceUrl": "https://www.homedepot.com/p/Rheem-PROTECH-0-750-in-Dia-x-44-3-8-in-L-Magnesium-Water-Heater-Anode-Rod-SP11309C/308811585",
+      "sourceDate": "2026-11-13"
+    },
+    "noHotByType": {
+      "caption": "No hot water: the first things to check, by type",
+      "columns": [
+        {
+          "key": "type",
+          "label": "Water heater"
+        },
+        {
+          "key": "first",
+          "label": "Check first"
+        },
+        {
+          "key": "then",
+          "label": "Then"
+        },
+        {
+          "key": "pro",
+          "label": "Call a professional when"
+        }
+      ],
+      "rows": [
+        {
+          "type": "Electric tank",
+          "first": "The breaker in your panel (a very common cause)",
+          "then": "The red reset button (high-limit switch) behind the upper panel, with the power off",
+          "pro": "The breaker or reset trips again, or an element or thermostat has failed"
+        },
+        {
+          "type": "Gas tank (standing pilot)",
+          "first": "That the gas valve is open and the control knob is not on Off or Vacation",
+          "then": "Whether the pilot is lit; relight only by the label on the heater",
+          "pro": "The pilot will not stay lit, or you smell gas"
+        },
+        {
+          "type": "Gas tank (electronic control)",
+          "first": "The status light on the gas control",
+          "then": "Its flash code in the manual; a lockout can clear after a wait",
+          "pro": "The code points to a sensor, igniter or venting fault"
+        },
+        {
+          "type": "Tankless",
+          "first": "The error code on the display, and that the gas or power is on",
+          "then": "Whether the inlet filter is blocked or scale is due to be flushed",
+          "pro": "The code repeats after a reset or names a part"
+        },
+        {
+          "type": "Any type, one tap only",
+          "first": "Other taps: if they are hot, the heater is fine",
+          "then": "That tap's mixing valve (common in shower controls)",
+          "pro": "The valve needs replacing and you are not comfortable doing it"
+        }
+      ],
+      "source": "A. O. Smith troubleshooting page and Use & Care Guide (100400765)",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-not-working.html",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}
