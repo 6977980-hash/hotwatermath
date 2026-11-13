@@ -24,7 +24,7 @@
 - Hand checks: 199,000 BTU/h ÷ 1,000 = 199 CFH → 0.5 in. w.c. table needs 1 in at 40 ft, 3/4 in at 20 ft; Rheem example 394,900 ÷ 1,024 = 386 CFH > 250 CFH meter; Tempra 24: 24,000 W ÷ 240 V = 100 A, 2 × 50 A circuits; 24 kW × (208/240)² = 18.0 kW (Stiebel publishes 18.0); RETEX-18: 37.5 A per circuit on 40 A = 107%.
 - §8b grep: no gas or wiring steps; the only procedure is A. O. Smith's label lighting steps, attributed.
 
-**Verified live:** see the follow-up entry below once checked.
+**Verified live (after PR #37 deployed, 2026-11-13):** style.css 0.14.0 served; `/?sync=` 200; the 3 pages 200 with `noindex, follow`, self canonical, one H1; tankless tool still `index`. `npm run check -- --bust` 730/730; `npm run check-links -- --bust` 1429/1429 (56 pages). Playwright 360x640: no horizontal scroll, no console errors on the 3 pages and the tankless tool; gas page embed defaults to gas (184,358 BTU/h; 1 shower → 92,179), electrical embed defaults to electric (51.3 kW / 214 A; 1 shower → 25.7 kW / 107 A); pilot embed has "no hot water" pre-ticked and updates (age 14 → Borderline).
 
 **Owner steps:**
 1. Read the 3 pages (draft) and reply OK to flip them `live`.
@@ -36,6 +36,7 @@
 - codes.iccsafe.org and NFPA LiNK cannot be checked by script; IFGC/IRC rows were read in the owner's ICC view 2026-11-13. Full code excerpts stay in `/mnt/project-files/code-data/` (copyrighted, never commit).
 - Rinnai FAQ lists RUC80i 3/4 in at 166 ft (our table lookup gives 250 ft); the page shows Rinnai's shorter figure and explains.
 - No sourced labor price for pilot repairs; page says so.
+- Repair-or-replace embeds: any query string (even `?utm_source=` or a cache-buster) counts as shared state and clears the pre-ticked symptom (`assets/js/repair-replace.js` line ~116, `ui.js readState` returns `params.size > 0`). Without a query string the preset works. Small fix for a later thread: only treat known field names as state.
 - Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure.
 
 **Notes for the next thread:**
