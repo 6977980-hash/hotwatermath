@@ -66,6 +66,7 @@ export const INPUTS = [
 	'data/expansion-tanks.json',
 	'assets/js/heat-pump-savings.js',
 	'assets/js/expansion-tank.js',
+	'data/troubleshooting.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -1458,6 +1459,60 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	};
 }
 
+/* ---------- Phase 6b batch 2: hot water runs out fast (winter vs summer hot share of a shower) ---------- */
+{
+	const ro = d.troubleshooting.runsOut;
+	const inlet = out['inlet-temps'].states;
+	const hotF = d.site.defaults.setpointTempF.value;
+	const shower = d['fixture-flow-rates'].fixtures.shower;
+	const mins = ro.exampleShowerMinutes;
+	const pct = (v) => Math.round(v * 100);
+	const row = (code) => {
+		const s = inlet[code];
+		const w = F.hotShareOfMix(ro.showerMixF, hotF, s.coldestMonth);
+		const su = F.hotShareOfMix(ro.showerMixF, hotF, s.warmestMonth);
+		const gw = F.hotGallonsDrawn(shower.gpm, mins, w);
+		const gs = F.hotGallonsDrawn(shower.gpm, mins, su);
+		const slow = Math.round((F.temperatureRise(hotF, s.coldestMonth) / F.temperatureRise(hotF, s.warmestMonth) - 1) * 100); // recovery gallons per hour ∝ 1 ÷ rise
+		return { code, name: s.name, winterF: r(s.coldestMonth), summerF: r(s.warmestMonth), winterPct: pct(w), summerPct: pct(su), winterGal: r(gw, 1), summerGal: r(gs, 1), extraPct: Math.round((gw / gs - 1) * 100), slowPct: slow };
+	};
+	const rows = ro.exampleStates.map(row);
+	const coldest = rows.reduce((a, b) => (b.winterF < a.winterF ? b : a));
+	const ex = { cold: ro.winterInletHighF }; // A. O. Smith's top of the winter range
+	const share50 = F.hotShareOfMix(ro.showerMixF, hotF, ex.cold);
+	const lowFlowGal = F.hotGallonsDrawn(shower.lowFlowGpm, mins, share50);
+	const fullGal = F.hotGallonsDrawn(shower.gpm, mins, share50);
+	out['hot-water-runs-out-fast'] = {
+		meta: { ...derived('data/troubleshooting.json (shower mix temperature), data/fixture-flow-rates.json (shower flow), data/site.json (tank setting) and data/computed/inlet-temps.json'), notes: 'Hot share = (shower temperature − inlet) ÷ (tank setting − inlet), formulas.hotShareOfMix; hot gallons = flow × minutes × hot share, formulas.hotGallonsDrawn. Reheat time per gallon scales with the temperature rise (formulas.temperatureRise), so winter ÷ summer rise − 1 is how much longer each gallon takes. No heat loss in the pipes is counted, so real draws are a little higher. The shower length is our example.' },
+		figures: {
+			hotF, mixF: ro.showerMixF, gpm: shower.gpm, lowFlowGpm: shower.lowFlowGpm, minutes: mins,
+			example: { inletF: ex.cold, pct: pct(share50), fullGal: r(fullGal, 1), lowFlowGal: r(lowFlowGal, 1), savedGal: r(fullGal - lowFlowGal, 1) },
+			coldest: { name: coldest.name, winterF: coldest.winterF, extraPct: coldest.extraPct },
+			maxExtraPct: Math.max(...rows.map((x) => x.extraPct)),
+			minExtraPct: Math.min(...rows.map((x) => x.extraPct)),
+			coldestSlowPct: coldest.slowPct,
+			maxSlowPct: Math.max(...rows.map((x) => x.slowPct)),
+			minSlowPct: Math.min(...rows.map((x) => x.slowPct)),
+		},
+		tables: {
+			winterSummer: table(
+				`How much tank water one ${mins}-minute shower uses, winter vs summer`,
+				[
+					{ key: 'name', label: 'State' },
+					{ key: 'winterF', label: 'Inlet, coldest month', unit: '°F', num: true },
+					{ key: 'summerF', label: 'Inlet, warmest month', unit: '°F', num: true },
+					{ key: 'winterGal', label: 'Tank water used, winter', unit: 'gal', num: true },
+					{ key: 'summerGal', label: 'Tank water used, summer', unit: 'gal', num: true },
+					{ key: 'extra', label: 'More tank water in winter', num: true },
+					{ key: 'slow', label: 'Longer to reheat each gallon in winter', num: true },
+				],
+				rows.map((x) => ({ name: x.name, winterF: x.winterF, summerF: x.summerF, winterGal: fmt(x.winterGal, 1), summerGal: fmt(x.summerGal, 1), extra: x.extraPct + '%', slow: x.slowPct + '%' })),
+				{ source: `Computed: ${shower.gpm} GPM shower at ${ro.showerMixF} °F (Stiebel Eltron sizing sheet) from a ${hotF} °F tank; inlet temperatures estimated from NOAA air temperatures (see /methodology)`, sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: d.troubleshooting.meta.sourceDate },
+			),
+		},
+	};
+}
+
 /* Phase 6: Quick Answers must quote the computed numbers */
 {
 	const pages = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages;
@@ -1478,6 +1533,21 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		['40-vs-50-gallon-water-heater', [out['40-vs-50-gallon-water-heater'].figures.gas.fhrDiff + ' more gallons', '$' + out['40-vs-50-gallon-water-heater'].figures.gas.instDiff]],
 	];
 	for (const [slug, parts] of must) for (const part of parts) if (pages.some((p) => p.slug === slug && p.status !== 'planned') && !qa(slug).includes(part)) throw new Error('pages.json quickAnswer for ' + slug + ' must contain "' + part + '" (computed); update it.');
+}
+
+/* Phase 6b batch 2: counts in titles and descriptions must match the data tables they describe */
+{
+	const pages = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages;
+	const t = d.troubleshooting.tables;
+	const must = [
+		['water-heater-reset-button', 'description', t.resetCauses.rows.length + ' reasons'],
+		['water-heater-making-noise', 'description', t.noiseSounds.rows.length + ' sounds'],
+		['hot-water-runs-out-fast', 'metaTitle', t.runsOutCauses.rows.length + ' Causes'],
+	];
+	for (const [slug, field, part] of must) {
+		const pg = pages.find((x) => x.slug === slug);
+		if (pg && pg.status !== 'planned' && !String(pg[field]).includes(part)) throw new Error(`pages.json ${field} for ${slug} must contain "${part}" (row count of its table); update it.`);
+	}
 }
 
 /* ---------- write + manifest ---------- */

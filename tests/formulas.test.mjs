@@ -573,3 +573,16 @@ test('heat pump describe: electric tank, U.S. average → saves $426 a year, ext
 	const reb = describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US', rebate: 2000 }, cfg).result;
 	assert.equal(reb.payback, 0);
 });
+
+test('hotShareOfMix: 105 °F shower from a 120 °F tank → 79% hot at 50 °F inlet, 70% at 70 °F; clamps; bad input → null', () => {
+	near(F.hotShareOfMix(105, 120, 50), 0.7857); // 55 ÷ 70
+	near(F.hotShareOfMix(105, 120, 70), 0.7); // 35 ÷ 50
+	assert.equal(F.hotShareOfMix(130, 120, 50), 1);
+	assert.equal(F.hotShareOfMix(40, 120, 50), 0);
+	assert.equal(F.hotShareOfMix(105, 50, 50), null);
+});
+
+test('hotGallonsDrawn: 2.5 GPM for 10 minutes at 78.57% hot → 19.64 gallons from the tank', () => {
+	near(F.hotGallonsDrawn(2.5, 10, 0.7857), 19.64, 0.005);
+	assert.equal(F.hotGallonsDrawn(2.5, 10, null), null);
+});

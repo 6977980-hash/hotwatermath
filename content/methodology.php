@@ -263,6 +263,16 @@ $hwm_dr   = 'decision-rules';
 	<p>The cross-check runs AMTROL's worked example and every cell of its quick sizing chart through our formula.</p>
 	<?php $hwm_xfilled( 'water-heater-expansion-tank-size', 'expansion tank sizing (AMTROL)' ); ?>
 </section>
+<section id="hot-water-runs-out-fast">
+	<h3>Winter vs summer shower table (hot water runs out fast)</h3>
+	<p>Not a calculator, but the table on <?php echo hwm_link( 'hot-water-runs-out-fast', 'hot water runs out fast' ); // phpcs:ignore ?> is our arithmetic, so here is the method:</p>
+	<ol>
+		<li><strong>Share of tank water in a mixed shower</strong> = (shower temperature − inlet) ÷ (tank setting − inlet), an energy balance with no pipe losses. The shower temperature is <?php echo esc_html( hwm_value( 'troubleshooting', 'runsOut.showerMixF' ) ); ?> °F, the value in Stiebel Eltron's sizing sheet; the tank is the site's <?php echo esc_html( hwm_value( 'site', 'defaults.setpointTempF' ) ); ?> °F setpoint.</li>
+		<li><strong>Tank water used</strong> = shower flow (the federal maximum, <?php echo esc_html( hwm_value( 'fixture-flow-rates', 'fixtures.shower.gpm' ) ); ?> GPM) × minutes (our example, <?php echo esc_html( hwm_value( 'troubleshooting', 'runsOut.exampleShowerMinutes' ) ); ?>) × that share.</li>
+		<li><strong>Longer to reheat</strong> = winter temperature rise ÷ summer temperature rise − 1, because the heat needed per gallon is proportional to the rise.</li>
+	</ol>
+	<p>Inlet temperatures are the coldest and warmest monthly estimates described above under the tankless calculator. <strong>Limitations.</strong> Pipe heat losses, standby losses and shower habits are not modelled; real draws are a little higher.</p>
+</section>
 
 <h2>Where does our data come from?</h2>
 <p>Every number lives in a data file with a named source, a link and the date we last checked it. We prefer government sources first, then codes and standards, then manufacturer spec sheets. Other websites' cost guides are never used as the source of a number.</p>

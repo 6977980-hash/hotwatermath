@@ -1,9 +1,9 @@
 {
   "meta": {
-    "source": "A. O. Smith Residential Gas Water Heater Installation Instructions and Use & Care Guide (document 100400765, 2025/2026 edition) and A. O. Smith consumer info-center pages; GE Appliances anode rod service note; Rinnai flushing procedure; U.S. CPSC Publication 5098; Rheem; The Home Depot listing prices",
+    "source": "A. O. Smith Residential Gas Water Heater Installation Instructions and Use & Care Guide (document 100400765, 2025/2026 edition) and A. O. Smith consumer info-center pages; GE Appliances anode rod service note; Rinnai flushing procedure; U.S. CPSC Publication 5098; Rheem; The Home Depot listing prices; Rheem noise guide; GE Appliances ECO note; Stiebel Eltron sizing sheet; Penn State Extension; Kansas Corporation Commission",
     "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
     "sourceDate": "2026-11-13",
-    "notes": "Facts used by the troubleshooting and care articles (Phase 6b): where tanks leak, the maintenance schedule manufacturers publish, anode rod rules and parts prices, and the checks for no hot water. Every figure is quoted from the reference named in its record; all references were opened on the date in 'checked'. Parts prices are retailer listing prices on that date and change often. Nothing here is our own measurement."
+    "notes": "Facts used by the troubleshooting and care articles (Phase 6b): where tanks leak, the maintenance schedule manufacturers publish, anode rod rules and parts prices, the checks for no hot water, the reset button (ECO), noises, running out of hot water and the rotten egg smell. Every figure is quoted from the reference named in its record; all references were opened on the date in 'checked'. Parts prices are retailer listing prices on that date and change often. Nothing here is our own measurement."
   },
   "references": {
     "aos-manual": {
@@ -34,7 +34,12 @@
         "Most codes allow a maximum incoming water pressure of 80 psi (we recommend a working pressure no higher than 50-60 psi).",
         "Connect the water pressure gauge to an outside faucet and measure the maximum water pressure experienced throughout a 24-hour period (highest water pressures often occur at night).",
         "Install a metal drain pan... Install an automatic leak detection... device.",
-        "Apply thread sealant tape or pipe joint compound and reinstall the anode rod tightly using a 1-1/16\" socket wrench with an extension."
+        "Apply thread sealant tape or pipe joint compound and reinstall the anode rod tightly using a 1-1/16\" socket wrench with an extension.",
+        "An odorant is added by the gas supplier to the gas used by this water heater. This odorant may fade over an extended period of time. Do not depend upon this odorant as an indication of leaking gas. We recommend installing a fuel gas and carbon monoxide detector.",
+        "This water heater has a resettable thermal switch installed as part of the FVIR system. Do not attempt to disable or modify this feature in any way.",
+        "If the tank is full of cold water, condensation may form inside the water heater. This condensation may drop on the burner causing a sizzling sound.",
+        "Hydrogen gas builds up in a hot water system when it is not used for a long period (two weeks or more). Hydrogen gas is extremely flammable. If the hot water system has not been used for two weeks or more, open a hot water faucet for several minutes at the kitchen sink before using any electrical appliances connected to the hot water system. If hydrogen is present there will probably be an unusual sound such as 'air' escaping through the pipe as hot water begins to flow.",
+        "Lighting label: PRESS / HOLD KNOB IN POSITION. PRESS IGNITER BUTTON UNTIL PILOT LIGHTS. RELEASE KNOB WHEN STATUS LIGHT BLINKS."
       ]
     },
     "aos-leaking": {
@@ -77,7 +82,10 @@
         "Electric Water Heaters: Turn off power at the circuit breaker before touching anything.",
         "If you smell rotten eggs or suspect a gas leak for any reason, turn off the gas supply valve immediately and call a professional.",
         "Check water pressure, which should be 50-60 PSI and no higher than 80 PSI, and install a thermal expansion tank.",
-        "Fix: Flush the water heater with a solution of water and hydrogen peroxide. For persistent issues, increase the water temperature to 140 degrees F for a short period to kill bacteria, then return to a safer temperature. Install mixing valves to prevent scalding. Alternatively, installing an aluminum/zinc composite anode rod can also help eliminate odor-causing bacteria."
+        "Fix: Flush the water heater with a solution of water and hydrogen peroxide. For persistent issues, increase the water temperature to 140 degrees F for a short period to kill bacteria, then return to a safer temperature. Install mixing valves to prevent scalding. Alternatively, installing an aluminum/zinc composite anode rod can also help eliminate odor-causing bacteria.",
+        "Gas Water Heaters: If you smell rotten eggs or suspect a gas leak for any reason, turn off the gas supply valve immediately and call a professional—don't continue to troubleshoot and don't try to diagnose the problem yourself.",
+        "How do I reset an electric water heater? To reset an electric water heater, first turn off power at the circuit breaker. Remove the access panel covering the upper thermostat to locate the red reset button (Energy Cut Off). Press the reset button firmly until you hear it click.",
+        "If the button trips repeatedly or you're uncomfortable performing these steps, contact a professional as repeated tripping indicates serious problems like shorted elements or faulty thermostats."
       ]
     },
     "aos-maintenance": {
@@ -181,6 +189,157 @@
       "quotes": [
         "When unit has finished draining, remove the in-line filter at the cold water inlet and clean out any residue.",
         "Clean filters immediately after flush is complete."
+      ]
+    },
+    "aos-electric-manual": {
+      "publisher": "A. O. Smith",
+      "title": "Residential Electronic Thermostat Electric Water Heater: Installation Instructions and Use & Care Guide (document 2000598248)",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The Energy Cut Off (ECO) shuts off power to the water heater's elements if the temperature of the water in the tank gets too hot. If the ECO has tripped, you'll have no hot water.",
+        "A tripped ECO can usually be reset, but you should have a qualified person investigate the cause of the overheating and repair the problem. Do not turn the power back on until the cause of the overheating has been identified and repaired.",
+        "The ECO was tripped if you hear a click when it is reset. In most cases, a tripped ECO indicates that the tank overheated due to a problem with one of the elements or thermostats",
+        "The ECO was not tripped if you didn't hear a click. In that case, the thermostats should be checked by a qualified person.",
+        "If the Temperature and Pressure Relief Valve (T&P Valve) releases large amounts of very hot water, it is likely due to a shorted heating element, or more rarely a non functioning thermostat, or the thermostat does not fit snuggly against the tank. Very high water temperatures can also cause the Energy Cut Off (ECO) to trip",
+        "Undersized water heater. If your water heater runs out of hot water too quickly, it may be too small for your needs. If the water heater is old, consider replacing it with a larger model.",
+        "you may be able to meet your family's hot water needs with the existing water heater by installing Thermostatic Mixing Valves at each point-of-use and then turning the thermostat(s) to a higher setting.",
+        "You can also reduce your home's hot water needs by washing clothes in cold water, installing flow restrictors on shower heads, repairing leaky faucets, and taking other conservation steps.",
+        "If the lower heating element is not working, you will have some hot water but not as much as before. Because the lower element does most of the work, the lower element usually wears out before the upper element.",
+        "Although eliminating the bacteria that causes 'smelly water' with a Chlorination system is the only sure treatment, in some cases, the standard anode rod ... can be replaced with a special zinc anode rod which may help reduce or eliminate the odor.",
+        "In cases where the 'rotten egg' smell is pronounced, you can raise the tank temperature to 140°F in order to reduce bacteria growth in the tank.",
+        "Low supply voltage"
+      ]
+    },
+    "ge-eco": {
+      "publisher": "GE Appliances",
+      "title": "Water Heater - Energy Cut Off Control (ECO)",
+      "sourceUrl": "https://products.geappliances.com/appliance/gea-support-search-content?contentId=39706",
+      "checked": "2026-11-13",
+      "quotes": [
+        "If for any reason the water temperature becomes excessively high, the high limit control (ECO) breaks the power circuit to the heating element. Once the control opens, it must be reset manually. Resetting of the high limit control should only be done by a qualified service technician.",
+        "The cause of the high temperature condition must be investigated by a qualified service technician and corrective action must be taken before placing the water heater in service again."
+      ]
+    },
+    "aos-noise": {
+      "publisher": "A. O. Smith",
+      "title": "Why your water heater might be making noise",
+      "sourceUrl": "https://www.hotwater.com/info-center/why-your-water-heater-might-be-making-noise.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Popping starts when steam bubbles force their way through mineral deposits stuck at the bottom of your tank.",
+        "crackling can also be caused by aluminum hydroxide, jelly-like beads that form when an aluminum anode rod reacts with chlorine in your water. If you see green, blue, or gray beads when flushing your tank, ask your plumber about switching to an aluminum-zinc anode rod.",
+        "Humming sounds usually come from loose parts vibrating as your water heater runs.",
+        "If you have an ultra-low NOx water heater, humming may indicate a damaged burner rather than loose parts.",
+        "Whistling happens when water squeezes through a space that's too small such as a valve that's partly closed, a clogged pressure relief valve, or sediment blocking the normal flow. Mechanical screeching comes from worn-out parts. In gas water heaters, blower motor bearings wear down. In electric tanks, heating elements get damaged and start making noise.",
+        "Heat trap nipples ... can also tick or click as hot water expands and contracts inside them during heating cycles.",
+        "Drain and flush your tank once a year to remove sediment buildup. Flush every six months if you have hard water.",
+        "If you've flushed the tank but the sounds continue, something inside has likely failed and needs repair."
+      ]
+    },
+    "aos-noise-guide": {
+      "publisher": "A. O. Smith",
+      "title": "What to do when your hot water heater is making noises",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-making-a-noise.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "If your water heater is knocking, it's likely water slamming into the heater's internal shutoff valves too quickly. Installing a water hammer arrestor adds a bit of shock absorption to your heater.",
+        "If your water heater has a blower, this may be a case of a dirty blower wheel or obstructed vent.",
+        "Turn off the water heater and wait for it to cool. Then work from top to bottom, tightening screws and pressing on joints to spot any unexpected gaps or movement. Anything beyond basic tightening, such as a rusted joint or weak panel, should be left to a professional.",
+        "Flushing your tank can be helpful both diagnostically (visible sediment that comes out with the flush is a definite red flag) and as a solution for random noises."
+      ]
+    },
+    "rheem-noise": {
+      "publisher": "Rheem Manufacturing",
+      "title": "The ultimate guide to water heater noises: what's normal (and what isn't) (June 10, 2026)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/the-ultimate-guide-to-water-heater-noises-whats-normal-and-what-isnt/",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Ticking or clicking: Often caused by heat traps or pipe expansion as temperatures change",
+        "Humming: Common in electric units when heating elements are active",
+        "Gurgling: Normal water movement after periods of heavy use",
+        "Soft ignition sounds: Typical in gas-powered systems",
+        "The short answer is: Yes, a hissing, sizzling or dripping water heater can be dangerous.",
+        "Water dripping onto a hot burner (gas models)",
+        "A leaking heating element gasket (electric models)",
+        "A water heater banging, rumbling or knocking often points to an issue in your plumbing system rather than the heater itself.",
+        "Sudden valve or faucet closure; Excessively high water pressure; Loose or unsecured pipes",
+        "If you hear hissing, sizzling or persistent screeching, it's safest to turn off the unit and contact a professional.",
+        "A unit that's 8–12+ years old"
+      ]
+    },
+    "aos-reheat": {
+      "publisher": "A. O. Smith",
+      "title": "How long for a water heater to reheat?",
+      "sourceUrl": "https://www.hotwater.com/info-center/how-long-for-water-heater-to-reheat.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "The recovery rate for gas tanks typically runs 40-50 gallons per hour.",
+        "Electric models typically recover 15-20 gallons per hour.",
+        "In winter, water entering your home might be 40-50°F. In summer, it could be 60-70°F.",
+        "This seasonal difference can add 15-30 minutes to winter recovery times compared to summer.",
+        "A 40-gallon tank might have a 60-gallon first hour rating because it combines stored hot water with the water it heats during that hour."
+      ]
+    },
+    "aos-heat-up": {
+      "publisher": "A. O. Smith",
+      "title": "How long does it take a water heater to heat up?",
+      "sourceUrl": "https://www.hotwater.com/info-center/how-long-does-it-take-a-water-heater-to-heat-up.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Electric water heaters rely on two heating elements—lose one and your recovery time doubles since you're operating at half capacity.",
+        "Sediment sitting at the bottom of your tank acts like a blanket between the heat source and your water.",
+        "A water heater that takes longer to heat up each year most likely has failing heating elements that need replacement."
+      ]
+    },
+    "stiebel-sizing": {
+      "publisher": "Stiebel Eltron",
+      "title": "Tankless sizing sheet: size a model for your location",
+      "sourceUrl": "https://images.thdstatic.com/catalog/pdfImages/09/095e06d1-d8e0-451f-9ff1-3f5dc89da0e4.pdf",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Table based on output temp and flow rate of 1.5 GPM at 105°F for shower, 1 GPM at 105°F for kitchen sink, 0.5 GPM at 90°F for bathroom faucet.",
+        "WATER HEATER SETTINGS OF 120˚F ARE MIXED WITH COLD WATER AT THE TAP"
+      ]
+    },
+    "psu-h2s": {
+      "publisher": "Penn State Extension",
+      "title": "Hydrogen sulfide (rotten egg odor) in water wells",
+      "sourceUrl": "https://extension.psu.edu/hydrogen-sulfide-rotten-egg-odor-in-water-wells",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Sometimes, hydrogen sulfide may be noticeable only in the hot water in the home. In this case, chemical reactions within the water heater may be the source of the rotten egg odor.",
+        "The magnesium rod can chemically reduce sulfates to form hydrogen sulfide.",
+        "Removal could cause increased corrosion and reduced life of the hot water heater and will likely void the manufacturer's warranty. Replacement of the magnesium rod with an aluminum rod should eliminate the rotten egg odor while maintaining corrosion protection for the heater.",
+        "Most people can detect hydrogen sulfide levels well below 0.5 mg/L.",
+        "Although sulfur-reducing bacteria can impart taste and odor in the water, they do not cause human health concerns.",
+        "When the water contains a small hydrogen sulfide concentration, less than about 1.0 mg/L, activated carbon filtration may be effective.",
+        "it is normally not used when hydrogen sulfide concentrations exceed about 2 mg/ L.",
+        "Oxidizing filters can remove up to 2-3 mg/ L of hydrogen sulfide.",
+        "Chlorination can be used to remove any level of hydrogen sulfide, but it is most often applied in cases where the hydrogen sulfide concentration exceeds 6.0 mg/L.",
+        "Testing for hydrogen sulfide must be done in the home, or the sample must be chemically stabilized before being sent to a commercial testing lab.",
+        "In most cases, sulfur-reducing bacteria and hydrogen sulfide odor will return quickly after shock chlorination."
+      ]
+    },
+    "kcc-gas": {
+      "publisher": "Kansas Corporation Commission",
+      "title": "Natural gas safety",
+      "sourceUrl": "https://kcc.ks.gov/natural-gas-pipeline-safety-liquid-pipeline/natural-gas-safety",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Gas in its pure state is odorless. That is why gas companies add a chemical called Mercaptan, so it can be easily identified. Mercaptan contains sulfur, which is what makes it smell like rotten eggs.",
+        "If you smell gas, stop what you are doing and leave the area immediately.",
+        "Once you are in a safe location, call your utility company or 911. Do not re-enter until a gas company employee says it is ok."
+      ]
+    },
+    "aos-water-quality": {
+      "publisher": "A. O. Smith",
+      "title": "Residential guide to monitoring your water quality",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-quality-impact.html",
+      "checked": "2026-11-13",
+      "quotes": [
+        "Hard water is in more than 85% of American homes, and hard water scale is a leading cause of failure for tankless water heaters.",
+        "Scale buildup may reduce the efficiency of your water heater ... and may cause overheating and damage to the point where the water heater could begin to leak water."
       ]
     }
   },
@@ -485,6 +644,346 @@
       "source": "A. O. Smith troubleshooting page and Use & Care Guide (100400765)",
       "sourceUrl": "https://www.hotwater.com/info-center/water-heater-not-working.html",
       "sourceDate": "2026-11-13"
+    },
+    "resetCauses": {
+      "caption": "Why an electric water heater reset button (ECO) trips",
+      "columns": [
+        {
+          "key": "cause",
+          "label": "Cause"
+        },
+        {
+          "key": "clue",
+          "label": "Clue"
+        },
+        {
+          "key": "who",
+          "label": "Who fixes it"
+        }
+      ],
+      "rows": [
+        {
+          "cause": "A shorted or grounded heating element",
+          "clue": "Trips again soon after a reset; the breaker may trip too; the relief valve may release a lot of very hot water",
+          "who": "Qualified person: replace the element"
+        },
+        {
+          "cause": "A thermostat stuck on, or not pressed tight against the tank",
+          "clue": "Water gets hotter than the setting before the button trips",
+          "who": "Qualified person: replace or refit the thermostat"
+        },
+        {
+          "cause": "Loose or damaged wiring",
+          "clue": "The breaker trips as well; only found by testing the wiring with the power off",
+          "who": "Electrician or qualified person"
+        },
+        {
+          "cause": "The ECO did not trip at all",
+          "clue": "No click when you press the button, and still no hot water",
+          "who": "Qualified person: check the thermostats"
+        },
+        {
+          "cause": "No power reaching the heater",
+          "clue": "The reset button is fine but nothing heats; a tripped breaker is the most common cause",
+          "who": "You (breaker, once); electrician if it trips again"
+        }
+      ],
+      "source": "A. O. Smith electric Use & Care Guide (2000598248) and troubleshooting page",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "noiseSounds": {
+      "caption": "Water heater noises: what each sound usually means",
+      "columns": [
+        {
+          "key": "sound",
+          "label": "Sound"
+        },
+        {
+          "key": "cause",
+          "label": "Usual cause"
+        },
+        {
+          "key": "normal",
+          "label": "Normal?"
+        },
+        {
+          "key": "todo",
+          "label": "What to do"
+        }
+      ],
+      "rows": [
+        {
+          "sound": "Ticking or clicking",
+          "cause": "Heat traps or pipes expanding as they warm and cool",
+          "normal": "Yes",
+          "todo": "Nothing"
+        },
+        {
+          "sound": "Soft whoosh when a gas burner lights",
+          "cause": "Normal ignition",
+          "normal": "Yes",
+          "todo": "Nothing"
+        },
+        {
+          "sound": "Low hum (electric)",
+          "cause": "Elements heating, or a loose part vibrating",
+          "normal": "Usually",
+          "todo": "If it is loud, turn the heater off, let it cool, tighten loose screws"
+        },
+        {
+          "sound": "Gurgling",
+          "cause": "Water moving after heavy use, or trapped air",
+          "normal": "Usually",
+          "todo": "Nothing, unless it comes with other signs"
+        },
+        {
+          "sound": "Popping, rumbling, crackling",
+          "cause": "Sediment on the tank bottom trapping steam bubbles",
+          "normal": "No: maintenance",
+          "todo": "Drain and flush; if it continues after a flush, have it inspected"
+        },
+        {
+          "sound": "Crackling, with green, blue or gray jelly beads in the drain water",
+          "cause": "Aluminum hydroxide from an aluminum anode reacting with chlorine",
+          "normal": "No: maintenance",
+          "todo": "Flush; ask about an aluminum-zinc anode"
+        },
+        {
+          "sound": "Sizzling when a gas heater first fires on a cold tank",
+          "cause": "Condensation dripping on the burner",
+          "normal": "Yes, if it stops once the tank is hot",
+          "todo": "Nothing"
+        },
+        {
+          "sound": "Hissing or sizzling that keeps going",
+          "cause": "A leak dripping onto the burner, or a leaking element gasket",
+          "normal": "No: urgent",
+          "todo": "Turn the heater off at the gas valve or breaker and have it inspected"
+        },
+        {
+          "sound": "Whistling or screeching",
+          "cause": "A partly closed valve, sediment, or a relief valve problem; worn blower bearings (power-vent gas); a damaged element",
+          "normal": "No",
+          "todo": "Open the water valves fully; if it continues, have it inspected"
+        },
+        {
+          "sound": "Banging or knocking when a tap shuts",
+          "cause": "Water hammer, high water pressure, loose pipes",
+          "normal": "No: plumbing",
+          "todo": "Water hammer arrestor; pressure-reducing valve; secure pipes"
+        },
+        {
+          "sound": "Air rushing out of a hot tap after two weeks or more unused",
+          "cause": "Hydrogen gas built up in the hot water system",
+          "normal": "Known risk",
+          "todo": "No flames or sparks nearby; run the kitchen hot tap for several minutes"
+        }
+      ],
+      "source": "Rheem noise guide (June 2026); A. O. Smith noise pages; A. O. Smith gas Use & Care Guide (100400765)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/the-ultimate-guide-to-water-heater-noises-whats-normal-and-what-isnt/",
+      "sourceDate": "2026-11-13"
+    },
+    "runsOutCauses": {
+      "caption": "Hot water runs out fast: causes, clues and fixes",
+      "columns": [
+        {
+          "key": "cause",
+          "label": "Cause"
+        },
+        {
+          "key": "clue",
+          "label": "Clue"
+        },
+        {
+          "key": "fix",
+          "label": "Fix"
+        }
+      ],
+      "rows": [
+        {
+          "cause": "The heater is too small for your busiest hour",
+          "clue": "It runs out at the same point every busy morning, and always has",
+          "fix": "Check the size you need; mixing valves plus a higher setting; or a bigger unit"
+        },
+        {
+          "cause": "Colder incoming water in winter",
+          "clue": "Fine in summer, short in winter",
+          "fix": "Expected; size for winter, or use less hot water per shower"
+        },
+        {
+          "cause": "Lower heating element failed (electric)",
+          "clue": "Some hot water, but much less than before; slow to recover",
+          "fix": "Qualified person replaces the element"
+        },
+        {
+          "cause": "Sediment on the tank bottom",
+          "clue": "Popping or rumbling; a slow decline over months",
+          "fix": "Drain and flush"
+        },
+        {
+          "cause": "Melted or broken dip tube, or reversed connections",
+          "clue": "Started soon after an install or soldering work; water turns lukewarm fast",
+          "fix": "Replace the dip tube or correct the connections"
+        },
+        {
+          "cause": "Thermostat set too low, or failing",
+          "clue": "Water is never very hot, even at the start",
+          "fix": "Raise the setting (with mixing valves above the CPSC level); replace a failed thermostat"
+        },
+        {
+          "cause": "A faulty mixing valve in one shower",
+          "clue": "Only that shower runs short; other taps stay hot",
+          "fix": "Repair that valve or cartridge"
+        },
+        {
+          "cause": "A leak on the hot side of the plumbing",
+          "clue": "The burner or elements run almost all the time",
+          "fix": "Find and repair the leak"
+        },
+        {
+          "cause": "Tankless: too many taps at once",
+          "clue": "Temperature drops when a second shower or the washer starts",
+          "fix": "Spread out use, or check the unit's size"
+        }
+      ],
+      "source": "A. O. Smith electric and gas Use & Care Guides; A. O. Smith reheat and heat-up pages",
+      "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf",
+      "sourceDate": "2026-11-13"
+    },
+    "smellSources": {
+      "caption": "Rotten egg smell: where you notice it and what it means",
+      "columns": [
+        {
+          "key": "where",
+          "label": "Where you notice it"
+        },
+        {
+          "key": "cause",
+          "label": "Likely cause"
+        },
+        {
+          "key": "todo",
+          "label": "What to do"
+        }
+      ],
+      "rows": [
+        {
+          "where": "In the air near the water heater, the stove or a gas line",
+          "cause": "Possible natural gas leak: gas companies add a sulfur odorant that smells like rotten eggs",
+          "todo": "Leave now; call the gas utility or 911 from outside; do not switch anything on or off"
+        },
+        {
+          "where": "Hot water only",
+          "cause": "Bacteria in the tank reacting with the anode rod to make hydrogen sulfide",
+          "todo": "Heater fix: flush, change the anode metal, heat to the higher setting for a while, or chlorinate"
+        },
+        {
+          "where": "Hot and cold water, on a private well",
+          "cause": "Hydrogen sulfide in the groundwater",
+          "todo": "Test the water; whole-house treatment sized to the result"
+        },
+        {
+          "where": "Hot and cold water, on city water",
+          "cause": "The supply, not the heater",
+          "todo": "Tell your water supplier"
+        }
+      ],
+      "source": "Kansas Corporation Commission; A. O. Smith Use & Care Guides; Penn State Extension",
+      "sourceUrl": "https://extension.psu.edu/hydrogen-sulfide-rotten-egg-odor-in-water-wells",
+      "sourceDate": "2026-11-13"
+    },
+    "h2sTreatment": {
+      "caption": "Whole-house treatment for well water with hydrogen sulfide, by level",
+      "columns": [
+        {
+          "key": "method",
+          "label": "Treatment"
+        },
+        {
+          "key": "range",
+          "label": "Hydrogen sulfide level it suits"
+        },
+        {
+          "key": "upkeep",
+          "label": "Upkeep"
+        }
+      ],
+      "rows": [
+        {
+          "method": "Activated carbon filter",
+          "range": "Below about 1.0 mg/L",
+          "upkeep": "Replace the carbon periodically"
+        },
+        {
+          "method": "Aeration",
+          "range": "Up to about 2 mg/L",
+          "upkeep": "Low running cost; higher purchase price"
+        },
+        {
+          "method": "Oxidizing (manganese greensand) filter",
+          "range": "Up to 2 to 3 mg/L",
+          "upkeep": "Regenerate with potassium permanganate; backwash"
+        },
+        {
+          "method": "Chlorination feed pump plus filter",
+          "range": "Any level; usual choice above 6.0 mg/L",
+          "upkeep": "Refill chlorine; backwash; replace carbon"
+        }
+      ],
+      "source": "Penn State Extension, Hydrogen sulfide (rotten egg odor) in water wells",
+      "sourceUrl": "https://extension.psu.edu/hydrogen-sulfide-rotten-egg-odor-in-water-wells",
+      "sourceDate": "2026-11-13"
     }
+  },
+  "reset": {
+    "note": "Figures and rules for /water-heater-reset-button/. The ECO trip temperature is not published in the current residential manuals we opened, so the page gives none."
+  },
+  "noise": {
+    "hardWaterFlush": "every six months",
+    "hardWaterFlushRef": "aos-noise",
+    "rheemAgeLow": 8,
+    "rheemAgeHigh": 12,
+    "hydrogenWeeks": "two",
+    "prvLowPsi": 50,
+    "prvHighPsi": 60,
+    "hardWaterHomesPct": 85
+  },
+  "runsOut": {
+    "gasRecoveryGphLow": 40,
+    "gasRecoveryGphHigh": 50,
+    "electricRecoveryGphLow": 15,
+    "electricRecoveryGphHigh": 20,
+    "winterInletLowF": 40,
+    "winterInletHighF": 50,
+    "summerInletLowF": 60,
+    "summerInletHighF": 70,
+    "winterExtraMinLow": 15,
+    "winterExtraMinHigh": 30,
+    "exampleFhr40": 60,
+    "showerMixF": 105,
+    "showerMixRef": "stiebel-sizing",
+    "exampleShowerMinutes": 10,
+    "exampleShowerMinutesNote": "Our example length for the winter vs summer table, not a measured average; the table scales in proportion for other lengths.",
+    "exampleStates": [
+      "MN",
+      "NY",
+      "IL",
+      "PA",
+      "OH",
+      "CA",
+      "GA",
+      "TX",
+      "AZ",
+      "FL"
+    ]
+  },
+  "smell": {
+    "detectBelowMgL": 0.5,
+    "carbonMaxMgL": 1.0,
+    "aerationMaxMgL": 2,
+    "oxidizingFilterMaxMgL": "2 to 3",
+    "chlorinationAboveMgL": 6.0,
+    "boostF": 140
   }
 }
