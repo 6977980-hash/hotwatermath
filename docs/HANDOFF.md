@@ -29,7 +29,7 @@
   - Navien: 7410x18709… → Jul 2018, 7419x18X14… → Oct 2018, 6608x188… → Aug 2018 (CPSC recall 19-057); 7414C14X1771143 → Oct 2014 (Building Intelligence Center); 8881-20100520-3026 → May 2010 (FastWaterHeater).
 - Whirlpool official lookup (whirlpoolwaterheaters.com Need More Help) tested 2026-11-13: published example serials not recognised (needs a real serial).
 
-- **Follow-up PR (0.5.1):** live check found Hostinger's CDN serving a stale `formulas.js` (CDN HIT) because tool modules import `./formulas.js` and `./ui.js` without `?v=`; the theme now prints an import map (`hwm_importmap()`, wp_head priority 1 and in the embed template) that maps both to their versioned URLs. Quick Answers on the 3 new pages shortened (Navien again in 0.5.2) so the brand select stays inside the 360×640 first viewport.
+- **Follow-up PR (0.5.1):** live check found Hostinger's CDN serving a stale `formulas.js` (CDN HIT) because tool modules import `./formulas.js` and `./ui.js` without `?v=`; the theme now prints an import map (`hwm_importmap()`, wp_head priority 1 and in the embed template) that maps both to their versioned URLs. Quick Answers on the 3 new pages shortened (Navien again in 0.5.2 and 0.5.3: its H1 wraps to two lines at 360 px) so the brand select stays inside the 360×640 first viewport.
 
 **Known issues / TODOs carried forward:**
 - Navien Y/Z months and the hyphenated layout are third party only. American Appliance and American Standard notes are third party.
