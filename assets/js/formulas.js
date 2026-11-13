@@ -652,3 +652,30 @@ export function expansionTankSizing(i, d) {
 	const safer = tight && tanks[idx + 1] ? tanks[idx + 1] : null;
 	return { factor, expanded, dpf, required, tank, safer, tooBig: false };
 }
+
+/* ---------- Phase 6b batch 2: hot water runs out fast ---------- */
+
+/**
+ * Share of hot water in a mix at the tap (energy balance, no losses): (mix − cold) ÷ (hot − cold), clamped to 0–1.
+ * Example: 105 °F shower, 120 °F tank, 50 °F inlet → 55 ÷ 70 = 0.786 (79% hot).
+ * @param {number} mixF Temperature at the tap, °F.
+ * @param {number} hotF Tank (hot supply) temperature, °F.
+ * @param {number} coldF Incoming cold water temperature, °F.
+ * @returns {number|null} 0–1, or null when the hot supply is not above the cold.
+ */
+export function hotShareOfMix(mixF, hotF, coldF) {
+	if (!isNum(mixF) || !isNum(hotF) || !isNum(coldF) || hotF <= coldF) return null;
+	return round(Math.min(1, Math.max(0, (mixF - coldF) / (hotF - coldF))), 4);
+}
+
+/**
+ * Gallons of tank (hot) water a fixture draws: mixed flow × minutes × hot share.
+ * @param {number} gpm Mixed flow at the fixture, gallons per minute.
+ * @param {number} minutes Length of use.
+ * @param {number|null} hotShare From hotShareOfMix.
+ * @returns {number|null}
+ */
+export function hotGallonsDrawn(gpm, minutes, hotShare) {
+	if (!isNum(gpm) || !isNum(minutes) || !isNum(hotShare)) return null;
+	return round(gpm * minutes * hotShare, 2);
+}

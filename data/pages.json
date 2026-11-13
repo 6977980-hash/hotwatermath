@@ -238,6 +238,7 @@
         "first hour rating calculator"
       ],
       "problems": [
+        "hot-water-runs-out-fast",
         "no-hot-water",
         "how-to-flush-a-water-heater"
       ]
@@ -271,7 +272,8 @@
       "problems": [
         "water-heater-leaking",
         "no-hot-water",
-        "water-heater-anode-rod"
+        "water-heater-anode-rod",
+        "water-heater-making-noise"
       ]
     },
     {
@@ -749,6 +751,119 @@
         "gas water heater not heating",
         "tankless water heater no hot water",
         "hot water not working in one faucet"
+      ]
+    },
+    {
+      "slug": "water-heater-reset-button",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Reset Button",
+      "problemLabel": "Reset button keeps tripping",
+      "summary": "Where the reset button is, how to press it safely, and why it keeps tripping.",
+      "metaTitle": "Water Heater Reset Button: Why It Trips | Hot Water Math",
+      "description": "Where the water heater reset button is, how to press it with the power off, and the 5 reasons it keeps tripping. Why gas heaters have no red reset button.",
+      "h1": "Water heater reset button: where it is and why it trips",
+      "subtitle": "What the red button on an electric water heater does, how to press it safely, and what repeated tripping means.",
+      "quickAnswer": "The reset button is a red safety switch behind the upper panel of an electric water heater that cuts power when the water overheats. Press it only with the breaker off; if it trips again, a part has failed.",
+      "scripts": [
+        "repair-replace"
+      ],
+      "keywords": [
+        "water heater reset button keeps tripping",
+        "where is the reset button on a water heater",
+        "how to reset a water heater",
+        "electric water heater reset button",
+        "gas water heater reset button",
+        "what causes a water heater reset button to trip"
+      ]
+    },
+    {
+      "slug": "water-heater-making-noise",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Making Noise",
+      "problemLabel": "Strange noises",
+      "summary": "What popping, rumbling, ticking, humming, hissing and banging mean, and which sounds are normal.",
+      "metaTitle": "Water Heater Making Noise? Sounds Explained | Hot Water Math",
+      "description": "Water heater making noise? Popping and rumbling mean sediment, ticking and humming are normal, and hissing needs attention now. 11 sounds and their fixes.",
+      "h1": "Water heater making noise? What each sound means",
+      "subtitle": "Eleven sounds a water heater makes, which are normal, and what to do about the ones that are not.",
+      "quickAnswer": "Popping and rumbling usually mean sediment on the tank bottom, and a flush fixes most of it. Ticking, soft humming and gurgling are normal; hissing, screeching or banging need attention.",
+      "scripts": [
+        "repair-replace"
+      ],
+      "keywords": [
+        "water heater popping noise",
+        "water heater rumbling",
+        "water heater ticking",
+        "water heater humming",
+        "water heater hissing",
+        "water heater banging",
+        "tankless water heater noise"
+      ]
+    },
+    {
+      "slug": "hot-water-runs-out-fast",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Hot Water Runs Out Fast",
+      "problemLabel": "Hot water runs out fast",
+      "summary": "Why a water heater runs out of hot water quickly, how to find the cause, and when it is simply too small.",
+      "metaTitle": "Hot Water Runs Out Fast? 9 Causes and Fixes | Hot Water Math",
+      "description": "Hot water runs out fast? A heater too small for your busiest hour, a failed lower element, sediment or a broken dip tube. How to tell which, and the fix.",
+      "h1": "Hot water runs out fast? Find the cause",
+      "subtitle": "Nine causes, the clue that points to each one, and a size check for your household.",
+      "quickAnswer": "The usual causes are a heater too small for your busiest hour, a failed lower element on an electric tank, sediment or a broken dip tube. Winter makes it worse, because colder inlet water uses more tank water per shower.",
+      "scripts": [
+        "tank-size"
+      ],
+      "keywords": [
+        "water heater runs out of hot water quickly",
+        "why does my hot water run out so fast",
+        "shower runs out of hot water",
+        "electric water heater runs out of hot water fast",
+        "hot water runs out after 5 minutes",
+        "dip tube"
+      ]
+    },
+    {
+      "slug": "water-heater-smells-like-rotten-eggs",
+      "type": "article",
+      "status": "draft",
+      "phase": "6b",
+      "group": "Troubleshooting & Care",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "title": "Water Heater Smells Like Rotten Eggs",
+      "problemLabel": "Rotten egg smell",
+      "summary": "Why hot water smells like rotten eggs or sulfur, how to rule out a gas leak, and how to get rid of the smell.",
+      "metaTitle": "Water Heater Smells Like Rotten Eggs? Fixes | Hot Water Math",
+      "description": "Water heater smells like rotten eggs? First rule out a gas leak. If only the hot water smells, the anode rod is usually why. 4 fixes, and which one lasts.",
+      "h1": "Water heater smells like rotten eggs? Causes and fixes",
+      "subtitle": "How to tell a gas leak from smelly water, why only the hot water smells, and the fixes manufacturers and Penn State give.",
+      "quickAnswer": "If you smell rotten eggs in the air near a gas appliance, leave and call the gas utility. If only the hot water smells, bacteria are reacting with the anode rod; a different anode metal or chlorination usually fixes it.",
+      "scripts": [
+        "age"
+      ],
+      "keywords": [
+        "hot water smells like rotten eggs",
+        "water heater sulfur smell",
+        "why does my hot water smell like sulfur",
+        "rotten egg smell from water heater anode",
+        "well water rotten egg smell hot water only",
+        "how to get rid of rotten egg smell in water heater"
       ]
     },
     {

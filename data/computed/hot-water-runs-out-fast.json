@@ -1,0 +1,172 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/troubleshooting.json (shower mix temperature), data/fixture-flow-rates.json (shower flow), data/site.json (tank setting) and data/computed/inlet-temps.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Hot share = (shower temperature − inlet) ÷ (tank setting − inlet), formulas.hotShareOfMix; hot gallons = flow × minutes × hot share, formulas.hotGallonsDrawn. Reheat time per gallon scales with the temperature rise (formulas.temperatureRise), so winter ÷ summer rise − 1 is how much longer each gallon takes. No heat loss in the pipes is counted, so real draws are a little higher. The shower length is our example."
+  },
+  "figures": {
+    "hotF": 120,
+    "mixF": 105,
+    "gpm": 2.5,
+    "lowFlowGpm": 2,
+    "minutes": 10,
+    "example": {
+      "inletF": 50,
+      "pct": 79,
+      "fullGal": 19.6,
+      "lowFlowGal": 15.7,
+      "savedGal": 3.9
+    },
+    "coldest": {
+      "name": "Minnesota",
+      "winterF": 37,
+      "extraPct": 9
+    },
+    "maxExtraPct": 25,
+    "minExtraPct": 9,
+    "coldestSlowPct": 36,
+    "maxSlowPct": 60,
+    "minSlowPct": 34
+  },
+  "tables": {
+    "winterSummer": {
+      "caption": "How much tank water one 10-minute shower uses, winter vs summer",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "winterF",
+          "label": "Inlet, coldest month",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "summerF",
+          "label": "Inlet, warmest month",
+          "unit": "°F",
+          "num": true
+        },
+        {
+          "key": "winterGal",
+          "label": "Tank water used, winter",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "summerGal",
+          "label": "Tank water used, summer",
+          "unit": "gal",
+          "num": true
+        },
+        {
+          "key": "extra",
+          "label": "More tank water in winter",
+          "num": true
+        },
+        {
+          "key": "slow",
+          "label": "Longer to reheat each gallon in winter",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "name": "Minnesota",
+          "winterF": 37,
+          "summerF": 59,
+          "winterGal": "20.5",
+          "summerGal": "18.9",
+          "extra": "9%",
+          "slow": "36%"
+        },
+        {
+          "name": "New York",
+          "winterF": 42,
+          "summerF": 62,
+          "winterGal": "20.2",
+          "summerGal": "18.5",
+          "extra": "9%",
+          "slow": "34%"
+        },
+        {
+          "name": "Illinois",
+          "winterF": 47,
+          "summerF": 70,
+          "winterGal": "19.9",
+          "summerGal": "17.4",
+          "extra": "14%",
+          "slow": "48%"
+        },
+        {
+          "name": "Pennsylvania",
+          "winterF": 45,
+          "summerF": 66,
+          "winterGal": "20.0",
+          "summerGal": "18.1",
+          "extra": "10%",
+          "slow": "37%"
+        },
+        {
+          "name": "Ohio",
+          "winterF": 47,
+          "summerF": 69,
+          "winterGal": "19.9",
+          "summerGal": "17.7",
+          "extra": "12%",
+          "slow": "42%"
+        },
+        {
+          "name": "California",
+          "winterF": 56,
+          "summerF": 74,
+          "winterGal": "19.1",
+          "summerGal": "16.9",
+          "extra": "13%",
+          "slow": "39%"
+        },
+        {
+          "name": "Georgia",
+          "winterF": 60,
+          "summerF": 80,
+          "winterGal": "18.8",
+          "summerGal": "15.5",
+          "extra": "21%",
+          "slow": "52%"
+        },
+        {
+          "name": "Texas",
+          "winterF": 61,
+          "summerF": 83,
+          "winterGal": "18.7",
+          "summerGal": "14.9",
+          "extra": "25%",
+          "slow": "60%"
+        },
+        {
+          "name": "Arizona",
+          "winterF": 56,
+          "summerF": 78,
+          "winterGal": "19.1",
+          "summerGal": "16.1",
+          "extra": "19%",
+          "slow": "53%"
+        },
+        {
+          "name": "Florida",
+          "winterF": 69,
+          "summerF": 86,
+          "winterGal": "17.6",
+          "summerGal": "14.1",
+          "extra": "25%",
+          "slow": "47%"
+        }
+      ],
+      "source": "Computed: 2.5 GPM shower at 105 °F (Stiebel Eltron sizing sheet) from a 120 °F tank; inlet temperatures estimated from NOAA air temperatures (see /methodology)",
+      "sourceUrl": "https://hotwatermath.com/methodology/",
+      "sourceDate": "2026-11-13"
+    }
+  }
+}
