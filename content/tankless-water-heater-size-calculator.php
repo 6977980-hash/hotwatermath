@@ -11,68 +11,13 @@ $hwm_fx  = 'fixture-flow-rates';
 $hwm_tr  = 'tankless-reference-units';
 $hwm_v   = static fn( string $path, ?int $dec = null ): string => esc_html( hwm_value( $hwm_c, $path, $dec ) );
 $hwm_f   = static fn( string $path, ?int $dec = 1 ): string => esc_html( hwm_value( $hwm_fx, $path, $dec ) );
-$hwm_def = (array) hwm_raw( $hwm_c, 'defaultInputs' );
 $hwm_cl  = (array) hwm_raw( $hwm_c, 'client' );
 $hwm_set = hwm_value( 'site', 'defaults.setpointTempF' );
 $hwm_ext = static fn( string $url, string $text ): string => '<a href="' . esc_url( $url ) . '" rel="noopener">' . esc_html( $text ) . '</a>';
-$hwm_fixture_labels = array(
-	'shower'         => 'Showers',
-	'bathroomFaucet' => 'Bathroom faucets',
-	'kitchenFaucet'  => 'Kitchen faucet',
-	'dishwasher'     => 'Dishwasher',
-	'clothesWasher'  => 'Clothes washer',
-	'tubFill'        => 'Bathtub filling',
-);
-$hwm_states = (array) ( $hwm_cl['states'] ?? array() );
-uasort( $hwm_states, static fn( $a, $b ) => strcmp( (string) $a['name'], (string) $b['name'] ) );
 
-/* ---------- calculator inputs ---------- */
+/* ---------- calculator inputs (shared with articles that embed this tool) ---------- */
 ob_start();
-?>
-<div class="field">
-	<label for="tk-state">Your state <span class="visually-hidden">(sets the winter incoming water temperature)</span></label>
-	<select id="tk-state" name="state">
-		<option value="">Not sure (<?php echo esc_html( hwm_value( $hwm_c, 'defaultInputs.inletF' ) ); ?> °F example)</option>
-		<?php foreach ( $hwm_states as $hwm_k => $hwm_s ) : ?>
-			<option value="<?php echo esc_attr( (string) $hwm_k ); ?>"><?php echo esc_html( (string) $hwm_s['name'] ); ?></option>
-		<?php endforeach; ?>
-	</select>
-</div>
-<fieldset>
-	<legend>Running at the same time</legend>
-	<div class="field-grid">
-		<?php foreach ( $hwm_fixture_labels as $hwm_k => $hwm_label ) : ?>
-			<div class="field">
-				<label for="tk-<?php echo esc_attr( $hwm_k ); ?>"><?php echo esc_html( $hwm_label ); ?> <span class="hint"><?php echo esc_html( hwm_value( $hwm_fx, 'fixtures.' . $hwm_k . '.gpm', 1 ) ); ?> GPM each</span></label>
-				<input id="tk-<?php echo esc_attr( $hwm_k ); ?>" name="<?php echo esc_attr( $hwm_k ); ?>" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="<?php echo esc_attr( (string) ( $hwm_def['counts'][ $hwm_k ] ?? 0 ) ); ?>" autocomplete="off">
-			</div>
-		<?php endforeach; ?>
-	</div>
-	<label class="check"><input type="checkbox" name="lowflow" value="1"> Low-flow fixtures (WaterSense: shower <?php echo $hwm_f( 'fixtures.shower.lowFlowGpm' ); // phpcs:ignore ?>, bathroom faucet <?php echo $hwm_f( 'fixtures.bathroomFaucet.lowFlowGpm' ); // phpcs:ignore ?> GPM)</label>
-</fieldset>
-<fieldset>
-	<legend>Fuel</legend>
-	<label class="check"><input type="radio" name="fuel" value="gas"<?php checked( 'gas', $hwm_def['fuel'] ?? '' ); ?>> Natural gas</label>
-	<label class="check"><input type="radio" name="fuel" value="propane"> Propane</label>
-	<label class="check"><input type="radio" name="fuel" value="electric"> Electric</label>
-</fieldset>
-<details class="disclosure">
-	<summary>Temperatures and efficiency (assumed; change if you know yours)</summary>
-	<div class="field">
-		<label for="tk-inlet">Incoming water temperature (°F) <span class="hint">Coldest month for the state you pick. Measured yours? Type it here.</span></label>
-		<input id="tk-inlet" name="inlet" type="text" inputmode="decimal" value="<?php echo esc_attr( hwm_value( $hwm_c, 'defaultInputs.inletF' ) ); ?>" autocomplete="off">
-	</div>
-	<div class="field">
-		<label for="tk-setpoint">Hot water temperature (°F) <span class="hint">Assumed <?php echo esc_html( $hwm_set ); ?> °F, the DOE FEMP setting for most homes.</span></label>
-		<input id="tk-setpoint" name="setpoint" type="text" inputmode="decimal" value="<?php echo esc_attr( $hwm_set ); ?>" autocomplete="off">
-	</div>
-	<div class="field" data-field="efficiency">
-		<label for="tk-efficiency">Gas efficiency (UEF) <span class="hint">Assumed <?php echo esc_html( hwm_value( $hwm_c, 'client.gasEfficiency.condensing', 2 ) ); ?> (condensing, ENERGY STAR median). Non-condensing units can be as low as <?php echo esc_html( hwm_value( $hwm_c, 'client.gasEfficiency.nonCondensing', 2 ) ); ?>.</span></label>
-		<input id="tk-efficiency" name="efficiency" type="text" inputmode="decimal" value="<?php echo esc_attr( hwm_value( $hwm_c, 'defaultInputs.efficiency' ) ); ?>" autocomplete="off">
-	</div>
-</details>
-<?php
-echo hwm_tool_data_script( 'hwm-tankless-data', $hwm_c ); // phpcs:ignore -- JSON encoded with JSON_HEX_TAG.
+hwm_part( 'tankless-inputs' );
 $calculator_inputs = (string) ob_get_clean();
 
 $next_steps = array(

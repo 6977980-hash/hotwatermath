@@ -50,11 +50,13 @@
     "state-cost-index",
     "water-heater-temperature-setting",
     "water-heater-pressure-relief-valve-leaking",
-    "water-heater-element-replacement"
+    "water-heater-element-replacement",
+    "gas-line-size-for-tankless-water-heater",
+    "tankless-water-heater-electrical-requirements"
   ],
   "inputs": {
-    "assets/js/formulas.js": "9f0fe9c7e1e87e8b",
-    "scripts/build-data.mjs": "de6d18a826f67d1d",
+    "assets/js/formulas.js": "f46476d618affebe",
+    "scripts/build-data.mjs": "bc4f4ff68b68a01f",
     "data/site.json": "7e62ca41c159ef00",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "d12d4080ac42b57b",
@@ -79,7 +81,7 @@
     "assets/js/repair-replace.js": "a1f60261eeb247c3",
     "data/household-size-guides.json": "7bfdcaed71e35006",
     "data/installation-costs.json": "67e2d874e470fcee",
-    "data/pages.json": "216679673db7ac36",
+    "data/pages.json": "8e29fa95c3626c61",
     "assets/js/cost-model.js": "1c4ec89371ee61c8",
     "assets/js/cost-calculator.js": "5e0d11a582147e8f",
     "assets/js/tankless-vs-tank.js": "6f6ce82cb8db8ac5",
@@ -92,6 +94,6 @@
     "data/troubleshooting.json": "885f576226c17209",
     "data/state-pages.json": "c1604d2fb5053c47",
     "data/metro-price-parities.json": "b3e2bb96ce8fc61f",
-    "data/safety.json": "0da75ea9d370f916"
+    "data/safety.json": "d18b7dd0936ed822"
   }
 }

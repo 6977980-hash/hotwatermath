@@ -4,44 +4,44 @@
 
 ## Current State
 
-**Last completed phase:** Phase 6d batch 1 — Safety pages: temperature setting, relief valve leaking, element replacement (2026-11-13). Owner OKed the 3 pages on 2026-11-13 ("ok live krdo"); they are `live` (style 0.13.1).
-**Next phase to run:** Phase 6d batch 2 — gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (per `docs/PHASES.md` and `docs/DECISIONS.md` 6d row).
+**Last completed phase:** Phase 6d batch 2 — Safety pages: gas line size for tankless, tankless electrical requirements, pilot light won't stay lit (2026-11-13). The 3 pages are `draft` (noindex) until the owner OKs them (style 0.14.0). Phase 6d is complete with this batch.
+**Next phase to run:** Phase 8 — Authority & links (`/data` page, installation cost index article, embed checks, OUTREACH materials). Phase 7 needs GSC query data, and GSC is not verified yet, so it waits for the owner.
 
-**What exists now (new or changed in Phase 6d batch 1):**
-- `content/water-heater-temperature-setting.php` — 120 vs 140 °F table, scald table (A. O. Smith + CPSC + gas dial), CDC Legionella section, hotter-tank capacity table, embedded tank size calculator, CPSC thermometer method, gas/electric/tankless adjustment (owner-level only), vacation + hydrogen warning, FAQ 7, sources 8
-- `content/water-heater-pressure-relief-valve-leaking.php` — drip vs gush table, pressure scale SVG (50–60 / 80 / 112.5 / 150 psi), thermal expansion + embedded expansion tank calculator, annual test per label, no repair steps (Watts), part prices, discharge pipe rules table, FAQ 6, sources 6
-- `content/water-heater-element-replacement.php` — electrical notice, symptom table, ohms table (computed), buying by data plate, prices, embedded repair-or-replace, A. O. Smith's own replacement steps (attributed), dry-fire rule, upper vs lower table, FAQ 6, sources 5
-- `data/safety.json` — 12 references with quoted text (A. O. Smith gas + electric manuals, CPSC 5098, 4 CDC pages, DOE FEMP, Watts tag + spec sheet, 2 Home Depot searches), figures and 3 tables
-- `assets/js/formulas.js` + `elementResistanceOhms`, `extraMixedWaterShare`; `tests/formulas.test.mjs` +2 tests
-- `scripts/build-data.mjs` — 6d block: `data/computed/water-heater-{temperature-setting,pressure-relief-valve-leaking,element-replacement}.json`; guard: element description must quote the 4,500 W ohms and the rounded price range
-- `parts/expansion-tank-inputs.php` — shared inputs (tool page output unchanged, md5 identical before/after)
-- `content/water-heater-leaking.php` (live) — relief valve H2 now links the new page (plain text until it is live); `content/methodology.php` section `#safety-pages` + data file row
-- `data/pages.json` 3 drafts (group Troubleshooting & Care); `assets/og/` 3 images; `style.css` 0.13.0; `docs/briefs/` 3 briefs with claim → source lists and quality check; `docs/DECISIONS.md` 1 row
+**What exists now (new or changed in Phase 6d batch 2):**
+- `content/gas-line-size-for-tankless-water-heater.php` — gas + installer notices, BTU → CFH, size lookup tables at 0.5 and 3.0 in. w.c. (computed), Rinnai cross-check (12 of 14 match, 2 explained), IFGC 2021 Table 402.4(2)/(3) rows, Rheem meter example, propane/CSST/altitude, embedded tankless calculator (gas), FAQ 7, sources 5
+- `content/tankless-water-heater-electrical-requirements.php` — electrical notice, Stiebel Eltron + Rheem unit table (draw per circuit, breaker vs draw), 125% rule placed correctly (IRC E3702.10 vs E4101.4.1), ampacity table 60/75 °C, service minimums, 208 V table, gas tankless 120 V, embedded tankless calculator (electric), FAQ 6, sources 5
+- `content/water-heater-pilot-light-wont-stay-lit.php` — gas/vapor/CO notices, timing diagnosis table, A. O. Smith status light codes, label lighting steps (attributed), causes table, FVIR, part prices, embedded repair-or-replace, FAQ 7, sources 6
+- `data/safety.json` — +13 references with quotes; blocks `gasLine`, `electrical`, `pilot`; tables `pilotStatus`, `pilotCauses`
+- `assets/js/formulas.js` + `gasCfh`, `gasPipeSize`, `gasMaxLengthFt`, `powerAtVoltage`; `tests/formulas.test.mjs` +3 tests
+- `scripts/build-data.mjs` — batch 2 block: `data/computed/{gas-line-size-for-tankless-water-heater,tankless-water-heater-electrical-requirements}.json`; guards: Rinnai mismatch list, 208 V check, description figures
+- `parts/tankless-inputs.php` — shared tankless inputs with optional `fuel` preset (tool page output unchanged, md5 identical)
+- `content/methodology.php` (#safety-pages batch 2 items, code quoting note, limitations); `content/no-hot-water.php` and `content/tankless-water-heater-installation-cost.php` link the new pages (plain text until live)
+- `data/pages.json` 3 drafts; `assets/og/` 3 images; `docs/briefs/` 3 briefs with quality check; `docs/DECISIONS.md` 1 row
 
 **Verified (before deploy):**
-- `npm test` 66/66; `validate-data` 74 files OK; `--urls`: every new source 200 (old known warnings only: InspectApedia 409, Watts ETP 403).
-- Offline render (WP stubs): 0 PHP errors on the 3 pages, the expansion tank tool, leaking and methodology; 2,600–2,900 words each.
-- Hand checks: 105 °F shower at 50 °F inlet: 55 ÷ 70 = 78.6% from a 120 °F tank, 55 ÷ 90 = 61.1% at 140 °F, 0.786 ÷ 0.611 − 1 = +29%; 240² ÷ 4,500 = 12.8 Ω, 4,500 ÷ 240 = 18.75 A; 150 psi × 75% = 112.5 psi.
-- §8b grep: every imperative gas/electrical step sits in a list introduced as A. O. Smith's or the valve label's own procedure; no gas work steps; no valve repair steps.
+- `npm test` 69/69; `validate-data` 76 files OK; `--urls`: all new sources 200 except the two codes.iccsafe.org pages (403 to scripts, read in the owner's ICC view) plus old known warnings (InspectApedia 409, Watts ETP 403).
+- Offline render (WP stubs): 0 PHP errors; gas ~2,900 words, electrical ~2,170, pilot ~2,660.
+- Hand checks: 199,000 BTU/h ÷ 1,000 = 199 CFH → 0.5 in. w.c. table needs 1 in at 40 ft, 3/4 in at 20 ft; Rheem example 394,900 ÷ 1,024 = 386 CFH > 250 CFH meter; Tempra 24: 24,000 W ÷ 240 V = 100 A, 2 × 50 A circuits; 24 kW × (208/240)² = 18.0 kW (Stiebel publishes 18.0); RETEX-18: 37.5 A per circuit on 40 A = 107%.
+- §8b grep: no gas or wiring steps; the only procedure is A. O. Smith's label lighting steps, attributed.
 
-**Verified live (after PR #34 deployed, 2026-11-13):** style.css 0.13.0 served; `/?sync=` 200; the 3 pages 200 with `noindex, follow`, self canonical, one H1. `npm run check -- --bust` 691/691; `npm run check-links -- --bust` 1350/1350 (one transient 307 on /privacy-policy/ right after the deploy, 200 on retry). Playwright 360x640: no horizontal scroll, no console errors; embedded calculators react (tank size 4 people → 55-gal gas; expansion tank 80 gal → 2-gal minimum, 4.4-gal safer; repair-or-replace updates).
+**Verified live:** see the follow-up entry below once checked.
 
 **Owner steps:**
-1. Done 2026-11-13: owner OKed the 3 safety pages; flipped `live`.
+1. Read the 3 pages (draft) and reply OK to flip them `live`.
 2. Flush the Hostinger CDN after this deploy (formulas.js changed).
-3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. PHASES 6d asks for GSC to show the tools indexed before these go live; GSC is not verified yet.
-4. Later: the post-launch plumber fact-check (§8b) should include these 3 pages.
+3. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. Phase 7 needs GSC data.
+4. Later: the post-launch plumber fact-check (§8b) should include all 6 safety pages; the gas and electrical pages ideally also by a licensed electrician/gas fitter.
 
 **Known issues / TODOs carried forward:**
-- No sourced labor price for relief valve or element jobs; pages say so and send readers to the repair-or-replace calculator.
-- Watts spec sheet is a distributor-hosted copy (watts.com 403 to scripts); text matches Watts' product pages.
-- Batch 2 code text: the owner opened ICC in their Chrome; internal excerpts (copyrighted, never commit) are in `/mnt/project-files/code-data/` (IFGC 2021 Ch. 4 gas tables 402.4(1)-(16); IRC 2021 Ch. 37 + E4101.4.1 electrical rules with NEC refs). NFPA LiNK did not load. Quote only the rows a page needs, with table number and edition.
+- codes.iccsafe.org and NFPA LiNK cannot be checked by script; IFGC/IRC rows were read in the owner's ICC view 2026-11-13. Full code excerpts stay in `/mnt/project-files/code-data/` (copyrighted, never commit).
+- Rinnai FAQ lists RUC80i 3/4 in at 166 ft (our table lookup gives 250 ft); the page shows Rinnai's shorter figure and explains.
+- No sourced labor price for pilot repairs; page says so.
 - Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure.
 
 **Notes for the next thread:**
-- Batch 2 slugs are already `planned` in `data/pages.json` (gas line, electrical); add the pilot light entry. Put their facts in `data/safety.json` (same reference pattern) and reuse `parts/safety-notice.php`.
-- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, hwm_jsonld) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
-- `npm run build:og` rewrites some unrelated PNGs; restore them with `git checkout` before committing.
+- When the 3 pages go live, the `hwm_link` mentions on no-hot-water and tankless installation cost turn into links automatically; consider adding the pilot slug to the repair tool's "problems" list.
+- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, hwm_jsonld, hwm_adsense_client, hwm_adsense_unit) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
+- `npm run build:og` needs `npm ci` first and rewrites some unrelated PNGs; restore them with `git checkout`.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -62,6 +62,7 @@
 - 2026-11-13 — Go-live — owner OK: the 7 Phase 6 pages flipped to `live`.
 - 2026-11-13 — Phase 6c done — 10 state cost pages (draft) on one shared template as child pages of the replacement cost article: state and metro prices, EIA fuel mix and running costs, monthly incoming water, official rebate status.
 - 2026-11-13 — Phase 6d batch 1 done — temperature setting, relief valve leaking and element replacement (draft), sourced data/safety.json, scald/capacity/ohms tables, expansion tank and repair calculators embedded.
+- 2026-11-13 — Phase 6d batch 2 done — gas line size, tankless electrical requirements and pilot light (draft), IFGC/IRC rows with Rinnai and Stiebel cross-checks, gas/208 V formulas, tankless inputs shared part.
 
 ---
 

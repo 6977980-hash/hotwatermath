@@ -613,3 +613,34 @@ test('extraMixedWaterShare: 105 °F shower, 50 °F inlet: a 140 °F tank gives 2
 	near(F.extraMixedWaterShare(a, b), 0.2857, 0.0005);
 	assert.equal(F.extraMixedWaterShare(a, 0), null);
 });
+
+/* ---------- Phase 6d batch 2: gas pipe lookup, 208 V power ---------- */
+test('gasCfh: 199,000 BTU/h at 1,000 BTU per cubic foot = 199 CFH; bad input → null', () => {
+	assert.equal(F.gasCfh(199000, 1000), 199);
+	assert.equal(F.gasCfh(394900, 1024), 385.6); // Rheem's example rounds this to 386 CFH
+	assert.equal(F.gasCfh(100000, 0), null);
+});
+
+test('gasPipeSize / gasMaxLengthFt: IFGC 2021 Table 402.4(3) reproduces Rinnai\'s published maximum lengths', () => {
+	const g = data('safety').gasLine;
+	const rows = g.tables.drop30.rows;
+	// 199 CFH at 40 ft: 1/2 in carries 214 → 1/2; at 50 ft only 190 → 3/4.
+	assert.deepEqual(F.gasPipeSize(199, 40, rows, g.sizes), { size: '1/2', rowFt: 40 });
+	assert.deepEqual(F.gasPipeSize(199, 45, rows, g.sizes), { size: '3/4', rowFt: 50 });
+	assert.equal(F.gasMaxLengthFt(199, rows, 0), 40); // Rinnai RUC98i: 40 ft
+	assert.equal(F.gasMaxLengthFt(199, rows, 1), 175); // Rinnai RUC98i: 175 ft
+	assert.equal(F.gasMaxLengthFt(120, rows, 0), 100); // Rinnai V53e: 100 ft
+	assert.equal(F.gasMaxLengthFt(120, rows, 1), 450); // Rinnai V53e: 450 ft
+	// 0.5 in. w.c. table: 3/4 in carries 199 CFH at 30 ft (exactly 199) but only 170 at 40 ft, so 40 ft needs 1 in.
+	const r05 = g.tables.drop05.rows;
+	assert.equal(F.gasPipeSize(199, 30, r05, g.sizes).size, '3/4');
+	assert.equal(F.gasPipeSize(199, 40, r05, g.sizes).size, '1');
+	assert.deepEqual(F.gasPipeSize(199, 900, r05, g.sizes), { size: null, rowFt: null });
+	assert.equal(F.gasMaxLengthFt(5000, rows, 0), null);
+});
+
+test('powerAtVoltage: 24 kW at 208 V instead of 240 V = 18.0 kW (Stiebel lists 18 kW)', () => {
+	near(F.powerAtVoltage(24, 240, 208), 18.027, 1e-3);
+	near(F.powerAtVoltage(36, 240, 208), 27.04, 1e-2);
+	assert.equal(F.powerAtVoltage(24, 0, 208), null);
+});

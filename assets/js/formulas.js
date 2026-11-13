@@ -725,3 +725,57 @@ export function extraMixedWaterShare(baseShare, hotterShare) {
 	if (!isNum(baseShare) || !isNum(hotterShare) || hotterShare <= 0) return null;
 	return round(baseShare / hotterShare - 1, 4);
 }
+
+/**
+ * Gas flow an appliance needs, in cubic feet per hour: input BTU/h ÷ heating value (BTU per cubic foot).
+ * Fuel gas code tables are in cubic feet per hour; Rinnai's table uses 1,000 BTU per cubic foot of natural gas.
+ * @param {number} btuh Appliance input rating from its rating plate.
+ * @param {number} btuPerCf Heating value of the gas.
+ * @returns {number|null}
+ */
+export function gasCfh(btuh, btuPerCf) {
+	if (!isNum(btuh) || !isNum(btuPerCf) || btuh < 0 || btuPerCf <= 0) return null;
+	return round(btuh / btuPerCf, 1);
+}
+
+/**
+ * Pipe-size lookup in a fuel gas code capacity table. Lengths are rounded UP to the next row (a run of 52 ft is read
+ * in the 60 ft row, as in Rinnai TB-111), then the smallest size whose capacity covers the flow is chosen.
+ * @param {number} cfh Flow needed (cubic feet per hour).
+ * @param {number} lengthFt Equivalent length of the run from the meter.
+ * @param {Array<{lengthFt:number, cfh:number[]}>} rows Capacity rows, one value per size.
+ * @param {string[]} sizes Nominal size labels in the same order as cfh[].
+ * @returns {{size:string|null, rowFt:number|null}} size null = larger than the sizes given; rowFt null = run longer than the table.
+ */
+export function gasPipeSize(cfh, lengthFt, rows, sizes) {
+	const row = [...rows].sort((a, b) => a.lengthFt - b.lengthFt).find((r) => r.lengthFt >= lengthFt);
+	if (!row || !isNum(cfh)) return { size: null, rowFt: null };
+	const i = row.cfh.findIndex((c) => c >= cfh);
+	return { size: i >= 0 ? sizes[i] : null, rowFt: row.lengthFt };
+}
+
+/**
+ * Longest table length at which one pipe size still carries the flow (the reverse lookup that manufacturers
+ * publish as "maximum equivalent length").
+ * @param {number} cfh
+ * @param {Array<{lengthFt:number, cfh:number[]}>} rows
+ * @param {number} sizeIndex Column of the size in cfh[].
+ * @returns {number|null} feet, or null when even the shortest row is too small.
+ */
+export function gasMaxLengthFt(cfh, rows, sizeIndex) {
+	const ok = rows.filter((r) => r.cfh[sizeIndex] >= cfh).map((r) => r.lengthFt);
+	return ok.length ? Math.max(...ok) : null;
+}
+
+/**
+ * Power of a resistive heater on a lower voltage: P = P_rated × (V ÷ V_rated)², because resistance stays the same.
+ * A 240 V tankless unit on 208 V gives about 75% of its power (Rheem: "25% reduced temperature output").
+ * @param {number} kw Rated power.
+ * @param {number} ratedVolts
+ * @param {number} actualVolts
+ * @returns {number|null}
+ */
+export function powerAtVoltage(kw, ratedVolts, actualVolts) {
+	if (!isNum(kw) || !isNum(ratedVolts) || !isNum(actualVolts) || ratedVolts <= 0) return null;
+	return round(kw * (actualVolts / ratedVolts) ** 2, 3);
+}

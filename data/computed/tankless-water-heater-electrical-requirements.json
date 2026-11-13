@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/safety.json (Stiebel Eltron and Rheem published requirements, IRC 2021 ampacity rows) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Amps = kW × 1,000 ÷ 240 V (formulas.electricAmps); per circuit = amps ÷ number of circuits; breaker as % of draw = breaker ÷ amps per circuit; \"125% would give\" = the next standard breaker size (IRC Table E3705.6) at or above 125% of the amps per circuit, shown only to explain why manufacturer tables differ from the storage-tank rule; power on 208 V = kW × (208 ÷ 240)² (formulas.powerAtVoltage)."
+  },
+  "figures": {
+    "t24Amps": "100",
+    "t24Per": "50",
+    "t24Breaker": 50,
+    "t24Circuits": 2,
+    "t24At125": 70,
+    "r18Amps": "75",
+    "r18Per": "37.5",
+    "r18Breaker": 40,
+    "r18Pct": 107,
+    "lowPct": 75,
+    "lowLossPct": 25,
+    "t24kw208": "18.0",
+    "t24kw": "24",
+    "t24Watts": "24,000",
+    "r18kw": "18",
+    "r18Circuits": 2,
+    "maxKw": "36",
+    "maxAmps": "150",
+    "minPct": 100,
+    "maxPct": 120
+  },
+  "tables": {
+    "units": {
+      "caption": "What two manufacturers specify for their electric tankless units (240 V)",
+      "columns": [
+        {
+          "key": "model",
+          "label": "Model"
+        },
+        {
+          "key": "kw",
+          "label": "Power",
+          "unit": "kW",
+          "num": true
+        },
+        {
+          "key": "amps",
+          "label": "Total draw",
+          "unit": "A",
+          "num": true
+        },
+        {
+          "key": "breakers",
+          "label": "Breakers (double-pole)"
+        },
+        {
+          "key": "per",
+          "label": "Draw per circuit",
+          "unit": "A",
+          "num": true
+        },
+        {
+          "key": "pct",
+          "label": "Breaker vs draw",
+          "num": true
+        },
+        {
+          "key": "wire",
+          "label": "Copper wire per circuit"
+        },
+        {
+          "key": "service",
+          "label": "Main service (maker)"
+        }
+      ],
+      "rows": [
+        {
+          "model": "Stiebel Eltron Tempra 12",
+          "kw": "12.0",
+          "amps": "50.0",
+          "breakers": "1 × 50 A",
+          "per": "50.0",
+          "pct": "100%",
+          "wire": "8 AWG",
+          "service": "100 A minimum"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 15",
+          "kw": "14.4",
+          "amps": "60.0",
+          "breakers": "2 × 30 A",
+          "per": "30.0",
+          "pct": "100%",
+          "wire": "10 AWG",
+          "service": "100 A minimum"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 20",
+          "kw": "19.2",
+          "amps": "80.0",
+          "breakers": "2 × 40 A",
+          "per": "40.0",
+          "pct": "100%",
+          "wire": "8 AWG",
+          "service": "125 A minimum"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 24",
+          "kw": "24.0",
+          "amps": "100.0",
+          "breakers": "2 × 50 A",
+          "per": "50.0",
+          "pct": "100%",
+          "wire": "8 AWG",
+          "service": "150 A minimum"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 29",
+          "kw": "28.8",
+          "amps": "120.0",
+          "breakers": "3 × 40 A",
+          "per": "40.0",
+          "pct": "100%",
+          "wire": "8 AWG",
+          "service": "200 A minimum"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 36",
+          "kw": "36.0",
+          "amps": "150.0",
+          "breakers": "3 × 50 A",
+          "per": "50.0",
+          "pct": "100%",
+          "wire": "8 AWG",
+          "service": "300 A minimum"
+        },
+        {
+          "model": "Rheem RETEX-13",
+          "kw": "13.0",
+          "amps": "54.2",
+          "breakers": "1 × 60 A",
+          "per": "54.2",
+          "pct": "111%",
+          "wire": "6 AWG",
+          "service": "Not stated"
+        },
+        {
+          "model": "Rheem RETEX-18",
+          "kw": "18.0",
+          "amps": "75.0",
+          "breakers": "2 × 40 A",
+          "per": "37.5",
+          "pct": "107%",
+          "wire": "8 AWG",
+          "service": "Not stated"
+        },
+        {
+          "model": "Rheem RETEX-24",
+          "kw": "24.0",
+          "amps": "100.0",
+          "breakers": "3 × 40 A",
+          "per": "33.3",
+          "pct": "120%",
+          "wire": "8 AWG",
+          "service": "Not stated"
+        },
+        {
+          "model": "Rheem RETEX-27",
+          "kw": "27.0",
+          "amps": "112.5",
+          "breakers": "3 × 40 A",
+          "per": "37.5",
+          "pct": "107%",
+          "wire": "8 AWG",
+          "service": "Not stated"
+        },
+        {
+          "model": "Rheem RETEX-36",
+          "kw": "36.0",
+          "amps": "150.0",
+          "breakers": "4 × 40 A",
+          "per": "37.5",
+          "pct": "107%",
+          "wire": "8 AWG",
+          "service": "Not stated"
+        }
+      ],
+      "source": "Breakers, wire and service minimums as published by Stiebel Eltron (Tempra Trend/Plus specifications, rev. 6.2025) and Rheem (form THD-PTE Rev. 2), checked 2026-11-13. Draw = kW × 1,000 ÷ 240 V (formulas.electricAmps); draw per circuit assumes the load is split evenly. Not a wiring design: the installation manual of your unit and your local code decide.",
+      "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
+      "sourceDate": "2026-11-13"
+    },
+    "ampacity": {
+      "caption": "Copper wire ampacity in the code (2021 International Residential Code, Part VIII, Table E3705.1, excerpt)",
+      "columns": [
+        {
+          "key": "awg",
+          "label": "Copper wire"
+        },
+        {
+          "key": "c60",
+          "label": "60 °C column (NM cable)",
+          "unit": "A",
+          "num": true
+        },
+        {
+          "key": "c75",
+          "label": "75 °C column",
+          "unit": "A",
+          "num": true
+        },
+        {
+          "key": "c90",
+          "label": "90 °C column",
+          "unit": "A",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "awg": "10 AWG",
+          "c60": "30",
+          "c75": "35",
+          "c90": "40"
+        },
+        {
+          "awg": "8 AWG",
+          "c60": "40",
+          "c75": "50",
+          "c90": "55"
+        },
+        {
+          "awg": "6 AWG",
+          "c60": "55",
+          "c75": "65",
+          "c90": "75"
+        },
+        {
+          "awg": "4 AWG",
+          "c60": "70",
+          "c75": "85",
+          "c90": "95"
+        }
+      ],
+      "source": "2021 International Residential Code, Part VIII, Table E3705.1 [NEC 310.16], copper rows 10 to 4 AWG only. NM cable is held to the 60 °C column (E3705.4.4 [334.80]); terminations on circuits of 100 A or less use 60 °C unless the equipment is marked otherwise (E3705.4.1 [110.14(C)]). Ambient temperature and bundling corrections also apply.",
+      "sourceUrl": "https://codes.iccsafe.org/content/IRC2021P2/chapter-37-branch-circuit-and-feeder-requirements",
+      "sourceDate": "2026-11-13"
+    },
+    "v208": {
+      "caption": "The same unit on 208 V instead of 240 V",
+      "columns": [
+        {
+          "key": "model",
+          "label": "Model"
+        },
+        {
+          "key": "kw",
+          "label": "At 240 V",
+          "unit": "kW",
+          "num": true
+        },
+        {
+          "key": "calc",
+          "label": "Ohm's law at 208 V",
+          "unit": "kW",
+          "num": true
+        },
+        {
+          "key": "maker",
+          "label": "Maker lists at 208 V",
+          "unit": "kW",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "model": "Stiebel Eltron Tempra 12",
+          "kw": "12.0",
+          "calc": "9.0",
+          "maker": "9.0"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 15",
+          "kw": "14.4",
+          "calc": "10.8",
+          "maker": "10.8"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 20",
+          "kw": "19.2",
+          "calc": "14.4",
+          "maker": "14.4"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 24",
+          "kw": "24.0",
+          "calc": "18.0",
+          "maker": "18.0"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 29",
+          "kw": "28.8",
+          "calc": "21.6",
+          "maker": "21.6"
+        },
+        {
+          "model": "Stiebel Eltron Tempra 36",
+          "kw": "36.0",
+          "calc": "27.0",
+          "maker": "27.0"
+        }
+      ],
+      "source": "kW × (208 ÷ 240)², formulas.powerAtVoltage; maker figures from the Stiebel Eltron Tempra specifications. Rheem: 240 V units on 208 V give \"25% reduced temperature output\".",
+      "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
+      "sourceDate": "2026-11-13"
+    }
+  },
+  "tanklessDefault": {
+    "status": "bad",
+    "statusLabel": "Too much for one electric unit",
+    "headline": "5.0 GPM at a 70 °F rise",
+    "explain": "You need about 51.3 kW (214 A at 240 V), more than the largest 36 kW whole-house electric unit. It would take 2 units, so gas, a tank or fewer fixtures at once are usually more practical. With a 70 °F rise and more than 4 GPM, a single electric unit is rarely enough in cold weather. Gas instead: about 184,358 BTU/h.",
+    "formula": "Flow = 2 × 2.5 = 5.0 GPM\nRise = 120 °F − 50.0 °F = 70.0 °F\nOutput = 5.0 GPM × 8.34 lb/gal × 60 min × 70.0 °F = 175,140 BTU/h\nGas input = 175,140 ÷ 0.95 = 184,358 BTU/h\nElectric = 175,140 ÷ 3,412 BTU per kWh = 51.3 kW; × 1,000 ÷ 240 V = 214 A",
+    "sources": "Defaults: 120 °F setpoint (DOE FEMP); fixture flows are federal maximums (10 CFR 430.32), low-flow values EPA WaterSense; 50 °F incoming water is the DOE example until you pick a state (then NOAA normals with the DOE EnergyPlus mains correlation, coldest month); UEF 0.95 is the median ENERGY STAR certified gas tankless unit. <a href=\"/methodology/#tankless-water-heater-size-calculator\">See our results checked against Rinnai, Noritz and Rheem charts</a>."
+  }
+}
