@@ -237,6 +237,30 @@ add_action(
 	}
 );
 
+/**
+ * Import map that adds the content version to the shared modules (formulas.js, ui.js).
+ * Tool modules import them by relative path, which carries no ?v=, so without this a CDN or
+ * browser can keep an old formulas.js for up to the cache lifetime after a deploy.
+ */
+function hwm_importmap(): string {
+	$map = array();
+	foreach ( array( 'formulas', 'ui' ) as $hwm_m ) {
+		$map[ HWM_URI . '/assets/js/' . $hwm_m . '.js' ] = hwm_asset( 'js/' . $hwm_m . '.js' );
+	}
+	return '<script type="importmap">' . wp_json_encode( array( 'imports' => $map ), JSON_UNESCAPED_SLASHES ) . '</script>' . "\n";
+}
+
+add_action(
+	'wp_head',
+	static function () {
+		$entry = hwm_current();
+		if ( ! empty( $entry['scripts'] ) ) {
+			echo hwm_importmap(); // phpcs:ignore -- JSON of our own asset URLs.
+		}
+	},
+	1
+);
+
 /** Drafts are shown to visitors (noindex) so the owner can review them; links to drafts only appear for logged-in editors. */
 function hwm_is_draft_preview(): bool {
 	return is_user_logged_in() && current_user_can( 'edit_pages' );
