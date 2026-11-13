@@ -10,5 +10,103 @@
     "ageShare": 0.75,
     "repairShareWhenOld": 0.25
   },
-  "ownershipYearsDefault": 10
+  "ownershipYearsDefault": 10,
+  "defaultInputs": {
+    "ageYears": 8,
+    "type": "gas_tank",
+    "repairUsd": 250,
+    "note": "Example inputs for the server-rendered default result; not data about any real home."
+  },
+  "replacementPriceKey": {
+    "gas_tank": "gas_tank_50",
+    "electric_tank": "electric_tank_50",
+    "heat_pump": "heat_pump_50",
+    "tankless": "gas_tankless_whole_house",
+    "electric_tankless": "electric_tankless_whole_house"
+  },
+  "upgradeTo": {
+    "gas_tank": "gas_tank_high_efficiency",
+    "electric_tank": "heat_pump",
+    "heat_pump": "heat_pump",
+    "tankless": "gas_tankless",
+    "electric_tankless": "heat_pump"
+  },
+  "fuelOf": {
+    "gas_tank": "gas",
+    "electric_tank": "electric",
+    "heat_pump": "electric",
+    "tankless": "gas",
+    "electric_tankless": "electric",
+    "gas_tank_high_efficiency": "gas",
+    "gas_tankless": "gas"
+  },
+  "symptoms": {
+    "meta": {
+      "source": "Rheem, Water Heater Lifespan: When to Repair vs. Replace (March 25, 2026) and A. O. Smith Residential Electronic Thermostat Electric Water Heater Use and Care Guide (2021)",
+      "note": "Which symptoms point to a replacement and which to a part. Only a leak from the tank itself forces a replacement in the tool; the others are shown as guidance."
+    },
+    "items": [
+      {
+        "id": "tankLeak",
+        "label": "Water leaking from the tank itself",
+        "effect": "replace",
+        "note": "A leak from the tank body cannot be fixed; the heater has to be replaced. Check first that the water is not coming from a pipe, valve or fitting above it, because leaks are often in the plumbing, not the heater.",
+        "source": "Rheem: \"If the leak is from the tank itself, replacement is usually required.\" A. O. Smith: \"Leaks are frequently in the plumbing system itself and not the water heater.\"",
+        "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+      },
+      {
+        "id": "fittingLeak",
+        "label": "Drip at a valve, pipe or fitting",
+        "effect": "repair",
+        "note": "Small valve or fitting leaks are often repairable.",
+        "source": "Rheem: \"Small valve or fitting leaks may be repairable.\"",
+        "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+      },
+      {
+        "id": "rusty",
+        "label": "Rusty or discolored hot water",
+        "effect": "warn",
+        "note": "Rheem lists rusty or discolored hot water as a sign the heater should be replaced. Rusty water can also come from old pipes, so check whether the cold water is clear.",
+        "source": "Rheem: \"rusty or discolored hot water\" is listed among the clear signs a water heater should be replaced.",
+        "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+      },
+      {
+        "id": "noise",
+        "label": "Rumbling or popping noise",
+        "effect": "warn",
+        "note": "Persistent rumbling or popping comes from hardened sediment on the tank floor; Rheem counts it among the signs of replacement.",
+        "source": "Rheem: \"persistent rumbling or popping sounds caused by hardened sediment on the tank floor.\"",
+        "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+      },
+      {
+        "id": "noHot",
+        "label": "No hot water, or not enough",
+        "effect": "repair",
+        "note": "Often a heating element, thermostat or (on gas units) the ignition parts. Heating elements, thermostats and anode rods are designed to be replaced.",
+        "source": "Rheem: \"Heating elements, thermostats, and anode rods are all designed to be swapped out.\"",
+        "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/"
+      },
+      {
+        "id": "reliefValve",
+        "label": "Relief valve dripping or discharging",
+        "effect": "safety",
+        "note": "The temperature and pressure (T&P) relief valve is a safety device. Never cap or plug it or its discharge pipe; have the cause checked.",
+        "source": "A. O. Smith Use and Care Guide: \"An explosion could occur if the T&P Relief Valve or discharge pipe is blocked. Do not cap or plug the T&P Relief Valve or discharge pipe.\"",
+        "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf"
+      },
+      {
+        "id": "flooded",
+        "label": "Heater was in a flood",
+        "effect": "replace",
+        "note": "If the heater was flooded or its controls were under water, the manufacturer says the whole unit must be replaced.",
+        "source": "A. O. Smith Use and Care Guide: \"If the water heater is subjected to flood conditions or the thermostat(s) have been submerged in water, the entire water heater must be replaced.\"",
+        "sourceUrl": "https://www.aosmithatlowes.com/media/1710/smart-electric-2000598248.pdf"
+      }
+    ]
+  },
+  "upgradeLabel": {
+    "gas_tank_high_efficiency": "high-efficiency ENERGY STAR gas tank",
+    "heat_pump": "heat pump water heater",
+    "gas_tankless": "condensing gas tankless"
+  }
 }

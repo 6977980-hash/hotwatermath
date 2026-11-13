@@ -15,6 +15,8 @@ import { dirname, join } from 'node:path';
 import * as F from '../assets/js/formulas.js';
 import { describe as describeAge } from '../assets/js/age.js';
 import { describe as describeTankless, FIXTURE_KEYS } from '../assets/js/tankless-size.js';
+import { describe as describeTank, ACTIVITY_KEYS } from '../assets/js/tank-size.js';
+import { describe as describeRepair } from '../assets/js/repair-replace.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'data/computed');
@@ -43,6 +45,10 @@ export const INPUTS = [
 	'data/tankless-reference-units.json',
 	'data/brand-pages.json',
 	'assets/js/age.js',
+	'assets/js/tankless-size.js',
+	'assets/js/tank-size.js',
+	'assets/js/repair-replace.js',
+	'data/household-size-guides.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -687,6 +693,223 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	tOut.default = {
 		status: td.status, statusLabel: td.statusLabel, headline: td.headline, explain: td.explain, formula: td.formula,
 		sources: `Defaults: ${setpoint} °F setpoint (DOE FEMP); fixture flows are federal maximums (10 CFR 430.32), low-flow values EPA WaterSense; ${defInlet} °F incoming water is the DOE example until you pick a state (then NOAA normals with the DOE EnergyPlus mains correlation, coldest month); UEF ${uef.gas_tankless.typical} is the median ENERGY STAR certified gas tankless unit. <a href="/methodology/#tankless-water-heater-size-calculator">See our results checked against Rinnai, Noritz and Rheem charts</a>.`,
+	};
+}
+
+/* ---------- Phase 3 tools: tank size calculator ---------- */
+{
+	const ph = d['peak-hour-demand'];
+	const hg = d['household-size-guides'].guides;
+	const fhrTable = out['fhr-table'].rows;
+	const presets = ph.householdPresets.byPeople;
+	const people = Object.keys(presets).map(Number).sort((a, b) => a - b);
+	const acts = (counts) => ACTIVITY_KEYS.map((k) => ({ key: k, count: counts[k] || 0, gallons: ph.activities[k].gallons }));
+	const sizeFor = (counts, margin = 0) => F.tankSizing(acts(counts), margin, ph.fhrRule.minimumFhrToPhdRatio, fhrTable);
+	const fuelName = { gas: 'Gas', electric: 'Electric', heatpump: 'Heat pump' };
+	const pickText = (p) => (p.fits === 'none' ? `none (largest ${p.nominalGallons} gal rates ${fmt(p.row.fhrHigh)})` : `${p.nominalGallons} gal${p.fits === 'some-models' ? ' (some models)' : ''}`);
+	const client = {
+		activities: Object.fromEntries(ACTIVITY_KEYS.map((k) => [k, { label: ph.activities[k].label, gallons: ph.activities[k].gallons }])),
+		presets: Object.fromEntries(people.map((n) => [n, Object.fromEntries(ACTIVITY_KEYS.map((k) => [k, presets[n][k] || 0]))])),
+		fhrRatio: ph.fhrRule.minimumFhrToPhdRatio,
+		margin: ph.margin.share,
+		fhrTable,
+		guide: { label: hg.american.label, rows: hg.american.rows },
+	};
+	const defPeople = ph.householdPresets.defaultPeople;
+	const byPeople = people.map((n) => {
+		const s = sizeFor(presets[n]);
+		const am = hg.american.rows.find((x) => x.people === n);
+		const rhAll = hg.rheem.rows.filter((x) => n >= x.peopleFrom && n <= x.peopleTo);
+		const rh = rhAll[0];
+		const ao = hg.aosmith.rows.find((x) => n >= x.peopleFrom && n <= x.peopleTo);
+		return { n, s, am, rh, rhAll, ao };
+	});
+	const label = (n) => `${n} ${n === 1 ? 'person' : 'people'}`;
+	const presetText = (c) => ACTIVITY_KEYS.filter((k) => c[k]).map((k) => `${c[k]} ${ph.activities[k].label.toLowerCase()}`).join(', ');
+	// Cross-checks against manufacturer sizing guides.
+	const xc = [];
+	for (const x of byPeople.filter((y) => y.am)) {
+		const inside = x.s.phd >= x.am.low && x.s.phd <= x.am.high;
+		xc.push({ id: `american-${x.n}`, label: `${label(x.n)}: our typical busy hour (${presetText(presets[x.n])})`, ours: `${fmt(x.s.phd)} gal peak-hour demand → FHR ${fmt(x.s.fhr)}+`, published: `FHR ${x.am.low}–${x.am.high} gal`, match: inside, why: inside ? 'Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.' : 'Outside the range; see the note.', source: hg.american.source, sourceUrl: hg.american.sourceUrl });
+	}
+	const rng = (x) => (x.low === x.high ? `${x.low}` : `${x.low}–${x.high}`);
+	for (const x of byPeople.filter((y) => y.rh && y.n >= 2)) {
+		const g = x.s.gas;
+		const inside = g.fits !== 'none' && x.rhAll.some((y) => g.nominalGallons >= y.low && g.nominalGallons <= y.high);
+		xc.push({ id: `rheem-${x.n}`, label: `${label(x.n)}, gas tank`, ours: `${pickText(g)}`, published: x.rhAll.map((y) => `${y.peopleLabel} people: ${rng(y)} gal`).join('; '), match: inside, why: inside ? `Inside Rheem's range${x.rhAll.length > 1 ? ' (Rheem\'s rows overlap, so two rows apply)' : ''}.` : `Our pick comes from the first hour rating of real models: the busy hour needs FHR ${fmt(x.s.fhr)}, which a ${pickText(g)} gas tank meets.`, source: hg.rheem.source, sourceUrl: hg.rheem.sourceUrl });
+	}
+	{
+		const ex = hg.rheem.example;
+		const ours = sizeFor({ shower: ex.showers, clothesWasher: ex.laundryLoads, foodPrep: ex.kitchenUses });
+		xc.push({ id: 'rheem-example', label: `Rheem's worked example: ${ex.label.toLowerCase()}`, ours: `${fmt(ours.phd)} gal (AHRI per-use values)`, published: `${ex.peakHourDemand} gal, so FHR ${ex.minimumFhr}+`, diffPct: r(((ours.phd - ex.peakHourDemand) / ex.peakHourDemand) * 100, 1), why: `Same method, different per-use gallons: AHRI counts ${ph.activities.shower.gallons} gal per shower and ${ph.activities.clothesWasher.gallons} per washer load, Rheem ${ex.showersGallons / ex.showers} and ${ex.laundryGallons}. Our figure errs on the large side, which avoids running out; you can lower the counts if your showers are short.`, source: hg.rheem.source, sourceUrl: hg.rheem.sourceUrl });
+	}
+	for (const x of byPeople.filter((y) => y.ao && y.n >= 3)) {
+		const vols = ['gas', 'electric', 'heatpump'].map((f) => x.s[f]).filter((p) => p.fits !== 'none').map((p) => p.nominalGallons);
+		const inside = vols.some((g) => g >= x.ao.low && g <= x.ao.high);
+		xc.push({ id: `aosmith-${x.n}`, label: `${label(x.n)}, any fuel`, ours: ['gas', 'electric', 'heatpump'].map((f) => `${fuelName[f]} ${pickText(x.s[f])}`).join('; '), published: `${x.ao.low}–${x.ao.high} gal`, match: inside, why: inside ? 'At least one fuel lands in the published range; gas needs fewer gallons because it reheats faster.' : `Lower than A. O. Smith's volume range: a ${pickText(x.s.gas)} gas tank already meets FHR ${fmt(x.s.fhr)}. Volume tables cover every fuel at once, so they run large for gas.`, source: hg.aosmith.source, sourceUrl: hg.aosmith.sourceUrl });
+	}
+	const ahri = ph.example;
+	const ahriS = sizeFor({ shower: ahri.showers, shaving: ahri.shaves, shampoo: ahri.shampoos, handDishwashing: ahri.handDishwashing });
+	const defCounts = presets[defPeople];
+	const s0 = sizeFor(defCounts);
+	const sMargin = sizeFor(defCounts, ph.margin.share);
+	const g40 = fhrTable.find((x) => x.fuel === 'gas' && x.nominalGallons === 40);
+	const g50 = fhrTable.find((x) => x.fuel === 'gas' && x.nominalGallons === 50);
+	const e40 = fhrTable.find((x) => x.fuel === 'electric' && x.nominalGallons === 40);
+	const e50 = fhrTable.find((x) => x.fuel === 'electric' && x.nominalGallons === 50);
+	const hp50 = fhrTable.find((x) => x.fuel === 'heatpump' && x.nominalGallons === 50);
+	out['water-heater-size-calculator'] = {
+		meta: { ...derived('data/peak-hour-demand.json, data/fhr-to-tank-size.json, data/energystar-water-heaters.json and data/household-size-guides.json'), notes: 'Default result, household table, worked example and manufacturer cross-check for the tank size calculator.' },
+		defaultInputs: { people: defPeople, counts: defCounts, fuel: 'gas', margin: false },
+		default: null,
+		defaultCase: { phd: fmt(s0.phd), fhr: fmt(s0.fhr), gas: s0.gas.nominalGallons, electric: s0.electric.nominalGallons, heatpump: s0.heatpump.nominalGallons, marginFhr: fmt(sMargin.fhr), marginPct: fmt(ph.margin.share * 100), preset: presetText(defCounts) },
+		example: { counts: defCounts, people: defPeople, lines: ACTIVITY_KEYS.filter((k) => defCounts[k]).map((k) => ({ label: ph.activities[k].label, count: defCounts[k], gallons: ph.activities[k].gallons, total: defCounts[k] * ph.activities[k].gallons })), phd: fmt(s0.phd), fhr: fmt(s0.fhr), gas: s0.gas.nominalGallons, gasFhr: fmt(s0.gas.row.fhrTypical), electric: s0.electric.nominalGallons, electricFhr: fmt(s0.electric.row.fhrTypical), heatpump: s0.heatpump.nominalGallons, heatpumpFhr: fmt(s0.heatpump.row.fhrTypical) },
+		ahri: { phd: fmt(ahriS.phd), published: ahri.peakHourDemand },
+		compare: {
+			gas40: fmt(g40.fhrTypical), gas50: fmt(g50.fhrTypical), elec40: fmt(e40.fhrTypical), elec50: fmt(e50.fhrTypical), hp50: fmt(hp50.fhrTypical),
+			gas40Range: `${fmt(g40.fhrLow)}–${fmt(g40.fhrHigh)}`, gas50Range: `${fmt(g50.fhrLow)}–${fmt(g50.fhrHigh)}`,
+			gasVsElec50: fmt(g50.fhrTypical - e50.fhrTypical), step40to50Gas: fmt(g50.fhrTypical - g40.fhrTypical), step40to50Elec: fmt(e50.fhrTypical - e40.fhrTypical),
+		},
+		byPeople: byPeople.map((x) => ({ n: x.n, phd: fmt(x.s.phd), fhr: fmt(x.s.fhr), gas: x.s.gas.fits === 'none' ? '' : x.s.gas.nominalGallons, electric: x.s.electric.fits === 'none' ? '' : x.s.electric.nominalGallons, heatpump: x.s.heatpump.fits === 'none' ? '' : x.s.heatpump.nominalGallons })),
+		crossChecks: xc,
+		tables: {
+			households: table(
+				'Tank size by household size: our busy-hour preset vs manufacturer guides',
+				[
+					{ key: 'people', label: 'People' },
+					{ key: 'phd', label: 'Our peak hour', unit: 'gal', num: true },
+					{ key: 'gas', label: 'Gas', unit: 'gal', num: true },
+					{ key: 'electric', label: 'Electric', unit: 'gal', num: true },
+					{ key: 'hp', label: 'Heat pump', unit: 'gal', num: true },
+					{ key: 'am', label: 'American FHR', unit: 'gal', num: true },
+					{ key: 'rh', label: 'Rheem gas', unit: 'gal', num: true },
+				],
+				byPeople.map((x) => ({ people: String(x.n), phd: fmt(x.s.phd), gas: pickText(x.s.gas), electric: x.s.electric.fits === 'none' ? 'heat pump' : pickText(x.s.electric), hp: pickText(x.s.heatpump), am: x.am ? `${x.am.low}–${x.am.high}` : '–', rh: x.rh ? (x.rh.low === x.rh.high ? `${x.rh.low}` : `${x.rh.low}–${x.rh.high}`) : '–' })),
+				{ source: `Computed with the calculator (AHRI per-use gallons, FHR of real models); American Water Heater selection guide; Rheem household-size guide`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-size-calculator', sourceDate: d['household-size-guides'].meta.sourceDate },
+			),
+		},
+		client,
+	};
+	const tz = out['water-heater-size-calculator'];
+	const td = describeTank({ people: String(defPeople), fuel: 'gas', margin: false, ...Object.fromEntries(ACTIVITY_KEYS.map((k) => [k, defCounts[k] || 0])) }, client);
+	tz.default = {
+		status: td.status, statusLabel: td.statusLabel, headline: td.headline, explain: td.explain, formula: td.formula,
+		sources: `Per-use gallons: AHRI peak-hour worksheet. First hour ratings: Rheem spec sheets (gas, electric) and the ENERGY STAR certified list (heat pump). The ${defPeople}-person busy hour is our assumption; change the counts. <a href="/methodology/#water-heater-size-calculator">See our results checked against American, Rheem and A. O. Smith sizing guides</a>.`,
+	};
+}
+
+/* ---------- Phase 3 tools: repair or replace ---------- */
+{
+	const dr = d['decision-rules'];
+	const ls = d.lifespans;
+	const up = out['unit-prices'].units;
+	const uef = out['uef-defaults'].types;
+	const hw = d['hot-water-use'];
+	const ep = out['energy-prices'].us;
+	const typeDefs = [
+		{ id: 'gas_tank', label: 'Gas tank', life: ls.types.gas_tank.typical, uefId: 'gas_tank' },
+		{ id: 'electric_tank', label: 'Electric tank', life: ls.types.electric_tank.typical, uefId: 'electric_tank' },
+		{ id: 'heat_pump', label: 'Heat pump (hybrid)', life: ls.types.heat_pump.typical, uefId: 'heat_pump' },
+		{ id: 'tankless', label: 'Gas tankless', life: ls.types.gas_tankless.typical, uefId: 'gas_tankless' },
+		{ id: 'electric_tankless', label: 'Electric tankless', life: ls.types.electric_tankless.typical, uefId: 'electric_tankless' },
+	];
+	const types = Object.fromEntries(typeDefs.map((t) => {
+		const priceKey = dr.replacementPriceKey[t.id];
+		const upId = dr.upgradeTo[t.id];
+		return [t.id, {
+			label: t.label, life: t.life, uefId: t.uefId, uef: uef[t.uefId].typical, fuel: dr.fuelOf[t.id],
+			replacementUsd: up[priceKey].typical, replacementLabel: up[priceKey].label, replacementRange: `${fmt(up[priceKey].low)}–${fmt(up[priceKey].high)}`,
+			upgrade: { id: upId, label: uef[upId].label, short: dr.upgradeLabel[upId], uef: uef[upId].typical, fuel: dr.fuelOf[upId] },
+		}];
+	}));
+	const client = {
+		types, rules: dr.repairOrReplace, defaultInputs: dr.defaultInputs,
+		symptoms: dr.symptoms.items.map((s) => ({ id: s.id, label: s.label, effect: s.effect, note: s.note })),
+		prices: { usdPerKwh: ep.usdPerKwh, usdPerTherm: ep.usdPerTherm },
+		use: { gallonsPerDay: hw.typicalHouseholdGallonsPerDay.value, riseF: hw.testConditions.riseF },
+	};
+	const rules = dr.repairOrReplace;
+	const ask = (age, type, repair, extra = {}) => F.repairOrReplace({ ageYears: age, expectedLife: types[type].life, repairCost: repair, replacementCost: types[type].replacementUsd, tankLeaking: false, ...extra }, rules);
+	// Most you should pay for a repair, by type and age band.
+	const limits = typeDefs.map((t) => ({ label: t.label, price: fmt(types[t.id].replacementUsd), young: fmt(r(types[t.id].replacementUsd * rules.repairShareAlways)), oldFrom: fmt(r(rules.ageShare * t.life, 1), 1), old: fmt(r(types[t.id].replacementUsd * rules.repairShareWhenOld)) }));
+	// Energy comparison by type.
+	const energy = typeDefs.filter((t) => dr.upgradeTo[t.id] !== t.uefId).map((t) => {
+		const T = types[t.id];
+		const now = F.yearlyEnergyCost(client.use.gallonsPerDay, client.use.riseF, T.fuel, T.uef, client.prices);
+		const next = F.yearlyEnergyCost(client.use.gallonsPerDay, client.use.riseF, T.upgrade.fuel, T.upgrade.uef, client.prices);
+		return { label: T.label, now: fmt(now.year), up: T.upgrade.label, next: fmt(next.year), save: fmt(F.yearlySaving(now, next)) };
+	});
+	// Cross-checks against manufacturer guidance (Rheem repair-vs-replace article, A. O. Smith manual).
+	const rh = dr.symptoms.items.find((s) => s.id === 'tankLeak');
+	const fl = dr.symptoms.items.find((s) => s.id === 'flooded');
+	const gp = types.gas_tank.replacementUsd;
+	const xc = [];
+	{
+		const x = ask(4, 'gas_tank', 0, { tankLeaking: true });
+		xc.push({ id: 'leak', label: '4-year-old gas tank, leak from the tank body', ours: x.verdict, published: 'Replacement usually required', match: x.verdict === 'replace', why: 'Same answer at any age or repair price.', source: rh.source.split('"')[1] ? 'Rheem, When to Repair vs. Replace (2026)' : rh.source, sourceUrl: rh.sourceUrl });
+	}
+	{
+		const x = ask(5, 'gas_tank', r(gp * 0.6));
+		xc.push({ id: 'over-half', label: `5-year-old gas tank, repair ${fmt(r(gp * 0.6))} vs ${fmt(gp)} new (${Math.round(x.share * 100)}%)`, ours: x.verdict, published: 'Repair over 50% of a new unit: replacement is typically better', match: x.verdict === 'replace', why: 'Same 50% rule.', source: 'Rheem, When to Repair vs. Replace (2026)', sourceUrl: rh.sourceUrl });
+	}
+	{
+		const x = ask(5, 'electric_tank', r(types.electric_tank.replacementUsd * 0.15));
+		xc.push({ id: 'young-cheap', label: `5-year-old electric tank, element repair ${fmt(r(types.electric_tank.replacementUsd * 0.15))} (${Math.round(x.share * 100)}% of new)`, ours: x.verdict, published: 'Under 6–8 years, no tank corrosion or leak, repair well below 50%: repair', match: x.verdict === 'repair', why: 'Same answer.', source: 'Rheem, When to Repair vs. Replace (2026)', sourceUrl: rh.sourceUrl });
+	}
+	{
+		const x = ask(6, 'gas_tank', r(gp * 0.35));
+		xc.push({ id: 'young-mid', label: `6-year-old gas tank, repair ${fmt(r(gp * 0.35))} (${Math.round(x.share * 100)}% of new)`, ours: x.verdict, published: 'Under 6–8 years and below 50%: repair', match: false, why: `We are stricter: between ${Math.round(rules.repairShareWhenOld * 100)}% and ${Math.round(rules.repairShareAlways * 100)}% we say borderline and suggest a second quote, because Rheem's "well below 50%" has no number.`, source: 'Rheem, When to Repair vs. Replace (2026)', sourceUrl: rh.sourceUrl });
+	}
+	{
+		const x = ask(12, 'gas_tank', r(gp * 0.3));
+		xc.push({ id: 'old-mid', label: `12-year-old gas tank, repair ${fmt(r(gp * 0.3))} (${Math.round(x.share * 100)}% of new)`, ours: x.verdict, published: '10–15+ years with recurring issues: generally replace', match: x.verdict === 'replace', why: `Same direction. Our "old" line is ${rules.ageShare} × ${types.gas_tank.life} = ${fmt(r(rules.ageShare * types.gas_tank.life, 2), 2)} years (DOE-based life), close to Rheem's 10 years.`, source: 'Rheem, When to Repair vs. Replace (2026)', sourceUrl: rh.sourceUrl });
+	}
+	{
+		const x = ask(3, 'electric_tank', 0, { flooded: true });
+		xc.push({ id: 'flood', label: '3-year-old electric tank whose thermostats were under water', ours: x.verdict, published: 'The entire water heater must be replaced', match: x.verdict === 'replace', why: 'Same answer.', source: 'A. O. Smith Use and Care Guide (2021)', sourceUrl: fl.sourceUrl });
+	}
+	const di = dr.defaultInputs;
+	const ex1 = ask(di.ageYears, di.type, di.repairUsd);
+	out['repair-or-replace-water-heater'] = {
+		meta: { ...derived('data/decision-rules.json, data/lifespans.json, data/cost-ranges.json, data/uef-ranges.json, data/hot-water-use.json and data/energy-prices.json'), notes: 'Default result, repair limits by type, energy comparison and cross-check for the repair-or-replace tool. Replacement prices are equipment only until labor data is added.' },
+		defaultInputs: { ...di, replace: types[di.type].replacementUsd },
+		default: null,
+		defaultCase: { age: di.ageYears, repair: fmt(di.repairUsd), replace: fmt(types[di.type].replacementUsd), share: Math.round(ex1.share * 100), verdict: ex1.verdict, life: types[di.type].life, oldFrom: fmt(ex1.oldFromYears, 2) },
+		rulesPct: { always: Math.round(rules.repairShareAlways * 100), age: Math.round(rules.ageShare * 100), old: Math.round(rules.repairShareWhenOld * 100) },
+		examples: [
+			{ age: 11, type: 'gas_tank', repair: 350 },
+			{ age: 4, type: 'electric_tank', repair: 150 },
+			{ age: 9, type: 'heat_pump', repair: 600 },
+		].map((e) => { const x = ask(e.age, e.type, e.repair); return { ...e, label: types[e.type].label, life: types[e.type].life, replace: fmt(types[e.type].replacementUsd), repairFmt: fmt(e.repair), share: Math.round(x.share * 100), used: Math.round(x.lifeUsed * 100), verdict: x.verdict, oldFrom: fmt(x.oldFromYears, 2) }; }),
+		energy,
+		crossChecks: xc,
+		tables: {
+			limits: table(
+				'Most to pay for a repair, by type (our rules applied to typical equipment prices)',
+				[
+					{ key: 'label', label: 'Type' },
+					{ key: 'price', label: 'New unit (equipment)', unit: '$', num: true },
+					{ key: 'young', label: 'Repair limit, younger unit', unit: '$', num: true },
+					{ key: 'oldFrom', label: '"Old" from', unit: 'years', num: true },
+					{ key: 'old', label: 'Repair limit, old unit', unit: '$', num: true },
+				],
+				limits,
+				{ source: `Rules from data/decision-rules.json (${Math.round(rules.repairShareAlways * 100)}% / ${Math.round(rules.ageShare * 100)}% of life / ${Math.round(rules.repairShareWhenOld * 100)}%); typical life from DOE; equipment prices from Home Depot listings (${d['cost-ranges'].lastReviewed}), before installation`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['cost-ranges'].lastReviewed },
+			),
+			energy: table(
+				'Yearly running cost: a standard new unit vs the efficient upgrade',
+				[{ key: 'label', label: 'Replacing a' }, { key: 'now', label: 'Standard new unit', unit: '$/yr', num: true }, { key: 'up', label: 'Upgrade' }, { key: 'next', label: 'Upgrade cost', unit: '$/yr', num: true }, { key: 'save', label: 'Saving', unit: '$/yr', num: true }],
+				energy,
+				{ source: `Computed: ${client.use.gallonsPerDay} gal/day at a ${client.use.riseF} °F rise (DOE test day), UEF medians (Rheem spec sheets, ENERGY STAR), U.S. average prices $${client.prices.usdPerKwh}/kWh and $${client.prices.usdPerTherm}/therm (EIA)`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['energy-prices'].meta.sourceDate },
+			),
+		},
+		client,
+	};
+	const rz = out['repair-or-replace-water-heater'];
+	const rd = describeRepair({ age: di.ageYears, type: di.type, repair: di.repairUsd, replace: types[di.type].replacementUsd }, client);
+	rz.default = {
+		status: rd.status, statusLabel: rd.statusLabel, headline: rd.headline, explain: rd.explain, formula: rd.formula,
+		sources: `Rules: ours, stated on /methodology. Typical life: DOE (${types.gas_tank.life} years for tanks, ${types.tankless.life} for tankless). New-unit price: typical equipment price from Home Depot listings (${d['cost-ranges'].lastReviewed}), before installation; type your installed quote if you have one. <a href="/methodology/#repair-or-replace-water-heater">See our rules checked against Rheem and A. O. Smith guidance</a>.`,
 	};
 }
 

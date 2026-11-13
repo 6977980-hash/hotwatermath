@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "source": "Manufacturer household-size sizing guides: American Water Heater Residential Product Catalog (Residential Water Heater Selection Guide), Rheem (What Size Gas Water Heater Do I Need for My Home?, 2026) and A. O. Smith (What Size Water Heater Is Right for You?)",
+    "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf",
+    "sourceDate": "2026-11-13",
+    "notes": "Rules of thumb that size by the number of people. They disagree with each other because each assumes its own habits and fuel; the peak-hour method (data/peak-hour-demand.json) is the primary method and these tables are shown next to it as a cross-check. American gives a first hour rating (FHR) requirement; Rheem (gas tanks) and A. O. Smith give tank volume. Opened and copied 2026-11-13."
+  },
+  "guides": {
+    "american": {
+      "label": "American Water Heater",
+      "measure": "fhr",
+      "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
+      "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf",
+      "note": "Move up one level for a high-demand home: more than two full baths, teenagers, or an oversize tub.",
+      "rows": [
+        { "people": 2, "low": 38, "high": 49 },
+        { "people": 3, "low": 49, "high": 62 },
+        { "people": 4, "low": 62, "high": 74 },
+        { "people": 5, "low": 74, "high": 95 },
+        { "people": 6, "low": 95, "high": 124 }
+      ]
+    },
+    "rheem": {
+      "label": "Rheem (gas tanks)",
+      "measure": "gallons",
+      "source": "Rheem, What Size Gas Water Heater Do I Need for My Home? (Recommended Tank Sizes by Household Size)",
+      "sourceUrl": "https://www.rheem.com/water-heating/articles/what-size-gas-water-heater-do-i-need-for-my-home/",
+      "note": "For 5 or more people Rheem suggests 75 gallons or a tankless unit.",
+      "rows": [
+        { "peopleLabel": "1 to 2", "peopleFrom": 1, "peopleTo": 2, "low": 30, "high": 40 },
+        { "peopleLabel": "2 to 4", "peopleFrom": 2, "peopleTo": 4, "low": 40, "high": 50 },
+        { "peopleLabel": "4 to 5", "peopleFrom": 4, "peopleTo": 5, "low": 50, "high": 55 },
+        { "peopleLabel": "5 or more", "peopleFrom": 5, "peopleTo": 99, "low": 75, "high": 75 }
+      ],
+      "example": {
+        "label": "Two showers, one load of laundry and kitchen use",
+        "showers": 2,
+        "laundryLoads": 1,
+        "kitchenUses": 1,
+        "showersGallons": 30,
+        "laundryGallons": 20,
+        "kitchenGallons": 5,
+        "peakHourDemand": 55,
+        "minimumFhr": 55
+      }
+    },
+    "aosmith": {
+      "label": "A. O. Smith",
+      "measure": "gallons",
+      "source": "A. O. Smith, What Size Water Heater Is Right for You? (storage tank size guide by family size)",
+      "sourceUrl": "https://www.hotwater.com/info-center/what-size-water-heater-do-I-need.html",
+      "note": "Tank volume for any fuel; A. O. Smith also says to choose a unit whose first hour rating equals or slightly exceeds your peak-hour demand.",
+      "rows": [
+        { "peopleLabel": "Up to 2", "peopleFrom": 1, "peopleTo": 2, "low": 30, "high": 40 },
+        { "peopleLabel": "3", "peopleFrom": 3, "peopleTo": 3, "low": 40, "high": 50 },
+        { "peopleLabel": "4", "peopleFrom": 4, "peopleTo": 4, "low": 50, "high": 75 },
+        { "peopleLabel": "5", "peopleFrom": 5, "peopleTo": 5, "low": 75, "high": 100 }
+      ]
+    }
+  }
+}

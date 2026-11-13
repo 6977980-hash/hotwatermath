@@ -70,5 +70,51 @@
     "dishwasher": 6,
     "clothesWasher": 7,
     "examplePeakHourDemand": 36
+  },
+  "householdPresets": {
+    "source": "Hot Water Math editorial assumption: a typical busiest hour for each household size, chosen so the peak-hour demand lands inside American Water Heater's first hour rating range for the same family size (data/household-size-guides.json). Change the counts to match your own busiest hour.",
+    "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-size-calculator",
+    "defaultPeople": 4,
+    "byPeople": {
+      "1": {
+        "shower": 1,
+        "handsFace": 1,
+        "foodPrep": 1
+      },
+      "2": {
+        "shower": 2,
+        "handsFace": 1,
+        "foodPrep": 1
+      },
+      "3": {
+        "shower": 2,
+        "handsFace": 2,
+        "foodPrep": 1,
+        "handDishwashing": 1
+      },
+      "4": {
+        "shower": 3,
+        "handsFace": 1,
+        "foodPrep": 1
+      },
+      "5": {
+        "shower": 4,
+        "handsFace": 1,
+        "shaving": 1,
+        "foodPrep": 1
+      },
+      "6": {
+        "shower": 4,
+        "handsFace": 2,
+        "shaving": 1,
+        "foodPrep": 1,
+        "handDishwashing": 1
+      }
+    }
+  },
+  "margin": {
+    "share": 0.1,
+    "source": "Hot Water Math editorial assumption: optional 10% margin for homes that often run several uses at once. A. O. Smith advises a first hour rating that equals or slightly exceeds peak-hour demand.",
+    "sourceUrl": "https://www.hotwater.com/info-center/what-size-water-heater-do-I-need.html"
   }
 }

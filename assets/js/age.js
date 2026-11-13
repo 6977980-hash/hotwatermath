@@ -107,6 +107,15 @@ if (typeof document !== 'undefined') {
 			const values = readInputs(form);
 			last = describe(values, cfg, new Date());
 			renderResult(root, last);
+			// Pass the age and type on to the repair-or-replace tool (it reads ?age=&type=).
+			const repairLink = document.querySelector('.next-steps a[href*="/repair-or-replace-water-heater/"]');
+			if (repairLink && Number.isFinite(last.age)) {
+				const u = new URL(repairLink.href);
+				u.search = '';
+				u.searchParams.set('age', last.age.toFixed(1));
+				if (values.type) u.searchParams.set('type', values.type);
+				repairLink.href = u.toString();
+			}
 			if (record) {
 				writeState(values);
 				if (last.status) track('calc_result', { tool: root.dataset.tool, brand: values.brand, unit_type: values.type, age_bucket: last.age < 5 ? '0-5' : last.age < 10 ? '5-10' : last.age < 15 ? '10-15' : '15+' });

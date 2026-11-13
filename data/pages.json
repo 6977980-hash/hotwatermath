@@ -197,18 +197,59 @@
     {
       "slug": "water-heater-size-calculator",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "3",
       "title": "Water Heater Size Calculator",
-      "summary": "Size a tank water heater from your peak-hour demand and first hour rating, not just household size."
+      "summary": "Size a tank water heater from your peak-hour demand and first hour rating, not just household size.",
+      "metaTitle": "Water Heater Size Calculator by Household | Hot Water Math",
+      "description": "What size water heater do you need? Count your busiest hour to get the first hour rating and gas, electric or heat pump tank size, checked against makers.",
+      "h1": "Water heater size calculator",
+      "subtitle": "Tank size by first hour rating.",
+      "quickAnswer": "Size a tank by first hour rating, not gallons. A typical family of four needs about 69 gallons: a 50-gallon gas or 55-gallon electric tank.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "tank-size"
+      ],
+      "methodAnchor": "water-heater-size-calculator",
+      "keywords": [
+        "what size water heater do i need",
+        "water heater size calculator",
+        "water heater sizing calculator",
+        "water heater size chart",
+        "how many gallons water heater do i need",
+        "what size water heater for family of 4",
+        "what size water heater for family of 5",
+        "water heater size for 3 bedroom house",
+        "first hour rating calculator"
+      ]
     },
     {
       "slug": "repair-or-replace-water-heater",
       "type": "tool",
-      "status": "planned",
+      "status": "draft",
       "phase": "3",
       "title": "Repair or Replace Water Heater",
-      "summary": "Decide whether a repair quote is worth paying, based on the unit's age, the symptoms and replacement cost."
+      "summary": "Decide whether a repair quote is worth paying, based on the unit's age, the symptoms and replacement cost.",
+      "metaTitle": "Repair or Replace Water Heater Calculator | Hot Water Math",
+      "description": "Repair or replace your water heater? Enter its age, type and repair quote to get a clear verdict, the 50% rule worked out, and what a new unit would save.",
+      "h1": "Repair or replace your water heater?",
+      "subtitle": "Your quote, weighed against age.",
+      "quickAnswer": "Replace if the tank leaks or the repair tops 50% of a new unit. Near the end of its life, replace once a repair tops 25%.",
+      "datePublished": "2026-11-13",
+      "dateModified": "2026-11-13",
+      "scripts": [
+        "repair-replace"
+      ],
+      "methodAnchor": "repair-or-replace-water-heater",
+      "keywords": [
+        "repair or replace water heater",
+        "water heater repair vs replace cost",
+        "should i replace my water heater",
+        "is it worth repairing a 10 year old water heater",
+        "can a leaking water heater be repaired",
+        "50 percent rule water heater"
+      ]
     },
     {
       "slug": "water-heater-cost-calculator",

@@ -23,12 +23,14 @@
     "american-water-heater-age",
     "navien-water-heater-age",
     "how-long-does-a-water-heater-last",
-    "tankless-water-heater-size-calculator"
+    "tankless-water-heater-size-calculator",
+    "water-heater-size-calculator",
+    "repair-or-replace-water-heater"
   ],
   "inputs": {
-    "assets/js/formulas.js": "5a3f2bf5e36299ea",
-    "scripts/build-data.mjs": "9564a9e651fad3b2",
-    "data/site.json": "20cf0e1d13b78bb4",
+    "assets/js/formulas.js": "be7184dd5e48ba98",
+    "scripts/build-data.mjs": "b03e6c3e1a7e9f21",
+    "data/site.json": "f9fe077c34f2d98f",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "a1f9b690f93635a0",
     "data/regional-cost-index.json": "a176162a982ec7a9",
@@ -36,16 +38,20 @@
     "data/fhr-to-tank-size.json": "422ad526ed382e18",
     "data/uef-ranges.json": "e1ce6411a009dcdd",
     "data/fixture-flow-rates.json": "f0c7510410f46b31",
-    "data/peak-hour-demand.json": "c0f6c6016126e4d7",
+    "data/peak-hour-demand.json": "a157caeb75758eac",
     "data/lifespans.json": "7bf69a11d468aba6",
     "data/hot-water-use.json": "206b51919edb9ef0",
     "data/cost-ranges.json": "7c6b165d96dc59d5",
     "data/electrical.json": "183045e0d756a4f0",
     "data/serial-formats.json": "c13f817b22b7f619",
     "data/incentives.json": "d2775969e96466d7",
-    "data/decision-rules.json": "dd453a6444afc180",
+    "data/decision-rules.json": "c5dfcff9e25a4ee3",
     "data/tankless-reference-units.json": "56e35d07025e09b1",
     "data/brand-pages.json": "ab6ecccbb83dffff",
-    "assets/js/age.js": "c9c2bacf583ad106"
+    "assets/js/age.js": "353b935c5c0460ea",
+    "assets/js/tankless-size.js": "a67a8c5d937531f7",
+    "assets/js/tank-size.js": "a687f7158374ad85",
+    "assets/js/repair-replace.js": "2e59f90dc0f9289a",
+    "data/household-size-guides.json": "7bfdcaed71e35006"
   }
 }
