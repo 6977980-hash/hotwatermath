@@ -47,9 +47,9 @@ Owner decision 2026-11-12: the site is a **custom WordPress theme on Hostinger**
 | Plugins | **Allowed: LiteSpeed Cache only** (page cache, CSS/JS minify; no lazy-load of the calculator, no "delay JS" on calculator scripts). Any other plugin needs a `docs/DECISIONS.md` entry approved by the owner. | Speed without plugin sprawl |
 | Fonts | System font stack only | No font requests |
 | Images | Inline **SVG diagrams** made by us. Original photos taken by the owner (for example a real rating-plate label) are allowed and encouraged where they show first-hand experience. No stock photos, no downloaded images of brands/people. | CWV + licensing + experience signal |
-| Analytics | GA4 loaded deferred, with Consent Mode v2 defaults (§7); Google Search Console and Bing Webmaster Tools verification meta | Standard |
+| Analytics | Google Tag Manager container (`integrations.gtmId`) and/or GA4, both loaded deferred after page load, with Consent Mode v2 defaults (§7) printed before any Google tag; the GTM `<noscript>` iframe sits right after `<body>`. GTM never loads on `/embed/*`. If GA4 runs inside GTM, leave `ga4Id` empty (no double counting); Google Search Console and Bing Webmaster Tools verification meta | Standard |
 | Ads | AdSense slots as **fixed-height reserved containers** (see §7) | Zero CLS |
-| Settings | Public IDs (AdSense client, GA4 ID, GSC and Bing tokens, IndexNow key) live in `data/site.json` under `integrations`. An empty value turns that feature off. | No hardcoding, no dashboard-only settings |
+| Settings | Public IDs (AdSense client, GTM container ID, GA4 ID, GSC and Bing tokens, IndexNow key) live in `data/site.json` under `integrations`. An empty value turns that feature off. | No hardcoding, no dashboard-only settings |
 
 WordPress clean-up the theme must do: remove emoji scripts, oEmbed discovery, `wp-block-library` CSS, RSD/WLW links, generator tag, jQuery migrate on the front end; disable comments, author archives, date archives, tag/category archives, attachment pages and the default "Hello world" post/sample page (redirect or 404) so no thin WordPress URL is indexable.
 
@@ -216,7 +216,7 @@ Commit with message `phase-N: <summary>`.
 - Never hardcode a data number in prose or JS outside `data/` and `formulas.js`.
 - Never create a second page for an intent already assigned in the Keyword Map.
 - Never use stock photos, brand logos, or images of people (the owner's own original photos of equipment are fine, §2).
-- Never add external scripts other than AdSense (including its Privacy & messaging consent message) and GA4.
+- Never add external scripts other than AdSense (including its Privacy & messaging consent message), GA4 and the Google Tag Manager container. Inside GTM, only Google's own tags (GA4, Google Ads/AdSense-related, Consent Mode); any third-party tag, custom HTML tag or pixel added through GTM needs an owner-approved `docs/DECISIONS.md` entry and a `/privacy-policy` update first, and must stay deferred and consent-aware.
 - Never install a WordPress plugin other than LiteSpeed Cache, a page builder, or a parent theme without an owner-approved `docs/DECISIONS.md` entry. Never write page content in the WordPress editor.
 - Never put a keyword in a widget/embed credit link, never ship that link without `rel="nofollow"`, and never ship an affiliate link without `rel="sponsored"`.
 - Never add `aggregateRating`/`review` schema without real collected ratings.
