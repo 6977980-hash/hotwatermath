@@ -57,19 +57,35 @@ export function monthFromWeek(week) {
 	return Math.min(PHYSICS.monthsPerYear, Math.floor(((week - 1) * PHYSICS.monthsPerYear) / PHYSICS.weeksPerYear) + 1);
 }
 
+/** Reference date for the decoder: a Date (year, month and week checked) or a bare year (only the year checked). */
+function referenceParts(ref) {
+	if (ref instanceof Date) {
+		const year = ref.getFullYear();
+		const dayOfYear = Math.floor((Date.UTC(year, ref.getMonth(), ref.getDate()) - Date.UTC(year, 0, 1)) / 86400000) + 1;
+		return { year, month: ref.getMonth() + 1, week: Math.ceil(dayOfYear / 7) };
+	}
+	return { year: ref, month: null, week: null };
+}
+
 /**
  * Decode a manufacture date from a serial number using one brand's patterns (data/serial-formats.json).
  * Patterns are tried in order; the first one whose regex matches and whose decoded date is valid wins.
  * Field types: "yy" (two-digit year), "mm" (two-digit month), "ww" (two-digit week),
  * "letterYear" (letter cycle: year = anchor + index of the letter, see cycleYears), "letterMonth" (letters list, Jan first).
+ * A decoded date is rejected (the next pattern is tried) when it is after the reference date or before minYear,
+ * so a future two-digit year such as "28" never turns into 1928 (serial-formats.json → plausibility).
  * @param {string} serial Serial number as printed on the rating plate.
  * @param {Array<object>} patterns Patterns for that brand.
- * @param {number} referenceYear Current year; no decoded date may be after it.
+ * @param {Date|number} today Today's date (or just the current year); no decoded date may be after it.
+ * @param {number} [minYear] Oldest build year accepted (data: current year − plausibility.maxAgeYears).
  * @returns {{year:number, month:(number|null), week:(number|null), patternId:string, otherYears:number[]}|null}
  */
-export function decodeSerial(serial, patterns, referenceYear) {
+export function decodeSerial(serial, patterns, today, minYear) {
 	const s = String(serial || '').toUpperCase().replace(/[\s-]/g, '');
 	if (!s) return null;
+	const ref = referenceParts(today);
+	const referenceYear = ref.year;
+	const floor = isNum(minYear) ? minYear : -Infinity;
 	for (const p of patterns) {
 		const m = s.match(new RegExp(p.regex));
 		if (!m) continue;
@@ -92,7 +108,7 @@ export function decodeSerial(serial, patterns, referenceYear) {
 			} else if (spec.type === 'letterYear') {
 				const i = spec.letters.indexOf(raw);
 				if (i < 0) { ok = false; break; }
-				const years = spec.cycleStarts.map((start) => start + i).filter((y) => y <= referenceYear).sort((a, b) => b - a);
+				const years = spec.cycleStarts.map((start) => start + i).filter((y) => y <= referenceYear && y >= floor).sort((a, b) => b - a);
 				if (!years.length) { ok = false; break; }
 				[year, ...otherYears] = years;
 			} else { ok = false; break; }
@@ -100,9 +116,17 @@ export function decodeSerial(serial, patterns, referenceYear) {
 			if (field === 'week' && (week < 1 || week > 53)) ok = false;
 		}
 		if (!ok || year === null) continue;
+		if (year < floor || year > referenceYear) continue;
 		if (isNum(p.validFromYear) && year < p.validFromYear) continue;
 		if (isNum(p.validToYear) && year > p.validToYear) continue;
 		if (week !== null && month === null) month = monthFromWeek(week);
+		// Not after today: a later month, or a later week, of the current year is a misread.
+		const ahead = year === referenceYear && ref.month !== null && (week !== null ? week > ref.week : month !== null && month > ref.month);
+		if (ahead) {
+			// A letter cycle whose latest year is this year but whose month is still ahead: the previous cycle is meant.
+			if (!otherYears.length) continue;
+			[year, ...otherYears] = otherYears;
+		}
 		return { year, month, week, patternId: p.id, otherYears };
 	}
 	return null;
@@ -287,13 +311,34 @@ export function unitsNeeded(required, perUnit) {
 }
 
 /**
+ * Hot (heater) flow of a set of fixtures: each fixture's mixed flow × its hot share at its use temperature
+ * (hotShareOfMix(useTempF, setpoint, inlet)). A fixture without useTempF, or one used at or above the setpoint
+ * (dishwasher, clothes washer), draws its whole flow from the heater. Rinnai sizes showers this way: "Tankless set
+ * temperature of 120°F, mixed shower temperature of 105°F" (data/fixture-flow-rates.json → useTempF).
+ * @param {Array<{count:number, gpm:number, useTempF?:number}>} fixtures
+ * @param {number} setpointF
+ * @param {number} inletF
+ * @returns {{mixedGpm:number, hotGpm:number, rows:Array<{count:number, gpm:number, useTempF:number, share:number, hotGpm:number}>}}
+ */
+export function hotFlowGpm(fixtures, setpointF, inletF) {
+	const rows = fixtures.filter((f) => isNum(f.count) && f.count > 0 && isNum(f.gpm)).map((f) => {
+		const use = isNum(f.useTempF) && f.useTempF < setpointF ? f.useTempF : setpointF;
+		const share = use >= setpointF ? 1 : hotShareOfMix(use, setpointF, inletF) ?? 1;
+		return { count: f.count, gpm: f.gpm, useTempF: use, share, hotGpm: f.count * f.gpm * share };
+	});
+	return { mixedGpm: totalGpm(fixtures), hotGpm: round(rows.reduce((a, x) => a + x.hotGpm, 0), 2), rows: rows.map((x) => ({ ...x, hotGpm: round(x.hotGpm, 2) })) };
+}
+
+/**
  * Tankless sizing for one household: flow, rise, output, gas input, electric kW and amps, and the reference sizes that cover it.
- * @param {{fixtures:Array<{count:number,gpm:number}>, setpointF:number, inletF:number, gasEfficiency:number, volts:number,
+ * gpm is the hot flow the heater makes at the setpoint (hotFlowGpm); mixedGpm is what the fixtures deliver.
+ * @param {{fixtures:Array<{count:number,gpm:number,useTempF?:number}>, setpointF:number, inletF:number, gasEfficiency:number, volts:number,
  *   gasSizesBtuh:number[], electricUnits:Array<{model:string,kw:number,amps:number,breakers:string,wire:string}>}} i
  * @returns {object}
  */
 export function tanklessSizing(i) {
-	const gpm = totalGpm(i.fixtures);
+	const flow = hotFlowGpm(i.fixtures, i.setpointF, i.inletF);
+	const gpm = flow.hotGpm;
 	const rise = temperatureRise(i.setpointF, i.inletF);
 	const output = outputBtuh(gpm, rise);
 	const gasInput = gasInputBtuh(output, i.gasEfficiency);
@@ -305,6 +350,8 @@ export function tanklessSizing(i) {
 	const largestKw = Math.max(...i.electricUnits.map((u) => u.kw));
 	return {
 		gpm,
+		mixedGpm: flow.mixedGpm,
+		flowRows: flow.rows,
 		rise,
 		outputBtuh: round(output),
 		gasInputBtuh: round(gasInput),
@@ -317,6 +364,21 @@ export function tanklessSizing(i) {
 		electricUnitsAtLargest: unitsNeeded(kw, largestKw),
 		largestKw,
 	};
+}
+
+/**
+ * Point-of-use electric tankless sizing for one fixture: the unit heats the fixture's whole flow straight to the use
+ * temperature (no mixing), so kW = GPM × 8.34 × 60 × (use − inlet) ÷ 3412 (Eemax sizing guide: kW = GPM × rise ÷ 6.83),
+ * then the smallest listed unit with at least that power.
+ * @param {{gpm:number, useTempF:number, inletF:number, units:Array<{model:string, kw:number, volts:number, amps:number}>}} i
+ * @returns {{rise:number, outputBtuh:number, kw:number, unit:object|null, largestKw:number}}
+ */
+export function pointOfUseSizing(i) {
+	const rise = temperatureRise(i.useTempF, i.inletF);
+	const output = outputBtuh(i.gpm, rise);
+	const kw = electricKw(output);
+	const unit = referenceUnitFor(round(kw, 2), i.units);
+	return { rise, outputBtuh: round(output), kw: round(kw, 2), unit, largestKw: Math.max(...i.units.map((u) => u.kw)) };
 }
 
 /**
@@ -402,24 +464,37 @@ export function drawPatternForFhr(fhrGallons, patterns) {
 
 /**
  * Repair / replace / borderline decision with reason codes (content turns codes into sentences).
- * @param {{ageYears:number, expectedLife:number, repairCost:number, replacementCost:number, tankLeaking:boolean, flooded?:boolean}} input
+ * Order: leak or flood → replace; age at or past the high end of the life range → replace ("past-life", whatever the
+ * repair costs); share rules; then each replacement sign (signs whose rule applies: "always", or "old" once the unit
+ * is old) moves the verdict one step toward replace (repair → borderline → replace).
+ * @param {{ageYears:number, expectedLife:number, lifeHigh?:number, repairCost:number, replacementCost:number, tankLeaking:boolean,
+ *   flooded?:boolean, signs?:Array<{id:string, when:'always'|'old'}>}} input
  * @param {{ageShare:number, repairShareWhenOld:number, repairShareAlways:number}} rules Thresholds from data/decision-rules.json.
- * @returns {{verdict:'repair'|'replace'|'borderline', reasons:string[], share:number, lifeUsed:number, oldFromYears:number}}
+ * @returns {{verdict:'repair'|'replace'|'borderline', reasons:string[], signs:string[], share:number, lifeUsed:number, oldFromYears:number}}
  *   share = repair ÷ replacement; lifeUsed = age ÷ expected life; oldFromYears = age at which the "old" rule starts.
  */
 export function repairOrReplace(input, rules) {
 	const share = input.replacementCost > 0 ? input.repairCost / input.replacementCost : 1;
 	const lifeUsed = input.expectedLife > 0 ? input.ageYears / input.expectedLife : 1;
-	const extra = { share: round(share, 3), lifeUsed: round(lifeUsed, 3), oldFromYears: round(rules.ageShare * input.expectedLife, 2) };
+	const old = input.expectedLife > 0 && input.ageYears >= rules.ageShare * input.expectedLife;
+	const signs = (input.signs || []).filter((x) => x.when === 'always' || (x.when === 'old' && old)).map((x) => x.id);
+	const extra = { share: round(share, 3), lifeUsed: round(lifeUsed, 3), oldFromYears: round(rules.ageShare * input.expectedLife, 2), signs };
 	const out = (verdict, reasons) => ({ verdict, reasons, ...extra });
 	if (input.tankLeaking) return out('replace', ['tank-leak']);
 	if (input.flooded) return out('replace', ['flooded']);
-	const old = input.expectedLife > 0 && input.ageYears >= rules.ageShare * input.expectedLife;
-	if (share > rules.repairShareAlways) return out('replace', ['repair-over-always-share']);
-	if (old && share > rules.repairShareWhenOld) return out('replace', ['old', 'repair-over-old-share']);
-	if (old) return out('borderline', ['old', 'repair-cheap']);
-	if (share > rules.repairShareWhenOld) return out('borderline', ['young', 'repair-over-old-share']);
-	return out('repair', ['young', 'repair-cheap']);
+	if (isNum(input.lifeHigh) && input.lifeHigh > 0 && input.ageYears >= input.lifeHigh) return out('replace', ['past-life']);
+	let verdict;
+	let reasons;
+	if (share > rules.repairShareAlways) [verdict, reasons] = ['replace', ['repair-over-always-share']];
+	else if (old && share > rules.repairShareWhenOld) [verdict, reasons] = ['replace', ['old', 'repair-over-old-share']];
+	else if (old) [verdict, reasons] = ['borderline', ['old', 'repair-cheap']];
+	else if (share > rules.repairShareWhenOld) [verdict, reasons] = ['borderline', ['within-life', 'repair-over-old-share']];
+	else [verdict, reasons] = ['repair', ['within-life', 'repair-cheap']];
+	if (signs.length && verdict !== 'replace') {
+		verdict = verdict === 'repair' ? 'borderline' : 'replace';
+		reasons = [...reasons, 'replace-sign'];
+	}
+	return out(verdict, reasons);
 }
 
 /**
@@ -427,13 +502,13 @@ export function repairOrReplace(input, rules) {
  * Composes annualHeatBtu, annualEnergyUse and annualCost.
  * @param {number} gallonsPerDay
  * @param {number} riseF
- * @param {'gas'|'electric'} fuel
+ * @param {'gas'|'electric'|'propane'} fuel
  * @param {number} uef
- * @param {{usdPerKwh?:number, usdPerTherm?:number}} prices
- * @returns {{use:{kwh?:number, therms?:number}, year:number, month:number}}
+ * @param {{usdPerKwh?:number, usdPerTherm?:number, usdPerGallonPropane?:number, propaneBtuPerGallon?:number}} prices
+ * @returns {{use:{kwh?:number, therms?:number, gallons?:number}, year:number, month:number}}
  */
 export function yearlyEnergyCost(gallonsPerDay, riseF, fuel, uef, prices) {
-	const use = annualEnergyUse(annualHeatBtu(gallonsPerDay, riseF), fuel, uef);
+	const use = annualEnergyUse(annualHeatBtu(gallonsPerDay, riseF), fuel, uef, prices.propaneBtuPerGallon);
 	return { use, ...annualCost(use, prices) };
 }
 
@@ -521,13 +596,16 @@ export function annualHeatBtu(gallonsPerDay, riseF) {
 }
 
 /**
- * Energy bought per year for one water heater type: heat ÷ 3412 ÷ UEF (kWh) or heat ÷ 100,000 ÷ UEF (therms).
+ * Energy bought per year for one water heater type: heat ÷ 3412 ÷ UEF (kWh), heat ÷ 100,000 ÷ UEF (therms), or
+ * heat ÷ BTU per gallon ÷ UEF (propane gallons; EIA: 1 gallon of propane = 91,452 BTU, data/energy-prices.json).
  * @param {number} heatBtu From annualHeatBtu().
- * @param {'electric'|'gas'} fuel
+ * @param {'electric'|'gas'|'propane'} fuel
  * @param {number} uef Uniform Energy Factor for the type, from data/uef-ranges.json.
- * @returns {{kwh?:number, therms?:number}}
+ * @param {number} [btuPerGallonPropane] Needed for propane.
+ * @returns {{kwh?:number, therms?:number, gallons?:number}}
  */
-export function annualEnergyUse(heatBtu, fuel, uef) {
+export function annualEnergyUse(heatBtu, fuel, uef, btuPerGallonPropane) {
+	if (fuel === 'propane') return uef > 0 && btuPerGallonPropane > 0 ? { gallons: round(heatBtu / btuPerGallonPropane / uef, 1) } : { gallons: Infinity };
 	if (!(uef > 0)) return fuel === 'gas' ? { therms: Infinity } : { kwh: Infinity };
 	return fuel === 'gas'
 		? { therms: round(heatBtu / PHYSICS.btuPerTherm / uef, 1) }
@@ -536,12 +614,12 @@ export function annualEnergyUse(heatBtu, fuel, uef) {
 
 /**
  * Yearly and monthly cost from energy use and price.
- * @param {{kwh?:number, therms?:number}} use
- * @param {{usdPerKwh?:number, usdPerTherm?:number}} prices From data/computed/energy-prices.json or user input.
+ * @param {{kwh?:number, therms?:number, gallons?:number}} use
+ * @param {{usdPerKwh?:number, usdPerTherm?:number, usdPerGallonPropane?:number}} prices From data/computed/energy-prices.json or user input.
  * @returns {{year:number, month:number}}
  */
 export function annualCost(use, prices) {
-	const year = (use.kwh || 0) * (prices.usdPerKwh || 0) + (use.therms || 0) * (prices.usdPerTherm || 0);
+	const year = (use.kwh || 0) * (prices.usdPerKwh || 0) + (use.therms || 0) * (prices.usdPerTherm || 0) + (use.gallons || 0) * (prices.usdPerGallonPropane || 0);
 	return { year: round(year, 2), month: round(year / PHYSICS.monthsPerYear, 2) };
 }
 
@@ -559,25 +637,56 @@ export function householdGallonsPerDay(people, perPersonGallons, fallbackGallons
 /* ---------- 3.6 Tankless vs tank, cost of ownership ---------- */
 
 /**
- * Total cost of ownership over a horizon: installed cost − credit, plus operating cost every year,
- * plus a full installed cost (no credit) each time the unit reaches its life within the horizon.
+ * Net cost of ownership if the horizon ends after `years`: installed cost − credit, plus operating cost (energy +
+ * maintenance) every year, plus a full installed cost each time the unit reaches its life before the horizon ends,
+ * minus the residual value of the unit still in service: installed × remaining life ÷ life (straight line).
+ * Without the residual credit a replacement bought in the last years would count in full although most of its life
+ * is still ahead (audit F-03).
+ * @param {{installed:number, annualOperating:number, lifeYears:number, credit:number}} option
+ * @param {number} years
+ * @returns {{total:number, spent:number, residual:number, replacements:number, remainingYears:number}}
+ */
+function ownershipAt(option, years) {
+	const life = option.lifeYears > 0 ? option.lifeYears : Infinity;
+	const replacements = Number.isFinite(life) ? Math.floor((years - 1) / life) : 0;
+	const age = years - replacements * life;
+	const remainingYears = Number.isFinite(life) ? Math.max(0, life - age) : 0;
+	const residual = Number.isFinite(life) ? (option.installed * remainingYears) / life : 0;
+	const spent = option.installed - (option.credit || 0) + option.annualOperating * years + option.installed * replacements;
+	return { total: round(spent - residual), spent: round(spent), residual: round(residual), replacements, remainingYears };
+}
+
+/**
+ * Total cost of ownership over a horizon (see ownershipAt), plus the cash spent year by year.
  * @param {{installed:number, annualOperating:number, lifeYears:number, credit:number}} option
  * @param {number} years Horizon (default from data).
- * @returns {{total:number, byYear:number[], replacements:number}} byYear[i] = cumulative cost at the end of year i + 1.
+ * @returns {{total:number, spent:number, residual:number, remainingYears:number, byYear:number[], replacements:number}}
+ *   total = net of the residual value; byYear[i] = cash spent by the end of year i + 1 (replacements when they are bought).
  */
 export function costOfOwnership(option, years) {
-	let total = option.installed - (option.credit || 0);
-	let replacements = 0;
 	const byYear = [];
+	let cash = option.installed - (option.credit || 0);
 	for (let y = 1; y <= years; y++) {
-		total += option.annualOperating;
-		if (option.lifeYears > 0 && y % option.lifeYears === 0 && y < years) {
-			total += option.installed;
-			replacements++;
-		}
-		byYear.push(round(total));
+		cash += option.annualOperating;
+		if (option.lifeYears > 0 && y % option.lifeYears === 0 && y < years) cash += option.installed;
+		byYear.push(round(cash));
 	}
-	return { total: round(total), byYear, replacements };
+	return { ...ownershipAt(option, years), byYear };
+}
+
+/**
+ * Yearly maintenance cost of a type from sourced inputs: consumables each time × times a year, plus a tool or part
+ * bought once and spread over the unit's life, or a part replaced every N years.
+ * @param {{perTimeUsd?:number, timesPerYear?:number, onceUsd?:number, everyYears?:number, partUsd?:number}} m
+ * @param {number} lifeYears Spreads onceUsd.
+ * @returns {number} USD a year, two decimals
+ */
+export function yearlyMaintenance(m, lifeYears) {
+	if (!m) return 0;
+	const consumables = (m.perTimeUsd || 0) * (m.timesPerYear || 0);
+	const tool = lifeYears > 0 ? (m.onceUsd || 0) / lifeYears : 0;
+	const part = m.everyYears > 0 ? (m.partUsd || 0) / m.everyYears : 0;
+	return round(consumables + tool + part, 2);
 }
 
 /**

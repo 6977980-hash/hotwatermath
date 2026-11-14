@@ -116,5 +116,16 @@
     "share": 0.1,
     "source": "Hot Water Math editorial assumption: optional 10% margin for homes that often run several uses at once. A. O. Smith advises a first hour rating that equals or slightly exceeds peak-hour demand.",
     "sourceUrl": "https://www.hotwater.com/info-center/what-size-water-heater-do-I-need.html"
+  },
+  "largeTub": {
+    "useTempF": 104,
+    "maxGallons": 140,
+    "source": "Rheem, How to size a water heater: \"While small tubs are usually about 40 gallons, deep soaking tubs can hold up to 140 gallons\" and \"most people bathe at temperatures between 102°F to 106°F\" (checked 2026-11-14). The size calculator turns a tub fill (gallons) into hot water with the tank share of the mix: fill × (104 − inlet) ÷ (setpoint − inlet), at the 120 °F setpoint and the DOE test inlet (58 °F). AHRI's 20 gallons per bath stays the value for a standard tub.",
+    "sourceUrl": "https://www.rheem.com/how-to-size-a-water-heater/"
+  },
+  "showerFlow": {
+    "baseGpm": 2.5,
+    "source": "Hot Water Math assumption: AHRI's 20 gallons per shower is read as a 2.5 GPM shower head (the federal maximum; the worksheet \"assumes no water conservation measures\"), so a custom shower head flow scales it: 20 × your GPM ÷ 2.5.",
+    "sourceUrl": "https://www.ahrinet.org/sites/default/files/2022-10/Water%20Heater%20worksheet.pdf"
   }
 }

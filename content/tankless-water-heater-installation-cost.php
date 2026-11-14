@@ -73,7 +73,7 @@ hwm_part(
 </details>
 
 <h2>Is the extra installation cost worth it?</h2>
-<p>For most gas households, not on energy savings alone. A gas tankless unit saves about $<?php echo $hwm_v( 'tanklessSaving' ); // phpcs:ignore ?> a year to run for a typical household at U.S. average prices, and over <?php echo $hwm_v( 'years' ); // phpcs:ignore ?> years it came out ahead of a gas tank in only <?php echo $hwm_v( 'gtStatesPay' ); // phpcs:ignore ?> of the places we priced. It makes more sense when you use a lot of hot water, plan to stay a long time, or need endless hot water more than lower bills.</p>
+<p>For most gas households, not on energy savings alone. A gas tankless unit saves about $<?php echo $hwm_v( 'tanklessSaving' ); // phpcs:ignore ?> a year to run for a typical household at U.S. average prices, and it paid back its extra cost within <?php echo $hwm_v( 'years' ); // phpcs:ignore ?> years in only <?php echo $hwm_v( 'gtStatesPay' ); // phpcs:ignore ?> of the places we priced. It makes more sense when you use a lot of hot water, plan to stay a long time, or need endless hot water more than lower bills.</p>
 <p>Tankless units last longer, about <?php echo $hwm_v( 'lifeTankless' ); // phpcs:ignore ?> years against <?php echo $hwm_v( 'lifeTank' ); // phpcs:ignore ?> for a tank in our model, which narrows the gap if you stay. Run your own numbers in the <?php echo hwm_link( 'tankless-vs-tank-water-heater', 'tankless vs tank cost of ownership calculator' ); // phpcs:ignore ?>.</p>
 
 <h2>Mistakes that raise a tankless quote later</h2>

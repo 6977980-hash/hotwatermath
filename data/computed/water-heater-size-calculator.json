@@ -619,6 +619,38 @@
           "high": 124
         }
       ]
-    }
+    },
+    "limits": {
+      "count": {
+        "label": "Number of uses",
+        "min": 0,
+        "max": 20,
+        "integer": true
+      },
+      "showerGpm": {
+        "label": "Shower head flow",
+        "min": 0.5,
+        "max": 5,
+        "unit": "GPM",
+        "optional": true
+      },
+      "tubGallons": {
+        "label": "Large tub fill",
+        "min": 0,
+        "max": 140,
+        "unit": "gal",
+        "optional": true,
+        "note": "Rheem: deep soaking tubs hold up to 140 gallons."
+      }
+    },
+    "showerFlow": {
+      "baseGpm": 2.5
+    },
+    "largeTub": {
+      "useTempF": 104,
+      "maxGallons": 140
+    },
+    "setpointF": 120,
+    "inletF": 58
   }
 }

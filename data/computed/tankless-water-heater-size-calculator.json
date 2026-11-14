@@ -17,9 +17,9 @@
   "default": {
     "status": "ok",
     "statusLabel": "One unit can do it",
-    "headline": "5.0 GPM at a 70 °F rise",
-    "explain": "You need about 184,358 BTU/h of gas input at UEF 0.95. A 199,000 BTU/h unit covers it. Electric instead: about 51.3 kW, more than one 36 kW unit.",
-    "formula": "Flow = 2 × 2.5 = 5.0 GPM\nRise = 120 °F − 50.0 °F = 70.0 °F\nOutput = 5.0 GPM × 8.34 lb/gal × 60 min × 70.0 °F = 175,140 BTU/h\nGas input = 175,140 ÷ 0.95 = 184,358 BTU/h\nElectric = 175,140 ÷ 3,412 BTU per kWh = 51.3 kW; × 1,000 ÷ 240 V = 214 A",
+    "headline": "3.9 GPM of hot water at a 70 °F rise",
+    "explain": "Your fixtures deliver 5.0 GPM. Showers, sinks and tubs run at about 105 °F, so they take only part of it from the heater: 3.9 GPM of 120 °F water in all. You need about 144,905 BTU/h of gas input at UEF 0.95. A 150,000 BTU/h unit covers it. Electric instead: about 40.3 kW, more than one 36 kW unit.",
+    "formula": "Mixed flow at the fixtures = 2 × 2.50 = 5.00 GPM\nHot share at 105 °F use = (105 − 50.0) ÷ (120 − 50.0) = 0.786\nHot flow from the heater = 2 × 2.50 × 0.786 = 3.93 GPM\nRise = 120 °F − 50.0 °F = 70.0 °F\nOutput = 3.93 GPM × 8.34 lb/gal × 60 min × 70.0 °F = 137,660 BTU/h\nGas input = 137,660 ÷ 0.95 = 144,905 BTU/h\nElectric = 137,660 ÷ 3,412 BTU per kWh = 40.3 kW; × 1,000 ÷ 240 V = 168 A",
     "sources": "Defaults: 120 °F setpoint (DOE FEMP); fixture flows are federal maximums (10 CFR 430.32), low-flow values EPA WaterSense; 50 °F incoming water is the DOE example until you pick a state (then NOAA normals with the DOE EnergyPlus mains correlation, coldest month); UEF 0.95 is the median ENERGY STAR certified gas tankless unit. <a href=\"/methodology/#tankless-water-heater-size-calculator\">See our results checked against Rinnai, Noritz and Rheem charts</a>."
   },
   "example": {
@@ -32,33 +32,38 @@
     },
     "showerGpm": 2.5,
     "kitchenGpm": 2.2,
-    "gpm": "7.2",
+    "mixedGpm": "7.2",
+    "showerUseF": 105,
+    "showerSharePct": 82,
+    "showerHotGpm": "2.05",
+    "gpm": "6.3",
     "rise": "83.4",
-    "output": "300,480",
-    "gasInput": "316,295",
+    "output": "262,920",
+    "gasInput": "276,758",
     "gasUnits": 2,
     "gasSize": "",
     "largestGas": "199,000",
-    "kw": "88.1",
-    "amps": "367",
+    "kw": "77.1",
+    "amps": "321",
     "electricUnits": 3,
     "largestKw": "36",
     "lowShowerGpm": 2,
-    "lowGpm": "6.2",
-    "lowGasInput": "272,365",
+    "lowGpm": "5.5",
+    "lowGasInput": "240,736",
     "lowGasUnits": 2,
     "lowGasSize": "",
-    "lowKw": "75.8",
+    "lowKw": "67.0",
     "uef": 0.95
   },
   "defaultCase": {
-    "gpm": "5.0",
-    "lpm": "18.9",
+    "mixedGpm": "5.0",
+    "gpm": "3.9",
+    "lpm": "14.9",
     "rise": 70,
-    "gasInput": "184,358",
-    "gasSize": "199,000",
-    "kw": "51.3",
-    "amps": "214",
+    "gasInput": "144,905",
+    "gasSize": "150,000",
+    "kw": "40.3",
+    "amps": "168",
     "electricUnits": 2,
     "inlet": 50
   },
@@ -68,30 +73,33 @@
       "name": "Florida",
       "inlet": "69",
       "rise": "51",
-      "gpm": "7.2",
-      "gasInput": "192,280",
+      "mixedGpm": "7.2",
+      "gpm": "5.1",
+      "gasInput": "135,397",
       "gasUnits": 1,
-      "kw": "53.5"
+      "kw": "37.7"
     },
     {
       "st": "TN",
       "name": "Tennessee",
       "inlet": "54",
       "rise": "66",
-      "gpm": "7.2",
-      "gasInput": "251,822",
-      "gasUnits": 2,
-      "kw": "70.1"
+      "mixedGpm": "7.2",
+      "gpm": "5.6",
+      "gasInput": "194,813",
+      "gasUnits": 1,
+      "kw": "54.2"
     },
     {
       "st": "MN",
       "name": "Minnesota",
       "inlet": "37",
       "rise": "83",
-      "gpm": "7.2",
-      "gasInput": "316,295",
+      "mixedGpm": "7.2",
+      "gpm": "5.9",
+      "gasInput": "259,186",
       "gasUnits": 2,
-      "kw": "88.1"
+      "kw": "72.2"
     }
   ],
   "chartHighlight": {
@@ -179,20 +187,22 @@
     {
       "id": "noritz-1",
       "label": "Noritz example: 2 showers and a washing machine, 55 °F groundwater, 120 °F setpoint",
-      "ours": "6 GPM, 65 °F rise; 205,427 BTU/h input; 2 units of 199,000 BTU/h",
+      "ours": "6 GPM at the fixtures, 5.1 GPM hot, 65 °F rise; 173,929 BTU/h input; 1 unit of 199,000 BTU/h",
       "published": "6 GPM, 65 °F rise; one unit (EZ111, NRCR111 or NRC111)",
       "diffPct": 0,
-      "why": "Same flow and rise. Our required input is 3.2% above one 199,000 BTU/h unit at UEF 0.95, so we say one unit is just short; Noritz matches the \"approximate flow\" on its chart and picks one large unit. Both agree it is a one-large-unit or two-unit job.",
+      "unitsMatch": true,
+      "why": "Same number of units. Same fixture flow and rise. Noritz heats the whole fixture flow to the 120 °F setpoint, which errs high; we size showers and sinks at the 105 °F they are used at, as Rinnai's sizing charts do, so our hot flow is lower (5.1 vs 6 GPM). The washer and dishwasher are sized at the full setpoint in both.",
       "source": "Noritz, How to Size a Tankless (printable V1, 2024), steps 1 to 3",
       "sourceUrl": "https://training.noritz.com/wp-content/uploads/2024/08/Tankless_Sizing_Printable_V1.pdf"
     },
     {
       "id": "noritz-2",
       "label": "Noritz example: 4 showers and a dishwasher, 55 °F groundwater, 120 °F setpoint",
-      "ours": "10 GPM, 65 °F rise; 342,379 BTU/h input; 2 units of 199,000 BTU/h",
+      "ours": "10 GPM at the fixtures, 8.2 GPM hot, 65 °F rise; 279,039 BTU/h input; 2 units of 199,000 BTU/h",
       "published": "10 GPM, 65 °F rise; a pair of units (EZ98, NRC98, NRCR92 or NR98)",
       "diffPct": 0,
-      "why": "Same flow, rise and number of units.",
+      "unitsMatch": true,
+      "why": "Same number of units. Same fixture flow and rise. Noritz heats the whole fixture flow to the 120 °F setpoint, which errs high; we size showers and sinks at the 105 °F they are used at, as Rinnai's sizing charts do, so our hot flow is lower (8.2 vs 10 GPM). The washer and dishwasher are sized at the full setpoint in both.",
       "source": "Noritz, How to Size a Tankless (printable V1, 2024), steps 1 to 3",
       "sourceUrl": "https://training.noritz.com/wp-content/uploads/2024/08/Tankless_Sizing_Printable_V1.pdf"
     },
@@ -423,12 +433,14 @@
       "shower": {
         "label": "Shower",
         "gpm": 2.5,
-        "lowFlowGpm": 2
+        "lowFlowGpm": 2,
+        "useTempF": 105
       },
       "bathroomFaucet": {
         "label": "Bathroom faucet",
         "gpm": 2.2,
-        "lowFlowGpm": 1.5
+        "lowFlowGpm": 1.5,
+        "useTempF": 105
       },
       "kitchenFaucet": {
         "label": "Kitchen faucet",
@@ -448,8 +460,116 @@
       "tubFill": {
         "label": "Bathtub filling",
         "gpm": 3.5,
-        "lowFlowGpm": 3.5
+        "lowFlowGpm": 3.5,
+        "useTempF": 104
+      },
+      "soakingTub": {
+        "label": "Large soaking tub filler",
+        "gpm": 6,
+        "lowFlowGpm": 6,
+        "useTempF": 104
       }
+    },
+    "limits": {
+      "inlet": {
+        "label": "Incoming water temperature",
+        "min": 32,
+        "max": 90,
+        "unit": "°F"
+      },
+      "setpoint": {
+        "label": "Water heater setting",
+        "min": 100,
+        "max": 160,
+        "unit": "°F"
+      },
+      "efficiency": {
+        "label": "Efficiency (UEF)",
+        "min": 0.5,
+        "max": 1,
+        "note": "Gas tankless UEF ratings run from about 0.8 to 0.97."
+      },
+      "showerGpm": {
+        "label": "Shower head flow",
+        "min": 0.5,
+        "max": 5,
+        "unit": "GPM",
+        "optional": true
+      },
+      "pouGpm": {
+        "label": "Fixture flow",
+        "min": 0.2,
+        "max": 5,
+        "unit": "GPM",
+        "optional": true
+      },
+      "count": {
+        "label": "Number of fixtures",
+        "min": 0,
+        "max": 20,
+        "integer": true
+      }
+    },
+    "customShower": {
+      "minGpm": 0.5,
+      "maxGpm": 5,
+      "options": [
+        1.5,
+        1.8,
+        2,
+        2.5
+      ],
+      "source": "EPA WaterSense: \"standard showerheads use 2.5 gallons of water per minute (gpm)\"; WaterSense labeled showerheads \"use no more than 2.0 gpm\" (checked 2026-11-14). 1.8 and 1.5 GPM are shown as examples of lower-flow heads (check the rating stamped on yours); the calculator accepts 0.5 to 5.0 GPM so a rain head or a two-head shower can be entered.",
+      "sourceUrl": "https://www.epa.gov/watersense/showerheads"
+    },
+    "pou": {
+      "fixtures": [
+        "bathroomFaucet",
+        "kitchenFaucet",
+        "shower"
+      ],
+      "units": [
+        {
+          "model": "PA004120T",
+          "maker": "Eemax",
+          "kw": 3.5,
+          "volts": 120,
+          "amps": 29,
+          "wire": "10 AWG"
+        },
+        {
+          "model": "PA005240T",
+          "maker": "Eemax",
+          "kw": 4.8,
+          "volts": 240,
+          "amps": 20,
+          "wire": "10 AWG"
+        },
+        {
+          "model": "PA007240T",
+          "maker": "Eemax",
+          "kw": 6.5,
+          "volts": 240,
+          "amps": 27,
+          "wire": "10 AWG"
+        },
+        {
+          "model": "PA010240T",
+          "maker": "Eemax",
+          "kw": 9.5,
+          "volts": 240,
+          "amps": 40,
+          "wire": "8 AWG"
+        },
+        {
+          "model": "PA012240T",
+          "maker": "Eemax",
+          "kw": 11.5,
+          "volts": 240,
+          "amps": 48,
+          "wire": "6 AWG"
+        }
+      ]
     },
     "states": {
       "AL": {

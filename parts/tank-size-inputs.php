@@ -36,6 +36,16 @@ $hwm_presets = (array) ( $hwm_cl['presets'] ?? array() );
 			</div>
 		<?php endforeach; ?>
 	</div>
+	<div class="field-grid">
+		<div class="field">
+			<label for="ts-showerGpm">Your shower head flow (GPM) <span class="hint">Optional. The shower figure assumes a standard <?php echo esc_html( hwm_value( 'peak-hour-demand', 'showerFlow.baseGpm', 1 ) ); ?> GPM head; type yours to scale it.</span></label>
+			<input id="ts-showerGpm" name="showerGpm" type="text" inputmode="decimal" value="" autocomplete="off">
+		</div>
+		<div class="field">
+			<label for="ts-tubGallons">Large soaking tub (gallons) <span class="hint">Optional. Rheem: deep soaking tubs hold up to <?php echo esc_html( hwm_value( 'peak-hour-demand', 'largeTub.maxGallons' ) ); ?> gallons. We count the hot share at <?php echo esc_html( hwm_value( 'peak-hour-demand', 'largeTub.useTempF' ) ); ?> °F.</span></label>
+			<input id="ts-tubGallons" name="tubGallons" type="text" inputmode="decimal" value="" autocomplete="off">
+		</div>
+	</div>
 	<label class="check"><input type="checkbox" name="margin" value="1"> We often run several things at once (add <?php echo esc_html( hwm_value( $hwm_c, 'defaultCase.marginPct' ) ); ?>%, our assumption)</label>
 </details>
 <?php

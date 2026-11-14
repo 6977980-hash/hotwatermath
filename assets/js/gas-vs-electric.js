@@ -6,12 +6,12 @@
  */
 import { PHYSICS, annualHeatBtu } from './formulas.js';
 import { placeFor, gallonsFor, operatingCosts } from './cost-model.js';
-import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatCurrency, formatNumber } from './ui.js';
+import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatCurrency, formatNumber, checkLimits, invalidResult } from './ui.js';
 
 const usd = (v) => formatCurrency(v);
 const an = (s) => (/^[aeiou]/i.test(s) ? `an ${s}` : `a ${s}`);
 const lc = (s) => s.charAt(0).toLowerCase() + s.slice(1);
-const energy = (u) => (u.therms !== undefined ? `${formatNumber(u.therms)} therms` : `${formatNumber(u.kwh)} kWh`);
+const energy = (u) => (u.gallons !== undefined ? `${formatNumber(u.gallons)} gal propane` : u.therms !== undefined ? `${formatNumber(u.therms)} therms` : `${formatNumber(u.kwh)} kWh`);
 
 /**
  * @param {object} v Form values: household, state, setpoint, kwh, therm, uef_<type> for each type.
@@ -19,12 +19,17 @@ const energy = (u) => (u.therms !== undefined ? `${formatNumber(u.therms)} therm
  */
 export function describe(v, cfg) {
 	const m = cfg.model;
+	const { uef: uefRule, ...lim } = cfg.limits || {};
+	const typeLabel = (id) => m.types[id].label;
+	const bad = checkLimits(v, { ...lim, ...(uefRule ? Object.fromEntries(m.typeOrder.map((id) => [`uef_${id}`, { ...uefRule, label: `${typeLabel(id)} UEF` }])) : {}) }, v.gasFuel === 'propane' ? [] : ['propane']);
+	if (bad.length) return invalidResult(bad);
 	const place = placeFor(m, v.state);
-	const setpointF = Number.isFinite(v.setpoint) && v.setpoint >= 100 && v.setpoint <= 160 ? v.setpoint : m.setpointF;
-	const prices = { usdPerKwh: Number.isFinite(v.kwh) && v.kwh > 0 ? v.kwh : place.usdPerKwh, usdPerTherm: Number.isFinite(v.therm) && v.therm > 0 ? v.therm : place.usdPerTherm };
+	const setpointF = Number.isFinite(v.setpoint) ? v.setpoint : m.setpointF;
+	const gasFuel = v.gasFuel === 'propane' ? 'propane' : 'natural';
+	const prices = { usdPerKwh: Number.isFinite(v.kwh) ? v.kwh : place.usdPerKwh, usdPerTherm: Number.isFinite(v.therm) ? v.therm : place.usdPerTherm, usdPerGallonPropane: Number.isFinite(v.propane) ? v.propane : m.propane.usdPerGallon };
 	const uefs = Object.fromEntries(m.typeOrder.map((id) => [id, Number.isFinite(v[`uef_${id}`]) ? v[`uef_${id}`] : null]));
 	const gallons = gallonsFor(m, v.household);
-	const op = operatingCosts(m, { gallonsPerDay: gallons, setpointF, inletF: place.inletF, prices, uefs });
+	const op = operatingCosts(m, { gallonsPerDay: gallons, setpointF, inletF: place.inletF, prices, uefs, gasFuel });
 	const by = Object.fromEntries(op.rows.map((r) => [r.id, r]));
 	const gas = by.gas_tank;
 	const el = by.electric_tank;
@@ -36,12 +41,14 @@ export function describe(v, cfg) {
 	return {
 		status: cheaperTank === gas ? 'ok' : 'warn',
 		statusLabel: `Cheapest to run: ${sorted[0].label}`,
-		headline: `Gas tank ${usd(gas.year)} a year vs electric tank ${usd(el.year)}`,
+		headline: `${gasFuel === 'propane' ? 'Propane' : 'Gas'} tank ${usd(gas.year)} a year vs electric tank ${usd(el.year)}`,
 		explain: `With ${where} prices, ${an(lc(cheaperTank.label))} costs ${usd(otherTank.year - cheaperTank.year)} a year less to run than ${an(lc(otherTank.label))}. The cheapest type to run is ${an(lc(sorted[0].label))} at ${usd(sorted[0].year)} a year (${usd(sorted[0].month)} a month). Use: ${gallons} gallons a day heated by ${formatNumber(op.rise, 1)} °F.`,
 		formula: [
 			`Rise = ${formatNumber(setpointF)} °F − ${formatNumber(place.inletF, 1)} °F incoming = ${formatNumber(op.rise, 1)} °F`,
 			`Heat per year = ${gallons} gal × ${PHYSICS.daysPerYear} × ${PHYSICS.lbPerGallon} lb × ${formatNumber(op.rise, 1)} °F = ${formatNumber(annualHeatBtu(gallons, op.rise))} BTU`,
-			`Gas: therms = heat ÷ ${formatNumber(PHYSICS.btuPerTherm)} ÷ UEF; × $${prices.usdPerTherm}/therm`,
+			gasFuel === 'propane'
+				? `Propane: gallons = heat ÷ ${formatNumber(m.propane.btuPerGallon)} BTU per gallon (EIA) ÷ UEF; × $${prices.usdPerGallonPropane}/gal`
+				: `Gas: therms = heat ÷ ${formatNumber(PHYSICS.btuPerTherm)} ÷ UEF; × $${prices.usdPerTherm}/therm`,
 			`Electric: kWh = heat ÷ ${formatNumber(PHYSICS.btuPerKwh)} ÷ UEF; × $${prices.usdPerKwh}/kWh`,
 			...op.rows.map((r) => `${r.label} (UEF ${formatNumber(r.uef, 2)}): ${energy(r.use)} → ${usd(r.year)}/yr`),
 		].join('\n'),

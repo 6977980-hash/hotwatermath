@@ -4,51 +4,36 @@
 
 ## Current State
 
-**Last completed phase:** Phase 8 — Authority & links: cost index, `/data/`, embed landing page, outreach materials (2026-11-13). The 3 new pages are `draft` (noindex) until the owner OKs them (style 0.15.0). Phase 6d batch 2 pages went live on the owner's OK (PR #39).
-**Next phase to run:** Phase 7 — Post-launch optimization, as soon as GSC is verified and has about 4 weeks of query data. Until then there is no further build phase in PHASES.md; good fill-ins on request: more Pinterest charts (`scripts/build-charts.mjs`, plan in OUTREACH.md §6), the repair-or-replace query-string fix below.
+**Last completed phase:** Audit fix Phase 1 — tools and calculators (2026-11-14), from the site audit of 2026-11-14 (`/mnt/project-files/hotwatermath/audit/2026-11-14/`). Style 0.16.0. Phase 8 pages (cost index, `/data/`, `/embed-calculators/`) are still `draft` waiting for the owner's OK.
+**Next phase to run:** Audit fix Phase 3 — content and state pages (F-16/S-6 state duplicate text and rebates, F-29, F-17/18/19 copy, F-09/10/13/14). Brief: `/mnt/project-files/hotwatermath/audit/2026-11-14/handoff/phase-3-content.md`. Phases 2 (redirects), 4 (CSS/header/mobile) and 5 (security) are independent. Phase 7 still waits for GSC data.
 
-**What exists now (new or changed in Phase 8):**
-- `content/water-heater-installation-cost-index.php` — cost index article: press-style key findings (5 bullets), inline SVG chart, top 5/bottom 5, full 51-row index + U.S. row, spread table, gas/electric/heat pump section, embedded cost calculator, method + limitations, chart embed code, cite box, FAQ 6, sources 6
-- `content/data.php` — `/data/`: 12 datasets with columns, rows, how built, primary sources, CSV download, cite box, license, FAQ 4
-- `content/embed-calculators.php` — `/embed-calculators/`: how to embed, rules (free, no ads, optional nofollow credit, never traded for a link), snippet per core tool, brand decoder URLs, privacy note, FAQ 4
-- `data/datasets.json` (registry) → `data/computed/datasets.json`; `data/computed/water-heater-installation-cost-index.json` (build:data block "Phase 8", guards on quoted figures)
-- `scripts/build-charts.mjs` (`npm run build:charts`) → `assets/charts/water-heater-cost-index.{svg,png,json}`
-- `scripts/check-embeds.mjs` (`npm run check-embeds`) — embed route + snippet + CSV checks
-- `inc/routes.php` `/data/<id>.csv` (served while `/data/` is draft or live); `inc/schema.php` `hwm_schema_datasets()` (Dataset `@graph` on `/data/`, one Dataset on the index); `templates/embed.php` all in-frame links `nofollow` + new tab; `inc/helpers.php` snippet comment "credit optional"; `footer.php` Data/Embed links (only when live)
-- `content/methodology.php` `#cost-index`; `content/water-heater-installation-cost.php` links the index (plain text until live)
-- `assets/css/global.css` dataset/cite/chart/press styles; `data/pages.json` 3 drafts; `assets/og/` 3 images; `docs/briefs/water-heater-installation-cost-index.md`; `docs/DECISIONS.md` 2 rows; `docs/OUTREACH.md` rewritten (3 templates, 30 targets with contact method, Reddit, Pinterest plan per tool, tracking)
+**What changed in audit fix Phase 1:**
+- `assets/js/formulas.js` — `decodeSerial(serial, patterns, today, minYear)` rejects future and pre-floor dates (F-05/F-28); `hotFlowGpm` + `tanklessSizing` size at each fixture's use temperature (F-01); `pointOfUseSizing` (S-8); `repairOrReplace` past-life + replace signs (F-08); propane in `annualEnergyUse`/`annualCost` (S-4); `costOfOwnership` residual value, `yearlyMaintenance` (F-03/S-2)
+- `assets/js/ui.js` — `parseNumber`, `checkLimits`, `invalidResult`, `markInvalid`, per-result source line (F-02/F-12, F-06); `assets/css/global.css` field error styles
+- `assets/js/{tankless-size,tank-size,age,repair-replace,expansion-tank,gas-vs-electric,tankless-vs-tank,heat-pump-savings,cost-model}.js` — validation in every tool, POU mode, custom shower flow and soaking tub, tankless brands preselect type (F-11), repair link keeps only a typed price (F-26), propane, heat pump location warning and rebate cap, simple payback
+- New data: `data/input-limits.json`, `data/propane-prices.json`. Changed: `serial-formats.json` (A. O. Smith numeric, plausibility, tankless brand types), `fixture-flow-rates.json` (use temps, soaking tub, custom shower), `peak-hour-demand.json` (showerFlow, largeTub), `tankless-reference-units.json` (Eemax point-of-use units), `installation-costs.json` (maintenance), `decision-rules.json`, `heat-pump.json` (location), `brand-pages.json` (A. O. Smith example now numeric + A. O. Smith notice check), `pages.json` (2 quick answers, 1 description)
+- Forms: `parts/tankless-inputs.php` (mode, POU fields, shower flow, soaking tub), `parts/tank-size-inputs.php` (shower flow, big tub), gas vs electric (gas fuel + propane), tankless vs tank (propane option + price, years maxlength 3), heat pump (location)
+- Content: tankless size (method, worked example with hot share, limitations, 2 FAQs), tankless vs tank (value left, simple payback, upkeep), tankless installation cost (one sentence), A. O. Smith age (numeric format), methodology (input checks, sizing method, POU, tank-size inputs, age plausibility and flush default, repair rules, propane, ownership method, heat pump location and rebate cap)
+- `scripts/build-data.mjs` — limits/pou/propane/maintenance in client data, Noritz cross-check at use temps with `unitsMatch`, per-brand source lines, new quick-answer guards for the tankless size and tankless vs tank pages; `tests/formulas.test.mjs` 78 tests
 
-**Verified (before deploy):**
-- `npm test` 69/69; `validate-data` 79 files OK; offline render (WP stubs) 0 PHP notices on the 3 pages, methodology and replacement cost; `php -l` clean.
-- Sources opened 2026-11-13: BEA RPP PDF, EIA Table 2.10 (Idaho 11.83 ¢, Massachusetts 30.41 ¢ = our file), EIA gas prices, NOAA, DOE 89 FR 37778, Home Depot listings, ENERGY STAR data, AHRI worksheet, Lowe's Rinnai poster, Energy Trust decoder, CC BY 4.0: all 200. FRED IDRPPALL 2024 = 95.494 (file 95.5).
-- Embeds on the old live code: all 200, noindex, `frame-ancestors *`, 23–28 KB gzip incl. CSS/JS; in-frame methodology/source links were followed links (fixed in this PR).
-- Chart checked by eye (PNG); palette validated (CVD ΔE 9.2, contrast warn on aqua → table view + shapes).
+**Verified (before deploy):** `npm test` 78/78; `validate-data` 81 files OK; `build:data` + `build:charts` committed; `php -l` clean; offline render (WP stubs) 0 PHP notices on 16 changed or dependent pages. New sources opened 2026-11-14 and quoted in the data files (A. O. Smith SAP serial notice, Rinnai RU199 sizing note, Rheem sizing page, EIA propane price and BTU content, Eemax sizing guide and ProAdvantage spec sheet, Rinnai flush page, WebstaurantStore vinegar, Home Depot flush kit and anode listings, Rheem maintenance page, EPA WaterSense showerheads, ENERGY STAR HPWH guide).
 
-**Verified live (after PRs #40 and #41 deployed, 2026-11-13):** style.css 0.15.1 served; the 3 pages 200 with `noindex, follow`, self canonical, one H1; `/data/` prints 12 Dataset nodes, the index 1. `npm run check -- --bust` 767/767; `npm run check-links -- --bust` 1546/1546 (59 pages); `npm run check-embeds -- --bust` 230/230 (15 embeds: noindex header + meta, `frame-ancestors *`, no X-Frame-Options, no ad script, every in-frame link nofollow, one brand-name credit, 23–28 KB gzip incl. CSS/JS; snippet rules; 12 CSVs 200 text/csv with the right row counts). Playwright 360x640: no horizontal scroll and no console errors on the 3 pages; index calculator updates (Texas → about $1,782, matches the index row). Fixed in #41 after the first live check: USGS link in the age embed was not nofollow; CSV links 404'd for logged-out visitors while `/data/` is draft; spread table and long code URLs overflowed at 360 px. Lighthouse not re-run (no new scripts; same templates).
-
-**Owner steps:**
-1. Read the 3 drafts (`/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/`); reply OK to flip them `live`. Pitch only after the index and `/data/` are live.
-2. Flush the Hostinger CDN after this deploy (CSS and pages changed).
-3. Outreach (OUTREACH.md): create LinkedIn page, X and Pinterest with identical branding and send Claude the URLs (they go into `data/site.json → social` → `Organization.sameAs`); sign up for HARO/Qwoted/Featured; send the first 20 pitches (start with targets 15, 16, 21, 30); post helpful Reddit answers weekly; log results monthly in the table below.
-4. Carried: GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs. Phase 7 needs GSC data. Post-launch plumber fact-check of the 6 safety pages.
-
-**Link tracking (monthly; owner fills, Claude can update on request)**
-
-| Month | Followed editorial referring domains (new / total) | Pitches sent | Replies | Embeds seen in GA4 (`embed_view`, awareness only) | Notes |
-|---|---|---|---|---|---|
-| 2026-11 | 0 / 0 | 0 | 0 | — (GA4 not set up) | Assets built (draft) |
+**Verified live:** see the Log line and the PR thread (filled after deploy).
 
 **Known issues / TODOs carried forward:**
-- On phones the inline chart scales down to ~43% (labels small); the full table and the 2x PNG carry the detail. A taller mobile variant could be added to build-charts.
-- The index's "cheapest to own" assumes a home with gas service; stated on the page. Rebates excluded (they change often).
-- `/data/` CSVs are `noindex` files; Google Dataset Search reads the `Dataset` markup on `/data/`. Validate it in the Rich Results Test / Schema validator once live.
-- Embed chart image URL is the theme path (`/wp-content/themes/hotwatermath/assets/charts/…png`); keep the theme folder name stable.
-- Carried: repair-or-replace query-string preset bug (`assets/js/repair-replace.js` ~116); IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure; codes.iccsafe.org not script-checkable.
+- Gas tankless now comes out about $425 ahead of a gas tank over 10 years on total cost (value left counted: 20-year vs 13-year life) while its simple payback is about 22 years. The tool and article say both and show the cash spent; the owner may prefer one headline metric.
+- State pages count "full-flow showers" a reference unit runs at the full 120 °F setpoint (not the 105 °F mix), so they are conservative next to the size calculator. Prose untouched per the brief; Phase 3 can align the wording.
+- Upkeep is priced as do-it-yourself; a plumber's descaling visit costs more and has no listing we can cite.
+- Heat pump cold-garage derate: no DOE/NEEA/ENERGY STAR figure found, so only a warning.
+- Cost index: $1 rounding changes in 3 states (still draft).
+- Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure; codes.iccsafe.org not script-checkable.
+
+**Owner steps:** flush the Hostinger CDN after this deploy (JS, CSS and data changed). Carried: OK the 3 Phase 8 drafts; GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs; outreach; post-launch plumber fact-check.
 
 **Notes for the next thread:**
-- Annual refresh of the index: update `data/energy-prices.json` / `data/regional-cost-index.json` when EIA/BEA release, then `npm run build:data && npm run build:charts`, bump `dateModified` of the index, and re-check the quick answer guard.
-- `npm run build:charts` and `build:og` need `npm ci`; `build:og` rewrites some unrelated PNGs, restore them with `git checkout`.
-- Offline render harness: stub WP functions (esc_*, selected, checked, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, home_url, wp_parse_url, wp_json_encode, wp_strip_all_tags, hwm_adsense_client, hwm_adsense_unit) and include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
+- Phase 3 shares `formulas.js` and `data/`: pull `main` first. Any number a page prints comes from `data/computed/`; rebuild with `npm run build:data` and keep the quick-answer guards green.
+- Offline render harness: stub WP functions (esc_*, esc_textarea, selected, checked, wp_kses, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, home_url, wp_parse_url, wp_json_encode, wp_strip_all_tags, hwm_adsense_client, hwm_adsense_unit), define `HWM_DIR`, include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
+- Index refresh, build:charts and build:og notes from Phase 8 still apply.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -74,6 +59,7 @@
 - 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
 ---
+- 2026-11-14 — Audit fix Phase 1 done — tools: tankless sizing at the 105 °F mix, one input validator, ownership with value left/upkeep/simple payback, serial fixes, repair rules, propane, point of use, heat pump location (style 0.16.0).
 
 ## Template (copy this into "Current State" when you finish a phase)
 

@@ -5,6 +5,10 @@
     "sourceDate": "2026-11-13",
     "notes": "Only brands whose format we could confirm in an opened source are listed. Patterns are tried in order. Two-digit years take the latest matching year that is not in the future. Letter-year codes repeat every 20 years, so the decoder returns the latest year and lists the earlier ones; the unit's look and the dates on its labels settle which is right. Rinnai, Noritz, Takagi and Bosch are not decoded: no manufacturer or government source for their date code could be opened (third-party guides disagree with each other), so the calculator asks for the manufacture year. Rheem and Ruud also offer their own lookup, which beats any decoder. Patterns marked as from a third-party decoder (InspectApedia, Building Intelligence Center) cover older serials that no manufacturer source documents; the brand pages say so next to each."
   },
+  "plausibility": {
+    "maxAgeYears": 80,
+    "source": "Hot Water Math editorial limit: the oldest build year the age calculator accepts is the current year minus 80 (1946 in 2026), for the year field and for decoded serials alike. A decoded date before it, or after today, is treated as a misread serial (for example a future two-digit year such as 28 read as 1928)."
+  },
   "brands": {
     "bradford-white": {
       "label": "Bradford White",
@@ -139,14 +143,14 @@
         "Glascote",
         "PermaGlas"
       ],
-      "source": "Energy Trust of Oregon: since 2008, an 11-character serial whose first two positions are the year followed by a two-digit week (example 0805A…); before 2008 the second letter is the month (A to N, no I) followed by a two-digit year (example *H06… = August 2006); U.S. CPSC recall notices (2008, 2018) for A. O. Smith serial ranges",
+      "source": "Energy Trust of Oregon: since 2008, an 11-character serial whose first two positions are the year followed by a two-digit week (example 0805A…); before 2008 the second letter is the month (A to N, no I) followed by a two-digit year (example *H06… = August 2006); U.S. CPSC recall notices (2008, 2018) for A. O. Smith serial ranges; A. O. Smith SAP notice (opened 2026-11-14): since October 2016 the letter is dropped and the serial is the YYWW date code followed by a nine-digit number (example 1601 123 456 789 = 2016, week 1)",
       "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
       "patterns": [
         {
           "id": "aos-yyww",
-          "regex": "^(\\d{2})(\\d{2})[A-Z]",
+          "regex": "^(\\d{2})(\\d{2})(?:[A-Z]|\\d{9})",
           "validFromYear": 2008,
-          "example": "0805A****** → 2008, week 5",
+          "example": "2215123456789 → 2022, week 15 (all digits since October 2016; A. O. Smith prints it as 1601 123 456 789); 0805A****** → 2008, week 5",
           "fields": {
             "year": {
               "group": 1,
@@ -157,7 +161,10 @@
               "type": "ww"
             }
           },
-          "layout": "since 2008: year (2 digits), week (2 digits), then a letter"
+          "layout": "since 2008: year (2 digits), week (2 digits), then a letter; since October 2016 the letter is gone and nine digits follow (YYWW + 9 digits)",
+          "source": "A. O. Smith, What's Changing for You? (SAP notice): \"The new format is a nine-digit numeric serial number generated automatically within SAP. A four-digit date code (YYWW - Year/ Week) will appear before the serial number any time it is printed. The alpha character has been eliminated ... You will begin to see this change in October of 2016.\" Example 1601 123 456 789 = 2016, week 1; old format 1604A012345. Energy Trust of Oregon for the 2008 start of the year-week code.",
+          "sourceUrl": "https://university.hotwater.com/wp-content/uploads/sites/2/2023/11/Whats_Changing_for_You_AOSmith.pdf",
+          "sourceCheckedOn": "2026-11-14"
         },
         {
           "id": "aos-letter-month-yy",
@@ -368,7 +375,7 @@
     }
   ],
   "brandOptions": {
-    "source": "Dropdown for the age calculator. decodeAs = which brand's date code applies; empty = not decodable, ask for the year. Aliases come from the Energy Trust of Oregon decoder (Whirlpool is made by American; State/Kenmore; General Electric under Rheem). page = the brand page that covers an option without its own page (GE on the Rheem page, Kenmore on the State page).",
+    "source": "Dropdown for the age calculator. decodeAs = which brand's date code applies; empty = not decodable, ask for the year. Aliases come from the Energy Trust of Oregon decoder (Whirlpool is made by American; State/Kenmore; General Electric under Rheem). page = the brand page that covers an option without its own page (GE on the Rheem page, Kenmore on the State page). type = the unit type the calculator preselects for a brand that sells only tankless water heaters in the U.S. (Navien, Rinnai, Noritz, Takagi); the visitor can still change it.",
     "sourceUrl": "https://insider.energytrust.org/wp-content/uploads/CPF_Serial_Water_Heater.pdf",
     "options": [
       {
@@ -419,22 +426,26 @@
       {
         "id": "navien",
         "label": "Navien",
-        "decodeAs": "navien"
+        "decodeAs": "navien",
+        "type": "tankless"
       },
       {
         "id": "rinnai",
         "label": "Rinnai",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "noritz",
         "label": "Noritz",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "takagi",
         "label": "Takagi",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "bosch",

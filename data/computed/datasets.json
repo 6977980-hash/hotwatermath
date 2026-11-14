@@ -172,7 +172,7 @@
           445,
           109,
           3458,
-          6022,
+          6023,
           4024,
           "Gas tank (standard vent)"
         ],
@@ -516,7 +516,7 @@
           209,
           441,
           108,
-          3903,
+          3904,
           5987,
           4026,
           "Gas tank (standard vent)"
@@ -578,7 +578,7 @@
           114,
           4272,
           6263,
-          4104,
+          4105,
           "Heat pump (hybrid), 240 V"
         ],
         [
@@ -607,7 +607,7 @@
           463,
           113,
           4702,
-          6266,
+          6267,
           4162,
           "Heat pump (hybrid), 240 V"
         ],
@@ -2057,9 +2057,16 @@
           3.5,
           1,
           6
+        ],
+        [
+          "Large soaking tub filler",
+          6,
+          6,
+          4,
+          6
         ]
       ],
-      "rowCount": 6
+      "rowCount": 7
     },
     {
       "id": "peak-hour-hot-water-use",
@@ -2259,8 +2266,8 @@
         ],
         [
           "A. O. Smith",
-          "since 2008: year (2 digits), week (2 digits), then a letter",
-          "0805A****** → 2008, week 5"
+          "since 2008: year (2 digits), week (2 digits), then a letter; since October 2016 the letter is gone and nine digits follow (YYWW + 9 digits)",
+          "2215123456789 → 2022, week 15 (all digits since October 2016; A. O. Smith prints it as 1601 123 456 789); 0805A****** → 2008, week 5"
         ],
         [
           "",

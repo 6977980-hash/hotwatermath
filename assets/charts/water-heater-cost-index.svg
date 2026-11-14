@@ -79,7 +79,7 @@
 <circle cx="298.1" cy="209.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
 <rect x="400.8" y="205.5" width="8" height="8" rx="1.5" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"/>
 </g>
-<g><title>8. Utah: gas tank $3,458, heat pump $4,024, electric tank $6,022</title>
+<g><title>8. Utah: gas tank $3,458, heat pump $4,024, electric tank $6,023</title>
 <text x="146" y="228.5" font-size="11.5" fill="#17212e" text-anchor="end">8. Utah</text>
 <line x1="298.3" y1="224.5" x2="403.8" y2="224.5" stroke="#c5ccd4" stroke-width="2"/>
 <path d="M321.6 217.5l7 7-7 7-7-7z" fill="#1baf7a" stroke="#ffffff" stroke-width="1.5"/>
@@ -251,7 +251,7 @@
 <circle cx="315.9" cy="554.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
 <rect x="443.3" y="550.5" width="8" height="8" rx="1.5" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"/>
 </g>
-<g><title>31. Nevada: gas tank $3,903, heat pump $4,026, electric tank $5,987</title>
+<g><title>31. Nevada: gas tank $3,904, heat pump $4,026, electric tank $5,987</title>
 <rect x="0" y="562" width="760" height="15" fill="#f6f8fa"/>
 <text x="146" y="573.5" font-size="11.5" fill="#17212e" text-anchor="end">31. Nevada</text>
 <line x1="316.6" y1="569.5" x2="402.3" y2="569.5" stroke="#c5ccd4" stroke-width="2"/>
@@ -281,7 +281,7 @@
 <circle cx="323.5" cy="614.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
 <rect x="514.5" y="610.5" width="8" height="8" rx="1.5" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"/>
 </g>
-<g><title>35. Virginia: gas tank $4,272, heat pump $4,104, electric tank $6,263</title>
+<g><title>35. Virginia: gas tank $4,272, heat pump $4,105, electric tank $6,263</title>
 <rect x="0" y="622" width="760" height="15" fill="#f6f8fa"/>
 <text x="146" y="633.5" font-size="11.5" fill="#17212e" text-anchor="end">35. Virginia</text>
 <line x1="324.9" y1="629.5" x2="413.7" y2="629.5" stroke="#c5ccd4" stroke-width="2"/>
@@ -296,7 +296,7 @@
 <circle cx="327.2" cy="644.5" r="4" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
 <rect x="432.1" y="640.5" width="8" height="8" rx="1.5" fill="#eb6834" stroke="#ffffff" stroke-width="1.5"/>
 </g>
-<g><title>37. Washington: gas tank $4,702, heat pump $4,162, electric tank $6,266</title>
+<g><title>37. Washington: gas tank $4,702, heat pump $4,162, electric tank $6,267</title>
 <rect x="0" y="652" width="760" height="15" fill="#f6f8fa"/>
 <text x="146" y="663.5" font-size="11.5" fill="#17212e" text-anchor="end">37. Washington</text>
 <line x1="327.2" y1="659.5" x2="413.8" y2="659.5" stroke="#c5ccd4" stroke-width="2"/>

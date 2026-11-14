@@ -7,7 +7,7 @@
  */
 import { simplePaybackYears, netSavingOver } from './formulas.js';
 import { estimateInstalled, defaultExtras, placeFor, gallonsFor, operatingCosts } from './cost-model.js';
-import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatCurrency, formatNumber } from './ui.js';
+import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatCurrency, formatNumber, checkLimits, invalidResult } from './ui.js';
 
 const usd = (v) => formatCurrency(v);
 
@@ -18,13 +18,16 @@ const usd = (v) => formatCurrency(v);
  */
 export function describe(v, cfg) {
 	const m = cfg.model;
+	const bad = checkLimits(v, cfg.limits, ['propane']);
+	if (bad.length) return { ...invalidResult(bad), result: null };
 	const current = v.current === 'gas_tank' ? 'gas_tank' : 'electric_tank';
 	const size = m.types.heat_pump.sizes.some((s) => s.id === String(v.size)) ? String(v.size) : m.types.heat_pump.defaultSize;
 	const place = placeFor(m, v.state);
 	const where = v.state && m.states[v.state] ? place.name : 'U.S. average';
-	const prices = { usdPerKwh: Number.isFinite(v.kwh) && v.kwh > 0 ? v.kwh : place.usdPerKwh, usdPerTherm: Number.isFinite(v.therm) && v.therm > 0 ? v.therm : place.usdPerTherm };
-	const hpUef = Number.isFinite(v.uef) && v.uef >= 1 && v.uef <= 6 ? v.uef : m.types.heat_pump.uef;
-	const rebate = Number.isFinite(v.rebate) && v.rebate > 0 ? v.rebate : 0;
+	const prices = { usdPerKwh: Number.isFinite(v.kwh) ? v.kwh : place.usdPerKwh, usdPerTherm: Number.isFinite(v.therm) ? v.therm : place.usdPerTherm };
+	const hpUef = Number.isFinite(v.uef) ? v.uef : m.types.heat_pump.uef;
+	const typedRebate = Number.isFinite(v.rebate) && v.rebate > 0 ? v.rebate : 0;
+	const loc = cfg.location.options.find((o) => o.id === v.location) || cfg.location.options.find((o) => o.id === cfg.location.default);
 	const gallons = gallonsFor(m, v.household);
 	const op = operatingCosts(m, { gallonsPerDay: gallons, setpointF: m.setpointF, inletF: place.inletF, prices, uefs: { heat_pump: hpUef } });
 	const by = Object.fromEntries(op.rows.map((r) => [r.id, r]));
@@ -36,13 +39,16 @@ export function describe(v, cfg) {
 	const hpJob = estimateInstalled(m, { type: 'heat_pump', size, state: v.state, extras: hpExtras });
 	// The alternative: replacing the current heater like for like (its default size).
 	const altJob = estimateInstalled(m, { type: current, size: m.types[current].defaultSize, state: v.state, extras: defaultExtras(m, 'replace', current) });
+	// A rebate can never be worth more than the heat pump job itself (audit F-02: $99,999 gave a "$98,631 less" result).
+	const rebate = Math.min(typedRebate, hpJob.typical);
 	const extra = hpJob.typical - altJob.typical - rebate;
 	const saving = Math.round(cur.year - hp.year);
 	const payback = simplePaybackYears(extra, saving);
 	const life = m.types.heat_pump.life;
 	const net = netSavingOver(saving, life, extra);
 	const good = cfg.paybackGoodYears;
-	const status = payback === null ? 'bad' : payback <= good ? 'ok' : payback <= life ? 'warn' : 'bad';
+	const status0 = payback === null ? 'bad' : payback <= good ? 'ok' : payback <= life ? 'warn' : 'bad';
+	const status = loc.status === 'warn' && status0 === 'ok' ? 'warn' : status0;
 	const curLabel = current === 'gas_tank' ? 'gas tank' : 'electric tank';
 	const headline = saving > 0
 		? `Saves about ${usd(saving)} a year; ${payback === 0 ? 'no extra cost to repay' : payback === null ? 'never pays back' : `pays back in about ${formatNumber(payback, 1)} years`}`
@@ -52,6 +58,8 @@ export function describe(v, cfg) {
 		`With ${where} prices (${formatNumber(prices.usdPerKwh * 100, 1)}¢ per kWh${current === 'gas_tank' ? `, $${formatNumber(prices.usdPerTherm, 2)} per therm` : ''}), a ${size}-gallon heat pump costs about ${usd(hp.year)} a year to run against ${usd(cur.year)} for your ${curLabel}.`,
 		`Installed, it costs about ${usd(hpJob.typical)} against ${usd(altJob.typical)} for a new ${curLabel}${rebate ? `, less your ${usd(rebate)} rebate` : ''}: ${extra > 0 ? `${usd(extra)} more` : `${usd(-extra)} less`}.`,
 		saving > 0 ? (net >= 0 ? `Over a ${life}-year life that nets about ${usd(net)}.` : `Over a ${life}-year life it falls about ${usd(-net)} short of repaying the extra cost.`) : '',
+		typedRebate > rebate ? `Your rebate is more than the installed price, so it is counted only up to ${usd(rebate)}.` : '',
+		loc.note,
 	].filter(Boolean).join(' ');
 	const formula = [
 		`Hot water: ${gallons} gal a day, ${m.setpointF} °F setting, ${formatNumber(place.inletF, 1)} °F incoming water`,
@@ -60,9 +68,10 @@ export function describe(v, cfg) {
 		`Yearly saving = ${usd(cur.year)} − ${usd(hp.year)} = ${usd(saving)}`,
 		`Heat pump installed (${hpJob.items.map((i) => i.label.split(' (')[0]).join(', ')}) = ${usd(hpJob.typical)}`,
 		`New ${curLabel} installed (like for like) = ${usd(altJob.typical)}`,
-		`Extra cost = ${usd(hpJob.typical)} − ${usd(altJob.typical)}${rebate ? ` − ${usd(rebate)} rebate` : ''} = ${usd(extra)}`,
+		`Extra cost = ${usd(hpJob.typical)} − ${usd(altJob.typical)}${rebate ? ` − ${usd(rebate)} rebate${typedRebate > rebate ? ' (capped at the installed price)' : ''}` : ''} = ${usd(extra)}`,
 		`Payback = extra ÷ yearly saving = ${payback === null ? 'never (no saving)' : payback === 0 ? '0 (no extra cost)' : `${formatNumber(payback, 1)} years`}`,
 		`Net over ${life} years = ${usd(saving)} × ${life} − ${usd(extra)} = ${usd(net)}`,
+		`Location: ${loc.label.toLowerCase()} (${loc.status === 'warn' ? 'warning only; no derate applied' : 'no change'})`,
 	].join('\n');
 	const rows = [
 		{ item: 'Installed cost', cur: usd(altJob.typical), hp: usd(hpJob.typical) },
@@ -104,6 +113,7 @@ if (typeof document !== 'undefined') {
 			renderResult(root, last);
 			if (record) {
 				writeState(values);
+				if (!last.result) return;
 				const p = last.result.payback;
 				track('calc_result', { tool: 'heat-pump-water-heater-cost', current: values.current, state: values.state, payback_bucket: p === null ? 'never' : p <= 3 ? '0-3' : p <= 7 ? '3-7' : p <= 13 ? '7-13' : '13+' });
 			}

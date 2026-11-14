@@ -190,7 +190,7 @@ test('repairOrReplace: leak, 50% rule, old + 25%, borderline and repair', () => 
 	assert.equal(F.repairOrReplace({ ...base, ageYears: 10, repairCost: 600 }, rules).verdict, 'replace'); // 10 ≥ 9.75 and 30% > 25%
 	assert.equal(F.repairOrReplace({ ...base, ageYears: 10, repairCost: 200 }, rules).verdict, 'borderline'); // old, cheap repair
 	assert.equal(F.repairOrReplace({ ...base, repairCost: 600 }, rules).verdict, 'borderline'); // young, 30%
-	{ const x = F.repairOrReplace(base, rules); assert.equal(x.verdict, 'repair'); assert.deepEqual(x.reasons, ['young', 'repair-cheap']); assert.equal(x.share, 0.1); assert.equal(x.oldFromYears, 9.75); }
+	{ const x = F.repairOrReplace(base, rules); assert.equal(x.verdict, 'repair'); assert.deepEqual(x.reasons, ['within-life', 'repair-cheap']); assert.equal(x.share, 0.1); assert.equal(x.oldFromYears, 9.75); }
 	assert.deepEqual(F.repairOrReplace({ ...base, flooded: true }, rules).reasons, ['flooded']);
 	assert.equal(F.repairOrReplace({ ...base, replacementCost: 0 }, rules).verdict, 'replace'); // no replacement price → share = 1
 });
@@ -471,15 +471,45 @@ test('consistency across pages: same household → same installed and running co
 	const cost = describeCost({ type: 'gas_tank', size: '50', state: 'TX', scenario: 'replace', permit: true }, costCfg);
 	const tank = tco.result.find((o) => o.id === 'gas_tank');
 	assert.equal(tank.installed, cost.estimate.typical);
-	assert.equal(tank.annualOperating, op.rows.find((x) => x.id === 'gas_tank').year);
+	assert.equal(tank.energy, op.rows.find((x) => x.id === 'gas_tank').year);
+	assert.equal(tank.annualOperating, Math.round((tank.energy + tank.maintenance) * 100) / 100); // running cost = energy + upkeep (F-03)
 });
 
-test('cost of ownership: gas tank vs tankless over 20 years: tank replaced once at year 13, tankless breaks even that year', () => {
+test('cost of ownership (audit F-03): payback is the simple payback, not the tank replacement year; value left is credited', () => {
 	const r = describeTco({ fuel: 'gas', household: 'typical', state: 'US', years: 20 }, tcoCfg);
 	const [tank, tankless] = r.result;
 	assert.equal(tank.replacements, 1);
 	assert.equal(tankless.replacements, 0);
-	assert.equal(tankless.breakEven, 13);
+	// Before the fix "breaks even in year 13" was only the year the tank was bought again.
+	assert.notEqual(tankless.breakEven, 13);
+	near(tankless.payback, (tankless.installed - tank.installed) / (tank.annualOperating - tankless.annualOperating), 0.05);
+	assert.ok(tankless.payback > 20 ? tankless.breakEven === null : tankless.breakEven === Math.ceil(tankless.payback));
+	// Tank bought again for year 14; after 7 years of use at year 20, 6 of its 13 years remain.
+	near(tank.residual, tank.installed * 6 / 13, 1);
+	assert.equal(tankless.residual, 0); // 20 years of a 20-year life used
+	near(tank.total, tank.spent - tank.residual, 1);
+});
+
+test('costOfOwnership: residual value at the horizon and cash by year', () => {
+	const o = { installed: 1300, annualOperating: 100, lifeYears: 13 };
+	const a = F.costOfOwnership(o, 10);
+	assert.equal(a.replacements, 0);
+	assert.equal(a.residual, 300); // 1,300 × 3/13
+	assert.equal(a.spent, 2300);
+	assert.equal(a.total, 2000);
+	const b = F.costOfOwnership(o, 13);
+	assert.equal(b.replacements, 0); // the unit bought in year 1 lasts through year 13
+	assert.equal(b.residual, 0);
+	const c = F.costOfOwnership(o, 14);
+	assert.equal(c.replacements, 1);
+	assert.equal(c.residual, 1200); // the second unit has 12 of 13 years left
+	assert.equal(c.byYear.length, 14);
+});
+
+test('yearlyMaintenance: tankless descaling and tank anode from data/installation-costs.json', () => {
+	const m = data('installation-costs').maintenance;
+	near(F.yearlyMaintenance(m.tankless, 20), m.tankless.perTimeUsd * m.tankless.timesPerYear + m.tankless.onceUsd / 20, 0.01);
+	near(F.yearlyMaintenance(m.tank, 13), m.tank.partUsd / m.tank.everyYears, 0.01);
 });
 
 /* ---------- Phase 6: heat pump payback and expansion tank sizing ---------- */
@@ -643,4 +673,113 @@ test('powerAtVoltage: 24 kW at 208 V instead of 240 V = 18.0 kW (Stiebel lists 1
 	near(F.powerAtVoltage(24, 240, 208), 18.027, 1e-3);
 	near(F.powerAtVoltage(36, 240, 208), 27.04, 1e-2);
 	assert.equal(F.powerAtVoltage(24, 0, 208), null);
+});
+
+/* ---------- Audit 2026-11-14, fix Phase 1 (tools) ---------- */
+import { parseNumber, checkLimits, invalidResult } from '../assets/js/ui.js';
+import { describe as describeTankless } from '../assets/js/tankless-size.js';
+
+const asOf = new Date(Date.UTC(2026, 10, 14));
+const minYear = 2026 - data('serial-formats').plausibility.maxAgeYears;
+
+test('F-27: A. O. Smith all-digit serials (since October 2016) decode; the old letter layout still does', () => {
+	const p = sf['ao-smith'].patterns;
+	const a = F.decodeSerial('2215123456789', p, asOf, minYear);
+	assert.deepEqual([a.year, a.week, a.month, a.patternId], [2022, 15, 4, 'aos-yyww']);
+	const n = F.decodeSerial('1601123456789', p, asOf, minYear); // A. O. Smith's own example of the new format
+	assert.deepEqual([n.year, n.week], [2016, 1]);
+	const o = F.decodeSerial('1604A012345', p, asOf, minYear); // the old format from the same notice
+	assert.deepEqual([o.year, o.week], [2016, 4]);
+});
+
+test('F-05/F-28: impossible dates are rejected, never shown as a 98-year-old or future heater', () => {
+	assert.equal(F.decodeSerial('Q532812345', sf.rheem.patterns, asOf, minYear), null); // week 53 of "28" → 1928 or 2028
+	assert.equal(F.decodeSerial('Q502612345', sf.rheem.patterns, asOf, minYear), null); // week 50 of 2026 is after 14 Nov 2026
+	const ok = F.decodeSerial('Q431912345', sf.rheem.patterns, asOf, minYear);
+	assert.deepEqual([ok.year, ok.month], [2019, 10]);
+});
+
+test('F-01: tankless default (2 showers, 70 °F rise) sizes the 105 °F shower mix: about 3.93 hot GPM, 144,905 BTU/h, one 150k unit', () => {
+	const cfg = data('computed/tankless-water-heater-size-calculator').client;
+	const fx = data('fixture-flow-rates').fixtures;
+	const flow = F.hotFlowGpm([{ count: 2, gpm: fx.shower.gpm, useTempF: fx.shower.useTempF }], 120, 50);
+	near(flow.mixedGpm, 5, 1e-9);
+	near(flow.hotGpm, 3.93, 0.01); // 5 × (105 − 50) ÷ (120 − 50)
+	const r = describeTankless({ mode: 'whole', fuel: 'gas', shower: 2, inlet: 50, setpoint: 120 }, cfg);
+	near(r.sizing.gasInputBtuh, 144905, 50);
+	assert.equal(r.sizing.gasSizeBtuh, 150000);
+	// A dishwasher has no use temperature below the setpoint, so it is sized at full flow.
+	near(F.hotFlowGpm([{ count: 1, gpm: 1.5 }], 120, 50).hotGpm, 1.5, 1e-9);
+});
+
+test('S-3/S-8: custom shower flow, soaking tub and point-of-use mode', () => {
+	const cfg = data('computed/tankless-water-heater-size-calculator').client;
+	const slow = describeTankless({ mode: 'whole', fuel: 'gas', shower: 2, inlet: 50, setpoint: 120, showerGpm: 1.8 }, cfg);
+	near(slow.sizing.mixedGpm, 3.6, 1e-9);
+	const tub = describeTankless({ mode: 'whole', fuel: 'gas', soakingTub: 1, inlet: 50, setpoint: 120 }, cfg);
+	near(tub.sizing.mixedGpm, data('fixture-flow-rates').fixtures.soakingTub.gpm, 1e-9);
+	// Eemax: 0.5 GPM sink from 52 °F to 105 °F needs about 3.9 kW by its rule (GPM × rise ÷ 6.83).
+	const p = F.pointOfUseSizing({ gpm: 0.5, useTempF: 105, inletF: 52, units: cfg.pou.units });
+	near(p.kw, (0.5 * 53) / 6.83, 0.02);
+	assert.ok(p.unit && p.unit.kw >= p.kw);
+	const pou = describeTankless({ mode: 'pou', pouFixture: 'bathroomFaucet', pouGpm: 0.5, inlet: 52, setpoint: 120 }, cfg);
+	assert.match(pou.headline, /kW for one bathroom faucet at 0\.5 GPM/);
+	const bad = describeTankless({ mode: 'whole', fuel: 'gas', shower: 2, inlet: 50, setpoint: 120, showerGpm: 9 }, cfg);
+	assert.equal(bad.status, 'bad');
+	assert.deepEqual(bad.invalid.map((x) => x.name), ['showerGpm']);
+});
+
+test('F-08: repair or replace: a 40-year-old heater with a $0 quote is replace; rusty water escalates', () => {
+	const rules = data('decision-rules').repairOrReplace;
+	const old = F.repairOrReplace({ ageYears: 40, expectedLife: 13, lifeHigh: 15, repairCost: 0, replacementCost: 2000 }, rules);
+	assert.equal(old.verdict, 'replace');
+	assert.ok(old.reasons.includes('past-life'));
+	const base = { ageYears: 5, expectedLife: 13, lifeHigh: 15, repairCost: 200, replacementCost: 2000 };
+	assert.equal(F.repairOrReplace(base, rules).verdict, 'repair');
+	assert.equal(F.repairOrReplace({ ...base, signs: [{ id: 'rusty', when: 'always' }] }, rules).verdict, 'borderline');
+	assert.equal(F.repairOrReplace({ ...base, signs: [{ id: 'noise', when: 'old' }] }, rules).verdict, 'repair'); // noise only counts once old
+	assert.equal(F.repairOrReplace({ ...base, ageYears: 10, signs: [{ id: 'rusty', when: 'always' }] }, rules).verdict, 'replace');
+	// F-02: a typed $0 new-unit price is flagged instead of silently swapped for the default.
+	const r = describeRepair({ age: 5, type: 'gas_tank', repair: 200, replace: 0 }, repairCfg);
+	assert.equal(r.status, 'bad');
+	assert.deepEqual(r.invalid.map((x) => x.name), ['replace']);
+	assert.equal(describeRepair({ age: 40, type: 'gas_tank', repair: 0, replace: repairCfg.types.gas_tank.replacementUsd }, repairCfg).decision.verdict, 'replace');
+});
+
+test('F-02/F-12: one parser and one range check for every tool', () => {
+	assert.equal(parseNumber('$1,200'), 1200);
+	assert.equal(parseNumber(' 0.15 '), 0.15);
+	assert.equal(parseNumber('$ 2 500'), 2500);
+	assert.equal(parseNumber(''), null);
+	assert.ok(Number.isNaN(parseNumber('abc')));
+	const limits = { supply: { label: 'Supply pressure', min: 10, max: 150, unit: 'psi' }, note: { label: 'Rebate', min: 0, max: 100, optional: true } };
+	assert.deepEqual(checkLimits({ supply: 60, note: null }, limits).map((x) => x.name), []);
+	assert.deepEqual(checkLimits({ supply: 170, note: null }, limits).map((x) => x.name), ['supply']);
+	assert.deepEqual(checkLimits({ supply: NaN }, limits).map((x) => x.name), ['supply']);
+	assert.deepEqual(checkLimits({ supply: null }, limits).map((x) => x.name), ['supply']); // required
+	assert.deepEqual(checkLimits({ supply: 170 }, limits, ['supply']), []);
+	const inv = invalidResult(checkLimits({ supply: 170 }, limits));
+	assert.equal(inv.status, 'bad');
+	assert.deepEqual(inv.invalid.map((x) => x.name), ['supply']);
+	assert.match(inv.invalid[0].message, /10 to 150 psi; you typed 170/);
+	// Tankless vs tank: 0 and 100 years were silently replaced by 10.
+	assert.equal(describeTco({ fuel: 'gas', household: 'typical', state: 'US', years: 100 }, tcoCfg).status, 'bad');
+	assert.equal(describeTco({ fuel: 'gas', household: 'typical', state: 'US', years: 0 }, tcoCfg).status, 'bad');
+	// Heat pump: a rebate larger than the job is capped, not turned into a huge saving.
+	const hpCfg = data('computed/heat-pump-water-heater-cost').client;
+	const capped = describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US', rebate: 99999 }, hpCfg);
+	assert.equal(capped.status, 'bad');
+	assert.deepEqual(capped.invalid.map((x) => x.name), ['rebate']);
+	const big = describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US', rebate: 15000 }, hpCfg);
+	assert.ok(big.result.extra >= -big.result.hpInstalled); // capped at the heat pump price
+	assert.match(big.explain, /counted only up to/);
+});
+
+test('S-4: propane gallons and cost', () => {
+	const btu = data('propane-prices').btuPerGallon.value;
+	const use = F.annualEnergyUse(10_000_000, 'propane', 0.8, btu);
+	near(use.gallons, 10_000_000 / btu / 0.8, 0.1);
+	near(F.annualCost(use, { usdPerGallonPropane: 2.659 }).year, use.gallons * 2.659, 0.01);
+	const op = describeOp({ household: 'typical', state: 'US', gasFuel: 'propane' }, opCfg);
+	assert.match(op.headline, /^Propane tank/);
 });

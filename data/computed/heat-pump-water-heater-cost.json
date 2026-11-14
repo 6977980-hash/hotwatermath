@@ -9,8 +9,8 @@
     "status": "ok",
     "statusLabel": "Pays back quickly",
     "headline": "Saves about $426 a year; pays back in about 3.2 years",
-    "explain": "With U.S. average prices (17.2¢ per kWh), a 50-gallon heat pump costs about $138 a year to run against $564 for your electric tank. Installed, it costs about $2,947 against $1,579 for a new electric tank: $1,368 more. Over a 13-year life that nets about $4,170.",
-    "formula": "Hot water: 55 gal a day, 120 °F setting, 58.0 °F incoming water\nElectric tank: 3,271 kWh × $0.1723 = $564/yr (UEF 0.93)\nHeat pump: 801 kWh × $0.1723 = $138/yr (UEF 3.80)\nYearly saving = $564 − $138 = $426\nHeat pump installed (50-gallon heat pump, Installation labor, Permit, haul-away and disposal of the old unit) = $2,947\nNew electric tank installed (like for like) = $1,579\nExtra cost = $2,947 − $1,579 = $1,368\nPayback = extra ÷ yearly saving = 3.2 years\nNet over 13 years = $426 × 13 − $1,368 = $4,170",
+    "explain": "With U.S. average prices (17.2¢ per kWh), a 50-gallon heat pump costs about $138 a year to run against $564 for your electric tank. Installed, it costs about $2,947 against $1,579 for a new electric tank: $1,368 more. Over a 13-year life that nets about $4,170. ENERGY STAR advises spaces that stay between 40 and 90 °F year-round with enough air around the unit, so the savings shown should hold.",
+    "formula": "Hot water: 55 gal a day, 120 °F setting, 58.0 °F incoming water\nElectric tank: 3,271 kWh × $0.1723 = $564/yr (UEF 0.93)\nHeat pump: 801 kWh × $0.1723 = $138/yr (UEF 3.80)\nYearly saving = $564 − $138 = $426\nHeat pump installed (50-gallon heat pump, Installation labor, Permit, haul-away and disposal of the old unit) = $2,947\nNew electric tank installed (like for like) = $1,579\nExtra cost = $2,947 − $1,579 = $1,368\nPayback = extra ÷ yearly saving = 3.2 years\nNet over 13 years = $426 × 13 − $1,368 = $4,170\nLocation: garage or basement that stays above 40 °f all year (no change)",
     "table": {
       "caption": "Heat pump vs a new electric tank, typical installed prices",
       "columns": [
@@ -1189,7 +1189,9 @@
               "label": "75 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "electric_tank": {
           "label": "Electric tank",
@@ -1207,7 +1209,9 @@
               "label": "50 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "heat_pump": {
           "label": "Heat pump (hybrid), 240 V",
@@ -1229,7 +1233,9 @@
               "label": "80 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "gas_tankless": {
           "label": "Gas tankless",
@@ -1243,7 +1249,9 @@
               "label": "Whole house"
             }
           ],
-          "defaultSize": "whole"
+          "defaultSize": "whole",
+          "maintenance": 19.75,
+          "maintenanceLabel": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)"
         },
         "electric_tankless": {
           "label": "Electric tankless",
@@ -1257,7 +1265,9 @@
               "label": "Whole house"
             }
           ],
-          "defaultSize": "whole"
+          "defaultSize": "whole",
+          "maintenance": 19.75,
+          "maintenanceLabel": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)"
         }
       },
       "typeOrder": [
@@ -1793,7 +1803,12 @@
       "setpointF": 120,
       "typicalGallons": 55,
       "perPersonGallons": 25.1,
-      "lastReviewed": "2026-11-13"
+      "lastReviewed": "2026-11-13",
+      "propane": {
+        "usdPerGallon": 2.659,
+        "period": "October 2026",
+        "btuPerGallon": 91452
+      }
     },
     "defaults": {
       "current": "electric_tank",
@@ -1801,6 +1816,64 @@
       "household": "typical",
       "state": "US"
     },
-    "paybackGoodYears": 7
+    "paybackGoodYears": 7,
+    "limits": {
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      },
+      "uef": {
+        "label": "Heat pump UEF",
+        "min": 1,
+        "max": 6
+      },
+      "rebate": {
+        "label": "Rebate",
+        "min": 0,
+        "max": 20000,
+        "unit": "$",
+        "optional": true,
+        "note": "A rebate larger than the installed price is counted only up to that price."
+      }
+    },
+    "location": {
+      "options": [
+        {
+          "id": "conditioned",
+          "label": "Inside the heated and cooled part of the home",
+          "status": "ok",
+          "note": "It works in heat pump mode all year. It also cools the room by about 2,500 to 5,000 BTU an hour while it runs, ENERGY STAR says: a small help in summer, a little more work for your furnace in winter."
+        },
+        {
+          "id": "buffer",
+          "label": "Garage or basement that stays above 40 °F all year",
+          "status": "ok",
+          "note": "ENERGY STAR advises spaces that stay between 40 and 90 °F year-round with enough air around the unit, so the savings shown should hold."
+        },
+        {
+          "id": "cold",
+          "label": "Garage or basement that gets colder than 40 °F in winter",
+          "status": "warn",
+          "note": "ENERGY STAR: intake air below about 40 °F \"will trigger electric resistance elements and significantly reduce HPWH efficiency\", so winter savings will be lower than shown. No source we trust publishes a single derate figure, so the saving here is the best case."
+        }
+      ],
+      "default": "buffer"
+    }
   }
 }

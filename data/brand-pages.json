@@ -68,7 +68,7 @@
     "ao-smith": {
       "slug": "ao-smith-water-heater-age",
       "option": "ao-smith",
-      "defaultSerial": "2105A012345",
+      "defaultSerial": "2105123456789",
       "checks": [
         {
           "serial": "1115A000001",
@@ -95,6 +95,14 @@
           "sourceUrl": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards"
         },
         {
+          "serial": "1601123456789",
+          "year": 2016,
+          "month": 1,
+          "published": "A. O. Smith's own example of the new nine-digit numeric serial: 1601 123 456 789, read as year and week (YYWW), in use from October 2016; the old layout was 1604A012345",
+          "source": "A. O. Smith, What's changing for you (SAP serial number notice)",
+          "sourceUrl": "https://university.hotwater.com/wp-content/uploads/sites/2/2023/11/Whats_Changing_for_You_AOSmith.pdf"
+        },
+        {
           "serial": "0805A000001",
           "year": 2008,
           "month": 1,
@@ -106,7 +114,7 @@
       "examples": [
         {
           "id": "current",
-          "serial": "2105A012345",
+          "serial": "2105123456789",
           "type": "gas_tank",
           "hardness": "moderate",
           "flushed": true,

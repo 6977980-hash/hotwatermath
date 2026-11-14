@@ -511,6 +511,33 @@
     },
     "highSupplyPsi": 80,
     "prvLow": 50,
-    "prvHigh": 60
+    "prvHigh": 60,
+    "limits": {
+      "gallons": {
+        "label": "Water heater size",
+        "min": 1,
+        "max": 200,
+        "unit": "gal"
+      },
+      "temp": {
+        "label": "Tank temperature",
+        "min": 100,
+        "max": 180,
+        "unit": "°F"
+      },
+      "supply": {
+        "label": "Supply pressure",
+        "min": 10,
+        "max": 150,
+        "unit": "psi",
+        "note": "Above 150 psi the relief valve on a home water heater opens; have the supply pressure lowered with a pressure-reducing valve first."
+      },
+      "max": {
+        "label": "Maximum pressure",
+        "min": 50,
+        "max": 160,
+        "unit": "psi"
+      }
+    }
   }
 }

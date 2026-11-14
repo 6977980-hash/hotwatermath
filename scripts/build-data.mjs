@@ -71,6 +71,8 @@ export const INPUTS = [
 	'data/metro-price-parities.json',
 	'data/safety.json',
 	'data/datasets.json',
+	'data/input-limits.json',
+	'data/propane-prices.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -82,6 +84,8 @@ const table = (caption, columns, rows, src) => ({ caption, columns, rows, source
 const states = Object.entries(d['groundwater-temp-by-state'].states).sort((a, b) => a[1].name.localeCompare(b[1].name));
 
 const out = {};
+/** Input limits of one tool (data/input-limits.json, audit F-02), copied into its client data. */
+const limitsOf = (tool) => d['input-limits'].tools[tool];
 
 /* ---------- energy prices ---------- */
 {
@@ -257,7 +261,8 @@ const model = (() => {
 		sizes[x.type].push({ id, label: sizeLabel(x) });
 	}
 	const defaultSize = { gas_tank: '50', electric_tank: '50', heat_pump: '50', gas_tankless: 'whole', electric_tankless: 'whole' };
-	const types = Object.fromEntries(typeOrder.map((t) => [t, { label: uef[t].label, fuel: fuelOf[t], uef: uef[t].typical, life: ls.types[t].typical, credit: credits[t], sizes: sizes[t], defaultSize: defaultSize[t] }]));
+	const mt = ic.maintenance;
+	const types = Object.fromEntries(typeOrder.map((t) => [t, { label: uef[t].label, fuel: fuelOf[t], uef: uef[t].typical, life: ls.types[t].typical, credit: credits[t], sizes: sizes[t], defaultSize: defaultSize[t], maintenance: F.yearlyMaintenance(mt[mt.byType[t]], ls.types[t].typical), maintenanceLabel: mt[mt.byType[t]].label }]));
 	const strip = (o) => ({ low: o.low, typical: o.typical, high: o.high });
 	const states = Object.fromEntries(Object.keys(rm).map((k) => [k, { name: rm[k].name, multiplier: rm[k].multiplier, usdPerKwh: ep.states[k].usdPerKwh, usdPerTherm: ep.states[k].usdPerTherm, inletF: inlet[k].annualAvg }]));
 	return {
@@ -271,6 +276,7 @@ const model = (() => {
 		typicalGallons: hw.typicalHouseholdGallonsPerDay.value,
 		perPersonGallons: hw.perPersonGallonsPerDay.value,
 		lastReviewed: ic.lastReviewed,
+		propane: { usdPerGallon: d['propane-prices'].us.usdPerGallon, period: d['propane-prices'].us.period, btuPerGallon: d['propane-prices'].btuPerGallon.value },
 	};
 })();
 const stateOptions = [{ id: 'US', name: 'U.S. average' }, ...states.map(([k, s]) => ({ id: k, name: s.name }))];
@@ -381,6 +387,11 @@ function describePattern(p) {
 }
 
 /* ---------- Phase 2 tools: age calculator ---------- */
+// Result "sources" line, per brand (audit F-06): names the sources of that brand's own date code, never Rheem's for all.
+const SOURCE_NAMES = { 'insider.energytrust.org': 'Energy Trust of Oregon', 'www.cpsc.gov': 'U.S. CPSC recall notice', 'www.ruud.com': 'Rheem/Ruud lookup', 'www.bradfordwhite.com': 'Bradford White', 'inspectapedia.com': 'InspectApedia (third party)', 'building-center.org': 'Building Intelligence Center (third party)', 'www.building-center.org': 'Building Intelligence Center (third party)', 'university.hotwater.com': 'A. O. Smith serial notice' };
+const sourceName = (url) => SOURCE_NAMES[new URL(url).host] || new URL(url).host;
+const brandSourceLine = (b) => [...new Set([b.sourceUrl, ...b.patterns.map((p) => p.sourceUrl).filter(Boolean)].map(sourceName))].join(', ');
+const LIFE_SOURCE_LINE = 'Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions.';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.year}`);
 {
@@ -392,8 +403,9 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const adj = ls.adjustments;
 	const lifeFor = (typeId) => ls.types[ls.toolTypes.options.find((o) => o.id === typeId).life];
 	const deltas = (hardness, flushed, anode) => [adj.hardness[hardness] ?? 0, flushed ? 0 : adj.noAnnualFlush, anode ? adj.anodeReplaced : 0];
+	const minYear = refYear - sf.plausibility.maxAgeYears;
 	const estimate = (brand, serial, typeId, hardness, flushed, anode) => {
-		const made = F.decodeSerial(serial, sf.brands[brand].patterns, refYear);
+		const made = F.decodeSerial(serial, sf.brands[brand].patterns, asOf, minYear);
 		const est = F.ageEstimate(made, asOf, lifeFor(typeId), deltas(hardness, flushed, anode), adj.minimumLifeYears, ls.statusBands);
 		return { made, ...est };
 	};
@@ -401,7 +413,8 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const pct = (f) => Math.round(f * 100);
 
 	// Default (server-rendered) result = the form's default inputs.
-	const def = { brand: 'rheem', serial: 'Q431912345', type: 'gas_tank', hardness: 'moderate', flushed: true, anode: false };
+	// "Flushed yearly" starts unticked (audit F-07): most owners never flush, so the default must not flatter the result.
+	const def = { brand: 'rheem', serial: 'Q431912345', type: 'gas_tank', hardness: 'moderate', flushed: false, anode: false };
 	const e = estimate(def.brand, def.serial, def.type, def.hardness, def.flushed, def.anode);
 	const life = e.life;
 	// Worked example on the page: Bradford White electric tank, hard water, never flushed.
@@ -416,16 +429,16 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		{ serial: 'M101812345', official: '2018-03-07' },
 		{ serial: 'Q052412345', official: '2024-01-25' },
 	]) {
-		const m = F.decodeSerial(t.serial, sf.brands.rheem.patterns, refYear);
+		const m = F.decodeSerial(t.serial, sf.brands.rheem.patterns, asOf, minYear);
 		const [oy, om] = t.official.split('-').map(Number);
 		xc.push({ id: `rheem-${t.serial}`, label: `Rheem/Ruud serial ${t.serial} (test serial)`, ours: madeLabel(m), published: `${MONTHS[om - 1]} ${Number(t.official.slice(8))}, ${oy}`, match: m.year === oy && m.month === om, why: 'Same month. The serial holds a production week, so we show the month; the official lookup returns a day inside that week.', source: 'Ruud official water heater age calculator', sourceUrl: sf.brands.rheem.sourceUrl });
 	}
 	for (const t of [{ serial: 'SF', year: 2018, month: 6 }, { serial: 'XA', year: 2021, month: 1 }]) {
-		const m = F.decodeSerial(`${t.serial}1234567`, sf.brands['bradford-white'].patterns, refYear);
+		const m = F.decodeSerial(`${t.serial}1234567`, sf.brands['bradford-white'].patterns, asOf, minYear);
 		xc.push({ id: `bw-${t.serial}`, label: `Bradford White serial starting ${t.serial}`, ours: `${madeLabel(m)} (also possible: ${m.otherYears.join(', ')})`, published: `${MONTHS[t.month - 1]} ${t.year} (table: ${t.serial[0]} = ${t.year} or ${t.year + 20}, ${t.serial[1]} = ${MONTHS[t.month - 1]})`, match: m.year === t.year && m.month === t.month, why: 'Same date. Bradford White letters repeat every 20 years; we pick the latest year that is not in the future and list the others, as the manufacturer table does.', source: 'Bradford White, Determine the age of my water heater', sourceUrl: sf.brands['bradford-white'].sourceUrl });
 	}
 	{
-		const m = F.decodeSerial('7410A18709AAAA', sf.brands.navien.patterns, refYear);
+		const m = F.decodeSerial('7410A18709AAAA', sf.brands.navien.patterns, asOf, minYear);
 		xc.push({ id: 'navien-cpsc', label: 'Navien NPE-180A serial 7410x18709xxxx (recall example)', ours: madeLabel(m), published: 'July 9, 2018', match: m.year === 2018 && m.month === 7, why: 'Same month. We do not show the day.', source: 'U.S. CPSC recall notice, Navien tankless water heaters (2019)', sourceUrl: sf.brands.navien.sourceUrl });
 	}
 
@@ -469,7 +482,9 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 			asOf: asOfIso,
 			months: MONTHS,
 			brandOptions: sf.brandOptions.options,
-			brands: Object.fromEntries(Object.entries(sf.brands).map(([k, b]) => [k, { label: b.label, patterns: b.patterns.map(({ id, regex, fields, validFromYear, validToYear }) => ({ id, regex, fields, validFromYear, validToYear })) }])),
+			maxAgeYears: sf.plausibility.maxAgeYears,
+			brands: Object.fromEntries(Object.entries(sf.brands).map(([k, b]) => [k, { label: b.label, sourceLine: brandSourceLine(b), patterns: b.patterns.map(({ id, regex, fields, validFromYear, validToYear }) => ({ id, regex, fields, validFromYear, validToYear })) }])),
+			lifeSourceLine: LIFE_SOURCE_LINE,
 			officialLookups: sf.officialLookups,
 			types: ls.toolTypes.options.map((o) => ({ id: o.id, label: o.label, ...ls.types[o.life] })),
 			adjustments: adj,
@@ -483,7 +498,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline,
 		explain: `${dd.explain} (Example serial, as of ${asOfIso}; type yours.)`,
 		formula: dd.formula,
-		sources: 'Rheem date code: checked against Rheem/Ruud\'s own lookup. Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions. <a href="/methodology/#water-heater-age-calculator">See the decoder checked against Rheem/Ruud, Bradford White and CPSC</a>.',
+		sources: `<span class="result__sources-text">${dd.sourcesText}</span> <a href="/methodology/#water-heater-age-calculator">See the decoder checked against Rheem/Ruud, Bradford White, A. O. Smith and CPSC</a>.`,
 	};
 }
 
@@ -499,17 +514,16 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const deltas = (hardness, flushed, anode, typeId) => [adj.hardness[hardness] ?? 0, flushed ? 0 : adj.noAnnualFlush, anode && typeId !== 'tankless' ? adj.anodeReplaced : 0];
 	const statusLabel = ageOut.statusLabels;
 	const pct = (f) => Math.round(f * 100);
-	const SOURCE_NAMES = { 'insider.energytrust.org': 'Energy Trust of Oregon', 'www.cpsc.gov': 'U.S. CPSC recall notice', 'www.ruud.com': 'Rheem/Ruud lookup', 'www.bradfordwhite.com': 'Bradford White', 'inspectapedia.com': 'InspectApedia (third party)', 'building-center.org': 'Building Intelligence Center (third party)', 'www.building-center.org': 'Building Intelligence Center (third party)' };
-	const sourceName = (url) => SOURCE_NAMES[new URL(url).host] || new URL(url).host;
 
 	for (const [brandId, b] of Object.entries(bp.brands)) {
 		const asOfIso = d.site.dateVerified[b.slug] || d.site.dateVerified['water-heater-age-calculator'];
 		const asOf = new Date(`${asOfIso}T12:00:00Z`);
 		const refYear = asOf.getUTCFullYear();
+		const minYear = refYear - sf.plausibility.maxAgeYears;
 		const code = sf.brands[b.code || brandId];
 		const option = sf.brandOptions.options.find((o) => o.id === b.option);
 		const checks = b.checks.map((c) => {
-			const m = F.decodeSerial(c.serial, code.patterns, refYear);
+			const m = F.decodeSerial(c.serial, code.patterns, asOf, minYear);
 			const yearOk = m && (m.year === c.year || (c.cycle && m.otherYears.includes(c.year)));
 			return {
 				serial: c.serial,
@@ -525,7 +539,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		const bad = checks.filter((c) => !c.match);
 		if (bad.length) throw new Error(`brand-pages ${brandId}: hand-check mismatch ${bad.map((c) => c.serial).join(', ')}`);
 		const examples = b.examples.map((x) => {
-			const m0 = F.decodeSerial(x.serial, code.patterns, refYear);
+			const m0 = F.decodeSerial(x.serial, code.patterns, asOf, minYear);
 			const made = x.useOtherYear ? { ...m0, year: m0.otherYears[0], otherYears: [m0.year, ...m0.otherYears.slice(1)] } : m0;
 			const base = lifeFor(x.type);
 			const est = F.ageEstimate(made, asOf, base, deltas(x.hardness, x.flushed, x.anode, x.type), adj.minimumLifeYears, ls.statusBands);
@@ -551,7 +565,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 			source: sourceName(p.sourceUrl || code.sourceUrl),
 			sourceUrl: p.sourceUrl || code.sourceUrl,
 		}));
-		const def = { brand: b.option, serial: b.defaultSerial, type: b.defaultType || 'gas_tank', hardness: 'moderate', flushed: true, anode: false };
+		const def = { brand: b.option, serial: b.defaultSerial, type: b.defaultType || 'gas_tank', hardness: 'moderate', flushed: false, anode: false };
 		const dd = describeAge({ ...def, madeYear: null, madeMonth: '' }, ageOut.client, asOf);
 		const o = {
 			meta: { ...derived('data/brand-pages.json, data/serial-formats.json and data/lifespans.json'), notes: `Brand page for ${code.label}. Default result, hand-checks and worked examples are computed as of ${asOfIso}. The live calculator uses the visitor's date.` },
@@ -565,7 +579,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 				status: dd.status, statusLabel: dd.statusLabel, headline: dd.headline,
 				explain: `${dd.explain} (Example serial in the ${code.label} format, as of ${asOfIso}; type yours.)`,
 				formula: dd.formula,
-				sources: `${code.label} date code: ${[...new Set(formatRows.map((f) => f.source))].join(', ')}. Lifespan: DOE 2024 water heater rule and DOE FEMP. Adjustments are our editorial assumptions. <a href="/methodology/#water-heater-age-calculator">See every decoder test case</a>.`,
+				sources: `<span class="result__sources-text">${dd.sourcesText}</span> <a href="/methodology/#water-heater-age-calculator">See every decoder test case</a>.`,
 			},
 			checks,
 			checksMatched: checks.filter((c) => c.match).length,
@@ -660,7 +674,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const gasSizes = tr.sizeChart.gasInputsBtuh;
 	const units = el.referenceUnits;
 	const size = (counts, inletF, eff = uef.gas_tankless.typical, lowFlow = false) => F.tanklessSizing({
-		fixtures: Object.entries(counts).map(([k, count]) => ({ count, gpm: lowFlow ? fx.fixtures[k].lowFlowGpm : fx.fixtures[k].gpm })),
+		fixtures: Object.entries(counts).map(([k, count]) => ({ count, gpm: lowFlow ? fx.fixtures[k].lowFlowGpm : fx.fixtures[k].gpm, useTempF: fx.fixtures[k].useTempF })),
 		setpointF: setpoint, inletF: inletF, gasEfficiency: eff, volts: el.residentialVolts, gasSizesBtuh: gasSizes, electricUnits: units,
 	});
 
@@ -691,9 +705,10 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		}
 	}
 	for (const ex2 of tr.noritzExample.examples) {
-		const g = F.totalGpm(Object.entries(ex2.fixtures).map(([k, count]) => ({ count, gpm: tr.noritzExample.fixtureGpm[k] })));
-		const s = F.tanklessSizing({ fixtures: [{ count: 1, gpm: g }], setpointF: tr.noritzExample.setpointF, inletF: tr.noritzExample.groundwaterF, gasEfficiency: uef.gas_tankless.typical, volts: el.residentialVolts, gasSizesBtuh: gasSizes, electricUnits: units });
-		xc.push({ id: ex2.id, label: `Noritz example: ${ex2.label}, ${tr.noritzExample.groundwaterF} °F groundwater, ${tr.noritzExample.setpointF} °F setpoint`, ours: `${fmt(s.gpm)} GPM, ${s.rise} °F rise; ${fmt(s.gasInputBtuh)} BTU/h input; ${s.gasUnitsAtLargest} unit${s.gasUnitsAtLargest > 1 ? 's' : ''} of ${fmt(s.largestGasBtuh)} BTU/h`, published: `${fmt(ex2.gpm)} GPM, ${tr.noritzExample.riseF} °F rise; ${ex2.pick}`, diffPct: r(((s.gpm - ex2.gpm) / ex2.gpm) * 100, 1), why: s.gasUnitsAtLargest === 1 || ex2.id === 'noritz-2' ? 'Same flow, rise and number of units.' : `Same flow and rise. Our required input is ${fmt(r(((s.gasInputBtuh - s.largestGasBtuh) / s.largestGasBtuh) * 100, 1), 1)}% above one ${fmt(s.largestGasBtuh)} BTU/h unit at UEF ${uef.gas_tankless.typical}, so we say one unit is just short; Noritz matches the "approximate flow" on its chart and picks one large unit. Both agree it is a one-large-unit or two-unit job.`, source: tr.noritzExample.source, sourceUrl: tr.noritzExample.sourceUrl });
+		const useOf = { shower: fx.fixtures.shower.useTempF, lavSink: fx.fixtures.bathroomFaucet.useTempF };
+		const s = F.tanklessSizing({ fixtures: Object.entries(ex2.fixtures).map(([k, count]) => ({ count, gpm: tr.noritzExample.fixtureGpm[k], useTempF: useOf[k] })), setpointF: tr.noritzExample.setpointF, inletF: tr.noritzExample.groundwaterF, gasEfficiency: uef.gas_tankless.typical, volts: el.residentialVolts, gasSizesBtuh: gasSizes, electricUnits: units });
+		const noritzUnits = ex2.id === 'noritz-2' ? 2 : 1;
+		xc.push({ id: ex2.id, label: `Noritz example: ${ex2.label}, ${tr.noritzExample.groundwaterF} °F groundwater, ${tr.noritzExample.setpointF} °F setpoint`, ours: `${fmt(s.mixedGpm)} GPM at the fixtures, ${fmt(s.gpm, 1)} GPM hot, ${s.rise} °F rise; ${fmt(s.gasInputBtuh)} BTU/h input; ${s.gasUnitsAtLargest} unit${s.gasUnitsAtLargest > 1 ? 's' : ''} of ${fmt(s.largestGasBtuh)} BTU/h`, published: `${fmt(ex2.gpm)} GPM, ${tr.noritzExample.riseF} °F rise; ${ex2.pick}`, diffPct: r(((s.mixedGpm - ex2.gpm) / ex2.gpm) * 100, 1), unitsMatch: s.gasUnitsAtLargest === noritzUnits, why: `${s.gasUnitsAtLargest === noritzUnits ? 'Same number of units.' : 'A different number of units.'} Same fixture flow and rise. Noritz heats the whole fixture flow to the ${tr.noritzExample.setpointF} °F setpoint, which errs high; we size showers and sinks at the ${fx.fixtures.shower.useTempF} °F they are used at, as Rinnai's sizing charts do, so our hot flow is lower (${fmt(s.gpm, 1)} vs ${fmt(ex2.gpm)} GPM). The washer and dishwasher are sized at the full setpoint in both.`, source: tr.noritzExample.source, sourceUrl: tr.noritzExample.sourceUrl });
 	}
 	for (const p of el.riseChartCheck.points.filter((x) => [3, 4, 5].includes(x.gpm))) {
 		const kwNeeded = F.electricKw(F.outputBtuh(p.gpm, p.riseF));
@@ -708,13 +723,15 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		example: {
 			state: it[exState].name, inlet: exInlet, setpoint, counts: exCounts,
 			showerGpm: fx.fixtures.shower.gpm, kitchenGpm: fx.fixtures.kitchenFaucet.gpm,
+			mixedGpm: fmt(ex.mixedGpm, 1), showerUseF: fx.fixtures.shower.useTempF, showerSharePct: Math.round((ex.flowRows.find((x) => x.useTempF < setpoint)?.share ?? 1) * 100),
+			showerHotGpm: fmt((ex.flowRows.find((x) => x.useTempF < setpoint)?.share ?? 1) * fx.fixtures.shower.gpm, 2),
 			gpm: fmt(ex.gpm, 1), rise: fmt(ex.rise, 1), output: fmt(ex.outputBtuh), gasInput: fmt(ex.gasInputBtuh), gasUnits: ex.gasUnitsAtLargest, gasSize: ex.gasSizeBtuh ? fmt(ex.gasSizeBtuh) : '', largestGas: fmt(ex.largestGasBtuh),
 			kw: fmt(ex.kw, 1), amps: fmt(ex.amps), electricUnits: ex.electricUnitsAtLargest, largestKw: fmt(ex.largestKw),
 			lowShowerGpm: fx.fixtures.shower.lowFlowGpm, lowGpm: fmt(exLow.gpm, 1), lowGasInput: fmt(exLow.gasInputBtuh), lowGasUnits: exLow.gasUnitsAtLargest, lowGasSize: exLow.gasSizeBtuh ? fmt(exLow.gasSizeBtuh) : '', lowKw: fmt(exLow.kw, 1),
 			uef: uef.gas_tankless.typical,
 		},
-		defaultCase: { gpm: fmt(s0.gpm, 1), lpm: fmt(s0.gpm * F.PHYSICS.litersPerGallon, 1), rise: s0.rise, gasInput: fmt(s0.gasInputBtuh), gasSize: s0.gasSizeBtuh ? fmt(s0.gasSizeBtuh) : '', kw: fmt(s0.kw, 1), amps: fmt(s0.amps), electricUnits: s0.electricUnitsAtLargest, inlet: defInlet },
-		climate: climate.map((c) => ({ st: c.st, name: c.name, inlet: fmt(c.inlet), rise: fmt(c.rise), gpm: fmt(c.gpm, 1), gasInput: fmt(c.gasInputBtuh), gasUnits: c.gasUnitsAtLargest, kw: fmt(c.kw, 1) })),
+		defaultCase: { mixedGpm: fmt(s0.mixedGpm, 1), gpm: fmt(s0.gpm, 1), lpm: fmt(s0.gpm * F.PHYSICS.litersPerGallon, 1), rise: s0.rise, gasInput: fmt(s0.gasInputBtuh), gasSize: s0.gasSizeBtuh ? fmt(s0.gasSizeBtuh) : '', kw: fmt(s0.kw, 1), amps: fmt(s0.amps), electricUnits: s0.electricUnitsAtLargest, inlet: defInlet },
+		climate: climate.map((c) => ({ st: c.st, name: c.name, inlet: fmt(c.inlet), rise: fmt(c.rise), mixedGpm: fmt(c.mixedGpm, 1), gpm: fmt(c.gpm, 1), gasInput: fmt(c.gasInputBtuh), gasUnits: c.gasUnitsAtLargest, kw: fmt(c.kw, 1) })),
 		chartHighlight: (() => {
 			const rise = tr.sizeChart.risesF.includes(tr.publishedRisesF[0]) ? tr.publishedRisesF[0] : tr.sizeChart.risesF[0];
 			const gasBtuh = Math.max(...gasSizes);
@@ -741,7 +758,10 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		client: {
 			setpointF: setpoint,
 			defaultInletF: defInlet,
-			fixtures: Object.fromEntries(Object.entries(fx.fixtures).map(([k, f]) => [k, { label: f.label, gpm: f.gpm, lowFlowGpm: f.lowFlowGpm }])),
+			fixtures: Object.fromEntries(Object.entries(fx.fixtures).map(([k, f]) => [k, { label: f.label, gpm: f.gpm, lowFlowGpm: f.lowFlowGpm, ...(f.useTempF ? { useTempF: f.useTempF } : {}) }])),
+			limits: limitsOf('tankless-water-heater-size-calculator'),
+			customShower: fx.customShower,
+			pou: { fixtures: tr.pointOfUse.fixtures, units: tr.pointOfUse.units },
 			states: Object.fromEntries(Object.entries(it).map(([k, s]) => [k, { name: s.name, coldestMonth: s.coldestMonth, annualAvg: s.annualAvg }])),
 			gasEfficiency: { condensing: uef.gas_tankless.typical, nonCondensing: uef.gas_tankless.low },
 			electricEfficiency: uef.electric_tankless.typical,
@@ -777,6 +797,11 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		margin: ph.margin.share,
 		fhrTable,
 		guide: { label: hg.american.label, rows: hg.american.rows },
+		limits: limitsOf('water-heater-size-calculator'),
+		showerFlow: { baseGpm: ph.showerFlow.baseGpm },
+		largeTub: { useTempF: ph.largeTub.useTempF, maxGallons: ph.largeTub.maxGallons },
+		setpointF: d.site.defaults.setpointTempF.value,
+		inletF: d['hot-water-use'].testConditions.inletF,
 	};
 	const defPeople = ph.householdPresets.defaultPeople;
 	const byPeople = people.map((n) => {
@@ -870,11 +895,11 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const hw = d['hot-water-use'];
 	const ep = out['energy-prices'].us;
 	const typeDefs = [
-		{ id: 'gas_tank', label: 'Gas tank', life: ls.types.gas_tank.typical, uefId: 'gas_tank' },
-		{ id: 'electric_tank', label: 'Electric tank', life: ls.types.electric_tank.typical, uefId: 'electric_tank' },
-		{ id: 'heat_pump', label: 'Heat pump (hybrid)', life: ls.types.heat_pump.typical, uefId: 'heat_pump' },
-		{ id: 'tankless', label: 'Gas tankless', life: ls.types.gas_tankless.typical, uefId: 'gas_tankless' },
-		{ id: 'electric_tankless', label: 'Electric tankless', life: ls.types.electric_tankless.typical, uefId: 'electric_tankless' },
+		{ id: 'gas_tank', label: 'Gas tank', life: ls.types.gas_tank.typical, lifeHigh: ls.types.gas_tank.high, uefId: 'gas_tank' },
+		{ id: 'electric_tank', label: 'Electric tank', life: ls.types.electric_tank.typical, lifeHigh: ls.types.electric_tank.high, uefId: 'electric_tank' },
+		{ id: 'heat_pump', label: 'Heat pump (hybrid)', life: ls.types.heat_pump.typical, lifeHigh: ls.types.heat_pump.high, uefId: 'heat_pump' },
+		{ id: 'tankless', label: 'Gas tankless', life: ls.types.gas_tankless.typical, lifeHigh: ls.types.gas_tankless.high, uefId: 'gas_tankless' },
+		{ id: 'electric_tankless', label: 'Electric tankless', life: ls.types.electric_tankless.typical, lifeHigh: ls.types.electric_tankless.high, uefId: 'electric_tankless' },
 	];
 	const types = Object.fromEntries(typeDefs.map((t) => {
 		const priceKey = dr.replacementPriceKey[t.id];
@@ -883,7 +908,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		const src = d['cost-ranges'].units[priceKey];
 		const est = estimateInstalled(model, { type: src.type, size: src.nominalGallons ? String(src.nominalGallons) : 'whole', state: 'US', extras: defaultExtras(model, 'replace', src.type) });
 		return [t.id, {
-			label: t.label, life: t.life, uefId: t.uefId, uef: uef[t.uefId].typical, fuel: dr.fuelOf[t.id],
+			label: t.label, life: t.life, lifeHigh: t.lifeHigh, uefId: t.uefId, uef: uef[t.uefId].typical, fuel: dr.fuelOf[t.id],
 			replacementUsd: est.typical, equipmentUsd: up[priceKey].typical, costType: src.type, costSize: src.nominalGallons ? String(src.nominalGallons) : 'whole',
 			replacementLabel: up[priceKey].label, replacementRange: `${fmt(est.low)}–${fmt(est.high)}`,
 			upgrade: { id: upId, label: uef[upId].label, short: dr.upgradeLabel[upId], uef: uef[upId].typical, fuel: dr.fuelOf[upId] },
@@ -894,9 +919,10 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		symptoms: dr.symptoms.items.map((s) => ({ id: s.id, label: s.label, effect: s.effect, note: s.note })),
 		prices: { usdPerKwh: ep.usdPerKwh, usdPerTherm: ep.usdPerTherm },
 		use: { gallonsPerDay: hw.typicalHouseholdGallonsPerDay.value, riseF: hw.testConditions.riseF },
+		limits: limitsOf('repair-or-replace-water-heater'),
 	};
 	const rules = dr.repairOrReplace;
-	const ask = (age, type, repair, extra = {}) => F.repairOrReplace({ ageYears: age, expectedLife: types[type].life, repairCost: repair, replacementCost: types[type].replacementUsd, tankLeaking: false, ...extra }, rules);
+	const ask = (age, type, repair, extra = {}) => F.repairOrReplace({ ageYears: age, expectedLife: types[type].life, lifeHigh: rules.replaceAtLifeHigh ? types[type].lifeHigh : undefined, repairCost: repair, replacementCost: types[type].replacementUsd, tankLeaking: false, ...extra }, rules);
 	// Most you should pay for a repair, by type and age band.
 	const limits = typeDefs.map((t) => ({ label: t.label, price: fmt(types[t.id].replacementUsd), young: fmt(r(types[t.id].replacementUsd * rules.repairShareAlways)), oldFrom: fmt(r(rules.ageShare * t.life, 1), 1), old: fmt(r(types[t.id].replacementUsd * rules.repairShareWhenOld)) }));
 	// Energy comparison by type.
@@ -1041,7 +1067,7 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 
 /* ---------- Phase 4 tools: gas vs electric operating cost ---------- */
 {
-	const client = { model, defaults: { household: 'typical', state: 'US' } };
+	const client = { model, defaults: { household: 'typical', state: 'US' }, limits: limitsOf('gas-vs-electric-water-heater') };
 	const run = (state, household = 'typical') => describeOp({ household, state }, client);
 	const d0 = run('US');
 	const op0 = Object.fromEntries(d0.rows.map((x) => [x.id, x]));
@@ -1094,11 +1120,11 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 		electric: [{ type: 'electric_tank', size: '50', scenario: 'replace', label: 'Electric tank (50 gal)' }, { type: 'electric_tankless', size: 'whole', scenario: 'toTankless', label: 'Electric tankless' }, { type: 'heat_pump', size: '50', scenario: 'replace', label: 'Heat pump (50 gal)' }],
 	};
 	const years = d['decision-rules'].ownershipYearsDefault;
-	const client = { model, options, defaults: { fuel: 'gas', household: 'typical', state: 'US', years } };
+	const client = { model, options, defaults: { fuel: 'gas', household: 'typical', state: 'US', years }, limits: limitsOf('tankless-vs-tank-water-heater') };
 	const run = (fuel, state = 'US', household = 'typical', y = years) => describeTco({ fuel, state, household, years: y }, client);
 	const g0 = run('gas');
 	const e0 = run('electric');
-	const pick = (res) => Object.fromEntries(res.result.map((o) => [o.id, { installed: fmt(o.installed), year: fmt(o.annualOperating), total: fmt(o.total), totalNum: o.total, be: o.breakEven || 0, repl: o.replacements, life: o.lifeYears }]));
+	const pick = (res) => Object.fromEntries(res.result.map((o) => [o.id, { installed: fmt(o.installed), year: fmt(o.annualOperating), total: fmt(o.total), totalNum: o.total, be: o.breakEven || 0, payback: o.payback === null ? '' : fmt(o.payback, 1), residual: fmt(o.residual), spent: fmt(o.spent), repl: o.replacements, life: o.lifeYears }]));
 	const g = pick(g0);
 	const e = pick(e0);
 	const g20 = pick(run('gas', 'US', 'typical', 20));
@@ -1119,7 +1145,7 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 	out['tankless-vs-tank-water-heater'] = {
 		meta: { ...derived('the cost calculator and gas vs electric models plus data/lifespans.json and data/incentives.json'), notes: 'Default result, ownership tables, state break-even table and DOE cross-checks for the tankless vs tank tool.' },
 		default: { status: g0.status, statusLabel: g0.statusLabel, headline: g0.headline, explain: g0.explain, formula: g0.formula, table: g0.table, sources: `Installed costs: same model as our cost calculator (${ic.lastReviewed}). Running costs: same formula as our gas vs electric tool, EIA prices. Lifespans: DOE. Federal credit: $0 (IRS, 25C ended 2025). <a href="/methodology/#tankless-vs-tank-water-heater">See our results checked against DOE</a>.` },
-		figures: { gas: g, electric: e, gas20: g20, years, years20: 20, gasTanklessSaving: fmt(g0.result[0].annualOperating - g0.result[1].annualOperating), gas20Tank: g20.gas_tank, gasTanklessStatesPay: stateRows.filter((x) => x.gtNum).length, stateCount: stateRows.length, people, perPerson: model.perPersonGallons, lifeTank: model.types.gas_tank.life, lifeTankless: model.types.gas_tankless.life },
+		figures: { gas: g, electric: e, gas20: g20, years, years20: 20, gasTanklessSaving: fmt(g0.result[0].annualOperating - g0.result[1].annualOperating), gas20Tank: g20.gas_tank, gasTanklessStatesPay: stateRows.filter((x) => x.gtNum).length, gasTanklessAhead: g0.result[1].total < g0.result[0].total, gasTanklessAheadBy: fmt(Math.abs(g0.result[0].total - g0.result[1].total)), maintTankless: fmt(model.types.gas_tankless.maintenance), maintTank: fmt(model.types.gas_tank.maintenance), stateCount: stateRows.length, people, perPerson: model.perPersonGallons, lifeTank: model.types.gas_tank.life, lifeTankless: model.types.gas_tankless.life },
 		stateOptions,
 		crossChecks: xc,
 		tables: {
@@ -1143,6 +1169,9 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 		['tankless-vs-tank-water-heater', [tf.years + ' years', tf.electric.heat_pump.be + ' years']],
 	];
 	for (const [slug, parts] of must) for (const part of parts) if (!qa(slug).includes(part)) throw new Error('pages.json quickAnswer for ' + slug + ' must contain "' + part + '" (computed); update it.');
+	const tk = out['tankless-water-heater-size-calculator'].defaultCase;
+	for (const part of [`${tk.gpm} GPM`, `${fmt(Math.round(Number(tk.gasInput.replace(/,/g, '')) / 1000) * 1000)} BTU/h`]) if (!qa('tankless-water-heater-size-calculator').includes(part)) throw new Error('pages.json quickAnswer for tankless-water-heater-size-calculator must contain "' + part + '" (computed); update it.');
+	if (/costs more over/.test(qa('tankless-vs-tank-water-heater')) && tf.gasTanklessAhead) throw new Error('tankless-vs-tank quickAnswer says tankless costs more; with value left counted it does not.');
 	if (tf.gas.gas_tankless.be) throw new Error('tankless-vs-tank quickAnswer says gas tankless does not pay back in the default period; computed says it does.');
 }
 
@@ -1167,7 +1196,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 /* heat pump water heater cost + savings calculator (STRATEGY §3.8) */
 {
 	const hp = d['heat-pump'];
-	const client = { model, defaults: { current: 'electric_tank', size: '50', household: 'typical', state: 'US' }, paybackGoodYears: hp.savingsCalculator.paybackGoodYears };
+	const client = { model, defaults: { current: 'electric_tank', size: '50', household: 'typical', state: 'US' }, paybackGoodYears: hp.savingsCalculator.paybackGoodYears, limits: limitsOf('heat-pump-water-heater-cost'), location: { options: hp.location.options.map(({ id, label, status, note }) => ({ id, label, status, note })), default: hp.location.default } };
 	const run = (o = {}) => describeHp({ current: 'electric_tank', size: '50', household: 'typical', state: 'US', ...o }, client);
 	const e0 = run();
 	const g0 = run({ current: 'gas_tank' });
@@ -1404,7 +1433,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	const et = d['expansion-tanks'];
 	const data = { expansionFactors: et.expansionFactors, atmosphericPsi: et.atmosphericPsi, tanks: et.tanks, headroomShare: et.defaults.headroomShare };
 	const pa = et.pressureAdvice;
-	const client = { data, defaults: { heaterGallons: et.defaults.heaterGallons, tempF: d.site.defaults.setpointTempF.value, supplyPsi: et.defaults.supplyPsi, maxPsi: et.defaults.maxPsi }, highSupplyPsi: pa.maxPsi, prvLow: pa.prvLowPsi, prvHigh: pa.prvHighPsi };
+	const client = { data, defaults: { heaterGallons: et.defaults.heaterGallons, tempF: d.site.defaults.setpointTempF.value, supplyPsi: et.defaults.supplyPsi, maxPsi: et.defaults.maxPsi }, highSupplyPsi: pa.maxPsi, prvLow: pa.prvLowPsi, prvHigh: pa.prvHighPsi, limits: limitsOf('water-heater-expansion-tank-size') };
 	const run = (o = {}) => describeEt({ gallons: client.defaults.heaterGallons, temp: client.defaults.tempF, supply: client.defaults.supplyPsi, max: client.defaults.maxPsi, ...o }, client);
 	const d0 = run();
 	const sizeOf = (r) => (r.result.safer ? `${r.result.tank.id} (${r.result.safer.id} safer)` : r.result.tank ? r.result.tank.id : '—');
@@ -1867,7 +1896,9 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		for (const [t, p] of TYPES) {
 			const installed = job(t, '50', 'replace', k).typical;
 			const yearly = ops[t].year;
-			o[p] = { installed, yearly, own: F.costOfOwnership({ installed, annualOperating: yearly, lifeYears: model.types[t].life, credit: 0 }, years).total };
+			// The index counts installed price + energy over the years, as its text says (same as the state pages); the
+			// tankless vs tank tool's residual value and upkeep lines are not part of this figure.
+			o[p] = { installed, yearly, own: Math.round(installed + yearly * years) };
 		}
 		const best = TYPES.map(([t, p]) => ({ t, p, own: o[p].own })).sort((a, b) => a.own - b.own)[0];
 		return { code: k, ...o, best: best.t, bestOwn: best.own };

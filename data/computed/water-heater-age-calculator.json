@@ -11,16 +11,16 @@
     "serial": "Q431912345",
     "type": "gas_tank",
     "hardness": "moderate",
-    "flushed": true,
+    "flushed": false,
     "anode": false
   },
   "default": {
     "status": "ok",
     "statusLabel": "Well within expected life",
     "headline": "About 7.1 years old (built October 2019)",
-    "explain": "That is about 55% of the 13-year typical life for this type (gas tank). Estimated remaining life: 2.9 to 7.9 years. (Example serial, as of 2026-11-13; type yours.)",
-    "formula": "Built: October 2019 (Rheem / Ruud code: week 43, year 2019)\nAge = today − October 2019 = 7.1 years\nExpected life (gas tank) = 10–15 years, typical 13; adjustments: none\nShare used = 7.1 ÷ 13 = 55%",
-    "sources": "Rheem date code: checked against Rheem/Ruud's own lookup. Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions. <a href=\"/methodology/#water-heater-age-calculator\">See the decoder checked against Rheem/Ruud, Bradford White and CPSC</a>."
+    "explain": "That is about 59% of the 12-year typical life for this type (gas tank), adjusted for your answers. Estimated remaining life: 1.9 to 6.9 years. (Example serial, as of 2026-11-13; type yours.)",
+    "formula": "Built: October 2019 (Rheem / Ruud code: week 43, year 2019)\nAge = today − October 2019 = 7.1 years\nExpected life (gas tank) = 10–15 years, typical 13; adjustments: -1 for no yearly flush\nAdjusted life = 9–14, typical 12 years (never below 5)\nShare used = 7.1 ÷ 12 = 59%",
+    "sources": "<span class=\"result__sources-text\">Rheem / Ruud date code: Rheem/Ruud lookup, InspectApedia (third party), Energy Trust of Oregon. Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions.</span> <a href=\"/methodology/#water-heater-age-calculator\">See the decoder checked against Rheem/Ruud, Bradford White, A. O. Smith and CPSC</a>."
   },
   "statusLabels": {
     "ok": "Well within expected life",
@@ -198,6 +198,16 @@
       "why": "Same month.",
       "source": "U.S. CPSC, A. O. Smith gas water heater recall (April 3, 2008)",
       "sourceUrl": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards"
+    },
+    {
+      "id": "ao-smith-1601123456789",
+      "label": "A. O. Smith serial 1601123456789",
+      "ours": "January 2016 (week 1)",
+      "published": "A. O. Smith's own example of the new nine-digit numeric serial: 1601 123 456 789, read as year and week (YYWW), in use from October 2016; the old layout was 1604A012345",
+      "match": true,
+      "why": "Same month.",
+      "source": "A. O. Smith, What's changing for you (SAP serial number notice)",
+      "sourceUrl": "https://university.hotwater.com/wp-content/uploads/sites/2/2023/11/Whats_Changing_for_You_AOSmith.pdf"
     },
     {
       "id": "ao-smith-0805A000001",
@@ -423,8 +433,8 @@
       "id": "ao-smith",
       "page": "ao-smith-water-heater-age",
       "brand": "A. O. Smith",
-      "rule": "since 2008: year (2 digits), week (2 digits), then a letter; or before 2008: factory letter, month letter, then year (2 digits); or before 2008: month letter, year (2 digits), then a letter",
-      "example": "0805A****** → 2008, week 5; *H06****** → August 2006; L07A****** → November 2007",
+      "rule": "since 2008: year (2 digits), week (2 digits), then a letter; since October 2016 the letter is gone and nine digits follow (YYWW + 9 digits); or before 2008: factory letter, month letter, then year (2 digits); or before 2008: month letter, year (2 digits), then a letter",
+      "example": "2215123456789 → 2022, week 15 (all digits since October 2016; A. O. Smith prints it as 1601 123 456 789); 0805A****** → 2008, week 5; *H06****** → August 2006; L07A****** → November 2007",
       "note": ""
     },
     {
@@ -589,22 +599,26 @@
       {
         "id": "navien",
         "label": "Navien",
-        "decodeAs": "navien"
+        "decodeAs": "navien",
+        "type": "tankless"
       },
       {
         "id": "rinnai",
         "label": "Rinnai",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "noritz",
         "label": "Noritz",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "takagi",
         "label": "Takagi",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "bosch",
@@ -617,9 +631,11 @@
         "decodeAs": ""
       }
     ],
+    "maxAgeYears": 80,
     "brands": {
       "bradford-white": {
         "label": "Bradford White",
+        "sourceLine": "Bradford White",
         "patterns": [
           {
             "id": "bw-letter-year-month",
@@ -647,6 +663,7 @@
       },
       "rheem": {
         "label": "Rheem / Ruud",
+        "sourceLine": "Rheem/Ruud lookup, InspectApedia (third party), Energy Trust of Oregon",
         "patterns": [
           {
             "id": "rheem-letter-mmyy-plant",
@@ -710,10 +727,11 @@
       },
       "ao-smith": {
         "label": "A. O. Smith",
+        "sourceLine": "Energy Trust of Oregon, A. O. Smith serial notice, U.S. CPSC recall notice",
         "patterns": [
           {
             "id": "aos-yyww",
-            "regex": "^(\\d{2})(\\d{2})[A-Z]",
+            "regex": "^(\\d{2})(\\d{2})(?:[A-Z]|\\d{9})",
             "fields": {
               "year": {
                 "group": 1,
@@ -762,6 +780,7 @@
       },
       "state": {
         "label": "State",
+        "sourceLine": "Energy Trust of Oregon, Building Intelligence Center (third party)",
         "patterns": [
           {
             "id": "state-yyww",
@@ -814,6 +833,7 @@
       },
       "american": {
         "label": "American",
+        "sourceLine": "U.S. CPSC recall notice",
         "patterns": [
           {
             "id": "american-yyww",
@@ -833,6 +853,7 @@
       },
       "navien": {
         "label": "Navien",
+        "sourceLine": "U.S. CPSC recall notice, Building Intelligence Center (third party)",
         "patterns": [
           {
             "id": "navien-yymdd",
@@ -867,6 +888,7 @@
         ]
       }
     },
+    "lifeSourceLine": "Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions.",
     "officialLookups": [
       {
         "brand": "Rheem",

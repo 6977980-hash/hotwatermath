@@ -5,7 +5,7 @@
  * Accepts ?age=&type= from the age calculator.
  */
 import { repairOrReplace, yearlyEnergyCost, yearlySaving } from './formulas.js';
-import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatNumber, formatCurrency } from './ui.js';
+import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatNumber, formatCurrency, checkLimits, invalidResult } from './ui.js';
 
 const one = (v) => formatNumber(v, 1);
 const pct = (v) => `${formatNumber(v * 100, 0)}%`;
@@ -19,38 +19,48 @@ const usd = (v) => formatCurrency(v);
 export function describe(v, cfg) {
 	const type = cfg.types[v.type] ? v.type : cfg.defaultInputs.type;
 	const t = cfg.types[type];
-	const age = Number.isFinite(v.age) && v.age >= 0 ? v.age : null;
-	const repair = Number.isFinite(v.repair) && v.repair >= 0 ? v.repair : null;
-	const replace = Number.isFinite(v.replace) && v.replace > 0 ? v.replace : t.replacementUsd;
 	const has = (id) => Boolean(v[id]);
+	// Empty age or repair quote get their own prompts below; anything typed that is out of range or not a number is
+	// flagged, never replaced by a default (audit F-02).
+	const bad = checkLimits(v, cfg.limits, ['propane', ...(v.age === null ? ['age'] : []), ...(v.repair === null ? ['repair'] : [])]);
+	if (bad.length) return invalidResult(bad);
+	const age = Number.isFinite(v.age) ? v.age : null;
+	const repair = Number.isFinite(v.repair) ? v.repair : null;
+	const replace = Number.isFinite(v.replace) ? v.replace : t.replacementUsd;
 	if (age === null) {
 		return { statusLabel: 'Add the age', headline: 'Enter how old the water heater is', explain: 'Use the age calculator if you do not know it: it reads the build date from the serial number.', formula: '' };
 	}
 	if (repair === null && !has('tankLeak') && !has('flooded')) {
 		return { statusLabel: 'Add the repair quote', headline: 'Enter the repair quote in dollars', explain: 'Use the total the repair will cost you, parts and labor.', formula: '' };
 	}
-	const d = repairOrReplace({ ageYears: age, expectedLife: t.life, repairCost: repair ?? 0, replacementCost: replace, tankLeaking: has('tankLeak'), flooded: has('flooded') }, cfg.rules);
+	const signs = (cfg.rules.replaceSigns || []).filter((x) => has(x.id));
+	const d = repairOrReplace({ ageYears: age, expectedLife: t.life, lifeHigh: cfg.rules.replaceAtLifeHigh ? t.lifeHigh : undefined, repairCost: repair ?? 0, replacementCost: replace, tankLeaking: has('tankLeak'), flooded: has('flooded'), signs }, cfg.rules);
+	const signLabel = (id) => (cfg.symptoms.find((x) => x.id === id)?.label || id).toLowerCase();
 	const why = {
 		'tank-leak': 'A leak from the tank itself cannot be repaired.',
 		flooded: 'A flooded water heater must be replaced, the manufacturer says.',
 		'repair-over-always-share': `The repair is ${pct(d.share)} of the replacement price, more than the ${pct(cfg.rules.repairShareAlways)} limit.`,
+		'past-life': `At ${one(age)} years it is at or past the ${t.lifeHigh}-year top of the usual life range for a ${t.label.toLowerCase()}, so a repair buys little time whatever it costs.`,
 		old: `At ${one(age)} years it has used ${pct(d.lifeUsed)} of a ${t.life}-year typical life (${pct(cfg.rules.ageShare)} or more counts as old).`,
-		young: `At ${one(age)} years it has used ${pct(d.lifeUsed)} of a ${t.life}-year typical life.`,
+		'within-life': `At ${one(age)} years it is within its normal life: ${pct(d.lifeUsed)} of a ${t.life}-year typical life used.`,
+		'replace-sign': `You ticked ${d.signs.map(signLabel).join(' and ')}, which Rheem lists among the signs a heater should be replaced, so we lean one step toward replacing.`,
 		'repair-over-old-share': `The repair is ${pct(d.share)} of the replacement price, more than ${pct(cfg.rules.repairShareWhenOld)}.`,
 		'repair-cheap': `The repair is ${pct(d.share)} of the replacement price.`,
 	};
-	const labels = { replace: 'Replace', borderline: 'Borderline', repair: 'Repair' };
+	const pastLife = d.reasons.includes('past-life');
+	const signed = d.reasons.includes('replace-sign');
+	const labels = { replace: pastLife ? 'Replace soon' : 'Replace', borderline: 'Borderline', repair: 'Repair' };
 	const heads = {
-		replace: 'Replace it rather than pay for this repair',
-		borderline: d.reasons.includes('old') ? 'Repair is cheap, but the heater is near the end of its life' : 'Repair is possible, but the quote is high for a young heater',
-		repair: 'Repair it: the quote is small and the heater is young',
+		replace: pastLife ? 'Replace soon: it is past the usual life' : signed ? 'Replace it: the warning signs and the numbers both point that way' : 'Replace it rather than pay for this repair',
+		borderline: signed ? 'Borderline: the quote is fine, but the warning signs point to a replacement' : d.reasons.includes('old') ? 'Repair is cheap, but the heater is near the end of its life' : 'Repair is possible, but the quote is high for a heater this age',
+		repair: 'Repair it: the quote is small and the heater is within its normal life',
 	};
 	const sentences = d.reasons.map((r) => why[r]);
-	if (d.verdict === 'borderline') sentences.push(d.reasons.includes('old') ? 'Paying for the repair is reasonable if you also start planning a replacement.' : 'Get a second quote, or ask what else is worn before you decide.');
+	if (d.verdict === 'borderline') sentences.push(signed ? 'Have the tank checked for corrosion before you pay for the repair.' : d.reasons.includes('old') ? 'Paying for the repair is reasonable if you also start planning a replacement.' : 'Get a second quote, or ask what else is worn before you decide.');
 	for (const s of cfg.symptoms) if (has(s.id) && (s.effect === 'warn' || s.effect === 'safety')) sentences.push(s.note);
 
 	// Energy: running cost of a like-for-like new unit vs the upgrade type, at the DOE test-day use.
-	const prices = { usdPerKwh: Number.isFinite(v.kwh) && v.kwh > 0 ? v.kwh : cfg.prices.usdPerKwh, usdPerTherm: Number.isFinite(v.therm) && v.therm > 0 ? v.therm : cfg.prices.usdPerTherm };
+	const prices = { usdPerKwh: Number.isFinite(v.kwh) ? v.kwh : cfg.prices.usdPerKwh, usdPerTherm: Number.isFinite(v.therm) ? v.therm : cfg.prices.usdPerTherm };
 	const up = cfg.types[type].upgrade;
 	let energyLine = '';
 	if (up && up.id !== t.uefId) {
@@ -64,7 +74,7 @@ export function describe(v, cfg) {
 		`Expected life (${t.label.toLowerCase()}) = ${t.life} years; "old" from ${cfg.rules.ageShare} × ${t.life} = ${one(d.oldFromYears)} years`,
 		`Life used = ${one(age)} ÷ ${t.life} = ${pct(d.lifeUsed)}`,
 		repair !== null ? `Repair share = ${usd(repair)} ÷ ${usd(replace)} = ${pct(d.share)}` : '',
-		`Rules: leak or flood → replace; share > ${pct(cfg.rules.repairShareAlways)} → replace; old and share > ${pct(cfg.rules.repairShareWhenOld)} → replace; old → borderline; share > ${pct(cfg.rules.repairShareWhenOld)} → borderline; else repair`,
+		`Rules: leak or flood → replace; age ≥ ${t.lifeHigh} years (top of the life range) → replace soon; share > ${pct(cfg.rules.repairShareAlways)} → replace; old and share > ${pct(cfg.rules.repairShareWhenOld)} → replace; old → borderline; share > ${pct(cfg.rules.repairShareWhenOld)} → borderline; else repair. Rusty hot water, or rumbling once old, moves the answer one step toward replace`,
 		energyLine,
 	].filter(Boolean).join('\n');
 	const status = { replace: 'bad', borderline: 'warn', repair: 'ok' }[d.verdict];
@@ -101,7 +111,11 @@ if (typeof document !== 'undefined') {
 				costLink.href = u.toString();
 			}
 			if (record) {
-				writeState(values);
+				// F-26: the default replacement price follows the type; only a price the visitor typed goes into the link,
+				// otherwise a shared or reloaded link froze the old type's price.
+				const state = { ...values };
+				if (replaceEl && !replaceEl.dataset.edited) delete state.replace;
+				writeState(state);
 				if (last.decision) track('calc_result', { tool: 'repair-or-replace-water-heater', unit_type: values.type, verdict: last.decision.verdict, age_bucket: values.age < 5 ? '0-5' : values.age < 10 ? '5-10' : values.age < 15 ? '10-15' : '15+' });
 			}
 		};

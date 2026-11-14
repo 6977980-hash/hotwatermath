@@ -15,16 +15,16 @@
     "serial": "7410C22X170001",
     "type": "tankless",
     "hardness": "moderate",
-    "flushed": true,
+    "flushed": false,
     "anode": false
   },
   "default": {
     "status": "ok",
     "statusLabel": "Well within expected life",
     "headline": "About 4.1 years old (built October 2022)",
-    "explain": "That is about 21% of the 20-year average life for this type (gas tankless). About 15.9 years left at most; it could fail sooner. (Example serial in the Navien format, as of 2026-11-13; type yours.)",
-    "formula": "Built: October 2022 (Navien code)\nAge = today − October 2022 = 4.1 years\nExpected life (gas tankless) = 20 years (DOE average); adjustments: none\nShare used = 4.1 ÷ 20 = 21%",
-    "sources": "Navien date code: U.S. CPSC recall notice, Building Intelligence Center (third party). Lifespan: DOE 2024 water heater rule and DOE FEMP. Adjustments are our editorial assumptions. <a href=\"/methodology/#water-heater-age-calculator\">See every decoder test case</a>."
+    "explain": "That is about 22% of the 19-year average life for this type (gas tankless), adjusted for your answers. About 14.9 years left at most; it could fail sooner. (Example serial in the Navien format, as of 2026-11-13; type yours.)",
+    "formula": "Built: October 2022 (Navien code)\nAge = today − October 2022 = 4.1 years\nExpected life (gas tankless) = 20 years (DOE average); adjustments: -1 for no yearly flush\nAdjusted life = 19 years (never below 5)\nShare used = 4.1 ÷ 19 = 22%",
+    "sources": "<span class=\"result__sources-text\">Navien date code: U.S. CPSC recall notice, Building Intelligence Center (third party). Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions.</span> <a href=\"/methodology/#water-heater-age-calculator\">See every decoder test case</a>."
   },
   "checks": [
     {
@@ -232,22 +232,26 @@
       {
         "id": "navien",
         "label": "Navien",
-        "decodeAs": "navien"
+        "decodeAs": "navien",
+        "type": "tankless"
       },
       {
         "id": "rinnai",
         "label": "Rinnai",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "noritz",
         "label": "Noritz",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "takagi",
         "label": "Takagi",
-        "decodeAs": ""
+        "decodeAs": "",
+        "type": "tankless"
       },
       {
         "id": "bosch",
@@ -260,9 +264,11 @@
         "decodeAs": ""
       }
     ],
+    "maxAgeYears": 80,
     "brands": {
       "bradford-white": {
         "label": "Bradford White",
+        "sourceLine": "Bradford White",
         "patterns": [
           {
             "id": "bw-letter-year-month",
@@ -290,6 +296,7 @@
       },
       "rheem": {
         "label": "Rheem / Ruud",
+        "sourceLine": "Rheem/Ruud lookup, InspectApedia (third party), Energy Trust of Oregon",
         "patterns": [
           {
             "id": "rheem-letter-mmyy-plant",
@@ -353,10 +360,11 @@
       },
       "ao-smith": {
         "label": "A. O. Smith",
+        "sourceLine": "Energy Trust of Oregon, A. O. Smith serial notice, U.S. CPSC recall notice",
         "patterns": [
           {
             "id": "aos-yyww",
-            "regex": "^(\\d{2})(\\d{2})[A-Z]",
+            "regex": "^(\\d{2})(\\d{2})(?:[A-Z]|\\d{9})",
             "fields": {
               "year": {
                 "group": 1,
@@ -405,6 +413,7 @@
       },
       "state": {
         "label": "State",
+        "sourceLine": "Energy Trust of Oregon, Building Intelligence Center (third party)",
         "patterns": [
           {
             "id": "state-yyww",
@@ -457,6 +466,7 @@
       },
       "american": {
         "label": "American",
+        "sourceLine": "U.S. CPSC recall notice",
         "patterns": [
           {
             "id": "american-yyww",
@@ -476,6 +486,7 @@
       },
       "navien": {
         "label": "Navien",
+        "sourceLine": "U.S. CPSC recall notice, Building Intelligence Center (third party)",
         "patterns": [
           {
             "id": "navien-yymdd",
@@ -510,6 +521,7 @@
         ]
       }
     },
+    "lifeSourceLine": "Lifespan: DOE 2024 water heater rule and DOE FEMP. Hardness, flushing and anode adjustments are our editorial assumptions.",
     "officialLookups": [
       {
         "brand": "Rheem",
