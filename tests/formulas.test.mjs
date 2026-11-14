@@ -783,3 +783,14 @@ test('S-4: propane gallons and cost', () => {
 	const op = describeOp({ household: 'typical', state: 'US', gasFuel: 'propane' }, opCfg);
 	assert.match(op.headline, /^Propane tank/);
 });
+
+test('S-5: a cold heat pump space turns a green result amber and says so', () => {
+	const hpCfg = data('computed/heat-pump-water-heater-cost').client;
+	const base = { current: 'electric_tank', size: '50', household: 'typical', state: 'US' };
+	const warm = describeHp({ ...base, location: 'buffer' }, hpCfg);
+	const cold = describeHp({ ...base, location: 'cold' }, hpCfg);
+	assert.equal(warm.status, 'ok');
+	assert.equal(cold.status, 'warn');
+	assert.match(cold.statusLabel, /cold space/);
+	assert.equal(cold.result.saving, warm.result.saving); // warning only, no invented derate
+});
