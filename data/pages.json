@@ -148,7 +148,7 @@
     {
       "slug": "data",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "phase": "8",
       "title": "Water Heater Data Downloads",
       "metaTitle": "Water Heater Data Downloads (CSV) | Hot Water Math",
@@ -162,7 +162,7 @@
     {
       "slug": "embed-calculators",
       "type": "utility",
-      "status": "draft",
+      "status": "live",
       "phase": "8",
       "title": "Embed Our Calculators",
       "metaTitle": "Embed a Free Water Heater Calculator | Hot Water Math",
@@ -1473,7 +1473,7 @@
     {
       "slug": "water-heater-installation-cost-index",
       "type": "article",
-      "status": "draft",
+      "status": "live",
       "phase": "8",
       "datePublished": "2026-11-13",
       "dateModified": "2026-11-13",
@@ -1501,7 +1501,7 @@
     {
       "slug": "solar-water-heater-cost",
       "type": "article",
-      "status": "draft",
+      "status": "live",
       "phase": "audit-3",
       "datePublished": "2026-11-14",
       "dateModified": "2026-11-14",
