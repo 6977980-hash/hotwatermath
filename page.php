@@ -23,8 +23,10 @@ get_header();
 	<?php hwm_part( 'breadcrumb', array( 'entry' => $hwm_entry ) ); ?>
 	<?php if ( $hwm_rail ) : ?><div class="layout layout--sidebar"><?php endif; ?>
 	<article class="<?php echo $hwm_home ? 'hwm-home' : 'prose'; ?>">
-		<?php hwm_part( 'page-intro', array( 'entry' => $hwm_entry ) ); ?>
-		<?php hwm_part( 'quick-answer', array( 'text' => $hwm_entry['quickAnswer'] ?? '' ) ); ?>
+		<?php if ( ! $hwm_home ) : // The home page prints its H1 and quick answer inside its hero (content/home.php). ?>
+			<?php hwm_part( 'page-intro', array( 'entry' => $hwm_entry ) ); ?>
+			<?php hwm_part( 'quick-answer', array( 'text' => $hwm_entry['quickAnswer'] ?? '' ) ); ?>
+		<?php endif; ?>
 		<?php echo $hwm_out['html']; // phpcs:ignore -- our own content file. ?>
 		<?php hwm_part( 'faq', array( 'items' => $hwm_out['faq'], 'url' => hwm_url( $hwm_entry['slug'] ) ) ); ?>
 		<?php hwm_part( 'sources', array( 'items' => $hwm_out['sources'] ) ); ?>
