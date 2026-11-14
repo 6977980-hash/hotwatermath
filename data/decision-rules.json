@@ -7,7 +7,6 @@
   },
   "repairOrReplace": {
     "repairShareAlways": 0.5,
-    "ageShare": 0.75,
     "repairShareWhenOld": 0.25,
     "replaceAtLifeHigh": true,
     "replaceSigns": [
@@ -20,7 +19,7 @@
         "when": "old"
       }
     ],
-    "note": "Since audit fix F-08 (2026-11-14): a unit at or past the high end of its life range (data/lifespans.json) is \"replace soon\" whatever the repair costs; rusty hot water (always) or rumbling once the unit is old (ageShare of its typical life) moves the verdict one step toward replace, because Rheem lists both among the signs a heater should be replaced."
+    "note": "Since audit fix F-08 (2026-11-14): a unit at or past the high end of its life range (data/lifespans.json) is \"replace soon\" whatever the repair costs; rusty hot water (always) or rumbling once the unit is old (ageShare of its typical life) moves the verdict one step toward replace, because Rheem lists both among the signs a heater should be replaced. The \"old\" share of typical life is data/lifespans.json statusBands.oldFrom, shared with the age calculator (audit F-09, 2026-11-14)."
   },
   "ownershipYearsDefault": 10,
   "defaultInputs": {

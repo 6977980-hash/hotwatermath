@@ -77,6 +77,7 @@
     "slug": "illinois",
     "url": "/water-heater-installation-cost/illinois/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 6,
     "population": "12,719,141",
     "popMillion": "12.7",
@@ -289,14 +290,49 @@
       "quote": "At this time, the Illinois EPA's IRA Section 50122 Home Electrification and Appliance Rebate Program, or HEAR Rebate Program, application has not yet been processed by USDOE or provided to Illinois EPA for administration or distribution.",
       "summary": "The appliance rebate has not launched. Illinois says it plans to give the first rebates to low-income households and will not pay rebates for work done before launch."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "chicago-rules",
+        "heading": "Chicago spells out how a replacement must be connected",
+        "text": "In Chicago, the work must be done by the Chicago-licensed plumbing contractor or the homeowner named on the permit. The city's permit terms for replacing a water heater are specific: a listed and labeled unit installed to the maker's instructions, unions at the connections (dielectric ones between different metals), a full-port shutoff on the cold line and no valve on the hot side, and a relief valve outlet that is not piped straight into the drain system.",
+        "source": "City of Chicago Department of Buildings, Express Permit Program terms: plumbing work",
+        "sourceUrl": "https://www.chicago.gov/city/en/sites/guide-to-building-permits/home/terms-and-conditions/epp/worktype/PLUMB.html",
+        "quote": "Plumbing work must be performed by the Chicago-licensed plumbing contractor or homeowner listed on the permit application.",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "Ameren Illinois (online marketplace)",
+        "offer": "About $800 off the listed price of each heat pump water heater in its marketplace",
+        "sourceUrl": "https://www.amerenillinoissavings.com/residential/",
+        "checked": "2026-11-14"
+      },
+      {
+        "sponsor": "Nicor Gas",
+        "offer": "$150 for a qualifying tankless or tank (storage) gas water heater",
+        "sourceUrl": "https://www.nicorgas.com/ways-to-save/residential-savings/rebates.html",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes an Illinois replacement different",
+      "paras": [
+        "Illinois is a gas state: 69% of homes heat water with natural gas, and gas is cheap here at $1.07 per therm, so a gas tank costs only about $174 a year to run. That makes a gas-to-gas swap the usual job, and the gas utility rebate is small.",
+        "Cold winters shape the tankless choice. Incoming water falls to about 46.8 °F in February, the coldest month, and a whole-house tankless unit then gives about 5.2 gallons per minute. A heat pump tank in an unheated basement can also drop below ENERGY STAR's 40 °F limit in a hard winter, so check the space before you buy one."
+      ]
+    },
     "highlights": [
       "Illinois's price level matches the U.S. average exactly, so its prices are the national prices; only your metro area moves them.",
-      "Natural gas is cheap in Illinois ($1.07 per therm, the 12th lowest of 51), so a gas tank costs only about $174 a year to run, and gas stays the cheapest tank to own over 10 years.",
+      "Natural gas is cheap in Illinois ($1.07 per therm, the 12th lowest of the 50 states and DC), so a gas tank costs only about $174 a year to run, and gas stays the cheapest tank to own over 10 years.",
       "69% of Illinois homes heat water with natural gas, against 48% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.",
-      "Where you live inside Illinois matters: the same 50-gallon gas job is about $1,841 in the Chicago-Naperville-Elgin, IL-IN area and $1,729 in the Peoria, IL area."
+      "Where you live inside Illinois matters: the same 50-gallon gas job is about $1,841 in the Chicago-Naperville-Elgin, IL-IN area and $1,729 in the Peoria, IL area.",
+      "Chicago spells out how a replacement must be connected."
     ]
   },
   "tables": {
@@ -357,7 +393,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Illinois labor and extras × BEA price factor 1.000",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; Illinois labor and extras × BEA price factor 1.000",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -413,7 +449,7 @@
           "high": "2,599"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -469,7 +505,7 @@
           "high": "2,829"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -535,10 +571,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "579",
-          "us": "570",
-          "own": "7,321"
+          "uef": "0.94",
+          "state": "569",
+          "us": "561",
+          "own": "7,227"
         }
       ],
       "source": "EIA 2025 Illinois residential prices ($0.177/kWh, $1.07/therm); Illinois incoming water 58.6 °F; median UEF by type; installed cost from our cost model",
@@ -730,7 +766,7 @@
           "cost": "16"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Illinois prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Illinois prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -788,7 +824,7 @@
           "showers": 3
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -832,6 +868,44 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (4.90 million Illinois homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in Illinois: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "Ameren Illinois (online marketplace)",
+          "type": "Heat pump water heater",
+          "offer": "About $800 off the listed price of each heat pump water heater in its marketplace",
+          "conditions": "Ameren Illinois electric customers buying through the utility's online marketplace; the discount is shown as retail price minus final cost."
+        },
+        {
+          "sponsor": "Nicor Gas",
+          "type": "Gas water heater",
+          "offer": "$150 for a qualifying tankless or tank (storage) gas water heater",
+          "conditions": "Nicor Gas residential customers."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: Ameren Illinois; Nicor Gas. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

@@ -73,6 +73,8 @@ export const INPUTS = [
 	'data/datasets.json',
 	'data/input-limits.json',
 	'data/propane-prices.json',
+	'data/hpwh-rebates.json',
+	'data/solar-water-heating.json',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -818,7 +820,7 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 	const xc = [];
 	for (const x of byPeople.filter((y) => y.am)) {
 		const inside = x.s.phd >= x.am.low && x.s.phd <= x.am.high;
-		xc.push({ id: `american-${x.n}`, label: `${label(x.n)}: our typical busy hour (${presetText(presets[x.n])})`, ours: `${fmt(x.s.phd)} gal peak-hour demand → FHR ${fmt(x.s.fhr)}+`, published: `FHR ${x.am.low}–${x.am.high} gal`, match: inside, why: inside ? 'Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.' : 'Outside the range; see the note.', source: hg.american.source, sourceUrl: hg.american.sourceUrl });
+		xc.push({ id: `american-${x.n}`, label: `${label(x.n)}: our typical busy hour (${presetText(presets[x.n])})`, ours: `${fmt(x.s.phd)} gal peak-hour demand → FHR ${fmt(x.s.fhr)}+`, published: `FHR ${x.am.low}–${x.am.high} gal`, match: inside, why: inside ? 'Consistency check, not an independent one: our busy-hour presets were set to land inside this range.' : 'Outside the range; see the note.', source: hg.american.source, sourceUrl: hg.american.sourceUrl });
 	}
 	const rng = (x) => (x.low === x.high ? `${x.low}` : `${x.low}–${x.high}`);
 	for (const x of byPeople.filter((y) => y.rh && y.n >= 2)) {
@@ -915,13 +917,14 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 		}];
 	}));
 	const client = {
-		types, rules: dr.repairOrReplace, defaultInputs: dr.defaultInputs,
+		types, rules: { ...dr.repairOrReplace, ageShare: d.lifespans.statusBands.oldFrom }, defaultInputs: dr.defaultInputs,
 		symptoms: dr.symptoms.items.map((s) => ({ id: s.id, label: s.label, effect: s.effect, note: s.note })),
 		prices: { usdPerKwh: ep.usdPerKwh, usdPerTherm: ep.usdPerTherm },
-		use: { gallonsPerDay: hw.typicalHouseholdGallonsPerDay.value, riseF: hw.testConditions.riseF },
+		// Same rise as the gas vs electric calculator (audit F-09): U.S. average incoming water to the site setpoint.
+		use: { gallonsPerDay: hw.typicalHouseholdGallonsPerDay.value, riseF: F.temperatureRise(model.setpointF, model.us.inletF), inletF: model.us.inletF, setpointF: model.setpointF },
 		limits: limitsOf('repair-or-replace-water-heater'),
 	};
-	const rules = dr.repairOrReplace;
+	const rules = { ...dr.repairOrReplace, ageShare: d.lifespans.statusBands.oldFrom }; // one "old" band for both tools (audit F-09)
 	const ask = (age, type, repair, extra = {}) => F.repairOrReplace({ ageYears: age, expectedLife: types[type].life, lifeHigh: rules.replaceAtLifeHigh ? types[type].lifeHigh : undefined, repairCost: repair, replacementCost: types[type].replacementUsd, tankLeaking: false, ...extra }, rules);
 	// Most you should pay for a repair, by type and age band.
 	const limits = typeDefs.map((t) => ({ label: t.label, price: fmt(types[t.id].replacementUsd), young: fmt(r(types[t.id].replacementUsd * rules.repairShareAlways)), oldFrom: fmt(r(rules.ageShare * t.life, 1), 1), old: fmt(r(types[t.id].replacementUsd * rules.repairShareWhenOld)) }));
@@ -987,13 +990,13 @@ const madeLabel = (m) => (m.month ? `${MONTHS[m.month - 1]} ${m.year}` : `${m.ye
 					{ key: 'old', label: 'Repair limit, old unit', unit: '$', num: true },
 				],
 				limits,
-				{ source: `Rules from data/decision-rules.json (${Math.round(rules.repairShareAlways * 100)}% / ${Math.round(rules.ageShare * 100)}% of life / ${Math.round(rules.repairShareWhenOld * 100)}%); typical life from DOE; installed prices = Home Depot equipment listings (${d['cost-ranges'].lastReviewed}) + our installation ranges (${d['installation-costs'].lastReviewed}), U.S. average`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['cost-ranges'].lastReviewed },
+				{ source: `Our decision rules (${Math.round(rules.repairShareAlways * 100)}% / ${Math.round(rules.ageShare * 100)}% of life / ${Math.round(rules.repairShareWhenOld * 100)}%); typical life from DOE; installed prices = Home Depot equipment listings (${d['cost-ranges'].lastReviewed}) + our installation ranges (${d['installation-costs'].lastReviewed}), U.S. average`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['cost-ranges'].lastReviewed },
 			),
 			energy: table(
 				'Yearly running cost: a standard new unit vs the efficient upgrade',
 				[{ key: 'label', label: 'Replacing a' }, { key: 'now', label: 'Standard new unit', unit: '$/yr', num: true }, { key: 'up', label: 'Upgrade' }, { key: 'next', label: 'Upgrade cost', unit: '$/yr', num: true }, { key: 'save', label: 'Saving', unit: '$/yr', num: true }],
 				energy,
-				{ source: `Computed: ${client.use.gallonsPerDay} gal/day at a ${client.use.riseF} °F rise (DOE test day), UEF medians (Rheem spec sheets, ENERGY STAR), U.S. average prices $${client.prices.usdPerKwh}/kWh and $${client.prices.usdPerTherm}/therm (EIA)`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['energy-prices'].meta.sourceDate },
+				{ source: `Computed: ${client.use.gallonsPerDay} gal/day heated ${client.use.riseF} °F (${client.use.inletF} °F U.S. average incoming to ${client.use.setpointF} °F, as in the gas vs electric calculator), UEF medians (Rheem spec sheets, ENERGY STAR), U.S. average prices $${client.prices.usdPerKwh}/kWh and $${client.prices.usdPerTherm}/therm (EIA)`, sourceUrl: 'https://hotwatermath.com/methodology/#repair-or-replace-water-heater', sourceDate: d['energy-prices'].meta.sourceDate },
 			),
 		},
 		client,
@@ -1055,11 +1058,11 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 		stateOptions,
 		crossChecks: xc,
 		tables: {
-			byUnit: table('Installed cost by type and size, like-for-like replacement, U.S. average', [{ key: 'label', label: 'Water heater' }, { key: 'unit', label: 'Unit only', unit: '$', num: true }, { key: 'typical', label: 'Installed, typical', unit: '$', num: true }, { key: 'range', label: 'Installed range', unit: '$', num: true }], byUnit.map((x) => ({ label: x.label, unit: x.unit, typical: x.typical, range: `${x.low}–${x.high}` })), { source: `Equipment: Home Depot listings (${d['cost-ranges'].lastReviewed}); labor, permit and haul-away: data/installation-costs.json (${ic.lastReviewed})`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed }),
+			byUnit: table('Installed cost by type and size, like-for-like replacement, U.S. average', [{ key: 'label', label: 'Water heater' }, { key: 'unit', label: 'Unit only', unit: '$', num: true }, { key: 'typical', label: 'Installed, typical', unit: '$', num: true }, { key: 'range', label: 'Installed range', unit: '$', num: true }], byUnit.map((x) => ({ label: x.label, unit: x.unit, typical: x.typical, range: `${x.low}–${x.high}` })), { source: `Equipment: Home Depot listings (${d['cost-ranges'].lastReviewed}); labor, permit and haul-away: our installation cost ranges (see Methodology) (${ic.lastReviewed})`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed }),
 			extras: table('Extras and what they usually cost (U.S. average, before your state factor)', [{ key: 'label', label: 'Extra' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }, { key: 'why', label: 'Where the number comes from' }], Object.values(ic.extras).map((x) => ({ label: x.label, typical: fmt(x.typical), range: `${fmt(x.low)}–${fmt(x.high)}`, why: x.why })), { source: ic.meta.source, sourceUrl: ic.meta.sourceUrl, sourceDate: ic.meta.sourceDate }),
 			labor: table('Installation labor by type, like-for-like (U.S. average)', [{ key: 'label', label: 'Type' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }, { key: 'why', label: 'Why' }], model.typeOrder.map((t) => ({ label: model.types[t].label, typical: fmt(ic.labor[t].typical), range: `${fmt(ic.labor[t].low)}–${fmt(ic.labor[t].high)}`, why: ic.labor[t].why })), { source: ic.meta.source, sourceUrl: ic.meta.sourceUrl, sourceDate: ic.meta.sourceDate }),
-			scenarios: table('Common jobs and their installed cost (U.S. average)', [{ key: 'label', label: 'Job' }, { key: 'extras', label: 'Extras included' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], scenarioRows.map((x) => ({ label: x.label, extras: x.extras, typical: x.typical, range: `${x.low}–${x.high}` })), { source: 'Computed with the cost calculator’s own model (equipment listings + data/installation-costs.json)', sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed }),
-			byState: table('50-gallon gas tank, like-for-like, installed cost by state', [{ key: 'name', label: 'State' }, { key: 'm', label: 'Price factor', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], stateRows.map((x) => ({ name: x.name, m: x.m, typical: x.typical, range: `${x.low}–${x.high}` })), { source: 'Equipment listings + data/installation-costs.json, labor and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+			scenarios: table('Common jobs and their installed cost (U.S. average)', [{ key: 'label', label: 'Job' }, { key: 'extras', label: 'Extras included' }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], scenarioRows.map((x) => ({ label: x.label, extras: x.extras, typical: x.typical, range: `${x.low}–${x.high}` })), { source: 'Computed with the cost calculator’s own model (equipment listings + our installation cost ranges, see Methodology)', sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed }),
+			byState: table('50-gallon gas tank, like-for-like, installed cost by state', [{ key: 'name', label: 'State' }, { key: 'm', label: 'Price factor', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'range', label: 'Range', unit: '$', num: true }], stateRows.map((x) => ({ name: x.name, m: x.m, typical: x.typical, range: `${x.low}–${x.high}` })), { source: 'Equipment listings + our installation cost ranges (see Methodology), labor and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
 		},
 		client,
 	};
@@ -1149,7 +1152,7 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 		stateOptions,
 		crossChecks: xc,
 		tables: {
-			byState: table(`When the extra cost pays back, by state (typical household, ${years} years)`, [{ key: 'name', label: 'State' }, { key: 'gt', label: 'Gas tankless vs gas tank' }, { key: 'hpg', label: 'Heat pump vs gas tank' }, { key: 'hpe', label: 'Heat pump vs electric tank' }], stateRows.map(({ gtNum, ...x }) => x), { source: 'Computed with the tool’s own model: installed costs (listings + data/installation-costs.json × state factor), EIA state prices, state incoming water temperature, DOE lifespans', sourceUrl: 'https://hotwatermath.com/methodology/#tankless-vs-tank-water-heater', sourceDate: ic.lastReviewed }),
+			byState: table(`When the extra cost pays back, by state (typical household, ${years} years)`, [{ key: 'name', label: 'State' }, { key: 'gt', label: 'Gas tankless vs gas tank' }, { key: 'hpg', label: 'Heat pump vs gas tank' }, { key: 'hpe', label: 'Heat pump vs electric tank' }], stateRows.map(({ gtNum, ...x }) => x), { source: 'Computed with the tool’s own model: installed costs (listings + our installation cost ranges × state factor), EIA state prices, state incoming water temperature, DOE lifespans', sourceUrl: 'https://hotwatermath.com/methodology/#tankless-vs-tank-water-heater', sourceDate: ic.lastReviewed }),
 		},
 		client,
 	};
@@ -1180,7 +1183,7 @@ const pct = (ours, theirs) => r(((ours - theirs) / theirs) * 100, 1);
 const usdN = (v) => fmt(Math.round(v));
 const job = (type, size, scenario, state = 'US', extra = []) => estimateInstalled(model, { type, size, state, extras: [...defaultExtras(model, scenario, type), ...extra] });
 const jobFig = (e) => ({ low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high), typicalNum: e.typical, unit: fmt(e.unit.typical), install: fmt(e.typical - e.unit.typical), unitShare: Math.round((e.unit.typical / e.typical) * 100) });
-const costSrc = { source: `Equipment: Home Depot listings (${d['cost-ranges'].lastReviewed}); labor, permit and extras: data/installation-costs.json (${ic.lastReviewed}), anchored to DOE's 2024 water heater rules`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed };
+const costSrc = { source: `Equipment: Home Depot listings (${d['cost-ranges'].lastReviewed}); labor, permit and extras: our installation cost ranges (${ic.lastReviewed}), anchored to DOE's 2024 water heater rules`, sourceUrl: 'https://hotwatermath.com/methodology/#water-heater-cost-calculator', sourceDate: ic.lastReviewed };
 const itemRows = (e) => e.items.map((i) => ({ item: i.label, low: fmt(i.low), typical: fmt(i.typical), high: fmt(i.high) }));
 const itemCols = [{ key: 'item', label: 'Item' }, { key: 'low', label: 'Low', unit: '$', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'high', label: 'High', unit: '$', num: true }];
 const itemTable = (caption, e) => ({ ...table(caption, itemCols, [...itemRows(e), { item: 'Total', low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high) }], costSrc) });
@@ -1251,6 +1254,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		stateOptions,
 		crossChecks: xc,
 		tables: {
+			rebates: (() => { const hr = d['hpwh-rebates']; const nm = Object.fromEntries(d['state-pages'].statePages.map((x) => [x.code, d['regional-cost-index'].states[x.code]?.name || x.code])); const rows = hr.programs.filter((x) => x.fuel === 'heat_pump').sort((a, b) => (nm[a.state] || a.state).localeCompare(nm[b.state] || b.state) || (b.maxUsd || 0) - (a.maxUsd || 0)); return table(`Heat pump water heater rebates we confirmed on each program's own page (checked ${hr.meta.sourceDate})`, [{ key: 'state', label: 'State' }, { key: 'sponsor', label: 'Program' }, { key: 'offer', label: 'Offer' }, { key: 'conditions', label: 'Main conditions' }], rows.map((x) => ({ state: nm[x.state] || x.state, sponsor: x.sponsor, offer: x.offer, conditions: x.conditions })), { source: `Each program's own page, opened ${hr.meta.sourceDate} (index: ENERGY STAR Rebate Finder). Amounts change; confirm before you buy`, sourceUrl: hr.meta.sourceUrl, sourceDate: hr.meta.sourceDate }); })(),
 			bySize: table('Heat pump water heater cost by size (U.S. average)', [{ key: 'size', label: 'Size' }, { key: 'fhr', label: 'Typical FHR', unit: 'gal', num: true }, { key: 'unit', label: 'Unit only', unit: '$', num: true }, { key: 'fromEl', label: 'Installed, replacing electric', unit: '$', num: true }, { key: 'fromGas', label: 'Installed, replacing gas', unit: '$', num: true }], sizes.map((x) => ({ size: `${x.size} gallons`, fhr: x.fhr, unit: x.unit, fromEl: x.fromEl, fromGas: x.fromGas })), { ...costSrc, source: `${costSrc.source}. FHR: median of ENERGY STAR certified models` }),
 			itemsEl: itemTable('Itemized: 50-gallon heat pump replacing an electric tank (U.S. average)', job('heat_pump', '50', 'replace')),
 			itemsGas: itemTable('Itemized: 50-gallon heat pump replacing a gas tank (U.S. average)', job('heat_pump', '50', 'fuelSwitch')),
@@ -1292,7 +1296,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		},
 		tables: {
 			byType: table('Water heater replacement cost by type and size (like for like, U.S. average)', [{ key: 'label', label: 'Water heater' }, { key: 'unit', label: 'Unit', unit: '$', num: true }, { key: 'install', label: 'Labor, permit, haul-away', unit: '$', num: true }, { key: 'typical', label: 'Total, typical', unit: '$', num: true }, { key: 'range', label: 'Total range', unit: '$', num: true }, { key: 'share', label: 'Unit share', num: true }], byType.map(({ key, ...x }) => x), costSrc),
-			byState: stateTable('Water heater replacement cost by state: 50-gallon tanks, like for like', [{ key: 'm', label: 'Price factor', num: true }, { key: 'g', label: 'Gas tank', unit: '$', num: true }, { key: 'e', label: 'Electric tank', unit: '$', num: true }, { key: 'h', label: 'Heat pump', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { m: fmt(x.m, 2), g: fmt(x.g), e: fmt(x.e), h: fmt(x.h) }; }, { source: 'Equipment listings + data/installation-costs.json; labor, permit and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+			byState: stateTable('Water heater replacement cost by state: 50-gallon tanks, like for like', [{ key: 'm', label: 'Price factor', num: true }, { key: 'g', label: 'Gas tank', unit: '$', num: true }, { key: 'e', label: 'Electric tank', unit: '$', num: true }, { key: 'h', label: 'Heat pump', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { m: fmt(x.m, 2), g: fmt(x.g), e: fmt(x.e), h: fmt(x.h) }; }, { source: 'Equipment listings + our installation cost ranges (see Methodology); labor, permit and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
 			replaceVsNew: table('Replacement vs new installation: what changes (50-gallon gas tank, U.S. average)', itemCols, [
 				{ item: 'Replacement in the same spot', low: fmt(g50.low), typical: fmt(g50.typical), high: fmt(g50.high) },
 				{ item: 'Replacement plus code items and an expansion tank', low: fmt(fullCode.low), typical: fmt(fullCode.typical), high: fmt(fullCode.high) },
@@ -1334,7 +1338,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 			].map(([label, e, sc, type]) => ({ job: label, extras: defaultExtras(model, sc, type).map((x) => model.extras[x].label.split(' (')[0].split(',')[0]).join(', '), typical: fmt(e.typical), range: `${fmt(e.low)}–${fmt(e.high)}` })), costSrc),
 			itemsGas: itemTable('Itemized: gas tank to gas tankless (U.S. average)', gT),
 			electric: table('Electric tankless: what the panel has to supply (one manufacturer’s whole-house range)', [{ key: 'model', label: 'Unit' }, { key: 'kw', label: 'Power', unit: 'kW', num: true }, { key: 'amps', label: 'Current at 240 V', unit: 'A', num: true }, { key: 'breakers', label: 'Breakers' }, { key: 'wire', label: 'Wire' }], units.map((u) => ({ model: u.model, kw: fmt(u.kw), amps: fmt(u.amps), breakers: u.breakers, wire: u.wire })), { source: d.electrical.meta.source, sourceUrl: d.electrical.meta.sourceUrl, sourceDate: d.electrical.meta.sourceDate }),
-			byState: stateTable('Tankless installation cost by state (gas tank to gas tankless)', [{ key: 'gT', label: 'Tank to tankless', unit: '$', num: true }, { key: 'gR', label: 'Tankless replacement', unit: '$', num: true }, { key: 'eT', label: 'Electric tank to electric tankless', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { gT: fmt(x.gT), gR: fmt(x.gR), eT: fmt(x.eT) }; }, { source: 'Equipment listings + data/installation-costs.json; labor and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+			byState: stateTable('Tankless installation cost by state (gas tank to gas tankless)', [{ key: 'gT', label: 'Tank to tankless', unit: '$', num: true }, { key: 'gR', label: 'Tankless replacement', unit: '$', num: true }, { key: 'eT', label: 'Electric tank to electric tankless', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { gT: fmt(x.gT), gR: fmt(x.gR), eT: fmt(x.eT) }; }, { source: 'Equipment listings + our installation cost ranges (see Methodology); labor and extras × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
 		},
 	};
 }
@@ -1362,7 +1366,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 			jobs: table('Gas water heater installation cost by job (U.S. average)', sizeCols, sizeRows(g, [['40-gallon gas tank, like for like', 's40'], ['50-gallon gas tank, like for like', 's50'], ['75-gallon gas tank, like for like', 's75'], ['Electric tank to 50-gallon gas tank', 'fromEl'], ['Gas tank to gas tankless', 'tankless']]), costSrc),
 			items: itemTable('Itemized: 50-gallon gas tank, like for like (U.S. average)', g.s50),
 			itemsSwitch: itemTable('Itemized: switching an electric tank to a 50-gallon gas tank (U.S. average)', g.fromEl),
-			byState: stateTable('Gas water heater installation cost by state (like for like)', [{ key: 'g40', label: '40 gallons', unit: '$', num: true }, { key: 'g50', label: '50 gallons', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { g40: fmt(x.g40), g50: fmt(x.g50) }; }, { source: 'Equipment listings + data/installation-costs.json; labor and permit × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+			byState: stateTable('Gas water heater installation cost by state (like for like)', [{ key: 'g40', label: '40 gallons', unit: '$', num: true }, { key: 'g50', label: '50 gallons', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { g40: fmt(x.g40), g50: fmt(x.g50) }; }, { source: 'Equipment listings + our installation cost ranges (see Methodology); labor and permit × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
 		},
 	};
 	const pre = costPreset('electric_tank', '50', 'replace');
@@ -1380,7 +1384,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		tables: {
 			jobs: table('Electric water heater installation cost by job (U.S. average)', sizeCols, sizeRows(e, [['40-gallon electric tank, like for like', 's40'], ['50-gallon electric tank, like for like', 's50'], ['Gas tank to 50-gallon electric tank (new circuit)', 'fromGas'], ['Gas tank to electric, with a panel upgrade', 'fromGasPanel'], ['Electric tank to 50-gallon heat pump', 'hp'], ['Electric tank to electric tankless', 'tankless']]), costSrc),
 			items: itemTable('Itemized: 50-gallon electric tank, like for like (U.S. average)', e.s50),
-			byState: stateTable('Electric water heater installation cost by state (like for like)', [{ key: 'e40', label: '40 gallons', unit: '$', num: true }, { key: 'e50', label: '50 gallons', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { e40: fmt(x.e40), e50: fmt(x.e50) }; }, { source: 'Equipment listings + data/installation-costs.json; labor and permit × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
+			byState: stateTable('Electric water heater installation cost by state (like for like)', [{ key: 'e40', label: '40 gallons', unit: '$', num: true }, { key: 'e50', label: '50 gallons', unit: '$', num: true }], (k) => { const x = sr.find((y) => y.code === k); return { e40: fmt(x.e40), e50: fmt(x.e50) }; }, { source: 'Equipment listings + our installation cost ranges (see Methodology); labor and permit × BEA Regional Price Parity ÷ 100', sourceUrl: d['regional-cost-index'].meta.sourceUrl, sourceDate: d['regional-cost-index'].meta.sourceDate }),
 		},
 	};
 }
@@ -1422,7 +1426,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 				{ what: 'Covers a typical household of up to', g40: `${gas.fits40} people`, g50: `${gas.fits50} people`, e40: `${el.fits40} people`, e50: `${el.fits50} people` },
 				{ what: 'Unit price, typical ($)', g40: fmt(gas.unit40), g50: fmt(gas.unit50), e40: fmt(el.unit40), e50: fmt(el.unit50) },
 				{ what: 'Installed, like for like ($)', g40: fmt(gas.inst40), g50: fmt(gas.inst50), e40: fmt(el.inst40), e50: fmt(el.inst50) },
-			], { source: `Rheem Performance spec sheets (FHR, input, UEF); American Water Heater selection guide (household bands); Home Depot listings (${d['cost-ranges'].lastReviewed}) and data/installation-costs.json (installed)`, sourceUrl: d['fhr-to-tank-size'].meta.sourceUrl, sourceDate: d['fhr-to-tank-size'].meta.sourceDate }),
+			], { source: `Rheem Performance spec sheets (FHR, input, UEF); American Water Heater selection guide (household bands); Home Depot listings (${d['cost-ranges'].lastReviewed}) and our installation cost ranges (installed; see Methodology)`, sourceUrl: d['fhr-to-tank-size'].meta.sourceUrl, sourceDate: d['fhr-to-tank-size'].meta.sourceDate }),
 			peakHour: table('How much hot water your busiest hour uses (AHRI worksheet values)', [{ key: 'label', label: 'Use' }, { key: 'gallons', label: 'Gallons each', num: true }], Object.values(ph.activities || {}).map((a) => ({ label: a.label, gallons: fmt(a.gallons) })), { source: ph.meta.source, sourceUrl: ph.meta.sourceUrl, sourceDate: ph.meta.sourceDate }),
 		},
 	};
@@ -1546,6 +1550,73 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	};
 }
 
+/* S-12 (audit 2026-11-14): solar water heater cost and payback, DOE FEMP equations applied to one household */
+{
+	const sw = d['solar-water-heating'];
+	const fe = sw.femp;
+	const cost = { low: sw.installedCost.low, high: sw.installedCost.high, typical: (sw.installedCost.low + sw.installedCost.high) / 2 };
+	const upkeep = fe.omShareOfCostPerYear * cost.typical;
+	const elJob = job('electric_tank', '50', 'replace');
+	const gasJob = job('gas_tank', '50', 'replace');
+	const uefE = model.types.electric_tank.uef;
+	const uefG = model.types.gas_tank.uef;
+	const life = model.types.electric_tank.life;
+	const calc = (code) => {
+		const res = sw.resource[code];
+		if (!res) return null;
+		const st = model.states[code];
+		const rise = F.temperatureRise(model.setpointF, st.inletF);
+		const s = F.solarWaterHeating({ gallonsPerDay: model.typicalGallons, riseF: rise, iMaxBtuFt2Day: res.iMaxKwhM2Day * fe.btuFt2PerKwhM2, iAveBtuFt2Day: res.iAveKwhM2Day * fe.btuFt2PerKwhM2 }, fe);
+		const prices = { usdPerKwh: st.usdPerKwh, usdPerTherm: st.usdPerTherm };
+		const eSave = F.solarYearlySaving(s, 'electric', uefE, prices, upkeep);
+		const gSave = F.solarYearlySaving(s, 'gas', uefG, prices, upkeep);
+		return { code, name: st.name, city: res.city, rise, area: s.areaFt2, share: s.solarShare, eSave, gSave, ePay: F.simplePaybackYears(cost.typical - elJob.typical, eSave), gPay: F.simplePaybackYears(cost.typical - gasJob.typical, gSave) };
+	};
+	const rows = states.map(([k]) => calc(k)).filter(Boolean);
+	const payTxt = (p) => (p === null ? 'Never' : `${fmt(p, 0)} yrs`);
+	const byE = [...rows].sort((a, b) => b.eSave - a.eSave);
+	const byShare = [...rows].sort((a, b) => b.share - a.share);
+	const mid = byE[Math.floor(byE.length / 2)];
+	const inLifeE = rows.filter((x) => x.ePay !== null && x.ePay <= life).length;
+	const inLifeG = rows.filter((x) => x.gPay !== null && x.gPay <= life).length;
+	const pick = (code) => {
+		const x = rows.find((y) => y.code === code);
+		return { name: x.name, city: x.city, area: fmt(x.area), share: Math.round(x.share * 100), eSave: fmt(x.eSave), gSave: fmt(x.gSave), ePay: payTxt(x.ePay), gPay: payTxt(x.gPay), rise: fmt(x.rise) };
+	};
+	const hpf = out['heat-pump-water-heater-cost'].figures;
+	const femSrc = { source: `DOE FEMP solar hot water calculator equations (efficiency ${fe.etaSolar}, ${fe.utilization * 100}% of heat usable, upkeep ${fe.omShareOfCostPerYear * 100}% of cost a year) and FEMP city sun data; ${model.typicalGallons} gal/day at ${model.setpointF} °F; state incoming water; EIA 2025 state prices; system $${fmt(cost.typical)} (middle of NREL's $${fmt(cost.low)}–$${fmt(cost.high)})`, sourceUrl: 'https://hotwatermath.com/methodology/#solar-water-heater-cost', sourceDate: fe.checked };
+	const nameOf = Object.fromEntries(states.map(([k, s]) => [k, s.name]));
+	const stateRow = (k) => {
+		const x = rows.find((y) => y.code === k);
+		if (!x) return { name: nameOf[k], city: 'No FEMP data', area: '–', share: '–', eSave: '–', ePay: '–', gSave: '–', gPay: '–' };
+		return { name: x.name, city: x.city, area: fmt(x.area), share: fmt(Math.round(x.share * 100)), eSave: fmt(x.eSave), ePay: payTxt(x.ePay), gSave: fmt(x.gSave), gPay: payTxt(x.gPay) };
+	};
+	out['solar-water-heater-cost'] = {
+		meta: { ...derived('data/solar-water-heating.json and the cost model'), notes: 'Figures and tables for the solar water heater cost article (audit suggestion S-12).' },
+		figures: {
+			costLow: fmt(cost.low), costHigh: fmt(cost.high), costTypical: fmt(cost.typical), costYear: sw.installedCost.year, upkeep: fmt(upkeep),
+			elInstalled: fmt(elJob.typical), gasInstalled: fmt(gasJob.typical), extraE: fmt(cost.typical - elJob.typical), extraG: fmt(cost.typical - gasJob.typical),
+			gallons: model.typicalGallons, setpoint: model.setpointF, uefE: fmt(uefE, 2), uefG: fmt(uefG, 2), life,
+			stateCount: rows.length, missing: states.filter(([k]) => !sw.resource[k]).map(([, s]) => s.name).join(', '),
+			inLifeE, inLifeG,
+			best: { name: byE[0].name, city: byE[0].city, eSave: fmt(byE[0].eSave), ePay: payTxt(byE[0].ePay) },
+			worst: { name: byE[byE.length - 1].name, city: byE[byE.length - 1].city, eSave: fmt(byE[byE.length - 1].eSave), ePay: payTxt(byE[byE.length - 1].ePay) },
+			mid: { name: mid.name, city: mid.city, eSave: fmt(mid.eSave), ePay: payTxt(mid.ePay), share: Math.round(mid.share * 100) },
+			sunniest: { name: byShare[0].name, city: byShare[0].city, share: Math.round(byShare[0].share * 100) },
+			cloudiest: { name: byShare[byShare.length - 1].name, city: byShare[byShare.length - 1].city, share: Math.round(byShare[byShare.length - 1].share * 100) },
+			az: pick('AZ'), ny: pick('NY'), fl: pick('FL'), hi: pick('HI'),
+			hpSave: hpf.e0.saving, hpInstalled: hpf.sizes['50'].fromEl, hpPay: hpf.e0.payback,
+			creditPct: sw.federalCredit.percent, creditLastDay: sw.federalCredit.lastDay,
+			guidesLow: fmt(Math.min(...sw.costGuides.map((g) => g.low))), guidesHigh: fmt(Math.max(...sw.costGuides.map((g) => g.high))),
+		},
+		tables: {
+			byState: table('Solar water heater savings and payback by state (typical household, electric or gas backup)', [{ key: 'name', label: 'State' }, { key: 'city', label: 'Sun data city' }, { key: 'area', label: 'Collector', unit: 'ft²', num: true }, { key: 'share', label: 'Solar share', unit: '%', num: true }, { key: 'eSave', label: 'Saves vs electric', unit: '$/yr', num: true }, { key: 'ePay', label: 'Payback vs electric' }, { key: 'gSave', label: 'Saves vs gas', unit: '$/yr', num: true }, { key: 'gPay', label: 'Payback vs gas' }], states.map(([k]) => stateRow(k)), femSrc),
+			costs: table('Solar water heater installed cost: what each source says', [{ key: 'src', label: 'Source' }, { key: 'range', label: 'Installed cost', unit: '$' }, { key: 'kind', label: 'Kind' }], [{ src: 'NREL roadmap (2012)', range: `${fmt(cost.low)}–${fmt(cost.high)}`, kind: 'National lab; what our numbers use' }, ...sw.costGuides.map((g) => ({ src: g.label, range: `${fmt(g.low)}–${fmt(g.high)}`, kind: `Cost guide, checked ${g.checked}` }))], { source: `${sw.installedCost.source}; cost guides opened ${sw.costGuides[0].checked}`, sourceUrl: sw.installedCost.sourceUrl, sourceDate: sw.installedCost.checked }),
+			compare: table('Solar vs heat pump vs electric tank (typical household)', [{ key: 'opt', label: 'Option' }, { key: 'cost', label: 'Installed', unit: '$', num: true }, { key: 'save', label: 'Saves vs electric tank', unit: '$/yr', num: true }], [{ opt: 'Electric tank, 50 gal (U.S. average)', cost: fmt(elJob.typical), save: '0' }, { opt: 'Heat pump (hybrid), 50 gal (U.S. average)', cost: hpf.sizes['50'].fromEl, save: hpf.e0.saving }, { opt: `Solar with electric backup (${mid.name}, the middle state)`, cost: fmt(cost.typical), save: fmt(mid.eSave) }], { source: 'Our cost model and heat pump savings calculator; solar from the FEMP equations', sourceUrl: 'https://hotwatermath.com/methodology/#solar-water-heater-cost', sourceDate: fe.checked }),
+		},
+	};
+}
+
 /* Phase 6: Quick Answers must quote the computed numbers */
 {
 	const pages = JSON.parse(readFileSync(join(root, 'data/pages.json'), 'utf8')).pages;
@@ -1563,6 +1634,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		['gas-water-heater-installation-cost', ['$' + gsf.s40.typical, '$' + gsf.s50.typical]],
 		['electric-water-heater-installation-cost', ['$' + elf.s40.typical, '$' + elf.s50.typical]],
 		['water-heater-expansion-tank-size', [etf.d0.tank]],
+		['solar-water-heater-cost', ['$' + out['solar-water-heater-cost'].figures.costLow, '$' + out['solar-water-heater-cost'].figures.costHigh, 'in only ' + out['solar-water-heater-cost'].figures.inLifeE + ' states', 'within ' + out['solar-water-heater-cost'].figures.life + ' years']],
 		['40-vs-50-gallon-water-heater', [out['40-vs-50-gallon-water-heater'].figures.gas.fhrDiff + ' more gallons', '$' + out['40-vs-50-gallon-water-heater'].figures.gas.instDiff]],
 	];
 	for (const [slug, parts] of must) for (const part of parts) if (pages.some((p) => p.slug === slug && p.status !== 'planned') && !qa(slug).includes(part)) throw new Error('pages.json quickAnswer for ' + slug + ' must contain "' + part + '" (computed); update it.');
@@ -1663,7 +1735,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		const mSorted = [...metros].sort((a, b) => a.g50 - b.g50);
 		const metroSkipped = d['metro-price-parities'].skippedNoSeries?.[k] || [];
 		const fig = {
-			code: k, name: st.name, slug: s.slug, url: `/${slug}/`, stateCount: allCodes.length, populationRank: s.populationRank, population: fmt(s.population), popMillion: fmt(s.population / 1e6, 1),
+			code: k, name: st.name, slug: s.slug, url: `/${slug}/`, stateCount: allCodes.length, statesLabel: allCodes.includes('DC') ? `the ${allCodes.length - 1} states and DC` : `${allCodes.length} states`, populationRank: s.populationRank, population: fmt(s.population), popMillion: fmt(s.population / 1e6, 1),
 			mult: fmt(st.multiplier, 3), multPct: pctVs(st.multiplier, 1), multVs: vsWord(Math.round((st.multiplier - 1) * 100)), multRank, multRankOrd: ord(multRank), multRankPhrase: multRank > allCodes.length / 2 ? (allCodes.length - multRank + 1 === 1 ? 'highest' : `${ord(allCodes.length - multRank + 1)} highest`) : `${ord(multRank)} lowest`, rpp: fmt(d['regional-cost-index'].states[k].rppAllItems, 1), rppYear: d['regional-cost-index'].states[k].year,
 			g40: jobFig(j.g40), g50: jobFig(j.g50), e40: jobFig(j.e40), e50: jobFig(j.e50), hp50: jobFig(j.hp50), hpGas: jobFig(j.hpGas), gTl: jobFig(j.gTl), toTl: jobFig(j.toTl), eTl: jobFig(j.eTl), g50code: jobFig(j.g50code),
 			g50Diff: fmt(Math.abs(j.g50.typical - usJob.g50.typical)), g50DiffSign: j.g50.typical >= usJob.g50.typical ? 'more' : 'less', e50Diff: fmt(Math.abs(j.e50.typical - usJob.e50.typical)), e50DiffSign: j.e50.typical >= usJob.e50.typical ? 'more' : 'less',
@@ -1679,22 +1751,40 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 			electricPct: wh.electricPct, gasPct: wh.gasPct, propanePct: wh.propanePct, fuelOilPct: wh.fuelOilPct ?? 0, homesMillion: fmt(wh.homesMillion, 2), elecFirst, mainType, mainLabel: model.types[mainType].label,
 			hpPaysInLife: hpPay !== null && hpPay <= model.types.heat_pump.life, elecMajority: wh.electricPct >= 50, gasMajority: wh.gasPct >= 50, fuelOilShown: (wh.fuelOilPct ?? 0) > 0, gasTanklessSave: fmt(gYear - yearOf(op, 'gas_tankless')), gasTanklessYear: fmt(yearOf(op, 'gas_tankless')), tlPremium: fmt(j.toTl.typical - j.g50.typical), coldMonth: coldM.month, coldMonthInlet: coldM.inlet, coldMonthCost: coldM.cost, warmMonth: warmM.month, warmMonthInlet: warmM.inlet, warmMonthCost: warmM.cost, winterExtraPct: Math.round((F.temperatureRise(setF, coldM.inletNum) / F.temperatureRise(setF, warmM.inletNum) - 1) * 100), metroCount: metros.length, metroCheap: { name: mSorted[0].name, g50: fmt(mSorted[0].g50), e50: fmt(mSorted[0].e50), rpp: fmt(mSorted[0].rpp, 1) }, metroDear: { name: mSorted[mSorted.length - 1].name, g50: fmt(mSorted[mSorted.length - 1].g50), e50: fmt(mSorted[mSorted.length - 1].e50), rpp: fmt(mSorted[mSorted.length - 1].rpp, 1) }, metroSpread: fmt(mSorted[mSorted.length - 1].g50 - mSorted[0].g50), metroSkipped: metroSkipped.join('; '), metroYear: metros[0].year, rebate: s.rebate, notes: s.notes, heehrMax: fmt(sp.references.heehrHpwhMaxUsd.value), presetExtras,
 		};
+		// State-only sections (audit F-16): sourced utility and state rebates (data/hpwh-rebates.json) and the
+		// hand-written "what makes it different" text, whose {tokens} are filled from this state's own figures.
+		const hr = d['hpwh-rebates'];
+		const progs = hr.programs.filter((x) => x.state === k);
+		fig.rebPrograms = progs.map((x) => ({ sponsor: x.sponsor, offer: x.offer, sourceUrl: x.sourceUrl, checked: x.checked }));
+		fig.rebEnded = hr.ended.filter((x) => x.state === k).map((x) => ({ sponsor: x.sponsor, quote: x.quote, sourceUrl: x.sourceUrl, checked: x.checked }));
+		const hs = d['heat-pump'].space;
+		Object.assign(fig, { hpLowF: hs.spaceTempLowF, hpHighF: hs.spaceTempHighF });
+		const tok = (str) => str.replace(/\{([a-zA-Z0-9.:-]+)\}/g, (m, key) => {
+			if (key.startsWith('r:')) { const pr = hr.programs.find((x) => x.id === key.slice(2)); if (!pr?.maxUsd) throw new Error(`${st.name}: rebate token ${key} has no maxUsd`); return fmt(pr.maxUsd); }
+			const val = key.split('.').reduce((o, kk) => o?.[kk], fig);
+			if (val === undefined || val === null || typeof val === 'object') throw new Error(`${st.name}: unknown token {${key}} in state-pages.json local text`);
+			return String(val);
+		});
+		if (!s.local?.paras?.length) throw new Error(`${st.name}: state-pages.json needs a local section (audit F-16)`);
+		fig.local = { heading: s.local.heading, paras: s.local.paras.map(tok) };
+		const uniqueSections = (progs.length || fig.rebEnded.length ? 1 : 0) + s.notes.length + 1;
+		if (uniqueSections < 3) throw new Error(`${st.name}: fewer than three state-only sections (rebates, notes, local); add a sourced one (audit F-16).`);
 		// "What stands out": sentences written from this state's own extremes (rank among the 50 states and DC).
 		const N = allCodes.length;
 		const hl = [];
 		const hiOrd = (r) => (N - r + 1 === 1 ? 'highest' : `${ord(N - r + 1)} highest`);
-		if (multRank >= N - 5) hl.push(`${st.name}'s price level is the ${hiOrd(multRank)} of ${N} states and DC, so labor, permits and extras cost more here than almost anywhere: about $${fig.laborG} of labor on a gas tank against $${fmt(model.labor.gas_tank.typical)} nationally.`);
-		else if (multRank <= 20) hl.push(`${st.name} is one of the cheaper states for installation labor: its price level is the ${ord(multRank)} lowest of ${N}, so a gas tank's labor runs about $${fig.laborG} against $${fmt(model.labor.gas_tank.typical)} nationally.`);
+		if (multRank >= N - 5) hl.push(`${st.name}'s price level is the ${hiOrd(multRank)} of ${fig.statesLabel}, so labor, permits and extras cost more here than almost anywhere: about $${fig.laborG} of labor on a gas tank against $${fmt(model.labor.gas_tank.typical)} nationally.`);
+		else if (multRank <= 20) hl.push(`${st.name} is one of the cheaper states for installation labor: its price level is the ${ord(multRank)} lowest of ${fig.statesLabel}, so a gas tank's labor runs about $${fig.laborG} against $${fmt(model.labor.gas_tank.typical)} nationally.`);
 		else if (fig.multPct === 0) hl.push(`${st.name}'s price level matches the U.S. average exactly, so its prices are the national prices; only your metro area moves them.`);
 		if (kwhRank >= N - 10) hl.push(`Electricity is expensive in ${st.name} (${fig.kwhCents} cents per kWh, the ${hiOrd(kwhRank)}), so a standard electric tank costs about $${fig.eYear} a year to run and a heat pump saves about $${fig.hpSave} a year against it.`);
 		else if (kwhRank <= 20) hl.push(`Electricity is cheaper than average in ${st.name} (${fig.kwhCents} cents per kWh, ${fig.kwhVs} the U.S. average), so a standard electric tank costs about $${fig.eYear} a year to run here, against $${fig.gYear} for gas.`);
 		if (thermRank >= N - 10) hl.push(`Natural gas costs more here than in most states ($${fig.therm} per therm, the ${hiOrd(thermRank)}), so gas's running-cost advantage is smaller than the national picture suggests.`);
-		else if (thermRank <= 12) hl.push(`Natural gas is cheap in ${st.name} ($${fig.therm} per therm, the ${ord(thermRank)} lowest of ${N}), so a gas tank costs only about $${fig.gYear} a year to run, and gas stays the cheapest tank to own over ${years} years.`);
+		else if (thermRank <= 12) hl.push(`Natural gas is cheap in ${st.name} ($${fig.therm} per therm, the ${ord(thermRank)} lowest of ${fig.statesLabel}), so a gas tank costs only about $${fig.gYear} a year to run, and gas stays the cheapest tank to own over ${years} years.`);
 		if (wh.electricPct >= 70) hl.push(`${wh.electricPct}% of ${st.name} homes heat water with electricity, against ${usMix.electricPct}% nationally, so most replacements here are electric-to-electric and need no gas or vent work.`);
 		else if (wh.gasPct >= 65) hl.push(`${wh.gasPct}% of ${st.name} homes heat water with natural gas, against ${usMix.gasPct}% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.`);
 		else if (Math.abs(wh.gasPct - wh.electricPct) <= 10) hl.push(`${st.name} is split between fuels: ${wh.gasPct}% of homes heat water with gas and ${wh.electricPct}% with electricity, so check which you have before you compare quotes; a fuel switch adds a gas line and vent, or a 240-volt circuit.`);
-		if (inl.coldestMonth < 45) hl.push(`Incoming water drops to about ${fig.inletWinter} °F in the coldest month, so a whole-house tankless unit manages only ${fig.showersW === 1 ? 'one full-flow shower' : `${fig.showersW} full-flow showers`} at a time in winter; a tank, or two tankless units, suits larger households better.`);
-		else if (inl.coldestMonth > 60) hl.push(`Incoming water stays near ${fig.inletWinter} °F even in the coldest month, so a single whole-house tankless unit can run ${fig.showersW} full-flow showers at once all year.`);
+		if (inl.coldestMonth < 45) hl.push(`Incoming water drops to about ${fig.inletWinter} °F in the coldest month, so a whole-house tankless unit runs only ${fig.showersW === 1 ? 'one shower' : `${fig.showersW} showers`} at full hot flow at a time in winter; a tank, or two tankless units, suits larger households better.`);
+		else if (inl.coldestMonth > 60) hl.push(`Incoming water stays near ${fig.inletWinter} °F even in the coldest month, so a single whole-house tankless unit can run ${fig.showersW} showers at full hot flow at once all year.`);
 		if (wh.fuelOilPct) hl.push(`${wh.fuelOilPct}% of ${st.name} homes still heat water with fuel oil, often from the heating boiler; those systems are priced differently from the tanks on this page.`);
 		if (s.rebate.status === 'open' && s.rebate.hpwh) hl.push(`Of the ${sp.statePages.length} states we cover, ${st.name} is one where the state's official page confirms the federal appliance rebate pays for a heat pump water heater now: up to $${fig.heehrMax} for income-qualified homes.`);
 		if (mSorted[mSorted.length - 1].g50 - mSorted[0].g50 >= 50) hl.push(`Where you live inside ${st.name} matters: the same 50-gallon gas job is about $${fig.metroDear.g50} in the ${fig.metroDear.name} area and $${fig.metroCheap.g50} in the ${fig.metroCheap.name} area.`);
@@ -1719,15 +1809,16 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 				itemsOther: itemTable(`Itemized: 50-gallon ${elecFirst ? 'gas' : 'electric'} tank replacement in ${st.name}`, elecFirst ? j.g50 : j.e50),
 				running: table(`Yearly energy cost and ${years}-year cost in ${st.name} (${model.typicalGallons} gal/day, ${setF} °F)`, runCols, (elecFirst ? ['electric_tank', 'heat_pump', 'gas_tank', 'gas_tankless', 'electric_tankless'] : ['gas_tank', 'gas_tankless', 'electric_tank', 'heat_pump', 'electric_tankless']).map((id) => ({ label: model.types[id].label, uef: fmt(op.find((x) => x.id === id).uef, 2), state: fmt(yearOf(op, id)), us: fmt(yearOf(opUs, id)), own: fmt(ownOf[id] ?? own(instOf[id], yearOf(op, id))) })), { source: `EIA ${ep.electricYear} ${st.name} residential prices ($${fmt(st.usdPerKwh, 3)}/kWh, $${fmt(st.usdPerTherm, 2)}/therm); ${st.name} incoming water ${fmt(inl.annualAvg, 1)} °F; median UEF by type; installed cost from our cost model`, sourceUrl: 'https://hotwatermath.com/methodology/#state-cost-pages', sourceDate: ic.lastReviewed }),
 				metros: table(`50-gallon replacement in ${st.name}'s largest metro areas (typical installed price)`, [{ key: 'name', label: 'Metro area' }, { key: 'rpp', label: `Price level (U.S. = 100, ${metros[0].year})`, num: true }, { key: 'g50', label: 'Gas tank', unit: '$', num: true }, { key: 'e50', label: 'Electric tank', unit: '$', num: true }], [...metros.map((x) => ({ name: x.name, rpp: fmt(x.rpp, 1), g50: fmt(x.g50), e50: fmt(x.e50) })), { name: `${st.name} statewide`, rpp: fmt(d['regional-cost-index'].states[k].rppAllItems, 1), g50: fmt(j.g50.typical), e50: fmt(j.e50.typical) }], { source: `BEA Regional Price Parities by metro area via FRED (${metros.map((x) => x.sourceUrl.split('/').pop()).join(', ')}); metro populations: Census Vintage 2025; prices from our cost model with the metro's price level in place of the state's`, sourceUrl: 'https://fred.stlouisfed.org/series/' + d['metro-price-parities'].metrosByState[k][0].fredSeries, sourceDate: d['metro-price-parities'].meta.sourceDate }),
-				months: table(`${st.name} month by month: incoming water, tankless output and the ${model.types[mainType].label.toLowerCase()} energy bill`, [{ key: 'month', label: 'Month' }, { key: 'air', label: 'Outdoor air', unit: '°F', num: true }, { key: 'inlet', label: 'Incoming water', unit: '°F', num: true }, { key: 'gpm', label: 'Tankless flow', unit: 'GPM', num: true }, { key: 'cost', label: `${model.types[mainType].label} energy`, unit: '$', num: true }], monthRows.map(({ costNum, inletNum, ...r }) => r), { source: `Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: ${ref.maker} ${ref.model} at the month's rise to ${setF} °F; energy: ${model.typicalGallons} gal/day, UEF ${fmt(mainUef, 2)}, EIA ${ep.electricYear} ${st.name} prices`, sourceUrl: gw.correlation.sourceUrl, sourceDate: gw.meta.sourceDate }),
+				months: table(`${st.name} month by month: incoming water, tankless output and the ${model.types[mainType].label.toLowerCase()} energy bill`, [{ key: 'month', label: 'Month' }, { key: 'air', label: 'Outdoor air', unit: '°F', num: true }, { key: 'inlet', label: 'Incoming water', unit: '°F', num: true }, { key: 'gpm', label: 'Tankless flow', unit: 'GPM', num: true }, { key: 'cost', label: `${model.types[mainType].label} energy`, unit: '$', num: true }], monthRows.map(({ costNum, inletNum, ...r }) => r), { source: `Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: ${ref.maker} ${ref.model} at the month's rise to ${setF} °F; energy: ${model.typicalGallons} gal/day, UEF ${fmt(mainUef, 2)}, EIA ${ep.electricYear} ${st.name} prices`, sourceUrl: gw.correlation.sourceUrl, sourceDate: gw.meta.sourceDate }),
 				tankless: table(`What one whole-house gas tankless delivers in ${st.name} (${ref.maker} ${ref.model}, ${fmt(ref.inputBtuh)} BTU/h)`, [{ key: 'season', label: 'Season' }, { key: 'inlet', label: 'Incoming water', unit: '°F', num: true }, { key: 'rise', label: `Rise to ${setF} °F`, unit: '°F', num: true }, { key: 'gpm', label: 'Hot water flow', unit: 'GPM', num: true }, { key: 'showers', label: `${fmt(showerGpm, 1)} GPM showers at once`, num: true }], [
 					{ season: 'Coldest month', inlet: fmt(inl.coldestMonth, 1), rise: fmt(riseW, 1), gpm: fmt(gW, 1), showers: Math.floor(gW / showerGpm) },
 					{ season: 'Year average', inlet: fmt(inl.annualAvg, 1), rise: fmt(riseA, 1), gpm: fmt(gA, 1), showers: Math.floor(gA / showerGpm) },
 					{ season: 'Warmest month', inlet: fmt(inl.warmestMonth, 1), rise: fmt(riseS, 1), gpm: fmt(gS, 1), showers: Math.floor(gS / showerGpm) },
-				], { source: `Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (${F.PHYSICS.lbPerGallon} × ${F.PHYSICS.minutesPerHour} × rise), formulas.maxGpmByRise; unit input and efficiency from ${ref.maker}'s chart`, sourceUrl: d['tankless-reference-units'].meta.sourceUrl, sourceDate: d['tankless-reference-units'].meta.sourceDate }),
+				], { source: `Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (${F.PHYSICS.lbPerGallon} × ${F.PHYSICS.minutesPerHour} × rise), unit input and efficiency from ${ref.maker}'s chart`, sourceUrl: d['tankless-reference-units'].meta.sourceUrl, sourceDate: d['tankless-reference-units'].meta.sourceDate }),
 				fuelMix: table(`How ${st.name} homes heat water (main fuel, share of homes)`, [{ key: 'fuel', label: 'Main water heating fuel' }, { key: 'state', label: st.name, unit: '%', num: true }, { key: 'us', label: 'U.S.', unit: '%', num: true }], [
 					{ fuel: 'Electricity', state: wh.electricPct, us: usMix.electricPct }, { fuel: 'Natural gas', state: wh.gasPct, us: usMix.gasPct }, { fuel: 'Propane', state: wh.propanePct, us: usMix.propanePct }, ...(wh.fuelOilPct ? [{ fuel: 'Fuel oil or kerosene', state: wh.fuelOilPct, us: usMix.fuelOilPct }] : []),
 				], { source: `${sp.references.recs.publisher}, ${sp.references.recs.title} (${fmt(wh.homesMillion, 2)} million ${st.name} homes)`, sourceUrl: sp.references.recs.pageUrl, sourceDate: sp.meta.sourceDate }),
+				...(progs.length ? { utilityRebates: table(`Water heater rebates in ${st.name}: utility and state programs (checked ${progs[0].checked})`, [{ key: 'sponsor', label: 'Program' }, { key: 'type', label: 'For' }, { key: 'offer', label: 'Offer' }, { key: 'conditions', label: 'Main conditions' }], progs.map((x) => ({ sponsor: x.sponsor, type: x.fuel === 'heat_pump' ? 'Heat pump water heater' : 'Gas water heater', offer: x.offer, conditions: x.conditions })), { source: `Each program's own page, opened ${progs[0].checked}: ${progs.map((x) => x.sponsor.split(' (')[0]).join('; ')}. Amounts change; confirm before you buy`, sourceUrl: d['hpwh-rebates'].meta.sourceUrl, sourceDate: d['hpwh-rebates'].meta.sourceDate }) } : {}),
 			},
 		};
 		// Guard: the registry's description and quick answer quote these numbers; they must match the model.
@@ -1758,7 +1849,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		meta: { ...derived('data/safety.json (settings compared), data/troubleshooting.json (shower temperature, inlet example), data/fixture-flow-rates.json and data/site.json'), notes: 'Tank share of a mixed shower = (shower − inlet) ÷ (tank − inlet), formulas.hotShareOfMix; tank gallons = flow × minutes × share, formulas.hotGallonsDrawn; extra mixed water = share at 120 °F ÷ share at the hotter setting − 1, formulas.extraMixedWaterShare. Only true when a mixing valve (or the user) mixes the water down to the same shower temperature. Heat loss in the pipes and in the tank is not counted, so real tanks deliver a little less in every row.' },
 		figures: { base, mixF: ro.showerMixF, inletF, gpm: shower.gpm, minutes: mins, share120: at(120).share, gal120: fmt(at(120).gal, 1), share140: at(140).share, gal140: fmt(at(140).gal, 1), extra140: at(140).extra, extra130: at(130).extra, exp120: et.f120, exp140: et.f140 },
 		tables: {
-			capacity: table(`How far a tank stretches at each setting (${fmt(shower.gpm, 1)} GPM shower at ${ro.showerMixF} °F, ${inletF} °F incoming water, ${mins} minutes)`, [{ key: 't', label: 'Tank setting', unit: '°F', num: true }, { key: 'share', label: 'Share of the shower from the tank', unit: '%', num: true }, { key: 'gal', label: 'Tank water used', unit: 'gal', num: true }, { key: 'extra', label: `Mixed water vs ${base} °F`, num: true }], capRows.map((x) => ({ t: fmt(x.t), share: fmt(x.share), gal: fmt(x.gal, 1), extra: x.t === base ? 'Baseline' : `+${x.extra}%` })), { source: 'Computed with formulas.hotShareOfMix and hotGallonsDrawn; shower temperature from Stiebel Eltron\'s sizing sheet, winter inlet from A. O. Smith, shower flow is the federal maximum. Needs a mixing valve to hold the shower at the same temperature.', sourceUrl: 'https://hotwatermath.com/methodology/#safety-pages', sourceDate: sf.meta.sourceDate }),
+			capacity: table(`How far a tank stretches at each setting (${fmt(shower.gpm, 1)} GPM shower at ${ro.showerMixF} °F, ${inletF} °F incoming water, ${mins} minutes)`, [{ key: 't', label: 'Tank setting', unit: '°F', num: true }, { key: 'share', label: 'Share of the shower from the tank', unit: '%', num: true }, { key: 'gal', label: 'Tank water used', unit: 'gal', num: true }, { key: 'extra', label: `Mixed water vs ${base} °F`, num: true }], capRows.map((x) => ({ t: fmt(x.t), share: fmt(x.share), gal: fmt(x.gal, 1), extra: x.t === base ? 'Baseline' : `+${x.extra}%` })), { source: 'Computed with the size calculator’s hot-share formula (see Methodology); shower temperature from Stiebel Eltron\'s sizing sheet, winter inlet from A. O. Smith, shower flow is the federal maximum. Needs a mixing valve to hold the shower at the same temperature.', sourceUrl: 'https://hotwatermath.com/methodology/#safety-pages', sourceDate: sf.meta.sourceDate }),
 		},
 	};
 	const tp = sf.tp;
@@ -1815,7 +1906,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	const s05at20 = F.gasPipeSize(c199, 20, t05.rows, g.sizes);
 	const matches = rin.filter((x) => x.half === x.m.half).length + rin.filter((x) => x.tq === x.m.threeQuarter).length;
 	out['gas-line-size-for-tankless-water-heater'] = {
-		meta: { ...derived('data/safety.json (IFGC 2021 Tables 402.4(2) and 402.4(3) rows, Rinnai and Rheem figures)'), notes: 'CFH = BTU/h ÷ 1,000 BTU per cubic foot (formulas.gasCfh, Rinnai\'s basis); pipe size = smallest size whose table capacity covers the CFH at the next longer table length (formulas.gasPipeSize); maximum length = longest table row a size still covers (formulas.gasMaxLengthFt). Schedule 40 steel pipe, natural gas, one appliance on its own run from the meter; fittings must be added as equivalent length.' },
+		meta: { ...derived('data/safety.json (IFGC 2021 Tables 402.4(2) and 402.4(3) rows, Rinnai and Rheem figures)'), notes: 'CFH = BTU/h ÷ 1,000 BTU per cubic foot (formulas.gasCfh, Rinnai\'s basis); pipe size = smallest size whose table capacity covers the CFH at the next longer table length (formulas.gasPipeSize); maximum length = longest table row a size still covers. Schedule 40 steel pipe, natural gas, one appliance on its own run from the meter; fittings must be added as equivalent length.' },
 		figures: {
 			cfh199: fmt(c199), half199at40: half199at40.size, s05at40: s05at40.size, s05at20: s05at20.size,
 			exTotal: fmt(exTotal), exCfh: fmt(cfh(exTotal)), exRheemCfh: fmt(ex.rheemCfh), exTank: fmt(exTank), exTankCfh: fmt(cfh(exTank)), meter: fmt(g.meterTypicalCfh),
@@ -1830,11 +1921,11 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 			q05cap10: fmt(t05.rows[0].cfh[1]), q05cap100: fmt(t05.rows.find((r) => r.lengthFt === 100).cfh[1]),
 		},
 		tables: {
-			size05: table(`Smallest steel pipe at a 0.5 in. w.c. pressure drop (${t05.table}, ${g.edition}), one tankless unit on its own run`, lookupCols, lookup(t05), { source: `Looked up in ${g.edition} ${t05.table} (${t05.note}) with formulas.gasPipeSize; CFH = BTU/h ÷ ${fmt(g.btuPerCf)} (Rinnai). Lengths include fittings as equivalent length. For discussion with your installer, not a design.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
-			size30: table(`Smallest steel pipe at a 3.0 in. w.c. pressure drop (${t30.table}, ${g.edition}), only where the supply is ${g.drop30MinSupplyInWc} in. w.c. or more`, lookupCols, lookup(t30), { source: `Looked up in ${g.edition} ${t30.table} (${t30.note}) with formulas.gasPipeSize; CFH = BTU/h ÷ ${fmt(g.btuPerCf)} (Rinnai). For discussion with your installer, not a design.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			size05: table(`Smallest steel pipe at a 0.5 in. w.c. pressure drop (${t05.table}, ${g.edition}), one tankless unit on its own run`, lookupCols, lookup(t05), { source: `Looked up in ${g.edition} ${t05.table} (${t05.note}) with our pipe-size lookup; CFH = BTU/h ÷ ${fmt(g.btuPerCf)} (Rinnai). Lengths include fittings as equivalent length. For discussion with your installer, not a design.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			size30: table(`Smallest steel pipe at a 3.0 in. w.c. pressure drop (${t30.table}, ${g.edition}), only where the supply is ${g.drop30MinSupplyInWc} in. w.c. or more`, lookupCols, lookup(t30), { source: `Looked up in ${g.edition} ${t30.table} (${t30.note}) with our pipe-size lookup; CFH = BTU/h ÷ ${fmt(g.btuPerCf)} (Rinnai). For discussion with your installer, not a design.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
 			code05: table(`What ${t05.table} says: capacity of Schedule 40 steel pipe, natural gas, 0.5 in. w.c. drop (excerpt)`, codeCols, codeRows(t05, 100), { source: `${g.edition}, ${t05.table}, rows for 10 to 100 ft and four sizes only. ${t05.note}. Entries rounded to three significant digits by the code.`, sourceUrl: sf.references['ifgc-2021-ch4'].sourceUrl, sourceDate: sf.references['ifgc-2021-ch4'].checked }),
 			code30: table(`What ${t30.table} says: the same pipe at a 3.0 in. w.c. drop (excerpt)`, codeCols, codeRows(t30, 100), { source: `${g.edition}, ${t30.table}, rows for 10 to 100 ft and four sizes only. ${t30.note}.`, sourceUrl: sf.references['ifgc-2021-ch4'].sourceUrl, sourceDate: sf.references['ifgc-2021-ch4'].checked }),
-			rinnai: table(`Cross-check: our lookup in ${t30.table} vs Rinnai's published maximum lengths (natural gas)`, [{ key: 'model', label: 'Rinnai model' }, { key: 'btuh', label: 'Input', unit: 'BTU/h', num: true }, { key: 'rh', label: 'Rinnai, 1/2 in', unit: 'ft', num: true }, { key: 'oh', label: 'Our lookup, 1/2 in', unit: 'ft', num: true }, { key: 'rq', label: 'Rinnai, 3/4 in', unit: 'ft', num: true }, { key: 'oq', label: 'Our lookup, 3/4 in', unit: 'ft', num: true }, { key: 'same', label: 'Same?' }], rin.map((x) => ({ model: x.m.model, btuh: fmt(x.m.btuh), rh: fmt(x.m.half), oh: fmt(x.half), rq: fmt(x.m.threeQuarter), oq: fmt(x.tq), same: x.ok ? 'Yes' : 'No, see note' })), { source: `Rinnai professional FAQ, Table 1 (natural gas, 8.0 in. w.c. or greater supply, 3.0 in. w.c. drop, 1,000 BTU per cubic foot), checked ${sf.references['rinnai-faq'].checked}; our figure = longest row of ${t30.table} that still carries the unit's CFH (formulas.gasMaxLengthFt).`, sourceUrl: sf.references['rinnai-faq'].sourceUrl, sourceDate: sf.references['rinnai-faq'].checked }),
+			rinnai: table(`Cross-check: our lookup in ${t30.table} vs Rinnai's published maximum lengths (natural gas)`, [{ key: 'model', label: 'Rinnai model' }, { key: 'btuh', label: 'Input', unit: 'BTU/h', num: true }, { key: 'rh', label: 'Rinnai, 1/2 in', unit: 'ft', num: true }, { key: 'oh', label: 'Our lookup, 1/2 in', unit: 'ft', num: true }, { key: 'rq', label: 'Rinnai, 3/4 in', unit: 'ft', num: true }, { key: 'oq', label: 'Our lookup, 3/4 in', unit: 'ft', num: true }, { key: 'same', label: 'Same?' }], rin.map((x) => ({ model: x.m.model, btuh: fmt(x.m.btuh), rh: fmt(x.m.half), oh: fmt(x.half), rq: fmt(x.m.threeQuarter), oq: fmt(x.tq), same: x.ok ? 'Yes' : 'No, see note' })), { source: `Rinnai professional FAQ, Table 1 (natural gas, 8.0 in. w.c. or greater supply, 3.0 in. w.c. drop, 1,000 BTU per cubic foot), checked ${sf.references['rinnai-faq'].checked}; our figure = longest row of ${t30.table} that still carries the unit's CFH.`, sourceUrl: sf.references['rinnai-faq'].sourceUrl, sourceDate: sf.references['rinnai-faq'].checked }),
 		},
 	};
 	// Guard: the cross-check must keep matching where we say it does (all but the two rows explained on the page).
@@ -1855,7 +1946,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	const v = units.filter((u) => u.kw208);
 	const lowPct = Math.round((F.powerAtVoltage(1, 240, e.lowVolts)) * 100);
 	out['tankless-water-heater-electrical-requirements'] = {
-		meta: { ...derived('data/safety.json (Stiebel Eltron and Rheem published requirements, IRC 2021 ampacity rows)'), notes: 'Amps = kW × 1,000 ÷ 240 V (formulas.electricAmps); per circuit = amps ÷ number of circuits; breaker as % of draw = breaker ÷ amps per circuit; "125% would give" = the next standard breaker size (IRC Table E3705.6) at or above 125% of the amps per circuit, shown only to explain why manufacturer tables differ from the storage-tank rule; power on 208 V = kW × (208 ÷ 240)² (formulas.powerAtVoltage).' },
+		meta: { ...derived('data/safety.json (Stiebel Eltron and Rheem published requirements, IRC 2021 ampacity rows)'), notes: 'Amps = kW × 1,000 ÷ 240 V (formulas.electricAmps); per circuit = amps ÷ number of circuits; breaker as % of draw = breaker ÷ amps per circuit; "125% would give" = the next standard breaker size (IRC Table E3705.6) at or above 125% of the amps per circuit, shown only to explain why manufacturer tables differ from the storage-tank rule; power on 208 V = kW × (208 ÷ 240)².' },
 		figures: {
 			t24Amps: fmt(tempra24.total), t24Per: fmt(tempra24.per), t24Breaker: tempra24.breakerA, t24Circuits: tempra24.circuits, t24At125: tempra24.at125,
 			r18Amps: fmt(retex18.total), r18Per: fmt(retex18.per, 1), r18Breaker: retex18.breakerA, r18Pct: retex18.pct,
@@ -1864,9 +1955,9 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 			maxAmps: fmt(Math.max(...units.map((u) => u.total))), minPct: Math.min(...units.map((u) => u.pct)), maxPct: Math.max(...units.map((u) => u.pct)),
 		},
 		tables: {
-			units: table('What two manufacturers specify for their electric tankless units (240 V)', [{ key: 'model', label: 'Model' }, { key: 'kw', label: 'Power', unit: 'kW', num: true }, { key: 'amps', label: 'Total draw', unit: 'A', num: true }, { key: 'breakers', label: 'Breakers (double-pole)' }, { key: 'per', label: 'Draw per circuit', unit: 'A', num: true }, { key: 'pct', label: 'Breaker vs draw', num: true }, { key: 'wire', label: 'Copper wire per circuit' }, { key: 'service', label: 'Main service (maker)' }], units.map((u) => ({ model: `${u.maker} ${u.model}`, kw: fmt(u.kw, 1), amps: fmt(u.total, 1), breakers: `${u.circuits} × ${u.breakerA} A`, per: fmt(u.per, 1), pct: `${u.pct}%`, wire: u.wire, service: u.serviceA ? `${u.serviceA} A minimum` : 'Not stated' })), { source: `Breakers, wire and service minimums as published by Stiebel Eltron (Tempra Trend/Plus specifications, rev. 6.2025) and Rheem (form THD-PTE Rev. 2), checked ${sf.references['stiebel-tempra'].checked}. Draw = kW × 1,000 ÷ 240 V (formulas.electricAmps); draw per circuit assumes the load is split evenly. Not a wiring design: the installation manual of your unit and your local code decide.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			units: table('What two manufacturers specify for their electric tankless units (240 V)', [{ key: 'model', label: 'Model' }, { key: 'kw', label: 'Power', unit: 'kW', num: true }, { key: 'amps', label: 'Total draw', unit: 'A', num: true }, { key: 'breakers', label: 'Breakers (double-pole)' }, { key: 'per', label: 'Draw per circuit', unit: 'A', num: true }, { key: 'pct', label: 'Breaker vs draw', num: true }, { key: 'wire', label: 'Copper wire per circuit' }, { key: 'service', label: 'Main service (maker)' }], units.map((u) => ({ model: `${u.maker} ${u.model}`, kw: fmt(u.kw, 1), amps: fmt(u.total, 1), breakers: `${u.circuits} × ${u.breakerA} A`, per: fmt(u.per, 1), pct: `${u.pct}%`, wire: u.wire, service: u.serviceA ? `${u.serviceA} A minimum` : 'Not stated' })), { source: `Breakers, wire and service minimums as published by Stiebel Eltron (Tempra Trend/Plus specifications, rev. 6.2025) and Rheem (form THD-PTE Rev. 2), checked ${sf.references['stiebel-tempra'].checked}. Draw = kW × 1,000 ÷ 240 V; draw per circuit assumes the load is split evenly. Not a wiring design: the installation manual of your unit and your local code decide.`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
 			ampacity: table(`Copper wire ampacity in the code (${e.edition}, Table E3705.1, excerpt)`, [{ key: 'awg', label: 'Copper wire' }, { key: 'c60', label: '60 °C column (NM cable)', unit: 'A', num: true }, { key: 'c75', label: '75 °C column', unit: 'A', num: true }, { key: 'c90', label: '90 °C column', unit: 'A', num: true }], e.ampacity.map((r) => ({ awg: `${r.awg} AWG`, c60: fmt(r.c60), c75: fmt(r.c75), c90: fmt(r.c90) })), { source: `${e.edition}, Table E3705.1 [NEC 310.16], copper rows 10 to 4 AWG only. NM cable is held to the 60 °C column (E3705.4.4 [334.80]); terminations on circuits of 100 A or less use 60 °C unless the equipment is marked otherwise (E3705.4.1 [110.14(C)]). Ambient temperature and bundling corrections also apply.`, sourceUrl: sf.references['irc-2021-electrical'].sourceUrl, sourceDate: sf.references['irc-2021-electrical'].checked }),
-			v208: table('The same unit on 208 V instead of 240 V', [{ key: 'model', label: 'Model' }, { key: 'kw', label: 'At 240 V', unit: 'kW', num: true }, { key: 'calc', label: 'Ohm\'s law at 208 V', unit: 'kW', num: true }, { key: 'maker', label: 'Maker lists at 208 V', unit: 'kW', num: true }], v.map((u) => ({ model: `${u.maker} ${u.model}`, kw: fmt(u.kw, 1), calc: fmt(F.powerAtVoltage(u.kw, 240, e.lowVolts), 1), maker: fmt(u.kw208, 1) })), { source: `kW × (208 ÷ 240)², formulas.powerAtVoltage; maker figures from the Stiebel Eltron Tempra specifications. Rheem: 240 V units on 208 V give "25% reduced temperature output".`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
+			v208: table('The same unit on 208 V instead of 240 V', [{ key: 'model', label: 'Model' }, { key: 'kw', label: 'At 240 V', unit: 'kW', num: true }, { key: 'calc', label: 'Ohm\'s law at 208 V', unit: 'kW', num: true }, { key: 'maker', label: 'Maker lists at 208 V', unit: 'kW', num: true }], v.map((u) => ({ model: `${u.maker} ${u.model}`, kw: fmt(u.kw, 1), calc: fmt(F.powerAtVoltage(u.kw, 240, e.lowVolts), 1), maker: fmt(u.kw208, 1) })), { source: `kW × (208 ÷ 240)²; maker figures from the Stiebel Eltron Tempra specifications. Rheem: 240 V units on 208 V give "25% reduced temperature output".`, sourceUrl: meth, sourceDate: sf.meta.sourceDate }),
 		},
 		tanklessDefault: (() => {
 			const tk = out['tankless-water-heater-size-calculator'];
@@ -1931,7 +2022,7 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		lastReviewed: ic.lastReviewed, unitsReviewed: d['cost-ranges'].lastReviewed,
 		labels: { g: label('gas_tank'), e: label('electric_tank'), h: label('heat_pump') },
 	};
-	const src = { source: `Installed: equipment listings (${d['cost-ranges'].lastReviewed}) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, ${model.typicalGallons} gal/day at ${model.setpointF} °F from each state's average incoming water temperature (NOAA-based), median UEFs. ${years}-year cost = installed + ${years} × yearly energy (no rebates, no discounting).`, sourceUrl: 'https://hotwatermath.com/methodology/#cost-index', sourceDate: ic.lastReviewed };
+	const src = { source: `Installed: equipment listings (${d['cost-ranges'].lastReviewed}) + our installation cost ranges, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, ${model.typicalGallons} gal/day at ${model.setpointF} °F from each state's average incoming water temperature (NOAA-based), median UEFs. ${years}-year cost = installed + ${years} × yearly energy (no rebates, no discounting).`, sourceUrl: 'https://hotwatermath.com/methodology/#cost-index', sourceDate: ic.lastReviewed };
 	const cols = [
 		{ key: 'rank', label: 'Rank', num: true }, { key: 'name', label: 'State' }, { key: 'm', label: 'Price factor', num: true },
 		{ key: 'gi', label: 'Gas tank installed', unit: '$', num: true }, { key: 'ei', label: 'Electric tank installed', unit: '$', num: true }, { key: 'hi', label: 'Heat pump installed', unit: '$', num: true },

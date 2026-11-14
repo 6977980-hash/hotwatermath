@@ -69,41 +69,259 @@
         "Labor for a standard replacement $150-$450, up to $2,500 to convert from tank to tankless.",
         "Permits $25-$300; removal $100-$500; gas line $275-$825; electrical wiring $550-$2,300; expansion tank $40-$350."
       ]
+    },
+    "rheem-rtex-spec": {
+      "publisher": "Rheem",
+      "title": "Professional Classic RTEX tankless electric water heaters: specifications and minimum requirements (form TKE-101 Rev. 8, 04/24)",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/1163/1976/files/Rheem-RTEX-Series-Spec-Sheet.pdf",
+      "checked": "2026-11-14",
+      "quote": "RTEX - 24 24 240 100 3 x 40 A Double Pole 200 AMPS 1 0.93"
     }
   },
   "labor": {
     "meta": {
       "note": "Installing the new heater where the old one stood: disconnect and take out the old unit, set the new one, reconnect water, gas or power and the existing vent, fittings and connectors, fill and start up. Permit, haul-away and anything new (venting, gas line, circuit) are separate extras."
     },
-    "gas_tank": { "low": 350, "typical": 650, "high": 1100, "refs": ["doe-storage-2024", "industry-this-old-house", "industry-bob-vila"], "why": "DOE's average installed cost for a standard gas tank ($1,432 in 2022 dollars, equipment included) leaves several hundred dollars for installation; industry guides give $150-$800 labor." },
-    "electric_tank": { "low": 300, "typical": 500, "high": 900, "refs": ["doe-storage-2024", "industry-this-old-house", "industry-bob-vila"], "why": "No vent or gas connection, so less work than gas; DOE's electric average ($902 installed, 2022 dollars) is its lowest of all types." },
-    "heat_pump": { "low": 500, "typical": 900, "high": 1800, "refs": ["doe-storage-2024", "industry-this-old-house"], "why": "A heavier, taller unit plus a condensate drain. Extra work for tight spaces is a separate extra, as in DOE's analysis." },
-    "gas_tankless": { "low": 600, "typical": 850, "high": 1500, "refs": ["doe-gas-tankless-2024", "industry-this-old-house"], "why": "DOE's average installation cost is $1,102 (non-condensing) and $1,025 (condensing), including about $260 for permit, removal and disposal, which we list separately; industry guides give $800-$1,500 labor." },
-    "electric_tankless": { "low": 300, "typical": 600, "high": 1000, "refs": ["industry-this-old-house", "industry-bob-vila"], "why": "Wall mounting and wiring to existing circuits; new circuits or a panel upgrade are extras. DOE did not analyze electric tankless units." }
+    "gas_tank": {
+      "low": 350,
+      "typical": 650,
+      "high": 1100,
+      "refs": [
+        "doe-storage-2024",
+        "industry-this-old-house",
+        "industry-bob-vila"
+      ],
+      "why": "DOE's average installed cost for a standard gas tank ($1,432 in 2022 dollars, equipment included) leaves several hundred dollars for installation; industry guides give $150-$800 labor."
+    },
+    "electric_tank": {
+      "low": 300,
+      "typical": 500,
+      "high": 900,
+      "refs": [
+        "doe-storage-2024",
+        "industry-this-old-house",
+        "industry-bob-vila"
+      ],
+      "why": "No vent or gas connection, so less work than gas; DOE's electric average ($902 installed, 2022 dollars) is its lowest of all types."
+    },
+    "heat_pump": {
+      "low": 500,
+      "typical": 900,
+      "high": 1800,
+      "refs": [
+        "doe-storage-2024",
+        "industry-this-old-house"
+      ],
+      "why": "A heavier, taller unit plus a condensate drain. Extra work for tight spaces is a separate extra, as in DOE's analysis."
+    },
+    "gas_tankless": {
+      "low": 600,
+      "typical": 850,
+      "high": 1500,
+      "refs": [
+        "doe-gas-tankless-2024",
+        "industry-this-old-house"
+      ],
+      "why": "DOE's average installation cost is $1,102 (non-condensing) and $1,025 (condensing), including about $260 for permit, removal and disposal, which we list separately; industry guides give $800-$1,500 labor."
+    },
+    "electric_tankless": {
+      "low": 300,
+      "typical": 600,
+      "high": 1000,
+      "refs": [
+        "industry-this-old-house",
+        "industry-bob-vila"
+      ],
+      "why": "Wall mounting and wiring to existing circuits; new circuits or a panel upgrade are extras. DOE did not analyze electric tankless units."
+    }
   },
   "extras": {
-    "permit": { "label": "Permit, haul-away and disposal of the old unit", "low": 150, "typical": 260, "high": 500, "refs": ["doe-gas-tankless-2024", "industry-this-old-house", "industry-bob-vila"], "why": "Typical = DOE's $260 for permitting, removal and disposal; industry guides give $25-$300 for the permit and $100-$500 for removal." },
-    "expansionTank": { "label": "Thermal expansion tank, parts and labor", "low": 100, "typical": 175, "high": 300, "refs": ["home-depot-parts", "industry-this-old-house"], "why": "The tank itself lists for $34-$67 at Home Depot; the rest is about an hour of labor and fittings." },
-    "codeItems": { "label": "Code items: drain pan, seismic straps, relief valve piping", "low": 50, "typical": 150, "high": 400, "refs": ["home-depot-parts", "industry-this-old-house"], "why": "A drain pan lists for about $12; strapping and drain work are mostly labor. Which items apply depends on your local code." },
-    "venting": { "label": "New or changed venting", "low": 300, "typical": 500, "high": 1000, "refs": ["doe-gas-tankless-2024", "industry-this-old-house"], "why": "DOE's earlier estimate was $499 for a non-condensing tankless vent and $263 for a condensing one; industry guides give $300-$1,000." },
-    "gasLine": { "label": "Gas line upgrade or new gas line", "low": 300, "typical": 600, "high": 1000, "refs": ["doe-storage-2024", "industry-this-old-house", "industry-bob-vila"], "why": "Industry guides give $275-$1,000; a tankless unit often needs a larger line than the tank it replaces." },
-    "circuit": { "label": "New 240-volt circuit", "low": 300, "typical": 600, "high": 1200, "refs": ["doe-storage-2024", "industry-this-old-house"], "why": "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work." },
-    "panel": { "label": "Electrical panel upgrade (to 200 amps)", "low": 750, "typical": 1375, "high": 2000, "refs": ["doe-storage-2024"], "why": "DOE's range is about $750-$2,000; typical is the middle of that range." },
-    "relocation": { "label": "Moving the heater to a new spot", "low": 500, "typical": 1000, "high": 2000, "refs": ["doe-gas-tankless-2024", "industry-this-old-house"], "why": "DOE says relocation can cost up to $2,000; new water, gas or power lines to the new spot are the main cost." },
-    "heatPumpSpace": { "label": "Heat pump space work (louvered door, ducting, condensate pump)", "low": 500, "typical": 2000, "high": 4000, "refs": ["doe-storage-2024"], "why": "DOE's adders for the most challenging heat pump installs run $0-$4,000 and average $2,000." }
+    "permit": {
+      "label": "Permit, haul-away and disposal of the old unit",
+      "low": 150,
+      "typical": 260,
+      "high": 500,
+      "refs": [
+        "doe-gas-tankless-2024",
+        "industry-this-old-house",
+        "industry-bob-vila"
+      ],
+      "why": "Typical = DOE's $260 for permitting, removal and disposal; industry guides give $25-$300 for the permit and $100-$500 for removal."
+    },
+    "expansionTank": {
+      "label": "Thermal expansion tank, parts and labor",
+      "low": 100,
+      "typical": 175,
+      "high": 300,
+      "refs": [
+        "home-depot-parts",
+        "industry-this-old-house"
+      ],
+      "why": "The tank itself lists for $34-$67 at Home Depot; the rest is about an hour of labor and fittings."
+    },
+    "codeItems": {
+      "label": "Code items: drain pan, seismic straps, relief valve piping",
+      "low": 50,
+      "typical": 150,
+      "high": 400,
+      "refs": [
+        "home-depot-parts",
+        "industry-this-old-house"
+      ],
+      "why": "A drain pan lists for about $12; strapping and drain work are mostly labor. Which items apply depends on your local code."
+    },
+    "venting": {
+      "label": "New or changed venting",
+      "low": 300,
+      "typical": 500,
+      "high": 1000,
+      "refs": [
+        "doe-gas-tankless-2024",
+        "industry-this-old-house"
+      ],
+      "why": "DOE's earlier estimate was $499 for a non-condensing tankless vent and $263 for a condensing one; industry guides give $300-$1,000."
+    },
+    "gasLine": {
+      "label": "Gas line upgrade or new gas line",
+      "low": 300,
+      "typical": 600,
+      "high": 1000,
+      "refs": [
+        "doe-storage-2024",
+        "industry-this-old-house",
+        "industry-bob-vila"
+      ],
+      "why": "Industry guides give $275-$1,000; a tankless unit often needs a larger line than the tank it replaces."
+    },
+    "circuit": {
+      "label": "New 240-volt circuit",
+      "low": 300,
+      "typical": 600,
+      "high": 1200,
+      "refs": [
+        "doe-storage-2024",
+        "industry-this-old-house"
+      ],
+      "why": "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work."
+    },
+    "tanklessCircuits": {
+      "label": "More 240-volt circuits for a whole-house electric tankless",
+      "low": 600,
+      "typical": 1200,
+      "high": 3600,
+      "refs": [
+        "rheem-rtex-spec",
+        "doe-storage-2024",
+        "industry-this-old-house"
+      ],
+      "why": "Whole-house electric tankless units need more than one circuit: Rheem's RTEX-24 and RTEX-27 call for 3 × 40 A double-pole breakers and the RTEX-36 for 4 (spec sheet TKE-101 Rev. 8). We price the circuits beyond the first at our single-circuit range: 2 more for low and typical (24–27 kW), 3 more for high (36 kW). Audit F-13, 2026-11-14."
+    },
+    "panel": {
+      "label": "Electrical panel upgrade (to 200 amps)",
+      "low": 750,
+      "typical": 1375,
+      "high": 2000,
+      "refs": [
+        "doe-storage-2024"
+      ],
+      "why": "DOE's range is about $750-$2,000; typical is the middle of that range."
+    },
+    "relocation": {
+      "label": "Moving the heater to a new spot",
+      "low": 500,
+      "typical": 1000,
+      "high": 2000,
+      "refs": [
+        "doe-gas-tankless-2024",
+        "industry-this-old-house"
+      ],
+      "why": "DOE says relocation can cost up to $2,000; new water, gas or power lines to the new spot are the main cost."
+    },
+    "heatPumpSpace": {
+      "label": "Heat pump space work (louvered door, ducting, condensate pump)",
+      "low": 500,
+      "typical": 2000,
+      "high": 4000,
+      "refs": [
+        "doe-storage-2024"
+      ],
+      "why": "DOE's adders for the most challenging heat pump installs run $0-$4,000 and average $2,000."
+    }
   },
   "scenarios": {
     "replace": {
       "label": "Replacing a heater of the same kind",
-      "defaultExtras": { "gas_tank": ["permit"], "electric_tank": ["permit"], "heat_pump": ["permit"], "gas_tankless": ["permit"], "electric_tankless": ["permit"] }
+      "defaultExtras": {
+        "gas_tank": [
+          "permit"
+        ],
+        "electric_tank": [
+          "permit"
+        ],
+        "heat_pump": [
+          "permit"
+        ],
+        "gas_tankless": [
+          "permit"
+        ],
+        "electric_tankless": [
+          "permit"
+        ]
+      }
     },
     "fuelSwitch": {
       "label": "Switching fuel (gas to electric or electric to gas)",
-      "defaultExtras": { "gas_tank": ["permit", "gasLine", "venting"], "electric_tank": ["permit", "circuit"], "heat_pump": ["permit", "circuit"], "gas_tankless": ["permit", "gasLine", "venting"], "electric_tankless": ["permit", "circuit", "panel"] }
+      "defaultExtras": {
+        "gas_tank": [
+          "permit",
+          "gasLine",
+          "venting"
+        ],
+        "electric_tank": [
+          "permit",
+          "circuit"
+        ],
+        "heat_pump": [
+          "permit",
+          "circuit"
+        ],
+        "gas_tankless": [
+          "permit",
+          "gasLine",
+          "venting"
+        ],
+        "electric_tankless": [
+          "permit",
+          "circuit",
+          "tanklessCircuits",
+          "panel"
+        ]
+      }
     },
     "toTankless": {
       "label": "Replacing a tank with a tankless unit",
-      "defaultExtras": { "gas_tank": ["permit"], "electric_tank": ["permit"], "heat_pump": ["permit"], "gas_tankless": ["permit", "venting", "gasLine"], "electric_tankless": ["permit", "circuit", "panel"] }
+      "defaultExtras": {
+        "gas_tank": [
+          "permit"
+        ],
+        "electric_tank": [
+          "permit"
+        ],
+        "heat_pump": [
+          "permit"
+        ],
+        "gas_tankless": [
+          "permit",
+          "venting",
+          "gasLine"
+        ],
+        "electric_tankless": [
+          "permit",
+          "circuit",
+          "tanklessCircuits",
+          "panel"
+        ]
+      }
     }
   },
   "maintenance": {
@@ -113,23 +331,79 @@
       "timesPerYear": 1,
       "perTimeUsd": 11.99,
       "onceUsd": 155.19,
-      "refs": ["rinnai-flush", "vinegar-listing", "rheem-flush-kit"],
+      "refs": [
+        "rinnai-flush",
+        "vinegar-listing",
+        "rheem-flush-kit"
+      ],
       "why": "Rinnai: flush mineral deposits \"at least once a year\" with \"4 gallons (15.1 liters) of undiluted white vinegar\". Four 1-gallon jugs of 5% distilled white vinegar: $11.99 a case (WebstaurantStore). Pump, hoses and bucket: Rheem tankless flush kit RTG20124, $155.19 (Home Depot), bought once."
     },
     "tank": {
       "label": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)",
       "everyYears": 4,
       "partUsd": 34.98,
-      "refs": ["rheem-maintenance", "home-depot-anodes"],
+      "refs": [
+        "rheem-maintenance",
+        "home-depot-anodes"
+      ],
       "why": "Rheem: \"Flush the tank annually; replace the anode rod every 3-4 years\" (we use 4, the longer end). Anode price: median of five standard magnesium or aluminum rods listed at Home Depot ($28.09 to $40.16; the powered rod is left out)."
     },
-    "byType": { "gas_tank": "tank", "electric_tank": "tank", "heat_pump": "tank", "gas_tankless": "tankless", "electric_tankless": "tankless" },
+    "byType": {
+      "gas_tank": "tank",
+      "electric_tank": "tank",
+      "heat_pump": "tank",
+      "gas_tankless": "tankless",
+      "electric_tankless": "tankless"
+    },
     "references": {
-      "rinnai-flush": { "publisher": "Rinnai", "title": "Flushing my Rinnai tankless water heater", "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater", "checked": "2026-11-13", "quotes": ["It's important to flush those mineral deposits at least once a year.", "Use 4 gallons (15.1 liters) of undiluted white vinegar to clean your tankless water heater."] },
-      "vinegar-listing": { "publisher": "WebstaurantStore", "title": "1 Gallon Distilled White Vinegar - 4/Case", "sourceUrl": "https://www.webstaurantstore.com/1-gallon-distilled-white-vinegar-case/101VINGRWHTE.html", "checked": "2026-11-14", "quotes": ["$11.99/Case", "4 jugs per case, each 1 gallon", "50 grain, 5% acidity"] },
-      "rheem-flush-kit": { "publisher": "The Home Depot", "title": "Rheem Flush Kit for Tankless Water Heaters RTG20124", "sourceUrl": "https://www.homedepot.com/p/Rheem-Flush-Kit-for-Tankless-Water-Heaters-RTG20124/202798886", "checked": "2026-11-14", "quotes": ["$155.19"] },
-      "rheem-maintenance": { "publisher": "Rheem Manufacturing", "title": "Water heater lifespan: when to repair vs. replace (March 25, 2026)", "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/", "checked": "2026-11-13", "quotes": ["Flush the tank annually; replace the anode rod every 3-4 years; aim for 40-60 psi."] },
-      "home-depot-anodes": { "publisher": "The Home Depot", "title": "Listing prices for replacement anode rods (product pages)", "sourceUrl": "https://www.homedepot.com/p/Rheem-PROTECH-0-750-in-Dia-x-44-3-8-in-L-Magnesium-Water-Heater-Anode-Rod-SP11309C/308811585", "checked": "2026-11-13", "quotes": ["$28.09, $29.68, $34.98, $38.90, $40.16 (standard rods); $179.95 (powered rod, left out)"] }
+      "rinnai-flush": {
+        "publisher": "Rinnai",
+        "title": "Flushing my Rinnai tankless water heater",
+        "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater",
+        "checked": "2026-11-13",
+        "quotes": [
+          "It's important to flush those mineral deposits at least once a year.",
+          "Use 4 gallons (15.1 liters) of undiluted white vinegar to clean your tankless water heater."
+        ]
+      },
+      "vinegar-listing": {
+        "publisher": "WebstaurantStore",
+        "title": "1 Gallon Distilled White Vinegar - 4/Case",
+        "sourceUrl": "https://www.webstaurantstore.com/1-gallon-distilled-white-vinegar-case/101VINGRWHTE.html",
+        "checked": "2026-11-14",
+        "quotes": [
+          "$11.99/Case",
+          "4 jugs per case, each 1 gallon",
+          "50 grain, 5% acidity"
+        ]
+      },
+      "rheem-flush-kit": {
+        "publisher": "The Home Depot",
+        "title": "Rheem Flush Kit for Tankless Water Heaters RTG20124",
+        "sourceUrl": "https://www.homedepot.com/p/Rheem-Flush-Kit-for-Tankless-Water-Heaters-RTG20124/202798886",
+        "checked": "2026-11-14",
+        "quotes": [
+          "$155.19"
+        ]
+      },
+      "rheem-maintenance": {
+        "publisher": "Rheem Manufacturing",
+        "title": "Water heater lifespan: when to repair vs. replace (March 25, 2026)",
+        "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/",
+        "checked": "2026-11-13",
+        "quotes": [
+          "Flush the tank annually; replace the anode rod every 3-4 years; aim for 40-60 psi."
+        ]
+      },
+      "home-depot-anodes": {
+        "publisher": "The Home Depot",
+        "title": "Listing prices for replacement anode rods (product pages)",
+        "sourceUrl": "https://www.homedepot.com/p/Rheem-PROTECH-0-750-in-Dia-x-44-3-8-in-L-Magnesium-Water-Heater-Anode-Rod-SP11309C/308811585",
+        "checked": "2026-11-13",
+        "quotes": [
+          "$28.09, $29.68, $34.98, $38.90, $40.16 (standard rods); $179.95 (powered rod, left out)"
+        ]
+      }
     }
   },
   "defaults": {

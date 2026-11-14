@@ -54,7 +54,9 @@ export function describe(v, cfg) {
 		statusLabel = fuel === 'electric' ? 'Too much for an electric tank' : 'Bigger than one standard tank';
 		headline = `Look for a first hour rating of ${n0(s.fhr)} gallons or more`;
 	} else {
-		statusLabel = pick.fits === 'typical' ? 'Most models of this size meet it' : 'Only some models meet it';
+		const nS = pick.row?.n || 0;
+		const sample = `${nS} model${nS === 1 ? '' : 's'} in our sample`;
+		statusLabel = pick.fits === 'typical' ? (nS > 1 ? `The typical size: meets the median of ${sample}` : `Meets the only ${sample} at this size`) : `Only the stronger of ${sample} meet it`;
 		headline = `${n0(pick.nominalGallons)}-gallon ${FUEL_LABEL[fuel]} tank (first hour rating ${n0(s.fhr)}+ gal)`;
 	}
 	const people = Number.parseInt(v.people, 10);
@@ -64,7 +66,7 @@ export function describe(v, cfg) {
 	sentences.push(`Other fuels: ${others.join('; ')}.`);
 	if (guide) {
 		const inside = s.phd >= guide.low && s.phd <= guide.high;
-		sentences.push(`${cfg.guide.label} suggests an FHR of ${guide.low}–${guide.high} gal for ${people} people; your busy hour is ${inside ? 'inside' : s.phd < guide.low ? 'below' : 'above'} that range.`);
+		sentences.push(`${cfg.guide.label} suggests an FHR of ${guide.low}–${guide.high} gal for ${people} people; your busy hour is ${inside ? 'inside' : s.phd < guide.low ? 'below' : 'above'} that range (our household presets are set to land in it, so this is a consistency check; Rheem and A. O. Smith are the independent ones on Methodology).`);
 	}
 	const used = activities.filter((a) => a.count > 0);
 	const labelOf = (k) => (k === 'largeTub' ? 'large tub' : cfg.activities[k].label.toLowerCase());

@@ -77,6 +77,7 @@
     "slug": "michigan",
     "url": "/water-heater-installation-cost/michigan/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 10,
     "population": "10,127,884",
     "popMillion": "10.1",
@@ -289,14 +290,49 @@
       "quote": "Governor Gretchen Whitmer announced the statewide launch of the Michigan Home Energy Rebates Program (MiHER)",
       "summary": "Michigan launched its rebates statewide in April 2025, including the appliance rebate for income-qualified homes. EGLE's own site refused our checker, so we could not confirm how much money is left today."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "mi-homeowner",
+        "heading": "Michigan lets a homeowner pull the plumbing permit",
+        "text": "Michigan's Bureau of Construction Codes issues plumbing permits to a licensed plumbing contractor or to a homeowner doing their own plumbing. If you hire someone, the permit should carry that contractor's license number; a gas water heater also involves mechanical work, so ask whether the contractor holds both licenses.",
+        "source": "Michigan LARA, Bureau of Construction Codes: plumbing permit information",
+        "sourceUrl": "https://www.michigan.gov/lara/bureau-list/bcc/Sections/Permit-Section/permits/plumbing-permit-information",
+        "quote": "To obtain plumbing permits, an applicant shall be a licensed plumbing contractor or a homeowner installing his/her own plumbing, building sewer, or private sewer.",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "DTE Energy",
+        "offer": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+        "sourceUrl": "https://www.dteenergy.com/us/en/residential/save-money-energy/rebates-and-offers/water-heaters.html",
+        "checked": "2026-11-14"
+      },
+      {
+        "sponsor": "Consumers Energy",
+        "offer": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+        "sourceUrl": "https://www.consumersenergy.com/WaterHeating",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a Michigan replacement different",
+      "paras": [
+        "Michigan has the coldest water of the states we cover: incoming water falls to about 41.2 °F in February, and a whole-house tankless unit then manages about 4.8 gallons per minute. Size for that month, or keep a tank. Gas heats water in 66% of homes and is cheap at $1.03 per therm.",
+        "Electricity is the expensive fuel here, about 20.03 cents per kWh, so a standard electric tank costs about $727 a year to run. Both big utilities, DTE and Consumers Energy, offer instant discounts on heat pump water heaters through contractors rather than mail-in checks."
+      ]
+    },
     "highlights": [
-      "Natural gas is cheap in Michigan ($1.03 per therm, the 9th lowest of 51), so a gas tank costs only about $187 a year to run, and gas stays the cheapest tank to own over 10 years.",
+      "Natural gas is cheap in Michigan ($1.03 per therm, the 9th lowest of the 50 states and DC), so a gas tank costs only about $187 a year to run, and gas stays the cheapest tank to own over 10 years.",
       "66% of Michigan homes heat water with natural gas, against 48% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.",
-      "Incoming water drops to about 41.2 °F in the coldest month, so a whole-house tankless unit manages only one full-flow shower at a time in winter; a tank, or two tankless units, suits larger households better.",
-      "Where you live inside Michigan matters: the same 50-gallon gas job is about $1,817 in the Ann Arbor, MI area and $1,746 in the Flint, MI area."
+      "Incoming water drops to about 41.2 °F in the coldest month, so a whole-house tankless unit runs only one shower at full hot flow at a time in winter; a tank, or two tankless units, suits larger households better.",
+      "Where you live inside Michigan matters: the same 50-gallon gas job is about $1,817 in the Ann Arbor, MI area and $1,746 in the Flint, MI area.",
+      "Michigan lets a homeowner pull the plumbing permit."
     ]
   },
   "tables": {
@@ -357,7 +393,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Michigan labor and extras × BEA price factor 0.962",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; Michigan labor and extras × BEA price factor 0.962",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -413,7 +449,7 @@
           "high": "2,538"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -469,7 +505,7 @@
           "high": "2,776"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -535,10 +571,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "735",
-          "us": "570",
-          "own": "8,852"
+          "uef": "0.94",
+          "state": "723",
+          "us": "561",
+          "own": "8,734"
         }
       ],
       "source": "EIA 2025 Michigan residential prices ($0.200/kWh, $1.03/therm); Michigan incoming water 51.2 °F; median UEF by type; installed cost from our cost model",
@@ -730,7 +766,7 @@
           "cost": "17"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Michigan prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Michigan prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -788,7 +824,7 @@
           "showers": 2
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -832,6 +868,44 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (3.92 million Michigan homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in Michigan: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "DTE Energy",
+          "type": "Heat pump water heater",
+          "offer": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+          "conditions": "DTE electric customers who heat water with electricity; through a participating contractor or the retail instant discount page; limited funds."
+        },
+        {
+          "sponsor": "Consumers Energy",
+          "type": "Heat pump water heater",
+          "offer": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+          "conditions": "Consumers Energy electric customers; the contractor buys the unit at the discounted price and passes the saving on."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: DTE Energy; Consumers Energy. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

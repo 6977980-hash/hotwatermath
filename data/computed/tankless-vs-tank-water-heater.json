@@ -126,14 +126,14 @@
         "life": 13
       },
       "electric_tankless": {
-        "installed": "3,509",
-        "year": "590",
-        "total": "7,650",
-        "totalNum": 7650,
+        "installed": "4,709",
+        "year": "580",
+        "total": "8,159",
+        "totalNum": 8159,
         "be": 0,
         "payback": "",
-        "residual": "1,755",
-        "spent": "9,405",
+        "residual": "2,355",
+        "spent": "10,513",
         "repl": 0,
         "life": 20
       },
@@ -814,7 +814,7 @@
           "hpe": "Year 4"
         }
       ],
-      "source": "Computed with the tool’s own model: installed costs (listings + data/installation-costs.json × state factor), EIA state prices, state incoming water temperature, DOE lifespans",
+      "source": "Computed with the tool’s own model: installed costs (listings + our installation cost ranges × state factor), EIA state prices, state incoming water temperature, DOE lifespans",
       "sourceUrl": "https://hotwatermath.com/methodology/#tankless-vs-tank-water-heater",
       "sourceDate": "2026-11-13"
     }
@@ -822,6 +822,15 @@
   "client": {
     "model": {
       "units": {
+        "gas_tank_30": {
+          "type": "gas_tank",
+          "label": "30-gallon gas tank (natural gas, standard vent)",
+          "low": 619,
+          "typical": 639,
+          "high": 789,
+          "n": 3,
+          "sourceKey": "gas_tank_30"
+        },
         "gas_tank_40": {
           "type": "gas_tank",
           "label": "40-gallon gas tank (natural gas, standard vent)",
@@ -840,6 +849,15 @@
           "n": 9,
           "sourceKey": "gas_tank_50"
         },
+        "gas_tank_55": {
+          "type": "gas_tank",
+          "label": "55-gallon gas tank (natural gas, standard vent)",
+          "low": 809,
+          "typical": 959,
+          "high": 1209,
+          "n": 3,
+          "sourceKey": "gas_tank_55"
+        },
         "gas_tank_75": {
           "type": "gas_tank",
           "label": "75-gallon gas tank (natural gas, standard vent)",
@@ -848,6 +866,15 @@
           "high": 1459,
           "n": 3,
           "sourceKey": "gas_tank_75"
+        },
+        "electric_tank_30": {
+          "type": "electric_tank",
+          "label": "30-gallon electric tank",
+          "low": 479,
+          "typical": 509,
+          "high": 529,
+          "n": 3,
+          "sourceKey": "electric_tank_30"
         },
         "electric_tank_40": {
           "type": "electric_tank",
@@ -866,6 +893,15 @@
           "high": 1429,
           "n": 22,
           "sourceKey": "electric_tank_50"
+        },
+        "electric_tank_55": {
+          "type": "electric_tank",
+          "label": "55-gallon electric tank",
+          "low": 859,
+          "typical": 937,
+          "high": 1069,
+          "n": 4,
+          "sourceKey": "electric_tank_55"
         },
         "heat_pump_50": {
           "type": "heat_pump",
@@ -922,12 +958,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             },
             {
               "id": "75",
@@ -946,12 +990,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             }
           ],
           "defaultSize": "50",
@@ -1001,7 +1053,7 @@
         "electric_tankless": {
           "label": "Electric tankless",
           "fuel": "electric",
-          "uef": 0.92,
+          "uef": 0.935,
           "life": 20,
           "credit": 0,
           "sizes": [
@@ -1086,6 +1138,12 @@
           "typical": 600,
           "high": 1200
         },
+        "tanklessCircuits": {
+          "label": "More 240-volt circuits for a whole-house electric tankless",
+          "low": 600,
+          "typical": 1200,
+          "high": 3600
+        },
         "panel": {
           "label": "Electrical panel upgrade (to 200 amps)",
           "low": 750,
@@ -1150,6 +1208,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }
@@ -1174,6 +1233,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }

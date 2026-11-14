@@ -105,13 +105,13 @@
       "unitShare": 50
     },
     "eT": {
-      "low": "2,026",
-      "typical": "3,509",
-      "high": "5,699",
-      "typicalNum": 3509,
+      "low": "2,626",
+      "typical": "4,709",
+      "high": "9,299",
+      "typicalNum": 4709,
       "unit": "674",
-      "install": "2,835",
-      "unitShare": 19
+      "install": "4,035",
+      "unitShare": 14
     },
     "eR": {
       "low": "976",
@@ -141,7 +141,7 @@
       "unitShare": 52
     },
     "gasPremium": "1,509",
-    "elPremium": "1,930",
+    "elPremium": "3,130",
     "venting": "500",
     "ventingLow": "300",
     "ventingHigh": "1,000",
@@ -221,9 +221,9 @@
         },
         {
           "job": "Electric tank to electric tankless",
-          "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
-          "typical": "3,509",
-          "range": "2,026–5,699"
+          "extras": "Permit, New 240-volt circuit, More 240-volt circuits for a whole-house electric tankless, Electrical panel upgrade",
+          "typical": "4,709",
+          "range": "2,626–9,299"
         },
         {
           "job": "Electric tankless to electric tankless",
@@ -232,7 +232,7 @@
           "range": "976–2,499"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -300,7 +300,7 @@
           "high": "5,703"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -404,310 +404,310 @@
           "name": "Alabama",
           "gT": "3,071",
           "gR": "2,094",
-          "eT": "3,192"
+          "eT": "4,258"
         },
         {
           "name": "Alaska",
           "gT": "3,370",
           "gR": "2,244",
-          "eT": "3,576"
+          "eT": "4,805"
         },
         {
           "name": "Arizona",
           "gT": "3,333",
           "gR": "2,226",
-          "eT": "3,529"
+          "eT": "4,737"
         },
         {
           "name": "Arkansas",
           "gT": "3,029",
           "gR": "2,073",
-          "eT": "3,137"
+          "eT": "4,180"
         },
         {
           "name": "California",
           "gT": "3,555",
           "gR": "2,337",
-          "eT": "3,812"
+          "eT": "5,140"
         },
         {
           "name": "Colorado",
           "gT": "3,387",
           "gR": "2,252",
-          "eT": "3,598"
+          "eT": "4,835"
         },
         {
           "name": "Connecticut",
           "gT": "3,398",
           "gR": "2,258",
-          "eT": "3,612"
+          "eT": "4,855"
         },
         {
           "name": "Delaware",
           "gT": "3,313",
           "gR": "2,215",
-          "eT": "3,503"
+          "eT": "4,701"
         },
         {
           "name": "District of Columbia",
           "gT": "3,537",
           "gR": "2,328",
-          "eT": "3,789"
+          "eT": "5,108"
         },
         {
           "name": "Florida",
           "gT": "3,393",
           "gR": "2,256",
-          "eT": "3,605"
+          "eT": "4,846"
         },
         {
           "name": "Georgia",
           "gT": "3,237",
           "gR": "2,177",
-          "eT": "3,404"
+          "eT": "4,560"
         },
         {
           "name": "Hawaii",
           "gT": "3,539",
           "gR": "2,329",
-          "eT": "3,793"
+          "eT": "5,113"
         },
         {
           "name": "Idaho",
           "gT": "3,219",
           "gR": "2,168",
-          "eT": "3,381"
+          "eT": "4,527"
         },
         {
           "name": "Illinois",
           "gT": "3,318",
           "gR": "2,218",
-          "eT": "3,509"
+          "eT": "4,709"
         },
         {
           "name": "Indiana",
           "gT": "3,171",
           "gR": "2,144",
-          "eT": "3,320"
+          "eT": "4,440"
         },
         {
           "name": "Iowa",
           "gT": "3,048",
           "gR": "2,082",
-          "eT": "3,163"
+          "eT": "4,217"
         },
         {
           "name": "Kansas",
           "gT": "3,100",
           "gR": "2,108",
-          "eT": "3,229"
+          "eT": "4,310"
         },
         {
           "name": "Kentucky",
           "gT": "3,102",
           "gR": "2,110",
-          "eT": "3,231"
+          "eT": "4,313"
         },
         {
           "name": "Louisiana",
           "gT": "3,057",
           "gR": "2,087",
-          "eT": "3,174"
+          "eT": "4,232"
         },
         {
           "name": "Maine",
           "gT": "3,254",
           "gR": "2,185",
-          "eT": "3,427"
+          "eT": "4,592"
         },
         {
           "name": "Maryland",
           "gT": "3,429",
           "gR": "2,274",
-          "eT": "3,651"
+          "eT": "4,911"
         },
         {
           "name": "Massachusetts",
           "gT": "3,446",
           "gR": "2,282",
-          "eT": "3,674"
+          "eT": "4,944"
         },
         {
           "name": "Michigan",
           "gT": "3,234",
           "gR": "2,176",
-          "eT": "3,401"
+          "eT": "4,555"
         },
         {
           "name": "Minnesota",
           "gT": "3,287",
           "gR": "2,202",
-          "eT": "3,470"
+          "eT": "4,653"
         },
         {
           "name": "Mississippi",
           "gT": "3,031",
           "gR": "2,074",
-          "eT": "3,140"
+          "eT": "4,184"
         },
         {
           "name": "Missouri",
           "gT": "3,115",
           "gR": "2,116",
-          "eT": "3,249"
+          "eT": "4,339"
         },
         {
           "name": "Montana",
           "gT": "3,199",
           "gR": "2,158",
-          "eT": "3,357"
+          "eT": "4,492"
         },
         {
           "name": "Nebraska",
           "gT": "3,100",
           "gR": "2,108",
-          "eT": "3,229"
+          "eT": "4,310"
         },
         {
           "name": "Nevada",
           "gT": "3,318",
           "gR": "2,218",
-          "eT": "3,509"
+          "eT": "4,709"
         },
         {
           "name": "New Hampshire",
           "gT": "3,411",
           "gR": "2,265",
-          "eT": "3,628"
+          "eT": "4,878"
         },
         {
           "name": "New Jersey",
           "gT": "3,513",
           "gR": "2,316",
-          "eT": "3,759"
+          "eT": "5,065"
         },
         {
           "name": "New Mexico",
           "gT": "3,146",
           "gR": "2,132",
-          "eT": "3,288"
+          "eT": "4,394"
         },
         {
           "name": "New York",
           "gT": "3,493",
           "gR": "2,306",
-          "eT": "3,733"
+          "eT": "5,028"
         },
         {
           "name": "North Carolina",
           "gT": "3,193",
           "gR": "2,155",
-          "eT": "3,348"
+          "eT": "4,480"
         },
         {
           "name": "North Dakota",
           "gT": "3,075",
           "gR": "2,096",
-          "eT": "3,197"
+          "eT": "4,265"
         },
         {
           "name": "Ohio",
           "gT": "3,159",
           "gR": "2,138",
-          "eT": "3,305"
+          "eT": "4,419"
         },
         {
           "name": "Oklahoma",
           "gT": "3,048",
           "gR": "2,082",
-          "eT": "3,163"
+          "eT": "4,217"
         },
         {
           "name": "Oregon",
           "gT": "3,393",
           "gR": "2,256",
-          "eT": "3,605"
+          "eT": "4,846"
         },
         {
           "name": "Pennsylvania",
           "gT": "3,266",
           "gR": "2,192",
-          "eT": "3,442"
+          "eT": "4,613"
         },
         {
           "name": "Rhode Island",
           "gT": "3,369",
           "gR": "2,244",
-          "eT": "3,575"
+          "eT": "4,803"
         },
         {
           "name": "South Carolina",
           "gT": "3,179",
           "gR": "2,148",
-          "eT": "3,330"
+          "eT": "4,454"
         },
         {
           "name": "South Dakota",
           "gT": "3,066",
           "gR": "2,091",
-          "eT": "3,186"
+          "eT": "4,249"
         },
         {
           "name": "Tennessee",
           "gT": "3,139",
           "gR": "2,128",
-          "eT": "3,279"
+          "eT": "4,382"
         },
         {
           "name": "Texas",
           "gT": "3,254",
           "gR": "2,185",
-          "eT": "3,427"
+          "eT": "4,592"
         },
         {
           "name": "Utah",
           "gT": "3,294",
           "gR": "2,206",
-          "eT": "3,477"
+          "eT": "4,664"
         },
         {
           "name": "Vermont",
           "gT": "3,274",
           "gR": "2,196",
-          "eT": "3,453"
+          "eT": "4,629"
         },
         {
           "name": "Virginia",
           "gT": "3,342",
           "gR": "2,230",
-          "eT": "3,541"
+          "eT": "4,754"
         },
         {
           "name": "Washington",
           "gT": "3,473",
           "gR": "2,296",
-          "eT": "3,707"
+          "eT": "4,991"
         },
         {
           "name": "West Virginia",
           "gT": "3,087",
           "gR": "2,102",
-          "eT": "3,212"
+          "eT": "4,286"
         },
         {
           "name": "Wisconsin",
           "gT": "3,189",
           "gR": "2,153",
-          "eT": "3,343"
+          "eT": "4,472"
         },
         {
           "name": "Wyoming",
           "gT": "3,157",
           "gR": "2,137",
-          "eT": "3,302"
+          "eT": "4,414"
         }
       ],
-      "source": "Equipment listings + data/installation-costs.json; labor and extras × BEA Regional Price Parity ÷ 100",
+      "source": "Equipment listings + our installation cost ranges (see Methodology); labor and extras × BEA Regional Price Parity ÷ 100",
       "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
       "sourceDate": "2026-11-12"
     }

@@ -4,36 +4,41 @@
 
 ## Current State
 
-**Last completed phase:** Audit fix Phase 1 — tools and calculators (2026-11-14), from the site audit of 2026-11-14 (`/mnt/project-files/hotwatermath/audit/2026-11-14/`). Style 0.16.0. Phase 8 pages (cost index, `/data/`, `/embed-calculators/`) are still `draft` waiting for the owner's OK.
-**Next phase to run:** Audit fix Phase 3 — content and state pages (F-16/S-6 state duplicate text and rebates, F-29, F-17/18/19 copy, F-09/10/13/14). Brief: `/mnt/project-files/hotwatermath/audit/2026-11-14/handoff/phase-3-content.md`. Phases 2 (redirects), 4 (CSS/header/mobile) and 5 (security) are independent. Phase 7 still waits for GSC data.
+**Last completed phase:** Audit fix Phase 3 — content, trust and state pages (2026-11-14), from the site audit of 2026-11-14 (`/mnt/project-files/hotwatermath/audit/2026-11-14/`). Style 0.17.0. New page `/solar-water-heater-cost/` is `draft` waiting for the owner's OK; the 3 Phase 8 pages (cost index, `/data/`, `/embed-calculators/`) are still `draft` too.
+**Next phase to run:** Audit fix Phase 4 — UX, mobile and accessibility (F-20, F-21, F-30). Brief: `/mnt/project-files/hotwatermath/audit/2026-11-14/handoff/phase-4-ux.md`. Then Phase 5 (speed and security, F-22 to F-25): `handoff/phase-5-security.md`. Phase 2 (index and redirects, including F-15) is independent. Phase 7 still waits for GSC data.
 
-**What changed in audit fix Phase 1:**
-- `assets/js/formulas.js` — `decodeSerial(serial, patterns, today, minYear)` rejects future and pre-floor dates (F-05/F-28); `hotFlowGpm` + `tanklessSizing` size at each fixture's use temperature (F-01); `pointOfUseSizing` (S-8); `repairOrReplace` past-life + replace signs (F-08); propane in `annualEnergyUse`/`annualCost` (S-4); `costOfOwnership` residual value, `yearlyMaintenance` (F-03/S-2)
-- `assets/js/ui.js` — `parseNumber`, `checkLimits`, `invalidResult`, `markInvalid`, per-result source line (F-02/F-12, F-06); `assets/css/global.css` field error styles
-- `assets/js/{tankless-size,tank-size,age,repair-replace,expansion-tank,gas-vs-electric,tankless-vs-tank,heat-pump-savings,cost-model}.js` — validation in every tool, POU mode, custom shower flow and soaking tub, tankless brands preselect type (F-11), repair link keeps only a typed price (F-26), propane, heat pump location warning and rebate cap, simple payback
-- New data: `data/input-limits.json`, `data/propane-prices.json`. Changed: `serial-formats.json` (A. O. Smith numeric, plausibility, tankless brand types), `fixture-flow-rates.json` (use temps, soaking tub, custom shower), `peak-hour-demand.json` (showerFlow, largeTub), `tankless-reference-units.json` (Eemax point-of-use units), `installation-costs.json` (maintenance), `decision-rules.json`, `heat-pump.json` (location), `brand-pages.json` (A. O. Smith example now numeric + A. O. Smith notice check), `pages.json` (2 quick answers, 1 description)
-- Forms: `parts/tankless-inputs.php` (mode, POU fields, shower flow, soaking tub), `parts/tank-size-inputs.php` (shower flow, big tub), gas vs electric (gas fuel + propane), tankless vs tank (propane option + price, years maxlength 3), heat pump (location)
-- Content: tankless size (method, worked example with hot share, limitations, 2 FAQs), tankless vs tank (value left, simple payback, upkeep), tankless installation cost (one sentence), A. O. Smith age (numeric format), methodology (input checks, sizing method, POU, tank-size inputs, age plausibility and flush default, repair rules, propane, ownership method, heat pump location and rebate cap)
-- `scripts/build-data.mjs` — limits/pou/propane/maintenance in client data, Noritz cross-check at use temps with `unitsMatch`, per-brand source lines, new quick-answer guards for the tankless size and tankless vs tank pages; `tests/formulas.test.mjs` 78 tests
+**What changed in audit fix Phase 3:**
+- Copy fixes: garbled quotes (F-17, tank size + lifespan), "planned guides" (F-18), file names shown to readers (F-19: cost tables, decoder notes, `parts/decoder-checks.php`), "the 50 states and DC" everywhere (F-29, incl. the cost index quick answer)
+- F-10: tank-size status names the sample size; the American guide check is called a consistency check, not an independent one (tool, build-data, methodology)
+- F-09: one temperature rise (58 → 120 °F) for repair-or-replace and gas vs electric; `data/lifespans.json statusBands.oldFrom` is the single "old" threshold (repair tool, age tool sentence, methodology); 30- and 55-gallon gas and electric tanks priced in `data/cost-ranges.json` (Home Depot, 2026-11-14) so every tank-size result has a price
+- F-13: electric tankless UEF from the Rheem RTEX spec sheet (`uef-ranges.json`); `tanklessCircuits` extra scaled for whole-house kW (`installation-costs.json`)
+- F-14: `stationLabel` for AK/HI/DC (`groundwater-temp-by-state.json`, `hwm_state_label()` in `inc/helpers.php`, used in 4 state pickers); Honolulu rechecked against NOAA (methodology)
+- F-16 + S-6: state pages rebuilt from data: `data/state-pages.json` gains sourced `notes` (permit and code facts, 1–2 per state with quote and check date) and a hand-written `local` section per state (tokens filled by build-data); `data/hpwh-rebates.json` (15 confirmed utility programs, 2 ended, 4 not checkable); state pages get a utility rebate table, a local section and shorter shared prose; build-data throws if a state has fewer than 3 unique sections. Jaccard (8-word shingles, numbers masked, `<main>` text): pairs 0.45–0.59 → 0.33–0.45, mean 0.51 → 0.37
+- S-6 also: heat pump cost page has a rebate table by state and utility
+- S-7: `parts/tankless-delay.php` (cold water sandwich + recirculation, Eemax white paper and Rinnai page, data in `tankless-reference-units.json hotWaterDelay`) on the tankless size and tankless vs tank pages
+- S-10: lifespan by source table (DOE, AHRI, 3 makers, 3 cost guides; `lifespans.json costGuideViews`) on the lifespan article
+- S-11: table of contents on `/methodology/` (H2 ids, tool sections) + `.toc` / `.source-quote` CSS
+- S-12: `/solar-water-heater-cost/` (draft): `data/solar-water-heating.json` (DOE FEMP calculator method + city sun data, NREL 2012 cost range, IRS 25D ended, 3 cost guides), `formulas.solarWaterHeating` + `solarYearlySaving` (test reproduces FEMP's example), state payback table, brief `docs/briefs/solar-water-heater-cost.md`, STRATEGY keyword 12b, methodology section
+- S-13: `parts/doe-2029.php` (89 FR 37778 quotes in `uef-ranges.json doe2029`) on repair or replace, gas vs electric, electric installation cost, heat pump cost, lifespan and solar pages
+- `tests/formulas.test.mjs` 80 tests
 
-**Verified (before deploy):** `npm test` 78/78; `validate-data` 81 files OK; `build:data` + `build:charts` committed; `php -l` clean; offline render (WP stubs) 0 PHP notices on 16 changed or dependent pages. New sources opened 2026-11-14 and quoted in the data files (A. O. Smith SAP serial notice, Rinnai RU199 sizing note, Rheem sizing page, EIA propane price and BTU content, Eemax sizing guide and ProAdvantage spec sheet, Rinnai flush page, WebstaurantStore vinegar, Home Depot flush kit and anode listings, Rheem maintenance page, EPA WaterSense showerheads, ENERGY STAR HPWH guide).
+**Verified (before deploy):** `npm test` 80/80; `validate-data` 84 files OK; `build:data` committed; `php -l` clean on every changed PHP file; offline render (WP stubs) 0 notices on 14 changed pages + all 10 state pages. Every new source opened on 2026-11-14 and quoted in its data file; sources that would not open (ilga.gov, Atlanta/Columbus/San Jose permit pages, Duke, ComEd, PECO, energy.gov Energy Saver solar pages, CCMS) are not used.
 
-**Verified live (after PR #44 deployed, 2026-11-14):** style.css 0.16.0 served. `npm run check -- --bust` 767/767; `check-links -- --bust` 1546/1546 (59 pages); `check-embeds -- --bust` 226/230 on the first run (4 embeds over the old 30 KB weight budget, 31.7 to 33.4 KB; budget raised to 36 KB in PR #45, see DECISIONS). Evidence replays (`evidence/run.js` with tools, age, age2 and cost cases): every section E Fail row now gives a "Check your inputs" message on the field or the corrected result (tankless default 3.9 hot GPM / one 150k unit; expansion supply 170, temp 40/220, gallons 0; gas vs electric therm "abc", setpoint 50; tankless vs tank 0 and 100 years; heat pump UEF 0 and rebate $99,999; repair replace $0 and age −1; impossible serials and years), no console errors. Playwright at 1280 and 360 px: new fields work (shower flow, point of use, big tub, propane in both cost tools, heat pump location, Rinnai preselects tankless, flush unticked), no horizontal scroll. Fixed in #45: a cold heat pump space turned the status amber but kept the green "Pays back quickly" label.
+**Verified live:** see the log line for this phase (filled in after deploy).
 
 **Known issues / TODOs carried forward:**
-- Gas tankless now comes out about $425 ahead of a gas tank over 10 years on total cost (value left counted: 20-year vs 13-year life) while its simple payback is about 22 years. The tool and article say both and show the cash spent; the owner may prefer one headline metric.
-- State pages count "full-flow showers" a reference unit runs at the full 120 °F setpoint (not the 105 °F mix), so they are conservative next to the size calculator. Prose untouched per the brief; Phase 3 can align the wording.
-- Upkeep is priced as do-it-yourself; a plumber's descaling visit costs more and has no listing we can cite.
-- Heat pump cold-garage derate: no DOE/NEEA/ENERGY STAR figure found, so only a warning.
-- Cost index: $1 rounding changes in 3 states (still draft).
-- Carried: IRC P2903.4 text (403); labor = national ranges × BEA RPP; real-ads Lighthouse re-measure; codes.iccsafe.org not script-checkable.
+- F-15 (redirect chain) not touched: redirects belong to Phase 2 per the brief.
+- Electric tankless UEF is from one maker's spec sheet; CCMS was not reachable. Recheck against CCMS when it loads.
+- Solar page: NREL's installed cost is a 2012 range (no newer public figure); FEMP has no city for Arkansas, Iowa, DC.
+- Michigan's two utility programs do not publish an amount; shown as "amount not stated".
+- Gas tankless total-cost vs payback headline (owner may pick one metric); DIY upkeep pricing; heat pump cold-garage derate; IRC P2903.4 (403); real-ads Lighthouse re-measure.
 
-**Owner steps:** flush the Hostinger CDN after this deploy (JS, CSS and data changed). Carried: OK the 3 Phase 8 drafts; GSC Verify + sitemap, Bing, GA4 ID, AdSense IDs; outreach; post-launch plumber fact-check.
+**Owner steps:** flush the Hostinger CDN after this deploy (CSS, JS and data changed). OK the solar draft. Carried: OK the 3 Phase 8 drafts; GSC Verify + sitemap, Bing, GA4 inside GTM, AdSense IDs; outreach; post-launch plumber fact-check.
 
 **Notes for the next thread:**
-- Phase 3 shares `formulas.js` and `data/`: pull `main` first. Any number a page prints comes from `data/computed/`; rebuild with `npm run build:data` and keep the quick-answer guards green.
-- Offline render harness: stub WP functions (esc_*, esc_textarea, selected, checked, wp_kses, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, home_url, wp_parse_url, wp_json_encode, wp_strip_all_tags, hwm_adsense_client, hwm_adsense_unit), define `HWM_DIR`, include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
-- Index refresh, build:charts and build:og notes from Phase 8 still apply.
+- Pull `main` first. Numbers on pages come from `data/computed/`; rebuild with `npm run build:data` and keep the quick-answer guards green (the solar page now has one).
+- State page prose lives in `data/state-pages.json` (`notes`, `local`) and `content/water-heater-installation-cost-state.php`; re-run the Jaccard check if you touch either.
+- Offline render harness: stub WP functions (esc_*, esc_textarea, selected, checked, wp_kses, add_action, add_filter, is_user_logged_in, current_user_can, untrailingslashit, trailingslashit, home_url, wp_parse_url, wp_json_encode, wp_strip_all_tags, get_query_var, is_admin, apply_filters, hwm_adsense_client, hwm_adsense_unit), define `HWM_DIR`, include `inc/data.php` + `inc/helpers.php`, then `hwm_content()`.
 
 ## Log
 - 2026-11-09 — Project docs created (CLAUDE.md, STRATEGY.md, PHASES.md, HANDOFF.md). No code yet.
@@ -60,6 +65,7 @@
 
 ---
 - 2026-11-14 — Audit fix Phase 1 done — tools: tankless sizing at the 105 °F mix, one input validator, ownership with value left/upkeep/simple payback, serial fixes, repair rules, propane, point of use, heat pump location (style 0.16.0).
+- 2026-11-14 — Audit fix Phase 3 done — content and state pages: copy fixes, one rise and one "old" band, all tank sizes priced, state pages unique (Jaccard mean 0.37) with sourced code notes and utility rebates, tankless delay, lifespan sources, methodology TOC, DOE 2029 rule, solar cost page (draft).
 
 ## Template (copy this into "Current State" when you finish a phase)
 

@@ -28,5 +28,5 @@ if ( ! $hwm_rows ) {
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<p class="table-source">Decoded with the same code the calculator runs (assets/js/formulas.js), as of <?php echo esc_html( hwm_date( (string) hwm_raw( $hwm_file, 'asOf' ) ) ); ?>. Serials ending in 12345, 000001 or similar are test serials: only the date characters matter.</p>
+	<p class="table-source">Decoded with the same code the calculator runs, as of <?php echo esc_html( hwm_date( (string) hwm_raw( $hwm_file, 'asOf' ) ) ); ?>. Serials ending in 12345, 000001 or similar are test serials: only the date characters matter.</p>
 </div>

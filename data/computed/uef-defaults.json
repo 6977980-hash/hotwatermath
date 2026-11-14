@@ -38,9 +38,9 @@
     },
     "electric_tankless": {
       "label": "Electric tankless",
-      "low": 0.91,
-      "typical": 0.92,
-      "high": 0.92
+      "low": 0.93,
+      "typical": 0.935,
+      "high": 0.935
     }
   },
   "tables": {
@@ -90,8 +90,8 @@
         },
         {
           "label": "Electric tankless",
-          "typical": "0.92",
-          "range": "0.91–0.92"
+          "typical": "0.94",
+          "range": "0.93–0.94"
         }
       ],
       "source": "Rheem spec sheets, ENERGY STAR certified list and criteria, 10 CFR 430.32(d)",

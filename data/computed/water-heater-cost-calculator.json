@@ -242,11 +242,11 @@
       },
       {
         "label": "Electric tank to electric tankless",
-        "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
-        "low": "2,026",
-        "typical": "3,509",
-        "high": "5,699",
-        "typicalNum": 3509
+        "extras": "Permit, New 240-volt circuit, More 240-volt circuits for a whole-house electric tankless, Electrical panel upgrade",
+        "low": "2,626",
+        "typical": "4,709",
+        "high": "9,299",
+        "typicalNum": 4709
       },
       {
         "label": "Electric tank to gas tank (50 gal)",
@@ -550,6 +550,12 @@
       ],
       "rows": [
         {
+          "label": "30-gallon gas tank (natural gas, standard vent)",
+          "unit": "639",
+          "typical": "1,549",
+          "range": "1,119–2,389"
+        },
+        {
           "label": "40-gallon gas tank (natural gas, standard vent)",
           "unit": "759",
           "typical": "1,669",
@@ -562,10 +568,22 @@
           "range": "1,249–2,599"
         },
         {
+          "label": "55-gallon gas tank (natural gas, standard vent)",
+          "unit": "959",
+          "typical": "1,869",
+          "range": "1,309–2,809"
+        },
+        {
           "label": "75-gallon gas tank (natural gas, standard vent)",
           "unit": "1,319",
           "typical": "2,229",
           "range": "1,649–3,059"
+        },
+        {
+          "label": "30-gallon electric tank",
+          "unit": "509",
+          "typical": "1,269",
+          "range": "929–1,929"
         },
         {
           "label": "40-gallon electric tank",
@@ -578,6 +596,12 @@
           "unit": "819",
           "typical": "1,579",
           "range": "1,009–2,829"
+        },
+        {
+          "label": "55-gallon electric tank",
+          "unit": "937",
+          "typical": "1,697",
+          "range": "1,309–2,469"
         },
         {
           "label": "50-gallon heat pump (hybrid)",
@@ -610,7 +634,7 @@
           "range": "976–2,499"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: data/installation-costs.json (2026-11-13)",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: our installation cost ranges (see Methodology) (2026-11-13)",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -674,6 +698,12 @@
           "typical": "600",
           "range": "300–1,200",
           "why": "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work."
+        },
+        {
+          "label": "More 240-volt circuits for a whole-house electric tankless",
+          "typical": "1,200",
+          "range": "600–3,600",
+          "why": "Whole-house electric tankless units need more than one circuit: Rheem's RTEX-24 and RTEX-27 call for 3 × 40 A double-pole breakers and the RTEX-36 for 4 (spec sheet TKE-101 Rev. 8). We price the circuits beyond the first at our single-circuit range: 2 more for low and typical (24–27 kW), 3 more for high (36 kW). Audit F-13, 2026-11-14."
         },
         {
           "label": "Electrical panel upgrade (to 200 amps)",
@@ -815,9 +845,9 @@
         },
         {
           "label": "Electric tank to electric tankless",
-          "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
-          "typical": "3,509",
-          "range": "2,026–5,699"
+          "extras": "Permit, New 240-volt circuit, More 240-volt circuits for a whole-house electric tankless, Electrical panel upgrade",
+          "typical": "4,709",
+          "range": "2,626–9,299"
         },
         {
           "label": "Electric tank to gas tank (50 gal)",
@@ -826,7 +856,7 @@
           "range": "1,849–4,599"
         }
       ],
-      "source": "Computed with the cost calculator’s own model (equipment listings + data/installation-costs.json)",
+      "source": "Computed with the cost calculator’s own model (equipment listings + our installation cost ranges, see Methodology)",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -1163,7 +1193,7 @@
           "range": "1,212–2,483"
         }
       ],
-      "source": "Equipment listings + data/installation-costs.json, labor and extras × BEA Regional Price Parity ÷ 100",
+      "source": "Equipment listings + our installation cost ranges (see Methodology), labor and extras × BEA Regional Price Parity ÷ 100",
       "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
       "sourceDate": "2026-11-12"
     }
@@ -1171,6 +1201,15 @@
   "client": {
     "model": {
       "units": {
+        "gas_tank_30": {
+          "type": "gas_tank",
+          "label": "30-gallon gas tank (natural gas, standard vent)",
+          "low": 619,
+          "typical": 639,
+          "high": 789,
+          "n": 3,
+          "sourceKey": "gas_tank_30"
+        },
         "gas_tank_40": {
           "type": "gas_tank",
           "label": "40-gallon gas tank (natural gas, standard vent)",
@@ -1189,6 +1228,15 @@
           "n": 9,
           "sourceKey": "gas_tank_50"
         },
+        "gas_tank_55": {
+          "type": "gas_tank",
+          "label": "55-gallon gas tank (natural gas, standard vent)",
+          "low": 809,
+          "typical": 959,
+          "high": 1209,
+          "n": 3,
+          "sourceKey": "gas_tank_55"
+        },
         "gas_tank_75": {
           "type": "gas_tank",
           "label": "75-gallon gas tank (natural gas, standard vent)",
@@ -1197,6 +1245,15 @@
           "high": 1459,
           "n": 3,
           "sourceKey": "gas_tank_75"
+        },
+        "electric_tank_30": {
+          "type": "electric_tank",
+          "label": "30-gallon electric tank",
+          "low": 479,
+          "typical": 509,
+          "high": 529,
+          "n": 3,
+          "sourceKey": "electric_tank_30"
         },
         "electric_tank_40": {
           "type": "electric_tank",
@@ -1215,6 +1272,15 @@
           "high": 1429,
           "n": 22,
           "sourceKey": "electric_tank_50"
+        },
+        "electric_tank_55": {
+          "type": "electric_tank",
+          "label": "55-gallon electric tank",
+          "low": 859,
+          "typical": 937,
+          "high": 1069,
+          "n": 4,
+          "sourceKey": "electric_tank_55"
         },
         "heat_pump_50": {
           "type": "heat_pump",
@@ -1271,12 +1337,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             },
             {
               "id": "75",
@@ -1295,12 +1369,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             }
           ],
           "defaultSize": "50",
@@ -1350,7 +1432,7 @@
         "electric_tankless": {
           "label": "Electric tankless",
           "fuel": "electric",
-          "uef": 0.92,
+          "uef": 0.935,
           "life": 20,
           "credit": 0,
           "sizes": [
@@ -1435,6 +1517,12 @@
           "typical": 600,
           "high": 1200
         },
+        "tanklessCircuits": {
+          "label": "More 240-volt circuits for a whole-house electric tankless",
+          "low": 600,
+          "typical": 1200,
+          "high": 3600
+        },
         "panel": {
           "label": "Electrical panel upgrade (to 200 amps)",
           "low": 750,
@@ -1499,6 +1587,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }
@@ -1523,6 +1612,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }

@@ -201,5 +201,22 @@
       "sourceUrl": "https://media.eemax.com/blobazrheem/media/uploads/iat/sites/46/2020/01/Eemax_Sizing-Guide.pdf",
       "specUrl": "https://media.eemax.com/media/uploads/iat/sites/55/2022/02/SpecSheet-EEM12004-REV-2018-07.pdf"
     }
+  },
+  "hotWaterDelay": {
+    "ignitionRestartSeconds": 10,
+    "sandwich": {
+      "source": "Eemax (a Rheem company), Cure for the Cold Water Sandwich white paper",
+      "sourceUrl": "https://media.eemax.com/blobazrheem/media/uploads/iat/sites/46/2013/06/ColdWaterSandwich_WhitePaper_FINAL.pdf",
+      "checked": "2026-11-14",
+      "quote": "It takes about 10 seconds for the ignition sequence in most gas heaters to restart, and this is when cold water is introduced into the home's hot water system.",
+      "fix": "Integrating the Mini Tank into the hot water outlet of a gas tankless heater (as indicated in the diagram below) removes the Cold Water Sandwich Effect."
+    },
+    "recirculation": {
+      "source": "Rinnai, Recirculation Accessories",
+      "sourceUrl": "https://www.rinnai.us/residential/tankless-water-heaters/recirculation-accessories",
+      "checked": "2026-11-14",
+      "quote": "If your home does not have a dedicated return line, select Rinnai tankless water heaters can offer faster hot water without adding an additional cold return line.",
+      "how": "A thermal by-pass valve added to the cold water line helps ensure recirculation is enabled"
+    }
   }
 }

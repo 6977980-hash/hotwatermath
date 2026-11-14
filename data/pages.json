@@ -1484,7 +1484,7 @@
       "description": "Water heater cost index 2026: a 50-gallon tank plus 10 years of energy costs $3,136 in Idaho to $5,575 in Massachusetts. All 50 states, free CSV.",
       "h1": "Water heater cost index by state, 2026",
       "subtitle": "Installed price and 10-year cost of a 50-gallon gas, electric or heat pump water heater in every state.",
-      "quickAnswer": "Owning a 50-gallon water heater for 10 years costs least in Idaho ($3,136) and most in Massachusetts ($5,575), counting installed price and energy. A heat pump beats an electric tank in all 51 states.",
+      "quickAnswer": "Owning a 50-gallon water heater for 10 years costs least in Idaho ($3,136) and most in Massachusetts ($5,575), counting installed price and energy. A heat pump beats an electric tank in all 50 states and DC.",
       "scripts": [
         "cost-calculator"
       ],
@@ -1497,6 +1497,33 @@
         "water heater running cost by state"
       ],
       "methodAnchor": "cost-index"
+    },
+    {
+      "slug": "solar-water-heater-cost",
+      "type": "article",
+      "status": "draft",
+      "phase": "audit-3",
+      "datePublished": "2026-11-14",
+      "dateModified": "2026-11-14",
+      "group": "Costs & Sizing",
+      "title": "Solar Water Heater Cost",
+      "summary": "What a solar water heater costs installed, what it saves in each state against an electric or gas tank, and why the tax credit no longer applies.",
+      "metaTitle": "Solar Water Heater Cost and Payback | Hot Water Math",
+      "description": "Solar water heater cost: $6,000 to $10,000 installed (NREL) and no federal credit in 2026. Yearly savings and payback in 48 states vs electric and gas.",
+      "h1": "Solar water heater cost, savings and payback",
+      "subtitle": "Installed price, yearly savings in your state, and how it compares with a heat pump.",
+      "quickAnswer": "A solar water heater costs about $6,000 to $10,000 installed, and the federal tax credit ended in 2025. Against an electric tank it pays back within 13 years in only 11 states; a heat pump water heater pays back faster.",
+      "scripts": [],
+      "methodAnchor": "solar-water-heater-cost",
+      "keywords": [
+        "solar water heater cost",
+        "solar water heater installation cost",
+        "solar hot water heater cost",
+        "solar water heater payback",
+        "solar water heater tax credit 2026",
+        "solar water heater vs heat pump water heater",
+        "is a solar water heater worth it"
+      ]
     },
     {
       "slug": "water-heater-expansion-tank-size",

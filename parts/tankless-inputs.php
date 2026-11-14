@@ -33,7 +33,7 @@ uasort( $hwm_states, static fn( $a, $b ) => strcmp( (string) $a['name'], (string
 	<select id="tk-state" name="state">
 		<option value="">Not sure (<?php echo esc_html( hwm_value( $hwm_c, 'defaultInputs.inletF' ) ); ?> °F example)</option>
 		<?php foreach ( $hwm_states as $hwm_k => $hwm_s ) : ?>
-			<option value="<?php echo esc_attr( (string) $hwm_k ); ?>"><?php echo esc_html( (string) $hwm_s['name'] ); ?></option>
+			<option value="<?php echo esc_attr( (string) $hwm_k ); ?>"><?php echo esc_html( hwm_state_label( (string) $hwm_k, (string) $hwm_s['name'] ) ); ?></option>
 		<?php endforeach; ?>
 	</select>
 </div>

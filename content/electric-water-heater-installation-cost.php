@@ -71,6 +71,8 @@ hwm_part(
 <h2>Why can't you buy a large electric tank?</h2>
 <p>Federal efficiency rules for tanks above <?php echo $hwm_v( 'maxElectricGallons' ); // phpcs:ignore ?> gallons set a minimum that only a heat pump can meet. So standard electric tanks stop at <?php echo $hwm_v( 'maxElectricGallons' ); // phpcs:ignore ?> gallons. If your household needs more hot water than that, the choice is a heat pump, two tanks, or switching fuel.</p>
 
+<?php hwm_part( 'doe-2029', array( 'heading' => false, 'lead' => 'The line moves down for heaters made from 2029.' ) ); ?>
+
 <h2>Which size electric water heater should you buy?</h2>
 <p>Size by first hour rating. A typical 40-gallon electric tank delivers about <?php echo $hwm_sz( 'fhr40' ); // phpcs:ignore ?> gallons in the busiest hour and a 50-gallon one about <?php echo $hwm_sz( 'fhr50' ); // phpcs:ignore ?>, less than gas tanks of the same size (<?php echo esc_html( hwm_value( $hwm_s, 'figures.gas.fhr40' ) ); ?> and <?php echo esc_html( hwm_value( $hwm_s, 'figures.gas.fhr50' ) ); ?>) because a <?php echo $hwm_v( 'elementKw' ); // phpcs:ignore ?> kW element reheats water more slowly than a gas burner. Going from 40 to 50 gallons costs about $<?php echo $hwm_sz( 'instDiff' ); // phpcs:ignore ?> more.</p>
 <p>See the <?php echo hwm_link( '40-vs-50-gallon-water-heater', '40 vs 50 gallon comparison' ); // phpcs:ignore ?> or work it out with the <?php echo hwm_link( 'water-heater-size-calculator', 'water heater size calculator' ); // phpcs:ignore ?>.</p>

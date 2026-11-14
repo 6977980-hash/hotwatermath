@@ -77,6 +77,7 @@
     "slug": "georgia",
     "url": "/water-heater-installation-cost/georgia/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 8,
     "population": "11,302,748",
     "popMillion": "11.3",
@@ -289,13 +290,42 @@
       "quote": "The HEAR program for single-family has reopened with limited measures.",
       "summary": "The reopened appliance rebate is limited to wiring and panel upgrades done with a whole-home efficiency (HER) project, so it does not pay for a heat pump water heater on its own."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "ga-permit",
+        "heading": "Metro Atlanta cities treat a water heater swap as permit work",
+        "text": "Georgia leaves permits to each city and county. Peachtree Corners, in Gwinnett County north of Atlanta, lists water heater replacement on its building department's short list of jobs that need a permit, alongside new plumbing fixtures that alter piping. Expect the same in most metro Atlanta jurisdictions, and ask your installer whose permit covers the job, because a gas unit also gets its gas line and vent inspected.",
+        "source": "City of Peachtree Corners, When Do I Need a Building Permit",
+        "sourceUrl": "https://peachtreecornersga.gov/193/When-Do-I-Need-A-Building-Permit",
+        "quote": "Water heater replacement Yes",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "Georgia Power",
+        "offer": "Up to $800 for a heat pump water heater",
+        "sourceUrl": "https://www.georgiapower.com/heatpump",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a Georgia replacement different",
+      "paras": [
+        "Georgia is an electric-leaning state: 59% of homes heat water with electricity and 38% with gas. Georgia Power's rebate of up to $800 for a heat pump water heater, paid when a program-affiliated installer does the job, is the main money on offer, because the state's federal appliance rebate is limited.",
+        "Mild winters help. Incoming water averages 70.2 °F and falls only to about 60.0 °F in January, so a heat pump in a garage spends little time on its backup elements. Against a standard electric tank it saves about $293 a year here."
+      ]
+    },
     "highlights": [
       "Electricity is cheaper than average in Georgia (14.74 cents per kWh, 14% below the U.S. average), so a standard electric tank costs about $387 a year to run here, against $260 for gas.",
       "Natural gas costs more here than in most states ($1.98 per therm, the 6th highest), so gas's running-cost advantage is smaller than the national picture suggests.",
-      "Where you live inside Georgia matters: the same 50-gallon gas job is about $1,810 in the Atlanta-Sandy Springs-Roswell, GA area and $1,704 in the Macon-Bibb County, GA area."
+      "Where you live inside Georgia matters: the same 50-gallon gas job is about $1,810 in the Atlanta-Sandy Springs-Roswell, GA area and $1,704 in the Macon-Bibb County, GA area.",
+      "Metro Atlanta cities treat a water heater swap as permit work."
     ]
   },
   "tables": {
@@ -356,7 +386,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Georgia labor and extras × BEA price factor 0.963",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; Georgia labor and extras × BEA price factor 0.963",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -412,7 +442,7 @@
           "high": "2,778"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -468,7 +498,7 @@
           "high": "2,540"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -534,10 +564,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "391",
-          "us": "570",
-          "own": "5,417"
+          "uef": "0.94",
+          "state": "385",
+          "us": "561",
+          "own": "5,355"
         }
       ],
       "source": "EIA 2025 Georgia residential prices ($0.147/kWh, $1.98/therm); Georgia incoming water 70.2 °F; median UEF by type; installed cost from our cost model",
@@ -729,7 +759,7 @@
           "cost": "38"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 Georgia prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 Georgia prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -787,7 +817,7 @@
           "showers": 3
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -831,6 +861,38 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (3.88 million Georgia homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in Georgia: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "Georgia Power",
+          "type": "Heat pump water heater",
+          "offer": "Up to $800 for a heat pump water heater",
+          "conditions": "Georgia Power customers; installed by a program-affiliated installer."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: Georgia Power. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

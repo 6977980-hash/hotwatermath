@@ -3,7 +3,7 @@
     "source": "Computed by npm run build:data from data/safety.json (IFGC 2021 Tables 402.4(2) and 402.4(3) rows, Rinnai and Rheem figures) with assets/js/formulas.js",
     "sourceUrl": "https://hotwatermath.com/methodology/",
     "sourceDate": "2026-11-12",
-    "notes": "CFH = BTU/h ÷ 1,000 BTU per cubic foot (formulas.gasCfh, Rinnai's basis); pipe size = smallest size whose table capacity covers the CFH at the next longer table length (formulas.gasPipeSize); maximum length = longest table row a size still covers (formulas.gasMaxLengthFt). Schedule 40 steel pipe, natural gas, one appliance on its own run from the meter; fittings must be added as equivalent length."
+    "notes": "CFH = BTU/h ÷ 1,000 BTU per cubic foot (formulas.gasCfh, Rinnai's basis); pipe size = smallest size whose table capacity covers the CFH at the next longer table length (formulas.gasPipeSize); maximum length = longest table row a size still covers. Schedule 40 steel pipe, natural gas, one appliance on its own run from the meter; fittings must be added as equivalent length."
   },
   "figures": {
     "cfh199": "199",
@@ -118,7 +118,7 @@
           "l100": "1-1/4 in"
         }
       ],
-      "source": "Looked up in 2021 International Fuel Gas Code Table 402.4(2) (Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity) with formulas.gasPipeSize; CFH = BTU/h ÷ 1,000 (Rinnai). Lengths include fittings as equivalent length. For discussion with your installer, not a design.",
+      "source": "Looked up in 2021 International Fuel Gas Code Table 402.4(2) (Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity) with our pipe-size lookup; CFH = BTU/h ÷ 1,000 (Rinnai). Lengths include fittings as equivalent length. For discussion with your installer, not a design.",
       "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
       "sourceDate": "2026-11-13"
     },
@@ -200,7 +200,7 @@
           "l100": "3/4 in"
         }
       ],
-      "source": "Looked up in 2021 International Fuel Gas Code Table 402.4(3) (Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity; intended use: initial supply pressure of 8.0 in. w.c. or greater) with formulas.gasPipeSize; CFH = BTU/h ÷ 1,000 (Rinnai). For discussion with your installer, not a design.",
+      "source": "Looked up in 2021 International Fuel Gas Code Table 402.4(3) (Schedule 40 metallic pipe, natural gas, inlet pressure less than 2 psi, 0.60 specific gravity; intended use: initial supply pressure of 8.0 in. w.c. or greater) with our pipe-size lookup; CFH = BTU/h ÷ 1,000 (Rinnai). For discussion with your installer, not a design.",
       "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
       "sourceDate": "2026-11-13"
     },
@@ -527,7 +527,7 @@
           "same": "No, see note"
         }
       ],
-      "source": "Rinnai professional FAQ, Table 1 (natural gas, 8.0 in. w.c. or greater supply, 3.0 in. w.c. drop, 1,000 BTU per cubic foot), checked 2026-11-13; our figure = longest row of Table 402.4(3) that still carries the unit's CFH (formulas.gasMaxLengthFt).",
+      "source": "Rinnai professional FAQ, Table 1 (natural gas, 8.0 in. w.c. or greater supply, 3.0 in. w.c. drop, 1,000 BTU per cubic foot), checked 2026-11-13; our figure = longest row of Table 402.4(3) that still carries the unit's CFH.",
       "sourceUrl": "https://www.rinnai.us/professional/faq",
       "sourceDate": "2026-11-13"
     }

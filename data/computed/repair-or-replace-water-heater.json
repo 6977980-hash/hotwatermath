@@ -17,7 +17,7 @@
     "statusLabel": "Repair",
     "headline": "Repair it: the quote is small and the heater is within its normal life",
     "explain": "At 8.0 years it is within its normal life: 62% of a 13-year typical life used. The repair is 14% of the replacement price.",
-    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $1,809 = 14%\nRules: leak or flood → replace; age ≥ 15 years (top of the life range) → replace soon; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair. Rusty hot water, or rumbling once old, moves the answer one step toward replace\nRunning cost (55 gal/day, 67 °F rise): Gas tank UEF 0.635 = $262/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $185/yr; difference $77/yr",
+    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $1,809 = 14%\nRules: leak or flood → replace; age ≥ 15 years (top of the life range) → replace soon; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair. Rusty hot water, or rumbling once old, moves the answer one step toward replace\nRunning cost (55 gal/day, 62 °F rise): Gas tank UEF 0.635 = $242/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $171/yr; difference $71/yr",
     "sources": "Rules: ours, stated on /methodology. Typical life: DOE (13 years for tanks, 20 for tankless). New-unit price: typical installed price, U.S. average (equipment from Home Depot listings, 2026-11-12, plus labor, permit and haul-away from our cost model); type your own quote if you have one. <a href=\"/methodology/#repair-or-replace-water-heater\">See our rules checked against Rheem and A. O. Smith guidance</a>."
   },
   "defaultCase": {
@@ -78,24 +78,24 @@
   "energy": [
     {
       "label": "Gas tank",
-      "now": "262",
+      "now": "242",
       "up": "Gas tank (high efficiency, ENERGY STAR)",
-      "next": "185",
-      "save": "77"
+      "next": "171",
+      "save": "71"
     },
     {
       "label": "Electric tank",
-      "now": "609",
+      "now": "564",
       "up": "Heat pump (hybrid), 240 V",
-      "next": "149",
-      "save": "460"
+      "next": "138",
+      "save": "426"
     },
     {
       "label": "Electric tankless",
-      "now": "616",
+      "now": "561",
       "up": "Heat pump (hybrid), 240 V",
-      "next": "149",
-      "save": "467"
+      "next": "138",
+      "save": "423"
     }
   ],
   "crossChecks": [
@@ -230,7 +230,7 @@
           "old": "384"
         }
       ],
-      "source": "Rules from data/decision-rules.json (50% / 75% of life / 25%); typical life from DOE; installed prices = Home Depot equipment listings (2026-11-12) + our installation ranges (2026-11-13), U.S. average",
+      "source": "Our decision rules (50% / 75% of life / 25%); typical life from DOE; installed prices = Home Depot equipment listings (2026-11-12) + our installation ranges (2026-11-13), U.S. average",
       "sourceUrl": "https://hotwatermath.com/methodology/#repair-or-replace-water-heater",
       "sourceDate": "2026-11-12"
     },
@@ -267,27 +267,27 @@
       "rows": [
         {
           "label": "Gas tank",
-          "now": "262",
+          "now": "242",
           "up": "Gas tank (high efficiency, ENERGY STAR)",
-          "next": "185",
-          "save": "77"
+          "next": "171",
+          "save": "71"
         },
         {
           "label": "Electric tank",
-          "now": "609",
+          "now": "564",
           "up": "Heat pump (hybrid), 240 V",
-          "next": "149",
-          "save": "460"
+          "next": "138",
+          "save": "426"
         },
         {
           "label": "Electric tankless",
-          "now": "616",
+          "now": "561",
           "up": "Heat pump (hybrid), 240 V",
-          "next": "149",
-          "save": "467"
+          "next": "138",
+          "save": "423"
         }
       ],
-      "source": "Computed: 55 gal/day at a 67 °F rise (DOE test day), UEF medians (Rheem spec sheets, ENERGY STAR), U.S. average prices $0.1723/kWh and $1.481/therm (EIA)",
+      "source": "Computed: 55 gal/day heated 62 °F (58 °F U.S. average incoming to 120 °F, as in the gas vs electric calculator), UEF medians (Rheem spec sheets, ENERGY STAR), U.S. average prices $0.1723/kWh and $1.481/therm (EIA)",
       "sourceUrl": "https://hotwatermath.com/methodology/#repair-or-replace-water-heater",
       "sourceDate": "2026-11-12"
     }
@@ -383,7 +383,7 @@
         "life": 20,
         "lifeHigh": 20,
         "uefId": "electric_tankless",
-        "uef": 0.92,
+        "uef": 0.935,
         "fuel": "electric",
         "replacementUsd": 1534,
         "equipmentUsd": 674,
@@ -402,7 +402,6 @@
     },
     "rules": {
       "repairShareAlways": 0.5,
-      "ageShare": 0.75,
       "repairShareWhenOld": 0.25,
       "replaceAtLifeHigh": true,
       "replaceSigns": [
@@ -415,7 +414,8 @@
           "when": "old"
         }
       ],
-      "note": "Since audit fix F-08 (2026-11-14): a unit at or past the high end of its life range (data/lifespans.json) is \"replace soon\" whatever the repair costs; rusty hot water (always) or rumbling once the unit is old (ageShare of its typical life) moves the verdict one step toward replace, because Rheem lists both among the signs a heater should be replaced."
+      "note": "Since audit fix F-08 (2026-11-14): a unit at or past the high end of its life range (data/lifespans.json) is \"replace soon\" whatever the repair costs; rusty hot water (always) or rumbling once the unit is old (ageShare of its typical life) moves the verdict one step toward replace, because Rheem lists both among the signs a heater should be replaced. The \"old\" share of typical life is data/lifespans.json statusBands.oldFrom, shared with the age calculator (audit F-09, 2026-11-14).",
+      "ageShare": 0.75
     },
     "defaultInputs": {
       "ageYears": 8,
@@ -473,7 +473,9 @@
     },
     "use": {
       "gallonsPerDay": 55,
-      "riseF": 67
+      "riseF": 62,
+      "inletF": 58,
+      "setpointF": 120
     },
     "limits": {
       "age": {

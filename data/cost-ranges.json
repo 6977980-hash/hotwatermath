@@ -7,6 +7,34 @@
   },
   "lastReviewed": "2026-11-12",
   "units": {
+    "gas_tank_30": {
+      "type": "gas_tank",
+      "nominalGallons": 30,
+      "label": "30-gallon gas tank (natural gas, standard vent)",
+      "samples": [
+        {
+          "product": "Rheem Performance 30 Gal. Short 30,000 BTU Natural Gas Water Heater with 6-Year Warranty XG30S06EC30U1",
+          "model": "XG30S06EC30U1",
+          "priceUsd": 619.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-30-Gal-Short-30-000-BTU-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG30S06EC30U1/326590325",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance 29 Gal. Tall 32,000 BTU Natural Gas Water Heater with 6-Year Warranty XG29T06EC32U1",
+          "model": "XG29T06EC32U1",
+          "priceUsd": 639.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-29-Gal-Tall-32-000-BTU-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG29T06EC32U1/326590316",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance 29 Gal. Tall 30,000 BTU Ultra Low NOx (ULN) Natural Gas Water Heater with 6-Year Warranty XG29T06EN30U1",
+          "model": "XG29T06EN30U1",
+          "priceUsd": 789.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-29-Gal-Tall-30-000-BTU-Ultra-Low-NOx-ULN-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG29T06EN30U1/326433732",
+          "checked": "2026-11-14"
+        }
+      ]
+    },
     "gas_tank_40": {
       "type": "gas_tank",
       "nominalGallons": 40,
@@ -129,6 +157,34 @@
         }
       ]
     },
+    "gas_tank_55": {
+      "type": "gas_tank",
+      "nominalGallons": 55,
+      "label": "55-gallon gas tank (natural gas, standard vent)",
+      "samples": [
+        {
+          "product": "Rheem Performance 55 Gal. Tall 50,000 BTU Natural Gas Water Heater with 6-Year Warranty XG55T06EC50U0",
+          "model": "XG55T06EC50U0",
+          "priceUsd": 809.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-55-Gal-Tall-50-000-BTU-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG55T06EC50U0/326590334",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance 55 Gal. Tall 45,000 BTU Ultra Low NOx (ULN) Natural Gas Water Heater with 6-Year Warranty XG55T06EN45U2",
+          "model": "XG55T06EN45U2",
+          "priceUsd": 959.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-55-Gal-Tall-45-000-BTU-Ultra-Low-NOx-ULN-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG55T06EN45U2/326433830",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance Platinum 55 Gal. Tall 50,000 BTU Natural Gas Water Heater with 12-Year Warranty XG55T12EC50U0",
+          "model": "XG55T12EC50U0",
+          "priceUsd": 1209.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-Platinum-55-Gal-Tall-50-000-BTU-Natural-Gas-Water-Heater-with-12-Year-Warranty-XG55T12EC50U0/205811176",
+          "checked": "2026-11-14"
+        }
+      ]
+    },
     "gas_tank_75": {
       "type": "gas_tank",
       "nominalGallons": 75,
@@ -151,6 +207,34 @@
           "model": "XG75T06EN76U1",
           "priceUsd": 1459.0,
           "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-75-Gal-Tall-75-100-BTU-Ultra-Low-NOx-ULN-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG75T06EN76U1/326431554"
+        }
+      ]
+    },
+    "electric_tank_30": {
+      "type": "electric_tank",
+      "nominalGallons": 30,
+      "label": "30-gallon electric tank",
+      "samples": [
+        {
+          "product": "Rheem Performance 30 Gal. Tall 4500-Watt Double Element Electric Water Heater with 6-Year Warranty XE30T06ST45U1",
+          "model": "XE30T06ST45U1",
+          "priceUsd": 529.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-30-Gal-Tall-4500-Watt-Double-Element-Electric-Water-Heater-with-6-Year-Warranty-XE30T06ST45U1/326434117",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance 30 Gal. Medium 4500-Watt Double Element Electric Water Heater with 6-Year Warranty XE30M06ST45U1",
+          "model": "XE30M06ST45U1",
+          "priceUsd": 509.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-30-Gal-Medium-4500-Watt-Double-Element-Electric-Water-Heater-with-6-Year-Warranty-XE30M06ST45U1/326590432",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance 30 Gal. Tall 3800-Watt Double Element Electric Water Heater with 6-Year Warranty XE30T06ST38U1",
+          "model": "XE30T06ST38U1",
+          "priceUsd": 479.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-30-Gal-Tall-3800-Watt-Double-Element-Electric-Water-Heater-with-6-Year-Warranty-XE30T06ST38U1/326590375",
+          "checked": "2026-11-14"
         }
       ]
     },
@@ -405,6 +489,41 @@
           "model": "MSR50245",
           "priceUsd": 1429.0,
           "listingUrl": "https://www.homedepot.com/p/Rheem-Marathon-50-Gal-Short-4500-Watt-Double-Element-Non-Metallic-Electric-Water-Heater-with-Lifetime-Warranty-MSR50245/202584260"
+        }
+      ]
+    },
+    "electric_tank_55": {
+      "type": "electric_tank",
+      "nominalGallons": 55,
+      "label": "55-gallon electric tank",
+      "samples": [
+        {
+          "product": "Rheem Performance 55 Gal. Tall 4500-Watt Double Element Demand Response Ready Electric Water Heater XE55T06CG45U0",
+          "model": "XE55T06CG45U0",
+          "priceUsd": 859.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-55-Gal-Tall-4500-Watt-Double-Element-Demand-Response-Ready-Electric-Water-Heater-with-6-Year-Warranty-XE55T06CG45U0/326405197",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Gladiator 55 Gal. Tall 12-Year 4500-Watt Double Element Smart Electric Water Heater w/ Leak Detection XE55T12CS45U0",
+          "model": "XE55T12CS45U0",
+          "priceUsd": 915.67,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Gladiator-55-Gal-Tall-12-Year-4500-Watt-Double-Element-Smart-Electric-Water-Heater-w-Leak-Detection-and-Auto-Shutoff-XE55T12CS45U0/309627175",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Performance Plus 55 Gal. Tall 4500-Watt Double Element Demand Response Ready Electric Water Heater XE55T09CG45U0",
+          "model": "XE55T09CG45U0",
+          "priceUsd": 959.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Performance-Plus-55-Gal-Tall-4500-Watt-Double-Element-Demand-Response-Ready-Electric-Water-Heater-with-9-Year-Warranty-XE55T09CG45U0/326405194",
+          "checked": "2026-11-14"
+        },
+        {
+          "product": "Rheem Gladiator 55 Gal. Tall 12-Year 4500W Demand Response Ready Smart Electric Water Heater w/ Leak Detection XE55T12CG45U0",
+          "model": "XE55T12CG45U0",
+          "priceUsd": 1069.0,
+          "listingUrl": "https://www.homedepot.com/p/Rheem-Gladiator-55-Gal-Tall-12-Year-4500W-Demand-Response-Ready-Smart-Electric-Water-Heater-w-Leak-Detection-Auto-Shutoff-XE55T12CG45U0/318578490",
+          "checked": "2026-11-14"
         }
       ]
     },

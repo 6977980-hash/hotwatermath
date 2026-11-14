@@ -3,7 +3,7 @@
     "source": "Computed by npm run build:data from data/safety.json (Stiebel Eltron and Rheem published requirements, IRC 2021 ampacity rows) with assets/js/formulas.js",
     "sourceUrl": "https://hotwatermath.com/methodology/",
     "sourceDate": "2026-11-12",
-    "notes": "Amps = kW × 1,000 ÷ 240 V (formulas.electricAmps); per circuit = amps ÷ number of circuits; breaker as % of draw = breaker ÷ amps per circuit; \"125% would give\" = the next standard breaker size (IRC Table E3705.6) at or above 125% of the amps per circuit, shown only to explain why manufacturer tables differ from the storage-tank rule; power on 208 V = kW × (208 ÷ 240)² (formulas.powerAtVoltage)."
+    "notes": "Amps = kW × 1,000 ÷ 240 V (formulas.electricAmps); per circuit = amps ÷ number of circuits; breaker as % of draw = breaker ÷ amps per circuit; \"125% would give\" = the next standard breaker size (IRC Table E3705.6) at or above 125% of the amps per circuit, shown only to explain why manufacturer tables differ from the storage-tank rule; power on 208 V = kW × (208 ÷ 240)²."
   },
   "figures": {
     "t24Amps": "100",
@@ -183,7 +183,7 @@
           "service": "Not stated"
         }
       ],
-      "source": "Breakers, wire and service minimums as published by Stiebel Eltron (Tempra Trend/Plus specifications, rev. 6.2025) and Rheem (form THD-PTE Rev. 2), checked 2026-11-13. Draw = kW × 1,000 ÷ 240 V (formulas.electricAmps); draw per circuit assumes the load is split evenly. Not a wiring design: the installation manual of your unit and your local code decide.",
+      "source": "Breakers, wire and service minimums as published by Stiebel Eltron (Tempra Trend/Plus specifications, rev. 6.2025) and Rheem (form THD-PTE Rev. 2), checked 2026-11-13. Draw = kW × 1,000 ÷ 240 V; draw per circuit assumes the load is split evenly. Not a wiring design: the installation manual of your unit and your local code decide.",
       "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
       "sourceDate": "2026-11-13"
     },
@@ -307,7 +307,7 @@
           "maker": "27.0"
         }
       ],
-      "source": "kW × (208 ÷ 240)², formulas.powerAtVoltage; maker figures from the Stiebel Eltron Tempra specifications. Rheem: 240 V units on 208 V give \"25% reduced temperature output\".",
+      "source": "kW × (208 ÷ 240)²; maker figures from the Stiebel Eltron Tempra specifications. Rheem: 240 V units on 208 V give \"25% reduced temperature output\".",
       "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
       "sourceDate": "2026-11-13"
     }

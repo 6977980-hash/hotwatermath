@@ -38,7 +38,7 @@
         "Retail listing prices at The Home Depot (homedepot.com search results), checked 2026-11-12",
         "Federal minimum UEF (10 CFR 430.32(d)); ENERGY STAR Version 5.0 criteria; Rheem Performance spec sheets (standard gas and electric tanks); ENERGY STAR certified list (heat pump and gas tankless)"
       ],
-      "tableSource": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
+      "tableSource": "Installed: equipment listings (2026-11-12) + our installation cost ranges, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
       "sourceDate": "2026-11-13",
       "columns": [
         "Rank",
@@ -1694,7 +1694,7 @@
         "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
         "U.S. Bureau of Economic Analysis (BEA), Regional Price Parities by State, all items, 2024 (released February 2026), read from FRED (Federal Reserve Bank of St. Louis)"
       ],
-      "tableSource": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: data/installation-costs.json (2026-11-13)",
+      "tableSource": "Equipment: Home Depot listings (2026-11-12); labor, permit and haul-away: our installation cost ranges (see Methodology) (2026-11-13)",
       "sourceDate": "2026-11-13",
       "columns": [
         "Water heater",
@@ -1704,6 +1704,13 @@
         "Installed range ($) high"
       ],
       "rows": [
+        [
+          "30-gallon gas tank (natural gas, standard vent)",
+          639,
+          1549,
+          1119,
+          2389
+        ],
         [
           "40-gallon gas tank (natural gas, standard vent)",
           759,
@@ -1719,11 +1726,25 @@
           2599
         ],
         [
+          "55-gallon gas tank (natural gas, standard vent)",
+          959,
+          1869,
+          1309,
+          2809
+        ],
+        [
           "75-gallon gas tank (natural gas, standard vent)",
           1319,
           2229,
           1649,
           3059
+        ],
+        [
+          "30-gallon electric tank",
+          509,
+          1269,
+          929,
+          1929
         ],
         [
           "40-gallon electric tank",
@@ -1738,6 +1759,13 @@
           1579,
           1009,
           2829
+        ],
+        [
+          "55-gallon electric tank",
+          937,
+          1697,
+          1309,
+          2469
         ],
         [
           "50-gallon heat pump (hybrid)",
@@ -1775,7 +1803,7 @@
           2499
         ]
       ],
-      "rowCount": 10
+      "rowCount": 14
     },
     {
       "id": "installation-extras",
@@ -1847,6 +1875,13 @@
           "DOE: \"at least several hundred dollars\"; industry guides give $300-$800 for electrical work."
         ],
         [
+          "More 240-volt circuits for a whole-house electric tankless",
+          1200,
+          600,
+          3600,
+          "Whole-house electric tankless units need more than one circuit: Rheem's RTEX-24 and RTEX-27 call for 3 × 40 A double-pole breakers and the RTEX-36 for 4 (spec sheet TKE-101 Rev. 8). We price the circuits beyond the first at our single-circuit range: 2 more for low and typical (24–27 kW), 3 more for high (36 kW). Audit F-13, 2026-11-14."
+        ],
+        [
           "Electrical panel upgrade (to 200 amps)",
           1375,
           750,
@@ -1868,7 +1903,7 @@
           "DOE's adders for the most challenging heat pump installs run $0-$4,000 and average $2,000."
         ]
       ],
-      "rowCount": 9
+      "rowCount": 10
     },
     {
       "id": "water-heater-lifespan-by-type",
@@ -1982,9 +2017,9 @@
         ],
         [
           "Electric tankless",
-          0.92,
-          0.91,
-          0.92
+          0.94,
+          0.93,
+          0.94
         ]
       ],
       "rowCount": 6

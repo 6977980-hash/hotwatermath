@@ -1,0 +1,247 @@
+{
+  "meta": {
+    "source": "Each program's own web page, opened on the check date (ENERGY STAR Rebate Finder used as the index of programs)",
+    "sourceUrl": "https://www.energystar.gov/rebate-finder",
+    "sourceDate": "2026-11-14",
+    "notes": "Water heater rebates from utilities and state programs in the 10 states with a state cost page (audit S-6, F-16). One record per program; quote = the exact words on the program page on the checked date. fuel: heat_pump = heat pump water heater, gas = gas tank or tankless. maxUsd = the largest amount the page names for a water heater (null when the page offers a discount without naming the amount). Pages that refused our checker (403, scripted pages) are listed under notChecked and are never shown as programs. Utility programs change often: review every three months with data/state-pages.json and data/incentives.json."
+  },
+  "programs": [
+    {
+      "id": "smud-hpwh",
+      "state": "CA",
+      "sponsor": "SMUD (Sacramento Municipal Utility District)",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 4000,
+      "offer": "$1,000 replacing an electric water heater; up to $4,000 replacing a gas one",
+      "conditions": "SMUD electric customers. The rebate is higher for a gas-to-electric switch.",
+      "quote": "Up to $4,000 for gas-to-electric heat pump water heater conversions. ... $1,000 for electric-to-electric heat pump water heater and heat pump HVAC upgrades.",
+      "sourceUrl": "https://www.smud.org/Corporate/About-us/News-and-Media/2026/2026/SMUD-boosts-rebates-for-heat-pumps",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "ladwp-hpwh",
+      "state": "CA",
+      "sponsor": "LADWP (Los Angeles Department of Water and Power)",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 2500,
+      "offer": "Up to $2,500 per unit, based on gallon capacity and UEF",
+      "conditions": "LADWP residential electric customers; apply after purchase and installation, within 12 months of purchase.",
+      "quote": "Heat Pump Water Heaters are eligible for up to $2,500* per unit ... *Rebate amount is based on gallon capacity/UEF",
+      "sourceUrl": "https://www.ladwp.com/residential-services/assistance-programs/consumer-rebate-program",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "austin-hpwh",
+      "state": "TX",
+      "sponsor": "Austin Energy",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 1000,
+      "offer": "$1,000 for an ENERGY STAR certified heat pump water heater",
+      "conditions": "Home served by Austin Energy; a heat pump water heater being replaced must be at least 10 years old.",
+      "quote": "Austin Energy offers a $1,000 rebate when you install a qualifying ENERGY STAR® certified hybrid/heat pump water heater",
+      "sourceUrl": "https://savings.austinenergy.com/rebates/residential/offerings/appliances-and-equipment/hp-water-heater",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "jea-hpwh",
+      "state": "FL",
+      "sponsor": "JEA (Jacksonville)",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 350,
+      "offer": "$350 for an ENERGY STAR certified heat pump water heater",
+      "conditions": "JEA residential electric customers.",
+      "quote": "Heat Pump Water Heater - $350 Rebate",
+      "sourceUrl": "https://www.jea.com/ways_to_save/residential_rebates/",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "peoplesgas-fl",
+      "state": "FL",
+      "sponsor": "Peoples Gas (Florida)",
+      "kind": "utility",
+      "fuel": "gas",
+      "maxUsd": 700,
+      "offer": "Tankless: $700 replacing electric, $550 replacing gas. ENERGY STAR tank: $650 or $400. Standard tank: $550 or $350",
+      "conditions": "Peoples Gas customers; tankless units must deliver at least 5 GPM; apply within one year of installation.",
+      "quote": "Tank Water Heating $550 $350 ENERGY STAR Tank Water Heating $650 $400 Tankless Water Heating $700 $550",
+      "sourceUrl": "https://www.peoplesgas.com/rebates",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "coned-hpwh",
+      "state": "NY",
+      "sponsor": "Con Edison",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 1500,
+      "offer": "$1,500 instant rebate on a qualified ENERGY STAR heat pump water heater up to 120 gallons",
+      "conditions": "Bought at a participating Lowe's or Home Depot, or by your contractor from a participating distributor.",
+      "quote": "Get a $1,500 instant rebate for a qualified ENERGY STAR–certified* heat pump water heater with up to 120 gallons of storage capacity.",
+      "sourceUrl": "https://www.coned.com/en/save-money/rebates-incentives-tax-credits/rebates-incentives-tax-credits-for-residential-customers/electric-heating-and-cooling-technology-for-renters-homeowners/swap-your-water-heater-and-save",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "pseg-li-hpwh",
+      "state": "NY",
+      "sponsor": "PSEG Long Island",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 1200,
+      "offer": "Up to $1,200 for an ENERGY STAR certified heat pump water heater",
+      "conditions": "PSEG Long Island residential customers.",
+      "quote": "Apply Now for Rebates Up To $1,200 PSEG Long Island offers rebates for eligible ENERGY STAR ® certified heat pump water heaters",
+      "sourceUrl": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/HomeComfort/hpwh",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "ppl-hpwh",
+      "state": "PA",
+      "sponsor": "PPL Electric Utilities",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 400,
+      "offer": "$400 for an ENERGY STAR certified heat pump water heater",
+      "conditions": "PPL residential customers. The page notes the program was updated after May 31, 2026; check the current terms before you buy.",
+      "quote": "ENERGY STAR ® Certified Heat Pump Water Heater In stock $400 Rebate",
+      "sourceUrl": "https://ppl.clearesult.com/heat-pump-water-heater",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "columbiagas-pa",
+      "state": "PA",
+      "sponsor": "Columbia Gas of Pennsylvania (WarmWise)",
+      "kind": "utility",
+      "fuel": "gas",
+      "maxUsd": 400,
+      "offer": "$400 for an ENERGY STAR gas tankless water heater with UEF 0.90 or higher",
+      "conditions": "Columbia Gas of Pennsylvania residential customers.",
+      "quote": "$400 rebate for an Energy Star certified natural gas tankless water heater with an UEF of ≥.90",
+      "sourceUrl": "https://www.columbiagaspa.com/energy-efficiency/for-your-home/available-rebates",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "ameren-il-hpwh",
+      "state": "IL",
+      "sponsor": "Ameren Illinois (online marketplace)",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 800,
+      "offer": "About $800 off the listed price of each heat pump water heater in its marketplace",
+      "conditions": "Ameren Illinois electric customers buying through the utility's online marketplace; the discount is shown as retail price minus final cost.",
+      "quote": "A O Smith Signature 900 50 Gal 240-volt Heat Pump Water Heater 6768551 $1,950.00 $1,150.00",
+      "sourceUrl": "https://www.amerenillinoissavings.com/residential/",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "nicor-il",
+      "state": "IL",
+      "sponsor": "Nicor Gas",
+      "kind": "utility",
+      "fuel": "gas",
+      "maxUsd": 150,
+      "offer": "$150 for a qualifying tankless or tank (storage) gas water heater",
+      "conditions": "Nicor Gas residential customers.",
+      "quote": "Tankless water heater - $150 Tanked/storage water heater - $150",
+      "sourceUrl": "https://www.nicorgas.com/ways-to-save/residential-savings/rebates.html",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "georgiapower-hpwh",
+      "state": "GA",
+      "sponsor": "Georgia Power",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "maxUsd": 800,
+      "offer": "Up to $800 for a heat pump water heater",
+      "conditions": "Georgia Power customers; installed by a program-affiliated installer.",
+      "quote": "Up to $800 Heat Pump Water Heater 1 Affiliated Installer Required.",
+      "sourceUrl": "https://www.georgiapower.com/heatpump",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "nc-hear-hpwh",
+      "state": "NC",
+      "sponsor": "Energy Saver North Carolina (NC DEQ, federal HEAR)",
+      "kind": "state",
+      "fuel": "heat_pump",
+      "maxUsd": 1750,
+      "offer": "Up to $1,750 for a heat pump water heater, income-qualified households",
+      "conditions": "Household income below 150% of area median; a program-registered contractor installs it.",
+      "quote": "$1,750 Heat pump water heater",
+      "sourceUrl": "https://www.deq.nc.gov/energy-climate/state-energy-office/energy-saver-north-carolina",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "dte-hpwh",
+      "state": "MI",
+      "sponsor": "DTE Energy",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "offer": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+      "conditions": "DTE electric customers who heat water with electricity; through a participating contractor or the retail instant discount page; limited funds.",
+      "quote": "DTE residential electric customers who heat their water with electricity may be eligible for an instant discount on a high-efficiency electric heat pump water heater.",
+      "sourceUrl": "https://www.dteenergy.com/us/en/residential/save-money-energy/rebates-and-offers/water-heaters.html",
+      "checked": "2026-11-14",
+      "amountPublished": false
+    },
+    {
+      "id": "consumers-hpwh",
+      "state": "MI",
+      "sponsor": "Consumers Energy",
+      "kind": "utility",
+      "fuel": "heat_pump",
+      "offer": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+      "conditions": "Consumers Energy electric customers; the contractor buys the unit at the discounted price and passes the saving on.",
+      "quote": "Heat Pump Water Heaters Eligible For: Electric Customers Requirement: UEF > 2.2; Maximum Capacity of 55 gallons",
+      "sourceUrl": "https://www.consumersenergy.com/WaterHeating",
+      "checked": "2026-11-14",
+      "amountPublished": false
+    }
+  ],
+  "ended": [
+    {
+      "id": "columbiagas-oh",
+      "state": "OH",
+      "sponsor": "Columbia Gas of Ohio",
+      "fuel": "gas",
+      "quote": "Columbia Gas of Ohio’s residential energy efficiency programs, not including the income-qualified program, have ended.",
+      "sourceUrl": "https://www.columbiagasohio.com/energy-efficiency/for-your-home",
+      "checked": "2026-11-14"
+    },
+    {
+      "id": "ppl-deadline",
+      "state": "PA",
+      "sponsor": "PPL Electric Utilities",
+      "fuel": "heat_pump",
+      "quote": "Due to program updates, please note that the deadline to apply for rebates for equipment installed on May 31, 2026 or earlier has passed.",
+      "sourceUrl": "https://ppl.clearesult.com/heat-pump-water-heater",
+      "checked": "2026-11-14"
+    }
+  ],
+  "notChecked": [
+    {
+      "sponsor": "Duke Energy (NC, FL, OH)",
+      "url": "https://www.duke-energy.com/home/products/home-energy-improvement/heat-pump-water-heater",
+      "reason": "HTTP 403 to our checker on 2026-11-14"
+    },
+    {
+      "sponsor": "ComEd",
+      "url": "https://www.comed.com/ways-to-save/for-your-home/rebates-discounts",
+      "reason": "page renders no text without its scripts (empty to our checker) on 2026-11-14"
+    },
+    {
+      "sponsor": "PECO",
+      "url": "https://www.peco.com/ways-to-save/for-your-home/rebates-discounts",
+      "reason": "timed out / empty to our checker on 2026-11-14"
+    },
+    {
+      "sponsor": "AEP Ohio",
+      "url": "https://www.aepohio.com/save/residential/",
+      "reason": "no water heater offer found on the page; program pages 404 on 2026-11-14"
+    }
+  ]
+}

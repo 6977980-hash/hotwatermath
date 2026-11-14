@@ -183,7 +183,7 @@ test('drawPatternForFhr: DOE Appendix E bins (FHR 50 → low, 51 → medium, 75 
 /* ---------- repair or replace ---------- */
 
 test('repairOrReplace: leak, 50% rule, old + 25%, borderline and repair', () => {
-	const rules = data('decision-rules').repairOrReplace;
+	const rules = { ...data('decision-rules').repairOrReplace, ageShare: data('lifespans').statusBands.oldFrom }; // one "old" band (audit F-09)
 	const base = { ageYears: 5, expectedLife: 13, repairCost: 200, replacementCost: 2000, tankLeaking: false };
 	assert.equal(F.repairOrReplace({ ...base, tankLeaking: true }, rules).verdict, 'replace');
 	assert.equal(F.repairOrReplace({ ...base, repairCost: 1100 }, rules).verdict, 'replace'); // 55% > 50%
@@ -730,7 +730,7 @@ test('S-3/S-8: custom shower flow, soaking tub and point-of-use mode', () => {
 });
 
 test('F-08: repair or replace: a 40-year-old heater with a $0 quote is replace; rusty water escalates', () => {
-	const rules = data('decision-rules').repairOrReplace;
+	const rules = { ...data('decision-rules').repairOrReplace, ageShare: data('lifespans').statusBands.oldFrom }; // one "old" band (audit F-09)
 	const old = F.repairOrReplace({ ageYears: 40, expectedLife: 13, lifeHigh: 15, repairCost: 0, replacementCost: 2000 }, rules);
 	assert.equal(old.verdict, 'replace');
 	assert.ok(old.reasons.includes('past-life'));
@@ -793,4 +793,19 @@ test('S-5: a cold heat pump space turns a green result amber and says so', () =>
 	assert.equal(cold.status, 'warn');
 	assert.match(cold.statusLabel, /cold space/);
 	assert.equal(cold.result.saving, warm.result.saving); // warning only, no invented derate
+});
+
+test('S-12: solar water heating reproduces DOE FEMP calculator Scenario 1 (1,000 gal/day, 60 → 140 °F, Mesa AZ)', () => {
+	const c = data('solar-water-heating').femp;
+	// FEMP sheet: area 1,148.38 ft², solar heat 1,973.80 therms/yr, pump 14.30 therms/yr (= 419.16 kWh), solar fraction 0.8115
+	const s = F.solarWaterHeating({ gallonsPerDay: 1000, riseF: 80, iMaxBtuFt2Day: 1934.3122676579924, iAveBtuFt2Day: 1744.0520446096655 }, c);
+	near(s.areaFt2, 1148.384, 0.001);
+	near(s.solarThermsYear, 1973.800, 0.001);
+	near(s.solarShare, 0.81148, 0.0001);
+	near((s.pumpKwhYear * 3412) / 100000, 14.3017, 0.0001);
+	// FEMP savings: $5.28/therm × (2,122.37 − 14.30) therms = $11,130.58 before upkeep (gas, η 0.93; pump counted at the fuel price there)
+	const fuel = (s.solarThermsYear / 0.93) * 5.28;
+	near(fuel, 11206.09, 0.01);
+	// Our saving prices the pump at the electricity rate and subtracts upkeep: electric backup, UEF 1, 10 ¢/kWh, $0 upkeep
+	near(F.solarYearlySaving(s, 'electric', 1, { usdPerKwh: 0.1, usdPerTherm: 1 }, 0), (1973.8 * 100000 / 3412) * 0.1 - 419.16 * 0.1, 0.05);
 });

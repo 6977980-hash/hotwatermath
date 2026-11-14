@@ -77,6 +77,7 @@
     "slug": "north-carolina",
     "url": "/water-heater-installation-cost/north-carolina/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 9,
     "population": "11,197,968",
     "popMillion": "11.2",
@@ -291,14 +292,43 @@
       "hpwh": true,
       "incomeMaxAmiPct": 150
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "nc-exemption",
+        "heading": "North Carolina law can waive the permit for a like-for-like swap",
+        "text": "North Carolina's General Assembly exempted one- and two-family homes from a plumbing permit for a replacement water heater, but only when a licensed plumber does the job, examines it and leak-tests the gas piping, and the new unit uses no more energy and keeps the same fuel, location, capacity and venting. Any change, such as gas to heat pump, brings the permit back. Counties such as Wake publish the same rule.",
+        "source": "North Carolina General Assembly, Session Law 2013-160",
+        "sourceUrl": "https://library.ncleg.net/EnactedLegislation/SessionLaws/HTML/2013-2014/SL2013-160.html",
+        "quote": "a permit shall not be required for the connection of a water heater that is being replaced, provided that the work is performed by a person licensed under G.S. 87-21, who personally examines the work at completion and ensures that a leak test has been performed on the gas piping",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "Energy Saver North Carolina (NC DEQ, federal HEAR)",
+        "offer": "Up to $1,750 for a heat pump water heater, income-qualified households",
+        "sourceUrl": "https://www.deq.nc.gov/energy-climate/state-energy-office/energy-saver-north-carolina",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a North Carolina replacement different",
+      "paras": [
+        "North Carolina is one of the few states we cover where the federal appliance rebate is open: Energy Saver North Carolina pays up to $1,750 toward a heat pump water heater for income-qualified homes, installed by a program-registered contractor.",
+        "Most homes here heat water with electricity (75%), and state law lets a licensed plumber swap like for like without a permit. Incoming water averages 65.5 °F and drops to about 55.2 °F in February, mild enough that a heat pump in a garage holds most of its savings, about $304 a year against a standard electric tank."
+      ]
+    },
     "highlights": [
       "Electricity is cheaper than average in North Carolina (14.00 cents per kWh, 19% below the U.S. average), so a standard electric tank costs about $403 a year to run here, against $226 for gas.",
       "75% of North Carolina homes heat water with electricity, against 46% nationally, so most replacements here are electric-to-electric and need no gas or vent work.",
       "Of the 10 states we cover, North Carolina is one where the state's official page confirms the federal appliance rebate pays for a heat pump water heater now: up to $1,750 for income-qualified homes.",
-      "Where you live inside North Carolina matters: the same 50-gallon gas job is about $1,792 in the Raleigh-Cary, NC area and $1,736 in the Winston-Salem, NC area."
+      "Where you live inside North Carolina matters: the same 50-gallon gas job is about $1,792 in the Raleigh-Cary, NC area and $1,736 in the Winston-Salem, NC area.",
+      "North Carolina law can waive the permit for a like-for-like swap."
     ]
   },
   "tables": {
@@ -359,7 +389,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; North Carolina labor and extras × BEA price factor 0.943",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; North Carolina labor and extras × BEA price factor 0.943",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -415,7 +445,7 @@
           "high": "2,750"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -471,7 +501,7 @@
           "high": "2,508"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -537,10 +567,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "407",
-          "us": "570",
-          "own": "5,555"
+          "uef": "0.94",
+          "state": "400",
+          "us": "561",
+          "own": "5,489"
         }
       ],
       "source": "EIA 2025 North Carolina residential prices ($0.140/kWh, $1.57/therm); North Carolina incoming water 65.5 °F; median UEF by type; installed cost from our cost model",
@@ -732,7 +762,7 @@
           "cost": "38"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 North Carolina prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 North Carolina prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -790,7 +820,7 @@
           "showers": 3
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -834,6 +864,38 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (4.01 million North Carolina homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in North Carolina: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "Energy Saver North Carolina (NC DEQ, federal HEAR)",
+          "type": "Heat pump water heater",
+          "offer": "Up to $1,750 for a heat pump water heater, income-qualified households",
+          "conditions": "Household income below 150% of area median; a program-registered contractor installs it."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: Energy Saver North Carolina. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

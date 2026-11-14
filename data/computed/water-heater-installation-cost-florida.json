@@ -77,6 +77,7 @@
     "slug": "florida",
     "url": "/water-heater-installation-cost/florida/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 3,
     "population": "23,462,518",
     "popMillion": "23.5",
@@ -289,14 +290,49 @@
       "quote": "The High-Efficiency Electric Home Rebates (HEEHR) and Home Owner Managing Energy Savings (HOMES) programs are expected to launch in the future.",
       "summary": "Neither program takes applications yet. The portal lets you register for news on the timeline."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "miami-dade-fee",
+        "heading": "Miami-Dade sets a flat fee for a water heater change-out",
+        "text": "Miami-Dade County's building department lists an exact change-out of a water heater as its own permit line, at $130 per heater, with a higher rate for larger tanks. That is a real, published permit fee you can hold a quote against; other Florida counties and cities set their own fees, and our statewide figure uses a national permit range instead.",
+        "source": "Miami-Dade County Building Department, plumbing and gas fee schedule",
+        "sourceUrl": "https://www.miamidade.gov/resources/economy/building/documents/plumbing-gas-fee.pdf",
+        "quote": "P045 Exact change out of water heater $130.00/heater",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "JEA (Jacksonville)",
+        "offer": "$350 for an ENERGY STAR certified heat pump water heater",
+        "sourceUrl": "https://www.jea.com/ways_to_save/residential_rebates/",
+        "checked": "2026-11-14"
+      },
+      {
+        "sponsor": "Peoples Gas (Florida)",
+        "offer": "Tankless: $700 replacing electric, $550 replacing gas. ENERGY STAR tank: $650 or $400. Standard tank: $550 or $350",
+        "sourceUrl": "https://www.peoplesgas.com/rebates",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a Florida replacement different",
+      "paras": [
+        "Florida is an electric state: 88% of homes heat water with electricity, the highest share among the states we cover, so most jobs are an electric tank swapped for another or for a heat pump. Natural gas reaches only 10% of homes, mostly where a gas utility such as Peoples Gas runs mains.",
+        "The climate suits a heat pump. Incoming water averages 77.4 °F and stays near 69.3 °F in January, and garages rarely fall below the 40 °F point where a heat pump switches to its backup elements. Against a standard electric tank it saves about $258 a year here."
+      ]
+    },
     "highlights": [
       "Natural gas costs more here than in most states ($2.49 per therm, the 2nd highest), so gas's running-cost advantage is smaller than the national picture suggests.",
       "88% of Florida homes heat water with electricity, against 46% nationally, so most replacements here are electric-to-electric and need no gas or vent work.",
-      "Incoming water stays near 69.3 °F even in the coldest month, so a single whole-house tankless unit can run 2 full-flow showers at once all year.",
-      "Where you live inside Florida matters: the same 50-gallon gas job is about $1,938 in the Miami-Fort Lauderdale-West Palm Beach, FL area and $1,805 in the Jacksonville, FL area."
+      "Incoming water stays near 69.3 °F even in the coldest month, so a single whole-house tankless unit can run 2 showers at full hot flow at once all year.",
+      "Where you live inside Florida matters: the same 50-gallon gas job is about $1,938 in the Miami-Fort Lauderdale-West Palm Beach, FL area and $1,805 in the Jacksonville, FL area.",
+      "Miami-Dade sets a flat fee for a water heater change-out."
     ]
   },
   "tables": {
@@ -357,7 +393,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Florida labor and extras × BEA price factor 1.034",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; Florida labor and extras × BEA price factor 1.034",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -413,7 +449,7 @@
           "high": "2,877"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -469,7 +505,7 @@
           "high": "2,653"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -535,10 +571,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "346",
-          "us": "570",
-          "own": "5,019"
+          "uef": "0.94",
+          "state": "340",
+          "us": "561",
+          "own": "4,964"
         }
       ],
       "source": "EIA 2025 Florida residential prices ($0.152/kWh, $2.49/therm); Florida incoming water 77.4 °F; median UEF by type; installed cost from our cost model",
@@ -730,7 +766,7 @@
           "cost": "33"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 Florida prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.93, EIA 2025 Florida prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -788,7 +824,7 @@
           "showers": 4
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -832,6 +868,44 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (8.06 million Florida homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in Florida: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "JEA (Jacksonville)",
+          "type": "Heat pump water heater",
+          "offer": "$350 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "JEA residential electric customers."
+        },
+        {
+          "sponsor": "Peoples Gas (Florida)",
+          "type": "Gas water heater",
+          "offer": "Tankless: $700 replacing electric, $550 replacing gas. ENERGY STAR tank: $650 or $400. Standard tank: $550 or $350",
+          "conditions": "Peoples Gas customers; tankless units must deliver at least 5 GPM; apply within one year of installation."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: JEA; Peoples Gas. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }
