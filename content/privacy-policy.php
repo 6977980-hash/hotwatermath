@@ -11,6 +11,7 @@ $hwm_email   = (string) hwm_site( 'contact.email' );
 $hwm_brand   = (string) hwm_site( 'brand' );
 $hwm_ga_on   = '' !== (string) hwm_site( 'integrations.ga4Id' );
 $hwm_ads_on  = '' !== (string) hwm_site( 'integrations.adsenseClient' );
+$hwm_gtm_on  = '' !== hwm_gtm_id();
 ?>
 <p>This policy explains what <?php echo esc_html( $hwm_brand ); ?> (<?php echo esc_html( (string) hwm_site( 'domain' ) ); ?>) collects when you use the site, who else is involved, and the choices you have. The site is run by <?php echo esc_html( (string) hwm_site( 'author.name' ) ); ?>. Questions: <a href="mailto:<?php echo esc_attr( $hwm_email ); ?>"><?php echo esc_html( $hwm_email ); ?></a>.</p>
 
@@ -28,6 +29,11 @@ $hwm_ads_on  = '' !== (string) hwm_site( 'integrations.adsenseClient' );
 <p><?php echo $hwm_ga_on ? 'We use' : 'We plan to use'; ?> Google Analytics 4, a service from Google LLC, to count visits and see which pages and calculators are used. Google Analytics uses cookies and similar technology to collect information such as pages viewed, approximate location, device type and how you reached the site. When a calculator gives a result, we may record a general event, for example which tool was used and a broad range of the inputs, never the exact values you typed.</p>
 <p>Where the law requires your consent, such as in the European Economic Area, the UK and Switzerland, analytics cookies stay off until you agree (Google Consent Mode). You can also block Google Analytics with the <a href="https://tools.google.com/dlpage/gaoptout" rel="noopener">Google Analytics opt-out browser add-on</a>. Read <a href="https://support.google.com/analytics/answer/6004245" rel="noopener">how Google Analytics safeguards data</a>.</p>
 
+<?php if ( $hwm_gtm_on ) : ?>
+<h2>Tag management: Google Tag Manager</h2>
+<p>We use Google Tag Manager, a Google service, to load and manage the Google tags described on this page. Tag Manager itself does not set cookies or build a profile of you; the tags it loads follow the same consent settings as above. We use it only for Google's own analytics and advertising tags. Read the <a href="https://marketingplatform.google.com/about/analytics/tag-manager/use-policy/" rel="noopener">Google Tag Manager use policy</a>.</p>
+
+<?php endif; ?>
 <h2>Advertising: Google AdSense</h2>
 <p><?php echo $hwm_ads_on ? 'This site shows' : 'Once approved, this site will show'; ?> ads served by Google AdSense. Google is a third-party vendor, and it uses cookies to serve ads on this site.</p>
 <ul>
