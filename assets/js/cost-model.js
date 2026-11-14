@@ -4,7 +4,7 @@
  * give the same numbers on every page (PHASES.md Phase 4 acceptance). No math constants here; data comes in as `m`
  * (the "model" object that scripts/build-data.mjs writes into each tool's computed file).
  */
-import { installedCost, temperatureRise, yearlyEnergyCost, costOfOwnership, breakEvenYear, householdGallonsPerDay } from './formulas.js';
+import { installedCost, temperatureRise, yearlyEnergyCost, costOfOwnership, simplePaybackYears, householdGallonsPerDay } from './formulas.js';
 
 /** Unit price key for a type and size, e.g. ('gas_tank', '50') → 'gas_tank_50'. Falls back to the type's default size. */
 export function unitKeyFor(m, type, size) {
@@ -53,26 +53,38 @@ export function gallonsFor(m, household) {
 /**
  * Yearly running cost of every type for one household and place.
  * @param {object} m
- * @param {{gallonsPerDay:number, setpointF:number, inletF:number, prices:{usdPerKwh:number, usdPerTherm:number}, uefs?:object}} h
- * @returns {{rise:number, rows:Array<{id:string,label:string,fuel:string,uef:number,use:object,year:number,month:number}>}}
+ * Gas types run on propane when gasFuel is 'propane' (priced per gallon, EIA BTU content). maintenance = the type's
+ * sourced yearly upkeep (data/installation-costs.json → maintenance), reported apart from the energy cost.
+ * @param {{gallonsPerDay:number, setpointF:number, inletF:number, prices:{usdPerKwh:number, usdPerTherm:number, usdPerGallonPropane?:number}, uefs?:object, gasFuel?:'natural'|'propane'}} h
+ * @returns {{rise:number, rows:Array<{id:string,label:string,fuel:string,uef:number,maintenance:number,use:object,year:number,month:number}>}}
  */
 export function operatingCosts(m, h) {
 	const rise = temperatureRise(h.setpointF, h.inletF);
+	const propane = h.gasFuel === 'propane';
+	const prices = { ...h.prices, propaneBtuPerGallon: m.propane.btuPerGallon };
 	const rows = m.typeOrder.map((id) => {
 		const t = m.types[id];
 		const uef = h.uefs && h.uefs[id] > 0 ? h.uefs[id] : t.uef;
-		return { id, label: t.label, fuel: t.fuel, uef, ...yearlyEnergyCost(h.gallonsPerDay, rise, t.fuel, uef, h.prices) };
+		const fuel = propane && t.fuel === 'gas' ? 'propane' : t.fuel;
+		const label = fuel === 'propane' ? t.label.replace(/^Gas/, 'Propane') : t.label;
+		return { id, label, fuel, uef, maintenance: t.maintenance || 0, ...yearlyEnergyCost(h.gallonsPerDay, rise, fuel, uef, prices) };
 	});
 	return { rise, rows };
 }
 
 /**
- * Cost of ownership for a set of options over the same years, and break-even of each against the first (the tank).
+ * Cost of ownership for a set of options over the same years, and the simple payback of each against the first (the
+ * tank): extra up-front cost ÷ yearly saving (energy + maintenance). breakEven = the year that payback falls in, or null
+ * when it is longer than the horizon (audit F-03: the old cumulative crossing landed on the tank's replacement year).
  * @param {Array<{id:string, label:string, installed:number, annualOperating:number, lifeYears:number, credit:number}>} options
  * @param {number} years
  */
 export function ownershipCompare(options, years) {
 	const res = options.map((o) => ({ ...o, ...costOfOwnership(o, years) }));
 	const base = res[0];
-	return res.map((o, i) => ({ ...o, breakEven: i === 0 ? null : breakEvenYear(base.byYear, o.byYear) }));
+	return res.map((o, i) => {
+		if (i === 0) return { ...o, payback: null, breakEven: null };
+		const payback = simplePaybackYears(o.installed - (o.credit || 0) - (base.installed - (base.credit || 0)), base.annualOperating - o.annualOperating);
+		return { ...o, payback, breakEven: payback !== null && payback <= years ? Math.max(1, Math.ceil(payback)) : null };
+	});
 }

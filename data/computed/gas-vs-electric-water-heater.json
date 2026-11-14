@@ -1022,7 +1022,9 @@
               "label": "75 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "electric_tank": {
           "label": "Electric tank",
@@ -1040,7 +1042,9 @@
               "label": "50 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "heat_pump": {
           "label": "Heat pump (hybrid), 240 V",
@@ -1062,7 +1066,9 @@
               "label": "80 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "gas_tankless": {
           "label": "Gas tankless",
@@ -1076,7 +1082,9 @@
               "label": "Whole house"
             }
           ],
-          "defaultSize": "whole"
+          "defaultSize": "whole",
+          "maintenance": 19.75,
+          "maintenanceLabel": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)"
         },
         "electric_tankless": {
           "label": "Electric tankless",
@@ -1090,7 +1098,9 @@
               "label": "Whole house"
             }
           ],
-          "defaultSize": "whole"
+          "defaultSize": "whole",
+          "maintenance": 19.75,
+          "maintenanceLabel": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)"
         }
       },
       "typeOrder": [
@@ -1626,11 +1636,50 @@
       "setpointF": 120,
       "typicalGallons": 55,
       "perPersonGallons": 25.1,
-      "lastReviewed": "2026-11-13"
+      "lastReviewed": "2026-11-13",
+      "propane": {
+        "usdPerGallon": 2.659,
+        "period": "October 2026",
+        "btuPerGallon": 91452
+      }
     },
     "defaults": {
       "household": "typical",
       "state": "US"
+    },
+    "limits": {
+      "setpoint": {
+        "label": "Water heater setting",
+        "min": 100,
+        "max": 160,
+        "unit": "°F"
+      },
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      },
+      "uef": {
+        "label": "UEF",
+        "min": 0.3,
+        "max": 6,
+        "optional": true
+      }
     }
   }
 }

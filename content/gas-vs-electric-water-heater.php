@@ -31,6 +31,13 @@ ob_start();
 		</select>
 	</div>
 	<div class="field">
+		<label for="ge-gasFuel">Gas you would use</label>
+		<select id="ge-gasFuel" name="gasFuel">
+			<option value="natural">Natural gas</option>
+			<option value="propane">Propane</option>
+		</select>
+	</div>
+	<div class="field">
 		<label for="ge-state">Your state</label>
 		<select id="ge-state" name="state">
 			<?php foreach ( (array) hwm_raw( $hwm_c, 'stateOptions' ) as $hwm_s ) : ?>
@@ -49,6 +56,10 @@ ob_start();
 		<div class="field">
 			<label for="ge-therm">Natural gas ($ per therm) <span class="hint">EIA average for the state picked.</span></label>
 			<input id="ge-therm" name="therm" type="text" inputmode="decimal" value="<?php echo esc_attr( (string) ( $hwm_m['us']['usdPerTherm'] ?? '' ) ); ?>" autocomplete="off">
+		</div>
+		<div class="field">
+			<label for="ge-propane">Propane ($ per gallon) <span class="hint">EIA U.S. residential average, <?php echo esc_html( (string) ( $hwm_m['propane']['period'] ?? '' ) ); ?>, before taxes.</span></label>
+			<input id="ge-propane" name="propane" type="text" inputmode="decimal" value="<?php echo esc_attr( (string) ( $hwm_m['propane']['usdPerGallon'] ?? '' ) ); ?>" autocomplete="off">
 		</div>
 		<div class="field">
 			<label for="ge-setpoint">Water heater setting (°F) <span class="hint">DOE FEMP recommends <?php echo esc_html( hwm_value( 'site', 'defaults.setpointTempF' ) ); ?> °F.</span></label>

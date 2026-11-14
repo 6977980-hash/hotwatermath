@@ -1,0 +1,238 @@
+{
+  "meta": {
+    "source": "Hot Water Math editorial input ranges (audit fix F-02, 2026-11-14): the widest values each calculator accepts. A value outside its range is flagged next to the field and the result says which input to check; it is never replaced by a default.",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-14",
+    "notes": "Ranges are sanity limits, not advice. Where a range has a physical meaning it is stated in the note (for example the 150 psi relief valve setting on the expansion tank tool). Prices may be 0 so that a home with its own solar power can be modelled."
+  },
+  "tools": {
+    "tankless-water-heater-size-calculator": {
+      "inlet": {
+        "label": "Incoming water temperature",
+        "min": 32,
+        "max": 90,
+        "unit": "°F"
+      },
+      "setpoint": {
+        "label": "Water heater setting",
+        "min": 100,
+        "max": 160,
+        "unit": "°F"
+      },
+      "efficiency": {
+        "label": "Efficiency (UEF)",
+        "min": 0.5,
+        "max": 1,
+        "note": "Gas tankless UEF ratings run from about 0.8 to 0.97."
+      },
+      "showerGpm": {
+        "label": "Shower head flow",
+        "min": 0.5,
+        "max": 5,
+        "unit": "GPM",
+        "optional": true
+      },
+      "pouGpm": {
+        "label": "Fixture flow",
+        "min": 0.2,
+        "max": 5,
+        "unit": "GPM",
+        "optional": true
+      },
+      "count": {
+        "label": "Number of fixtures",
+        "min": 0,
+        "max": 20,
+        "integer": true
+      }
+    },
+    "water-heater-size-calculator": {
+      "count": {
+        "label": "Number of uses",
+        "min": 0,
+        "max": 20,
+        "integer": true
+      },
+      "showerGpm": {
+        "label": "Shower head flow",
+        "min": 0.5,
+        "max": 5,
+        "unit": "GPM",
+        "optional": true
+      },
+      "tubGallons": {
+        "label": "Large tub fill",
+        "min": 0,
+        "max": 140,
+        "unit": "gal",
+        "optional": true,
+        "note": "Rheem: deep soaking tubs hold up to 140 gallons."
+      }
+    },
+    "repair-or-replace-water-heater": {
+      "age": {
+        "label": "Age",
+        "min": 0,
+        "max": 80,
+        "unit": "years"
+      },
+      "repair": {
+        "label": "Repair quote",
+        "min": 0,
+        "max": 20000,
+        "unit": "$"
+      },
+      "replace": {
+        "label": "New unit price",
+        "min": 100,
+        "max": 30000,
+        "unit": "$"
+      },
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      }
+    },
+    "water-heater-expansion-tank-size": {
+      "gallons": {
+        "label": "Water heater size",
+        "min": 1,
+        "max": 200,
+        "unit": "gal"
+      },
+      "temp": {
+        "label": "Tank temperature",
+        "min": 100,
+        "max": 180,
+        "unit": "°F"
+      },
+      "supply": {
+        "label": "Supply pressure",
+        "min": 10,
+        "max": 150,
+        "unit": "psi",
+        "note": "Above 150 psi the relief valve on a home water heater opens; have the supply pressure lowered with a pressure-reducing valve first."
+      },
+      "max": {
+        "label": "Maximum pressure",
+        "min": 50,
+        "max": 160,
+        "unit": "psi"
+      }
+    },
+    "gas-vs-electric-water-heater": {
+      "setpoint": {
+        "label": "Water heater setting",
+        "min": 100,
+        "max": 160,
+        "unit": "°F"
+      },
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      },
+      "uef": {
+        "label": "UEF",
+        "min": 0.3,
+        "max": 6,
+        "optional": true
+      }
+    },
+    "tankless-vs-tank-water-heater": {
+      "years": {
+        "label": "Years to compare",
+        "min": 1,
+        "max": 30,
+        "unit": "years",
+        "integer": true
+      },
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      }
+    },
+    "heat-pump-water-heater-cost": {
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      },
+      "uef": {
+        "label": "Heat pump UEF",
+        "min": 1,
+        "max": 6
+      },
+      "rebate": {
+        "label": "Rebate",
+        "min": 0,
+        "max": 20000,
+        "unit": "$",
+        "optional": true,
+        "note": "A rebate larger than the installed price is counted only up to that price."
+      }
+    }
+  }
+}

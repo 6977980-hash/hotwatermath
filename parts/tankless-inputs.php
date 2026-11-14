@@ -21,7 +21,10 @@ $hwm_fixture_labels = array(
 	'dishwasher'     => 'Dishwasher',
 	'clothesWasher'  => 'Clothes washer',
 	'tubFill'        => 'Bathtub filling',
+	'soakingTub'     => 'Large soaking tub',
 );
+$hwm_cs  = (array) ( $hwm_cl['customShower'] ?? array() );
+$hwm_pou = (array) ( $hwm_cl['pou'] ?? array() );
 $hwm_states = (array) ( $hwm_cl['states'] ?? array() );
 uasort( $hwm_states, static fn( $a, $b ) => strcmp( (string) $a['name'], (string) $b['name'] ) );
 ?>
@@ -35,6 +38,23 @@ uasort( $hwm_states, static fn( $a, $b ) => strcmp( (string) $a['name'], (string
 	</select>
 </div>
 <fieldset>
+	<legend>What are you sizing?</legend>
+	<label class="check"><input type="radio" name="mode" value="whole" checked="checked"> The whole house</label>
+	<label class="check"><input type="radio" name="mode" value="pou"> One tap or shower (point of use)</label>
+</fieldset>
+<div class="field" data-mode="pou" hidden>
+	<label for="tk-pouFixture">Fixture</label>
+	<select id="tk-pouFixture" name="pouFixture">
+		<?php foreach ( (array) ( $hwm_pou['fixtures'] ?? array() ) as $hwm_k ) : ?>
+			<option value="<?php echo esc_attr( (string) $hwm_k ); ?>"><?php echo esc_html( (string) ( $hwm_fixture_labels[ $hwm_k ] ?? $hwm_k ) ); ?> (<?php echo esc_html( hwm_value( $hwm_fx, 'fixtures.' . $hwm_k . '.gpm', 1 ) ); ?> GPM)</option>
+		<?php endforeach; ?>
+	</select>
+</div>
+<div class="field" data-mode="pou" hidden>
+	<label for="tk-pouGpm">Flow of that fixture (GPM) <span class="hint">Optional. Leave blank for the typical flow; check the rating stamped on the faucet aerator or shower head.</span></label>
+	<input id="tk-pouGpm" name="pouGpm" type="text" inputmode="decimal" value="" autocomplete="off">
+</div>
+<fieldset data-mode="whole">
 	<legend>Running at the same time</legend>
 	<div class="field-grid">
 		<?php foreach ( $hwm_fixture_labels as $hwm_k => $hwm_label ) : ?>
@@ -44,9 +64,18 @@ uasort( $hwm_states, static fn( $a, $b ) => strcmp( (string) $a['name'], (string
 			</div>
 		<?php endforeach; ?>
 	</div>
+	<div class="field">
+		<label for="tk-showerGpm">Your shower head flow (GPM) <span class="hint">Optional. Standard heads are <?php echo esc_html( hwm_value( $hwm_fx, 'fixtures.shower.gpm', 1 ) ); ?> GPM; WaterSense heads use no more than <?php echo esc_html( hwm_value( $hwm_fx, 'fixtures.shower.lowFlowGpm', 1 ) ); ?>. Rain heads or two heads can be <?php echo esc_html( hwm_value( $hwm_fx, 'customShower.maxGpm', 1 ) ); ?>.</span></label>
+		<input id="tk-showerGpm" name="showerGpm" type="text" inputmode="decimal" value="" autocomplete="off" list="tk-showerGpm-list">
+		<datalist id="tk-showerGpm-list">
+			<?php foreach ( (array) ( $hwm_cs['options'] ?? array() ) as $hwm_o ) : ?>
+				<option value="<?php echo esc_attr( number_format( (float) $hwm_o, 1 ) ); ?>"></option>
+			<?php endforeach; ?>
+		</datalist>
+	</div>
 	<label class="check"><input type="checkbox" name="lowflow" value="1"> Low-flow fixtures (WaterSense: shower <?php echo $hwm_f( 'fixtures.shower.lowFlowGpm' ); // phpcs:ignore ?>, bathroom faucet <?php echo $hwm_f( 'fixtures.bathroomFaucet.lowFlowGpm' ); // phpcs:ignore ?> GPM)</label>
 </fieldset>
-<fieldset>
+<fieldset data-mode="whole">
 	<legend>Fuel</legend>
 	<label class="check"><input type="radio" name="fuel" value="gas"<?php checked( 'gas', $hwm_fuel ); ?>> Natural gas</label>
 	<label class="check"><input type="radio" name="fuel" value="propane"<?php echo 'propane' === $hwm_fuel ? ' checked="checked"' : ''; ?>> Propane</label>

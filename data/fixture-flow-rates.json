@@ -3,7 +3,7 @@
     "source": "Federal maximum flow rates (10 CFR 430.32(o) faucets, 430.32(p) showerheads); EPA WaterSense specifications; typical appliance fill rates from the DOE Building America Solution Center (PNNL) table based on the ASHRAE Handbook",
     "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
     "sourceDate": "2026-11-12",
-    "notes": "Flow rates are mixed (hot + cold) water at the fixture, which is how tankless sizing guides add them up; sizing a tankless unit with mixed flow and the full setpoint rise slightly overstates the need, which errs on the safe side. Shower and faucet defaults are the federal maximums (the flow most homes see from fixtures sold since 1994). Low-flow values are the WaterSense maximums. Dishwasher, clothes washer and tub defaults are the midpoint of the PNNL/ASHRAE typical range, rounded to 0.5 GPM; the ranges are wide, so the calculator lets you change every value."
+    "notes": "Flow rates are mixed (hot + cold) water at the fixture. Since audit fix F-01 (2026-11-14) the tankless calculator sizes each fixture at its use temperature, as Rinnai does (120 °F set temperature, 105 °F mixed shower): hot flow = mixed flow × (use − inlet) ÷ (setpoint − inlet). Showers and bathroom faucets use 105 °F, tubs 104 °F (Rheem: people bathe at 102 to 106 °F); the kitchen faucet, dishwasher and clothes washer are sized at the full setpoint. Shower and faucet defaults are the federal maximums (the flow most homes see from fixtures sold since 1994). Low-flow values are the WaterSense maximums. Dishwasher, clothes washer and tub defaults are the midpoint of the PNNL/ASHRAE typical range, rounded to 0.5 GPM; the large soaking tub uses the top of that range. The ranges are wide, so the calculator lets you set your own shower head flow."
   },
   "fixtures": {
     "shower": {
@@ -13,7 +13,10 @@
       "rangeLow": 0.8,
       "rangeHigh": 2.5,
       "source": "Federal maximum 2.5 GPM at 80 psi (10 CFR 430.32(p)); WaterSense labeled showerheads use no more than 2.0 GPM; typical range from PNNL table",
-      "sourceUrl": "https://www.epa.gov/watersense/showerheads"
+      "sourceUrl": "https://www.epa.gov/watersense/showerheads",
+      "useTempF": 105,
+      "useTempSource": "Rinnai, Ground water temperature map and simultaneous shower use, RU199i/e (2022107.F, 06/2022): \"Tankless set temperature of 120°F, mixed shower temperature of 105°F, ground water temperature as shown in the chart, and shower head flow rate of 2 gpm\" (checked 2026-11-14)",
+      "useTempSourceUrl": "https://media.rinnai.us/salsify_asset/s-351acd13-9040-4c22-9b80-2f8343c1924d/2022107.F%20-%20Ground%20water%20temperature%20map%20update%20RU199i_RU199e.pdf"
     },
     "bathroomFaucet": {
       "label": "Bathroom faucet",
@@ -22,7 +25,10 @@
       "rangeLow": 0.2,
       "rangeHigh": 2.2,
       "source": "Federal maximum 2.2 GPM at 60 psi for lavatory faucets (10 CFR 430.32(o)); WaterSense labeled bathroom faucets use no more than 1.5 GPM; hand-washing sink range 0.2 to 1.0 GPM from PNNL table",
-      "sourceUrl": "https://www.epa.gov/watersense/bathroom-faucets"
+      "sourceUrl": "https://www.epa.gov/watersense/bathroom-faucets",
+      "useTempF": 105,
+      "useTempSource": "Hot Water Math assumption, following Rinnai's sizing chart, which lets a hand sink take the place of a shower at the same 105 °F mixed temperature (\"Customer has the option of using the following appliances instead of a shower: ... hand sink or dishwasher\")",
+      "useTempSourceUrl": "https://media.rinnai.us/salsify_asset/s-351acd13-9040-4c22-9b80-2f8343c1924d/2022107.F%20-%20Ground%20water%20temperature%20map%20update%20RU199i_RU199e.pdf"
     },
     "kitchenFaucet": {
       "label": "Kitchen faucet",
@@ -31,7 +37,8 @@
       "rangeLow": 1.0,
       "rangeHigh": 2.2,
       "source": "Federal maximum 2.2 GPM at 60 psi for kitchen faucets (10 CFR 430.32(o)). WaterSense has no kitchen faucet label, so the low-flow value is the same.",
-      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
+      "useTempNote": "No use temperature: kitchen hot water (dishes, filling pots) is sized at the full setpoint, which errs on the safe side."
     },
     "dishwasher": {
       "label": "Dishwasher",
@@ -40,7 +47,8 @@
       "rangeLow": 1.0,
       "rangeHigh": 3.0,
       "source": "Dishwasher fill rates 1.0 to 3.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); default is the midpoint",
-      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing",
+      "useTempNote": "Appliances take hot water straight from the heater, so they are sized at the full setpoint."
     },
     "clothesWasher": {
       "label": "Clothes washer",
@@ -49,7 +57,8 @@
       "rangeLow": 1.0,
       "rangeHigh": 6.0,
       "source": "Clothes-washing machine fill rates 1.0 to 6.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); default is the midpoint",
-      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing",
+      "useTempNote": "Appliances take hot water straight from the heater, so they are sized at the full setpoint."
     },
     "tubFill": {
       "label": "Bathtub filling",
@@ -58,7 +67,22 @@
       "rangeLow": 1.0,
       "rangeHigh": 6.0,
       "source": "Bathtub fill rates 1.0 to 6.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); default is the midpoint",
-      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing"
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing",
+      "useTempF": 104,
+      "useTempSource": "Rheem, How to size a water heater: \"Most people are comfortable showering in water temperatures around 102°F to 106°F\" and \"most people bathe at temperatures between 102°F to 106°F\"; \"deep soaking tubs can hold up to 140 gallons\" (checked 2026-11-14); 104 °F is the middle of that range",
+      "useTempSourceUrl": "https://www.rheem.com/how-to-size-a-water-heater/"
+    },
+    "soakingTub": {
+      "label": "Large soaking tub filler",
+      "gpm": 6.0,
+      "lowFlowGpm": 6.0,
+      "rangeLow": 4.0,
+      "rangeHigh": 6.0,
+      "source": "Top of the bathtub fill range, 6.0 GPM (PNNL Building America Solution Center, table data from the ASHRAE Handbook); large tub fillers are the high-flow end of that range. Rheem: deep soaking tubs hold up to 140 gallons.",
+      "sourceUrl": "https://basc.pnnl.gov/redcalc/tool/dhw-instantaneous-sizing",
+      "useTempF": 104,
+      "useTempSource": "Rheem, How to size a water heater: \"Most people are comfortable showering in water temperatures around 102°F to 106°F\" and \"most people bathe at temperatures between 102°F to 106°F\"; \"deep soaking tubs can hold up to 140 gallons\" (checked 2026-11-14); 104 °F is the middle of that range",
+      "useTempSourceUrl": "https://www.rheem.com/how-to-size-a-water-heater/"
     }
   },
   "wholeHousePeaks": {
@@ -78,5 +102,17 @@
     "riseF": 70,
     "source": "DOE Energy Saver, Sizing a New Water Heater (tankless section), archived copy of January 27, 2017 (the page is no longer on energy.gov; it returned 404 on 2026-11-12)",
     "sourceUrl": "https://webarchive.library.unt.edu/web/20170127025521/https://energy.gov/energysaver/sizing-new-water-heater"
+  },
+  "customShower": {
+    "minGpm": 0.5,
+    "maxGpm": 5.0,
+    "options": [
+      1.5,
+      1.8,
+      2.0,
+      2.5
+    ],
+    "source": "EPA WaterSense: \"standard showerheads use 2.5 gallons of water per minute (gpm)\"; WaterSense labeled showerheads \"use no more than 2.0 gpm\" (checked 2026-11-14). 1.8 and 1.5 GPM are shown as examples of lower-flow heads (check the rating stamped on yours); the calculator accepts 0.5 to 5.0 GPM so a rain head or a two-head shower can be entered.",
+    "sourceUrl": "https://www.epa.gov/watersense/showerheads"
   }
 }

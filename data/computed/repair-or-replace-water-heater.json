@@ -15,9 +15,9 @@
   "default": {
     "status": "ok",
     "statusLabel": "Repair",
-    "headline": "Repair it: the quote is small and the heater is young",
-    "explain": "At 8.0 years it has used 62% of a 13-year typical life. The repair is 14% of the replacement price.",
-    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $1,809 = 14%\nRules: leak or flood → replace; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair\nRunning cost (55 gal/day, 67 °F rise): Gas tank UEF 0.635 = $262/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $185/yr; difference $77/yr",
+    "headline": "Repair it: the quote is small and the heater is within its normal life",
+    "explain": "At 8.0 years it is within its normal life: 62% of a 13-year typical life used. The repair is 14% of the replacement price.",
+    "formula": "Expected life (gas tank) = 13 years; \"old\" from 0.75 × 13 = 9.8 years\nLife used = 8.0 ÷ 13 = 62%\nRepair share = $250 ÷ $1,809 = 14%\nRules: leak or flood → replace; age ≥ 15 years (top of the life range) → replace soon; share > 50% → replace; old and share > 25% → replace; old → borderline; share > 25% → borderline; else repair. Rusty hot water, or rumbling once old, moves the answer one step toward replace\nRunning cost (55 gal/day, 67 °F rise): Gas tank UEF 0.635 = $262/yr; Gas tank (high efficiency, ENERGY STAR) UEF 0.9 = $185/yr; difference $77/yr",
     "sources": "Rules: ours, stated on /methodology. Typical life: DOE (13 years for tanks, 20 for tankless). New-unit price: typical installed price, U.S. average (equipment from Home Depot listings, 2026-11-12, plus labor, permit and haul-away from our cost model); type your own quote if you have one. <a href=\"/methodology/#repair-or-replace-water-heater\">See our rules checked against Rheem and A. O. Smith guidance</a>."
   },
   "defaultCase": {
@@ -297,6 +297,7 @@
       "gas_tank": {
         "label": "Gas tank",
         "life": 13,
+        "lifeHigh": 15,
         "uefId": "gas_tank",
         "uef": 0.635,
         "fuel": "gas",
@@ -317,6 +318,7 @@
       "electric_tank": {
         "label": "Electric tank",
         "life": 13,
+        "lifeHigh": 15,
         "uefId": "electric_tank",
         "uef": 0.93,
         "fuel": "electric",
@@ -337,6 +339,7 @@
       "heat_pump": {
         "label": "Heat pump (hybrid)",
         "life": 13,
+        "lifeHigh": 15,
         "uefId": "heat_pump",
         "uef": 3.8,
         "fuel": "electric",
@@ -357,6 +360,7 @@
       "tankless": {
         "label": "Gas tankless",
         "life": 20,
+        "lifeHigh": 20,
         "uefId": "gas_tankless",
         "uef": 0.95,
         "fuel": "gas",
@@ -377,6 +381,7 @@
       "electric_tankless": {
         "label": "Electric tankless",
         "life": 20,
+        "lifeHigh": 20,
         "uefId": "electric_tankless",
         "uef": 0.92,
         "fuel": "electric",
@@ -398,7 +403,19 @@
     "rules": {
       "repairShareAlways": 0.5,
       "ageShare": 0.75,
-      "repairShareWhenOld": 0.25
+      "repairShareWhenOld": 0.25,
+      "replaceAtLifeHigh": true,
+      "replaceSigns": [
+        {
+          "id": "rusty",
+          "when": "always"
+        },
+        {
+          "id": "noise",
+          "when": "old"
+        }
+      ],
+      "note": "Since audit fix F-08 (2026-11-14): a unit at or past the high end of its life range (data/lifespans.json) is \"replace soon\" whatever the repair costs; rusty hot water (always) or rumbling once the unit is old (ageShare of its typical life) moves the verdict one step toward replace, because Rheem lists both among the signs a heater should be replaced."
     },
     "defaultInputs": {
       "ageYears": 8,
@@ -457,6 +474,46 @@
     "use": {
       "gallonsPerDay": 55,
       "riseF": 67
+    },
+    "limits": {
+      "age": {
+        "label": "Age",
+        "min": 0,
+        "max": 80,
+        "unit": "years"
+      },
+      "repair": {
+        "label": "Repair quote",
+        "min": 0,
+        "max": 20000,
+        "unit": "$"
+      },
+      "replace": {
+        "label": "New unit price",
+        "min": 100,
+        "max": 30000,
+        "unit": "$"
+      },
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      }
     }
   }
 }

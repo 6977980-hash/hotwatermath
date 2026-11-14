@@ -28,6 +28,7 @@ ob_start();
 		<label for="tt-fuel">Your fuel</label>
 		<select id="tt-fuel" name="fuel">
 			<option value="gas"<?php selected( 'gas', (string) ( $hwm_def['fuel'] ?? '' ) ); ?>>Natural gas</option>
+			<option value="propane">Propane</option>
 			<option value="electric"<?php selected( 'electric', (string) ( $hwm_def['fuel'] ?? '' ) ); ?>>Electric</option>
 		</select>
 	</div>
@@ -50,7 +51,7 @@ ob_start();
 	</div>
 	<div class="field">
 		<label for="tt-years">Years you expect to stay</label>
-		<input id="tt-years" name="years" type="text" inputmode="decimal" maxlength="2" value="<?php echo esc_attr( $hwm_yrs ); ?>" autocomplete="off">
+		<input id="tt-years" name="years" type="text" inputmode="decimal" maxlength="3" value="<?php echo esc_attr( $hwm_yrs ); ?>" autocomplete="off">
 	</div>
 </div>
 <details class="disclosure">
@@ -63,6 +64,10 @@ ob_start();
 		<div class="field">
 			<label for="tt-therm">Natural gas ($ per therm) <span class="hint">EIA average for the state picked.</span></label>
 			<input id="tt-therm" name="therm" type="text" inputmode="decimal" value="<?php echo esc_attr( (string) ( $hwm_m['us']['usdPerTherm'] ?? '' ) ); ?>" autocomplete="off">
+		</div>
+		<div class="field">
+			<label for="tt-propane">Propane ($ per gallon) <span class="hint">EIA U.S. residential average, <?php echo esc_html( (string) ( $hwm_m['propane']['period'] ?? '' ) ); ?>, before taxes.</span></label>
+			<input id="tt-propane" name="propane" type="text" inputmode="decimal" value="<?php echo esc_attr( (string) ( $hwm_m['propane']['usdPerGallon'] ?? '' ) ); ?>" autocomplete="off">
 		</div>
 	</div>
 </details>
@@ -80,17 +85,18 @@ $related = array( 'tankless-water-heater-size-calculator', 'water-heater-size-ca
 <p class="notice"><strong>Where the numbers come from.</strong> Installed prices come from the same model as our cost calculator, yearly running costs from the same formula as our gas vs electric tool, and lifespans from the U.S. Department of Energy. We compare the running costs and the heat pump payback with DOE's 2024 rules on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#tankless-vs-tank-water-heater' ); ?>">our methodology page</a>.</p>
 
 <h2>Is a tankless water heater worth it?</h2>
-<p>For a typical household on natural gas, a tankless unit does not pay back within <?php echo esc_html( $hwm_yrs ); ?> years at U.S. average prices: it costs about $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'total' ); // phpcs:ignore ?> over that time against $<?php echo $hwm_x( $hwm_g, 'gas_tank', 'total' ); // phpcs:ignore ?> for a 50-gallon gas tank. It saves about $<?php echo $hwm_fv( 'gasTanklessSaving' ); // phpcs:ignore ?> a year to run, but switching costs about $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'installed' ); // phpcs:ignore ?> installed. It pays when hot water use is high, you stay long, or you are replacing a tankless unit anyway.</p>
+<p>For a typical household on natural gas, a tankless unit does not pay back its higher price within <?php echo esc_html( $hwm_yrs ); ?> years at U.S. average prices. It saves about $<?php echo $hwm_fv( 'gasTanklessSaving' ); // phpcs:ignore ?> a year to run, but switching costs about $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'installed' ); // phpcs:ignore ?> installed, so the simple payback is about <?php echo $hwm_x( $hwm_g, 'gas_tankless', 'payback' ); // phpcs:ignore ?> years. It pays when hot water use is high, you stay long, or you are replacing a tankless unit anyway.</p>
+<p>Its longer life still counts. After <?php echo esc_html( $hwm_yrs ); ?> years a tankless unit has about $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'residual' ); // phpcs:ignore ?> of its life left and the tank about $<?php echo $hwm_x( $hwm_g, 'gas_tank', 'residual' ); // phpcs:ignore ?>. Subtracting that, the <?php echo esc_html( $hwm_yrs ); ?>-year cost is about $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'total' ); // phpcs:ignore ?> for tankless against $<?php echo $hwm_x( $hwm_g, 'gas_tank', 'total' ); // phpcs:ignore ?> for a 50-gallon gas tank, <?php echo ! empty( $hwm_f['gasTanklessAhead'] ) ? 'so tankless comes out about $' . esc_html( (string) $hwm_f['gasTanklessAheadBy'] ) . ' ahead on paper' : 'so the tank stays cheaper'; ?>. In cash actually spent by then, tankless is still behind: $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'spent' ); // phpcs:ignore ?> against $<?php echo $hwm_x( $hwm_g, 'gas_tank', 'spent' ); // phpcs:ignore ?>.</p>
 <p>The picture changes with the time you stay. Over <?php echo $hwm_fv( 'years20' ); // phpcs:ignore ?> years the tank needs <?php echo esc_html( (string) ( $hwm_g20['gas_tank']['repl'] ?? '' ) ); ?> replacement, and the totals come to about $<?php echo $hwm_x( $hwm_g20, 'gas_tank', 'total' ); // phpcs:ignore ?> for the tank and $<?php echo $hwm_x( $hwm_g20, 'gas_tankless', 'total' ); // phpcs:ignore ?> for tankless. DOE estimates about <?php echo $hwm_fv( 'lifeTank' ); // phpcs:ignore ?> years of life for a tank and <?php echo $hwm_fv( 'lifeTankless' ); // phpcs:ignore ?> for a gas tankless unit.</p>
 <dl>
 	<dt>Cost of ownership</dt>
-	<dd>Everything you pay over the years you own it: the installed price, the energy to run it, and any replacement within that time, minus any tax credit.</dd>
-	<dt>Break-even year</dt>
-	<dd>The first year in which the option that cost more up front has become the cheaper one in total.</dd>
+	<dd>Everything you pay over the years you own it (the installed price, the energy and upkeep to run it, and any replacement within that time, minus any tax credit), less the value of the life still left in the heater at the end.</dd>
+	<dt>Simple payback</dt>
+	<dd>The extra up-front cost divided by the yearly saving, with no interest. It does not count that a longer-lasting unit is replaced less often.</dd>
 </dl>
 
 <h2>Tankless vs tank: the cost over <?php echo esc_html( $hwm_yrs ); ?> years</h2>
-<p>At U.S. average prices and a typical day of hot water, these are the totals for the two fuels. On gas, the 50-gallon tank stays the cheapest choice; on electricity, a heat pump water heater pays back its higher price in <?php echo esc_html( $hwm_be( $hwm_e['heat_pump']['be'] ?? null ) ); ?> and an electric tankless unit never does.</p>
+<p>At U.S. average prices and a typical day of hot water, these are the totals for the two fuels. On gas, <?php echo ! empty( $hwm_f['gasTanklessAhead'] ) ? 'the totals are close and tankless leads only because of its longer life left, while its simple payback is longer than ' . esc_html( $hwm_yrs ) . ' years' : 'the 50-gallon tank stays the cheapest choice'; ?>; on electricity, a heat pump water heater pays back its higher price in <?php echo esc_html( $hwm_be( $hwm_e['heat_pump']['be'] ?? null ) ); ?> and an electric tankless unit never does.</p>
 <div class="table-wrap" role="region" aria-label="Cost of ownership compared" tabindex="0">
 	<table>
 		<caption><?php echo esc_html( $hwm_yrs ); ?>-year cost of ownership, typical household, U.S. average prices</caption>
@@ -113,7 +119,7 @@ $related = array( 'tankless-water-heater-size-calculator', 'water-heater-size-ca
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<p class="table-source">Computed with the calculator's model: equipment listings and our installation ranges, EIA prices, DOE typical day and lifespans. Federal tax credit $0 (see below).</p>
+	<p class="table-source">Computed with the calculator's model: equipment listings and our installation ranges, EIA prices, DOE typical day and lifespans. Running cost includes yearly upkeep ($<?php echo $hwm_fv( 'maintTankless' ); // phpcs:ignore ?> descaling for tankless, $<?php echo $hwm_fv( 'maintTank' ); // phpcs:ignore ?> for a tank's anode rod). Totals subtract the value of the life left at the end; "Pays back" is the simple payback year. Federal tax credit $0 (see below).</p>
 </div>
 <p>The tankless price includes the new venting and larger gas line most tank-to-tankless jobs need. If your home already has them, for example because you are replacing an old tankless unit, the extra cost is far smaller; price your own job in the <?php echo hwm_link( 'water-heater-cost-calculator', 'water heater cost calculator' ); // phpcs:ignore ?>.</p>
 
@@ -135,7 +141,7 @@ $related = array( 'tankless-water-heater-size-calculator', 'water-heater-size-ca
 <h2>Where does tankless pay back? State by state</h2>
 <p>Gas tankless paid back within <?php echo esc_html( $hwm_yrs ); ?> years in <?php echo $hwm_fv( 'gasTanklessStatesPay' ); // phpcs:ignore ?> of <?php echo $hwm_fv( 'stateCount' ); // phpcs:ignore ?> states and DC for a typical household. Cheap natural gas keeps the yearly saving small almost everywhere. Heat pumps replacing an electric tank pay back much faster, because electricity is the costlier fuel.</p>
 <details>
-	<summary>Break-even year in all 50 states and DC</summary>
+	<summary>Payback year in all 50 states and DC</summary>
 	<?php echo hwm_table( $hwm_c, 'byState' ); // phpcs:ignore ?>
 </details>
 
@@ -177,7 +183,7 @@ $related = array( 'tankless-water-heater-size-calculator', 'water-heater-size-ca
 <p>Tankless units need correct gas pipe sizing, venting and, for electric models, large circuits. Heat pump units need a condensate drain and enough air. Have a licensed plumber or electrician check your home before you choose.</p>
 
 <h2>Limitations of this estimate</h2>
-<p>The comparison ignores inflation, energy price changes and the time value of money. Running costs come from efficiency ratings, which leave out the electricity a gas tankless unit's fan uses and real-world short draws. Lifespans are national averages, and a replacement inside the period is priced at the same installed cost as the first unit. A tank's size is fixed at 50 gallons here; a larger household may need a bigger tank, which costs more.</p>
+<p>The comparison ignores inflation, energy price changes and the time value of money. Running costs come from efficiency ratings, which leave out the electricity a gas tankless unit's fan uses and real-world short draws. Lifespans are national averages, a replacement inside the period is priced at the same installed cost as the first unit, and the value left at the end is counted on a straight line over the heater's life. A tank's size is fixed at 50 gallons here; a larger household may need a bigger tank, which costs more.</p>
 <?php
 $faq = array(
 	array(

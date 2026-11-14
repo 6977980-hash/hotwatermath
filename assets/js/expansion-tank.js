@@ -4,7 +4,7 @@
  * (data/computed/water-heater-expansion-tank-size.json → client). describe() is also used by scripts/build-data.mjs.
  */
 import { expansionTankSizing } from './formulas.js';
-import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatNumber } from './ui.js';
+import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatNumber, checkLimits, invalidResult } from './ui.js';
 
 const gal = (v, d = 1) => `${formatNumber(v, d)} gal`;
 
@@ -14,12 +14,16 @@ const gal = (v, d = 1) => `${formatNumber(v, d)} gal`;
  */
 export function describe(v, cfg) {
 	const d = cfg.defaults;
-	const pick = (x, lo, hi, def) => (Number.isFinite(x) && x >= lo && x <= hi ? x : def);
+	// Out-of-range or non-numeric inputs are flagged, never swapped for defaults (audit F-02); a field left out
+	// (Node build calls) takes the documented default.
+	const bad = checkLimits(v, cfg.limits);
+	if (bad.length) return { ...invalidResult(bad), result: null };
+	const pick = (x, def) => (Number.isFinite(x) ? x : def);
 	const i = {
-		heaterGallons: pick(v.gallons, 1, 200, d.heaterGallons),
-		tempF: pick(v.temp, 100, 180, d.tempF),
-		supplyPsi: pick(v.supply, 10, 150, d.supplyPsi),
-		maxPsi: pick(v.max, 50, 160, d.maxPsi),
+		heaterGallons: pick(v.gallons, d.heaterGallons),
+		tempF: pick(v.temp, d.tempF),
+		supplyPsi: pick(v.supply, d.supplyPsi),
+		maxPsi: pick(v.max, d.maxPsi),
 	};
 	const r = expansionTankSizing(i, cfg.data);
 	const formula = [
@@ -68,6 +72,7 @@ if (typeof document !== 'undefined') {
 			renderResult(root, last);
 			if (record) {
 				writeState(values);
+				if (!last.result) return;
 				const g = last.result.input.heaterGallons;
 				track('calc_result', { tool: 'water-heater-expansion-tank-size', heater_bucket: g <= 40 ? '<=40' : g <= 50 ? '41-50' : g <= 80 ? '51-80' : '80+', supply_bucket: last.result.input.supplyPsi <= 50 ? '<=50' : last.result.input.supplyPsi <= 80 ? '51-80' : '80+', tank: last.result.tank ? last.result.tank.id : 'none' });
 			}

@@ -39,7 +39,7 @@ $related = array( 'water-heater-age-calculator', 'state-water-heater-age', 'how-
 <p class="notice"><strong>Where the numbers come from.</strong> The current A. O. Smith code is confirmed by two U.S. Consumer Product Safety Commission recall notices, which give real serial ranges next to production and sales dates. Older codes come from the Energy Trust of Oregon decoder. Our decoder matched all <?php echo $hwm_v( 'checksMatched' ); // phpcs:ignore ?> test cases below; see <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a> for the full list.</p>
 
 <h2>How do you read an A. O. Smith serial number?</h2>
-<p>On an A. O. Smith water heater made in 2008 or later, the first two digits of the serial are the year and the next two are the production week. A serial starting <code><?php echo esc_html( $hwm_s4 ); ?></code> was built in week <?php echo esc_html( (string) $hwm_cur['week'] ); ?> of <?php echo esc_html( (string) $hwm_cur['year'] ); ?>, which falls in <?php echo esc_html( (string) $hwm_cur['madeLabel'] ); ?>. A letter follows the four digits.</p>
+<p>On an A. O. Smith water heater made in 2008 or later, the first two digits of the serial are the year and the next two are the production week. A serial starting <code><?php echo esc_html( $hwm_s4 ); ?></code> was built in week <?php echo esc_html( (string) $hwm_cur['week'] ); ?> of <?php echo esc_html( (string) $hwm_cur['year'] ); ?>, which falls in <?php echo esc_html( (string) $hwm_cur['madeLabel'] ); ?>. On units made since late 2016 nine more digits follow (A. O. Smith's own notice on the change gives 1601 123 456 789 as the example); on earlier ones a plant letter follows the four digits.</p>
 <?php
 hwm_part(
 	'serial-figure',
@@ -51,7 +51,7 @@ hwm_part(
 		'segments' => array(
 			array( 'text' => substr( (string) $hwm_cur['serial'], 0, 2 ), 'label' => 'year: ' . $hwm_cur['year'], 'hl' => true ),
 			array( 'text' => substr( (string) $hwm_cur['serial'], 2, 2 ), 'label' => 'week ' . $hwm_cur['week'], 'hl' => true ),
-			array( 'text' => substr( (string) $hwm_cur['serial'], 4 ), 'label' => 'plant letter and unit number', 'hl' => false ),
+			array( 'text' => substr( (string) $hwm_cur['serial'], 4 ), 'label' => ctype_digit( substr( (string) $hwm_cur['serial'], 4 ) ) ? 'unit number' : 'plant letter and unit number', 'hl' => false ),
 		),
 		'caption'  => 'Test serial ' . $hwm_cur['serial'] . ': year ' . $hwm_cur['year'] . ', week ' . $hwm_cur['week'] . ', so the tank was built in ' . $hwm_cur['madeLabel'] . '. CPSC notes the data plate sits next to the gas control valve or thermostat.',
 	)

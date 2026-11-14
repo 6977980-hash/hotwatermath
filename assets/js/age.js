@@ -20,16 +20,17 @@ export function describe(v, cfg, today) {
 	const code = option.decodeAs ? cfg.brands[option.decodeAs] : null;
 	const serial = String(v.serial || '').trim();
 	const refYear = today.getFullYear();
+	const minYear = refYear - cfg.maxAgeYears;
 	let made = null;
 	let from = '';
 	if (serial && code) {
-		made = decodeSerial(serial, code.patterns, refYear);
+		made = decodeSerial(serial, code.patterns, today, minYear);
 		if (made) from = 'serial';
 	}
 	const year = Number.isFinite(v.madeYear) ? Math.round(v.madeYear) : null;
 	if (!made && year) {
-		if (year > refYear || year < refYear - 80) {
-			return { statusLabel: 'Check the year', headline: `Enter a year between ${refYear - 80} and ${refYear}`, explain: 'The year printed on the rating plate, or decoded from the serial number.', formula: '' };
+		if (year > refYear || year < minYear) {
+			return { status: 'bad', statusLabel: 'Check the year', headline: `Enter a year between ${minYear} and ${refYear}`, explain: 'The year printed on the rating plate, or decoded from the serial number.', formula: '', invalid: ['madeYear'], sourcesText: '' };
 		}
 		const month = Number.parseInt(v.madeMonth, 10);
 		made = { year, month: month >= 1 && month <= 12 ? month : null, week: null, otherYears: [] };
@@ -38,13 +39,13 @@ export function describe(v, cfg, today) {
 	if (!made) {
 		let explain;
 		if (serial && code) {
-			explain = `We could not read a date from "${serial}" with the ${code.label} code. Check the characters against the rating plate (O and 0, I and 1 are easy to mix up), or enter the year the label shows.`;
+			explain = `We could not read a date from "${serial}" with the ${code.label} code: it does not match the code, or it gives a date in the future or before ${minYear}. Check the characters against the rating plate (O and 0, I and 1 are easy to mix up), or enter the year the label shows.`;
 		} else if (serial && !code) {
 			explain = `We do not decode ${option.label} serial numbers yet, because no manufacturer or government source we could open confirms the code. Enter the manufacture year from the rating plate, or ask ${option.label} with the serial number.`;
 		} else {
 			explain = 'Type the serial number from the rating plate, or the year the unit was made.';
 		}
-		return { statusLabel: 'Waiting for a serial number', headline: 'Enter a serial number or the year it was made', explain, formula: '' };
+		return { statusLabel: 'Waiting for a serial number', headline: 'Enter a serial number or the year it was made', explain, formula: '', sourcesText: '' };
 	}
 
 	const adj = cfg.adjustments;
@@ -91,6 +92,7 @@ export function describe(v, cfg, today) {
 		formula,
 		made,
 		age: e.age,
+		sourcesText: `${from === 'serial' ? `${code.label} date code: ${code.sourceLine}.` : 'Build year: as you entered it.'} ${cfg.lifeSourceLine}`,
 	};
 }
 
@@ -121,6 +123,13 @@ if (typeof document !== 'undefined') {
 				if (last.status) track('calc_result', { tool: root.dataset.tool, brand: values.brand, unit_type: values.type, age_bucket: last.age < 5 ? '0-5' : last.age < 10 ? '5-10' : last.age < 15 ? '10-15' : '15+' });
 			}
 		};
+		// Brands that sell only tankless units preselect the tankless type (serial-formats.json → brandOptions[].type).
+		const brandEl = form.elements.namedItem('brand');
+		const typeEl = form.elements.namedItem('type');
+		brandEl?.addEventListener('change', () => {
+			const o = cfg.brandOptions.find((x) => x.id === brandEl.value);
+			if (o && o.type && typeEl) typeEl.value = o.type;
+		});
 		const deferred = debounce(() => run(true), 400);
 		form.addEventListener('input', deferred);
 		form.addEventListener('change', deferred);

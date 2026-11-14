@@ -3,8 +3,8 @@
  * (<script type="application/json" id="hwm-tank-data">, printed by PHP from data/computed/water-heater-size-calculator.json).
  * describe() is also used by scripts/build-data.mjs for the server-rendered default result, so the text is written once.
  */
-import { tankSizing } from './formulas.js';
-import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatNumber } from './ui.js';
+import { tankSizing, hotShareOfMix } from './formulas.js';
+import { readInputs, readState, writeState, renderResult, wireActions, track, debounce, formatNumber, checkLimits, invalidResult } from './ui.js';
 
 const n0 = (v) => formatNumber(v, 0);
 export const ACTIVITY_KEYS = ['shower', 'bath', 'shaving', 'handsFace', 'shampoo', 'handDishwashing', 'dishwasher', 'foodPrep', 'clothesWasher'];
@@ -29,7 +29,17 @@ function fuelSentence(fuel, pick, fhr, cfg) {
  */
 export function describe(v, cfg) {
 	const fuel = FUELS.includes(v.fuel) ? v.fuel : 'gas';
-	const activities = ACTIVITY_KEYS.map((k) => ({ key: k, count: Math.max(0, Math.round(Number(v[k]) || 0)), gallons: cfg.activities[k].gallons }));
+	const { count, ...lim } = cfg.limits || {};
+	const bad = checkLimits(v, { ...lim, ...(count ? Object.fromEntries(ACTIVITY_KEYS.map((k) => [k, { ...count, label: cfg.activities[k].label }])) : {}) });
+	if (bad.length) return invalidResult(bad);
+	// Custom shower head (S-3): AHRI's gallons per shower scaled by your flow ÷ the 2.5 GPM it is read at.
+	const showerGpm = Number.isFinite(v.showerGpm) ? v.showerGpm : null;
+	const gallonsOf = (k) => (k === 'shower' && showerGpm !== null ? Math.round(((cfg.activities.shower.gallons * showerGpm) / cfg.showerFlow.baseGpm) * 10) / 10 : cfg.activities[k].gallons);
+	const activities = ACTIVITY_KEYS.map((k) => ({ key: k, count: Math.max(0, Math.round(Number(v[k]) || 0)), gallons: gallonsOf(k) }));
+	// Large soaking tub (S-3): its fill in gallons × the tank share of a 104 °F bath.
+	const tub = Number.isFinite(v.tubGallons) && v.tubGallons > 0 ? v.tubGallons : 0;
+	const tubShare = hotShareOfMix(cfg.largeTub.useTempF, cfg.setpointF, cfg.inletF);
+	if (tub) activities.push({ key: 'largeTub', count: 1, gallons: Math.round(tub * tubShare * 10) / 10 });
 	if (!activities.some((a) => a.count > 0)) {
 		return { statusLabel: 'Add your busiest hour', headline: 'Count the hot water uses in your busiest hour', explain: 'Pick your household size to fill in a typical busy hour, or set how many showers, loads and other uses happen in that hour.', formula: '' };
 	}
@@ -57,15 +67,18 @@ export function describe(v, cfg) {
 		sentences.push(`${cfg.guide.label} suggests an FHR of ${guide.low}–${guide.high} gal for ${people} people; your busy hour is ${inside ? 'inside' : s.phd < guide.low ? 'below' : 'above'} that range.`);
 	}
 	const used = activities.filter((a) => a.count > 0);
+	const labelOf = (k) => (k === 'largeTub' ? 'large tub' : cfg.activities[k].label.toLowerCase());
 	const formula = [
-		`Peak-hour demand = ${used.map((a) => `${a.count} × ${a.gallons} gal (${cfg.activities[a.key].label.toLowerCase()})`).join(' + ')} = ${n0(s.phd)} gal`,
+		showerGpm !== null ? `Shower = ${cfg.activities.shower.gallons} gal × ${showerGpm} GPM ÷ ${cfg.showerFlow.baseGpm} GPM = ${gallonsOf('shower')} gal hot water` : '',
+		tub ? `Large tub = ${n0(tub)} gal fill × (${cfg.largeTub.useTempF} − ${cfg.inletF}) ÷ (${cfg.setpointF} − ${cfg.inletF}) = ${formatNumber(tub * tubShare, 1)} gal hot water` : '',
+		`Peak-hour demand = ${used.map((a) => `${a.count} × ${a.gallons} gal (${labelOf(a.key)})`).join(' + ')} = ${n0(s.phd)} gal`,
 		`Required FHR = ${n0(s.phd)} × ${cfg.fhrRatio}${margin ? ` × ${1 + margin}` : ''} = ${n0(s.fhr)} gal (rounded up)`,
 		...FUELS.map((f) => {
 			const p = s[f];
 			const row = p.row;
 			return `${FUEL_LABEL[f][0].toUpperCase()}${FUEL_LABEL[f].slice(1)}: ${p.fits === 'none' ? 'no size meets it' : `${row.nominalGallons} gal`}; that size rates ${n0(row.fhrLow)}–${n0(row.fhrHigh)} gal, typical ${n0(row.fhrTypical)} (${row.n} model${row.n === 1 ? '' : 's'})`;
 		}),
-	].join('\n');
+	].filter(Boolean).join('\n');
 	return { status, statusLabel, headline, explain: sentences.join(' '), formula, sizing: s };
 }
 

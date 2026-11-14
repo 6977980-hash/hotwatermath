@@ -315,9 +315,9 @@
   "tanklessDefault": {
     "status": "bad",
     "statusLabel": "Too much for one electric unit",
-    "headline": "5.0 GPM at a 70 °F rise",
-    "explain": "You need about 51.3 kW (214 A at 240 V), more than the largest 36 kW whole-house electric unit. It would take 2 units, so gas, a tank or fewer fixtures at once are usually more practical. With a 70 °F rise and more than 4 GPM, a single electric unit is rarely enough in cold weather. Gas instead: about 184,358 BTU/h.",
-    "formula": "Flow = 2 × 2.5 = 5.0 GPM\nRise = 120 °F − 50.0 °F = 70.0 °F\nOutput = 5.0 GPM × 8.34 lb/gal × 60 min × 70.0 °F = 175,140 BTU/h\nGas input = 175,140 ÷ 0.95 = 184,358 BTU/h\nElectric = 175,140 ÷ 3,412 BTU per kWh = 51.3 kW; × 1,000 ÷ 240 V = 214 A",
+    "headline": "3.9 GPM of hot water at a 70 °F rise",
+    "explain": "Your fixtures deliver 5.0 GPM. Showers, sinks and tubs run at about 105 °F, so they take only part of it from the heater: 3.9 GPM of 120 °F water in all. You need about 40.3 kW (168 A at 240 V), more than the largest 36 kW whole-house electric unit. It would take 2 units, so gas, a tank or fewer fixtures at once are usually more practical. Gas instead: about 144,905 BTU/h.",
+    "formula": "Mixed flow at the fixtures = 2 × 2.50 = 5.00 GPM\nHot share at 105 °F use = (105 − 50.0) ÷ (120 − 50.0) = 0.786\nHot flow from the heater = 2 × 2.50 × 0.786 = 3.93 GPM\nRise = 120 °F − 50.0 °F = 70.0 °F\nOutput = 3.93 GPM × 8.34 lb/gal × 60 min × 70.0 °F = 137,660 BTU/h\nGas input = 137,660 ÷ 0.95 = 144,905 BTU/h\nElectric = 137,660 ÷ 3,412 BTU per kWh = 40.3 kW; × 1,000 ÷ 240 V = 168 A",
     "sources": "Defaults: 120 °F setpoint (DOE FEMP); fixture flows are federal maximums (10 CFR 430.32), low-flow values EPA WaterSense; 50 °F incoming water is the DOE example until you pick a state (then NOAA normals with the DOE EnergyPlus mains correlation, coldest month); UEF 0.95 is the median ENERGY STAR certified gas tankless unit. <a href=\"/methodology/#tankless-water-heater-size-calculator\">See our results checked against Rinnai, Noritz and Rheem charts</a>."
   }
 }

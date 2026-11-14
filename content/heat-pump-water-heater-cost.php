@@ -72,6 +72,14 @@ ob_start();
 		</select>
 	</div>
 </div>
+<div class="field">
+	<label for="hp-location">Where it will go <span class="hint">Heat pumps pull heat from the room air.</span></label>
+	<select id="hp-location" name="location">
+		<?php foreach ( (array) ( $hwm_cl['location']['options'] ?? array() ) as $hwm_o ) : ?>
+			<option value="<?php echo esc_attr( (string) $hwm_o['id'] ); ?>"<?php selected( (string) $hwm_o['id'], (string) ( $hwm_cl['location']['default'] ?? '' ) ); ?>><?php echo esc_html( (string) $hwm_o['label'] ); ?></option>
+		<?php endforeach; ?>
+	</select>
+</div>
 <fieldset>
 	<legend>Your space</legend>
 	<label class="check"><input type="checkbox" name="space" value="1"> The room is small or cold and needs a louvered door, ducting or a condensate pump (adds about $<?php echo $hwm_v( 'space' ); // phpcs:ignore ?>)</label>

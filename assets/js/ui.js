@@ -3,6 +3,66 @@
  * Loaded as an ES module by each calculator module.
  */
 
+/**
+ * Parse a typed number: "$1,200", " 1 200 " and "1200" all give 1200 (audit F-12).
+ * Empty → null (not given); anything else that is not a number → NaN, so a validator can flag it instead of a
+ * silent default (audit F-02).
+ * @param {string} raw
+ * @returns {number|null}
+ */
+export function parseNumber(raw) {
+	const t = String(raw ?? '').replace(/[\s,$]/g, '');
+	if (t === '') return null;
+	return /^[-+]?(\d+\.?\d*|\.\d+)$/.test(t) ? Number(t) : NaN;
+}
+
+/**
+ * Check form values against the tool's input limits (data/input-limits.json, copied into each tool's client data).
+ * Pure, so describe() can use it in Node too. A field that is not on the form (undefined) is skipped; an empty
+ * field is fine only when its rule says optional; NaN (text that is not a number) and values out of range fail.
+ * @param {object} values From readInputs().
+ * @param {Object<string,{label:string, min:number, max:number, optional?:boolean, integer?:boolean, note?:string}>} limits
+ * @param {string[]} [skip] Field names to ignore (e.g. a hidden field).
+ * @returns {Array<{name:string, label:string, message:string}>}
+ */
+export function checkLimits(values, limits, skip = []) {
+	const bad = [];
+	for (const [name, rule] of Object.entries(limits || {})) {
+		if (skip.includes(name)) continue;
+		const v = values[name];
+		if (v === undefined) continue;
+		const n = (x) => x.toLocaleString('en-US');
+		const range = rule.unit === '$' ? `$${n(rule.min)} to $${n(rule.max)}` : `${n(rule.min)} to ${n(rule.max)}${rule.unit ? ` ${rule.unit}` : ''}`;
+		let message = '';
+		if (v === null || v === '') {
+			if (!rule.optional) message = `Enter ${rule.label.toLowerCase()} (${range}).`;
+		} else if (typeof v !== 'number' || Number.isNaN(v)) {
+			message = `${rule.label}: type a number from ${range}.`;
+		} else if (v < rule.min || v > rule.max) {
+			message = `${rule.label} must be ${range}; you typed ${v}.${rule.note ? ` ${rule.note}` : ''}`;
+		} else if (rule.integer && !Number.isInteger(v)) {
+			message = `${rule.label}: use a whole number.`;
+		}
+		if (message) bad.push({ name, label: rule.label, message });
+	}
+	return bad;
+}
+
+/**
+ * Result for invalid inputs: status "bad", naming each field. The typed values are never replaced by defaults.
+ * @param {Array<{name:string, label:string, message:string}>} bad From checkLimits().
+ */
+export function invalidResult(bad) {
+	return {
+		status: 'bad',
+		statusLabel: 'Check your inputs',
+		headline: `Check your inputs: ${bad.map((b) => b.label.toLowerCase()).join(', ')}`,
+		explain: bad.map((b) => b.message).join(' '),
+		formula: '',
+		invalid: bad,
+	};
+}
+
 /** Read a form's named inputs into a plain object (numbers parsed for inputmode=decimal / type=number). */
 export function readInputs(form) {
 	const out = {};
@@ -13,8 +73,7 @@ export function readInputs(form) {
 		} else if (el.type === 'radio') {
 			if (el.checked) out[el.name] = el.value;
 		} else if (el.type === 'number' || el.inputMode === 'decimal' || el.inputMode === 'numeric') {
-			const n = parseFloat(String(el.value).replace(/,/g, ''));
-			out[el.name] = Number.isFinite(n) ? n : null;
+			out[el.name] = parseNumber(el.value);
 		} else {
 			out[el.name] = el.value;
 		}
@@ -42,7 +101,7 @@ export function writeState(values) {
 	const url = new URL(window.location.href);
 	url.search = '';
 	for (const [key, value] of Object.entries(values)) {
-		if (value === null || value === '' || value === false) continue;
+		if (value === null || value === '' || value === false || Number.isNaN(value)) continue;
 		url.searchParams.set(key, value === true ? '1' : String(value));
 	}
 	window.history.replaceState(null, '', url);
@@ -134,7 +193,52 @@ export function renderResult(root, r) {
 	set('[data-result-headline]', r.headline);
 	set('[data-result-explain]', r.explain);
 	set('[data-result-formula]', r.formula);
+	if (r.sourcesText !== undefined) {
+		const src = box.querySelector('.result__sources-text');
+		if (src) src.textContent = r.sourcesText;
+		const line = box.querySelector('[data-result-sources]');
+		if (line) line.hidden = !r.sourcesText;
+	}
+	const wrap = box.querySelector('[data-result-table]');
 	if (r.table) renderTable(box, r.table);
+	if (wrap) wrap.hidden = !r.table;
+	markInvalid(root.querySelector('form'), r.invalid || []);
+}
+
+/**
+ * Flag invalid fields: aria-invalid="true" and an inline message tied to the field with aria-describedby.
+ * Clears the marks of fields that are fine again.
+ * @param {HTMLFormElement|null} form
+ * @param {Array<{name:string, message:string}>} bad
+ */
+export function markInvalid(form, bad) {
+	if (!form) return;
+	const byName = Object.fromEntries(bad.map((b) => [b.name, b.message]));
+	for (const el of form.elements) {
+		if (!el.name || !el.id || el.type === 'checkbox' || el.type === 'radio') continue;
+		const errId = `${el.id}-error`;
+		let msg = document.getElementById(errId);
+		const text = byName[el.name];
+		if (text) {
+			el.setAttribute('aria-invalid', 'true');
+			if (!msg) {
+				msg = document.createElement('span');
+				msg.id = errId;
+				msg.className = 'field__error';
+				el.after(msg);
+			}
+			msg.textContent = text;
+			const ids = new Set((el.getAttribute('aria-describedby') || '').split(' ').filter(Boolean));
+			ids.add(errId);
+			el.setAttribute('aria-describedby', [...ids].join(' '));
+		} else if (el.hasAttribute('aria-invalid')) {
+			el.removeAttribute('aria-invalid');
+			msg?.remove();
+			const ids = (el.getAttribute('aria-describedby') || '').split(' ').filter((x) => x && x !== errId);
+			if (ids.length) el.setAttribute('aria-describedby', ids.join(' '));
+			else el.removeAttribute('aria-describedby');
+		}
+	}
 }
 
 /**

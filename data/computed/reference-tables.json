@@ -82,6 +82,12 @@
           "gpm": "3.5",
           "low": "3.5",
           "range": "1.0–6.0"
+        },
+        {
+          "label": "Large soaking tub filler",
+          "gpm": "6.0",
+          "low": "6.0",
+          "range": "4.0–6.0"
         }
       ],
       "source": "10 CFR 430.32, EPA WaterSense, PNNL Building America Solution Center (ASHRAE Handbook data)",
@@ -358,8 +364,8 @@
         },
         {
           "brand": "A. O. Smith",
-          "rule": "since 2008: year (2 digits), week (2 digits), then a letter",
-          "example": "0805A****** → 2008, week 5"
+          "rule": "since 2008: year (2 digits), week (2 digits), then a letter; since October 2016 the letter is gone and nine digits follow (YYWW + 9 digits)",
+          "example": "2215123456789 → 2022, week 15 (all digits since October 2016; A. O. Smith prints it as 1601 123 456 789); 0805A****** → 2008, week 5"
         },
         {
           "brand": "",

@@ -106,6 +106,32 @@
       "defaultExtras": { "gas_tank": ["permit"], "electric_tank": ["permit"], "heat_pump": ["permit"], "gas_tankless": ["permit", "venting", "gasLine"], "electric_tankless": ["permit", "circuit", "panel"] }
     }
   },
+  "maintenance": {
+    "note": "Yearly upkeep added to the running cost in the tankless vs tank tool (audit F-03, suggestion S-2). Priced as do-it-yourself work with the manufacturer steps; a plumber's service call costs more, and we found no listing we could reprint for it. Each line is perTimeUsd × timesPerYear, plus onceUsd spread over the unit's life, plus partUsd every everyYears.",
+    "tankless": {
+      "label": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)",
+      "timesPerYear": 1,
+      "perTimeUsd": 11.99,
+      "onceUsd": 155.19,
+      "refs": ["rinnai-flush", "vinegar-listing", "rheem-flush-kit"],
+      "why": "Rinnai: flush mineral deposits \"at least once a year\" with \"4 gallons (15.1 liters) of undiluted white vinegar\". Four 1-gallon jugs of 5% distilled white vinegar: $11.99 a case (WebstaurantStore). Pump, hoses and bucket: Rheem tankless flush kit RTG20124, $155.19 (Home Depot), bought once."
+    },
+    "tank": {
+      "label": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)",
+      "everyYears": 4,
+      "partUsd": 34.98,
+      "refs": ["rheem-maintenance", "home-depot-anodes"],
+      "why": "Rheem: \"Flush the tank annually; replace the anode rod every 3-4 years\" (we use 4, the longer end). Anode price: median of five standard magnesium or aluminum rods listed at Home Depot ($28.09 to $40.16; the powered rod is left out)."
+    },
+    "byType": { "gas_tank": "tank", "electric_tank": "tank", "heat_pump": "tank", "gas_tankless": "tankless", "electric_tankless": "tankless" },
+    "references": {
+      "rinnai-flush": { "publisher": "Rinnai", "title": "Flushing my Rinnai tankless water heater", "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater", "checked": "2026-11-13", "quotes": ["It's important to flush those mineral deposits at least once a year.", "Use 4 gallons (15.1 liters) of undiluted white vinegar to clean your tankless water heater."] },
+      "vinegar-listing": { "publisher": "WebstaurantStore", "title": "1 Gallon Distilled White Vinegar - 4/Case", "sourceUrl": "https://www.webstaurantstore.com/1-gallon-distilled-white-vinegar-case/101VINGRWHTE.html", "checked": "2026-11-14", "quotes": ["$11.99/Case", "4 jugs per case, each 1 gallon", "50 grain, 5% acidity"] },
+      "rheem-flush-kit": { "publisher": "The Home Depot", "title": "Rheem Flush Kit for Tankless Water Heaters RTG20124", "sourceUrl": "https://www.homedepot.com/p/Rheem-Flush-Kit-for-Tankless-Water-Heaters-RTG20124/202798886", "checked": "2026-11-14", "quotes": ["$155.19"] },
+      "rheem-maintenance": { "publisher": "Rheem Manufacturing", "title": "Water heater lifespan: when to repair vs. replace (March 25, 2026)", "sourceUrl": "https://www.rheem.com/water-heating/articles/water-heater-lifespan-when-to-repair-vs-replace/", "checked": "2026-11-13", "quotes": ["Flush the tank annually; replace the anode rod every 3-4 years; aim for 40-60 psi."] },
+      "home-depot-anodes": { "publisher": "The Home Depot", "title": "Listing prices for replacement anode rods (product pages)", "sourceUrl": "https://www.homedepot.com/p/Rheem-PROTECH-0-750-in-Dia-x-44-3-8-in-L-Magnesium-Water-Heater-Anode-Rod-SP11309C/308811585", "checked": "2026-11-13", "quotes": ["$28.09, $29.68, $34.98, $38.90, $40.16 (standard rods); $179.95 (powered rod, left out)"] }
+    }
+  },
   "defaults": {
     "type": "gas_tank",
     "size": "50",

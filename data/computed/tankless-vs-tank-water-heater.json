@@ -6,11 +6,11 @@
     "notes": "Default result, ownership tables, state break-even table and DOE cross-checks for the tankless vs tank tool."
   },
   "default": {
-    "status": "warn",
-    "statusLabel": "Cheapest over 10 years: Gas tank (50 gal)",
-    "headline": "The gas tank (50 gal) stays cheapest over 10 years",
-    "explain": "Over 10 years at U.S. average prices, the gas tankless costs $4,937 in total against $4,230 for the gas tank (50 gal), so it does not pay back its higher price within 10 years. The heat pump (50 gal) totals $4,927 and does not pay back its higher price within 10 years. Hot water use: 55 gallons a day, heated by 62 °F.",
-    "formula": "Rise = 120 °F setpoint − 58.0 °F incoming water = 62.0 °F\nGas tank (50 gal): $1,809 installed + $242/yr × 10 yr = $4,230\nGas tankless: $3,318 installed + $162/yr × 10 yr = $4,937\nHeat pump (50 gal): $3,547 installed + $138/yr × 10 yr = $4,927\nBreak-even = first year the option's running total is at or below the tank's.\nFederal tax credit: $0 (25C ended for installs after 2025).",
+    "status": "ok",
+    "statusLabel": "Cheapest over 10 years: Gas tankless",
+    "headline": "Gas tankless saves $425 over 10 years",
+    "explain": "Over 10 years at U.S. average prices, the gas tankless costs $3,475 in total against $3,900 for the gas tank (50 gal), so it would take about 21.8 years to pay back its higher price, longer than 10 years. It still comes out ahead over 10 years only because it has more life left at the end ($1,659 of value left against $417); in cash spent so far it is $5,134 against $4,318. The heat pump (50 gal) totals $4,196 and would take about 16.7 years to pay back its higher price, longer than 10 years. Hot water use: 55 gallons a day, heated by 62 °F.",
+    "formula": "Rise = 120 °F setpoint − 58.0 °F incoming water = 62.0 °F\nGas tank (50 gal): running cost $242 energy + $9 upkeep = $251/yr\nGas tankless: running cost $162 energy + $20 upkeep = $182/yr\nHeat pump (50 gal): running cost $138 energy + $9 upkeep = $147/yr\nGas tank (50 gal): $1,809 installed + $251/yr × 10 yr − $417 value left (3 of 13 years of life remain) = $3,900\nGas tankless: $3,318 installed + $182/yr × 10 yr − $1,659 value left (10 of 20 years of life remain) = $3,475\nHeat pump (50 gal): $3,547 installed + $147/yr × 10 yr − $819 value left (3 of 13 years of life remain) = $4,196\nGas tankless payback = ($3,318 − $1,809) ÷ ($251 − $182) = 21.8 years\nHeat pump (50 gal) payback = ($3,547 − $1,809) ÷ ($251 − $147) = 16.7 years\nPayback = extra up-front cost ÷ yearly saving, no interest. Value left = installed price × remaining life ÷ life, so a unit bought near the end is not counted as used up.\nFederal tax credit: $0 (25C ended for installs after 2025).",
     "table": {
       "caption": "Cost of ownership over 10 years",
       "columns": [
@@ -40,7 +40,7 @@
         },
         {
           "key": "be",
-          "label": "Pays back",
+          "label": "Simple payback",
           "num": true
         }
       ],
@@ -48,26 +48,26 @@
         {
           "option": "Gas tank (50 gal)",
           "installed": "$1,809",
-          "year": "$242",
+          "year": "$251",
           "repl": "0",
-          "total": "$4,230",
+          "total": "$3,900",
           "be": "—"
         },
         {
           "option": "Gas tankless",
           "installed": "$3,318",
-          "year": "$162",
+          "year": "$182",
           "repl": "0",
-          "total": "$4,937",
-          "be": "No"
+          "total": "$3,475",
+          "be": "21.8 years"
         },
         {
           "option": "Heat pump (50 gal)",
           "installed": "$3,547",
-          "year": "$138",
+          "year": "$147",
           "repl": "0",
-          "total": "$4,927",
-          "be": "No"
+          "total": "$4,196",
+          "be": "16.7 years"
         }
       ]
     },
@@ -77,28 +77,37 @@
     "gas": {
       "gas_tank": {
         "installed": "1,809",
-        "year": "242",
-        "total": "4,230",
-        "totalNum": 4230,
+        "year": "251",
+        "total": "3,900",
+        "totalNum": 3900,
         "be": 0,
+        "payback": "",
+        "residual": "417",
+        "spent": "4,318",
         "repl": 0,
         "life": 13
       },
       "gas_tankless": {
         "installed": "3,318",
-        "year": "162",
-        "total": "4,937",
-        "totalNum": 4937,
+        "year": "182",
+        "total": "3,475",
+        "totalNum": 3475,
         "be": 0,
+        "payback": "21.8",
+        "residual": "1,659",
+        "spent": "5,134",
         "repl": 0,
         "life": 20
       },
       "heat_pump": {
         "installed": "3,547",
-        "year": "138",
-        "total": "4,927",
-        "totalNum": 4927,
+        "year": "147",
+        "total": "4,196",
+        "totalNum": 4196,
         "be": 0,
+        "payback": "16.7",
+        "residual": "819",
+        "spent": "5,015",
         "repl": 0,
         "life": 13
       }
@@ -106,28 +115,37 @@
     "electric": {
       "electric_tank": {
         "installed": "1,579",
-        "year": "564",
-        "total": "7,215",
-        "totalNum": 7215,
+        "year": "572",
+        "total": "6,938",
+        "totalNum": 6938,
         "be": 0,
+        "payback": "",
+        "residual": "364",
+        "spent": "7,302",
         "repl": 0,
         "life": 13
       },
       "electric_tankless": {
         "installed": "3,509",
-        "year": "570",
-        "total": "9,207",
-        "totalNum": 9207,
+        "year": "590",
+        "total": "7,650",
+        "totalNum": 7650,
         "be": 0,
+        "payback": "",
+        "residual": "1,755",
+        "spent": "9,405",
         "repl": 0,
         "life": 20
       },
       "heat_pump": {
         "installed": "2,947",
-        "year": "138",
-        "total": "4,327",
-        "totalNum": 4327,
+        "year": "147",
+        "total": "3,734",
+        "totalNum": 3734,
         "be": 4,
+        "payback": "3.2",
+        "residual": "680",
+        "spent": "4,415",
         "repl": 0,
         "life": 13
       }
@@ -135,64 +153,80 @@
     "gas20": {
       "gas_tank": {
         "installed": "1,809",
-        "year": "242",
-        "total": "8,461",
-        "totalNum": 8461,
+        "year": "251",
+        "total": "7,801",
+        "totalNum": 7801,
         "be": 0,
+        "payback": "",
+        "residual": "835",
+        "spent": "8,636",
         "repl": 1,
         "life": 13
       },
       "gas_tankless": {
         "installed": "3,318",
-        "year": "162",
-        "total": "6,555",
-        "totalNum": 6555,
-        "be": 13,
+        "year": "182",
+        "total": "6,950",
+        "totalNum": 6950,
+        "be": 0,
+        "payback": "21.8",
+        "residual": "0",
+        "spent": "6,950",
         "repl": 0,
         "life": 20
       },
       "heat_pump": {
         "installed": "3,547",
-        "year": "138",
-        "total": "9,854",
-        "totalNum": 9854,
-        "be": 0,
+        "year": "147",
+        "total": "8,392",
+        "totalNum": 8392,
+        "be": 17,
+        "payback": "16.7",
+        "residual": "1,637",
+        "spent": "10,029",
         "repl": 1,
         "life": 13
       }
     },
     "years": 10,
     "years20": 20,
-    "gasTanklessSaving": "80",
+    "gasTanklessSaving": "69",
     "gas20Tank": {
       "installed": "1,809",
-      "year": "242",
-      "total": "8,461",
-      "totalNum": 8461,
+      "year": "251",
+      "total": "7,801",
+      "totalNum": 7801,
       "be": 0,
+      "payback": "",
+      "residual": "835",
+      "spent": "8,636",
       "repl": 1,
       "life": 13
     },
     "gasTanklessStatesPay": 1,
+    "gasTanklessAhead": true,
+    "gasTanklessAheadBy": "425",
+    "maintTankless": "20",
+    "maintTank": "9",
     "stateCount": 51,
     "people": [
       {
         "people": 2,
-        "tank": "4,010",
-        "tankless": "4,789",
+        "tank": "3,680",
+        "tankless": "3,327",
         "be": "Not in 10 years"
       },
       {
         "people": 4,
-        "tank": "6,210",
-        "tankless": "6,261",
+        "tank": "5,880",
+        "tankless": "4,799",
         "be": "Not in 10 years"
       },
       {
         "people": 6,
-        "tank": "8,456",
-        "tankless": "7,761",
-        "be": "Year 7"
+        "tank": "8,126",
+        "tankless": "6,300",
+        "be": "Year 8"
       }
     ],
     "perPerson": 25.1,
@@ -530,7 +564,7 @@
         {
           "name": "Florida",
           "gt": "No",
-          "hpg": "Year 10",
+          "hpg": "Year 9",
           "hpe": "Year 6"
         },
         {
@@ -597,7 +631,7 @@
           "name": "Maryland",
           "gt": "No",
           "hpg": "No",
-          "hpe": "Year 4"
+          "hpe": "Year 3"
         },
         {
           "name": "Massachusetts",
@@ -651,7 +685,7 @@
           "name": "New Hampshire",
           "gt": "No",
           "hpg": "No",
-          "hpe": "Year 3"
+          "hpe": "Year 2"
         },
         {
           "name": "New Jersey",
@@ -900,7 +934,9 @@
               "label": "75 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "electric_tank": {
           "label": "Electric tank",
@@ -918,7 +954,9 @@
               "label": "50 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "heat_pump": {
           "label": "Heat pump (hybrid), 240 V",
@@ -940,7 +978,9 @@
               "label": "80 gallons"
             }
           ],
-          "defaultSize": "50"
+          "defaultSize": "50",
+          "maintenance": 8.74,
+          "maintenanceLabel": "Anode rod every 4 years (yearly tank flush with a garden hose: no parts)"
         },
         "gas_tankless": {
           "label": "Gas tankless",
@@ -954,7 +994,9 @@
               "label": "Whole house"
             }
           ],
-          "defaultSize": "whole"
+          "defaultSize": "whole",
+          "maintenance": 19.75,
+          "maintenanceLabel": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)"
         },
         "electric_tankless": {
           "label": "Electric tankless",
@@ -968,7 +1010,9 @@
               "label": "Whole house"
             }
           ],
-          "defaultSize": "whole"
+          "defaultSize": "whole",
+          "maintenance": 19.75,
+          "maintenanceLabel": "Yearly descaling flush (vinegar, flush kit spread over the unit's life)"
         }
       },
       "typeOrder": [
@@ -1504,7 +1548,12 @@
       "setpointF": 120,
       "typicalGallons": 55,
       "perPersonGallons": 25.1,
-      "lastReviewed": "2026-11-13"
+      "lastReviewed": "2026-11-13",
+      "propane": {
+        "usdPerGallon": 2.659,
+        "period": "October 2026",
+        "btuPerGallon": 91452
+      }
     },
     "options": {
       "gas": [
@@ -1553,6 +1602,35 @@
       "household": "typical",
       "state": "US",
       "years": 10
+    },
+    "limits": {
+      "years": {
+        "label": "Years to compare",
+        "min": 1,
+        "max": 30,
+        "unit": "years",
+        "integer": true
+      },
+      "kwh": {
+        "label": "Electricity price",
+        "min": 0,
+        "max": 1,
+        "unit": "$/kWh",
+        "note": "Use 0 only if your water heating is fully covered by your own solar panels."
+      },
+      "therm": {
+        "label": "Gas price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/therm"
+      },
+      "propane": {
+        "label": "Propane price",
+        "min": 0,
+        "max": 10,
+        "unit": "$/gal",
+        "optional": true
+      }
     }
   }
 }

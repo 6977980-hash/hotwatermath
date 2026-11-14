@@ -214,7 +214,7 @@
       "description": "What size tankless water heater do you need? Add your fixtures and state to get the GPM, temperature rise, gas BTU/h and electric kW, with sources shown.",
       "h1": "Tankless water heater size calculator",
       "subtitle": "Flow, temperature rise and unit size for your home and state.",
-      "quickAnswer": "Add the flow of the fixtures you run at once, then size for your coldest-month temperature rise. Two showers at a 70 °F rise need 5 GPM, about 184,000 BTU/h of gas.",
+      "quickAnswer": "Add the hot water flow of the fixtures you run at once, then size for your coldest-month rise. Two showers at a 70 °F rise need about 3.9 GPM of hot water, about 145,000 BTU/h of gas.",
       "datePublished": "2026-11-13",
       "dateModified": "2026-11-13",
       "scripts": [
@@ -344,10 +344,10 @@
       "title": "Tankless vs Tank Water Heater",
       "summary": "Compare the cost of ownership of a tank, tankless and heat pump water heater with your state prices.",
       "metaTitle": "Tankless vs Traditional Water Heater: Cost | Hot Water Math",
-      "description": "Tankless vs traditional water heater: compare 10-year cost of ownership, break-even year and pros and cons for your state, household and energy prices.",
+      "description": "Tankless vs traditional water heater: compare 10-year cost of ownership, simple payback and pros and cons for your state, household and energy prices.",
       "h1": "Tankless vs traditional water heater",
       "subtitle": "Lifetime cost and break-even, by state.",
-      "quickAnswer": "For a typical gas home, tankless costs more over 10 years than a 50-gallon tank. In an electric home, a heat pump pays back in about 4 years.",
+      "quickAnswer": "For a typical gas home, tankless does not pay back its higher price within 10 years. In an electric home, a heat pump pays back in about 4 years.",
       "datePublished": "2026-11-13",
       "dateModified": "2026-11-13",
       "scripts": [
