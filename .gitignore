@@ -2,3 +2,6 @@ node_modules/
 .DS_Store
 *.log
 .env
+# Stray screenshots in the theme root would deploy publicly (audit F-22)
+/*.png
+!/screenshot.png
