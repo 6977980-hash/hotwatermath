@@ -7,6 +7,8 @@
 **Last completed phase:** Audit fix Phase 5 — speed and security (2026-11-14), the last phase of the 2026-11-14 site audit (`/mnt/project-files/hotwatermath/audit/2026-11-14/`). Style 0.17.2. All audit fix phases (1, 3, 4, 5; Phase 2's F-15 is an owner hPanel check) are done.
 **Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Google Search Console is verified and has about 4 weeks of data. Owner OKed the 4 drafts on 2026-11-14 10:34Z: `/solar-water-heater-cost/`, `/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/` are now `live` (style 0.17.3). Owner done: CDN flush, 4 screenshots deleted in File Manager, GSC sitemap submitted, Bing imported from GSC, Force HTTPS fine (F-15 closed). GA4 inside GTM is handled in its own thread; AdSense later.
 
+**Since then (2026-11-14, style 0.18.0):** desktop right column now holds an "On this page" list (sticky, active section highlighted) on tool, article, state and long utility pages; home page uses the full width for cards, table, trust strip and brand list. Ad S goes under the list once AdSense is set. See DECISIONS.md (layout).
+
 **What changed in audit fix Phase 5:**
 - F-22: removed `chart-mobile.png`, `data-360.png`, `embed-calculators-360.png`, `water-heater-installation-cost-index-360.png` from the theme root (none referenced); `.gitignore` ignores root `/*.png` except `screenshot.png`.
 - F-23: `inc/cleanup.php` `xmlrpc_methods` filter unsets `pingback.ping` and `pingback.extensions.getPingbacks`; `X-Pingback` header stays removed.
@@ -33,6 +35,7 @@
 - 2026-11-14 — Audit fix Phase 3 done — content and state pages: copy fixes, one rise and one "old" band, all tank sizes priced, state pages unique (Jaccard mean 0.37) with sourced code notes and utility rebates, tankless delay, lifespan sources, methodology TOC, DOE 2029 rule, solar cost page (draft).
 - 2026-11-14 — Audit fix Phase 4 done — expansion tank (and tankless, gas vs electric) first input inside 360×640, no empty Advertisement landmark, 56 px header; F-15 is a CDN-edge hop, left as optional owner check (style 0.17.1).
 - 2026-11-14 — Audit fix Phase 5 done — stray screenshots removed, XML-RPC pingbacks off, public pages DENY framing (embeds still frameable), HSTS includeSubDomains (style 0.17.2).
+- 2026-11-14 — Layout fix done — desktop "On this page" rail (sticky TOC) in the empty right column, wider home page (style 0.18.0).
 
 ## Template (copy this into "Current State" when you finish a phase)
 

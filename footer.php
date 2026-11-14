@@ -46,6 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 </footer>
 <script>
 (function(){var b=document.querySelector('.nav-toggle'),n=document.getElementById('site-nav');if(!b||!n)return;b.addEventListener('click',function(){var o=n.classList.toggle('is-open');b.setAttribute('aria-expanded',o?'true':'false');});document.querySelectorAll('a[href="#top"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();window.scrollTo(0,0);var s=document.querySelector('.skip-link');if(s)s.focus();});});})();
+(function(){var n=document.querySelector('.toc-rail');if(!n)return;var L={},H=[],c=null,t=false;n.querySelectorAll('a').forEach(function(a){var h=document.getElementById(a.hash.slice(1));if(h){L[h.id]=a;H.push(h);}});function u(){t=false;if(!n.offsetParent)return;var y=window.innerHeight*0.3,id=null;for(var i=0;i<H.length;i++){if(H[i].getBoundingClientRect().top<=y)id=H[i].id;else break;}var a=id?L[id]:null;if(a===c)return;if(c)c.removeAttribute('aria-current');c=a;if(a){a.setAttribute('aria-current','true');if(n.scrollHeight>n.clientHeight)n.scrollTop=Math.max(0,a.offsetTop-n.clientHeight/3);}}window.addEventListener('scroll',function(){if(!t){t=true;requestAnimationFrame(u);}},{passive:true});u();})();
 </script>
 <?php wp_footer(); ?>
 </body>

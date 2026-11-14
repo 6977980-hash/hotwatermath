@@ -10,10 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $hwm_entry = hwm_current();
 $hwm_slug  = (string) $hwm_entry['slug'];
 $hwm_out   = hwm_content( 'water-heater-installation-cost-state', $hwm_entry );
+$hwm_toc   = hwm_toc_prepare( $hwm_out );
 get_header();
 ?>
 <main id="main" class="container">
-	<div class="layout layout--sidebar">
+	<div class="layout<?php echo hwm_has_rail( $hwm_toc ) ? ' layout--sidebar' : ''; ?>">
 		<article>
 			<?php hwm_part( 'breadcrumb', array( 'entry' => $hwm_entry ) ); ?>
 			<?php hwm_part( 'page-intro', array( 'entry' => $hwm_entry ) ); ?>
@@ -32,7 +33,7 @@ get_header();
 			</div>
 			<?php hwm_part( 'related-tools', array( 'slugs' => $hwm_out['related'], 'heading' => 'Related calculators and guides' ) ); ?>
 		</article>
-		<?php hwm_ad_sidebar(); ?>
+		<?php hwm_part( 'rail', array( 'items' => $hwm_toc ) ); ?>
 	</div>
 </main>
 <?php

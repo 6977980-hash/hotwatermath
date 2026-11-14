@@ -371,3 +371,67 @@ function hwm_state_label( string $code, string $name ): string {
 	return '' !== $station ? $name . ' (' . $station . ' data)' : $name;
 }
 
+
+/* ---------- "On this page" rail (desktop right column) ---------- */
+
+/**
+ * Give every H2 in the content body an id and return the list for the "On this page" rail.
+ * Existing ids are kept; generated ids never clash with ids already on the page.
+ * $before / $after are extra [id, label] entries (calculator, FAQ, sources) printed by parts.
+ * Changes $out['html'] in place. Returns a list of ['id' => …, 'label' => …].
+ */
+function hwm_toc_prepare( array &$out, array $before = array() ): array {
+	$html = (string) ( $out['html'] ?? '' );
+	$used = array_flip( array( 'main', 'top', 'site-nav', 'calculator', 'faq-heading', 'sources-heading', 'related-heading', 'toc-title', 'toc-rail-title' ) );
+	if ( preg_match_all( '/\sid="([^"]+)"/', $html . ( $out['calculator_inputs'] ?? '' ), $m ) ) {
+		$used += array_flip( $m[1] );
+	}
+	$items = array();
+	foreach ( $before as $b ) {
+		$items[] = array( 'id' => (string) $b[0], 'label' => (string) $b[1] );
+	}
+	$out['html'] = (string) preg_replace_callback(
+		'#<h2\b([^>]*)>(.*?)</h2>#is',
+		static function ( array $h ) use ( &$items, &$used ): string {
+			$attrs = $h[1];
+			if ( str_contains( $attrs, 'toc-title' ) ) {
+				return $h[0];
+			}
+			$label = trim( (string) preg_replace( '/\s+/', ' ', html_entity_decode( wp_strip_all_tags( $h[2] ), ENT_QUOTES | ENT_HTML5, 'UTF-8' ) ) );
+			if ( '' === $label ) {
+				return $h[0];
+			}
+			if ( preg_match( '/\bid="([^"]+)"/', $attrs, $idm ) ) {
+				$id = $idm[1];
+			} else {
+				$base = sanitize_title( $label );
+				if ( strlen( $base ) > 60 ) {
+					$base = rtrim( substr( $base, 0, (int) strrpos( substr( $base, 0, 61 ), '-' ) ), '-' );
+				}
+				$base = '' !== $base ? $base : 'section';
+				$id   = $base;
+				for ( $n = 2; isset( $used[ $id ] ); $n++ ) {
+					$id = $base . '-' . $n;
+				}
+				$attrs .= ' id="' . esc_attr( $id ) . '"';
+			}
+			$used[ $id ] = true;
+			$items[]     = array( 'id' => $id, 'label' => $label );
+			return '<h2' . $attrs . '>' . $h[2] . '</h2>';
+		},
+		$html
+	);
+	if ( ! empty( $out['faq'] ) ) {
+		$items[] = array( 'id' => 'faq-heading', 'label' => 'Frequently asked questions' );
+	}
+	if ( ! empty( $out['sources'] ) ) {
+		$items[] = array( 'id' => 'sources-heading', 'label' => 'Sources' );
+	}
+	// A short page does not need a table of contents.
+	return count( $items ) >= 4 ? $items : array();
+}
+
+/** True when the right column has something to show: the "On this page" list or the sidebar ad. */
+function hwm_has_rail( array $toc ): bool {
+	return (bool) $toc || hwm_ad_enabled( 'S' );
+}
