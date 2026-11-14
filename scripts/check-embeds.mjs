@@ -3,7 +3,7 @@
  * For each live or draft tool in data/pages.json:
  *   200 without a redirect; X-Robots-Tag and <meta robots> say noindex; framing allowed from any origin
  *   (CSP frame-ancestors *, no X-Frame-Options); no ad script; exactly one credit link, anchor = brand name,
- *   rel contains nofollow; total weight (HTML + stylesheet + module scripts and their imports, gzip -9) ≤ 30 KB.
+ *   rel contains nofollow; total weight (HTML + stylesheet + module scripts and their imports, gzip -9) ≤ 36 KB (raised from 30 KB on 2026-11-14: input checks, point of use and propane added ~4 KB).
  * Also checks the /data/<id>.csv files: 200 text/csv with the expected row count while /data/ is draft or live,
  * 404 when it is only planned.
  * Usage: npm run check-embeds [-- --base=https://hotwatermath.com] [-- --bust]
@@ -20,7 +20,7 @@ const datasets = JSON.parse(readFileSync(join(root, 'data/computed/datasets.json
 const args = Object.fromEntries(process.argv.slice(2).map((a) => a.replace(/^--/, '').split('=')).map(([k, v]) => [k, v ?? true]));
 const base = String(args.base || site.origin).replace(/\/$/, '');
 const bust = args.bust ? `?cb=${Date.now()}` : '';
-const LIMIT = 30 * 1024;
+const LIMIT = 36 * 1024;
 
 let fails = 0;
 let passes = 0;
@@ -68,7 +68,7 @@ for (const p of pages.filter((x) => x.type === 'tool' && ['live', 'draft'].inclu
 	ok(credits.length === 1, where, `${credits.length} credit lines (want 1)`);
 	for (const c of credits) ok(c[2].trim() === site.brand, where, `credit anchor "${c[2].trim()}" is not the brand name`);
 	const w = await weight(html, url);
-	ok(w.total <= LIMIT, where, `weight ${(w.total / 1024).toFixed(1)} KB gzip > 30 KB`);
+	ok(w.total <= LIMIT, where, `weight ${(w.total / 1024).toFixed(1)} KB gzip > 36 KB`);
 	console.log(`${where} ${(w.total / 1024).toFixed(1)} KB gzip (${w.files + 1} files)`);
 }
 

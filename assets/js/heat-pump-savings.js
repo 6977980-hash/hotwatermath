@@ -53,7 +53,9 @@ export function describe(v, cfg) {
 	const headline = saving > 0
 		? `Saves about ${usd(saving)} a year; ${payback === 0 ? 'no extra cost to repay' : payback === null ? 'never pays back' : `pays back in about ${formatNumber(payback, 1)} years`}`
 		: `Costs about ${usd(-saving)} a year more to run than your ${curLabel}`;
-	const statusLabel = payback === null ? 'Does not pay back' : payback === 0 ? 'Cheaper from day one' : payback <= good ? 'Pays back quickly' : payback <= life ? 'Pays back within its life' : 'Pays back slowly';
+	const statusLabel0 = payback === null ? 'Does not pay back' : payback === 0 ? 'Cheaper from day one' : payback <= good ? 'Pays back quickly' : payback <= life ? 'Pays back within its life' : 'Pays back slowly';
+	// A cold space (S-5) lowers the label too: the saving shown is the best case there.
+	const statusLabel = status !== status0 ? `${statusLabel0} at best: cold space` : statusLabel0;
 	const explain = [
 		`With ${where} prices (${formatNumber(prices.usdPerKwh * 100, 1)}¢ per kWh${current === 'gas_tank' ? `, $${formatNumber(prices.usdPerTherm, 2)} per therm` : ''}), a ${size}-gallon heat pump costs about ${usd(hp.year)} a year to run against ${usd(cur.year)} for your ${curLabel}.`,
 		`Installed, it costs about ${usd(hpJob.typical)} against ${usd(altJob.typical)} for a new ${curLabel}${rebate ? `, less your ${usd(rebate)} rebate` : ''}: ${extra > 0 ? `${usd(extra)} more` : `${usd(-extra)} less`}.`,
