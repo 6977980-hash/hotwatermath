@@ -1,0 +1,335 @@
+{
+  "meta": {
+    "source": "DOE Federal Energy Management Program (FEMP), Solar Hot Water System Size and Life Cycle Costs calculator (June 2023): method, design defaults and solar resource by city; NREL Low-Cost Solar Water Heating R&D Roadmap (NREL/TP-5500-54793, 2012): installed cost; IRS Residential Clean Energy Credit page: tax credit status",
+    "sourceUrl": "https://www.energy.gov/cmei/femp/articles/solar-hot-water-system-calculator",
+    "sourceDate": "2026-11-14",
+    "notes": "Spreadsheet downloaded 2026-11-14 from https://www.energy.gov/sites/default/files/2023-06/femp-solar-hot-water-system-calculator-june-2023.xlsx. FEMP built it for federal buildings; we apply its equations to one household (our typical gallons per day, 120 °F setting, state incoming water temperature). One city per state: the FEMP city in the state's largest metro area. FEMP lists no city in Arkansas, Iowa or DC. DOE's consumer Energy Saver pages on solar water heaters returned 'Page not found' on 2026-11-14, so they are not cited."
+  },
+  "femp": {
+    "calculatorUrl": "https://www.energy.gov/sites/default/files/2023-06/femp-solar-hot-water-system-calculator-june-2023.xlsx",
+    "etaSolar": 0.3,
+    "utilization": 0.9,
+    "btuPerGallonF": 8.33,
+    "pumpKwhPerFt2Day": 0.001,
+    "omShareOfCostPerYear": 0.005,
+    "btuFt2PerKwhM2": 317.1003717472119,
+    "quotes": {
+      "design": "These are reasonable default values for the efficiency of the solar water heater (annual average) and the fraction of solar heat that can be used.",
+      "area": "Area of Solar Collector = daily load ÷ efficiency of solar water heater ÷ maximum daily solar insolation on tilt=latitude (cell D28: =D18/D22/D25*100000)",
+      "om": "Annual Operation & Maintenance Cost: 0.5% of initial cost per year",
+      "pump": "Annual Parasitic Pump Energy (cell D33: =D28*1/1000*365*3412/100000)",
+      "use": "Estimated Hot Water Use Gallons/Person/Day: House 15.8 (from NREL 50118)"
+    },
+    "checked": "2026-11-14",
+    "example": {
+      "gallonsPerDay": 1000,
+      "inletF": 60,
+      "hotF": 140,
+      "place": "Mesa, Arizona",
+      "areaFt2": 1148.38,
+      "solarThermsYear": 1973.8,
+      "pumpThermsYear": 14.3
+    }
+  },
+  "resource": {
+    "AK": {
+      "city": "Anchorage",
+      "iMaxKwhM2Day": 4.6,
+      "iAveKwhM2Day": 3
+    },
+    "AL": {
+      "city": "Huntsville",
+      "iMaxKwhM2Day": 5.7,
+      "iAveKwhM2Day": 4.8
+    },
+    "AZ": {
+      "city": "Phoenix",
+      "iMaxKwhM2Day": 7.5,
+      "iAveKwhM2Day": 6.5
+    },
+    "CA": {
+      "city": "Long Beach",
+      "iMaxKwhM2Day": 6.3,
+      "iAveKwhM2Day": 5.6
+    },
+    "CO": {
+      "city": "Denver",
+      "iMaxKwhM2Day": 6.1,
+      "iAveKwhM2Day": 5.5
+    },
+    "CT": {
+      "city": "Hartford",
+      "iMaxKwhM2Day": 5.4,
+      "iAveKwhM2Day": 4.4
+    },
+    "DE": {
+      "city": "Wilmington",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.6
+    },
+    "FL": {
+      "city": "Miami",
+      "iMaxKwhM2Day": 6.1,
+      "iAveKwhM2Day": 5.2
+    },
+    "GA": {
+      "city": "Atlanta",
+      "iMaxKwhM2Day": 5.8,
+      "iAveKwhM2Day": 5.1
+    },
+    "HI": {
+      "city": "Honolulu",
+      "iMaxKwhM2Day": 6.2,
+      "iAveKwhM2Day": 5.7
+    },
+    "ID": {
+      "city": "Boise",
+      "iMaxKwhM2Day": 7,
+      "iAveKwhM2Day": 5.1
+    },
+    "IL": {
+      "city": "Chicago",
+      "iMaxKwhM2Day": 5.7,
+      "iAveKwhM2Day": 4.4
+    },
+    "IN": {
+      "city": "Fort Wayne",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.3
+    },
+    "KS": {
+      "city": "Wichita",
+      "iMaxKwhM2Day": 6.3,
+      "iAveKwhM2Day": 5.2
+    },
+    "KY": {
+      "city": "Lexington-Fayette",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.5
+    },
+    "LA": {
+      "city": "New Orleans",
+      "iMaxKwhM2Day": 5.7,
+      "iAveKwhM2Day": 5
+    },
+    "MA": {
+      "city": "Boston",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.6
+    },
+    "MD": {
+      "city": "Baltimore",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.6
+    },
+    "ME": {
+      "city": "Bangor",
+      "iMaxKwhM2Day": 5,
+      "iAveKwhM2Day": 3.7
+    },
+    "MI": {
+      "city": "Detroit",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.2
+    },
+    "MN": {
+      "city": "Duluth",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.4
+    },
+    "MO": {
+      "city": "St. Louis",
+      "iMaxKwhM2Day": 5.9,
+      "iAveKwhM2Day": 4.8
+    },
+    "MS": {
+      "city": "Natchez",
+      "iMaxKwhM2Day": 5.4,
+      "iAveKwhM2Day": 4.6
+    },
+    "MT": {
+      "city": "Billings",
+      "iMaxKwhM2Day": 6.5,
+      "iAveKwhM2Day": 5
+    },
+    "NC": {
+      "city": "Charlotte",
+      "iMaxKwhM2Day": 5.7,
+      "iAveKwhM2Day": 5
+    },
+    "ND": {
+      "city": "Fargo",
+      "iMaxKwhM2Day": 6,
+      "iAveKwhM2Day": 4.6
+    },
+    "NE": {
+      "city": "Omaha",
+      "iMaxKwhM2Day": 6,
+      "iAveKwhM2Day": 4.9
+    },
+    "NH": {
+      "city": "Concord",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.6
+    },
+    "NJ": {
+      "city": "Newark",
+      "iMaxKwhM2Day": 5.4,
+      "iAveKwhM2Day": 4.5
+    },
+    "NM": {
+      "city": "Albuquerque",
+      "iMaxKwhM2Day": 7.2,
+      "iAveKwhM2Day": 6.4
+    },
+    "NV": {
+      "city": "Las Vegas",
+      "iMaxKwhM2Day": 7.4,
+      "iAveKwhM2Day": 6.5
+    },
+    "NY": {
+      "city": "New York",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.6
+    },
+    "OH": {
+      "city": "Columbus",
+      "iMaxKwhM2Day": 5.4,
+      "iAveKwhM2Day": 4.2
+    },
+    "OK": {
+      "city": "Oklahoma City",
+      "iMaxKwhM2Day": 6.3,
+      "iAveKwhM2Day": 5.4
+    },
+    "OR": {
+      "city": "Portland",
+      "iMaxKwhM2Day": 5.8,
+      "iAveKwhM2Day": 3.9
+    },
+    "PA": {
+      "city": "Philadelphia",
+      "iMaxKwhM2Day": 5.5,
+      "iAveKwhM2Day": 4.6
+    },
+    "RI": {
+      "city": "Providence",
+      "iMaxKwhM2Day": 5.5,
+      "iAveKwhM2Day": 4.5
+    },
+    "SC": {
+      "city": "Columbia",
+      "iMaxKwhM2Day": 5.9,
+      "iAveKwhM2Day": 5.1
+    },
+    "SD": {
+      "city": "Sioux Falls",
+      "iMaxKwhM2Day": 6.1,
+      "iAveKwhM2Day": 4.8
+    },
+    "TN": {
+      "city": "Memphis",
+      "iMaxKwhM2Day": 6,
+      "iAveKwhM2Day": 5
+    },
+    "TX": {
+      "city": "Houston",
+      "iMaxKwhM2Day": 5.5,
+      "iAveKwhM2Day": 4.8
+    },
+    "UT": {
+      "city": "Salt Lake City",
+      "iMaxKwhM2Day": 6.7,
+      "iAveKwhM2Day": 5.3
+    },
+    "VA": {
+      "city": "Norfolk",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.8
+    },
+    "VT": {
+      "city": "Burlington",
+      "iMaxKwhM2Day": 5.6,
+      "iAveKwhM2Day": 4.3
+    },
+    "WA": {
+      "city": "Seattle",
+      "iMaxKwhM2Day": 5.7,
+      "iAveKwhM2Day": 3.7
+    },
+    "WI": {
+      "city": "Madison",
+      "iMaxKwhM2Day": 5.8,
+      "iAveKwhM2Day": 4.5
+    },
+    "WV": {
+      "city": "Huntington",
+      "iMaxKwhM2Day": 5.4,
+      "iAveKwhM2Day": 4.3
+    },
+    "WY": {
+      "city": "Cheyenne",
+      "iMaxKwhM2Day": 6.1,
+      "iAveKwhM2Day": 5.3
+    }
+  },
+  "resourceNote": "Average and maximum daily solar insolation on a collector tilted at latitude, kWh/m²/day, as listed on the calculator's 'Resource Data' tab.",
+  "installedCost": {
+    "low": 6000,
+    "high": 10000,
+    "year": 2012,
+    "source": "NREL, Low-Cost Solar Water Heating Research and Development Roadmap (NREL/TP-5500-54793, August 2012)",
+    "sourceUrl": "https://www.osti.gov/servlets/purl/1219746",
+    "quote": "A typical residential SWH system produces 50-100 gal/day of hot water and costs $6,000-$10,000 installed before rebates and incentives",
+    "quoteBreakEven": "SWH systems need to drop to $1,000-$3,000 for a significant number of U.S. SWHs to be at break-even cost with natural gas",
+    "marketShareQuote": "the solar market makes up less than 1% of the U.S. water heating market (EIA 2009)",
+    "checked": "2026-11-14"
+  },
+  "costGuides": [
+    {
+      "label": "Angi and HomeAdvisor (same data)",
+      "low": 1780,
+      "high": 5722,
+      "quote": "Solar water heater installation costs between $1,780 and $5,722 for your home, with most homeowners spending around $3,706",
+      "sourceUrl": "https://www.homeadvisor.com/cost/plumbing/install-a-solar-water-heater/",
+      "checked": "2026-11-14"
+    },
+    {
+      "label": "HomeGuide",
+      "low": 3000,
+      "high": 9000,
+      "quote": "Solar water heaters for homes cost $3,000 to $9,000 with installation",
+      "sourceUrl": "https://homeguide.com/costs/solar-water-heater-cost",
+      "checked": "2026-11-14"
+    },
+    {
+      "label": "Fixr",
+      "low": 8000,
+      "high": 10000,
+      "quote": "Solar water heater installation costs range from $8,000 to $10,000",
+      "sourceUrl": "https://www.fixr.com/costs/solar-water-heater-installation",
+      "checked": "2026-11-14"
+    }
+  ],
+  "federalCredit": {
+    "name": "Residential Clean Energy Credit (IRC 25D)",
+    "percent": 30,
+    "lastDay": "2025-12-31",
+    "sourceUrl": "https://www.irs.gov/credits-deductions/residential-clean-energy-credit",
+    "quotes": [
+      "The Residential Clean Energy Credit equals 30% of the costs of new, qualified clean energy property for your home installed anytime from 2022 through December 31, 2025.",
+      "The credit is not available for any property placed in service after December 31, 2025.",
+      "Solar water heaters must be certified by the Solar Rating Certification Corporation or a comparable entity endorsed by your state."
+    ],
+    "checked": "2026-11-14"
+  },
+  "sizing": {
+    "iMaxBasis": "FEMP Scenario 1 sizes the collector so solar covers the full load on the sunniest day; on an average day it covers less.",
+    "solarStorageTankSample": {
+      "label": "Richmond 80 gal solar storage tank with a 4,500 W backup element (S80U-1)",
+      "priceUsd": 1189,
+      "listingUrl": "https://www.homedepot.com/p/Richmond-80-Gal-Tall-4500-Watt-Solar-Electric-Water-Heater-with-Universal-Connect-and-6-Year-Warranty-S80U-1/202959691",
+      "checked": "2026-11-14"
+    }
+  }
+}

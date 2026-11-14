@@ -47,6 +47,7 @@ Format: `URL` — **Primary keyword** (bucket) — secondary keywords — type �
 10. `/gas-water-heater-installation-cost` — **gas water heater installation cost** (5K) — ARTICLE
 11. `/electric-water-heater-installation-cost` — **electric water heater installation cost** (5K) — ARTICLE
 12. `/heat-pump-water-heater-cost` — **heat pump water heater cost** (5K) — heat pump water heater tax credit (500), tax credit 2026 (500), savings calculator, payback, 50/80 gallon heat pump water heater (500 each), vs gas/electric (500 each) — ARTICLE + savings calc
+   - 12b. `/solar-water-heater-cost` — **solar water heater cost** (SERP 2026-11-14: cost-guide articles) — solar water heater installation cost, solar hot water heater cost, payback, tax credit 2026, solar vs heat pump water heater, is a solar water heater worth it — ARTICLE (no own calculator; state payback table from DOE FEMP equations) — audit 2026-11-14 S-12, draft until owner OK. Owns solar intents only; heat pump intents stay on page 12.
 13. `/40-vs-50-gallon-water-heater` — **40 gallon vs 50 gallon water heater** (500) — 50 vs 80 gallon (50) — ARTICLE
 14. `/gas-line-size-for-tankless-water-heater` — **gas line size for tankless water heater** (500, $9 bid) — ARTICLE + sizing table — **safety-critical: Phase 6d, CLAUDE.md §8b**
 15. `/tankless-water-heater-electrical-requirements` — tankless water heater breaker size, amp draw, wire size — ARTICLE + table — **safety-critical: Phase 6d, CLAUDE.md §8b**

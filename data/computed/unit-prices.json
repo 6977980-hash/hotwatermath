@@ -7,6 +7,14 @@
     "lastReviewed": "2026-11-12"
   },
   "units": {
+    "gas_tank_30": {
+      "type": "gas_tank",
+      "label": "30-gallon gas tank (natural gas, standard vent)",
+      "low": 619,
+      "typical": 639,
+      "high": 789,
+      "n": 3
+    },
     "gas_tank_40": {
       "type": "gas_tank",
       "label": "40-gallon gas tank (natural gas, standard vent)",
@@ -23,12 +31,28 @@
       "high": 999,
       "n": 9
     },
+    "gas_tank_55": {
+      "type": "gas_tank",
+      "label": "55-gallon gas tank (natural gas, standard vent)",
+      "low": 809,
+      "typical": 959,
+      "high": 1209,
+      "n": 3
+    },
     "gas_tank_75": {
       "type": "gas_tank",
       "label": "75-gallon gas tank (natural gas, standard vent)",
       "low": 1149,
       "typical": 1319,
       "high": 1459,
+      "n": 3
+    },
+    "electric_tank_30": {
+      "type": "electric_tank",
+      "label": "30-gallon electric tank",
+      "low": 479,
+      "typical": 509,
+      "high": 529,
       "n": 3
     },
     "electric_tank_40": {
@@ -46,6 +70,14 @@
       "typical": 819,
       "high": 1429,
       "n": 22
+    },
+    "electric_tank_55": {
+      "type": "electric_tank",
+      "label": "55-gallon electric tank",
+      "low": 859,
+      "typical": 937,
+      "high": 1069,
+      "n": 4
     },
     "heat_pump_50": {
       "type": "heat_pump",
@@ -116,6 +148,12 @@
       ],
       "rows": [
         {
+          "label": "30-gallon gas tank (natural gas, standard vent)",
+          "typical": "639",
+          "range": "619–789",
+          "n": 3
+        },
+        {
           "label": "40-gallon gas tank (natural gas, standard vent)",
           "typical": "759",
           "range": "531–1,019",
@@ -128,9 +166,21 @@
           "n": 9
         },
         {
+          "label": "55-gallon gas tank (natural gas, standard vent)",
+          "typical": "959",
+          "range": "809–1,209",
+          "n": 3
+        },
+        {
           "label": "75-gallon gas tank (natural gas, standard vent)",
           "typical": "1,319",
           "range": "1,149–1,459",
+          "n": 3
+        },
+        {
+          "label": "30-gallon electric tank",
+          "typical": "509",
+          "range": "479–529",
           "n": 3
         },
         {
@@ -144,6 +194,12 @@
           "typical": "819",
           "range": "559–1,429",
           "n": 22
+        },
+        {
+          "label": "55-gallon electric tank",
+          "typical": "937",
+          "range": "859–1,069",
+          "n": 4
         },
         {
           "label": "50-gallon heat pump (hybrid)",

@@ -70,7 +70,38 @@ $hwm_dr   = 'decision-rules';
 	<dd>A rule we chose ourselves because no agency publishes one. We mark each one as ours and explain the reasoning.</dd>
 </dl>
 
-<h2>Which physical constants do the calculators use?</h2>
+<nav class="toc" aria-labelledby="toc-title">
+	<h2 id="toc-title" class="toc-title">On this page</h2>
+	<ol>
+		<li><a href="#constants">Which physical constants do the calculators use?</a></li>
+		<li><a href="#cross-checks">Do our formulas match published examples?</a></li>
+		<li><a href="#calculators">How each calculator works</a>
+			<ol>
+				<li><a href="#tankless-water-heater-size-calculator">Tankless water heater size</a></li>
+				<li><a href="#water-heater-size-calculator">Tank water heater size</a></li>
+				<li><a href="#water-heater-age-calculator">Water heater age</a></li>
+				<li><a href="#repair-or-replace-water-heater">Repair or replace</a></li>
+				<li><a href="#water-heater-cost-calculator">Water heater cost</a></li>
+				<li><a href="#gas-vs-electric-water-heater">Gas vs electric operating cost</a></li>
+				<li><a href="#tankless-vs-tank-water-heater">Tankless vs tank cost of ownership</a></li>
+				<li><a href="#heat-pump-water-heater-cost">Heat pump water heater savings and payback</a></li>
+				<li><a href="#water-heater-expansion-tank-size">Thermal expansion tank size</a></li>
+				<li><a href="#hot-water-runs-out-fast">Winter vs summer shower table (hot water runs out fast)</a></li>
+				<li><a href="#safety-pages">Safety pages: tank setting, relief valve, heating element, gas line and electrical tables</a></li>
+				<li><a href="#state-cost-pages">State cost pages (installation cost by state)</a></li>
+				<li><a href="#cost-index">Water heater cost index by state</a></li>
+				<li><a href="#solar-water-heater-cost">Solar water heater cost and payback</a></li>
+			</ol>
+		</li>
+		<li><a href="#data-sources">Where does our data come from?</a></li>
+		<li><a href="#assumptions">Which numbers are our own assumptions?</a></li>
+		<li><a href="#review">How often do we review the numbers?</a></li>
+		<li><a href="#limits">What are the limits of these calculators?</a></li>
+		<li><a href="#report-a-mistake">How to report a mistake</a></li>
+	</ol>
+</nav>
+
+<h2 id="constants">Which physical constants do the calculators use?</h2>
 <p>Every water heater calculation starts from the energy needed to warm water. One British thermal unit (BTU) raises one pound of water by 1 °F, and one gallon of water weighs <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> pounds. The other constants below are unit definitions.</p>
 <div class="table-wrap" role="region" aria-label="Constants used in every formula" tabindex="0">
 <table>
@@ -86,11 +117,11 @@ $hwm_dr   = 'decision-rules';
 </table>
 </div>
 
-<h2>Do our formulas match published examples?</h2>
+<h2 id="cross-checks">Do our formulas match published examples?</h2>
 <p>Yes, closely. Before any calculator is built we test the shared formulas against worked examples published by the Department of Energy, AHRI and a manufacturer spec sheet. The table shows our answer next to the published one. Small differences come from rounding in the published figures.</p>
 <?php echo hwm_table( 'computed/cross-checks', 'formulaChecks' ); // phpcs:ignore -- escaped in the part. ?>
 
-<h2>How each calculator works</h2>
+<h2 id="calculators">How each calculator works</h2>
 <p>Each section below covers one tool: its formula, the data it uses, its limits, and a table for the manufacturer cross-check. The cross-check is run with at least three test cases from manufacturer sizing literature when the tool is built, and again whenever its formula or data change.</p>
 <p><strong>Input checks.</strong> Every calculator reads numbers the same way: a dollar sign, spaces and thousands commas are ignored, so "$1,200" reads as 1200. Each field has a plausible range written in one data file (for example <?php echo esc_html( hwm_value( 'input-limits', 'tools.tankless-water-heater-size-calculator.inlet.min' ) ); ?> to <?php echo esc_html( hwm_value( 'input-limits', 'tools.tankless-water-heater-size-calculator.inlet.max' ) ); ?> °F for incoming water, or <?php echo esc_html( hwm_value( 'input-limits', 'tools.water-heater-expansion-tank-size.supply.min' ) ); ?> to <?php echo esc_html( hwm_value( 'input-limits', 'tools.water-heater-expansion-tank-size.supply.max' ) ); ?> psi for supply pressure, the usual relief valve setting). A value outside its range, or text that is not a number, is marked on the field and the result asks you to fix it; we never swap in a default behind your back. An empty optional field uses the default shown next to it.</p>
 
@@ -112,7 +143,7 @@ $hwm_dr   = 'decision-rules';
 		<li>Yearly average water temperature = yearly average air temperature + <?php echo esc_html( hwm_value( $hwm_gw, 'correlation.offsetF' ) ); ?> °F.</li>
 		<li>Coldest month = yearly average − ratio × (the gap between the warmest and coldest monthly air averages ÷ 2), where ratio = <?php echo esc_html( hwm_value( $hwm_gw, 'correlation.ratioBase', 2 ) ); ?> + <?php echo esc_html( hwm_value( $hwm_gw, 'correlation.ratioSlope', 2 ) ); ?> × (yearly average air temperature − <?php echo esc_html( hwm_value( $hwm_gw, 'correlation.refTempF' ) ); ?> °F).</li>
 	</ul>
-	<p>Tankless sizing uses the coldest month, because a heater sized for the yearly average runs out of capacity in winter. We use statewide air temperatures except for Alaska (Anchorage), Hawaii (Honolulu) and Washington, DC (Reagan National Airport), where NOAA has no statewide series or the statewide figure is dominated by places where almost nobody lives.</p>
+	<p>Tankless sizing uses the coldest month, because a heater sized for the yearly average runs out of capacity in winter. We use statewide air temperatures except for Alaska (Anchorage), Hawaii (Honolulu) and Washington, DC (Reagan National Airport), where NOAA has no statewide series or the statewide figure is dominated by places where almost nobody lives. The calculators' state lists name the city for those three. We rechecked Honolulu against NOAA on 2026-11-14: our monthly air normals match NOAA's 1991–2020 series (coldest month <?php echo esc_html( hwm_value( 'groundwater-temp-by-state', 'states.HI.monthlyNormalsF.0' ) ); ?> °F). The correlation then puts Honolulu's coldest-month incoming water at <?php echo esc_html( hwm_value( 'computed/inlet-temps', 'states.HI.coldestMonth' ) ); ?> °F, warmer than the air, because it was fitted to mainland climates; in Hawaii, enter your own incoming temperature if you know it.</p>
 	<details>
 		<summary>Estimated incoming water temperature for all 50 states and DC</summary>
 		<?php echo hwm_table( 'computed/inlet-temps', 'inletTemps' ); // phpcs:ignore ?>
@@ -139,7 +170,7 @@ $hwm_dr   = 'decision-rules';
 	<p><strong>Your shower head and a big tub.</strong> The AHRI shower figure assumes a standard head of <?php echo esc_html( hwm_value( 'peak-hour-demand', 'showerFlow.baseGpm', 1 ) ); ?> GPM (our assumption about the worksheet); if you type your head's flow, shower gallons scale with it. A large soaking tub is added as its gallons × the hot share at <?php echo esc_html( hwm_value( 'peak-hour-demand', 'largeTub.useTempF' ) ); ?> °F, up to <?php echo esc_html( hwm_value( 'peak-hour-demand', 'largeTub.maxGallons' ) ); ?> gallons (Rheem).</p>
 	<p><strong>Limitations.</strong> Your busiest hour is a guess you make about your own habits. FHR varies between models of the same size, so check the label of the unit you plan to buy. Federal efficiency rules effectively require large electric storage tanks to be heat pump models, which is why the electric rows stop at <?php echo esc_html( hwm_value( 'uef-ranges', 'federalMinimums.electricResistanceMaxGallons' ) ); ?> gallons.</p>
 	<p><strong>Household presets.</strong> Picking a household size fills in a typical busiest hour. These presets are our assumption, set so that the peak-hour demand falls inside American Water Heater's first hour rating range for the same family size; you can change every count. An optional <?php echo esc_html( hwm_value( 'computed/water-heater-size-calculator', 'defaultCase.marginPct' ) ); ?>% margin, also our assumption, is offered for homes that often run several uses at once.</p>
-	<p>The cross-check below compares our results with three manufacturers' household guides (American's first hour rating ranges, Rheem's gas tank sizes, A. O. Smith's tank volumes) and with Rheem's worked example. Matches against American are expected, because the presets are tuned to it; Rheem and A. O. Smith are independent checks.</p>
+	<p>The cross-check below compares our results with three manufacturers' household guides (American's first hour rating ranges, Rheem's gas tank sizes, A. O. Smith's tank volumes) and with Rheem's worked example. Because the presets were set to land inside American's ranges, an American match is not counted as confirmation: only the Rheem and A. O. Smith rows are independent checks, and the table marks the American rows as consistency checks. The tank sizes behind each result come from a small spec sheet sample (one maker's gas and electric lines, several brands for heat pumps), so the result says how many models it rests on.</p>
 	<?php $hwm_xfilled( 'water-heater-size-calculator', 'tank sizing (American, Rheem, A. O. Smith sizing guides)' ); ?>
 </section>
 
@@ -168,12 +199,12 @@ $hwm_dr   = 'decision-rules';
 	<ol>
 		<li>A leaking tank is always a replacement, because the tank itself cannot be repaired. So is a heater that was flooded, as A. O. Smith's manual requires.</li>
 		<li>Replace when the repair costs more than <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.repairShareAlways', 2 ) ); ?> × the price of a new installed unit.</li>
-		<li>Replace when the heater has used at least <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.ageShare', 2 ) ); ?> × its expected life and the repair costs more than <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.repairShareWhenOld', 2 ) ); ?> × the price of a new one.</li>
+		<li>Replace when the heater has used at least <?php echo esc_html( hwm_value( 'lifespans', 'statusBands.oldFrom', 2 ) ); ?> × its expected life and the repair costs more than <?php echo esc_html( hwm_value( $hwm_dr, 'repairOrReplace.repairShareWhenOld', 2 ) ); ?> × the price of a new one.</li>
 		<li>A heater at or past the top of its type's life range (for example <?php echo esc_html( hwm_value( $hwm_life, 'types.gas_tank.high' ) ); ?> years for a tank) is shown as "replace soon", whatever the quote.</li>
 		<li>An old heater with a cheap repair is shown as borderline. Anything else is a repair.</li>
 		<li>Rusty hot water at any age, or rumbling and popping once the heater is old, are signs Rheem lists for replacing a heater; ticking one moves the answer one step toward replacing (repair to borderline, borderline to replace).</li>
 	</ol>
-	<p><strong>Inputs.</strong> Typical life comes from DOE (see the age calculator above). The new-unit price defaults to the typical installed price of a like-for-like replacement at U.S. average costs, from the cost calculator's model below; type a real quote to replace it. The running-cost comparison uses DOE's test-day use (<?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day at a <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.riseF' ) ); ?> °F rise), the median UEF of each type and U.S. average EIA prices: yearly cost = gallons × 365 × <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> × rise ÷ UEF, converted to kWh or therms and multiplied by the price.</p>
+	<p><strong>Inputs.</strong> Typical life comes from DOE (see the age calculator above). The new-unit price defaults to the typical installed price of a like-for-like replacement at U.S. average costs, from the cost calculator's model below; type a real quote to replace it. The running-cost comparison uses DOE's typical household use (<?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day) heated <?php echo esc_html( hwm_value( 'computed/repair-or-replace-water-heater', 'client.use.riseF' ) ); ?> °F, from the <?php echo esc_html( hwm_value( 'computed/repair-or-replace-water-heater', 'client.use.inletF' ) ); ?> °F U.S. average incoming water to the <?php echo esc_html( hwm_value( 'computed/repair-or-replace-water-heater', 'client.use.setpointF' ) ); ?> °F setting: the same rise the gas vs electric calculator uses, so both tools give the same yearly cost, the median UEF of each type and U.S. average EIA prices: yearly cost = gallons × 365 × <?php echo esc_html( $hwm_k( 'lbPerGallon', 2 ) ); ?> × rise ÷ UEF, converted to kWh or therms and multiplied by the price.</p>
 	<?php echo hwm_table( 'computed/repair-or-replace-water-heater', 'limits' ); // phpcs:ignore ?>
 	<p><strong>Limitations.</strong> The thresholds are judgment calls, not measured data. Safety problems, such as a relief valve that keeps discharging, override any cost rule. A fuel switch or a hard install costs more than the like-for-like price, so a real quote gives a fairer answer.</p>
 	<p>The cross-check below runs our rules on cases that Rheem's repair-or-replace guide and A. O. Smith's manual answer directly. One case differs on purpose, and the table says why.</p>
@@ -210,7 +241,7 @@ $hwm_dr   = 'decision-rules';
 		<li><strong>Energy used</strong> = heat needed ÷ UEF, then ÷ <?php echo esc_html( $hwm_k( 'btuPerTherm' ) ); ?> for therms of gas or ÷ <?php echo esc_html( $hwm_k( 'btuPerKwh' ) ); ?> for kWh of electricity.</li>
 		<li><strong>Yearly cost</strong> = energy used × your price per therm or per kWh.</li>
 	</ol>
-	<p>The default hot water use is <?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day, which DOE FEMP calls typical household use. It is also the medium draw pattern in DOE's test procedure. The default rise is <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.riseF' ) ); ?> °F, the rise in the official efficiency test (<?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.inletF' ) ); ?> °F in, <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.outletF' ) ); ?> °F out). With your state's incoming water temperature and your setpoint, the tool uses your real rise instead.</p>
+	<p>The default hot water use is <?php echo esc_html( hwm_value( 'hot-water-use', 'typicalHouseholdGallonsPerDay.value' ) ); ?> gallons a day, which DOE FEMP calls typical household use. It is also the medium draw pattern in DOE's test procedure. With no state picked, the incoming water is <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.inletF' ) ); ?> °F, the supply temperature in DOE's efficiency test, heated to your setting (<?php echo esc_html( hwm_value( 'computed/repair-or-replace-water-heater', 'client.use.setpointF' ) ); ?> °F by default), a <?php echo esc_html( hwm_value( 'computed/repair-or-replace-water-heater', 'client.use.riseF' ) ); ?> °F rise. We use the setting, not DOE's <?php echo esc_html( hwm_value( 'hot-water-use', 'testConditions.outletF' ) ); ?> °F test outlet, because most homes run at the lower setting; the repair or replace tool uses the same rise. Pick your state and the tool uses its incoming water temperature instead.</p>
 	<?php echo hwm_table( $hwm_ref, 'drawPatterns' ); // phpcs:ignore ?>
 	<p>Default efficiency by type is the median of real models: manufacturer spec sheets for standard tanks and the ENERGY STAR certified list for high-efficiency gas, heat pump and gas tankless units. Electric tankless units are not ENERGY STAR certified, so their default stays close to the federal minimum.</p>
 	<?php echo hwm_table( 'computed/uef-defaults', 'uef' ); // phpcs:ignore ?>
@@ -330,7 +361,20 @@ $hwm_dr   = 'decision-rules';
 	<p>Every table behind the index is a CSV on the <?php echo hwm_link( 'data', 'data downloads page' ); // phpcs:ignore ?>.</p>
 </section>
 
-<h2>Where does our data come from?</h2>
+<section id="solar-water-heater-cost">
+	<h3>Solar water heater cost and payback</h3>
+	<p>The <?php echo hwm_link( 'solar-water-heater-cost', 'solar water heater cost guide' ); // phpcs:ignore ?> applies the equations of DOE FEMP's <a href="<?php echo esc_url( (string) hwm_raw( 'solar-water-heating', 'meta.sourceUrl' ) ); ?>" rel="noopener">solar hot water calculator</a> (built for federal buildings) to one typical household in each state, with FEMP's own sun data for one city per state:</p>
+	<ol>
+		<li><strong>Load</strong> = gallons a day × <?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.btuPerGallonF' ) ); ?> × (setting − incoming water) ÷ 100,000 therms.</li>
+		<li><strong>Collector area</strong> = load ÷ collector efficiency (<?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.etaSolar' ) ); ?>) ÷ the city's maximum daily sunshine, so solar covers the whole load on the sunniest day (FEMP Scenario 1).</li>
+		<li><strong>Solar heat a year</strong> = area × average daily sunshine × efficiency × 365 × usable share (<?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.utilization' ) ); ?>). Pump electricity = area × <?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.pumpKwhPerFt2Day' ) ); ?> kWh per ft² per day.</li>
+		<li><strong>Yearly saving</strong> = solar heat ÷ the backup's UEF × the state's EIA price − pump electricity − upkeep (<?php echo esc_html( (string) ( (float) hwm_value( 'solar-water-heating', 'femp.omShareOfCostPerYear' ) * 100 ) ); ?>% of the system cost a year, FEMP). Payback = (system cost − a new standard tank) ÷ yearly saving (<code>formulas.solarWaterHeating</code>, <code>formulas.solarYearlySaving</code>).</li>
+	</ol>
+	<p><strong>Cross-check.</strong> For the spreadsheet's own example (<?php echo esc_html( number_format( (float) hwm_value( 'solar-water-heating', 'femp.example.gallonsPerDay' ) ) ); ?> gallons a day, <?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.example.inletF' ) ); ?> to <?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.example.hotF' ) ); ?> °F, <?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.example.place' ) ); ?>) our code returns FEMP's collector area (<?php echo esc_html( number_format( (float) hwm_value( 'solar-water-heating', 'femp.example.areaFt2' ), 2 ) ); ?> ft²), solar heat (<?php echo esc_html( number_format( (float) hwm_value( 'solar-water-heating', 'femp.example.solarThermsYear' ), 1 ) ); ?> therms a year) and pump energy (<?php echo esc_html( hwm_value( 'solar-water-heating', 'femp.example.pumpThermsYear' ) ); ?> therms a year); a unit test keeps it that way. FEMP counts the pump at the fuel price; we price it at the electricity rate, which is what a home pays.</p>
+	<p><strong>Limitations.</strong> The installed cost is NREL's <?php echo esc_html( hwm_value( 'solar-water-heating', 'installedCost.year' ) ); ?> national range ($<?php echo esc_html( number_format( (float) hwm_value( 'solar-water-heating', 'installedCost.low' ) ) ); ?>–$<?php echo esc_html( number_format( (float) hwm_value( 'solar-water-heating', 'installedCost.high' ) ) ); ?>), not adjusted for inflation or state, because no newer public figure exists; we use its middle. Cost guides are shown beside it for comparison only. FEMP lists no city for <?php echo esc_html( hwm_value( 'computed/solar-water-heater-cost', 'figures.missing' ) ); ?>.</p>
+</section>
+
+<h2 id="data-sources">Where does our data come from?</h2>
 <p>Every number lives in a data file with a named source, a link and the date we last checked it. We prefer government sources first, then codes and standards, then manufacturer spec sheets. Other websites' cost guides are never used as the source of a number.</p>
 <?php
 $hwm_files = array(
@@ -386,7 +430,7 @@ $hwm_files = array(
 </table>
 </div>
 
-<h2>Which numbers are our own assumptions?</h2>
+<h2 id="assumptions">Which numbers are our own assumptions?</h2>
 <p>A few numbers on this site are our judgment, not measured data, because no agency publishes them. We list them here so you can disagree with them, and every calculator lets you override them.</p>
 <div class="table-wrap" role="region" aria-label="Editorial assumptions" tabindex="0">
 <table>
@@ -406,7 +450,7 @@ $hwm_files = array(
 </table>
 </div>
 
-<h2>How often do we review the numbers?</h2>
+<h2 id="review">How often do we review the numbers?</h2>
 <ul>
 	<li><strong>Every three months:</strong> energy prices, equipment and installation costs, and tax credits or rebates.</li>
 	<li><strong>Once a year:</strong> everything else, including flow rates, incoming water temperatures, efficiency ratings, lifespans and serial number formats.</li>
@@ -414,7 +458,7 @@ $hwm_files = array(
 </ul>
 <p>The "Last checked" date of each source is in the data file table above. A tool's "Last verified" date, shown at the bottom of each calculator, is the day its cross-check was last run.</p>
 
-<h2>What are the limits of these calculators?</h2>
+<h2 id="limits">What are the limits of these calculators?</h2>
 <ul>
 	<li>Results are planning estimates. Your pipes, water pressure, local code and the exact model you buy all change the real answer.</li>
 	<li>State averages, such as incoming water temperature or energy prices, hide local variation. Use your own measured value or your bill's rate when you have one.</li>
@@ -422,7 +466,7 @@ $hwm_files = array(
 	<li>We are not plumbers or electricians, and nobody in the trade has reviewed these pages yet. We do not give instructions for gas, venting or electrical work beyond what the codes and manufacturer manuals say. Confirm sizing and code requirements with a licensed professional in your area.</li>
 </ul>
 
-<h2>How to report a mistake</h2>
+<h2 id="report-a-mistake">How to report a mistake</h2>
 <p>If a number does not match your manufacturer's literature or a source we cite, email <a href="mailto:<?php echo esc_attr( $hwm_email ); ?>"><?php echo esc_html( $hwm_email ); ?></a> with the page and the source. We check it, fix it if we are wrong, and update the page's date. More on how we handle sources and corrections is in <?php echo $hwm_link( 'editorial-policy', 'our editorial policy' ); // phpcs:ignore ?>, and who builds these tools is on <?php echo $hwm_link( 'about', 'the about page' ); // phpcs:ignore ?>. All tools are listed on <?php echo $hwm_link( 'calculators', 'the calculators page' ); // phpcs:ignore ?>.</p>
 <?php
 $sources = array(

@@ -77,6 +77,7 @@
     "slug": "ohio",
     "url": "/water-heater-installation-cost/ohio/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 7,
     "population": "11,900,510",
     "popMillion": "11.9",
@@ -289,12 +290,41 @@
       "quote": "",
       "summary": "We could not find a current status page from the Ohio Department of Development on the check date, and third-party trackers disagree. Ask the department or check the ENERGY STAR Rebate Finder before you count on a rebate."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "cleveland-permit",
+        "heading": "Cleveland requires a permit for a replaced water heater",
+        "text": "Cleveland's Division of Construction Permitting lists new or replaced water heaters among the jobs that need a plumbing permit, and gas or water piping may also need a separate permit from the city's Division of Water. Ohio sets the residential code statewide, but each city or county building department runs its own permits and fees.",
+        "source": "City of Cleveland, Department of Building and Housing: plumbing permits",
+        "sourceUrl": "https://www.clevelandohio.gov/city-hall/departments/building-housing/divisions/plumbing-permits",
+        "quote": "Permits are also necessary for new, extended, or repaired gas service, water service, plumbing systems and fixtures, and new or replaced water heaters.",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [],
+    "rebEnded": [
+      {
+        "sponsor": "Columbia Gas of Ohio",
+        "quote": "Columbia Gas of Ohio’s residential energy efficiency programs, not including the income-qualified program, have ended.",
+        "sourceUrl": "https://www.columbiagasohio.com/energy-efficiency/for-your-home",
+        "checked": "2026-11-14"
+      }
+    ],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes an Ohio replacement different",
+      "paras": [
+        "Ohio leans gas: 57% of homes heat water with natural gas and 38% with electricity, and gas is priced at $1.30 per therm. Utility help is thinner than in most states we cover: Columbia Gas of Ohio has ended its residential efficiency rebates except for income-qualified weatherization, and the state's federal rebate status could not be confirmed.",
+        "Incoming water drops to about 46.9 °F in February, so plan a tankless unit for winter flow, and check that a basement heat pump location stays above 40 °F. A plain gas tank, about $1,743 installed, stays the cheapest to own over 10 years."
+      ]
+    },
     "highlights": [
-      "Ohio is one of the cheaper states for installation labor: its price level is the 17th lowest of 51, so a gas tank's labor runs about $603 against $650 nationally.",
-      "Where you live inside Ohio matters: the same 50-gallon gas job is about $1,768 in the Columbus, OH area and $1,694 in the Youngstown-Warren, OH area."
+      "Ohio is one of the cheaper states for installation labor: its price level is the 17th lowest of the 50 states and DC, so a gas tank's labor runs about $603 against $650 nationally.",
+      "Where you live inside Ohio matters: the same 50-gallon gas job is about $1,768 in the Columbus, OH area and $1,694 in the Youngstown-Warren, OH area.",
+      "Cleveland requires a permit for a replaced water heater."
     ]
   },
   "tables": {
@@ -355,7 +385,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Ohio labor and extras × BEA price factor 0.928",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; Ohio labor and extras × BEA price factor 0.928",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -411,7 +441,7 @@
           "high": "2,484"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -467,7 +497,7 @@
           "high": "2,728"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -533,10 +563,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "562",
-          "us": "570",
-          "own": "7,088"
+          "uef": "0.94",
+          "state": "553",
+          "us": "561",
+          "own": "6,998"
         }
       ],
       "source": "EIA 2025 Ohio residential prices ($0.169/kWh, $1.30/therm); Ohio incoming water 57.7 °F; median UEF by type; installed cost from our cost model",
@@ -728,7 +758,7 @@
           "cost": "20"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Ohio prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Ohio prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -786,7 +816,7 @@
           "showers": 2
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },

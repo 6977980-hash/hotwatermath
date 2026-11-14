@@ -64,6 +64,7 @@ export function describe(v, cfg, today) {
 	const sameRange = e.life.low === e.life.high;
 	const lifeText = sameRange ? `${e.life.typical}-year average life` : `${e.life.typical}-year typical life`;
 	const sentences = [`That is about ${pct}% of the ${lifeText} for this type (${type.label.toLowerCase()})${parts.length ? ', adjusted for your answers' : ''}.`];
+	if (cfg.bands.oldFrom && e.usedFraction >= cfg.bands.oldFrom) sentences.push(`Past ${Math.round(cfg.bands.oldFrom * 100)}% of its typical life, our repair or replace calculator counts it as old, so big repairs stop making sense.`);
 	if (e.remaining.max > 0) {
 		sentences.push(sameRange || e.remaining.min <= 0 ? `About ${one(e.remaining.max)} years left at most; it could fail sooner.` : `Estimated remaining life: ${one(e.remaining.min)} to ${one(e.remaining.max)} years.`);
 	} else {

@@ -67,7 +67,7 @@ ob_start();
 		<label for="hp-state">Your state</label>
 		<select id="hp-state" name="state">
 			<?php foreach ( (array) hwm_raw( $hwm_c, 'stateOptions' ) as $hwm_s ) : ?>
-				<option value="<?php echo esc_attr( (string) $hwm_s['id'] ); ?>"><?php echo esc_html( (string) $hwm_s['name'] ); ?></option>
+				<option value="<?php echo esc_attr( (string) $hwm_s['id'] ); ?>"><?php echo esc_html( hwm_state_label( (string) $hwm_s['id'], (string) $hwm_s['name'] ) ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
@@ -136,7 +136,7 @@ hwm_part( 'calculator', array( 'tool' => 'heat-pump-water-heater-cost', 'inputs'
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<p class="table-source">Computed with the savings calculator above: installed costs from Home Depot listings and data/installation-costs.json, running costs from EIA prices. No rebate assumed.</p>
+	<p class="table-source">Computed with the savings calculator above: installed costs from Home Depot listings and our installation cost ranges (<?php echo hwm_link( 'methodology', 'see Methodology' ); // phpcs:ignore ?>), running costs from EIA prices. No rebate assumed.</p>
 </div>
 <p>Space work is the swing factor. DOE's 2024 rule counts up to $<?php echo $hwm_v( 'spaceHigh' ); // phpcs:ignore ?> of extra work for the hardest installs, averaging $<?php echo $hwm_v( 'space' ); // phpcs:ignore ?> (our range: $<?php echo $hwm_v( 'spaceLow' ); // phpcs:ignore ?> to $<?php echo $hwm_v( 'spaceHigh' ); // phpcs:ignore ?>), and on a gas home that one line can push payback past the life of the heater. If your heater sits in a roomy basement or garage, leave the box unticked.</p>
 
@@ -150,6 +150,12 @@ hwm_part( 'calculator', array( 'tool' => 'heat-pump-water-heater-cost', 'inputs'
 <p>No. The federal Energy Efficient Home Improvement Credit paid <?php echo $hwm_v( 'creditPct' ); // phpcs:ignore ?>% of the cost, up to $<?php echo $hwm_v( 'creditMax' ); // phpcs:ignore ?> a year, but the IRS says it covers only improvements made through <?php echo esc_html( $hwm_end ); ?>. A heater installed in 2026 does not qualify. Many cost guides still list it; check the IRS page before you count on it.</p>
 <?php echo hwm_table( $hwm_c, 'incentives' ); // phpcs:ignore ?>
 <p>The federal High-Efficiency Electric Home Rebate can pay up to $<?php echo $hwm_v( 'heehr' ); // phpcs:ignore ?> toward a heat pump water heater, but only for households under <?php echo $hwm_h( 'rebates.heehrHalfCostIncomePct' ); // phpcs:ignore ?>% of area median income, and only where a state has opened its program. DOE says the rebates are "available in select states"; your state energy office knows the status. Utility rebates are separate and can be stacked: put the amount in the calculator's rebate box to see the new payback. With a $<?php echo $hwm_v( 'heehr' ); // phpcs:ignore ?> rebate, the <?php echo $hwm_v( 'life' ); // phpcs:ignore ?>-year net saving in the electric-tank case rises from $<?php echo $hwm_v( 'e0.net' ); // phpcs:ignore ?> to $<?php echo $hwm_v( 'eReb.net' ); // phpcs:ignore ?>.</p>
+
+<h3>Heat pump water heater rebates by state and utility</h3>
+<p>Utility rebates are where most of the money is now. We opened each program's own page for the 10 most populous states and list only the offers we could confirm there; a utility not listed may still have one, so check the <a href="<?php echo esc_url( (string) hwm_raw( 'hpwh-rebates', 'meta.sourceUrl' ) ); ?>" rel="noopener">ENERGY STAR Rebate Finder</a> by ZIP code. Each state's <?php echo hwm_link( 'water-heater-installation-cost', 'installation cost page' ); // phpcs:ignore ?> also lists its gas water heater rebates.</p>
+<?php echo hwm_table( $hwm_c, 'rebates' ); // phpcs:ignore ?>
+
+<?php hwm_part( 'doe-2029', array( 'heading' => true, 'lead' => 'Heat pump models become the default electric tank under the next federal standard.' ) ); ?>
 
 <h2>Does a heat pump water heater fit your space?</h2>
 <p>It needs air, warmth and a drain. ENERGY STAR's installation guide says most 240-volt models need at least <?php echo $hwm_h( 'space.minCubicFeet' ); // phpcs:ignore ?> cubic feet of air around them, a 10 by 10 foot room with a 7-foot ceiling, though some need only <?php echo $hwm_h( 'space.minCubicFeetSome' ); // phpcs:ignore ?>. A closet of at least <?php echo $hwm_h( 'space.closetCubicFeetLouvered' ); // phpcs:ignore ?> cubic feet works with a fully louvered door.</p>

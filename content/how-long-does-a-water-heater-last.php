@@ -81,12 +81,41 @@ $related = array( 'water-heater-age-calculator', 'repair-or-replace-water-heater
 <p>Even DOE has published more than one figure. Its 2024 rule for storage water heaters estimates an average lifetime of "around <?php echo esc_html( (string) $hwm_df['storage2024AverageYears'] ); ?> years" from a survival curve fitted to survey data. Its 2010 rule reported <?php echo esc_html( (string) $hwm_df['storage2010AverageYears'] ); ?> years, and DOE's Federal Energy Management Program and ENERGY STAR (for heat pump models) use the same <?php echo esc_html( (string) $hwm_df['storage2010AverageYears'] ); ?> (<?php echo $hwm_ext( $hwm_doe, 'DOE 2024 rule' ); // phpcs:ignore ?>, <?php echo $hwm_ext( $hwm_fmp, 'DOE FEMP' ); // phpcs:ignore ?>). The industry group AHRI assumes <?php echo esc_html( $hwm_df['ahriLowYears'] . ' to ' . $hwm_df['ahriHighYears'] ); ?> years, according to comments quoted in the same rule.</p>
 <p>We use <?php echo $hwm_l( $hwm_t . 'typical' ); // phpcs:ignore ?> years as the typical tank life and <?php echo $hwm_l( $hwm_t . 'low' ); // phpcs:ignore ?> to <?php echo $hwm_l( $hwm_t . 'high' ); // phpcs:ignore ?> as the range. That keeps the figure that most federal programs use in the middle and the newest DOE estimate as the upper end. For tankless units, DOE's 2024 rule for gas-fired instantaneous water heaters gives about <?php echo $hwm_l( 'types.gas_tankless.typical' ); // phpcs:ignore ?> years (<?php echo $hwm_ext( $hwm_tkl, 'DOE tankless rule' ); // phpcs:ignore ?>). We found no separate DOE figure for electric tankless models, so we apply the same average and say so.</p>
 
+<?php
+$hwm_rng = static fn( $lo, $hi ): string => ( null === $lo || '' === $lo ) ? 'Not stated' : ( ( null === $hi || $lo === $hi ) ? $lo . ' or more' : $lo . ' to ' . $hi );
+$hwm_cmp = array(
+	array( 'DOE 2024 storage rule (average)', 'Federal data', 'around ' . $hwm_df['storage2024AverageYears'], 'about ' . hwm_value( $hwm_ls, 'types.gas_tankless.typical' ) . ' (2024 tankless rule)', $hwm_doe ),
+	array( 'DOE 2010 rule, FEMP and ENERGY STAR', 'Federal data', (string) $hwm_df['storage2010AverageYears'], 'Not stated', $hwm_fmp ),
+	array( 'AHRI (industry group, quoted by DOE)', 'Industry', $hwm_df['ahriLowYears'] . ' to ' . $hwm_df['ahriHighYears'], 'Not stated', $hwm_doe ),
+);
+foreach ( array( $hwm_mr, $hwm_ma, $hwm_mb ) as $hwm_m ) {
+	$hwm_cmp[] = array( (string) $hwm_m['label'], 'Manufacturer', $hwm_rng( $hwm_m['tankLow'] ?? null, $hwm_m['tankHigh'] ?? null ), $hwm_rng( $hwm_m['tanklessLow'] ?? null, $hwm_m['tanklessHigh'] ?? null ), (string) $hwm_m['sourceUrl'] );
+}
+foreach ( (array) hwm_raw( $hwm_ls, 'costGuideViews' ) as $hwm_g ) {
+	$hwm_cmp[] = array( (string) $hwm_g['label'], 'Cost guide', (string) $hwm_g['tank'], (string) $hwm_g['tankless'], (string) $hwm_g['sourceUrl'] );
+}
+?>
+<h3>Every lifespan figure side by side</h3>
+<p>Federal data runs longest, manufacturers sit lowest, and the popular cost guides mostly repeat the manufacturers. We opened each source on <?php echo esc_html( hwm_date( (string) hwm_raw( $hwm_ls, 'costGuideViews.0.checked' ) ) ); ?>; the cost guides are listed for comparison only and are not used in our calculator.</p>
+<div class="table-wrap" role="region" aria-label="Water heater lifespan by source" tabindex="0">
+	<table>
+		<caption>Water heater lifespan by source, in years</caption>
+		<thead><tr><th scope="col">Source</th><th scope="col">Kind</th><th scope="col">Tank</th><th scope="col">Tankless</th></tr></thead>
+		<tbody>
+			<?php foreach ( $hwm_cmp as $hwm_row ) : ?>
+				<tr><th scope="row"><a href="<?php echo esc_url( $hwm_row[4] ); ?>" rel="noopener"><?php echo esc_html( $hwm_row[0] ); ?></a></th><td><?php echo esc_html( $hwm_row[1] ); ?></td><td><?php echo esc_html( $hwm_row[2] ); ?></td><td><?php echo esc_html( $hwm_row[3] ); ?></td></tr>
+			<?php endforeach; ?>
+			<tr><th scope="row">Hot Water Math (what our tools use)</th><td>Our choice</td><td><?php echo $hwm_l( $hwm_t . 'low' ) . ' to ' . $hwm_l( $hwm_t . 'high' ) . ', typical ' . $hwm_l( $hwm_t . 'typical' ); // phpcs:ignore ?></td><td><?php echo 'about ' . $hwm_l( 'types.gas_tankless.typical' ); // phpcs:ignore ?></td></tr>
+		</tbody>
+	</table>
+</div>
+
 <h2>How long do gas and electric water heaters last?</h2>
 <p>DOE gives gas and electric storage tanks the same expected life, <?php echo $hwm_l( 'types.gas_tank.typical' ); // phpcs:ignore ?> years for both, because what usually ends a tank is the same: the steel shell corrodes and leaks. The fuel changes what wears out along the way, not when the tank itself gives out.</p>
 <p>A gas tank has a burner under the tank and a flue through its middle, so sediment on the tank floor sits right over the flame and makes it rumble. An electric tank heats with elements inside the water, and scale collects on them instead. Parts like elements, thermostats and gas controls can be replaced; a leaking tank cannot, which is why the tank sets the life in DOE's data for both fuels.</p>
 
 <h2>How long does a tankless water heater last?</h2>
-<p>About <?php echo $hwm_l( 'types.gas_tankless.typical' ); // phpcs:ignore ?> years on average, by DOE's estimate, and <?php echo esc_html( $hwm_ma['tanklessLow'] . ' to ' . $hwm_ma['tanklessHigh'] ); ?> years or more by Rheem's and A. O. Smith's. A tankless unit lasts longer because there is no tank of stored water to corrode. Its weak point is the heat exchanger: A. O. Smith calls hard water "<?php echo esc_html( strtolower( substr( (string) $hwm_ma['hardWaterNote'], 0, (int) strpos( (string) $hwm_ma['hardWaterNote'], ':' ) ) ) ); ?>" for tankless models, because scale builds up inside it.</p>
+<p>About <?php echo $hwm_l( 'types.gas_tankless.typical' ); // phpcs:ignore ?> years on average, by DOE's estimate, and <?php echo esc_html( $hwm_ma['tanklessLow'] . ' to ' . $hwm_ma['tanklessHigh'] ); ?> years or more by Rheem's and A. O. Smith's. A tankless unit lasts longer because there is no tank of stored water to corrode. Its weak point is the heat exchanger: A. O. Smith's tankless care advice warns that <?php echo esc_html( lcfirst( rtrim( (string) $hwm_ma['hardWaterNote'], '.' ) ) ); ?>.</p>
 <p>That is why A. O. Smith recommends descaling a tankless unit once a year where the water is hard. The warning signs it lists are different from a tank's: noises, temperature swings, reduced flow and an error code that keeps coming back.</p>
 
 <h2>How long does a heat pump water heater last?</h2>
@@ -116,6 +145,8 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-age-calculator', 'inputs'
 <p>A tank that has used <?php echo esc_html( (string) hwm_value( 'computed/water-heater-age-calculator', 'bandsPct.amberFrom' ) ); ?>% of its typical life is worth planning for, and one past <?php echo esc_html( (string) hwm_value( 'computed/water-heater-age-calculator', 'bandsPct.redFrom' ) ); ?>% can fail at any time. The table shows where a unit of each age falls, before any adjustment for water or maintenance.</p>
 <?php echo hwm_table( $hwm_c, 'ageShare' ); // phpcs:ignore -- escaped in the part. ?>
 <p>Age alone does not mean you must replace a working water heater. It means a leak is more likely each year, and replacing on your schedule costs less than an emergency swap with water on the floor.</p>
+
+<?php hwm_part( 'doe-2029', array( 'heading' => false, 'lead' => 'If your old tank is electric, plan its replacement with the coming standard in mind.' ) ); ?>
 
 <h2>Signs your water heater is near the end</h2>
 <p>The clearest sign is water leaking from the tank itself, which cannot be repaired. Rheem lists <?php echo esc_html( implode( '; ', (array) $hwm_mr['signs'] ) ); ?>. A. O. Smith adds <?php echo esc_html( implode( '; ', array_slice( (array) $hwm_ma['signs'], 2 ) ) ); ?>, for tankless units in particular.</p>

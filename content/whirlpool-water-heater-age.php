@@ -76,7 +76,7 @@ hwm_part(
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<p class="table-source">Computed with assets/js/formulas.js (month = (week − 1) × 12 ÷ 52, rounded down, plus 1). A week at the edge of a month can belong to either one.</p>
+	<p class="table-source">Computed with the decoder's own formula (month = (week − 1) × 12 ÷ 52, rounded down, plus 1). A week at the edge of a month can belong to either one.</p>
 </div>
 
 <h2>Who makes Whirlpool water heaters?</h2>

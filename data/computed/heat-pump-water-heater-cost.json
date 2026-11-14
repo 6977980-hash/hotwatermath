@@ -461,6 +461,104 @@
     }
   ],
   "tables": {
+    "rebates": {
+      "caption": "Heat pump water heater rebates we confirmed on each program's own page (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "state",
+          "label": "State"
+        },
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "state": "California",
+          "sponsor": "SMUD (Sacramento Municipal Utility District)",
+          "offer": "$1,000 replacing an electric water heater; up to $4,000 replacing a gas one",
+          "conditions": "SMUD electric customers. The rebate is higher for a gas-to-electric switch."
+        },
+        {
+          "state": "California",
+          "sponsor": "LADWP (Los Angeles Department of Water and Power)",
+          "offer": "Up to $2,500 per unit, based on gallon capacity and UEF",
+          "conditions": "LADWP residential electric customers; apply after purchase and installation, within 12 months of purchase."
+        },
+        {
+          "state": "Florida",
+          "sponsor": "JEA (Jacksonville)",
+          "offer": "$350 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "JEA residential electric customers."
+        },
+        {
+          "state": "Georgia",
+          "sponsor": "Georgia Power",
+          "offer": "Up to $800 for a heat pump water heater",
+          "conditions": "Georgia Power customers; installed by a program-affiliated installer."
+        },
+        {
+          "state": "Illinois",
+          "sponsor": "Ameren Illinois (online marketplace)",
+          "offer": "About $800 off the listed price of each heat pump water heater in its marketplace",
+          "conditions": "Ameren Illinois electric customers buying through the utility's online marketplace; the discount is shown as retail price minus final cost."
+        },
+        {
+          "state": "Michigan",
+          "sponsor": "DTE Energy",
+          "offer": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+          "conditions": "DTE electric customers who heat water with electricity; through a participating contractor or the retail instant discount page; limited funds."
+        },
+        {
+          "state": "Michigan",
+          "sponsor": "Consumers Energy",
+          "offer": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+          "conditions": "Consumers Energy electric customers; the contractor buys the unit at the discounted price and passes the saving on."
+        },
+        {
+          "state": "New York",
+          "sponsor": "Con Edison",
+          "offer": "$1,500 instant rebate on a qualified ENERGY STAR heat pump water heater up to 120 gallons",
+          "conditions": "Bought at a participating Lowe's or Home Depot, or by your contractor from a participating distributor."
+        },
+        {
+          "state": "New York",
+          "sponsor": "PSEG Long Island",
+          "offer": "Up to $1,200 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "PSEG Long Island residential customers."
+        },
+        {
+          "state": "North Carolina",
+          "sponsor": "Energy Saver North Carolina (NC DEQ, federal HEAR)",
+          "offer": "Up to $1,750 for a heat pump water heater, income-qualified households",
+          "conditions": "Household income below 150% of area median; a program-registered contractor installs it."
+        },
+        {
+          "state": "Pennsylvania",
+          "sponsor": "PPL Electric Utilities",
+          "offer": "$400 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "PPL residential customers. The page notes the program was updated after May 31, 2026; check the current terms before you buy."
+        },
+        {
+          "state": "Texas",
+          "sponsor": "Austin Energy",
+          "offer": "$1,000 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "Home served by Austin Energy; a heat pump water heater being replaced must be at least 10 years old."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14 (index: ENERGY STAR Rebate Finder). Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
+    },
     "bySize": {
       "caption": "Heat pump water heater cost by size (U.S. average)",
       "columns": [
@@ -516,7 +614,7 @@
           "fromGas": "4,138"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules. FHR: median of ENERGY STAR certified models",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules. FHR: median of ENERGY STAR certified models",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -572,7 +670,7 @@
           "high": "4,419"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -634,7 +732,7 @@
           "high": "5,619"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -1077,6 +1175,15 @@
   "client": {
     "model": {
       "units": {
+        "gas_tank_30": {
+          "type": "gas_tank",
+          "label": "30-gallon gas tank (natural gas, standard vent)",
+          "low": 619,
+          "typical": 639,
+          "high": 789,
+          "n": 3,
+          "sourceKey": "gas_tank_30"
+        },
         "gas_tank_40": {
           "type": "gas_tank",
           "label": "40-gallon gas tank (natural gas, standard vent)",
@@ -1095,6 +1202,15 @@
           "n": 9,
           "sourceKey": "gas_tank_50"
         },
+        "gas_tank_55": {
+          "type": "gas_tank",
+          "label": "55-gallon gas tank (natural gas, standard vent)",
+          "low": 809,
+          "typical": 959,
+          "high": 1209,
+          "n": 3,
+          "sourceKey": "gas_tank_55"
+        },
         "gas_tank_75": {
           "type": "gas_tank",
           "label": "75-gallon gas tank (natural gas, standard vent)",
@@ -1103,6 +1219,15 @@
           "high": 1459,
           "n": 3,
           "sourceKey": "gas_tank_75"
+        },
+        "electric_tank_30": {
+          "type": "electric_tank",
+          "label": "30-gallon electric tank",
+          "low": 479,
+          "typical": 509,
+          "high": 529,
+          "n": 3,
+          "sourceKey": "electric_tank_30"
         },
         "electric_tank_40": {
           "type": "electric_tank",
@@ -1121,6 +1246,15 @@
           "high": 1429,
           "n": 22,
           "sourceKey": "electric_tank_50"
+        },
+        "electric_tank_55": {
+          "type": "electric_tank",
+          "label": "55-gallon electric tank",
+          "low": 859,
+          "typical": 937,
+          "high": 1069,
+          "n": 4,
+          "sourceKey": "electric_tank_55"
         },
         "heat_pump_50": {
           "type": "heat_pump",
@@ -1177,12 +1311,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             },
             {
               "id": "75",
@@ -1201,12 +1343,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             }
           ],
           "defaultSize": "50",
@@ -1256,7 +1406,7 @@
         "electric_tankless": {
           "label": "Electric tankless",
           "fuel": "electric",
-          "uef": 0.92,
+          "uef": 0.935,
           "life": 20,
           "credit": 0,
           "sizes": [
@@ -1341,6 +1491,12 @@
           "typical": 600,
           "high": 1200
         },
+        "tanklessCircuits": {
+          "label": "More 240-volt circuits for a whole-house electric tankless",
+          "low": 600,
+          "typical": 1200,
+          "high": 3600
+        },
         "panel": {
           "label": "Electrical panel upgrade (to 200 amps)",
           "low": 750,
@@ -1405,6 +1561,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }
@@ -1429,6 +1586,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }

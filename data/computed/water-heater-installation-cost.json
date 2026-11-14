@@ -160,11 +160,11 @@
       },
       {
         "label": "Electric tank to electric tankless",
-        "extras": "Permit, New 240-volt circuit, Electrical panel upgrade",
-        "low": "2,026",
-        "typical": "3,509",
-        "high": "5,699",
-        "typicalNum": 3509
+        "extras": "Permit, New 240-volt circuit, More 240-volt circuits for a whole-house electric tankless, Electrical panel upgrade",
+        "low": "2,626",
+        "typical": "4,709",
+        "high": "9,299",
+        "typicalNum": 4709
       },
       {
         "label": "Electric tank to gas tank (50 gal)",
@@ -283,7 +283,7 @@
           "share": "44%"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -677,7 +677,7 @@
           "h": "2,862"
         }
       ],
-      "source": "Equipment listings + data/installation-costs.json; labor, permit and extras × BEA Regional Price Parity ÷ 100",
+      "source": "Equipment listings + our installation cost ranges (see Methodology); labor, permit and extras × BEA Regional Price Parity ÷ 100",
       "sourceUrl": "https://www.bea.gov/sites/default/files/2026-02/rpp0226.pdf",
       "sourceDate": "2026-11-12"
     },
@@ -727,7 +727,7 @@
           "high": "5,299"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     }

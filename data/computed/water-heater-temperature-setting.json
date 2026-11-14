@@ -74,7 +74,7 @@
           "extra": "+43%"
         }
       ],
-      "source": "Computed with formulas.hotShareOfMix and hotGallonsDrawn; shower temperature from Stiebel Eltron's sizing sheet, winter inlet from A. O. Smith, shower flow is the federal maximum. Needs a mixing valve to hold the shower at the same temperature.",
+      "source": "Computed with the size calculator’s hot-share formula (see Methodology); shower temperature from Stiebel Eltron's sizing sheet, winter inlet from A. O. Smith, shower flow is the federal maximum. Needs a mixing valve to hold the shower at the same temperature.",
       "sourceUrl": "https://hotwatermath.com/methodology/#safety-pages",
       "sourceDate": "2026-11-13"
     }

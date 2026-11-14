@@ -77,6 +77,7 @@
     "slug": "pennsylvania",
     "url": "/water-heater-installation-cost/pennsylvania/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 5,
     "population": "13,059,432",
     "popMillion": "13.1",
@@ -289,13 +290,55 @@
       "quote": "On June 1st, 2026, the Department of Energy released new program guidance. EPO is currently working to understand these changes, make the necessary changes to program design to be in compliance, and launch the program for consumers in the Commonwealth.",
       "summary": "The program is being redesigned after DOE's June 2026 guidance and is not open to homeowners yet."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "philly-master",
+        "heading": "Philadelphia requires a master plumber and a signed certification",
+        "text": "Philadelphia's Department of Licenses and Inspections issues the plumbing permit, and a licensed master plumber must oversee the work. After the install, the city's Water Heater Replacement Certification form records the permit number, the master plumber's license, the tank's size, make and model, and confirms the work meets Chapter 5 of the Philadelphia Plumbing Code.",
+        "source": "City of Philadelphia, Get a plumbing permit; Water Heater Replacement Certification Form (TP-022-F)",
+        "sourceUrl": "https://www.phila.gov/services/permits-violations-licenses/apply-for-a-permit/building-and-repair/get-a-plumbing-permit/",
+        "quote": "A licensed master plumber must oversee plumbing work.",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "PPL Electric Utilities",
+        "offer": "$400 for an ENERGY STAR certified heat pump water heater",
+        "sourceUrl": "https://ppl.clearesult.com/heat-pump-water-heater",
+        "checked": "2026-11-14"
+      },
+      {
+        "sponsor": "Columbia Gas of Pennsylvania (WarmWise)",
+        "offer": "$400 for an ENERGY STAR gas tankless water heater with UEF 0.90 or higher",
+        "sourceUrl": "https://www.columbiagaspa.com/energy-efficiency/for-your-home/available-rebates",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [
+      {
+        "sponsor": "PPL Electric Utilities",
+        "quote": "Due to program updates, please note that the deadline to apply for rebates for equipment installed on May 31, 2026 or earlier has passed.",
+        "sourceUrl": "https://ppl.clearesult.com/heat-pump-water-heater",
+        "checked": "2026-11-14"
+      }
+    ],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a Pennsylvania replacement different",
+      "paras": [
+        "Pennsylvania splits between fuels: 46% of homes heat water with gas, 45% with electricity and 6% with fuel oil. Gas is the cheaper tank to run here, about $247 a year against $656 for a standard electric tank, so a heat pump mainly pays off in homes that already have electric water heat.",
+        "Pennsylvania's utility rebates come from its Act 129 efficiency programs, which run in multi-year phases; PPL's page notes a program change after May 2026, so check the current phase before you count on an amount. Incoming water drops to about 45.4 °F in February."
+      ]
+    },
     "highlights": [
       "Pennsylvania is split between fuels: 46% of homes heat water with gas and 45% with electricity, so check which you have before you compare quotes; a fuel switch adds a gas line and vent, or a 240-volt circuit.",
       "6% of Pennsylvania homes still heat water with fuel oil, often from the heating boiler; those systems are priced differently from the tanks on this page.",
-      "Where you live inside Pennsylvania matters: the same 50-gallon gas job is about $1,833 in the Philadelphia-Camden-Wilmington, PA-NJ-DE-MD area and $1,750 in the Scranton--Wilkes-Barre, PA area."
+      "Where you live inside Pennsylvania matters: the same 50-gallon gas job is about $1,833 in the Philadelphia-Camden-Wilmington, PA-NJ-DE-MD area and $1,750 in the Scranton--Wilkes-Barre, PA area.",
+      "Philadelphia requires a master plumber and a signed certification."
     ]
   },
   "tables": {
@@ -356,7 +399,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; Pennsylvania labor and extras × BEA price factor 0.976",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; Pennsylvania labor and extras × BEA price factor 0.976",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -412,7 +455,7 @@
           "high": "2,561"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -468,7 +511,7 @@
           "high": "2,795"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -534,10 +577,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "664",
-          "us": "570",
-          "own": "8,150"
+          "uef": "0.94",
+          "state": "653",
+          "us": "561",
+          "own": "8,044"
         }
       ],
       "source": "EIA 2025 Pennsylvania residential prices ($0.193/kWh, $1.45/therm); Pennsylvania incoming water 55.5 °F; median UEF by type; installed cost from our cost model",
@@ -729,7 +772,7 @@
           "cost": "23"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Pennsylvania prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 Pennsylvania prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -787,7 +830,7 @@
           "showers": 2
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -836,6 +879,44 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (5.13 million Pennsylvania homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in Pennsylvania: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "PPL Electric Utilities",
+          "type": "Heat pump water heater",
+          "offer": "$400 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "PPL residential customers. The page notes the program was updated after May 31, 2026; check the current terms before you buy."
+        },
+        {
+          "sponsor": "Columbia Gas of Pennsylvania (WarmWise)",
+          "type": "Gas water heater",
+          "offer": "$400 for an ENERGY STAR gas tankless water heater with UEF 0.90 or higher",
+          "conditions": "Columbia Gas of Pennsylvania residential customers."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: PPL Electric Utilities; Columbia Gas of Pennsylvania. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

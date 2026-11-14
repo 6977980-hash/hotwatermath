@@ -45,11 +45,13 @@
     },
     "electric_tankless": {
       "label": "Electric tankless",
-      "low": 0.91,
-      "typical": 0.92,
+      "low": 0.93,
+      "typical": 0.935,
       "federalMinimum": 0.92,
-      "source": "Federal minimum for instantaneous electric water heaters: 0.91 (very small to medium draw), 0.92 (high draw). Used as a conservative default.",
-      "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32"
+      "source": "Rheem RTEX whole-house models (18 to 36 kW), spec sheet TKE-101 Rev. 8 (04/24): UEF 0.94, 0.93, 0.93 and 0.94; typical = their median. Federal minimum for instantaneous electric water heaters: 0.91 (very small to medium draw), 0.92 (high draw). Audit F-13, 2026-11-14: the old default was the federal minimum, below the electric tank's 0.93.",
+      "sourceUrl": "https://cdn.shopify.com/s/files/1/1163/1976/files/Rheem-RTEX-Series-Spec-Sheet.pdf",
+      "high": 0.94,
+      "checked": "2026-11-14"
     }
   },
   "federalMinimums": {
@@ -87,5 +89,25 @@
     "sourceUrl": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-430/subpart-C/section-430.32",
     "electricResistanceMaxGallons": 55,
     "electricResistanceMaxGallonsNote": "Above 55 gallons rated volume, the federal minimum UEF for electric storage tanks (about 2.1 and up) can only be met by a heat pump water heater, so standard electric resistance tanks stop at 55 gallons."
+  },
+  "doe2029": {
+    "rule": "Energy conservation standards for consumer water heaters, final rule",
+    "citation": "89 FR 37778",
+    "published": "2024-05-06",
+    "complianceDate": "2029-05-06",
+    "smallElectricMaxGallons": 35,
+    "smallElectricFhrBelow": 51,
+    "electricClassMaxGallons": 55,
+    "quotes": [
+      "Compliance with the new and amended standards established for consumer water heaters in this final rule is required on and after May 6, 2029.",
+      "These standards apply to all products listed in Table I.1 and manufactured in, or imported into, the United States starting on May 6, 2029.",
+      "for certain classes of electric storage water heaters the adopted standards are currently only met through use of heat pump technology",
+      "at the adopted standard level, the minimum efficiency requirement for small electric storage water heaters is still achievable with electric resistance heating technology",
+      "the new standards for electric storage water heaters with capacities greater than or equal to 20 gallons and less than or equal to 55 gallons are met through the use of heat pump technology, while the standards for small electric storage water heaters (capacities greater than or equal to 20 gallons and less than or equal to 35 gallons) can be met by electric resistance heating technology"
+    ],
+    "smallClassDefinition": "electric storage water heaters with an effective storage volume of 20 gallons up to 35 gallons and a first hour rating below 51 gallons (very small and low draw patterns)",
+    "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm",
+    "checked": "2026-11-14",
+    "electricClassMinGallons": 20
   }
 }

@@ -84,6 +84,7 @@
     "slug": "california",
     "url": "/water-heater-installation-cost/california/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 1,
     "population": "39,355,309",
     "popMillion": "39.4",
@@ -306,19 +307,53 @@
         "quote": "New and replacement water heaters are required by law to be anchored or strapped to resist falling during earthquakes. Home sellers must certify to buyers that water heaters are braced.",
         "checked": "2026-11-13",
         "presetExtra": "codeItems"
+      },
+      {
+        "id": "title24",
+        "heading": "California's energy code applies to a replacement too",
+        "text": "Title 24, Part 6, California's energy code, is not only for new homes: a replacement water heater must meet its prescriptive water heating rules as well as federal standards, and the permit inspection is where that gets checked. A heat pump water heater is one of the allowed routes for a gas home, which is part of why California utilities pay some of the largest heat pump rebates in the table below.",
+        "source": "BayREN, Residential Water Heaters: Guide to 2022 Energy Code Requirements",
+        "sourceUrl": "https://fa.bayren.org/sites/default/files/2022-12/2022-res-water-heater-alteration-permit-guide_Final.pdf",
+        "quote": "The Standards require all new or replacement water heaters to meet certain energy specifications.",
+        "checked": "2026-11-14"
       }
     ],
     "heehrMax": "1,750",
     "presetExtras": [
       "codeItems"
     ],
+    "rebPrograms": [
+      {
+        "sponsor": "SMUD (Sacramento Municipal Utility District)",
+        "offer": "$1,000 replacing an electric water heater; up to $4,000 replacing a gas one",
+        "sourceUrl": "https://www.smud.org/Corporate/About-us/News-and-Media/2026/2026/SMUD-boosts-rebates-for-heat-pumps",
+        "checked": "2026-11-14"
+      },
+      {
+        "sponsor": "LADWP (Los Angeles Department of Water and Power)",
+        "offer": "Up to $2,500 per unit, based on gallon capacity and UEF",
+        "sourceUrl": "https://www.ladwp.com/residential-services/assistance-programs/consumer-rebate-program",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a California replacement different",
+      "paras": [
+        "Three things set California apart. Gas still heats water in 78% of homes, yet the state's energy code and its utilities both push toward heat pumps, so a gas-to-heat-pump switch is a common quote here and comes to about $3,735 installed. Earthquake straps are a legal must on every replacement, not an optional extra.",
+        "Mild weather helps every type. Incoming water averages 65.0 °F and only falls to about 56.1 °F in February, so a heat pump in a garage rarely meets the cold air that cuts its efficiency, and a tankless unit loses only about 28% of its flow from summer to winter."
+      ]
+    },
     "highlights": [
-      "California's price level is the highest of 51 states and DC, so labor, permits and extras cost more here than almost anywhere: about $720 of labor on a gas tank against $650 nationally.",
+      "California's price level is the highest of the 50 states and DC, so labor, permits and extras cost more here than almost anywhere: about $720 of labor on a gas tank against $650 nationally.",
       "Electricity is expensive in California (31.35 cents per kWh, the 2nd highest), so a standard electric tank costs about $910 a year to run and a heat pump saves about $687 a year against it.",
       "Natural gas costs more here than in most states ($2.15 per therm, the 4th highest), so gas's running-cost advantage is smaller than the national picture suggests.",
       "78% of California homes heat water with natural gas, against 48% nationally, so most replacements here are gas-to-gas with an existing vent and gas line.",
       "Where you live inside California matters: the same 50-gallon gas job is about $1,951 in the San Francisco-Oakland-Fremont, CA area and $1,868 in the Riverside-San Bernardino-Ontario, CA area.",
-      "California requires earthquake straps."
+      "California requires earthquake straps.",
+      "California's energy code applies to a replacement too."
     ]
   },
   "tables": {
@@ -379,7 +414,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; California labor and extras × BEA price factor 1.107",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; California labor and extras × BEA price factor 1.107",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -435,7 +470,7 @@
           "high": "2,771"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -491,7 +526,7 @@
           "high": "2,979"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -557,10 +592,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "920",
-          "us": "570",
-          "own": "10,824"
+          "uef": "0.94",
+          "state": "905",
+          "us": "561",
+          "own": "10,674"
         }
       ],
       "source": "EIA 2025 California residential prices ($0.314/kWh, $2.15/therm); California incoming water 65.0 °F; median UEF by type; installed cost from our cost model",
@@ -752,7 +787,7 @@
           "cost": "29"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 California prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 California prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -810,7 +845,7 @@
           "showers": 3
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -854,6 +889,44 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (13.18 million California homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in California: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "SMUD (Sacramento Municipal Utility District)",
+          "type": "Heat pump water heater",
+          "offer": "$1,000 replacing an electric water heater; up to $4,000 replacing a gas one",
+          "conditions": "SMUD electric customers. The rebate is higher for a gas-to-electric switch."
+        },
+        {
+          "sponsor": "LADWP (Los Angeles Department of Water and Power)",
+          "type": "Heat pump water heater",
+          "offer": "Up to $2,500 per unit, based on gallon capacity and UEF",
+          "conditions": "LADWP residential electric customers; apply after purchase and installation, within 12 months of purchase."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: SMUD; LADWP. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

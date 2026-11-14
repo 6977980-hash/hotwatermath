@@ -888,3 +888,34 @@ export function powerAtVoltage(kw, ratedVolts, actualVolts) {
 	if (!isNum(kw) || !isNum(ratedVolts) || !isNum(actualVolts) || ratedVolts <= 0) return null;
 	return round(kw * (actualVolts / ratedVolts) ** 2, 3);
 }
+
+/**
+ * Solar water heater for one household, with the equations of DOE FEMP's solar hot water calculator
+ * (Scenario 1: the collector covers the whole load on the sunniest day).
+ * Load (therms/day) = gal/day × 8.33 × ΔT ÷ 100,000; area (ft²) = load ÷ η_solar ÷ I_max × 100,000;
+ * solar heat (therms/yr) = area × I_ave × η_solar × 365 × utilization ÷ 100,000; pump (kWh/yr) = area × 0.001 × 365.
+ * @param {{ gallonsPerDay:number, riseF:number, iMaxBtuFt2Day:number, iAveBtuFt2Day:number }} i
+ * @param {{ etaSolar:number, utilization:number, btuPerGallonF:number, pumpKwhPerFt2Day:number }} c FEMP defaults
+ * @returns {{ loadThermsYear:number, areaFt2:number, solarThermsYear:number, solarShare:number, pumpKwhYear:number }}
+ */
+export function solarWaterHeating(i, c) {
+	const loadThermsDay = (i.gallonsPerDay * c.btuPerGallonF * i.riseF) / 100000;
+	const areaFt2 = (loadThermsDay / c.etaSolar / i.iMaxBtuFt2Day) * 100000;
+	const solarThermsYear = (areaFt2 * i.iAveBtuFt2Day * c.etaSolar * 365 * c.utilization) / 100000;
+	const loadThermsYear = loadThermsDay * 365;
+	return { loadThermsYear, areaFt2, solarThermsYear, solarShare: solarThermsYear / loadThermsYear, pumpKwhYear: areaFt2 * c.pumpKwhPerFt2Day * 365 };
+}
+
+/**
+ * Yearly saving of a solar system over its backup alone: the fuel the backup no longer burns
+ * (solar heat ÷ backup UEF), minus the pump's electricity and FEMP's yearly upkeep share of the system cost.
+ * @param {{ solarThermsYear:number, pumpKwhYear:number }} s Output of solarWaterHeating()
+ * @param {'electric'|'gas'} fuel Backup fuel
+ * @param {number} uef Backup efficiency
+ * @param {{ usdPerKwh:number, usdPerTherm:number }} prices
+ * @param {number} upkeepUsd Yearly upkeep (FEMP: 0.5% of the installed cost)
+ */
+export function solarYearlySaving(s, fuel, uef, prices, upkeepUsd) {
+	const fuelSaved = fuel === 'electric' ? ((s.solarThermsYear * 100000) / PHYSICS.btuPerKwh / uef) * prices.usdPerKwh : (s.solarThermsYear / uef) * prices.usdPerTherm;
+	return fuelSaved - s.pumpKwhYear * prices.usdPerKwh - upkeepUsd;
+}

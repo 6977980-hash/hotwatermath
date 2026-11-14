@@ -10,7 +10,7 @@
     "statusLabel": "Cheapest to run: Heat pump (hybrid), 240 V",
     "headline": "Gas tank $242 a year vs electric tank $564",
     "explain": "With U.S. average prices, a gas tank (standard vent) costs $321 a year less to run than an electric tank. The cheapest type to run is a heat pump (hybrid), 240 V at $138 a year ($12 a month). Use: 55 gallons a day heated by 62.0 °F.",
-    "formula": "Rise = 120 °F − 58.0 °F incoming = 62.0 °F\nHeat per year = 55 gal × 365 × 8.34 lb × 62.0 °F = 10,380,381 BTU\nGas: therms = heat ÷ 100,000 ÷ UEF; × $1.481/therm\nElectric: kWh = heat ÷ 3,412 ÷ UEF; × $0.1723/kWh\nGas tank (standard vent) (UEF 0.64): 164 therms → $242/yr\nElectric tank (UEF 0.93): 3,271 kWh → $564/yr\nHeat pump (hybrid), 240 V (UEF 3.80): 801 kWh → $138/yr\nGas tankless (UEF 0.95): 109 therms → $162/yr\nElectric tankless (UEF 0.92): 3,307 kWh → $570/yr",
+    "formula": "Rise = 120 °F − 58.0 °F incoming = 62.0 °F\nHeat per year = 55 gal × 365 × 8.34 lb × 62.0 °F = 10,380,381 BTU\nGas: therms = heat ÷ 100,000 ÷ UEF; × $1.481/therm\nElectric: kWh = heat ÷ 3,412 ÷ UEF; × $0.1723/kWh\nGas tank (standard vent) (UEF 0.64): 164 therms → $242/yr\nElectric tank (UEF 0.93): 3,271 kWh → $564/yr\nHeat pump (hybrid), 240 V (UEF 3.80): 801 kWh → $138/yr\nGas tankless (UEF 0.95): 109 therms → $162/yr\nElectric tankless (UEF 0.94): 3,254 kWh → $561/yr",
     "table": {
       "caption": "Yearly operating cost by type",
       "columns": [
@@ -70,10 +70,10 @@
         },
         {
           "type": "Electric tankless",
-          "uef": "0.92",
-          "use": "3,307 kWh",
+          "uef": "0.94",
+          "use": "3,254 kWh",
           "month": "$47",
-          "year": "$570"
+          "year": "$561"
         }
       ]
     },
@@ -118,13 +118,13 @@
         "uef": "0.95"
       },
       "electric_tankless": {
-        "year": "570",
+        "year": "561",
         "month": "47",
-        "kwh": "3,307",
-        "kwhMonth": "276",
+        "kwh": "3,254",
+        "kwhMonth": "271",
         "therms": "",
         "thermsMonth": "",
-        "uef": "0.92"
+        "uef": "0.94"
       }
     },
     "gasWins": 51,
@@ -461,7 +461,7 @@
           "el": "256",
           "hp": "63",
           "gtl": "74",
-          "etl": "259"
+          "etl": "255"
         },
         {
           "people": 2,
@@ -470,7 +470,7 @@
           "el": "512",
           "hp": "125",
           "gtl": "147",
-          "etl": "518"
+          "etl": "510"
         },
         {
           "people": 3,
@@ -479,7 +479,7 @@
           "el": "769",
           "hp": "188",
           "gtl": "221",
-          "etl": "777"
+          "etl": "765"
         },
         {
           "people": 4,
@@ -488,7 +488,7 @@
           "el": "1,025",
           "hp": "251",
           "gtl": "294",
-          "etl": "1,036"
+          "etl": "1,019"
         },
         {
           "people": 5,
@@ -497,7 +497,7 @@
           "el": "1,291",
           "hp": "316",
           "gtl": "371",
-          "etl": "1,305"
+          "etl": "1,284"
         },
         {
           "people": 6,
@@ -506,7 +506,7 @@
           "el": "1,547",
           "hp": "379",
           "gtl": "444",
-          "etl": "1,564"
+          "etl": "1,539"
         }
       ],
       "source": "Computed: 25.1 gal per person a day (DOE Buildings Energy Data Book), 120 °F setpoint, 58 °F incoming water (DOE test), median UEFs, EIA prices",
@@ -910,6 +910,15 @@
   "client": {
     "model": {
       "units": {
+        "gas_tank_30": {
+          "type": "gas_tank",
+          "label": "30-gallon gas tank (natural gas, standard vent)",
+          "low": 619,
+          "typical": 639,
+          "high": 789,
+          "n": 3,
+          "sourceKey": "gas_tank_30"
+        },
         "gas_tank_40": {
           "type": "gas_tank",
           "label": "40-gallon gas tank (natural gas, standard vent)",
@@ -928,6 +937,15 @@
           "n": 9,
           "sourceKey": "gas_tank_50"
         },
+        "gas_tank_55": {
+          "type": "gas_tank",
+          "label": "55-gallon gas tank (natural gas, standard vent)",
+          "low": 809,
+          "typical": 959,
+          "high": 1209,
+          "n": 3,
+          "sourceKey": "gas_tank_55"
+        },
         "gas_tank_75": {
           "type": "gas_tank",
           "label": "75-gallon gas tank (natural gas, standard vent)",
@@ -936,6 +954,15 @@
           "high": 1459,
           "n": 3,
           "sourceKey": "gas_tank_75"
+        },
+        "electric_tank_30": {
+          "type": "electric_tank",
+          "label": "30-gallon electric tank",
+          "low": 479,
+          "typical": 509,
+          "high": 529,
+          "n": 3,
+          "sourceKey": "electric_tank_30"
         },
         "electric_tank_40": {
           "type": "electric_tank",
@@ -954,6 +981,15 @@
           "high": 1429,
           "n": 22,
           "sourceKey": "electric_tank_50"
+        },
+        "electric_tank_55": {
+          "type": "electric_tank",
+          "label": "55-gallon electric tank",
+          "low": 859,
+          "typical": 937,
+          "high": 1069,
+          "n": 4,
+          "sourceKey": "electric_tank_55"
         },
         "heat_pump_50": {
           "type": "heat_pump",
@@ -1010,12 +1046,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             },
             {
               "id": "75",
@@ -1034,12 +1078,20 @@
           "credit": 0,
           "sizes": [
             {
+              "id": "30",
+              "label": "30 gallons"
+            },
+            {
               "id": "40",
               "label": "40 gallons"
             },
             {
               "id": "50",
               "label": "50 gallons"
+            },
+            {
+              "id": "55",
+              "label": "55 gallons"
             }
           ],
           "defaultSize": "50",
@@ -1089,7 +1141,7 @@
         "electric_tankless": {
           "label": "Electric tankless",
           "fuel": "electric",
-          "uef": 0.92,
+          "uef": 0.935,
           "life": 20,
           "credit": 0,
           "sizes": [
@@ -1174,6 +1226,12 @@
           "typical": 600,
           "high": 1200
         },
+        "tanklessCircuits": {
+          "label": "More 240-volt circuits for a whole-house electric tankless",
+          "low": 600,
+          "typical": 1200,
+          "high": 3600
+        },
         "panel": {
           "label": "Electrical panel upgrade (to 200 amps)",
           "low": 750,
@@ -1238,6 +1296,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }
@@ -1262,6 +1321,7 @@
             "electric_tankless": [
               "permit",
               "circuit",
+              "tanklessCircuits",
               "panel"
             ]
           }

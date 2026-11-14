@@ -61,7 +61,8 @@
         36.4,
         23.7,
         19.5
-      ]
+      ],
+      "stationLabel": "Anchorage"
     },
     "AZ": {
       "name": "Arizona",
@@ -215,7 +216,8 @@
         61.1,
         50.2,
         41.9
-      ]
+      ],
+      "stationLabel": "Reagan National"
     },
     "FL": {
       "name": "Florida",
@@ -281,7 +283,8 @@
         80.7,
         78.3,
         75.8
-      ]
+      ],
+      "stationLabel": "Honolulu"
     },
     "ID": {
       "name": "Idaho",

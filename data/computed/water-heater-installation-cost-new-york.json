@@ -77,6 +77,7 @@
     "slug": "new-york",
     "url": "/water-heater-installation-cost/new-york/",
     "stateCount": 51,
+    "statesLabel": "the 50 states and DC",
     "populationRank": 4,
     "population": "20,002,427",
     "popMillion": "20.0",
@@ -289,15 +290,50 @@
       "quote": "",
       "summary": "NYSERDA's rebate pages refused our checker on the check date, so we could not confirm what is open today. Ask NYSERDA or check the ENERGY STAR Rebate Finder before you count on a rebate."
     },
-    "notes": [],
+    "notes": [
+      {
+        "id": "nyc-lmp",
+        "heading": "In New York City, a Licensed Master Plumber files the work",
+        "text": "New York City's Department of Buildings has a Licensed Master Plumber obtain plumbing permits and arrange the inspection. Its form for a gas water heater replacement has the plumber certify that the appliance valve was not moved, the chimney is sound and no gas piping was installed or replaced, so a swap that changes the gas line or vent becomes a bigger filing.",
+        "source": "NYC Department of Buildings, OP128 Heat and Hot Water certification and Plumbing Permits page",
+        "sourceUrl": "https://www.nyc.gov/assets/buildings/pdf/op128-hhw.pdf",
+        "quote": "If I am working on the replacement of a gas-fired boiler, water heater, or furnace with a capacity of not more than 350,000 BTUs, I certify that the appliance valve has not been moved, the chimney is in good working condition, and no gas piping has been installed/replaced",
+        "checked": "2026-11-14"
+      }
+    ],
     "heehrMax": "1,750",
     "presetExtras": [],
+    "rebPrograms": [
+      {
+        "sponsor": "Con Edison",
+        "offer": "$1,500 instant rebate on a qualified ENERGY STAR heat pump water heater up to 120 gallons",
+        "sourceUrl": "https://www.coned.com/en/save-money/rebates-incentives-tax-credits/rebates-incentives-tax-credits-for-residential-customers/electric-heating-and-cooling-technology-for-renters-homeowners/swap-your-water-heater-and-save",
+        "checked": "2026-11-14"
+      },
+      {
+        "sponsor": "PSEG Long Island",
+        "offer": "Up to $1,200 for an ENERGY STAR certified heat pump water heater",
+        "sourceUrl": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/HomeComfort/hpwh",
+        "checked": "2026-11-14"
+      }
+    ],
+    "rebEnded": [],
+    "hpLowF": 40,
+    "hpHighF": 90,
+    "local": {
+      "heading": "What makes a New York replacement different",
+      "paras": [
+        "New York has the mix most other states lack: 57% of homes heat water with gas, 28% with electricity and 11% still with fuel oil, often from the heating boiler. Prices also run high, so labor on a gas tank is about $701 and a 50-gallon gas job comes to about $1,881.",
+        "Winters are long. Incoming water falls to about 42.0 °F in February, so a whole-house tankless unit delivers only about 4.8 gallons per minute then. That is why New York utilities, led by Con Edison's instant rebate, focus their money on heat pump tanks rather than tankless units."
+      ]
+    },
     "highlights": [
-      "New York's price level is the 5th highest of 51 states and DC, so labor, permits and extras cost more here than almost anywhere: about $701 of labor on a gas tank against $650 nationally.",
+      "New York's price level is the 5th highest of the 50 states and DC, so labor, permits and extras cost more here than almost anywhere: about $701 of labor on a gas tank against $650 nationally.",
       "Electricity is expensive in New York (26.39 cents per kWh, the 7th highest), so a standard electric tank costs about $947 a year to run and a heat pump saves about $715 a year against it.",
-      "Incoming water drops to about 42.0 °F in the coldest month, so a whole-house tankless unit manages only one full-flow shower at a time in winter; a tank, or two tankless units, suits larger households better.",
+      "Incoming water drops to about 42.0 °F in the coldest month, so a whole-house tankless unit runs only one shower at full hot flow at a time in winter; a tank, or two tankless units, suits larger households better.",
       "11% of New York homes still heat water with fuel oil, often from the heating boiler; those systems are priced differently from the tanks on this page.",
-      "Where you live inside New York matters: the same 50-gallon gas job is about $1,924 in the New York-Newark-Jersey City, NY-NJ area and $1,770 in the Syracuse, NY area."
+      "Where you live inside New York matters: the same 50-gallon gas job is about $1,924 in the New York-Newark-Jersey City, NY-NJ area and $1,770 in the Syracuse, NY area.",
+      "In New York City, a Licensed Master Plumber files the work."
     ]
   },
   "tables": {
@@ -358,7 +394,7 @@
           "us": "3,318"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules; New York labor and extras × BEA price factor 1.079",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules; New York labor and extras × BEA price factor 1.079",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -414,7 +450,7 @@
           "high": "2,726"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -470,7 +506,7 @@
           "high": "2,940"
         }
       ],
-      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: data/installation-costs.json (2026-11-13), anchored to DOE's 2024 water heater rules",
+      "source": "Equipment: Home Depot listings (2026-11-12); labor, permit and extras: our installation cost ranges (2026-11-13), anchored to DOE's 2024 water heater rules",
       "sourceUrl": "https://hotwatermath.com/methodology/#water-heater-cost-calculator",
       "sourceDate": "2026-11-13"
     },
@@ -536,10 +572,10 @@
         },
         {
           "label": "Electric tankless",
-          "uef": "0.92",
-          "state": "957",
-          "us": "570",
-          "own": "11,174"
+          "uef": "0.94",
+          "state": "942",
+          "us": "561",
+          "own": "11,021"
         }
       ],
       "source": "EIA 2025 New York residential prices ($0.264/kWh, $1.70/therm); New York incoming water 52.0 °F; median UEF by type; installed cost from our cost model",
@@ -731,7 +767,7 @@
           "cost": "28"
         }
       ],
-      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation (formulas.monthlyMainsTemps); flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 New York prices",
+      "source": "Air: NOAA 1991–2020 monthly normals; incoming water: EnergyPlus mains correlation; flow: Rinnai RUR98i at the month's rise to 120 °F; energy: 55 gal/day, UEF 0.64, EIA 2025 New York prices",
       "sourceUrl": "https://bigladdersoftware.com/epx/docs/9-6/engineering-reference/water-systems.html",
       "sourceDate": "2026-11-12"
     },
@@ -789,7 +825,7 @@
           "showers": 2
         }
       ],
-      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (data/computed/inlet-temps.json). Flow = input × efficiency ÷ (8.34 × 60 × rise), formulas.maxGpmByRise; unit input and efficiency from Rinnai's chart",
+      "source": "Incoming water: NOAA air temperature normals with the DOE/NREL mains correlation (our inlet temperature table, see Methodology). Flow = input × efficiency ÷ (8.34 × 60 × rise), unit input and efficiency from Rinnai's chart",
       "sourceUrl": "https://www.lowes.com/pdf/TanklessSpecPoster24x18_r2web.pdf",
       "sourceDate": "2026-11-13"
     },
@@ -838,6 +874,44 @@
       "source": "U.S. Energy Information Administration, 2020 Residential Energy Consumption Survey: Highlights for water heating in U.S. homes by state (7.52 million New York homes)",
       "sourceUrl": "https://www.eia.gov/consumption/residential/data/2020/index.php?view=state",
       "sourceDate": "2026-11-13"
+    },
+    "utilityRebates": {
+      "caption": "Water heater rebates in New York: utility and state programs (checked 2026-11-14)",
+      "columns": [
+        {
+          "key": "sponsor",
+          "label": "Program"
+        },
+        {
+          "key": "type",
+          "label": "For"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "conditions",
+          "label": "Main conditions"
+        }
+      ],
+      "rows": [
+        {
+          "sponsor": "Con Edison",
+          "type": "Heat pump water heater",
+          "offer": "$1,500 instant rebate on a qualified ENERGY STAR heat pump water heater up to 120 gallons",
+          "conditions": "Bought at a participating Lowe's or Home Depot, or by your contractor from a participating distributor."
+        },
+        {
+          "sponsor": "PSEG Long Island",
+          "type": "Heat pump water heater",
+          "offer": "Up to $1,200 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "PSEG Long Island residential customers."
+        }
+      ],
+      "source": "Each program's own page, opened 2026-11-14: Con Edison; PSEG Long Island. Amounts change; confirm before you buy",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-14"
     }
   }
 }

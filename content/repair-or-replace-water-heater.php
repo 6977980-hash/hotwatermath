@@ -85,6 +85,8 @@ $hwm_tk  = (array) ( $hwm_types['tankless'] ?? array() );
 <?php echo hwm_table( $hwm_c, 'energy' ); // phpcs:ignore ?>
 <p>The comparison assumes a standard new unit, because the efficiency of an old heater is not on its label in today's units. An older heater can do worse than a new standard one, so the real saving can be larger. Use your own energy prices in the calculator, and see whether rebates apply in your area.</p>
 
+<?php hwm_part( 'doe-2029', array( 'heading' => true, 'lead' => 'If your heater is an electric tank, a rule change may push you toward replacing sooner rather than later.' ) ); ?>
+
 <h2>Questions to ask before you accept any quote</h2>
 <ul>
 	<li>Is the leak from the tank, or from a fitting, valve or pipe? Can you show me?</li>

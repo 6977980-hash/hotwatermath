@@ -41,7 +41,7 @@ ob_start();
 		<label for="ge-state">Your state</label>
 		<select id="ge-state" name="state">
 			<?php foreach ( (array) hwm_raw( $hwm_c, 'stateOptions' ) as $hwm_s ) : ?>
-				<option value="<?php echo esc_attr( (string) $hwm_s['id'] ); ?>"><?php echo esc_html( (string) $hwm_s['name'] ); ?></option>
+				<option value="<?php echo esc_attr( (string) $hwm_s['id'] ); ?>"><?php echo esc_html( hwm_state_label( (string) $hwm_s['id'], (string) $hwm_s['name'] ) ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
@@ -153,6 +153,8 @@ $related = array( 'water-heater-cost-calculator', 'tankless-vs-tank-water-heater
 	</table>
 </div>
 <p>The tank sizes differ because gas burners reheat water faster than electric elements. Our <?php echo hwm_link( 'water-heater-size-calculator', 'water heater size calculator' ); // phpcs:ignore ?> shows the gas and electric size side by side for your household. If you are thinking about switching fuel, the <?php echo hwm_link( 'water-heater-cost-calculator', 'water heater cost calculator' ); // phpcs:ignore ?> adds the gas line, venting or circuit work to the price.</p>
+
+<?php hwm_part( 'doe-2029', array( 'heading' => true, 'lead' => 'The electric side of this comparison changes for new heaters in a few years.' ) ); ?>
 
 <h2>Common mistakes when comparing</h2>
 <ul>

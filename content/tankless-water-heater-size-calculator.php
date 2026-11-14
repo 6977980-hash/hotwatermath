@@ -104,6 +104,8 @@ $hwm_rule = (array) hwm_raw( $hwm_tr, 'rules' );
 </div>
 <p>Two bathrooms versus three matters less than how many fixtures run at once. Three bathrooms rarely means three showers at the same moment; if it does, plan for two gas units or a tank. Enter your own count in the calculator rather than going by the number of bathrooms.</p>
 
+<?php hwm_part( 'tankless-delay', array( 'heading' => 'Does a tankless water heater need recirculation?' ) ); ?>
+
 <h2>Common tankless sizing mistakes</h2>
 <ul>
 	<li><strong>Using the yearly average water temperature.</strong> A unit sized for the average runs short every winter. The calculator uses the coldest month.</li>
@@ -114,7 +116,7 @@ $hwm_rule = (array) hwm_raw( $hwm_tr, 'rules' );
 </ul>
 
 <h2>When is this a job for a licensed professional?</h2>
-<p>Installing a tankless water heater involves gas piping, venting or high-current wiring, and local codes and permits apply. A licensed plumber or gas fitter should confirm the gas line size and venting, and a licensed electrician should confirm the breaker, wire and service capacity for an electric unit. Our planned guides on <?php echo hwm_link( 'gas-line-size-for-tankless-water-heater', 'gas line size for a tankless water heater' ); // phpcs:ignore ?> and <?php echo hwm_link( 'tankless-water-heater-electrical-requirements', 'tankless electrical requirements' ); // phpcs:ignore ?> explain what the codes say, for discussion with your installer.</p>
+<p>Installing a tankless water heater involves gas piping, venting or high-current wiring, and local codes and permits apply. A licensed plumber or gas fitter should confirm the gas line size and venting, and a licensed electrician should confirm the breaker, wire and service capacity for an electric unit. Our guides on <?php echo hwm_link( 'gas-line-size-for-tankless-water-heater', 'gas line size for a tankless water heater' ); // phpcs:ignore ?> and <?php echo hwm_link( 'tankless-water-heater-electrical-requirements', 'tankless electrical requirements' ); // phpcs:ignore ?> explain what the codes say, for discussion with your installer.</p>
 
 <h2>Limitations of this estimate</h2>
 <p>Showers and bathroom sinks are sized at the <?php echo $hwm_f( 'fixtures.shower.useTempF', 0 ); // phpcs:ignore ?> °F people use them at, as Rinnai's sizing charts do; the kitchen faucet, dishwasher and washer are counted at full flow and full setpoint, which errs on the safe side. Some makers, such as Noritz, size the whole fixture flow to the setpoint and so pick a larger unit; see the cross-check on our methodology page. Real units lose output at high altitude, and some will not fire below a minimum flow. Incoming water temperature is a statewide estimate; homes on wells or in mountain areas can differ. Use the result to shortlist sizes, then confirm with the manufacturer's chart for the exact model.</p>

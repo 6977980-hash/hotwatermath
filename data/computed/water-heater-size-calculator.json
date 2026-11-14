@@ -17,9 +17,9 @@
   },
   "default": {
     "status": "ok",
-    "statusLabel": "Most models of this size meet it",
+    "statusLabel": "The typical size: meets the median of 4 models in our sample",
     "headline": "50-gallon gas tank (first hour rating 69+ gal)",
-    "explain": "Your busiest hour uses about 69 gallons of hot water, so choose a heater with a first hour rating (FHR) of at least 69 gallons. Other fuels: 55-gallon electric (typical first hour rating 74 gal); 65-gallon heat pump (typical first hour rating 75 gal). American Water Heater suggests an FHR of 62–74 gal for 4 people; your busy hour is inside that range.",
+    "explain": "Your busiest hour uses about 69 gallons of hot water, so choose a heater with a first hour rating (FHR) of at least 69 gallons. Other fuels: 55-gallon electric (typical first hour rating 74 gal); 65-gallon heat pump (typical first hour rating 75 gal). American Water Heater suggests an FHR of 62–74 gal for 4 people; your busy hour is inside that range (our household presets are set to land in it, so this is a consistency check; Rheem and A. O. Smith are the independent ones on Methodology).",
     "formula": "Peak-hour demand = 3 × 20 gal (shower) + 1 × 4 gal (hands and face washing) + 1 × 5 gal (food preparation) = 69 gal\nRequired FHR = 69 × 1 = 69 gal (rounded up)\nGas: 50 gal; that size rates 75–86 gal, typical 81 (4 models)\nElectric: 55 gal; that size rates 74–74 gal, typical 74 (1 model)\nHeat pump: 65 gal; that size rates 54–82 gal, typical 75 (24 models)",
     "sources": "Per-use gallons: AHRI peak-hour worksheet. First hour ratings: Rheem spec sheets (gas, electric) and the ENERGY STAR certified list (heat pump). The 4-person busy hour is our assumption; change the counts. <a href=\"/methodology/#water-heater-size-calculator\">See our results checked against American, Rheem and A. O. Smith sizing guides</a>."
   },
@@ -142,7 +142,7 @@
       "ours": "49 gal peak-hour demand → FHR 49+",
       "published": "FHR 38–49 gal",
       "match": true,
-      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "why": "Consistency check, not an independent one: our busy-hour presets were set to land inside this range.",
       "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
       "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
     },
@@ -152,7 +152,7 @@
       "ours": "57 gal peak-hour demand → FHR 57+",
       "published": "FHR 49–62 gal",
       "match": true,
-      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "why": "Consistency check, not an independent one: our busy-hour presets were set to land inside this range.",
       "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
       "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
     },
@@ -162,7 +162,7 @@
       "ours": "69 gal peak-hour demand → FHR 69+",
       "published": "FHR 62–74 gal",
       "match": true,
-      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "why": "Consistency check, not an independent one: our busy-hour presets were set to land inside this range.",
       "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
       "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
     },
@@ -172,7 +172,7 @@
       "ours": "91 gal peak-hour demand → FHR 91+",
       "published": "FHR 74–95 gal",
       "match": true,
-      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "why": "Consistency check, not an independent one: our busy-hour presets were set to land inside this range.",
       "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
       "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
     },
@@ -182,7 +182,7 @@
       "ours": "99 gal peak-hour demand → FHR 99+",
       "published": "FHR 95–124 gal",
       "match": true,
-      "why": "Inside the published range. Our busy-hour presets are set so they land in this range; the AHRI per-use gallons do the rest.",
+      "why": "Consistency check, not an independent one: our busy-hour presets were set to land inside this range.",
       "source": "American Water Heater, Residential Product Catalog: Residential Water Heater Selection Guide, Simple Tank Type Sizing (First Hour Rating requirements by family size)",
       "sourceUrl": "https://assets.americanwaterheater.com/damroot/Original/10001/NRBBR00107.pdf"
     },

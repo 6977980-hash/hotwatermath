@@ -345,3 +345,13 @@ function hwm_recent_pages( int $limit = 6 ): array {
 	);
 	return array_slice( array_values( $items ), 0, $limit );
 }
+
+/**
+ * State name for a calculator's state list. States whose temperature comes from one NOAA city series instead of a
+ * statewide one say so (audit F-14): "Alaska (Anchorage data)".
+ */
+function hwm_state_label( string $code, string $name ): string {
+	$station = (string) hwm_raw( 'groundwater-temp-by-state', 'states.' . $code . '.stationLabel' );
+	return '' !== $station ? $name . ' (' . $station . ' data)' : $name;
+}
+

@@ -1446,7 +1446,7 @@
           "best": "Heat pump (hybrid), 240 V"
         }
       ],
-      "source": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
+      "source": "Installed: equipment listings (2026-11-12) + our installation cost ranges, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
       "sourceUrl": "https://hotwatermath.com/methodology/#cost-index",
       "sourceDate": "2026-11-13"
     },
@@ -1534,7 +1534,7 @@
           "best": "Gas tank (standard vent)"
         }
       ],
-      "source": "Installed: equipment listings (2026-11-12) + data/installation-costs.json, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
+      "source": "Installed: equipment listings (2026-11-12) + our installation cost ranges, labor, permit and haul-away × BEA Regional Price Parity ÷ 100. Energy: EIA state residential prices, 55 gal/day at 120 °F from each state's average incoming water temperature (NOAA-based), median UEFs. 10-year cost = installed + 10 × yearly energy (no rebates, no discounting).",
       "sourceUrl": "https://hotwatermath.com/methodology/#cost-index",
       "sourceDate": "2026-11-13"
     }

@@ -1,0 +1,754 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/solar-water-heating.json and the cost model with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Figures and tables for the solar water heater cost article (audit suggestion S-12)."
+  },
+  "figures": {
+    "costLow": "6,000",
+    "costHigh": "10,000",
+    "costTypical": "8,000",
+    "costYear": 2012,
+    "upkeep": "40",
+    "elInstalled": "1,579",
+    "gasInstalled": "1,809",
+    "extraE": "6,421",
+    "extraG": "6,191",
+    "gallons": 55,
+    "setpoint": 120,
+    "uefE": "0.93",
+    "uefG": "0.64",
+    "life": 13,
+    "stateCount": 48,
+    "missing": "Arkansas, District of Columbia, Iowa",
+    "inLifeE": 11,
+    "inLifeG": 0,
+    "best": {
+      "name": "Massachusetts",
+      "city": "Boston",
+      "eSave": "726",
+      "ePay": "9 yrs"
+    },
+    "worst": {
+      "name": "Louisiana",
+      "city": "New Orleans",
+      "eSave": "202",
+      "ePay": "32 yrs"
+    },
+    "mid": {
+      "name": "West Virginia",
+      "city": "Huntington",
+      "eSave": "314",
+      "ePay": "21 yrs",
+      "share": 72
+    },
+    "sunniest": {
+      "name": "Hawaii",
+      "city": "Honolulu",
+      "share": 83
+    },
+    "cloudiest": {
+      "name": "Washington",
+      "city": "Seattle",
+      "share": 58
+    },
+    "az": {
+      "name": "Arizona",
+      "city": "Phoenix",
+      "area": "34",
+      "share": 78,
+      "eSave": "290",
+      "gSave": "155",
+      "ePay": "22 yrs",
+      "gPay": "40 yrs",
+      "rise": "53"
+    },
+    "ny": {
+      "name": "New York",
+      "city": "New York",
+      "area": "58",
+      "share": 74,
+      "eSave": "654",
+      "gSave": "180",
+      "ePay": "10 yrs",
+      "gPay": "34 yrs",
+      "rise": "68"
+    },
+    "fl": {
+      "name": "Florida",
+      "city": "Miami",
+      "area": "34",
+      "share": 77,
+      "eSave": "220",
+      "gSave": "172",
+      "ePay": "29 yrs",
+      "gPay": "36 yrs",
+      "rise": "43"
+    },
+    "hi": {
+      "name": "Hawaii",
+      "city": "Honolulu",
+      "area": "28",
+      "share": 83,
+      "eSave": "583",
+      "gSave": "399",
+      "ePay": "11 yrs",
+      "gPay": "16 yrs",
+      "rise": "36"
+    },
+    "hpSave": "426",
+    "hpInstalled": "2,947",
+    "hpPay": "3.2",
+    "creditPct": 30,
+    "creditLastDay": "2025-12-31",
+    "guidesLow": "1,780",
+    "guidesHigh": "10,000"
+  },
+  "tables": {
+    "byState": {
+      "caption": "Solar water heater savings and payback by state (typical household, electric or gas backup)",
+      "columns": [
+        {
+          "key": "name",
+          "label": "State"
+        },
+        {
+          "key": "city",
+          "label": "Sun data city"
+        },
+        {
+          "key": "area",
+          "label": "Collector",
+          "unit": "ft²",
+          "num": true
+        },
+        {
+          "key": "share",
+          "label": "Solar share",
+          "unit": "%",
+          "num": true
+        },
+        {
+          "key": "eSave",
+          "label": "Saves vs electric",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "ePay",
+          "label": "Payback vs electric"
+        },
+        {
+          "key": "gSave",
+          "label": "Saves vs gas",
+          "unit": "$/yr",
+          "num": true
+        },
+        {
+          "key": "gPay",
+          "label": "Payback vs gas"
+        }
+      ],
+      "rows": [
+        {
+          "name": "Alabama",
+          "city": "Huntsville",
+          "area": "43",
+          "share": "76",
+          "eSave": "281",
+          "ePay": "23 yrs",
+          "gSave": "129",
+          "gPay": "48 yrs"
+        },
+        {
+          "name": "Alaska",
+          "city": "Anchorage",
+          "area": "80",
+          "share": "59",
+          "eSave": "569",
+          "ePay": "11 yrs",
+          "gSave": "107",
+          "gPay": "58 yrs"
+        },
+        {
+          "name": "Arizona",
+          "city": "Phoenix",
+          "area": "34",
+          "share": "78",
+          "eSave": "290",
+          "ePay": "22 yrs",
+          "gSave": "155",
+          "gPay": "40 yrs"
+        },
+        {
+          "name": "Arkansas",
+          "city": "No FEMP data",
+          "area": "–",
+          "share": "–",
+          "eSave": "–",
+          "ePay": "–",
+          "gSave": "–",
+          "gPay": "–"
+        },
+        {
+          "name": "California",
+          "city": "Long Beach",
+          "area": "42",
+          "share": "80",
+          "eSave": "682",
+          "ePay": "9 yrs",
+          "gSave": "205",
+          "gPay": "30 yrs"
+        },
+        {
+          "name": "Colorado",
+          "city": "Denver",
+          "area": "54",
+          "share": "81",
+          "eSave": "412",
+          "ePay": "16 yrs",
+          "gSave": "109",
+          "gPay": "57 yrs"
+        },
+        {
+          "name": "Connecticut",
+          "city": "Hartford",
+          "area": "57",
+          "share": "73",
+          "eSave": "680",
+          "ePay": "9 yrs",
+          "gSave": "156",
+          "gPay": "40 yrs"
+        },
+        {
+          "name": "Delaware",
+          "city": "Wilmington",
+          "area": "50",
+          "share": "74",
+          "eSave": "343",
+          "ePay": "19 yrs",
+          "gSave": "131",
+          "gPay": "47 yrs"
+        },
+        {
+          "name": "District of Columbia",
+          "city": "No FEMP data",
+          "area": "–",
+          "share": "–",
+          "eSave": "–",
+          "ePay": "–",
+          "gSave": "–",
+          "gPay": "–"
+        },
+        {
+          "name": "Florida",
+          "city": "Miami",
+          "area": "34",
+          "share": "77",
+          "eSave": "220",
+          "ePay": "29 yrs",
+          "gSave": "172",
+          "gPay": "36 yrs"
+        },
+        {
+          "name": "Georgia",
+          "city": "Atlanta",
+          "area": "41",
+          "share": "79",
+          "eSave": "264",
+          "ePay": "24 yrs",
+          "gSave": "163",
+          "gPay": "38 yrs"
+        },
+        {
+          "name": "Hawaii",
+          "city": "Honolulu",
+          "area": "28",
+          "share": "83",
+          "eSave": "583",
+          "ePay": "11 yrs",
+          "gSave": "399",
+          "gPay": "16 yrs"
+        },
+        {
+          "name": "Idaho",
+          "city": "Boise",
+          "area": "48",
+          "share": "66",
+          "eSave": "244",
+          "ePay": "26 yrs",
+          "gSave": "47",
+          "gPay": "130 yrs"
+        },
+        {
+          "name": "Illinois",
+          "city": "Chicago",
+          "area": "52",
+          "share": "69",
+          "eSave": "354",
+          "ePay": "18 yrs",
+          "gSave": "77",
+          "gPay": "80 yrs"
+        },
+        {
+          "name": "Indiana",
+          "city": "Fort Wayne",
+          "area": "53",
+          "share": "69",
+          "eSave": "316",
+          "ePay": "20 yrs",
+          "gSave": "79",
+          "gPay": "79 yrs"
+        },
+        {
+          "name": "Iowa",
+          "city": "No FEMP data",
+          "area": "–",
+          "share": "–",
+          "eSave": "–",
+          "ePay": "–",
+          "gSave": "–",
+          "gPay": "–"
+        },
+        {
+          "name": "Kansas",
+          "city": "Wichita",
+          "area": "45",
+          "share": "74",
+          "eSave": "291",
+          "ePay": "22 yrs",
+          "gSave": "122",
+          "gPay": "51 yrs"
+        },
+        {
+          "name": "Kentucky",
+          "city": "Lexington-Fayette",
+          "area": "50",
+          "share": "72",
+          "eSave": "246",
+          "ePay": "26 yrs",
+          "gSave": "107",
+          "gPay": "58 yrs"
+        },
+        {
+          "name": "Louisiana",
+          "city": "New Orleans",
+          "area": "40",
+          "share": "79",
+          "eSave": "202",
+          "ePay": "32 yrs",
+          "gSave": "124",
+          "gPay": "50 yrs"
+        },
+        {
+          "name": "Maine",
+          "city": "Bangor",
+          "area": "70",
+          "share": "67",
+          "eSave": "655",
+          "ePay": "10 yrs",
+          "gSave": "182",
+          "gPay": "34 yrs"
+        },
+        {
+          "name": "Maryland",
+          "city": "Baltimore",
+          "area": "50",
+          "share": "74",
+          "eSave": "402",
+          "ePay": "16 yrs",
+          "gSave": "134",
+          "gPay": "46 yrs"
+        },
+        {
+          "name": "Massachusetts",
+          "city": "Boston",
+          "area": "56",
+          "share": "74",
+          "eSave": "726",
+          "ePay": "9 yrs",
+          "gSave": "262",
+          "gPay": "24 yrs"
+        },
+        {
+          "name": "Michigan",
+          "city": "Detroit",
+          "area": "59",
+          "share": "68",
+          "eSave": "446",
+          "ePay": "14 yrs",
+          "gSave": "82",
+          "gPay": "76 yrs"
+        },
+        {
+          "name": "Minnesota",
+          "city": "Duluth",
+          "area": "62",
+          "share": "71",
+          "eSave": "383",
+          "ePay": "17 yrs",
+          "gSave": "97",
+          "gPay": "64 yrs"
+        },
+        {
+          "name": "Mississippi",
+          "city": "Natchez",
+          "area": "44",
+          "share": "77",
+          "eSave": "240",
+          "ePay": "27 yrs",
+          "gSave": "121",
+          "gPay": "51 yrs"
+        },
+        {
+          "name": "Missouri",
+          "city": "St. Louis",
+          "area": "48",
+          "share": "73",
+          "eSave": "259",
+          "ePay": "25 yrs",
+          "gSave": "123",
+          "gPay": "50 yrs"
+        },
+        {
+          "name": "Montana",
+          "city": "Billings",
+          "area": "53",
+          "share": "69",
+          "eSave": "296",
+          "ePay": "22 yrs",
+          "gSave": "68",
+          "gPay": "91 yrs"
+        },
+        {
+          "name": "Nebraska",
+          "city": "Omaha",
+          "area": "52",
+          "share": "74",
+          "eSave": "259",
+          "ePay": "25 yrs",
+          "gSave": "93",
+          "gPay": "67 yrs"
+        },
+        {
+          "name": "Nevada",
+          "city": "Las Vegas",
+          "area": "41",
+          "share": "79",
+          "eSave": "306",
+          "ePay": "21 yrs",
+          "gSave": "123",
+          "gPay": "50 yrs"
+        },
+        {
+          "name": "New Hampshire",
+          "city": "Concord",
+          "area": "60",
+          "share": "74",
+          "eSave": "624",
+          "ePay": "10 yrs",
+          "gSave": "199",
+          "gPay": "31 yrs"
+        },
+        {
+          "name": "New Jersey",
+          "city": "Newark",
+          "area": "54",
+          "share": "75",
+          "eSave": "492",
+          "ePay": "13 yrs",
+          "gSave": "119",
+          "gPay": "52 yrs"
+        },
+        {
+          "name": "New Mexico",
+          "city": "Albuquerque",
+          "area": "40",
+          "share": "80",
+          "eSave": "330",
+          "ePay": "19 yrs",
+          "gSave": "79",
+          "gPay": "79 yrs"
+        },
+        {
+          "name": "New York",
+          "city": "New York",
+          "area": "58",
+          "share": "74",
+          "eSave": "654",
+          "ePay": "10 yrs",
+          "gSave": "180",
+          "gPay": "34 yrs"
+        },
+        {
+          "name": "North Carolina",
+          "city": "Charlotte",
+          "area": "46",
+          "share": "79",
+          "eSave": "275",
+          "ePay": "23 yrs",
+          "gSave": "136",
+          "gPay": "46 yrs"
+        },
+        {
+          "name": "North Dakota",
+          "city": "Fargo",
+          "area": "59",
+          "share": "69",
+          "eSave": "271",
+          "ePay": "24 yrs",
+          "gSave": "78",
+          "gPay": "80 yrs"
+        },
+        {
+          "name": "Ohio",
+          "city": "Columbus",
+          "area": "56",
+          "share": "70",
+          "eSave": "345",
+          "ePay": "19 yrs",
+          "gSave": "106",
+          "gPay": "58 yrs"
+        },
+        {
+          "name": "Oklahoma",
+          "city": "Oklahoma City",
+          "area": "41",
+          "share": "77",
+          "eSave": "246",
+          "ePay": "26 yrs",
+          "gSave": "109",
+          "gPay": "57 yrs"
+        },
+        {
+          "name": "Oregon",
+          "city": "Portland",
+          "area": "55",
+          "share": "61",
+          "eSave": "283",
+          "ePay": "23 yrs",
+          "gSave": "121",
+          "gPay": "51 yrs"
+        },
+        {
+          "name": "Pennsylvania",
+          "city": "Philadelphia",
+          "area": "56",
+          "share": "75",
+          "eSave": "450",
+          "ePay": "14 yrs",
+          "gSave": "142",
+          "gPay": "44 yrs"
+        },
+        {
+          "name": "Rhode Island",
+          "city": "Providence",
+          "area": "55",
+          "share": "74",
+          "eSave": "678",
+          "ePay": "10 yrs",
+          "gSave": "212",
+          "gPay": "29 yrs"
+        },
+        {
+          "name": "South Carolina",
+          "city": "Columbia",
+          "area": "41",
+          "share": "78",
+          "eSave": "271",
+          "ePay": "24 yrs",
+          "gSave": "127",
+          "gPay": "49 yrs"
+        },
+        {
+          "name": "South Dakota",
+          "city": "Sioux Falls",
+          "area": "54",
+          "share": "71",
+          "eSave": "297",
+          "ePay": "22 yrs",
+          "gSave": "74",
+          "gPay": "83 yrs"
+        },
+        {
+          "name": "Tennessee",
+          "city": "Memphis",
+          "area": "45",
+          "share": "75",
+          "eSave": "248",
+          "ePay": "26 yrs",
+          "gSave": "85",
+          "gPay": "73 yrs"
+        },
+        {
+          "name": "Texas",
+          "city": "Houston",
+          "area": "42",
+          "share": "79",
+          "eSave": "265",
+          "ePay": "24 yrs",
+          "gSave": "148",
+          "gPay": "42 yrs"
+        },
+        {
+          "name": "Utah",
+          "city": "Salt Lake City",
+          "area": "47",
+          "share": "71",
+          "eSave": "274",
+          "ePay": "23 yrs",
+          "gSave": "76",
+          "gPay": "82 yrs"
+        },
+        {
+          "name": "Vermont",
+          "city": "Burlington",
+          "area": "61",
+          "share": "69",
+          "eSave": "544",
+          "ePay": "12 yrs",
+          "gSave": "177",
+          "gPay": "35 yrs"
+        },
+        {
+          "name": "Virginia",
+          "city": "Norfolk",
+          "area": "50",
+          "share": "77",
+          "eSave": "318",
+          "ePay": "20 yrs",
+          "gSave": "146",
+          "gPay": "42 yrs"
+        },
+        {
+          "name": "Washington",
+          "city": "Seattle",
+          "area": "56",
+          "share": "58",
+          "eSave": "228",
+          "ePay": "28 yrs",
+          "gSave": "122",
+          "gPay": "51 yrs"
+        },
+        {
+          "name": "West Virginia",
+          "city": "Huntington",
+          "area": "55",
+          "share": "72",
+          "eSave": "314",
+          "ePay": "21 yrs",
+          "gSave": "104",
+          "gPay": "60 yrs"
+        },
+        {
+          "name": "Wisconsin",
+          "city": "Madison",
+          "area": "58",
+          "share": "70",
+          "eSave": "423",
+          "ePay": "15 yrs",
+          "gSave": "88",
+          "gPay": "70 yrs"
+        },
+        {
+          "name": "Wyoming",
+          "city": "Cheyenne",
+          "area": "57",
+          "share": "78",
+          "eSave": "352",
+          "ePay": "18 yrs",
+          "gSave": "122",
+          "gPay": "51 yrs"
+        }
+      ],
+      "source": "DOE FEMP solar hot water calculator equations (efficiency 0.3, 90% of heat usable, upkeep 0.5% of cost a year) and FEMP city sun data; 55 gal/day at 120 °F; state incoming water; EIA 2025 state prices; system $8,000 (middle of NREL's $6,000–$10,000)",
+      "sourceUrl": "https://hotwatermath.com/methodology/#solar-water-heater-cost",
+      "sourceDate": "2026-11-14"
+    },
+    "costs": {
+      "caption": "Solar water heater installed cost: what each source says",
+      "columns": [
+        {
+          "key": "src",
+          "label": "Source"
+        },
+        {
+          "key": "range",
+          "label": "Installed cost",
+          "unit": "$"
+        },
+        {
+          "key": "kind",
+          "label": "Kind"
+        }
+      ],
+      "rows": [
+        {
+          "src": "NREL roadmap (2012)",
+          "range": "6,000–10,000",
+          "kind": "National lab; what our numbers use"
+        },
+        {
+          "src": "Angi and HomeAdvisor (same data)",
+          "range": "1,780–5,722",
+          "kind": "Cost guide, checked 2026-11-14"
+        },
+        {
+          "src": "HomeGuide",
+          "range": "3,000–9,000",
+          "kind": "Cost guide, checked 2026-11-14"
+        },
+        {
+          "src": "Fixr",
+          "range": "8,000–10,000",
+          "kind": "Cost guide, checked 2026-11-14"
+        }
+      ],
+      "source": "NREL, Low-Cost Solar Water Heating Research and Development Roadmap (NREL/TP-5500-54793, August 2012); cost guides opened 2026-11-14",
+      "sourceUrl": "https://www.osti.gov/servlets/purl/1219746",
+      "sourceDate": "2026-11-14"
+    },
+    "compare": {
+      "caption": "Solar vs heat pump vs electric tank (typical household)",
+      "columns": [
+        {
+          "key": "opt",
+          "label": "Option"
+        },
+        {
+          "key": "cost",
+          "label": "Installed",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "save",
+          "label": "Saves vs electric tank",
+          "unit": "$/yr",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "opt": "Electric tank, 50 gal (U.S. average)",
+          "cost": "1,579",
+          "save": "0"
+        },
+        {
+          "opt": "Heat pump (hybrid), 50 gal (U.S. average)",
+          "cost": "2,947",
+          "save": "426"
+        },
+        {
+          "opt": "Solar with electric backup (West Virginia, the middle state)",
+          "cost": "8,000",
+          "save": "314"
+        }
+      ],
+      "source": "Our cost model and heat pump savings calculator; solar from the FEMP equations",
+      "sourceUrl": "https://hotwatermath.com/methodology/#solar-water-heater-cost",
+      "sourceDate": "2026-11-14"
+    }
+  }
+}

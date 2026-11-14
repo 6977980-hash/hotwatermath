@@ -45,7 +45,7 @@ ob_start();
 		<label for="tt-state">Your state</label>
 		<select id="tt-state" name="state">
 			<?php foreach ( (array) hwm_raw( $hwm_c, 'stateOptions' ) as $hwm_s ) : ?>
-				<option value="<?php echo esc_attr( (string) $hwm_s['id'] ); ?>"><?php echo esc_html( (string) $hwm_s['name'] ); ?></option>
+				<option value="<?php echo esc_attr( (string) $hwm_s['id'] ); ?>"><?php echo esc_html( hwm_state_label( (string) $hwm_s['id'], (string) $hwm_s['name'] ) ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</div>
@@ -162,6 +162,8 @@ $related = array( 'tankless-water-heater-size-calculator', 'water-heater-size-ca
 	</table>
 </div>
 <p>The flow limit matters most in winter, when the incoming water is coldest. The <?php echo hwm_link( 'tankless-water-heater-size-calculator', 'tankless size calculator' ); // phpcs:ignore ?> checks that a unit can run your showers at once in your state's coldest month.</p>
+
+<?php hwm_part( 'tankless-delay', array( 'heading' => 'What is the tankless cold water sandwich?' ) ); ?>
 
 <h2>Hybrid (heat pump) vs tankless: which saves more?</h2>
 <p>A heat pump water heater has the lowest running cost of any type we compare, about $<?php echo $hwm_x( $hwm_g, 'heat_pump', 'year' ); // phpcs:ignore ?> a year against $<?php echo $hwm_x( $hwm_g, 'gas_tankless', 'year' ); // phpcs:ignore ?> for gas tankless at U.S. average prices. In an electric home it is usually the best value: it pays back against an electric tank in <?php echo esc_html( $hwm_be( $hwm_e['heat_pump']['be'] ?? null ) ); ?>. In a gas home, the 240-volt circuit it needs adds to the switch cost.</p>

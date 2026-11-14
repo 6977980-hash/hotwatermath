@@ -71,7 +71,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-cost-calculator', 'inputs
 			<?php endforeach; ?>
 		</tbody>
 	</table>
-	<p class="table-source">Source: our cost model (retail unit prices, labor and extras from data/installation-costs.json).</p>
+	<p class="table-source">Source: our cost model: retail unit prices plus our labor and extras ranges (<?php echo hwm_link( 'methodology', 'see Methodology' ); // phpcs:ignore ?>).</p>
 </div>
 <p>Each switch has its own page with an itemized breakdown: <?php echo hwm_link( 'gas-water-heater-installation-cost', 'gas water heater installation cost' ); // phpcs:ignore ?>, <?php echo hwm_link( 'electric-water-heater-installation-cost', 'electric water heater installation cost' ); // phpcs:ignore ?> and <?php echo hwm_link( 'tankless-water-heater-installation-cost', 'tankless water heater installation cost' ); // phpcs:ignore ?>.</p>
 

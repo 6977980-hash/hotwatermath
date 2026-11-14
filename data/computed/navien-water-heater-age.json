@@ -610,7 +610,8 @@
     "bands": {
       "amberFrom": 0.6,
       "redFrom": 0.9,
-      "source": "Hot Water Math editorial assumption: green below 60% of typical life, amber from 60%, red from 90%"
+      "source": "Hot Water Math editorial assumption: green below 60% of typical life, amber from 60%, red from 90%; \"old\" from 75%, the point where the repair or replace calculator stops paying for big repairs (one set of bands for both tools, audit F-09)",
+      "oldFrom": 0.75
     },
     "statusLabels": {
       "ok": "Well within expected life",
