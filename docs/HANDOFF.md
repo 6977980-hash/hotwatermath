@@ -15,6 +15,8 @@
 
 **Verified (before deploy):** `npm test` 80/80; `validate-data` 84 files OK; `php -l` clean on changed PHP.
 
+**Verified live (after PR #50 deployed, 2026-11-14):** style.css 0.17.2 served. Home and age tool: `X-Frame-Options: DENY`, `frame-ancestors 'none'`, HSTS `max-age=31536000; includeSubDomains`. `/embed/water-heater-age-calculator/`: no X-Frame-Options, `frame-ancestors *`. One `system.listMethods` call: no `pingback.*` methods. `npm run check -- --bust` 778/778; `check-links -- --bust` 1565/1565 (60 pages); `check-embeds -- --bust` 230/230. The 4 screenshots still answer 200 from origin (CDN MISS): Hostinger's Git deploy does not delete removed files, so the owner deletes them in File Manager (`public_html/wp-content/themes/hotwatermath/`).
+
 **Known issues / TODOs carried forward:**
 - Customizer preview with the new DENY rule could not be tested logged in from the sandbox; the code keeps SAMEORIGIN when `is_customize_preview()` is true. Content is not edited in WordPress anyway.
 - F-15: `http://…` URLs take 2 hops (CDN https, then WordPress). Optional owner hPanel check; test for a loop before keeping any change.
