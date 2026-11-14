@@ -15,7 +15,7 @@
 
 **Verified (before deploy):** `npm test` 80/80; `validate-data` 84 files OK; `build:data` committed; `php -l` clean; ad sidebar rendered with stubs: nothing when IDs are empty, aside + reserved box when client and unit are set. New copy measured by patching the live pages at 360×640: first input of all 15 tool pages ends at ≤ 635 px, header 56 px.
 
-**Verified live:** see the Log line and the PR (filled after deploy).
+**Verified live (after PR #48 deployed, 2026-11-14):** style.css 0.17.1 served. `npm run check -- --bust` 778/778; `check-links -- --bust` 1565/1565 (60 pages); `check-embeds -- --bust` 230/230. Playwright 360×640 on all 15 tool pages + home, lifespan article and Texas state page: header 56 px, no Advertisement aside, no horizontal scroll, first input ends ≤ 635 px (expansion tank 635). At 1280 px the article column is unchanged (736 px).
 
 **Known issues / TODOs carried forward:**
 - F-15: `http://…` URLs take 2 hops (CDN https, then WordPress). Owner may check hPanel for a CDN/SSL "Force HTTPS" switch; turning it off only helps if WordPress then does http → https itself without a loop, so test before keeping it. Google follows both hops; impact is low.
