@@ -12,12 +12,17 @@ if ( ! $hwm_entry ) {
 	require HWM_DIR . '/404.php';
 	return;
 }
-$hwm_out = hwm_content( (string) ( $hwm_entry['contentFile'] ?? $hwm_entry['slug'] ), $hwm_entry );
+$hwm_out  = hwm_content( (string) ( $hwm_entry['contentFile'] ?? $hwm_entry['slug'] ), $hwm_entry );
+$hwm_home = 'home' === ( $hwm_entry['type'] ?? '' );
+// Long utility pages (methodology, policies) get the desktop "On this page" rail; the home page uses the full width instead.
+$hwm_toc  = $hwm_home ? array() : hwm_toc_prepare( $hwm_out );
+$hwm_rail = ! $hwm_home && hwm_has_rail( $hwm_toc );
 get_header();
 ?>
 <main id="main" class="container">
 	<?php hwm_part( 'breadcrumb', array( 'entry' => $hwm_entry ) ); ?>
-	<article class="prose">
+	<?php if ( $hwm_rail ) : ?><div class="layout layout--sidebar"><?php endif; ?>
+	<article class="<?php echo $hwm_home ? 'hwm-home' : 'prose'; ?>">
 		<?php hwm_part( 'page-intro', array( 'entry' => $hwm_entry ) ); ?>
 		<?php hwm_part( 'quick-answer', array( 'text' => $hwm_entry['quickAnswer'] ?? '' ) ); ?>
 		<?php echo $hwm_out['html']; // phpcs:ignore -- our own content file. ?>
@@ -25,6 +30,10 @@ get_header();
 		<?php hwm_part( 'sources', array( 'items' => $hwm_out['sources'] ) ); ?>
 		<?php hwm_part( 'author-line', array( 'entry' => $hwm_entry, 'show_disclaimer' => false ) ); ?>
 	</article>
+	<?php if ( $hwm_rail ) : ?>
+		<?php hwm_part( 'rail', array( 'items' => $hwm_toc ) ); ?>
+	</div>
+	<?php endif; ?>
 </main>
 <?php
 get_footer();
