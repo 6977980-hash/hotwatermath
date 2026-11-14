@@ -5,7 +5,7 @@
 ## Current State
 
 **Last completed phase:** Audit fix Phase 5 — speed and security (2026-11-14), the last phase of the 2026-11-14 site audit (`/mnt/project-files/hotwatermath/audit/2026-11-14/`). Style 0.17.2. All audit fix phases (1, 3, 4, 5; Phase 2's F-15 is an owner hPanel check) are done.
-**Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Google Search Console is verified and has about 4 weeks of data. Drafts still waiting for the owner's OK: `/solar-water-heater-cost/` and the 3 Phase 8 pages (cost index, `/data/`, `/embed-calculators/`).
+**Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Google Search Console is verified and has about 4 weeks of data. Owner OKed the 4 drafts on 2026-11-14 10:34Z: `/solar-water-heater-cost/`, `/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/` are now `live` (style 0.17.3). Owner done: CDN flush, 4 screenshots deleted in File Manager, GSC sitemap submitted, Bing imported from GSC, Force HTTPS fine (F-15 closed). GA4 inside GTM is handled in its own thread; AdSense later.
 
 **What changed in audit fix Phase 5:**
 - F-22: removed `chart-mobile.png`, `data-360.png`, `embed-calculators-360.png`, `water-heater-installation-cost-index-360.png` from the theme root (none referenced); `.gitignore` ignores root `/*.png` except `screenshot.png`.
