@@ -178,12 +178,15 @@ export function renderTable(box, t) {
 }
 
 /**
- * Send a GA4 event if GA is loaded (no-op otherwise). Key inputs must be bucketed by the caller.
+ * Send an analytics event (no-op when no tags are set up). Key inputs must be bucketed by the caller.
+ * Direct GA4 gets a gtag event; Google Tag Manager gets a dataLayer event of the same name (use a Custom Event trigger).
  * @param {string} name e.g. 'calc_result'
  * @param {object} params
  */
 export function track(name, params = {}) {
-	if (typeof window.gtag === 'function') window.gtag('event', name, params);
+	const tags = window.hwmTags || {};
+	if (tags.ga4 && typeof window.gtag === 'function') window.gtag('event', name, params);
+	if (tags.gtm && Array.isArray(window.dataLayer)) window.dataLayer.push({ event: name, ...params });
 }
 
 /**
