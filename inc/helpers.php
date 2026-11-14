@@ -107,6 +107,22 @@ function hwm_ad( string $slot ): void {
 	hwm_part( 'ad-slot', array( 'slot' => $slot ) );
 }
 
+/** True when slot A/B/C/S would print an ad (client and that slot's unit ID both set). */
+function hwm_ad_enabled( string $slot ): bool {
+	$slot = strtoupper( $slot );
+	return in_array( $slot, array( 'A', 'B', 'C', 'S' ), true ) && '' !== hwm_adsense_client() && '' !== hwm_adsense_unit( $slot );
+}
+
+/** Sidebar slot S inside its own landmark; prints nothing (no empty landmark) until the ad is configured. */
+function hwm_ad_sidebar(): void {
+	if ( ! hwm_ad_enabled( 'S' ) ) {
+		return;
+	}
+	echo '<aside aria-label="Advertisement">';
+	hwm_ad( 'S' );
+	echo '</aside>';
+}
+
 /**
  * Run a content file and collect what it produced.
  * The file echoes its body HTML and may set $faq, $sources, $next_steps, $related
