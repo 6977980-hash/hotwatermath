@@ -1,6 +1,9 @@
 <?php
 /**
- * Security headers (CLAUDE.md §6 "Technical"). Other sites may not frame any page except /embed/*. Same-origin framing stays allowed so the WordPress Customizer preview works.
+ * Security headers (CLAUDE.md §6 "Technical"). No page may be framed except /embed/* (frameable by any site).
+ * The only exception is the WordPress Customizer preview, which frames the front end from wp-admin on the
+ * same origin: when is_customize_preview() is true the page keeps SAMEORIGIN / 'self'. Admin screens are not
+ * touched here (is_admin()), so WordPress's own SAMEORIGIN header for wp-admin stays as it is.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -15,14 +18,17 @@ function hwm_security_headers( bool $embed = false ): void {
 	header( 'Referrer-Policy: strict-origin-when-cross-origin' );
 	header( 'Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()' );
 	if ( is_ssl() ) {
-		header( 'Strict-Transport-Security: max-age=31536000' );
+		header( 'Strict-Transport-Security: max-age=31536000; includeSubDomains' );
 	}
 	if ( $embed ) {
 		header_remove( 'X-Frame-Options' );
 		header( "Content-Security-Policy: frame-ancestors *; base-uri 'self'; object-src 'none'" );
-	} else {
+	} elseif ( function_exists( 'is_customize_preview' ) && is_customize_preview() ) {
 		header( 'X-Frame-Options: SAMEORIGIN' );
 		header( "Content-Security-Policy: frame-ancestors 'self'; base-uri 'self'; object-src 'none'" );
+	} else {
+		header( 'X-Frame-Options: DENY' );
+		header( "Content-Security-Policy: frame-ancestors 'none'; base-uri 'self'; object-src 'none'" );
 	}
 }
 

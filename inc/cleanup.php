@@ -105,6 +105,11 @@ add_action(
 	100
 );
 add_filter( 'xmlrpc_enabled', '__return_false' );
+// xmlrpc_enabled=false only turns off authenticated methods; pingbacks stay unless removed here (audit F-23).
+add_filter( 'xmlrpc_methods', static function ( $methods ) {
+	unset( $methods['pingback.ping'], $methods['pingback.extensions.getPingbacks'] );
+	return $methods;
+} );
 add_filter( 'wp_headers', static function ( $headers ) {
 	unset( $headers['X-Pingback'] );
 	return $headers;
