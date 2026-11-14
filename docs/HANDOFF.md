@@ -24,7 +24,7 @@
 
 **Verified (before deploy):** `npm test` 80/80; `validate-data` 84 files OK; `build:data` committed; `php -l` clean on every changed PHP file; offline render (WP stubs) 0 notices on 14 changed pages + all 10 state pages. Every new source opened on 2026-11-14 and quoted in its data file; sources that would not open (ilga.gov, Atlanta/Columbus/San Jose permit pages, Duke, ComEd, PECO, energy.gov Energy Saver solar pages, CCMS) are not used.
 
-**Verified live:** see the log line for this phase (filled in after deploy).
+**Verified live (after PR #46 deployed, 2026-11-14):** style.css 0.17.0 served. `npm run check -- --bust` 778/778 (60 pages); `check-links -- --bust` 1565/1565 (a first run showed 4 transient 307/403 answers from Hostinger while three checks ran at once; rerun clean); `check-embeds -- --bust` 230/230. Playwright at 360×640 on 15 changed pages (home, methodology, heat pump, lifespan, repair, gas vs electric, electric install, tankless size, tankless vs tank, tank size, CA/GA/MI state pages, solar, age): no horizontal scroll, no page errors, TOC and source quotes render. `/solar-water-heater-cost/` serves `noindex, follow` (draft).
 
 **Known issues / TODOs carried forward:**
 - F-15 (redirect chain) not touched: redirects belong to Phase 2 per the brief.
