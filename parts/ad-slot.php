@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 $hwm_slot   = strtoupper( (string) ( $args['slot'] ?? '' ) );
-$hwm_client = hwm_adsense_client();
-$hwm_unit   = in_array( $hwm_slot, array( 'A', 'B', 'C', 'S' ), true ) ? hwm_adsense_unit( $hwm_slot ) : '';
-if ( '' === $hwm_client || '' === $hwm_unit ) {
+if ( ! hwm_ad_enabled( $hwm_slot ) ) {
 	return;
 }
+$hwm_client = hwm_adsense_client();
+$hwm_unit   = hwm_adsense_unit( $hwm_slot );
 ?>
 <div class="ad-slot" data-slot="<?php echo esc_attr( $hwm_slot ); ?>">
 	<span class="ad-slot__label">Advertisement</span>

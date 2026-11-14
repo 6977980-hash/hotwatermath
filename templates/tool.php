@@ -36,7 +36,7 @@ get_header();
 			</div>
 			<?php hwm_part( 'related-tools', array( 'slugs' => $hwm_out['related'] ) ); ?>
 		</article>
-		<aside aria-label="Advertisement"><?php hwm_ad( 'S' ); ?></aside>
+		<?php hwm_ad_sidebar(); ?>
 	</div>
 </main>
 <?php

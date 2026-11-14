@@ -214,9 +214,9 @@
       "description": "What size tankless water heater do you need? Add your fixtures and state to get the GPM, temperature rise, gas BTU/h and electric kW, with sources shown.",
       "h1": "Tankless water heater size calculator",
       "subtitle": "Flow, temperature rise and unit size for your home and state.",
-      "quickAnswer": "Add the hot water flow of the fixtures you run at once, then size for your coldest-month rise. Two showers at a 70 °F rise need about 3.9 GPM of hot water, about 145,000 BTU/h of gas.",
+      "quickAnswer": "Size for the fixtures you run at once in your coldest month. Two showers at a 70 °F rise need about 3.9 GPM of hot water, about 145,000 BTU/h of gas.",
       "datePublished": "2026-11-13",
-      "dateModified": "2026-11-13",
+      "dateModified": "2026-11-14",
       "scripts": [
         "tankless-size"
       ],
@@ -373,9 +373,9 @@
       "description": "Gas vs electric water heater: see the yearly and monthly running cost of five types for your state, household and rates, checked against EnergyGuide data.",
       "h1": "Gas vs electric water heater",
       "subtitle": "Yearly running cost of five types in your state.",
-      "quickAnswer": "A standard gas tank costs about $242 a year to run and an electric tank about $564 at U.S. average prices. A heat pump water heater costs the least, about $138.",
+      "quickAnswer": "At U.S. average prices a gas tank costs about $242 a year to run and an electric tank $564. A heat pump water heater costs least, at $138.",
       "datePublished": "2026-11-13",
-      "dateModified": "2026-11-13",
+      "dateModified": "2026-11-14",
       "scripts": [
         "gas-vs-electric"
       ],
@@ -1531,14 +1531,14 @@
       "status": "live",
       "phase": "6",
       "datePublished": "2026-11-13",
-      "dateModified": "2026-11-13",
+      "dateModified": "2026-11-14",
       "title": "Expansion Tank Size Calculator",
       "summary": "Find the thermal expansion tank size your water heater needs from its gallons, setting and water pressure.",
       "metaTitle": "Water Heater Expansion Tank Size Calculator | Hot Water Math",
       "description": "Expansion tank size calculator: most 40 to 50 gallon water heaters need a 2-gallon tank. Enter gallons, temperature and pressure; checked against AMTROL.",
       "h1": "Water heater expansion tank size calculator",
-      "subtitle": "The thermal expansion tank your water heater needs, from its size, setting and pressure.",
-      "quickAnswer": "Most 40- to 50-gallon water heaters need a 2-gallon tank at normal water pressure. Larger heaters, hotter settings or pressure near 80 psi call for a 4.4-gallon tank; set its air charge to your water pressure.",
+      "subtitle": "Size the thermal expansion tank for your water heater.",
+      "quickAnswer": "Most 40- to 50-gallon water heaters need a 2-gallon tank. Set its air charge to your water pressure.",
       "scripts": [
         "expansion-tank"
       ],
