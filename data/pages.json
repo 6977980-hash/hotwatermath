@@ -1551,6 +1551,87 @@
         "expansion tank pressure setting",
         "expansion tank for 50 gallon water heater"
       ]
+    },
+    {
+      "slug": "water-heater-model-number-lookup",
+      "type": "tool",
+      "status": "draft",
+      "phase": "tools-2026-11-20",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "title": "Water Heater Model Number Lookup",
+      "summary": "Read a water heater's size, fuel, warranty and age from the model and serial number on its label.",
+      "metaTitle": "Water Heater Model Number Lookup | Hot Water Math",
+      "description": "Water heater model number lookup: type the model and serial from the label to get size, fuel, build date, age and when the tank warranty ends. Free.",
+      "h1": "Water heater model number lookup",
+      "subtitle": "Size, fuel, age and warranty from the rating label.",
+      "quickAnswer": "The model number gives the size, fuel and often the warranty years; the serial number gives the build date. Enter both from the label to see the age and when the tank warranty ends.",
+      "scripts": [
+        "model-lookup"
+      ],
+      "methodAnchor": "water-heater-model-number-lookup",
+      "keywords": [
+        "water heater model number lookup",
+        "water heater model number decoder",
+        "how to read water heater model number",
+        "water heater rating plate",
+        "water heater warranty lookup",
+        "what size is my water heater"
+      ]
+    },
+    {
+      "slug": "heat-pump-water-heater-rebates",
+      "type": "tool",
+      "status": "draft",
+      "phase": "tools-2026-11-20",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "title": "Heat Pump Water Heater Rebate Finder",
+      "summary": "Find the heat pump water heater rebates in your state: the federal HEEHR program, utility rebates and what the expired tax credit means.",
+      "metaTitle": "Heat Pump Water Heater Rebates by State | Hot Water Math",
+      "description": "Heat pump water heater rebates by state: HEEHR pays up to $1,750 in 12 states and DC, plus utility rebates we checked. The tax credit ended in 2025.",
+      "h1": "Heat pump water heater rebates by state",
+      "subtitle": "Every program we could confirm, with the amount for your income.",
+      "quickAnswer": "The federal tax credit ended December 31, 2025. Now the main money is HEEHR, a federal rebate of up to $1,750 run by states for lower and middle incomes, plus utility rebates.",
+      "scripts": [
+        "rebate-finder"
+      ],
+      "methodAnchor": "heat-pump-water-heater-rebates",
+      "keywords": [
+        "heat pump water heater rebates",
+        "heat pump water heater rebate",
+        "heehr rebate water heater",
+        "heat pump water heater rebates by state",
+        "ira heat pump water heater rebate",
+        "hear rebate heat pump water heater"
+      ]
+    },
+    {
+      "slug": "water-heater-quote-checker",
+      "type": "tool",
+      "status": "draft",
+      "phase": "tools-2026-11-20",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "title": "Water Heater Quote Checker",
+      "summary": "Check whether a water heater installation quote is fair, line by line, against sourced prices for your state.",
+      "metaTitle": "Water Heater Quote Checker: Is It Fair? | Hot Water Math",
+      "description": "Water heater quote checker: enter your installation quote and see if it is fair, high or low for your state, line by line, with the range for your job.",
+      "h1": "Water heater quote checker",
+      "subtitle": "Is your installation quote fair? Check it line by line.",
+      "quickAnswer": "A 50-gallon gas tank replacement usually runs $1,249 to $2,599 installed with the permit. Enter your quote to see if it is fair for your state and job.",
+      "scripts": [
+        "quote-checker"
+      ],
+      "methodAnchor": "water-heater-quote-checker",
+      "keywords": [
+        "water heater quote",
+        "is my water heater quote fair",
+        "water heater installation quote",
+        "water heater replacement quote",
+        "plumber quote for water heater",
+        "water heater estimate"
+      ]
     }
   ]
 }

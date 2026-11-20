@@ -41,6 +41,11 @@ Format: `URL` — **Primary keyword** (bucket) — secondary keywords — type �
 6. `/tankless-vs-tank-water-heater` — **tankless vs traditional water heater** (5K) — tankless water heater pros and cons (5K), is a tankless water heater worth it (500), tankless vs tank water heater cost (500), hybrid water heater vs tankless (500) — TOOL (10-year cost of ownership) — Phase 4
 7. `/gas-vs-electric-water-heater` — **gas vs electric water heater** (5K) — gas vs electric water heater cost (500), water heater wattage (500), tankless water heater electricity usage (500), electric/gas water heater cost per month, how many kwh does a water heater use — TOOL (operating cost) — Phase 4
 
+### Tools added 2026-11-20 (owner request: ideas 1, 5, 6)
+8. `/water-heater-model-number-lookup` — **water heater model number lookup** — water heater model number decoder, how to read a water heater model number, water heater rating plate, water heater warranty lookup, what size is my water heater — TOOL — model + serial → size, fuel, warranty, age. Serial-only intents stay with page 1.
+9. `/heat-pump-water-heater-rebates` — **heat pump water heater rebates** — heat pump water heater rebates by state, HEEHR/HEAR rebate water heater, IRA heat pump water heater rebate — TOOL — state + income → HEEHR amount and utility programs. "heat pump water heater tax credit (2026)" stays with `/heat-pump-water-heater-cost`.
+10. `/water-heater-quote-checker` — **water heater quote** / is my water heater quote fair — water heater installation quote, plumber quote for water heater, water heater estimate — TOOL — quote + job → fair/high/low verdict. "water heater replacement/installation cost" stays with the cost pages.
+
 ### Articles with embedded calculator (Phase 6)
 8. `/water-heater-installation-cost` — **water heater replacement cost** (50K) — water heater installation cost (5K, falling), cost to replace water heater, labor cost — ARTICLE + cost calc. Title and H1 lead with "Water Heater Replacement Cost" and use "installation" as the secondary term; one page for both, do NOT make a separate page. The URL stays as is (changing it needs owner approval).
 9. `/tankless-water-heater-installation-cost` — **tankless water heater installation cost** (50K) — tankless water heater cost (50K), cost to install tankless water heater — ARTICLE + cost calc preset tankless

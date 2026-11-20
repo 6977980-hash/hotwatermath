@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "source": "Hot Water Math editorial rating bands for the water heater quote checker; the price ranges themselves come from the cost model (data/cost-ranges.json, data/installation-costs.json, data/regional-cost-index.json). Consumer checklist: Virginia DPOR Consumer Guide: Hiring a Contractor; New York State Attorney General, Hiring a home-improvement contractor",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-20",
+    "notes": "The bands compare a quote with our low, typical and high installed price for the same job in the same state. farAboveShare is our own rule: a quote more than this share above our high end is called far above, because no extra in our cost model explains it. Line items are compared with that line's low and high (state-scaled, except the unit, which is sold at national prices)."
+  },
+  "bands": [
+    {
+      "id": "below",
+      "label": "Below our range",
+      "status": "warn",
+      "advice": "A low price is not a problem in itself, but check what is left out: the permit, haul-away of the old heater, code items, or the brand and warranty of the unit."
+    },
+    {
+      "id": "lowSide",
+      "label": "Fair, on the low side",
+      "status": "ok",
+      "advice": "The price sits between our low and typical estimate for this job."
+    },
+    {
+      "id": "highSide",
+      "label": "Fair, on the high side",
+      "status": "ok",
+      "advice": "The price sits between our typical and high estimate. Ask what pushes it up: a longer warranty, a premium unit, or a hard install."
+    },
+    {
+      "id": "above",
+      "label": "Above our range",
+      "status": "warn",
+      "advice": "The price is above our high estimate for this job. Ask for an itemized quote and compare it with a second written estimate."
+    },
+    {
+      "id": "farAbove",
+      "label": "Far above our range",
+      "status": "bad",
+      "advice": "No extra in our cost model explains a price this high. Get at least two more written estimates before you sign."
+    }
+  ],
+  "farAboveShare": 0.5,
+  "lineBands": {
+    "low": "below our range",
+    "in": "inside our range",
+    "high": "above our range"
+  },
+  "checklist": [
+    {
+      "text": "Get written estimates from at least three contractors, and do not pick the lowest bid automatically; ask why the prices differ.",
+      "quote": "Get written estimates from at least three contractors. Don't automatically choose the lowest bidder! Ask for explanations on price variations among proposals.",
+      "source": "Virginia DPOR, Consumer Guide: Hiring a Contractor",
+      "sourceUrl": "https://www.dpor.virginia.gov/Consumers/Guide_Contractor",
+      "checked": "2026-11-20"
+    },
+    {
+      "text": "Keep the deposit small: Virginia's consumer guide suggests no more than 10% or $1,000, whichever is less, unless the job needs special-order items.",
+      "quote": "Consider an initial deposit of no more than 10% down or $1,000 , whichever is less.",
+      "source": "Virginia DPOR, Consumer Guide: Hiring a Contractor",
+      "sourceUrl": "https://www.dpor.virginia.gov/Consumers/Guide_Contractor",
+      "checked": "2026-11-20"
+    },
+    {
+      "text": "Never pay the full price up front, and hold the final payment until the work is done and has passed any required inspection.",
+      "quote": "Never pay the full price up front ... Withhold final payment until the entire project is completed to your satisfaction and all required inspections and certificates of occupancy are finalized.",
+      "source": "New York State Attorney General, Hiring a home-improvement contractor",
+      "sourceUrl": "https://ag.ny.gov/publications/hiring-home-improvement-contractor",
+      "checked": "2026-11-20"
+    },
+    {
+      "text": "Get it in writing: the brand and model of the heater, the warranty, the permit, and every promise made out loud.",
+      "quote": "The contract should include a timeline for work to be completed, a payment schedule, and specifics about the project — such as types or brands of materials.",
+      "source": "New York State Attorney General, Hiring a home-improvement contractor",
+      "sourceUrl": "https://ag.ny.gov/publications/hiring-home-improvement-contractor",
+      "checked": "2026-11-20"
+    }
+  ],
+  "examples": {
+    "note": "Illustrative quotes chosen by Hot Water Math to show how the checker reads a quote; they are not real customer quotes.",
+    "items": [
+      {
+        "id": "tx-gas50",
+        "label": "50-gallon gas tank replacement in Texas, permit included",
+        "type": "gas_tank",
+        "size": "50",
+        "state": "TX",
+        "scenario": "replace",
+        "extras": [
+          "permit"
+        ],
+        "total": 2400
+      },
+      {
+        "id": "fl-el50",
+        "label": "50-gallon electric tank replacement in Florida, permit included",
+        "type": "electric_tank",
+        "size": "50",
+        "state": "FL",
+        "scenario": "replace",
+        "extras": [
+          "permit"
+        ],
+        "total": 1100,
+        "unitPrice": 700,
+        "laborPrice": 300
+      },
+      {
+        "id": "ca-hp50",
+        "label": "50-gallon heat pump replacing a gas tank in California (permit and new circuit)",
+        "type": "heat_pump",
+        "size": "50",
+        "state": "CA",
+        "scenario": "fuelSwitch",
+        "extras": [
+          "permit",
+          "circuit"
+        ],
+        "total": 9500
+      }
+    ]
+  },
+  "sampleTotal": 2500,
+  "sampleTotalNote": "A round quote total used in the FAQ question \"Is $2,500 too much for a water heater?\"; the answer is computed for the cost calculator default job."
+}

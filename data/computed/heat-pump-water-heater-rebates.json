@@ -1,0 +1,1166 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/heehr-states.json, data/hpwh-rebates.json, data/incentives.json and the cost model with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result (Michigan, 80-150% AMI), program tables and HEEHR rule checks for the rebate finder."
+  },
+  "defaultInputs": {
+    "state": "MI",
+    "income": "80to150"
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "Rebates found",
+    "headline": "Up to $1,452 from Michigan's HEEHR program",
+    "explain": "Michigan's HEEHR program can pay up to $1,452 toward our typical installed price in Michigan, $2,903 for a 50-gallon heat pump (hybrid) replacing an electric tank, permit included, for a household 80% to 150% of area median income. DTE Energy and Consumers Energy offer a discount; the page does not name the amount. The federal tax credit ended on December 31, 2025. Reserve a rebate before you buy: California's program, for one, pays nothing for equipment bought before the rebate is reserved.",
+    "formula": "Federal 25C credit = $0 (IRS: placed in service through December 31, 2025)\nHEEHR = min($1,750, $2,903 × 50%) = $1,452  (80% to 150% of area median income: not to exceed 50% of cost)\nUtility programs we checked in Michigan: DTE Energy (amount not stated); Consumers Energy (amount not stated)\nCost used: our typical installed price in Michigan, $2,903 for a 50-gallon heat pump (hybrid) replacing an electric tank, permit included",
+    "table": {
+      "caption": "Heat pump water heater rebates in Michigan",
+      "columns": [
+        {
+          "key": "program",
+          "label": "Program"
+        },
+        {
+          "key": "sponsor",
+          "label": "Run by"
+        },
+        {
+          "key": "amount",
+          "label": "Amount",
+          "num": true
+        },
+        {
+          "key": "status",
+          "label": "Status and who qualifies"
+        }
+      ],
+      "rows": [
+        {
+          "program": "Federal tax credit (25C)",
+          "sponsor": "IRS",
+          "amount": "$0",
+          "status": "Ended for heat pump water heaters installed after December 31, 2025"
+        },
+        {
+          "program": "HEEHR: Michigan Home Energy Rebate Programs (HEAR)",
+          "sponsor": "Michigan energy office",
+          "amount": "Up to $1,452",
+          "status": "Open (launched October 2024). Households at or below 150% of area median income; funding split across 10 districts."
+        },
+        {
+          "program": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+          "sponsor": "DTE Energy",
+          "amount": "Discount, amount not stated",
+          "status": "DTE electric customers who heat water with electricity; through a participating contractor or the retail instant discount page; limited funds. Checked November 20, 2026."
+        },
+        {
+          "program": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+          "sponsor": "Consumers Energy",
+          "amount": "Discount, amount not stated",
+          "status": "Consumers Energy electric customers; the contractor buys the unit at the discounted price and passes the saving on. Checked November 20, 2026."
+        },
+        {
+          "program": "Other utility and local rebates",
+          "sponsor": "ENERGY STAR Rebate Finder",
+          "amount": "Varies",
+          "status": "Search by ZIP code for programs we have not checked"
+        }
+      ]
+    },
+    "sources": "HEEHR: NASEO launch table (Sept. 30, 2026) and each state page; amounts: ENERGY STAR; utilities: each program page, checked November 20, 2026. <a href=\"/methodology/#heat-pump-water-heater-rebates\">How we check every program</a>."
+  },
+  "crossChecks": [
+    {
+      "id": "cap",
+      "label": "$4,000 project, below 80% AMI, state with an open program (AZ)",
+      "ours": "$1,750",
+      "published": "Up to 100% of cost below 80% AMI; heat pump water heater maximum $1,750",
+      "match": true,
+      "why": "Capped at the federal maximum.",
+      "source": "ENERGY STAR HEEHR page",
+      "sourceUrl": "https://www.energystar.gov/partner-resources/state-and-tribal-rebate-programs/hear-program"
+    },
+    {
+      "id": "half",
+      "label": "$3,000 project, 80-150% AMI (NC)",
+      "ours": "$1,500",
+      "published": "Not to exceed 50% of cost for 80-150% AMI",
+      "match": true,
+      "why": "Half the cost, under the cap.",
+      "source": "ENERGY STAR HEEHR page",
+      "sourceUrl": "https://www.energystar.gov/partner-resources/state-and-tribal-rebate-programs/hear-program"
+    },
+    {
+      "id": "above",
+      "label": "Any project, above 150% AMI (WI)",
+      "ours": "$0",
+      "published": "HEEHR covers households up to 150% of area median income",
+      "match": true,
+      "why": "Not eligible.",
+      "source": "ENERGY STAR HEEHR page",
+      "sourceUrl": "https://www.energystar.gov/partner-resources/state-and-tribal-rebate-programs/hear-program"
+    },
+    {
+      "id": "ca",
+      "label": "California, below 80% AMI",
+      "ours": "$0",
+      "published": "As of February 24, 2026, HEEHRA single-family rebates are fully reserved for projects statewide.",
+      "match": true,
+      "why": "Funds fully reserved, so the tool shows $0 and says why.",
+      "source": "TECH Clean California",
+      "sourceUrl": "https://techcleanca.com/heehra/"
+    }
+  ],
+  "figures": {
+    "cap": "1,750",
+    "combined": "14,000",
+    "programCount": "14",
+    "openCount": "13",
+    "openStates": "12",
+    "utilityCount": "11",
+    "utilityStates": "8",
+    "creditEnd": "December 31, 2025",
+    "checked": "November 20, 2026",
+    "naseoUpdated": "September 30, 2026",
+    "miCost": "2,903",
+    "miHeehr": "1,452",
+    "usCost": "2,947",
+    "maxUtility": {
+      "sponsor": "SMUD",
+      "usd": "4,000"
+    }
+  },
+  "client": {
+    "states": [
+      {
+        "id": "AL",
+        "name": "Alabama"
+      },
+      {
+        "id": "AK",
+        "name": "Alaska"
+      },
+      {
+        "id": "AZ",
+        "name": "Arizona"
+      },
+      {
+        "id": "AR",
+        "name": "Arkansas"
+      },
+      {
+        "id": "CA",
+        "name": "California"
+      },
+      {
+        "id": "CO",
+        "name": "Colorado"
+      },
+      {
+        "id": "CT",
+        "name": "Connecticut"
+      },
+      {
+        "id": "DE",
+        "name": "Delaware"
+      },
+      {
+        "id": "DC",
+        "name": "District of Columbia"
+      },
+      {
+        "id": "FL",
+        "name": "Florida"
+      },
+      {
+        "id": "GA",
+        "name": "Georgia"
+      },
+      {
+        "id": "HI",
+        "name": "Hawaii"
+      },
+      {
+        "id": "ID",
+        "name": "Idaho"
+      },
+      {
+        "id": "IL",
+        "name": "Illinois"
+      },
+      {
+        "id": "IN",
+        "name": "Indiana"
+      },
+      {
+        "id": "IA",
+        "name": "Iowa"
+      },
+      {
+        "id": "KS",
+        "name": "Kansas"
+      },
+      {
+        "id": "KY",
+        "name": "Kentucky"
+      },
+      {
+        "id": "LA",
+        "name": "Louisiana"
+      },
+      {
+        "id": "ME",
+        "name": "Maine"
+      },
+      {
+        "id": "MD",
+        "name": "Maryland"
+      },
+      {
+        "id": "MA",
+        "name": "Massachusetts"
+      },
+      {
+        "id": "MI",
+        "name": "Michigan"
+      },
+      {
+        "id": "MN",
+        "name": "Minnesota"
+      },
+      {
+        "id": "MS",
+        "name": "Mississippi"
+      },
+      {
+        "id": "MO",
+        "name": "Missouri"
+      },
+      {
+        "id": "MT",
+        "name": "Montana"
+      },
+      {
+        "id": "NE",
+        "name": "Nebraska"
+      },
+      {
+        "id": "NV",
+        "name": "Nevada"
+      },
+      {
+        "id": "NH",
+        "name": "New Hampshire"
+      },
+      {
+        "id": "NJ",
+        "name": "New Jersey"
+      },
+      {
+        "id": "NM",
+        "name": "New Mexico"
+      },
+      {
+        "id": "NY",
+        "name": "New York"
+      },
+      {
+        "id": "NC",
+        "name": "North Carolina"
+      },
+      {
+        "id": "ND",
+        "name": "North Dakota"
+      },
+      {
+        "id": "OH",
+        "name": "Ohio"
+      },
+      {
+        "id": "OK",
+        "name": "Oklahoma"
+      },
+      {
+        "id": "OR",
+        "name": "Oregon"
+      },
+      {
+        "id": "PA",
+        "name": "Pennsylvania"
+      },
+      {
+        "id": "RI",
+        "name": "Rhode Island"
+      },
+      {
+        "id": "SC",
+        "name": "South Carolina"
+      },
+      {
+        "id": "SD",
+        "name": "South Dakota"
+      },
+      {
+        "id": "TN",
+        "name": "Tennessee"
+      },
+      {
+        "id": "TX",
+        "name": "Texas"
+      },
+      {
+        "id": "UT",
+        "name": "Utah"
+      },
+      {
+        "id": "VT",
+        "name": "Vermont"
+      },
+      {
+        "id": "VA",
+        "name": "Virginia"
+      },
+      {
+        "id": "WA",
+        "name": "Washington"
+      },
+      {
+        "id": "WV",
+        "name": "West Virginia"
+      },
+      {
+        "id": "WI",
+        "name": "Wisconsin"
+      },
+      {
+        "id": "WY",
+        "name": "Wyoming"
+      }
+    ],
+    "heehr": {
+      "AZ": {
+        "program": "Efficiency Arizona",
+        "status": "open",
+        "launched": "August 2024",
+        "eligibility": "Low- and moderate-income single-family homes, through a qualified contractor or the retail do-it-yourself option.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://efficiencyarizona.com/"
+      },
+      "CA": {
+        "program": "TECH Clean California (HEEHRA)",
+        "status": "reserved",
+        "launched": "October 2024",
+        "eligibility": "Low- and moderate-income single-family homes and qualifying multifamily buildings.",
+        "incomeCapId": "",
+        "statusText": "As of February 24, 2026, HEEHRA single-family rebates are fully reserved for projects statewide.",
+        "url": "https://techcleanca.com/heehra/"
+      },
+      "CO": {
+        "program": "Colorado Energy Office home rebates",
+        "status": "open",
+        "launched": "October 2024",
+        "eligibility": "Income-eligible single-family and manufactured homes, through a qualified contractor network or the Weatherization Assistance Program.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://energyoffice.colorado.gov/federal-tax-credits-incentives-homes"
+      },
+      "DC": {
+        "program": "DOEE Affordable Home Electrification Program",
+        "status": "open",
+        "launched": "November 2024",
+        "eligibility": "Low-income single-family homes and qualifying multifamily buildings; only households below 80% of area median income until 2027.",
+        "incomeCapId": "below80",
+        "statusText": "",
+        "url": "https://doee.dc.gov/service/ira-rebates-tax-incentives"
+      },
+      "GA": {
+        "program": "Georgia Home Energy Rebates",
+        "status": "open",
+        "launched": "November 2024",
+        "eligibility": "Low- and moderate-income homes, through contractor and do-it-yourself pathways.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://energyrebates.georgia.gov/"
+      },
+      "IN": {
+        "program": "Indiana Energy Saver Program",
+        "status": "open",
+        "launched": "May 2025",
+        "eligibility": "Low- and moderate-income homes; no-cost energy audits for eligible households.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://indianaenergysaver.com/"
+      },
+      "ME": {
+        "program": "Efficiency Maine (Home Energy Rebates)",
+        "status": "open",
+        "launched": "July 2024",
+        "eligibility": "Low-income owners of manufactured homes and affordable multifamily new construction only; moderate-income manufactured homes in a later phase.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://www.maine.gov/energy/initiatives/infrastructure/home-energy-rebates"
+      },
+      "MI": {
+        "program": "Michigan Home Energy Rebate Programs (HEAR)",
+        "status": "open",
+        "launched": "October 2024",
+        "eligibility": "Households at or below 150% of area median income; funding split across 10 districts.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://www.michigan.gov/egle/about/organization/materials-management/energy/rfps-loans/home-energy-rebate-programs"
+      },
+      "NM": {
+        "program": "New Mexico Clean Energy programs",
+        "status": "open",
+        "launched": "September 2024",
+        "eligibility": "Low-income homes only.",
+        "incomeCapId": "below80",
+        "statusText": "",
+        "url": "https://clean.energy.nm.gov/programs/"
+      },
+      "NY": {
+        "program": "NYSERDA EmPower+",
+        "status": "open",
+        "launched": "May 2024",
+        "eligibility": "Low- and moderate-income single-family homes and buildings of up to four units.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://www.nyserda.ny.gov/All-Programs/EmPower-New-York-Program"
+      },
+      "NC": {
+        "program": "Energy Saver North Carolina",
+        "status": "open",
+        "launched": "January 2025",
+        "eligibility": "Low- and moderate-income homes, statewide.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://energysavernc.org/"
+      },
+      "RI": {
+        "program": "Rhode Island HEAR",
+        "status": "open",
+        "launched": "September 2024",
+        "eligibility": "Low- and moderate-income homes, through six Community Action Partnerships.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://energy.ri.gov/incentives/home-energy-rebate-programs/home-electrification-and-appliance-rebate-hear"
+      },
+      "WV": {
+        "program": "West Virginia Home Efficiency Appliance Rebates",
+        "status": "open",
+        "launched": "September 2026",
+        "eligibility": "Low- and moderate-income homes; heat pump water heater up to $1,750.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://energywv.org/programs-initiatives/home-energy-rebate-programs/"
+      },
+      "WI": {
+        "program": "Focus on Energy Home Energy Rebates",
+        "status": "open",
+        "launched": "December 2024",
+        "eligibility": "Low- and moderate-income single-family homes and multifamily buildings.",
+        "incomeCapId": "",
+        "statusText": "",
+        "url": "https://focusonenergy.com/home-energy-rebates"
+      }
+    },
+    "utilities": {
+      "CA": [
+        {
+          "id": "smud-hpwh",
+          "sponsor": "SMUD (Sacramento Municipal Utility District)",
+          "short": "SMUD",
+          "offer": "$1,000 replacing an electric water heater; up to $4,000 replacing a gas one",
+          "conditions": "SMUD electric customers. The rebate is higher for a gas-to-electric switch.",
+          "maxUsd": 4000,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.smud.org/Corporate/About-us/News-and-Media/2026/2026/SMUD-boosts-rebates-for-heat-pumps"
+        },
+        {
+          "id": "ladwp-hpwh",
+          "sponsor": "LADWP (Los Angeles Department of Water and Power)",
+          "short": "LADWP",
+          "offer": "Up to $2,500 per unit, based on gallon capacity and UEF",
+          "conditions": "LADWP residential electric customers; apply after purchase and installation, within 12 months of purchase.",
+          "maxUsd": 2500,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.ladwp.com/residential-services/assistance-programs/consumer-rebate-program"
+        }
+      ],
+      "TX": [
+        {
+          "id": "austin-hpwh",
+          "sponsor": "Austin Energy",
+          "short": "Austin Energy",
+          "offer": "$1,000 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "Home served by Austin Energy; a heat pump water heater being replaced must be at least 10 years old.",
+          "maxUsd": 1000,
+          "checkedText": "November 20, 2026",
+          "url": "https://savings.austinenergy.com/rebates/residential/offerings/appliances-and-equipment/hp-water-heater"
+        }
+      ],
+      "FL": [
+        {
+          "id": "jea-hpwh",
+          "sponsor": "JEA (Jacksonville)",
+          "short": "JEA",
+          "offer": "$350 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "JEA residential electric customers.",
+          "maxUsd": 350,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.jea.com/ways_to_save/residential_rebates/"
+        }
+      ],
+      "NY": [
+        {
+          "id": "coned-hpwh",
+          "sponsor": "Con Edison",
+          "short": "Con Edison",
+          "offer": "$1,500 instant rebate on a qualified ENERGY STAR heat pump water heater up to 120 gallons",
+          "conditions": "Bought at a participating Lowe's or Home Depot, or by your contractor from a participating distributor.",
+          "maxUsd": 1500,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.coned.com/en/save-money/rebates-incentives-tax-credits/rebates-incentives-tax-credits-for-residential-customers/electric-heating-and-cooling-technology-for-renters-homeowners/swap-your-water-heater-and-save"
+        },
+        {
+          "id": "pseg-li-hpwh",
+          "sponsor": "PSEG Long Island",
+          "short": "PSEG Long Island",
+          "offer": "Up to $1,200 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "PSEG Long Island residential customers.",
+          "maxUsd": 1200,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.psegliny.com/saveenergyandmoney/homeefficiency/HomeComfort/hpwh"
+        }
+      ],
+      "PA": [
+        {
+          "id": "ppl-hpwh",
+          "sponsor": "PPL Electric Utilities",
+          "short": "PPL Electric Utilities",
+          "offer": "$400 for an ENERGY STAR certified heat pump water heater",
+          "conditions": "PPL residential customers. The page notes the program was updated after May 31, 2026; check the current terms before you buy.",
+          "maxUsd": 400,
+          "checkedText": "November 20, 2026",
+          "url": "https://ppl.clearesult.com/heat-pump-water-heater"
+        }
+      ],
+      "IL": [
+        {
+          "id": "ameren-il-hpwh",
+          "sponsor": "Ameren Illinois (online marketplace)",
+          "short": "Ameren Illinois",
+          "offer": "About $800 off the listed price of each heat pump water heater in its marketplace",
+          "conditions": "Ameren Illinois electric customers buying through the utility's online marketplace; the discount is shown as retail price minus final cost.",
+          "maxUsd": 800,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.amerenillinoissavings.com/residential/"
+        }
+      ],
+      "GA": [
+        {
+          "id": "georgiapower-hpwh",
+          "sponsor": "Georgia Power",
+          "short": "Georgia Power",
+          "offer": "Up to $800 for a heat pump water heater",
+          "conditions": "Georgia Power customers; installed by a program-affiliated installer.",
+          "maxUsd": 800,
+          "checkedText": "November 20, 2026",
+          "url": "https://www.georgiapower.com/heatpump"
+        }
+      ],
+      "MI": [
+        {
+          "id": "dte-hpwh",
+          "sponsor": "DTE Energy",
+          "short": "DTE Energy",
+          "offer": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+          "conditions": "DTE electric customers who heat water with electricity; through a participating contractor or the retail instant discount page; limited funds.",
+          "checkedText": "November 20, 2026",
+          "url": "https://www.dteenergy.com/us/en/residential/save-money-energy/rebates-and-offers/water-heaters.html"
+        },
+        {
+          "id": "consumers-hpwh",
+          "sponsor": "Consumers Energy",
+          "short": "Consumers Energy",
+          "offer": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+          "conditions": "Consumers Energy electric customers; the contractor buys the unit at the discounted price and passes the saving on.",
+          "checkedText": "November 20, 2026",
+          "url": "https://www.consumersenergy.com/WaterHeating"
+        }
+      ]
+    },
+    "costByState": {
+      "AL": {
+        "low": 2235,
+        "typical": 2817,
+        "high": 4161
+      },
+      "AK": {
+        "low": 2324,
+        "typical": 2975,
+        "high": 4474
+      },
+      "AZ": {
+        "low": 2312,
+        "typical": 2955,
+        "high": 4435
+      },
+      "AR": {
+        "low": 2223,
+        "typical": 2795,
+        "high": 4118
+      },
+      "CA": {
+        "low": 2378,
+        "typical": 3071,
+        "high": 4666
+      },
+      "CO": {
+        "low": 2329,
+        "typical": 2983,
+        "high": 4491
+      },
+      "CT": {
+        "low": 2331,
+        "typical": 2988,
+        "high": 4502
+      },
+      "DE": {
+        "low": 2307,
+        "typical": 2944,
+        "high": 4414
+      },
+      "DC": {
+        "low": 2373,
+        "typical": 3062,
+        "high": 4647
+      },
+      "FL": {
+        "low": 2330,
+        "typical": 2987,
+        "high": 4497
+      },
+      "GA": {
+        "low": 2284,
+        "typical": 2904,
+        "high": 4334
+      },
+      "HI": {
+        "low": 2373,
+        "typical": 3063,
+        "high": 4649
+      },
+      "ID": {
+        "low": 2279,
+        "typical": 2895,
+        "high": 4316
+      },
+      "IL": {
+        "low": 2308,
+        "typical": 2947,
+        "high": 4419
+      },
+      "IN": {
+        "low": 2265,
+        "typical": 2870,
+        "high": 4265
+      },
+      "IA": {
+        "low": 2229,
+        "typical": 2805,
+        "high": 4138
+      },
+      "KS": {
+        "low": 2244,
+        "typical": 2832,
+        "high": 4192
+      },
+      "KY": {
+        "low": 2244,
+        "typical": 2834,
+        "high": 4194
+      },
+      "LA": {
+        "low": 2231,
+        "typical": 2810,
+        "high": 4148
+      },
+      "ME": {
+        "low": 2290,
+        "typical": 2913,
+        "high": 4353
+      },
+      "MD": {
+        "low": 2341,
+        "typical": 3005,
+        "high": 4534
+      },
+      "MA": {
+        "low": 2346,
+        "typical": 3014,
+        "high": 4552
+      },
+      "MI": {
+        "low": 2283,
+        "typical": 2903,
+        "high": 4332
+      },
+      "MN": {
+        "low": 2299,
+        "typical": 2930,
+        "high": 4387
+      },
+      "MS": {
+        "low": 2224,
+        "typical": 2796,
+        "high": 4120
+      },
+      "MO": {
+        "low": 2248,
+        "typical": 2840,
+        "high": 4207
+      },
+      "MT": {
+        "low": 2273,
+        "typical": 2884,
+        "high": 4295
+      },
+      "NE": {
+        "low": 2244,
+        "typical": 2832,
+        "high": 4192
+      },
+      "NV": {
+        "low": 2308,
+        "typical": 2947,
+        "high": 4419
+      },
+      "NH": {
+        "low": 2335,
+        "typical": 2996,
+        "high": 4516
+      },
+      "NJ": {
+        "low": 2365,
+        "typical": 3049,
+        "high": 4621
+      },
+      "NM": {
+        "low": 2257,
+        "typical": 2857,
+        "high": 4240
+      },
+      "NY": {
+        "low": 2360,
+        "typical": 3039,
+        "high": 4601
+      },
+      "NC": {
+        "low": 2271,
+        "typical": 2881,
+        "high": 4288
+      },
+      "ND": {
+        "low": 2237,
+        "typical": 2819,
+        "high": 4166
+      },
+      "OH": {
+        "low": 2261,
+        "typical": 2863,
+        "high": 4253
+      },
+      "OK": {
+        "low": 2229,
+        "typical": 2805,
+        "high": 4138
+      },
+      "OR": {
+        "low": 2330,
+        "typical": 2987,
+        "high": 4497
+      },
+      "PA": {
+        "low": 2292,
+        "typical": 2919,
+        "high": 4364
+      },
+      "RI": {
+        "low": 2322,
+        "typical": 2974,
+        "high": 4471
+      },
+      "SC": {
+        "low": 2268,
+        "typical": 2874,
+        "high": 4275
+      },
+      "SD": {
+        "low": 2234,
+        "typical": 2814,
+        "high": 4157
+      },
+      "TN": {
+        "low": 2256,
+        "typical": 2853,
+        "high": 4233
+      },
+      "TX": {
+        "low": 2290,
+        "typical": 2913,
+        "high": 4353
+      },
+      "UT": {
+        "low": 2301,
+        "typical": 2934,
+        "high": 4394
+      },
+      "VT": {
+        "low": 2295,
+        "typical": 2924,
+        "high": 4373
+      },
+      "VA": {
+        "low": 2315,
+        "typical": 2960,
+        "high": 4444
+      },
+      "WA": {
+        "low": 2354,
+        "typical": 3028,
+        "high": 4580
+      },
+      "WV": {
+        "low": 2240,
+        "typical": 2826,
+        "high": 4178
+      },
+      "WI": {
+        "low": 2270,
+        "typical": 2879,
+        "high": 4284
+      },
+      "WY": {
+        "low": 2261,
+        "typical": 2862,
+        "high": 4252
+      }
+    },
+    "costLabel": "50-gallon heat pump (hybrid) replacing an electric tank, permit included",
+    "federal": {
+      "cap": 1750,
+      "incomeRules": [
+        {
+          "id": "below80",
+          "label": "Below 80% of area median income",
+          "shareOfCost": 1,
+          "rule": "Up to 100% of cost"
+        },
+        {
+          "id": "80to150",
+          "label": "80% to 150% of area median income",
+          "shareOfCost": 0.5,
+          "rule": "Not to exceed 50% of cost"
+        },
+        {
+          "id": "above150",
+          "label": "Above 150% of area median income",
+          "shareOfCost": 0,
+          "rule": "Not eligible for HEEHR"
+        }
+      ]
+    },
+    "credit": {
+      "endText": "December 31, 2025"
+    },
+    "notListed": "No HEEHR program for this state is in NASEO's launch table (updated September 30, 2026). Your State Energy Office can say whether one is coming.",
+    "defaults": {
+      "state": "MI",
+      "income": "80to150"
+    },
+    "limits": {
+      "cost": {
+        "label": "Project cost",
+        "min": 500,
+        "max": 30000,
+        "unit": "$",
+        "optional": true
+      }
+    }
+  },
+  "tables": {
+    "programs": {
+      "caption": "State HEEHR programs that cover heat pump water heaters",
+      "columns": [
+        {
+          "key": "state",
+          "label": "State"
+        },
+        {
+          "key": "program",
+          "label": "Program"
+        },
+        {
+          "key": "status",
+          "label": "Status"
+        },
+        {
+          "key": "launched",
+          "label": "Launched"
+        },
+        {
+          "key": "who",
+          "label": "Who qualifies"
+        }
+      ],
+      "rows": [
+        {
+          "state": "Arizona",
+          "program": "Efficiency Arizona",
+          "status": "Open",
+          "launched": "August 2024",
+          "who": "Low- and moderate-income single-family homes, through a qualified contractor or the retail do-it-yourself option."
+        },
+        {
+          "state": "California",
+          "program": "TECH Clean California (HEEHRA)",
+          "status": "Fully reserved",
+          "launched": "October 2024",
+          "who": "Low- and moderate-income single-family homes and qualifying multifamily buildings."
+        },
+        {
+          "state": "Colorado",
+          "program": "Colorado Energy Office home rebates",
+          "status": "Open",
+          "launched": "October 2024",
+          "who": "Income-eligible single-family and manufactured homes, through a qualified contractor network or the Weatherization Assistance Program."
+        },
+        {
+          "state": "District of Columbia",
+          "program": "DOEE Affordable Home Electrification Program",
+          "status": "Open",
+          "launched": "November 2024",
+          "who": "Low-income single-family homes and qualifying multifamily buildings; only households below 80% of area median income until 2027."
+        },
+        {
+          "state": "Georgia",
+          "program": "Georgia Home Energy Rebates",
+          "status": "Open",
+          "launched": "November 2024",
+          "who": "Low- and moderate-income homes, through contractor and do-it-yourself pathways."
+        },
+        {
+          "state": "Indiana",
+          "program": "Indiana Energy Saver Program",
+          "status": "Open",
+          "launched": "May 2025",
+          "who": "Low- and moderate-income homes; no-cost energy audits for eligible households."
+        },
+        {
+          "state": "Maine",
+          "program": "Efficiency Maine (Home Energy Rebates)",
+          "status": "Open",
+          "launched": "July 2024",
+          "who": "Low-income owners of manufactured homes and affordable multifamily new construction only; moderate-income manufactured homes in a later phase."
+        },
+        {
+          "state": "Michigan",
+          "program": "Michigan Home Energy Rebate Programs (HEAR)",
+          "status": "Open",
+          "launched": "October 2024",
+          "who": "Households at or below 150% of area median income; funding split across 10 districts."
+        },
+        {
+          "state": "New Mexico",
+          "program": "New Mexico Clean Energy programs",
+          "status": "Open",
+          "launched": "September 2024",
+          "who": "Low-income homes only."
+        },
+        {
+          "state": "New York",
+          "program": "NYSERDA EmPower+",
+          "status": "Open",
+          "launched": "May 2024",
+          "who": "Low- and moderate-income single-family homes and buildings of up to four units."
+        },
+        {
+          "state": "North Carolina",
+          "program": "Energy Saver North Carolina",
+          "status": "Open",
+          "launched": "January 2025",
+          "who": "Low- and moderate-income homes, statewide."
+        },
+        {
+          "state": "Rhode Island",
+          "program": "Rhode Island HEAR",
+          "status": "Open",
+          "launched": "September 2024",
+          "who": "Low- and moderate-income homes, through six Community Action Partnerships."
+        },
+        {
+          "state": "West Virginia",
+          "program": "West Virginia Home Efficiency Appliance Rebates",
+          "status": "Open",
+          "launched": "September 2026",
+          "who": "Low- and moderate-income homes; heat pump water heater up to $1,750."
+        },
+        {
+          "state": "Wisconsin",
+          "program": "Focus on Energy Home Energy Rebates",
+          "status": "Open",
+          "launched": "December 2024",
+          "who": "Low- and moderate-income single-family homes and multifamily buildings."
+        }
+      ],
+      "source": "NASEO, Home Energy Rebates: State and Territory Energy Office Program Launches (HEEHR table last updated September 30, 2026); ENERGY STAR, HEEHR program page (maximum rebate amounts); each state program page opened on the check date",
+      "sourceUrl": "https://naseo.org/topics/home-energy-rebates",
+      "sourceDate": "2026-11-20"
+    },
+    "utilities": {
+      "caption": "Utility heat pump water heater rebates we checked",
+      "columns": [
+        {
+          "key": "state",
+          "label": "State"
+        },
+        {
+          "key": "sponsor",
+          "label": "Utility"
+        },
+        {
+          "key": "offer",
+          "label": "Offer"
+        },
+        {
+          "key": "max",
+          "label": "Up to",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "state": "California",
+          "sponsor": "SMUD (Sacramento Municipal Utility District)",
+          "offer": "$1,000 replacing an electric water heater; up to $4,000 replacing a gas one",
+          "max": "$4,000"
+        },
+        {
+          "state": "California",
+          "sponsor": "LADWP (Los Angeles Department of Water and Power)",
+          "offer": "Up to $2,500 per unit, based on gallon capacity and UEF",
+          "max": "$2,500"
+        },
+        {
+          "state": "Florida",
+          "sponsor": "JEA (Jacksonville)",
+          "offer": "$350 for an ENERGY STAR certified heat pump water heater",
+          "max": "$350"
+        },
+        {
+          "state": "Georgia",
+          "sponsor": "Georgia Power",
+          "offer": "Up to $800 for a heat pump water heater",
+          "max": "$800"
+        },
+        {
+          "state": "Illinois",
+          "sponsor": "Ameren Illinois (online marketplace)",
+          "offer": "About $800 off the listed price of each heat pump water heater in its marketplace",
+          "max": "$800"
+        },
+        {
+          "state": "Michigan",
+          "sponsor": "DTE Energy",
+          "offer": "Instant discount on an ENERGY STAR heat pump water heater (UEF 2.2 or higher); the page does not state the amount",
+          "max": "Not stated"
+        },
+        {
+          "state": "Michigan",
+          "sponsor": "Consumers Energy",
+          "offer": "Instant discount through a participating contractor on a heat pump water heater (UEF above 2.2, up to 55 gallons); the page does not state the amount",
+          "max": "Not stated"
+        },
+        {
+          "state": "New York",
+          "sponsor": "Con Edison",
+          "offer": "$1,500 instant rebate on a qualified ENERGY STAR heat pump water heater up to 120 gallons",
+          "max": "$1,500"
+        },
+        {
+          "state": "New York",
+          "sponsor": "PSEG Long Island",
+          "offer": "Up to $1,200 for an ENERGY STAR certified heat pump water heater",
+          "max": "$1,200"
+        },
+        {
+          "state": "Pennsylvania",
+          "sponsor": "PPL Electric Utilities",
+          "offer": "$400 for an ENERGY STAR certified heat pump water heater",
+          "max": "$400"
+        },
+        {
+          "state": "Texas",
+          "sponsor": "Austin Energy",
+          "offer": "$1,000 for an ENERGY STAR certified heat pump water heater",
+          "max": "$1,000"
+        }
+      ],
+      "source": "Each program's own web page, opened on the check date (ENERGY STAR Rebate Finder used as the index of programs)",
+      "sourceUrl": "https://www.energystar.gov/rebate-finder",
+      "sourceDate": "2026-11-20"
+    },
+    "income": {
+      "caption": "How much HEEHR pays for a heat pump water heater",
+      "columns": [
+        {
+          "key": "band",
+          "label": "Household income"
+        },
+        {
+          "key": "rule",
+          "label": "Share of cost"
+        },
+        {
+          "key": "at3k",
+          "label": "On a $3,000 job",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "at5k",
+          "label": "On a $5,000 job",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "band": "Below 80% of area median income",
+          "rule": "Up to 100% of cost",
+          "at3k": "1,750",
+          "at5k": "1,750"
+        },
+        {
+          "band": "80% to 150% of area median income",
+          "rule": "Not to exceed 50% of cost",
+          "at3k": "1,500",
+          "at5k": "1,750"
+        },
+        {
+          "band": "Above 150% of area median income",
+          "rule": "Not eligible for HEEHR",
+          "at3k": "0",
+          "at5k": "0"
+        }
+      ],
+      "source": "ENERGY STAR: Eligible ENERGY STAR Products and Maximum Rebate Amounts for High-Efficiency Electric Home Rebate (HEEHR) Program; states may narrow eligibility",
+      "sourceUrl": "https://www.energystar.gov/partner-resources/state-and-tribal-rebate-programs/hear-program",
+      "sourceDate": "2026-11-20"
+    }
+  }
+}

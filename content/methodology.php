@@ -86,6 +86,9 @@ $hwm_dr   = 'decision-rules';
 				<li><a href="#tankless-vs-tank-water-heater">Tankless vs tank cost of ownership</a></li>
 				<li><a href="#heat-pump-water-heater-cost">Heat pump water heater savings and payback</a></li>
 				<li><a href="#water-heater-expansion-tank-size">Thermal expansion tank size</a></li>
+				<li><a href="#water-heater-model-number-lookup">Water heater model number lookup</a></li>
+				<li><a href="#heat-pump-water-heater-rebates">Heat pump water heater rebate finder</a></li>
+				<li><a href="#water-heater-quote-checker">Water heater quote checker</a></li>
 				<li><a href="#hot-water-runs-out-fast">Winter vs summer shower table (hot water runs out fast)</a></li>
 				<li><a href="#safety-pages">Safety pages: tank setting, relief valve, heating element, gas line and electrical tables</a></li>
 				<li><a href="#state-cost-pages">State cost pages (installation cost by state)</a></li>
@@ -306,6 +309,43 @@ $hwm_dr   = 'decision-rules';
 	<p>The cross-check runs AMTROL's worked example and every cell of its quick sizing chart through our formula.</p>
 	<?php $hwm_xfilled( 'water-heater-expansion-tank-size', 'expansion tank sizing (AMTROL)' ); ?>
 </section>
+<section id="water-heater-model-number-lookup">
+	<h3>Water heater model number lookup</h3>
+	<p>The lookup reads two numbers from the rating label:</p>
+	<ol>
+		<li><strong>Model number</strong>: matched against the brand's rule in <code>data/model-formats.json</code>. A rule names only the parts a maker's own document states (Bradford White spec sheet, Whirlpool warranty) or that hold for every listing we have (Rheem). Each part becomes a fact: gallons or size class, fuel, height, input and tank warranty years.</li>
+		<li><strong>Serial number</strong>: decoded with the same date codes as the age calculator (above), which gives the build month and year.</li>
+		<li><strong>Age and life used</strong> = today − build date, against the typical life for the type (DOE), with no adjustments.</li>
+		<li><strong>Warranty end</strong> ≈ build date + warranty years. Warranties run from installation, so the real end is usually a little later; the result says so.</li>
+	</ol>
+	<p>A photo of the label is opened only in the visitor's browser. Where the browser has a built-in text detector, its text is searched for "Model" and "Serial"; nothing is uploaded.</p>
+	<p><strong>Limitations.</strong> Model rules exist for <?php echo esc_html( hwm_value( 'computed/water-heater-model-number-lookup', 'figures.brandsDecoded' ) ); ?> brands only. Input digits in Rheem model numbers are rounded, and Bradford White's gallon digits are a size class.</p>
+	<p>The cross-check decodes every Rheem tank listing in our price data (<?php echo esc_html( hwm_value( 'computed/water-heater-model-number-lookup', 'figures.rheemCount' ) ); ?> models) and compares each part with the product name; a mismatch stops the build. It also runs the Bradford White spec sheet rows, Whirlpool's warranty example and American's support page models.</p>
+	<?php $hwm_xfilled( 'water-heater-model-number-lookup', 'model number rules (maker documents and listings)' ); ?>
+</section>
+<section id="heat-pump-water-heater-rebates">
+	<h3>Heat pump water heater rebate finder</h3>
+	<ol>
+		<li><strong>Federal tax credit (25C)</strong> = $0: the IRS credit covers property placed in service through <?php echo esc_html( hwm_value( 'computed/heat-pump-water-heater-rebates', 'figures.creditEnd' ) ); ?>.</li>
+		<li><strong>HEEHR</strong> = min($<?php echo esc_html( hwm_value( 'computed/heat-pump-water-heater-rebates', 'figures.cap' ) ); ?>, project cost × income share), where the share is 100% below 80% of area median income, 50% from 80% to 150%, and 0 above (ENERGY STAR). It applies only in states NASEO lists as launched, and is $0 where the state page says funds are fully reserved or the state serves a lower income band only.</li>
+		<li><strong>Project cost</strong> = the visitor's figure, or our typical installed price for a 50-gallon heat pump in that state from the cost model (permit included).</li>
+		<li><strong>Utility rebates</strong> are listed with the largest amount each program page names; a page that names no amount is shown as a discount and counted as $0.</li>
+	</ol>
+	<p><strong>Limitations.</strong> Program status changes between our three-monthly checks. Utilities are listed only in the states with a state cost page; ENERGY STAR's finder covers the rest by ZIP code. We do not add HEEHR and utility rebates into one total, because each program sets its own stacking rule.</p>
+	<p>The cross-check runs the ENERGY STAR income rules and the California "fully reserved" case through the finder.</p>
+	<?php $hwm_xfilled( 'heat-pump-water-heater-rebates', 'HEEHR rebate rules (ENERGY STAR, state pages)' ); ?>
+</section>
+<section id="water-heater-quote-checker">
+	<h3>Water heater quote checker</h3>
+	<ol>
+		<li><strong>Our estimate</strong> for the job = the cost calculator's model: unit price + labor × state price factor + each ticked extra × state price factor, at its low, typical and high end.</li>
+		<li><strong>Verdict</strong>: below our low = below range; up to typical = fair, low side; up to high = fair, high side; up to high + <?php echo esc_html( hwm_value( 'computed/water-heater-quote-checker', 'figures.farAbovePct' ) ); ?>% = above range; more = far above (the <?php echo esc_html( hwm_value( 'computed/water-heater-quote-checker', 'figures.farAbovePct' ) ); ?>% cutoff is our rule).</li>
+		<li><strong>Line items</strong>: the unit price is compared with current listing prices (not state-scaled); labor and the permit with their state-scaled ranges.</li>
+	</ol>
+	<p><strong>Limitations.</strong> A model, not a survey of real quotes. It cannot see local labor rates, premium brands or hard installs, so a verdict outside the range means "ask why", not "unfair".</p>
+	<p>Because the checker prices every job with the cost calculator's model, its cross-checks are that model's checks against DOE's installed costs:</p>
+	<?php $hwm_xfilled( 'water-heater-quote-checker', 'installed price model (DOE)' ); ?>
+</section>
 <section id="hot-water-runs-out-fast">
 	<h3>Winter vs summer shower table (hot water runs out fast)</h3>
 	<p>Not a calculator, but the table on <?php echo hwm_link( 'hot-water-runs-out-fast', 'hot water runs out fast' ); // phpcs:ignore ?> is our arithmetic, so here is the method:</p>
@@ -443,6 +483,7 @@ $hwm_files = array(
 		<tr><td>Shortest expected life we show</td><td><?php echo esc_html( hwm_value( $hwm_life, 'adjustments.minimumLifeYears' ) ); ?> years</td><td>Keeps adjustments from adding up to an unrealistic result.</td></tr>
 		<tr><td>Heat pump "pays back quickly"</td><td>Within <?php echo esc_html( hwm_value( 'heat-pump', 'savingsCalculator.paybackGoodYears' ) ); ?> years</td><td>About half a heat pump's typical life, so most of its life is net saving. It only sets the label colour; the payback number is shown either way.</td></tr>
 		<tr><td>Expansion tank "safer" pick</td><td>Within <?php echo esc_html( hwm_value( 'computed/water-heater-expansion-tank-size', 'figures.headroomPct' ) ); ?>% of a tank's limit</td><td>Real pressures and settings drift. AMTROL's own chart picks the larger tank in most borderline cases, and this rule reproduces that.</td></tr>
+		<tr><td>Quote "far above" our range</td><td>More than <?php echo esc_html( hwm_value( 'computed/water-heater-quote-checker', 'figures.farAbovePct' ) ); ?>% over our high estimate</td><td>Our high end already uses the dearest end of every line; a quote well past it is not explained by any extra in the cost model, so we suggest more estimates.</td></tr>
 		<tr><td>Age status colors</td><td>Amber from <?php echo esc_html( hwm_value( $hwm_life, 'statusBands.amberFrom', 1 ) ); ?>, red from <?php echo esc_html( hwm_value( $hwm_life, 'statusBands.redFrom', 1 ) ); ?> × expected life</td><td>Gives you time to plan a replacement before the typical end of life.</td></tr>
 		<tr><td>Installation labor and extras ranges</td><td>See the water heater cost section</td><td>No public source publishes labor by job type; our ranges sit on DOE's averages and ranges, with industry guides as a sanity check.</td></tr>
 		<tr><td>Repair-or-replace thresholds</td><td>See the repair or replace section</td><td>Conservative rules of the kind homeowners already use, written down so you can check them.</td></tr>

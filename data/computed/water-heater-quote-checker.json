@@ -1,0 +1,399 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/quote-check.json and the cost model (data/cost-ranges.json, data/installation-costs.json, data/regional-cost-index.json) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result (cost calculator default job, no quote yet), worked examples, band table. Cross-checks are the cost model's, because the checker prices the job with it."
+  },
+  "defaultInputs": {
+    "type": "gas_tank",
+    "size": "50",
+    "state": "US",
+    "scenario": "replace",
+    "permit": true
+  },
+  "default": {
+    "statusLabel": "Enter your quote",
+    "headline": "Our range for this job: $1,249 to $2,599",
+    "explain": "For a 50-gallon gas tank at U.S. average prices with 1 extra ticked, we estimate $1,809 installed. Type the total on your quote to see where it falls, and add the line items if the quote lists them.",
+    "formula": "Our estimate = unit + labor × 1.000 (state price factor) + each ticked extra × 1.000\nLow $1,249 · typical $1,809 · high $2,599 for a 50-gallon gas tank at U.S. average prices",
+    "table": {
+      "caption": "Your quote against our estimate for the same job",
+      "columns": [
+        {
+          "key": "item",
+          "label": "Item"
+        },
+        {
+          "key": "quote",
+          "label": "Your quote",
+          "num": true
+        },
+        {
+          "key": "ours",
+          "label": "Our range",
+          "num": true
+        },
+        {
+          "key": "verdict",
+          "label": "Verdict"
+        }
+      ],
+      "rows": [
+        {
+          "item": "50-gallon gas tank (natural gas, standard vent)",
+          "quote": "–",
+          "ours": "$749 to $999",
+          "verdict": "–"
+        },
+        {
+          "item": "Installation labor",
+          "quote": "–",
+          "ours": "$350 to $1,100",
+          "verdict": "–"
+        },
+        {
+          "item": "Permit, haul-away and disposal of the old unit",
+          "quote": "–",
+          "ours": "$150 to $500",
+          "verdict": "–"
+        }
+      ],
+      "total": {
+        "item": "Total",
+        "quote": "–",
+        "ours": "$1,249 to $2,599 (typical $1,809)",
+        "verdict": ""
+      }
+    },
+    "sources": "Prices: the same cost model as our cost calculator (Home Depot listings, DOE-anchored labor, BEA state price levels). Bands: our rule. <a href=\"/methodology/#water-heater-quote-checker\">How the verdict is set</a>."
+  },
+  "crossChecks": [
+    {
+      "id": "doe-gas",
+      "label": "50-gal gas tank, like-for-like, U.S. average (same cost model)",
+      "ours": "$1,809",
+      "published": "DOE average installed cost $1,432 (2022 dollars, baseline gas storage)",
+      "diffPct": 26.3,
+      "why": "Ours is in today’s listing prices; DOE’s is 2022 dollars and averages all sizes from 20 to 55 gallons. PHCC told DOE its RSMeans-based installation costs are too low.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-electric",
+      "label": "50-gal electric tank, like-for-like, U.S. average (same cost model)",
+      "ours": "$1,579",
+      "published": "DOE average installed cost $902 (2022 dollars, baseline electric storage)",
+      "diffPct": 75.1,
+      "why": "The largest gap. DOE’s figure is 2022 dollars, includes smaller tanks and many new-construction installs; current 50-gallon listings alone are near $820.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    },
+    {
+      "id": "doe-hp",
+      "label": "50-gal heat pump, replacing an electric tank, U.S. average (same cost model)",
+      "ours": "$2,947",
+      "published": "DOE average installed cost $1,855 (2022 dollars, heat pump level)",
+      "diffPct": 58.9,
+      "why": "DOE priced heat pump units from its own cost model for the 2030 market; today’s retail listings are higher. Space work for tight closets is an extra in both.",
+      "source": "U.S. Department of Energy, Federal Register: Energy conservation standards for consumer water heaters, final rule (89 FR 37778, May 6, 2024)",
+      "sourceUrl": "https://www.govinfo.gov/content/pkg/FR-2024-05-06/html/2024-09209.htm"
+    }
+  ],
+  "figures": {
+    "sample": {
+      "total": "2,500",
+      "verdict": "fair, on the high side"
+    },
+    "examples": {
+      "tx-gas50": {
+        "id": "tx-gas50",
+        "label": "50-gallon gas tank replacement in Texas, permit included",
+        "type": "gas_tank",
+        "size": "50",
+        "state": "TX",
+        "scenario": "replace",
+        "extras": [
+          "permit"
+        ],
+        "total": 2400,
+        "headline": "$2,400 is fair, on the high side",
+        "band": "highSide",
+        "low": "1,235",
+        "typical": "1,782",
+        "high": "2,553",
+        "pct": "35",
+        "dir": "above",
+        "explain": "Your quote of $2,400 is 35% above our typical $1,782 for a 50-gallon gas tank in Texas. The price sits between our typical and high estimate. Ask what pushes it up: a longer warranty, a premium unit, or a hard install."
+      },
+      "fl-el50": {
+        "id": "fl-el50",
+        "label": "50-gallon electric tank replacement in Florida, permit included",
+        "type": "electric_tank",
+        "size": "50",
+        "state": "FL",
+        "scenario": "replace",
+        "extras": [
+          "permit"
+        ],
+        "total": 1100,
+        "unitPrice": 700,
+        "laborPrice": 300,
+        "headline": "$1,100 is fair, on the low side",
+        "band": "lowSide",
+        "low": "1,024",
+        "typical": "1,605",
+        "high": "2,877",
+        "pct": "31",
+        "dir": "below",
+        "explain": "Your quote of $1,100 is 31% below our typical $1,605 for a 50-gallon electric tank in Florida. The price sits between our low and typical estimate for this job. Line items: installation labor at $300 is below our range ($310 to $931)."
+      },
+      "ca-hp50": {
+        "id": "ca-hp50",
+        "label": "50-gallon heat pump replacing a gas tank in California (permit and new circuit)",
+        "type": "heat_pump",
+        "size": "50",
+        "state": "CA",
+        "scenario": "fuelSwitch",
+        "extras": [
+          "permit",
+          "circuit"
+        ],
+        "total": 9500,
+        "headline": "$9,500 is far above our range",
+        "band": "farAbove",
+        "low": "2,710",
+        "typical": "3,735",
+        "high": "5,994",
+        "pct": "154",
+        "dir": "above",
+        "explain": "Your quote of $9,500 is 154% above our typical $3,735 for a 50-gallon heat pump in California. No extra in our cost model explains a price this high. Get at least two more written estimates before you sign."
+      }
+    },
+    "farAbovePct": "50",
+    "gas50": {
+      "low": "1,249",
+      "typical": "1,809",
+      "high": "2,599",
+      "farAbove": "3,899"
+    },
+    "checklist": [
+      {
+        "text": "Get written estimates from at least three contractors, and do not pick the lowest bid automatically; ask why the prices differ.",
+        "quote": "Get written estimates from at least three contractors. Don't automatically choose the lowest bidder! Ask for explanations on price variations among proposals.",
+        "source": "Virginia DPOR, Consumer Guide: Hiring a Contractor",
+        "sourceUrl": "https://www.dpor.virginia.gov/Consumers/Guide_Contractor",
+        "checked": "2026-11-20"
+      },
+      {
+        "text": "Keep the deposit small: Virginia's consumer guide suggests no more than 10% or $1,000, whichever is less, unless the job needs special-order items.",
+        "quote": "Consider an initial deposit of no more than 10% down or $1,000 , whichever is less.",
+        "source": "Virginia DPOR, Consumer Guide: Hiring a Contractor",
+        "sourceUrl": "https://www.dpor.virginia.gov/Consumers/Guide_Contractor",
+        "checked": "2026-11-20"
+      },
+      {
+        "text": "Never pay the full price up front, and hold the final payment until the work is done and has passed any required inspection.",
+        "quote": "Never pay the full price up front ... Withhold final payment until the entire project is completed to your satisfaction and all required inspections and certificates of occupancy are finalized.",
+        "source": "New York State Attorney General, Hiring a home-improvement contractor",
+        "sourceUrl": "https://ag.ny.gov/publications/hiring-home-improvement-contractor",
+        "checked": "2026-11-20"
+      },
+      {
+        "text": "Get it in writing: the brand and model of the heater, the warranty, the permit, and every promise made out loud.",
+        "quote": "The contract should include a timeline for work to be completed, a payment schedule, and specifics about the project — such as types or brands of materials.",
+        "source": "New York State Attorney General, Hiring a home-improvement contractor",
+        "sourceUrl": "https://ag.ny.gov/publications/hiring-home-improvement-contractor",
+        "checked": "2026-11-20"
+      }
+    ]
+  },
+  "client": {
+    "bands": [
+      {
+        "id": "below",
+        "label": "Below our range",
+        "status": "warn",
+        "advice": "A low price is not a problem in itself, but check what is left out: the permit, haul-away of the old heater, code items, or the brand and warranty of the unit."
+      },
+      {
+        "id": "lowSide",
+        "label": "Fair, on the low side",
+        "status": "ok",
+        "advice": "The price sits between our low and typical estimate for this job."
+      },
+      {
+        "id": "highSide",
+        "label": "Fair, on the high side",
+        "status": "ok",
+        "advice": "The price sits between our typical and high estimate. Ask what pushes it up: a longer warranty, a premium unit, or a hard install."
+      },
+      {
+        "id": "above",
+        "label": "Above our range",
+        "status": "warn",
+        "advice": "The price is above our high estimate for this job. Ask for an itemized quote and compare it with a second written estimate."
+      },
+      {
+        "id": "farAbove",
+        "label": "Far above our range",
+        "status": "bad",
+        "advice": "No extra in our cost model explains a price this high. Get at least two more written estimates before you sign."
+      }
+    ],
+    "farAboveShare": 0.5,
+    "lineBands": {
+      "low": "below our range",
+      "in": "inside our range",
+      "high": "above our range"
+    },
+    "limits": {
+      "total": {
+        "label": "Quote total",
+        "min": 100,
+        "max": 40000,
+        "unit": "$",
+        "optional": true
+      },
+      "unitPrice": {
+        "label": "Unit price on the quote",
+        "min": 0,
+        "max": 20000,
+        "unit": "$",
+        "optional": true
+      },
+      "laborPrice": {
+        "label": "Labor on the quote",
+        "min": 0,
+        "max": 20000,
+        "unit": "$",
+        "optional": true
+      },
+      "permitPrice": {
+        "label": "Permit and haul-away on the quote",
+        "min": 0,
+        "max": 5000,
+        "unit": "$",
+        "optional": true
+      }
+    },
+    "defaults": {
+      "type": "gas_tank",
+      "size": "50",
+      "state": "US",
+      "scenario": "replace"
+    }
+  },
+  "tables": {
+    "bands": {
+      "caption": "What counts as a fair water heater quote (U.S. average, permit and haul-away included)",
+      "columns": [
+        {
+          "key": "job",
+          "label": "Job"
+        },
+        {
+          "key": "fair",
+          "label": "Fair range",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "typical",
+          "label": "Typical",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "far",
+          "label": "Far above",
+          "unit": "$",
+          "num": true
+        }
+      ],
+      "rows": [
+        {
+          "job": "40-gallon gas tank (natural gas, standard vent)",
+          "fair": "$1,031–$2,619",
+          "typical": "$1,669",
+          "far": "over $3,929"
+        },
+        {
+          "job": "50-gallon gas tank (natural gas, standard vent)",
+          "fair": "$1,249–$2,599",
+          "typical": "$1,809",
+          "far": "over $3,899"
+        },
+        {
+          "job": "50-gallon electric tank",
+          "fair": "$1,009–$2,829",
+          "typical": "$1,579",
+          "far": "over $4,244"
+        },
+        {
+          "job": "50-gallon heat pump (hybrid)",
+          "fair": "$2,308–$4,419",
+          "typical": "$2,947",
+          "far": "over $6,629"
+        },
+        {
+          "job": "Gas tankless, whole house (8 GPM or more, natural gas)",
+          "fair": "$1,619–$3,703",
+          "typical": "$2,218",
+          "far": "over $5,555"
+        }
+      ],
+      "source": "Hot Water Math cost model; \"far above\" = more than 50% over our high estimate (our rule)",
+      "sourceUrl": "https://hotwatermath.com/methodology/",
+      "sourceDate": "2026-11-13"
+    },
+    "examples": {
+      "caption": "Three example quotes, checked",
+      "columns": [
+        {
+          "key": "job",
+          "label": "Quote"
+        },
+        {
+          "key": "total",
+          "label": "Quote total",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "range",
+          "label": "Our range",
+          "unit": "$",
+          "num": true
+        },
+        {
+          "key": "verdict",
+          "label": "Verdict"
+        }
+      ],
+      "rows": [
+        {
+          "job": "50-gallon gas tank replacement in Texas, permit included",
+          "total": "2,400",
+          "range": "1,235–2,553",
+          "verdict": "Fair, on the high side"
+        },
+        {
+          "job": "50-gallon electric tank replacement in Florida, permit included",
+          "total": "1,100",
+          "range": "1,024–2,877",
+          "verdict": "Fair, on the low side"
+        },
+        {
+          "job": "50-gallon heat pump replacing a gas tank in California (permit and new circuit)",
+          "total": "9,500",
+          "range": "2,710–5,994",
+          "verdict": "Far above our range"
+        }
+      ],
+      "source": "Illustrative quotes chosen by Hot Water Math to show how the checker reads a quote; they are not real customer quotes.",
+      "sourceUrl": "https://hotwatermath.com/methodology/",
+      "sourceDate": "2026-11-20"
+    }
+  }
+}

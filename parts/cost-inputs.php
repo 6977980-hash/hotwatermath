@@ -3,6 +3,7 @@
  * Cost calculator inputs, shared by /water-heater-cost-calculator/ and the installation cost articles that embed it
  * preset to their type. Options and defaults come from data/computed/water-heater-cost-calculator.json.
  * Args: preset (optional) = data/computed/<article>.json → calculator.inputs: { type, size, state, scenario, <extra>: true }.
+ *       legend (optional) = fieldset legend for the extras (the quote checker asks what the quote includes).
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -51,7 +52,7 @@ $hwm_dtype = (string) ( $hwm_def['type'] ?? 'gas_tank' );
 	</div>
 </div>
 <fieldset>
-	<legend>Extras your job needs <span class="hint">(the job type ticks the usual ones; change them)</span></legend>
+	<legend><?php echo esc_html( (string) ( $args['legend'] ?? 'Extras your job needs' ) ); ?> <span class="hint">(the job type ticks the usual ones; change them)</span></legend>
 	<?php foreach ( (array) ( $hwm_m['extras'] ?? array() ) as $hwm_k => $hwm_x ) : ?>
 		<label class="check"><input type="checkbox" name="<?php echo esc_attr( (string) $hwm_k ); ?>" value="1"<?php checked( ! empty( $hwm_din[ $hwm_k ] ) ); ?>> <?php echo esc_html( (string) $hwm_x['label'] ); ?></label>
 	<?php endforeach; ?>

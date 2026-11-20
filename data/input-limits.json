@@ -233,6 +233,45 @@
         "optional": true,
         "note": "A rebate larger than the installed price is counted only up to that price."
       }
+    },
+    "water-heater-quote-checker": {
+      "total": {
+        "label": "Quote total",
+        "min": 100,
+        "max": 40000,
+        "unit": "$",
+        "optional": true
+      },
+      "unitPrice": {
+        "label": "Unit price on the quote",
+        "min": 0,
+        "max": 20000,
+        "unit": "$",
+        "optional": true
+      },
+      "laborPrice": {
+        "label": "Labor on the quote",
+        "min": 0,
+        "max": 20000,
+        "unit": "$",
+        "optional": true
+      },
+      "permitPrice": {
+        "label": "Permit and haul-away on the quote",
+        "min": 0,
+        "max": 5000,
+        "unit": "$",
+        "optional": true
+      }
+    },
+    "heat-pump-water-heater-rebates": {
+      "cost": {
+        "label": "Project cost",
+        "min": 500,
+        "max": 30000,
+        "unit": "$",
+        "optional": true
+      }
     }
   }
 }

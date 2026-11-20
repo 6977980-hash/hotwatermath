@@ -23,6 +23,9 @@ import { describe as describeTco } from '../assets/js/tankless-vs-tank.js';
 import { describe as describeOp } from '../assets/js/gas-vs-electric.js';
 import { describe as describeHp } from '../assets/js/heat-pump-savings.js';
 import { describe as describeEt } from '../assets/js/expansion-tank.js';
+import { describe as describeMl, readModel } from '../assets/js/model-lookup.js';
+import { describe as describeRb } from '../assets/js/rebate-finder.js';
+import { describe as describeQc } from '../assets/js/quote-checker.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'data/computed');
@@ -75,6 +78,12 @@ export const INPUTS = [
 	'data/propane-prices.json',
 	'data/hpwh-rebates.json',
 	'data/solar-water-heating.json',
+	'data/model-formats.json',
+	'data/heehr-states.json',
+	'data/quote-check.json',
+	'assets/js/model-lookup.js',
+	'assets/js/rebate-finder.js',
+	'assets/js/quote-checker.js',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -2087,6 +2096,169 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 	const dataReg = d.pages.pages.find((x) => x.slug === 'data');
 	if (dataReg && dataReg.status !== 'planned' && !String(dataReg.description).includes(`${list.length} sourced`)) throw new Error(`pages.json description for /data/ must say "${list.length} sourced"; update it.`);
 	out.datasets = { meta: { ...derived('data/datasets.json and the computed tables it names'), notes: 'Clean CSV columns for /data/<id>.csv and Dataset schema on /data/.' }, license: ds.license, datasets: list };
+}
+
+/* ---------- 2026-11-20: model number lookup, rebate finder, quote checker ---------- */
+/* model number lookup */
+{
+	const mf = d['model-formats'];
+	const ageC = out['water-heater-age-calculator'].client;
+	const asOfIso = d.site.dateVerified['water-heater-model-number-lookup'];
+	const asOf = new Date(`${asOfIso}T12:00:00Z`);
+	const wcodes = d['brand-pages'].brands.whirlpool.warranty.codes.map((c) => ({ code: String(c.code), tank: c.tank, parts: c.parts, labor: c.labor }));
+	const bwRule = mf.brands['bradford-white'].patterns[0];
+	const client = {
+		months: ageC.months, brandOptions: ageC.brandOptions, serialBrands: ageC.brands, maxAgeYears: ageC.maxAgeYears, types: ageC.types,
+		bands: ageC.bands, minimumLifeYears: ageC.adjustments.minimumLifeYears, statusLabels: ageC.statusLabels,
+		models: mf.brands, modelMap: mf.brandMap, whirlpoolCodes: wcodes,
+		sizeClassNote: `The number is a size class: Bradford White's ${bwRule.specRows.find((x) => x.nominalGallons !== Number(x.model.slice(3, 5))).model} is in the 50 class but holds ${bwRule.specRows.find((x) => x.nominalGallons !== Number(x.model.slice(3, 5))).nominalGallons} gallons, so check the Capacity line.`,
+	};
+	const v0 = { brand: 'rheem', model: 'XG50T06EC38U1', serial: out['water-heater-age-calculator'].defaultInputs.serial, type: 'auto' };
+	const d0 = describeMl(v0, client, asOf);
+
+	// Cross-check 1: every Rheem XG/XE listing in our price data must decode to what its product name says.
+	const listings = [];
+	const walk = (o) => { if (Array.isArray(o)) o.forEach(walk); else if (o && typeof o === 'object') { if (o.product && o.model) listings.push(o); Object.values(o).forEach(walk); } };
+	walk(d['cost-ranges']);
+	const rheemRows = listings.filter((x) => /^X[GE]\d/.test(x.model));
+	const checks = rheemRows.map((x) => {
+		const r = readModel(x.model, 'rheem', client).facts;
+		const name = x.product;
+		const gal = Number((name.match(/(\d+) Gal/) || [])[1]);
+		const yrs = Number((name.match(/(\d+)-Year/) || [])[1]);
+		const height = (name.match(/\b(Tall|Short|Medium)\b/) || [])[1];
+		const btu = Number(((name.match(/([\d,]+) (?:BTU|Ultra)/) || [])[1] || '').replace(/,/g, ''));
+		const watts = Number((name.match(/(\d{4})(?:-Watt|W)/) || [])[1]);
+		const isHp = /Heat Pump/i.test(name);
+		const problems = [];
+		if (r.gallons !== gal) problems.push(`gallons ${r.gallons} vs ${gal}`);
+		if (yrs && r.warrantyYears !== yrs) problems.push(`warranty ${r.warrantyYears} vs ${yrs}`);
+		if (height && r.height !== height) problems.push(`height ${r.height} vs ${height}`);
+		const inNum = Number(String(r.input || '').replace(/[^\d]/g, ''));
+		const rounded = btu && inNum !== btu && Math.abs(inNum / btu - 1) <= 0.02;
+		if (btu && inNum !== btu && !rounded) problems.push(`input ${r.input} vs ${btu} BTU`);
+		if (watts && r.input !== `${fmt(watts)} W`) problems.push(`input ${r.input} vs ${watts} W`);
+		if ((r.type === 'heat_pump') !== isHp) problems.push(`heat pump ${r.type} vs ${isHp}`);
+		return { model: x.model, name, r, problems, yrs, gal, url: x.listingUrl, rounded: rounded ? btu : 0 };
+	});
+	const failed = checks.filter((c) => c.problems.length);
+	if (failed.length) throw new Error(`model-formats.json Rheem rule disagrees with listings: ${failed.map((c) => `${c.model}: ${c.problems.join(', ')}`).join('; ')}`);
+	const withYears = checks.filter((c) => c.yrs).length;
+	const roundedRows = checks.filter((c) => c.rounded);
+	const pick = (re) => checks.find((c) => re.test(c.model));
+	const rheemRule = mf.brands.rheem.patterns[0];
+	const xc = [
+		...[pick(/^XG50T06/), pick(/^XE50T09/), pick(/^XE65T10/)].filter(Boolean).map((c) => ({ id: `rheem-${c.model}`, label: `Rheem ${c.model}`, ours: [c.r.gallons && `${c.r.gallons} gal`, c.r.height, c.r.fuel, c.r.input, `${c.r.warrantyYears}-year warranty`].filter(Boolean).join(', '), published: c.name.replace(new RegExp(` ${c.model}$`), ''), match: true, why: 'Every segment matches the product name.', source: 'The Home Depot listing', sourceUrl: c.url })),
+		{ id: 'rheem-all', label: `All ${checks.length} Rheem XG/XE tank listings in our price data`, ours: `${checks.length} of ${checks.length} decoded without a mismatch (${withYears} name a warranty)`, published: 'Gallons, height, input and warranty years in each product name', match: true, why: `Checked on every build; a mismatch stops the build.${roundedRows.length ? ` The model number rounds the input: ${roundedRows.map((c) => `${c.model} reads ${c.r.input}, the name says ${fmt(c.rounded)} BTU`).join('; ')}.` : ''}`, source: 'The Home Depot listings (data/cost-ranges.json)', sourceUrl: d['cost-ranges'].meta.sourceUrl },
+		...bwRule.specRows.map((x) => { const r = readModel(x.model, 'bradford-white', client).facts; const same = r.gallons === x.nominalGallons; return { id: `bw-${x.model}`, label: `Bradford White ${x.model}`, ours: `${r.gallons}-gallon class, ${r.fuel.toLowerCase()}, ${r.warrantyYears}-year warranty`, published: `${x.nominalGallons} gal nominal, ${fmt(x.btuh)} BTU/h, 6-year models (spec sheet)`, match: same, why: same ? 'Same size.' : `The lowboy holds ${x.nominalGallons} gallons in the 50 size class; the result says "size class" and points to the label.`, source: 'Bradford White spec sheet C1101-B-0618', sourceUrl: bwRule.sourceUrl }; }),
+		(() => { const r = readModel('30T6-30NG', 'whirlpool', client).facts; return { id: 'whirlpool-30T6', label: 'Whirlpool 30T6-30NG (warranty example)', ours: `${r.warrantyYears}-year tank, labor ${r.labor} year`, published: 'Warranty code 6: 6-year tank, 6-year parts, 1-year labor', match: r.warrantyYears === 6 && r.labor === 1, why: 'Same terms.', source: 'Whirlpool brand limited warranty', sourceUrl: mf.brands.whirlpool.patterns[0].sourceUrl }; })(),
+		...d['brand-pages'].brands.american.warrantyModels.items.slice(0, 4).map((x) => { const r = readModel(x.model, 'american', client).facts; return { id: `am-${x.model}`, label: `American ${x.model}`, ours: `${r.warrantyYears}-year warranty`, published: `${x.years}-year warranty (support page title)`, match: r.warrantyYears === x.years, why: 'Same.', source: 'American Water Heaters support pages', sourceUrl: mf.brands.american.patterns[0].sourceUrl }; }),
+	];
+	if (xc.some((c) => c.label.startsWith('American') && !c.match)) throw new Error('model-formats.json American rule disagrees with brand-pages.json warrantyModels');
+	const segRows = [
+		...Object.values(mf.brands).flatMap((b) => b.patterns.map((p) => ({ brand: b.label, example: p.example, segments: p.segments, source: p.source.split(':')[0] }))),
+	];
+	const rx = readModel('XG50T06EC38U1', 'rheem', client);
+	out['water-heater-model-number-lookup'] = {
+		meta: { ...derived('data/model-formats.json, data/serial-formats.json and data/lifespans.json'), notes: `Default result computed as of ${asOfIso}; the live tool uses the visitor's date. Cross-checks: every Rheem tank listing in data/cost-ranges.json, the Bradford White spec sheet rows, the Whirlpool warranty example and American support pages.` },
+		asOf: asOfIso,
+		defaultInputs: v0,
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: 'Model rules: Bradford White spec sheet, Whirlpool warranty, Rheem listings; date codes: manufacturers and Energy Trust of Oregon. <a href="/methodology/#water-heater-model-number-lookup">See every rule checked against the maker\'s own figures</a>.' },
+		crossChecks: xc,
+		figures: { rheemRounded: roundedRows.map((c) => ({ model: c.model, input: c.r.input, named: fmt(c.rounded) })), rheemCount: fmt(checks.length), rheemWithYears: fmt(withYears), example: { model: 'XG50T06EC38U1', lines: rx.lines }, defaultAge: d0.made ? `${d0.made.year}` : '', brandsDecoded: fmt(Object.keys(mf.brands).length), bwLowboy: bwRule.specRows.find((x) => x.model === 'RG250L6N').nominalGallons },
+		client,
+		tables: {
+			rules: table('Model number rules we can decode', [{ key: 'brand', label: 'Brand' }, { key: 'example', label: 'Example' }, { key: 'segments', label: 'What the parts mean' }, { key: 'source', label: 'Source' }], segRows, { source: mf.meta.source, sourceUrl: mf.meta.sourceUrl, sourceDate: mf.meta.sourceDate }),
+			labelFields: table('What each line on a water heater rating plate means', [{ key: 'field', label: 'Label line' }, { key: 'means', label: 'What it tells you' }], mf.labelFields, { source: mf.labelFieldsSource, sourceUrl: mf.meta.sourceUrl, sourceDate: mf.meta.sourceDate }),
+			rheemExamples: table('Rheem model numbers decoded (from our price data)', [{ key: 'model', label: 'Model' }, { key: 'gal', label: 'Gallons', num: true }, { key: 'height', label: 'Height' }, { key: 'fuel', label: 'Fuel' }, { key: 'input', label: 'Input', num: true }, { key: 'w', label: 'Warranty', unit: 'years', num: true }], [/^XG40T06EC36/, /^XG50T12HE40/, /^XE40M09EL45/, /^XE50T10H45/, /^XE80T10HS45/].map(pick).filter(Boolean).map((c) => ({ model: c.model, gal: c.r.gallons, height: c.r.height, fuel: c.r.fuel, input: c.r.input, w: c.r.warrantyYears })), { source: rheemRule.source, sourceUrl: d['cost-ranges'].meta.sourceUrl, sourceDate: d['cost-ranges'].lastReviewed }),
+		},
+	};
+}
+
+/* heat pump water heater rebate finder */
+{
+	const h = d['heehr-states'];
+	const hr = d['hpwh-rebates'];
+	const cr = d.incentives.credits.find((c) => c.id === '25c-heat-pump-water-heater');
+	const endDate = new Date(`${cr.placedInServiceThrough}T12:00:00Z`);
+	const endText = endDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+	const dateText = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+	const heehr = Object.fromEntries(h.programs.map((p) => [p.code, { program: p.program, status: p.status, launched: p.launched, eligibility: p.eligibility, incomeCapId: p.incomeCapId || '', statusText: p.status === 'reserved' ? p.pageQuote : '', url: p.url }]));
+	const utilities = {};
+	for (const p of hr.programs) {
+		if (p.fuel !== 'heat_pump') continue;
+		if (p.kind === 'state' && heehr[p.state]) continue; // the state's HEEHR program is listed from heehr-states.json
+		(utilities[p.state] ||= []).push({ id: p.id, sponsor: p.sponsor, short: p.sponsor.replace(/ \(.*\)$/, ''), offer: p.offer, conditions: p.conditions, ...(Number.isFinite(p.maxUsd) ? { maxUsd: p.maxUsd } : {}), checkedText: dateText(h.utilityRecheck.checked), url: p.sourceUrl });
+	}
+	const st = stateOptions.filter((s) => s.id !== 'US');
+	const costByState = Object.fromEntries(st.map((s) => { const e = estimateInstalled(model, { type: 'heat_pump', size: '50', state: s.id, extras: ['permit'] }); return [s.id, { low: e.low, typical: e.typical, high: e.high }]; }));
+	const client = {
+		states: st, heehr, utilities, costByState, costLabel: `${model.units.heat_pump_50.label.toLowerCase()} replacing an electric tank, permit included`,
+		federal: { cap: h.federal.heatPumpWaterHeaterMaxUsd, incomeRules: h.federal.incomeRules },
+		credit: { endText }, notListed: h.notListed, defaults: { state: 'MI', income: '80to150' }, limits: limitsOf('heat-pump-water-heater-rebates'),
+	};
+	const v0 = { state: 'MI', income: '80to150', cost: null };
+	const d0 = describeRb(v0, client);
+	const name = (c) => st.find((s) => s.id === c).name;
+	const ex = (stc, inc, cost) => describeRb({ state: stc, income: inc, cost }, client).result;
+	const xc = [
+		{ id: 'cap', label: '$4,000 project, below 80% AMI, state with an open program (AZ)', ours: `$${fmt(ex('AZ', 'below80', 4000).heehr)}`, published: 'Up to 100% of cost below 80% AMI; heat pump water heater maximum $1,750', match: ex('AZ', 'below80', 4000).heehr === h.federal.heatPumpWaterHeaterMaxUsd, why: 'Capped at the federal maximum.', source: 'ENERGY STAR HEEHR page', sourceUrl: h.federal.sourceUrl },
+		{ id: 'half', label: '$3,000 project, 80-150% AMI (NC)', ours: `$${fmt(ex('NC', '80to150', 3000).heehr)}`, published: 'Not to exceed 50% of cost for 80-150% AMI', match: ex('NC', '80to150', 3000).heehr === 1500, why: 'Half the cost, under the cap.', source: 'ENERGY STAR HEEHR page', sourceUrl: h.federal.sourceUrl },
+		{ id: 'above', label: 'Any project, above 150% AMI (WI)', ours: `$${fmt(ex('WI', 'above150', 3000).heehr)}`, published: 'HEEHR covers households up to 150% of area median income', match: ex('WI', 'above150', 3000).heehr === 0, why: 'Not eligible.', source: 'ENERGY STAR HEEHR page', sourceUrl: h.federal.sourceUrl },
+		{ id: 'ca', label: 'California, below 80% AMI', ours: `$${fmt(ex('CA', 'below80', 3000).heehr)}`, published: heehr.CA.statusText, match: ex('CA', 'below80', 3000).heehr === 0, why: 'Funds fully reserved, so the tool shows $0 and says why.', source: 'TECH Clean California', sourceUrl: heehr.CA.url },
+	];
+	const progRows = h.programs.map((p) => ({ state: name(p.code), program: p.program, status: p.status === 'open' ? 'Open' : 'Fully reserved', launched: p.launched, who: p.eligibility }));
+	const utilRows = Object.entries(utilities).sort((a, b) => name(a[0]).localeCompare(name(b[0]))).flatMap(([c, list]) => list.map((u) => ({ state: name(c), sponsor: u.sponsor, offer: u.offer, max: Number.isFinite(u.maxUsd) ? `$${fmt(u.maxUsd)}` : 'Not stated' })));
+	const openCount = h.programs.filter((p) => p.status === 'open').length;
+	const openStates = h.programs.filter((p) => p.status === 'open' && p.code !== 'DC').length;
+	const rreg = d.pages.pages.find((x) => x.slug === 'heat-pump-water-heater-rebates');
+	for (const [field, n] of [['description', `$${fmt(h.federal.heatPumpWaterHeaterMaxUsd)}`], ['description', `in ${openStates} states and DC`], ['quickAnswer', `$${fmt(h.federal.heatPumpWaterHeaterMaxUsd)}`], ['quickAnswer', endText]]) if (!String(rreg[field]).includes(n)) throw new Error(`pages.json ${field} for the rebate finder must contain ${n}; update it.`);
+	out['heat-pump-water-heater-rebates'] = {
+		meta: { ...derived('data/heehr-states.json, data/hpwh-rebates.json, data/incentives.json and the cost model'), notes: 'Default result (Michigan, 80-150% AMI), program tables and HEEHR rule checks for the rebate finder.' },
+		defaultInputs: { state: v0.state, income: v0.income },
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: `HEEHR: NASEO launch table (Sept. 30, 2026) and each state page; amounts: ENERGY STAR; utilities: each program page, checked ${dateText(h.utilityRecheck.checked)}. <a href="/methodology/#heat-pump-water-heater-rebates">How we check every program</a>.` },
+		crossChecks: xc,
+		figures: { cap: fmt(h.federal.heatPumpWaterHeaterMaxUsd), combined: fmt(h.federal.combinedMaxUsd), programCount: fmt(h.programs.length), openCount: fmt(openCount), openStates: fmt(openStates), utilityCount: fmt(utilRows.length), utilityStates: fmt(Object.keys(utilities).length), creditEnd: endText, checked: dateText(h.meta.sourceDate), naseoUpdated: 'September 30, 2026', miCost: fmt(costByState.MI.typical), miHeehr: fmt(d0.result.heehr), usCost: fmt(estimateInstalled(model, { type: 'heat_pump', size: '50', state: 'US', extras: ['permit'] }).typical), maxUtility: (() => { const all = Object.values(utilities).flat().filter((u) => Number.isFinite(u.maxUsd)).sort((a, b) => b.maxUsd - a.maxUsd)[0]; return { sponsor: all.short, usd: fmt(all.maxUsd) }; })() },
+		client,
+		tables: {
+			programs: table('State HEEHR programs that cover heat pump water heaters', [{ key: 'state', label: 'State' }, { key: 'program', label: 'Program' }, { key: 'status', label: 'Status' }, { key: 'launched', label: 'Launched' }, { key: 'who', label: 'Who qualifies' }], progRows, { source: h.meta.source, sourceUrl: h.meta.sourceUrl, sourceDate: h.meta.sourceDate }),
+			utilities: table('Utility heat pump water heater rebates we checked', [{ key: 'state', label: 'State' }, { key: 'sponsor', label: 'Utility' }, { key: 'offer', label: 'Offer' }, { key: 'max', label: 'Up to', num: true }], utilRows, { source: hr.meta.source, sourceUrl: hr.meta.sourceUrl, sourceDate: h.utilityRecheck.checked }),
+			income: table('How much HEEHR pays for a heat pump water heater', [{ key: 'band', label: 'Household income' }, { key: 'rule', label: 'Share of cost' }, { key: 'at3k', label: 'On a $3,000 job', unit: '$', num: true }, { key: 'at5k', label: 'On a $5,000 job', unit: '$', num: true }], h.federal.incomeRules.map((r) => ({ band: r.label, rule: r.rule, at3k: fmt(F.heehrRebate(3000, r.shareOfCost, h.federal.heatPumpWaterHeaterMaxUsd)), at5k: fmt(F.heehrRebate(5000, r.shareOfCost, h.federal.heatPumpWaterHeaterMaxUsd)) })), { source: h.federal.source, sourceUrl: h.federal.sourceUrl, sourceDate: h.federal.checked }),
+		},
+	};
+}
+
+/* water heater quote checker */
+{
+	const q = d['quote-check'];
+	const cc = out['water-heater-cost-calculator'];
+	const client = { bands: q.bands.map(({ id, label, status, advice }) => ({ id, label, status, advice })), farAboveShare: q.farAboveShare, lineBands: q.lineBands, limits: limitsOf('water-heater-quote-checker'), defaults: cc.client.defaults };
+	const full = { ...client, model };
+	const v0 = { ...cc.defaultInputs, total: null };
+	const d0 = describeQc(v0, full);
+	const exRes = q.examples.items.map((e) => {
+		const v = { type: e.type, size: e.size, state: e.state, scenario: e.scenario, ...Object.fromEntries(e.extras.map((x) => [x, true])), total: e.total, unitPrice: e.unitPrice ?? null, laborPrice: e.laborPrice ?? null };
+		const r = describeQc(v, full);
+		return { ...e, headline: r.headline, band: r.result.band, low: fmt(r.result.est.low), typical: fmt(r.result.est.typical), high: fmt(r.result.est.high), pct: fmt(Math.abs(r.result.vsTypical) * 100), dir: r.result.vsTypical >= 0 ? 'above' : 'below', explain: r.explain };
+	});
+	const g = (t, s, st, ex) => { const e = estimateInstalled(model, { type: t, size: s, state: st, extras: ex }); return { low: fmt(e.low), typical: fmt(e.typical), high: fmt(e.high), farAbove: fmt(e.high * (1 + q.farAboveShare)) }; };
+	const jobs = [['gas_tank', '40'], ['gas_tank', '50'], ['electric_tank', '50'], ['heat_pump', '50'], ['gas_tankless', 'whole']];
+	const bandRows = jobs.map(([t, s]) => { const x = g(t, s, 'US', ['permit']); return { job: model.units[`${t}_${s}`].label, fair: `$${x.low}–$${x.high}`, typical: `$${x.typical}`, far: `over $${x.farAbove}` }; });
+	const xc = (cc.crossChecks || []).slice(0, 3).map((c) => ({ ...c, label: `${c.label} (same cost model)` }));
+	const qreg = d.pages.pages.find((x) => x.slug === 'water-heater-quote-checker');
+	for (const n of [`$${g('gas_tank', '50', 'US', ['permit']).low}`, `$${g('gas_tank', '50', 'US', ['permit']).high}`]) if (!qreg.quickAnswer.includes(n)) throw new Error(`pages.json quickAnswer for the quote checker must contain ${n}; update it.`);
+	out['water-heater-quote-checker'] = {
+		meta: { ...derived('data/quote-check.json and the cost model (data/cost-ranges.json, data/installation-costs.json, data/regional-cost-index.json)'), notes: 'Default result (cost calculator default job, no quote yet), worked examples, band table. Cross-checks are the cost model\'s, because the checker prices the job with it.' },
+		defaultInputs: cc.defaultInputs,
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: `Prices: the same cost model as our cost calculator (Home Depot listings, DOE-anchored labor, BEA state price levels). Bands: our rule. <a href="/methodology/#water-heater-quote-checker">How the verdict is set</a>.` },
+		crossChecks: xc,
+		figures: { sample: (() => { const t = q.sampleTotal; const r = describeQc({ ...cc.defaultInputs, total: t }, full); return { total: fmt(t), verdict: q.bands.find((x) => x.id === r.result.band).label.toLowerCase() }; })(), examples: Object.fromEntries(exRes.map((e) => [e.id, e])), farAbovePct: fmt(q.farAboveShare * 100), gas50: g('gas_tank', '50', 'US', ['permit']), checklist: q.checklist },
+		client,
+		tables: {
+			bands: table('What counts as a fair water heater quote (U.S. average, permit and haul-away included)', [{ key: 'job', label: 'Job' }, { key: 'fair', label: 'Fair range', unit: '$', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'far', label: 'Far above', unit: '$', num: true }], bandRows, { source: `Hot Water Math cost model; "far above" = more than ${fmt(q.farAboveShare * 100)}% over our high estimate (our rule)`, sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: d['installation-costs'].lastReviewed }),
+			examples: table('Three example quotes, checked', [{ key: 'job', label: 'Quote' }, { key: 'total', label: 'Quote total', unit: '$', num: true }, { key: 'range', label: 'Our range', unit: '$', num: true }, { key: 'verdict', label: 'Verdict' }], exRes.map((e) => ({ job: e.label, total: fmt(e.total), range: `${e.low}–${e.high}`, verdict: q.bands.find((b) => b.id === e.band).label })), { source: q.examples.note, sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: q.meta.sourceDate }),
+		},
+	};
 }
 
 /* ---------- write + manifest ---------- */

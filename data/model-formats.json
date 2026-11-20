@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "source": "Bradford White atmospheric vent gas water heater specification sheet (C1101-B-0618); Whirlpool brand limited warranty (American Water Heater Company, form 100236126); American Water Heaters product support page titles; Rheem product names on Home Depot listings (data/cost-ranges.json)",
+    "sourceUrl": "https://www.sidharvey.com/documents/BRG250T6N.pdf",
+    "sourceDate": "2026-11-20",
+    "notes": "Model number rules for the model number lookup. Only segments a maker's own document states, or that hold for every listing we have, are decoded; anything else on the label is read by the visitor. Patterns are tried in order. fields.<name>.group is the regex group; map turns a code into words. Rheem has no public model number key, so the Rheem rule is checked by build:data against every Rheem tank listing in data/cost-ranges.json (gallons, height, warranty and input in the product name); a mismatch fails the build. A. O. Smith, State, Rinnai, Noritz, Navien and Takagi model numbers are not decoded: no source we could open states their key. Review with data/serial-formats.json."
+  },
+  "brands": {
+    "rheem": {
+      "label": "Rheem",
+      "scope": "Rheem tank models whose number starts with XG (gas) or XE (electric and heat pump): the Performance, Performance Plus, Performance Platinum, Gladiator and ProTerra lines",
+      "patterns": [
+        {
+          "id": "rheem-x-series",
+          "regex": "^X([GE])(\\d{2})([TSM])(\\d{2})([A-Z]{1,2})(\\d{2})U\\d$",
+          "example": "XG50T06EC38U1",
+          "segments": "X + G (gas) or E (electric) · gallons · T, S or M (tall, short, medium) · warranty years · series letters · input (thousand BTU/h for gas, hundred watts for electric) · U + revision",
+          "fields": {
+            "fuel": { "group": 1, "map": { "G": "Natural gas", "E": "Electric" } },
+            "gallons": { "group": 2 },
+            "height": { "group": 3, "map": { "T": "Tall", "S": "Short", "M": "Medium" } },
+            "warrantyYears": { "group": 4 },
+            "series": { "group": 5 },
+            "input": { "group": 6, "gasMultiplier": 1000, "gasUnit": "BTU/h", "electricMultiplier": 100, "electricUnit": "W", "zeroMeans": "no element rating in the number (120-volt plug-in heat pump)" }
+          },
+          "heatPumpSeriesPrefix": "H",
+          "source": "Rheem product names on The Home Depot listings: every XG/XE tank listing in data/cost-ranges.json names the same gallons, height, warranty years and BTU or watt rating that this rule reads from its model number (checked by npm run build:data)",
+          "sourceUrl": "https://www.homedepot.com/p/Rheem-Performance-50-Gal-Tall-38-000-BTU-Natural-Gas-Water-Heater-with-6-Year-Warranty-XG50T06EC38U1/326590285",
+          "checked": "2026-11-20"
+        }
+      ]
+    },
+    "bradford-white": {
+      "label": "Bradford White",
+      "scope": "Bradford White residential atmospheric vent gas models (model numbers starting RG)",
+      "patterns": [
+        {
+          "id": "bw-rg",
+          "regex": "^RG\\d(\\d{2})([A-Z])(6|10)([NX])",
+          "example": "RG250T6N",
+          "segments": "RG + series digit · gallon size class · profile letter · warranty years (6 or 10) · N (natural gas) or X (propane)",
+          "fields": {
+            "gallons": { "group": 1, "sizeClass": true },
+            "warrantyYears": { "group": 3 },
+            "gas": { "group": 4, "map": { "N": "Natural gas", "X": "Propane" } }
+          },
+          "fuel": "Natural gas or propane",
+          "quote": "For Propane (LP) models change suffix “N” to “X”. For 10 year models, change suffix from “6” to “10”.",
+          "specRows": [
+            { "model": "RG130T6N", "nominalGallons": 30, "btuh": 27000 },
+            { "model": "RG240T6N", "nominalGallons": 40, "btuh": 40000 },
+            { "model": "RG250T6N", "nominalGallons": 50, "btuh": 40000 },
+            { "model": "RG250L6N", "nominalGallons": 48, "btuh": 40000 },
+            { "model": "RG260T6N", "nominalGallons": 60, "btuh": 40000 }
+          ],
+          "source": "Bradford White, Residential Atmospheric Vent Gas Water Heater specification sheet (C1101-B-0618): model table with nominal gallons, and the notes on the N/X and 6/10 suffixes",
+          "sourceUrl": "https://www.sidharvey.com/documents/BRG250T6N.pdf",
+          "checked": "2026-11-20"
+        }
+      ]
+    },
+    "whirlpool": {
+      "label": "Whirlpool",
+      "scope": "Whirlpool brand residential water heaters made by American Water Heater Company",
+      "patterns": [
+        {
+          "id": "whirlpool-warranty-code",
+          "regex": "^\\d{2}[A-Z]{1,2}(12|6|9)-",
+          "example": "30T6-30NG",
+          "segments": "the number after the first letters, before the dash, is the warranty code (6, 9 or 12)",
+          "fields": {
+            "warrantyCode": { "group": 1 }
+          },
+          "termsFrom": "brand-pages.json → brands.whirlpool.warranty.codes",
+          "source": "Whirlpool brand residential water heater limited warranty (American Water Heater Company, February 2015, form 100236126): model number example 30T6-30NG and the warranty code table",
+          "sourceUrl": "https://www.whirlpoolwaterheaters.com/owner-center/product-manuals/warranty/035505160348_warranty.pdf",
+          "checked": "2026-11-20"
+        }
+      ]
+    },
+    "american": {
+      "label": "American",
+      "scope": "American Water Heaters residential tanks with model numbers like G61-50T40 or E10N-40L",
+      "patterns": [
+        {
+          "id": "american-warranty",
+          "regex": "^[GE](10|6)[0-9N]?-",
+          "example": "G61-50T40",
+          "segments": "G or E, then the warranty years (6 or 10) before the dash",
+          "fields": {
+            "warrantyYears": { "group": 1 }
+          },
+          "evidenceFrom": "brand-pages.json → brands.american.warrantyModels.items",
+          "source": "American Water Heaters product support pages: model titles end in \"6-year warranty\" or \"10-year warranty\" (G61-50T40, G101-50T40, E6N-30L, E10N-40L and others)",
+          "sourceUrl": "https://www.americanwaterheater.com/sitemap_index.xml",
+          "checked": "2026-11-13"
+        }
+      ]
+    }
+  },
+  "brandMap": {
+    "rheem": "rheem",
+    "bradford-white": "bradford-white",
+    "whirlpool": "whirlpool",
+    "american": "american"
+  },
+  "warrantyStart": {
+    "quote": "If the inner tank leaks within the warranty period listed on the data plate label after the original installation, Manufacturer will furnish a new water heater",
+    "source": "Whirlpool brand residential water heater limited warranty (American Water Heater Company): the tank warranty runs from the original installation",
+    "sourceUrl": "https://www.whirlpoolwaterheaters.com/owner-center/product-manuals/warranty/035505160348_warranty.pdf"
+  },
+  "labelFields": [
+    { "field": "Model number (Model, M/N)", "means": "The product: maker, size, fuel and often the warranty length. Decoded below for the brands we can source." },
+    { "field": "Serial number (Serial, S/N)", "means": "This one unit. Most brands hide the build date in its first characters." },
+    { "field": "Capacity (Gallons, Gal.)", "means": "Nominal storage. The real volume is usually a little less; tankless units show none." },
+    { "field": "Input (BTU/hr or Watts)", "means": "Burner size for gas, element wattage for electric. A tankless gas unit shows a maximum and a minimum." },
+    { "field": "Gas type (Natural, LP/Propane)", "means": "The only gas the unit may burn without a conversion kit from the maker." },
+    { "field": "Voltage and phase", "means": "Electric units: the supply the elements need, usually 240 V single phase." },
+    { "field": "Working pressure (psi)", "means": "The highest water pressure the tank is built for, usually 150 psi; the relief valve matches it." },
+    { "field": "First hour rating or UEF (EnergyGuide)", "means": "How much hot water it delivers in a busy hour and how efficiently. Often on the yellow EnergyGuide label, not the rating plate." }
+  ],
+  "labelFieldsSource": "Hot Water Math summary of the rating plate fields; working pressure and LP/N suffix from the Bradford White specification sheet (150 psi working pressure)"
+}
