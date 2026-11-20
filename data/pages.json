@@ -1565,7 +1565,7 @@
       "description": "Water heater model number lookup: type the model and serial from the label to get size, fuel, build date, age and when the tank warranty ends. Free.",
       "h1": "Water heater model number lookup",
       "subtitle": "Size, fuel, age and warranty from the rating label.",
-      "quickAnswer": "The model number gives the size, fuel and often the warranty years; the serial number gives the build date. Enter both from the label to see the age and when the tank warranty ends.",
+      "quickAnswer": "The model number gives the size, fuel and often the warranty; the serial number gives the build date. Enter both to see the age and warranty end.",
       "scripts": [
         "model-lookup"
       ],
@@ -1592,7 +1592,7 @@
       "description": "Heat pump water heater rebates by state: HEEHR pays up to $1,750 in 12 states and DC, plus utility rebates we checked. The tax credit ended in 2025.",
       "h1": "Heat pump water heater rebates by state",
       "subtitle": "Every program we could confirm, with the amount for your income.",
-      "quickAnswer": "The federal tax credit ended December 31, 2025. Now the main money is HEEHR, a federal rebate of up to $1,750 run by states for lower and middle incomes, plus utility rebates.",
+      "quickAnswer": "The federal tax credit ended December 31, 2025. The main help now is HEEHR, a state-run rebate of up to $1,750, plus utility rebates.",
       "scripts": [
         "rebate-finder"
       ],

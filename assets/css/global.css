@@ -224,6 +224,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
 /* Calculator extras (Phase 2) */
 .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-3); align-items: end; }
 .field-grid .field { margin-bottom: var(--space-3); }
+@media (max-width: 599px) { .field-grid--stack { grid-template-columns: minmax(0, 1fr); } }
 [hidden] { display: none !important; }
 .figure { margin: 0 0 var(--space-5); }
 .figure svg { display: block; width: 100%; height: auto; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); }
