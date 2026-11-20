@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed work:** Three new tools (owner request 2026-11-20, ideas 1, 5, 6), style 0.20.0, all `draft` (noindex) until the owner's OK:
+**Last completed work:** Three new tools (owner request 2026-11-20, ideas 1, 5, 6), style 0.20.1 (0.20.1 = mobile first-viewport fix), all `draft` (noindex) until the owner's OK:
 - `/water-heater-model-number-lookup/`: model + serial (+ optional label photo, local only) → size, fuel, height, input, warranty years, build date, age, warranty end.
 - `/heat-pump-water-heater-rebates/`: state + income (+ cost) → 25C status ($0), HEEHR amount (14 NASEO-listed programs; CA fully reserved; DC and NM low-income only) and the utility programs we checked.
 - `/water-heater-quote-checker/`: quote total (+ unit, labor, permit lines) and the job → below / fair low / fair high / above / far above, using the cost calculator's model.
@@ -37,6 +37,7 @@
 - 2026-11-14 — Layout fix done — desktop "On this page" rail (sticky TOC) in the empty right column, wider home page (style 0.18.0).
 - 2026-11-14 — Home redesign done — banded home page: start-here paths, icon calculator cards, stat tiles, grouped guides (style 0.19.0).
 - 2026-11-20 — New tools done — model number lookup, heat pump water heater rebate finder (HEEHR by state + utilities), water heater quote checker; all draft (style 0.20.0).
+- 2026-11-20 — Live fix — 360px first-viewport rule: new tools' field grid stacks to one column under 600px (`.field-grid--stack`), two quick answers shortened (style 0.20.1).
 
 ## Template (copy this into "Current State" when you finish a phase)
 

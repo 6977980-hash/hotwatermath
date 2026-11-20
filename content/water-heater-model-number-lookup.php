@@ -26,7 +26,7 @@ $hwm_rnd  = (array) hwm_raw( $hwm_c, 'figures.rheemRounded' );
 /* ---------- calculator inputs ---------- */
 ob_start();
 ?>
-<div class="field-grid">
+<div class="field-grid field-grid--stack">
 	<div class="field">
 		<label for="ml-brand">Brand</label>
 		<select id="ml-brand" name="brand">

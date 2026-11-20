@@ -20,7 +20,7 @@ $hwm_ca  = (array) ( $hwm_ex['ca-hp50'] ?? array() );
 /* ---------- calculator inputs ---------- */
 ob_start();
 ?>
-<div class="field-grid">
+<div class="field-grid field-grid--stack">
 	<div class="field">
 		<label for="qc-total">Quote total ($) <span class="hint">The full price on the quote, before any rebate.</span></label>
 		<input id="qc-total" name="total" type="text" inputmode="decimal" maxlength="7" autocomplete="off" placeholder="e.g. 2,400">

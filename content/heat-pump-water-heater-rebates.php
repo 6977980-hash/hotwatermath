@@ -20,7 +20,7 @@ $hwm_mi  = (array) hwm_raw( $hwm_c, 'client.costByState.MI' );
 /* ---------- calculator inputs ---------- */
 ob_start();
 ?>
-<div class="field-grid">
+<div class="field-grid field-grid--stack">
 	<div class="field">
 		<label for="rb-state">Your state</label>
 		<select id="rb-state" name="state">
