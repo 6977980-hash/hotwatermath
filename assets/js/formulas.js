@@ -919,3 +919,90 @@ export function solarYearlySaving(s, fuel, uef, prices, upkeepUsd) {
 	const fuelSaved = fuel === 'electric' ? ((s.solarThermsYear * 100000) / PHYSICS.btuPerKwh / uef) * prices.usdPerKwh : (s.solarThermsYear / uef) * prices.usdPerTherm;
 	return fuelSaved - s.pumpKwhYear * prices.usdPerKwh - upkeepUsd;
 }
+
+/* ---------- model number lookup, rebate finder, quote checker (2026-11-20) ---------- */
+
+/**
+ * Decode a water heater model number with one brand's patterns (data/model-formats.json). Only the segments a
+ * pattern names are returned; the rest of the label is read by the visitor.
+ * @param {string} model e.g. 'XG50T06EC38U1'
+ * @param {Array<{id:string, regex:string, fields:object}>} patterns
+ * @returns {null|{patternId:string, raw:Object<string,string>}} raw = the matched code of each field
+ */
+export function decodeModel(model, patterns) {
+	const s = String(model || '').toUpperCase().replace(/\s+/g, '');
+	if (!s) return null;
+	for (const p of patterns || []) {
+		const m = s.match(new RegExp(p.regex));
+		if (!m) continue;
+		const raw = {};
+		for (const [name, spec] of Object.entries(p.fields)) {
+			if (m[spec.group] !== undefined) raw[name] = m[spec.group];
+		}
+		return { patternId: p.id, raw };
+	}
+	return null;
+}
+
+/**
+ * The month a warranty of N years ends, counted from a build date (month unknown → mid-year, as ageYears does),
+ * and the years left from today (negative once it has ended).
+ * Worked example: built June 2021 + 6 years → June 2027; on 2026-11-20 that is 0.6 years left.
+ * @param {{year:number, month:(number|null)}} made
+ * @param {number} years
+ * @param {Date} today
+ * @returns {{year:number, month:number, yearsLeft:number}}
+ */
+export function warrantyEnd(made, years, today) {
+	const month = isNum(made.month) ? made.month : 7;
+	const end = { year: made.year + years, month };
+	const t = referenceParts(today);
+	const nowMonths = t.year * 12 + (t.month ?? 7) - 1;
+	const endMonths = end.year * 12 + month - 1;
+	return { ...end, yearsLeft: round((endMonths - nowMonths) / 12, 1) };
+}
+
+/**
+ * HEEHR rebate for a heat pump water heater: the share of cost the income band allows, capped at the federal
+ * maximum (ENERGY STAR: up to 100% of cost below 80% AMI, at most 50% for 80-150% AMI, $1,750 cap).
+ * Worked example: $3,000 project, 80-150% AMI → min(1,750, 3,000 × 0.5) = $1,500.
+ * @param {number} costUsd
+ * @param {number} shareOfCost 1, 0.5 or 0
+ * @param {number} capUsd
+ * @returns {number}
+ */
+export function heehrRebate(costUsd, shareOfCost, capUsd) {
+	if (!isNum(costUsd) || costUsd <= 0 || !isNum(shareOfCost) || shareOfCost <= 0) return 0;
+	return Math.min(capUsd, costUsd * shareOfCost);
+}
+
+/**
+ * Where a quote falls against a low / typical / high estimate.
+ * below < low ≤ lowSide ≤ typical < highSide ≤ high < above ≤ high × (1 + farAboveShare) < farAbove.
+ * vsTypical = quote ÷ typical − 1 (e.g. 0.12 = 12% above typical).
+ * @param {number} quote
+ * @param {{low:number, typical:number, high:number}} range
+ * @param {number} farAboveShare
+ * @returns {{band:string, vsTypical:number}}
+ */
+export function quoteBand(quote, range, farAboveShare) {
+	const vsTypical = quote / range.typical - 1;
+	let band;
+	if (quote < range.low) band = 'below';
+	else if (quote <= range.typical) band = 'lowSide';
+	else if (quote <= range.high) band = 'highSide';
+	else if (quote <= range.high * (1 + farAboveShare)) band = 'above';
+	else band = 'farAbove';
+	return { band, vsTypical };
+}
+
+/**
+ * One quote line against its low-high range: 'low', 'in' or 'high'.
+ * @param {number} amount
+ * @param {{low:number, high:number}} range
+ */
+export function lineBand(amount, range) {
+	if (amount < range.low) return 'low';
+	if (amount > range.high) return 'high';
+	return 'in';
+}

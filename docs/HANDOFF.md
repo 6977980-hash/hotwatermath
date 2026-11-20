@@ -4,29 +4,28 @@
 
 ## Current State
 
-**Last completed phase:** Audit fix Phase 5 — speed and security (2026-11-14), the last phase of the 2026-11-14 site audit (`/mnt/project-files/hotwatermath/audit/2026-11-14/`). Style 0.17.2. All audit fix phases (1, 3, 4, 5; Phase 2's F-15 is an owner hPanel check) are done.
-**Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Google Search Console is verified and has about 4 weeks of data. Owner OKed the 4 drafts on 2026-11-14 10:34Z: `/solar-water-heater-cost/`, `/water-heater-installation-cost-index/`, `/data/`, `/embed-calculators/` are now `live` (style 0.17.3). Owner done: CDN flush, 4 screenshots deleted in File Manager, GSC sitemap submitted, Bing imported from GSC, Force HTTPS fine (F-15 closed). GA4 inside GTM is handled in its own thread; AdSense later.
+**Last completed work:** Three new tools (owner request 2026-11-20, ideas 1, 5, 6), style 0.20.0, all `draft` (noindex) until the owner's OK:
+- `/water-heater-model-number-lookup/`: model + serial (+ optional label photo, local only) → size, fuel, height, input, warranty years, build date, age, warranty end.
+- `/heat-pump-water-heater-rebates/`: state + income (+ cost) → 25C status ($0), HEEHR amount (14 NASEO-listed programs; CA fully reserved; DC and NM low-income only) and the utility programs we checked.
+- `/water-heater-quote-checker/`: quote total (+ unit, labor, permit lines) and the job → below / fair low / fair high / above / far above, using the cost calculator's model.
+**Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Search Console has about 4 weeks of data. Before that: owner OK to flip the three new tools live.
 
-**Since then (2026-11-14, style 0.18.0–0.19.0):** desktop right column now holds an "On this page" list (sticky, active section highlighted) on tool, article, state and long utility pages; home page redesigned in full-width bands (hero with 3 start-here paths, icon calculator grid, stat tiles, guide group cards, state grid) in style 0.19.0. Ad S goes under the list once AdSense is set. See DECISIONS.md (layout).
+**What exists now (new or changed):**
+- `data/model-formats.json`, `data/heehr-states.json`, `data/quote-check.json`; `data/input-limits.json` (+2 tools); `data/site.json` dateVerified (+3); `data/pages.json` (+3 drafts).
+- `assets/js/formulas.js` (+ decodeModel, warrantyEnd, heehrRebate, quoteBand, lineBand); `assets/js/model-lookup.js`, `rebate-finder.js`, `quote-checker.js`.
+- `scripts/build-data.mjs` section "2026-11-20": computed files for the 3 tools; Rheem rule checked against all 80 Rheem listings (fails the build on a mismatch); registry figure guards.
+- `content/water-heater-model-number-lookup.php`, `content/heat-pump-water-heater-rebates.php`, `content/water-heater-quote-checker.php`; `content/methodology.php` (3 sections, TOC, quote assumption row); `parts/cost-inputs.php` (`legend` arg).
+- `tests/new-tools.test.mjs`; `docs/briefs/` (3 briefs with quality check); `docs/STRATEGY.md` Keyword Map items 8–10; `docs/DECISIONS.md` (5 rows); `assets/og/` (3 PNGs).
 
-**What changed in audit fix Phase 5:**
-- F-22: removed `chart-mobile.png`, `data-360.png`, `embed-calculators-360.png`, `water-heater-installation-cost-index-360.png` from the theme root (none referenced); `.gitignore` ignores root `/*.png` except `screenshot.png`.
-- F-23: `inc/cleanup.php` `xmlrpc_methods` filter unsets `pingback.ping` and `pingback.extensions.getPingbacks`; `X-Pingback` header stays removed.
-- F-24: `inc/headers.php` public pages send `X-Frame-Options: DENY` + `frame-ancestors 'none'`; Customizer preview keeps SAMEORIGIN; `/embed/*` unchanged (`frame-ancestors *`). HSTS now `includeSubDomains` (decision in DECISIONS.md).
-- F-25: advice only (apply for AdSense once GSC shows indexed pages and some traffic).
-
-**Verified (before deploy):** `npm test` 80/80; `validate-data` 84 files OK; `php -l` clean on changed PHP.
-
-**Verified live (after PR #50 deployed, 2026-11-14):** style.css 0.17.2 served. Home and age tool: `X-Frame-Options: DENY`, `frame-ancestors 'none'`, HSTS `max-age=31536000; includeSubDomains`. `/embed/water-heater-age-calculator/`: no X-Frame-Options, `frame-ancestors *`. One `system.listMethods` call: no `pingback.*` methods. `npm run check -- --bust` 778/778; `check-links -- --bust` 1565/1565 (60 pages); `check-embeds -- --bust` 230/230. The 4 screenshots still answer 200 from origin (CDN MISS): Hostinger's Git deploy does not delete removed files, so the owner deletes them in File Manager (`public_html/wp-content/themes/hotwatermath/`).
+**Verified (before deploy):** `npm test` 89/89; `validate-data` 90 files OK; `php -l` clean; PHP render smoke test of the 3 pages and /methodology with WordPress stubs (no warnings; 1,139–1,552 body words each, 6 FAQs, 5–6 sources); Playwright on the rendered calculators: defaults, Bradford White propane 10-year, Rinnai (refused), CA reserved, OH none, AZ $1,750 cap, bad cost input flagged, TX $2,400 quote "fair, high side", type change refills sizes, share URL state; no console errors.
 
 **Known issues / TODOs carried forward:**
-- Customizer preview with the new DENY rule could not be tested logged in from the sandbox; the code keeps SAMEORIGIN when `is_customize_preview()` is true. Content is not edited in WordPress anyway.
-- F-15: `http://…` URLs take 2 hops (CDN https, then WordPress). Optional owner hPanel check; test for a loop before keeping any change.
-- Electric tankless UEF is from one maker's spec sheet; recheck against CCMS when it loads.
-- Solar page: NREL installed cost is a 2012 range; FEMP has no city for Arkansas, Iowa, DC.
-- Gas tankless total-cost vs payback headline (owner may pick one metric); DIY upkeep pricing; heat pump cold-garage derate; IRC P2903.4 (403); real-ads Lighthouse re-measure.
+- NY (NYSERDA) and RI HEEHR pages answer 403 to our checker; their rows rely on NASEO only (`pageChecked: false`).
+- Model rules cover Rheem XG/XE, Bradford White RG, Whirlpool and American only; A. O. Smith, State and tankless brands are serial-only.
+- Rebate finder lists utilities only in the 8 states with utility data; ENERGY STAR's finder covers the rest. Review `heehr-states.json` and `hpwh-rebates.json` every three months (next 2027-02-20).
+- Earlier items still open: F-15 optional hPanel check; electric tankless UEF recheck vs CCMS; solar NREL 2012 cost; gas tankless headline metric; IRC P2903.4 (403).
 
-**Owner steps:** the one combined list was posted in the audit Phase 5 thread on 2026-11-14.
+**Owner steps:** OK the three draft tools (then a thread flips them `live`); flush the Hostinger CDN after the deploy if a page looks stale.
 
 - 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
@@ -37,6 +36,7 @@
 - 2026-11-14 — Audit fix Phase 5 done — stray screenshots removed, XML-RPC pingbacks off, public pages DENY framing (embeds still frameable), HSTS includeSubDomains (style 0.17.2).
 - 2026-11-14 — Layout fix done — desktop "On this page" rail (sticky TOC) in the empty right column, wider home page (style 0.18.0).
 - 2026-11-14 — Home redesign done — banded home page: start-here paths, icon calculator cards, stat tiles, grouped guides (style 0.19.0).
+- 2026-11-20 — New tools done — model number lookup, heat pump water heater rebate finder (HEEHR by state + utilities), water heater quote checker; all draft (style 0.20.0).
 
 ## Template (copy this into "Current State" when you finish a phase)
 

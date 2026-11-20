@@ -1,0 +1,48 @@
+{
+  "meta": {
+    "source": "NASEO, Home Energy Rebates: State and Territory Energy Office Program Launches (HEEHR table last updated September 30, 2026); ENERGY STAR, HEEHR program page (maximum rebate amounts); each state program page opened on the check date",
+    "sourceUrl": "https://naseo.org/topics/home-energy-rebates",
+    "sourceDate": "2026-11-20",
+    "notes": "Federal High-Efficiency Electric Home Rebate (HEEHR, IRA section 50122) programs run by states. A state appears here only if NASEO's launch table lists it; eligibility is NASEO's summary, shortened. status: open = launched per NASEO and nothing on the state page we opened says it is closed; reserved = the state page says its funds are fully reserved. Pages that refused our checker (403) are marked pageChecked false and rely on NASEO alone. DOE's own program page says only that the rebates 'are now available in select states' (last updated July 8, 2026). Review every three months."
+  },
+  "federal": {
+    "heatPumpWaterHeaterMaxUsd": 1750,
+    "combinedMaxUsd": 14000,
+    "incomeRules": [
+      { "id": "below80", "label": "Below 80% of area median income", "shareOfCost": 1, "rule": "Up to 100% of cost" },
+      { "id": "80to150", "label": "80% to 150% of area median income", "shareOfCost": 0.5, "rule": "Not to exceed 50% of cost" },
+      { "id": "above150", "label": "Above 150% of area median income", "shareOfCost": 0, "rule": "Not eligible for HEEHR" }
+    ],
+    "certification": "ENERGY STAR certified heat pump water heater required",
+    "quote": "Up to 100% of cost for < 80% AMI Not to exceed 50% of cost for 80-150% AMI Heat Pump Water Heater $1,750",
+    "notRetroactiveQuote": "HEEHRA rebates are not retroactive. Rebates are not available for equipment, appliances, and related products purchased or installed before a HEEHRA rebate is reserved and approved.",
+    "notRetroactiveSource": "California Energy Commission, Inflation Reduction Act Residential Energy Rebate Programs",
+    "notRetroactiveUrl": "https://www.energy.ca.gov/programs-and-topics/programs/inflation-reduction-act-residential-energy-rebate-programs",
+    "source": "ENERGY STAR: Eligible ENERGY STAR Products and Maximum Rebate Amounts for High-Efficiency Electric Home Rebate (HEEHR) Program; states may narrow eligibility",
+    "sourceUrl": "https://www.energystar.gov/partner-resources/state-and-tribal-rebate-programs/hear-program",
+    "checked": "2026-11-20",
+    "doeStatusQuote": "Home Energy Rebates are now available in select states. Additional details on active state, territory or Tribal rebate programs are coming soon. Contact your State or Territory Energy Office for more information on the status and eligibility requirements.",
+    "doeUrl": "https://www.energy.gov/scep/home-energy-rebates-programs"
+  },
+  "programs": [
+    { "code": "AZ", "program": "Efficiency Arizona", "status": "open", "launched": "August 2024", "eligibility": "Low- and moderate-income single-family homes, through a qualified contractor or the retail do-it-yourself option.", "url": "https://efficiencyarizona.com/", "pageChecked": true, "pageQuote": "Heat Pump Water Heater: Up to $1,750", "checked": "2026-11-20" },
+    { "code": "CA", "program": "TECH Clean California (HEEHRA)", "status": "reserved", "launched": "October 2024", "eligibility": "Low- and moderate-income single-family homes and qualifying multifamily buildings.", "url": "https://techcleanca.com/heehra/", "pageChecked": true, "pageQuote": "As of February 24, 2026, HEEHRA single-family rebates are fully reserved for projects statewide.", "checked": "2026-11-20" },
+    { "code": "CO", "program": "Colorado Energy Office home rebates", "status": "open", "launched": "October 2024", "eligibility": "Income-eligible single-family and manufactured homes, through a qualified contractor network or the Weatherization Assistance Program.", "url": "https://energyoffice.colorado.gov/federal-tax-credits-incentives-homes", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "DC", "program": "DOEE Affordable Home Electrification Program", "status": "open", "launched": "November 2024", "eligibility": "Low-income single-family homes and qualifying multifamily buildings; only households below 80% of area median income until 2027.", "incomeCapId": "below80", "url": "https://doee.dc.gov/service/ira-rebates-tax-incentives", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "GA", "program": "Georgia Home Energy Rebates", "status": "open", "launched": "November 2024", "eligibility": "Low- and moderate-income homes, through contractor and do-it-yourself pathways.", "url": "https://energyrebates.georgia.gov/", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "IN", "program": "Indiana Energy Saver Program", "status": "open", "launched": "May 2025", "eligibility": "Low- and moderate-income homes; no-cost energy audits for eligible households.", "url": "https://indianaenergysaver.com/", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "ME", "program": "Efficiency Maine (Home Energy Rebates)", "status": "open", "launched": "July 2024", "eligibility": "Low-income owners of manufactured homes and affordable multifamily new construction only; moderate-income manufactured homes in a later phase.", "narrow": true, "url": "https://www.maine.gov/energy/initiatives/infrastructure/home-energy-rebates", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "MI", "program": "Michigan Home Energy Rebate Programs (HEAR)", "status": "open", "launched": "October 2024", "eligibility": "Households at or below 150% of area median income; funding split across 10 districts.", "url": "https://www.michigan.gov/egle/about/organization/materials-management/energy/rfps-loans/home-energy-rebate-programs", "pageChecked": true, "pageQuote": "HEAR rebates are available to households with incomes at or below 150% of Area Median Income (AMI).", "checked": "2026-11-20" },
+    { "code": "NM", "program": "New Mexico Clean Energy programs", "status": "open", "launched": "September 2024", "eligibility": "Low-income homes only.", "incomeCapId": "below80", "url": "https://clean.energy.nm.gov/programs/", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "NY", "program": "NYSERDA EmPower+", "status": "open", "launched": "May 2024", "eligibility": "Low- and moderate-income single-family homes and buildings of up to four units.", "url": "https://www.nyserda.ny.gov/All-Programs/EmPower-New-York-Program", "pageChecked": false, "checked": "2026-11-20" },
+    { "code": "NC", "program": "Energy Saver North Carolina", "status": "open", "launched": "January 2025", "eligibility": "Low- and moderate-income homes, statewide.", "url": "https://energysavernc.org/", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "RI", "program": "Rhode Island HEAR", "status": "open", "launched": "September 2024", "eligibility": "Low- and moderate-income homes, through six Community Action Partnerships.", "url": "https://energy.ri.gov/incentives/home-energy-rebate-programs/home-electrification-and-appliance-rebate-hear", "pageChecked": false, "checked": "2026-11-20" },
+    { "code": "WV", "program": "West Virginia Home Efficiency Appliance Rebates", "status": "open", "launched": "September 2026", "eligibility": "Low- and moderate-income homes; heat pump water heater up to $1,750.", "url": "https://energywv.org/programs-initiatives/home-energy-rebate-programs/", "pageChecked": true, "checked": "2026-11-20" },
+    { "code": "WI", "program": "Focus on Energy Home Energy Rebates", "status": "open", "launched": "December 2024", "eligibility": "Low- and moderate-income single-family homes and multifamily buildings.", "url": "https://focusonenergy.com/home-energy-rebates", "pageChecked": true, "checked": "2026-11-20" }
+  ],
+  "utilityRecheck": {
+    "checked": "2026-11-20",
+    "note": "Every heat pump program in data/hpwh-rebates.json was opened again on this date; each page still shows the quoted offer."
+  },
+  "notListed": "No HEEHR program for this state is in NASEO's launch table (updated September 30, 2026). Your State Energy Office can say whether one is coming."
+}
