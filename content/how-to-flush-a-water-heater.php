@@ -131,6 +131,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-age-calculator', 'inputs'
 
 <h2>Limitations of this guide</h2>
 <p>The steps restate one manufacturer's residential gas manual and maintenance pages; other brands and models differ, and your manual wins. We do not say how much sediment is "too much", because no manufacturer we checked gives a figure. We are not plumbers; <?php echo hwm_link( 'methodology', 'our methodology' ); // phpcs:ignore ?> explains how we source every number.</p>
+<?php hwm_part( 'heater-care-links', array( 'only' => array( 'schedule' ) ) ); ?>
 <?php
 $faq = array(
 	array(

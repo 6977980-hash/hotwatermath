@@ -1,0 +1,484 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/maintenance.json and data/lifespans.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Default result and worked example computed as of 2026-11-21 (site.json dateVerified). The live calculator uses the visitor's date."
+  },
+  "asOf": "2026-11-21",
+  "defaultInputs": {
+    "type": "gas_tank",
+    "installYear": 2023,
+    "installMonth": 4,
+    "water": "normal",
+    "lastYear": 2026,
+    "lastMonth": 3
+  },
+  "default": {
+    "status": "ok",
+    "statusLabel": "On schedule",
+    "headline": "Next: drain and flush the tank by March 2027",
+    "explain": "Dates count from your last service (the 5-year professional valve check counts from install). Every interval comes from the maker's manual; the table lists who should do each job.",
+    "formula": "Installed April 2023; last service March 2026; water: Normal or don't know\nDrain and flush the tank: last service + 12 months = March 2027 (A. O. Smith: every 12 months)\nInspect the anode rod: last service + 12 months = March 2027 (GE Appliances: every 12 months)\nTest the temperature and pressure (T&P) relief valve: last service + 12 months = March 2027 (A. O. Smith: every 12 months)\nHave a professional inspect the T&P valve: install + 60 months = April 2028 (A. O. Smith: every 60 months)\nStart planning a replacement: install + 10 years (low end of the DOE lifespan range) = April 2033",
+    "table": {
+      "caption": "Maintenance schedule for a gas tank installed April 2023",
+      "columns": [
+        {
+          "key": "task",
+          "label": "Task"
+        },
+        {
+          "key": "due",
+          "label": "Next due"
+        },
+        {
+          "key": "every",
+          "label": "How often"
+        },
+        {
+          "key": "status",
+          "label": "Status"
+        }
+      ],
+      "rows": [
+        {
+          "task": "Drain and flush the tank",
+          "due": "March 2027",
+          "every": "Every year",
+          "status": "Scheduled"
+        },
+        {
+          "task": "Inspect the anode rod",
+          "due": "March 2027",
+          "every": "Every year",
+          "status": "Scheduled"
+        },
+        {
+          "task": "Test the temperature and pressure (T&P) relief valve",
+          "due": "March 2027",
+          "every": "Every year",
+          "status": "Scheduled"
+        },
+        {
+          "task": "Have a professional inspect the T&P valve",
+          "due": "April 2028",
+          "every": "Every 5 years",
+          "status": "Scheduled"
+        },
+        {
+          "task": "Start planning a replacement",
+          "due": "April 2033",
+          "every": "Once",
+          "status": "Scheduled"
+        }
+      ]
+    },
+    "sources": "Intervals: A. O. Smith, GE Appliances and Rinnai manuals; replacement timing: DOE (data/lifespans.json). <a href=\"/methodology/#water-heater-maintenance-schedule\">Every interval and quote</a>."
+  },
+  "crossChecks": [
+    {
+      "label": "Gas tank installed January 2020, first flush",
+      "ours": "July 2020",
+      "published": "A. O. Smith: flush \"after first six months of operation\" = July 2020",
+      "match": true,
+      "why": "Install + 6 months.",
+      "source": "A. O. Smith Use & Care Guide",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf"
+    },
+    {
+      "label": "Gas tank on hard water, flushed September 2021, next flush",
+      "ours": "March 2022",
+      "published": "A. O. Smith checklist: \"Twice a year, if you have hard water\" = March 2022",
+      "match": true,
+      "why": "Last service + 6 months.",
+      "source": "A. O. Smith maintenance checklist",
+      "sourceUrl": "https://www.hotwater.com/info-center/water-heater-maintenance-checklist.html"
+    },
+    {
+      "label": "Gas tankless installed January 2020, first descale",
+      "ours": "January 2021",
+      "published": "Rinnai: flush \"at least once a year\" = January 2021",
+      "match": true,
+      "why": "Install + 12 months.",
+      "source": "Rinnai flushing procedure",
+      "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater"
+    }
+  ],
+  "client": {
+    "types": {
+      "gas_tank": {
+        "label": "Gas tank",
+        "family": "tank"
+      },
+      "electric_tank": {
+        "label": "Electric tank",
+        "family": "tank"
+      },
+      "heat_pump": {
+        "label": "Heat pump (hybrid)",
+        "family": "tank"
+      },
+      "gas_tankless": {
+        "label": "Gas tankless",
+        "family": "tankless"
+      },
+      "electric_tankless": {
+        "label": "Electric tankless",
+        "family": "tankless"
+      }
+    },
+    "water": {
+      "normal": {
+        "label": "Normal or don't know"
+      },
+      "hard": {
+        "label": "Hard water (scale on faucets and showerheads)"
+      },
+      "softened": {
+        "label": "Softened (a water softener)"
+      }
+    },
+    "tasks": [
+      {
+        "id": "flush",
+        "label": "Drain and flush the tank",
+        "family": "tank",
+        "firstMonths": 6,
+        "everyMonths": 12,
+        "hardEveryMonths": 6,
+        "who": "You (or a plumber)",
+        "link": "how-to-flush-a-water-heater",
+        "ref": "aos-manual",
+        "quote": "Drain and flush tank, clean condensate pan, and remove and inspect anode rod after first six months of operation and at least annually thereafter.",
+        "hardRef": "aos-checklist",
+        "hardQuote": "Twice a year, if you have hard water, since minerals build up faster.",
+        "publisher": "A. O. Smith",
+        "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf"
+      },
+      {
+        "id": "anode",
+        "label": "Inspect the anode rod",
+        "family": "tank",
+        "firstMonths": 6,
+        "everyMonths": 12,
+        "softenedNote": "Softened water uses the rod up faster; GE says so in its anode note. Do not skip a year.",
+        "who": "You or a plumber (the rod is often tight)",
+        "link": "water-heater-anode-rod",
+        "ref": "ge-anode",
+        "quote": "The anode rod must be removed from the water heater's tank and inspected annually, and replaced when more than 6\" (15.2 cm) of core wire is exposed at either end of the rod.",
+        "publisher": "GE Appliances",
+        "sourceUrl": "https://products.geappliances.com/appliance/gea-support-search-content?contentId=39725"
+      },
+      {
+        "id": "tp",
+        "label": "Test the temperature and pressure (T&P) relief valve",
+        "family": "tank",
+        "firstMonths": 12,
+        "everyMonths": 12,
+        "who": "You, following the label on the valve",
+        "link": "water-heater-pressure-relief-valve-leaking",
+        "ref": "aos-manual",
+        "quote": "Inspect and operate the Temperature and Pressure Relief Valve (T&P) annually (see the label on the T&P valve for maintenance schedule).",
+        "publisher": "A. O. Smith",
+        "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf"
+      },
+      {
+        "id": "tpPro",
+        "label": "Have a professional inspect the T&P valve",
+        "family": "tank",
+        "firstMonths": 60,
+        "everyMonths": 60,
+        "who": "A licensed plumber",
+        "link": "water-heater-pressure-relief-valve-leaking",
+        "ref": "aos-maintenance",
+        "quote": "The T&P valve should be inspected by once a year by the consumer and every 5 years by a professional.",
+        "publisher": "A. O. Smith",
+        "sourceUrl": "https://www.hotwater.com/info-center/water-heater-maintenance.html"
+      },
+      {
+        "id": "descale",
+        "label": "Descale (flush) the heat exchanger",
+        "family": "tankless",
+        "firstMonths": 12,
+        "everyMonths": 12,
+        "who": "You (with a flush kit) or a plumber",
+        "link": "how-to-flush-a-water-heater",
+        "ref": "rinnai-flush",
+        "quote": "It's important to flush those mineral deposits at least once a year.",
+        "publisher": "Rinnai",
+        "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater"
+      },
+      {
+        "id": "inletFilter",
+        "label": "Clean the cold water inlet filter",
+        "family": "tankless",
+        "firstMonths": 12,
+        "everyMonths": 12,
+        "who": "You, at the same visit as the descale",
+        "link": "how-to-flush-a-water-heater",
+        "ref": "rinnai-tb",
+        "quote": "When unit has finished draining, remove the in-line filter at the cold water inlet and clean out any residue.",
+        "publisher": "Rinnai",
+        "sourceUrl": "https://media.rinnai.us/salsify_asset/s-9d6a83e9-c52a-47d5-83f9-b3a459b7b79d/TB-188%20Sensei%20Enhanced%20Flush%20Procedure.pdf"
+      }
+    ],
+    "replacement": {
+      "id": "replace",
+      "label": "Start planning a replacement",
+      "who": "You: price it before it fails",
+      "link": "water-heater-cost-calculator",
+      "lifespanKey": "low",
+      "note": "Sent once, when the heater reaches the low end of the lifespan range for its type (data/lifespans.json, from DOE). A heater can last longer; planning ahead means you replace it on your schedule instead of after a leak."
+    },
+    "dueSoonDays": 45,
+    "lifespans": {
+      "gas_tank": {
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      "electric_tank": {
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      "heat_pump": {
+        "low": 10,
+        "typical": 13,
+        "high": 15
+      },
+      "gas_tankless": {
+        "low": 20,
+        "typical": 20,
+        "high": 20
+      },
+      "electric_tankless": {
+        "low": 20,
+        "typical": 20,
+        "high": 20
+      }
+    },
+    "limits": {
+      "installYear": {
+        "label": "Year installed",
+        "min": 1986,
+        "max": 2027,
+        "integer": true,
+        "note": "Use the year on the label or the install receipt; a heater older than 40 years is outside our schedule."
+      },
+      "lastYear": {
+        "label": "Last service year",
+        "min": 1986,
+        "max": 2027,
+        "optional": true,
+        "integer": true
+      }
+    },
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ]
+  },
+  "figures": {
+    "example": {
+      "input": {
+        "type": "electric_tank",
+        "installYear": 2022,
+        "installMonth": 6,
+        "water": "hard",
+        "lastYear": 2025,
+        "lastMonth": 9
+      },
+      "headline": "3 tasks are overdue: drain and flush the tank and inspect the anode rod, and more",
+      "rows": [
+        {
+          "task": "Drain and flush the tank",
+          "due": "March 2026",
+          "every": "Every 6 months",
+          "status": "Overdue"
+        },
+        {
+          "task": "Inspect the anode rod",
+          "due": "September 2026",
+          "every": "Every year",
+          "status": "Overdue"
+        },
+        {
+          "task": "Test the temperature and pressure (T&P) relief valve",
+          "due": "September 2026",
+          "every": "Every year",
+          "status": "Overdue"
+        },
+        {
+          "task": "Have a professional inspect the T&P valve",
+          "due": "June 2027",
+          "every": "Every 5 years",
+          "status": "Scheduled"
+        },
+        {
+          "task": "Start planning a replacement",
+          "due": "June 2032",
+          "every": "Once",
+          "status": "Scheduled"
+        }
+      ]
+    },
+    "tankLow": 10,
+    "tanklessLow": 20,
+    "dueSoonDays": 45
+  },
+  "tables": {
+    "intervals": {
+      "caption": "Water heater maintenance intervals, from the makers' manuals",
+      "columns": [
+        {
+          "key": "task",
+          "label": "Task"
+        },
+        {
+          "key": "applies",
+          "label": "Applies to"
+        },
+        {
+          "key": "first",
+          "label": "First time"
+        },
+        {
+          "key": "every",
+          "label": "Then every"
+        },
+        {
+          "key": "who",
+          "label": "Who"
+        }
+      ],
+      "rows": [
+        {
+          "task": "Drain and flush the tank",
+          "applies": "Tank and heat pump",
+          "first": "6 months after install",
+          "every": "12 months (6 on hard water)",
+          "who": "You (or a plumber)",
+          "source": "A. O. Smith: \"Drain and flush tank, clean condensate pan, and remove and inspect anode rod after first six months of operation and at least annually thereafter.\""
+        },
+        {
+          "task": "Inspect the anode rod",
+          "applies": "Tank and heat pump",
+          "first": "6 months after install",
+          "every": "12 months",
+          "who": "You or a plumber (the rod is often tight)",
+          "source": "GE Appliances: \"The anode rod must be removed from the water heater's tank and inspected annually, and replaced when more than 6\" (15.2 cm) of core wire is exposed at either end of the rod.\""
+        },
+        {
+          "task": "Test the temperature and pressure (T&P) relief valve",
+          "applies": "Tank and heat pump",
+          "first": "12 months after install",
+          "every": "12 months",
+          "who": "You, following the label on the valve",
+          "source": "A. O. Smith: \"Inspect and operate the Temperature and Pressure Relief Valve (T&P) annually (see the label on the T&P valve for maintenance schedule).\""
+        },
+        {
+          "task": "Have a professional inspect the T&P valve",
+          "applies": "Tank and heat pump",
+          "first": "60 months after install",
+          "every": "60 months",
+          "who": "A licensed plumber",
+          "source": "A. O. Smith: \"The T&P valve should be inspected by once a year by the consumer and every 5 years by a professional.\""
+        },
+        {
+          "task": "Descale (flush) the heat exchanger",
+          "applies": "Tankless",
+          "first": "12 months after install",
+          "every": "12 months",
+          "who": "You (with a flush kit) or a plumber",
+          "source": "Rinnai: \"It's important to flush those mineral deposits at least once a year.\""
+        },
+        {
+          "task": "Clean the cold water inlet filter",
+          "applies": "Tankless",
+          "first": "12 months after install",
+          "every": "12 months",
+          "who": "You, at the same visit as the descale",
+          "source": "Rinnai: \"When unit has finished draining, remove the in-line filter at the cold water inlet and clean out any residue.\""
+        },
+        {
+          "task": "Start planning a replacement",
+          "applies": "All",
+          "first": "At 10 years (tank) or 20 years (tankless)",
+          "every": "Once",
+          "who": "You: price it before it fails",
+          "source": "U.S. Department of Energy final rules for consumer water heaters (89 FR, May 6, 2024: storage; 89 FR, December 26, 2024: gas-fired instantaneous) and DOE FEMP"
+        }
+      ],
+      "source": "A. O. Smith Residential Gas Water Heater Use & Care Guide (100400765) and A. O. Smith maintenance pages; GE Appliances anode note; Rinnai flushing procedure and Technical Bulletin TB-188; replacement timing from data/lifespans.json (DOE)",
+      "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+      "sourceDate": "2026-11-21"
+    },
+    "example": {
+      "caption": "Worked example: electric tank, installed June 2022, hard water, last flushed September 2025 (as of November 21, 2026)",
+      "columns": [
+        {
+          "key": "task",
+          "label": "Task"
+        },
+        {
+          "key": "due",
+          "label": "Next due"
+        },
+        {
+          "key": "every",
+          "label": "How often"
+        },
+        {
+          "key": "status",
+          "label": "Status"
+        }
+      ],
+      "rows": [
+        {
+          "task": "Drain and flush the tank",
+          "due": "March 2026",
+          "every": "Every 6 months",
+          "status": "Overdue"
+        },
+        {
+          "task": "Inspect the anode rod",
+          "due": "September 2026",
+          "every": "Every year",
+          "status": "Overdue"
+        },
+        {
+          "task": "Test the temperature and pressure (T&P) relief valve",
+          "due": "September 2026",
+          "every": "Every year",
+          "status": "Overdue"
+        },
+        {
+          "task": "Have a professional inspect the T&P valve",
+          "due": "June 2027",
+          "every": "Every 5 years",
+          "status": "Scheduled"
+        },
+        {
+          "task": "Start planning a replacement",
+          "due": "June 2032",
+          "every": "Once",
+          "status": "Scheduled"
+        }
+      ],
+      "source": "Hot Water Math maintenance schedule (formulas.js maintenanceSchedule)",
+      "sourceUrl": "https://hotwatermath.com/methodology/",
+      "sourceDate": "2026-11-21"
+    }
+  }
+}

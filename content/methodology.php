@@ -89,6 +89,8 @@ $hwm_dr   = 'decision-rules';
 				<li><a href="#water-heater-model-number-lookup">Water heater model number lookup</a></li>
 				<li><a href="#heat-pump-water-heater-rebates">Heat pump water heater rebate finder</a></li>
 				<li><a href="#water-heater-quote-checker">Water heater quote checker</a></li>
+				<li><a href="#water-heater-recall-lookup">Water heater recall lookup</a></li>
+				<li><a href="#water-heater-maintenance-schedule">Water heater maintenance schedule and reminders</a></li>
 				<li><a href="#hot-water-runs-out-fast">Winter vs summer shower table (hot water runs out fast)</a></li>
 				<li><a href="#safety-pages">Safety pages: tank setting, relief valve, heating element, gas line and electrical tables</a></li>
 				<li><a href="#state-cost-pages">State cost pages (installation cost by state)</a></li>
@@ -345,6 +347,32 @@ $hwm_dr   = 'decision-rules';
 	<p><strong>Limitations.</strong> A model, not a survey of real quotes. It cannot see local labor rates, premium brands or hard installs, so a verdict outside the range means "ask why", not "unfair".</p>
 	<p>Because the checker prices every job with the cost calculator's model, its cross-checks are that model's checks against DOE's installed costs:</p>
 	<?php $hwm_xfilled( 'water-heater-quote-checker', 'installed price model (DOE)' ); ?>
+</section>
+<section id="water-heater-recall-lookup">
+	<h3>Water heater recall lookup</h3>
+	<p>The recall list is built from the U.S. CPSC recall database (its public web service), read <?php echo esc_html( hwm_value( 'computed/water-heater-recall-lookup', 'figures.read' ) ); ?>. We searched every record for "water heater" and "tankless", kept residential water heaters and recalled water heater gas controls from <?php echo esc_html( hwm_value( 'computed/water-heater-recall-lookup', 'figures.since' ) ); ?> on (<?php echo esc_html( hwm_value( 'computed/water-heater-recall-lookup', 'figures.count' ) ); ?> recalls), and left out boilers, pool and spa heaters, kettles and general warnings.</p>
+	<ol>
+		<li><strong>Model</strong>: compared with the notice's model list after removing spaces, dashes and dots; a few notices give a model prefix (for example GN and GSN) instead.</li>
+		<li><strong>Serial</strong>: where the notice limits the recall to serial ranges, the serial is checked against them. A listed model with a serial inside the range is a match; outside every range, "outside the recalled range"; no serial, a possible match.</li>
+		<li><strong>Brand-wide and part recalls</strong> (gas control valves, Ultra-Low NOx models): flagged as possible only when the serial or the year made fits the notice; otherwise listed as a same-brand recall to check.</li>
+		<li>The hazard, remedy and contact are copied word for word from the CPSC record. No match never means safe.</li>
+	</ol>
+	<p><strong>Updates.</strong> A daily job reads CPSC recalls of the last 60 days and alerts us to any new water heater recall; we read it and add it to <code>data/recalls.json</code>, and subscribers are emailed after that deploy. <code>npm run fetch:recalls</code> fails if a copied CPSC field has changed.</p>
+	<p><strong>Limitations.</strong> Serial ranges are our reading of each notice's text. Recalls by makers alone, in Canada only, or of commercial heaters are not included.</p>
+	<p>The cross-check runs every model named in a notice through the lookup (<?php echo esc_html( hwm_value( 'computed/water-heater-recall-lookup', 'figures.selfChecks' ) ); ?> models; each must match its own recall or the build stops) and compares three cases with the notice text:</p>
+	<?php $hwm_xfilled( 'water-heater-recall-lookup', 'recall matches (CPSC notice text)' ); ?>
+</section>
+<section id="water-heater-maintenance-schedule">
+	<h3>Water heater maintenance schedule and Heater Health Reminder</h3>
+	<ol>
+		<li><strong>First due date</strong> = install date + the task's first interval (tank flush and anode check: <?php echo esc_html( hwm_value( 'maintenance', 'tasks.0.firstMonths' ) ); ?> months, A. O. Smith; tankless descale: <?php echo esc_html( hwm_value( 'maintenance', 'tasks.4.firstMonths' ) ); ?> months, Rinnai).</li>
+		<li><strong>Next due date</strong> = last service + the interval (<?php echo esc_html( hwm_value( 'maintenance', 'tasks.0.everyMonths' ) ); ?> months; tank flush <?php echo esc_html( hwm_value( 'maintenance', 'tasks.0.hardEveryMonths' ) ); ?> months on hard water). With no last service date, the series counts from install.</li>
+		<li><strong>Status</strong>: overdue when the date has passed, due soon within <?php echo esc_html( hwm_value( 'maintenance', 'dueSoonDays' ) ); ?> days.</li>
+		<li><strong>Plan a replacement</strong> = install + the low end of DOE's lifespan range for the type (data/lifespans.json).</li>
+	</ol>
+	<p>Reminder emails use the same intervals, counted from the install date (the signup does not ask for a last service): in the site's daily job, an email goes out when a date in a task's series passes and has not been emailed yet, at most one email every 20 days per person. Dates already past at signup are shown on the page and in the welcome email, not emailed again. A test checks that the email dates and the page's formula give the same series.</p>
+	<p><strong>Limitations.</strong> The intervals are the makers' general advice; your manual wins. No openable maker source gives a heat pump air filter interval, so it is left out.</p>
+	<?php $hwm_xfilled( 'water-heater-maintenance-schedule', 'maintenance intervals (maker manuals)' ); ?>
 </section>
 <section id="hot-water-runs-out-fast">
 	<h3>Winter vs summer shower table (hot water runs out fast)</h3>

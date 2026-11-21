@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "source": "A. O. Smith Residential Gas Water Heater Use & Care Guide (100400765) and A. O. Smith maintenance pages; GE Appliances anode note; Rinnai flushing procedure and Technical Bulletin TB-188; replacement timing from data/lifespans.json (DOE)",
+    "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf",
+    "sourceDate": "2026-11-21",
+    "notes": "Maintenance intervals for the water heater maintenance schedule and its email reminders. Every interval is quoted from a manufacturer document opened on 2026-11-21 (quotes below). Where a source says 'at least annually' we use 12 months; where A. O. Smith says 'twice a year' on hard water we use 6 months. The replacement reminder fires once, when the heater reaches the low end of its type's lifespan range in data/lifespans.json. Heat pump models follow the tank tasks: A. O. Smith and Rheem heat pump models are glass-lined tanks with an anode and a T&P valve; their air filter interval is not here because we found no openable manufacturer source for it."
+  },
+  "types": {
+    "gas_tank": { "label": "Gas tank", "family": "tank" },
+    "electric_tank": { "label": "Electric tank", "family": "tank" },
+    "heat_pump": { "label": "Heat pump (hybrid)", "family": "tank" },
+    "gas_tankless": { "label": "Gas tankless", "family": "tankless" },
+    "electric_tankless": { "label": "Electric tankless", "family": "tankless" }
+  },
+  "water": {
+    "normal": { "label": "Normal or don't know" },
+    "hard": { "label": "Hard water (scale on faucets and showerheads)" },
+    "softened": { "label": "Softened (a water softener)" }
+  },
+  "tasks": [
+    {
+      "id": "flush",
+      "label": "Drain and flush the tank",
+      "family": "tank",
+      "firstMonths": 6,
+      "everyMonths": 12,
+      "hardEveryMonths": 6,
+      "who": "You (or a plumber)",
+      "link": "how-to-flush-a-water-heater",
+      "ref": "aos-manual",
+      "quote": "Drain and flush tank, clean condensate pan, and remove and inspect anode rod after first six months of operation and at least annually thereafter.",
+      "hardRef": "aos-checklist",
+      "hardQuote": "Twice a year, if you have hard water, since minerals build up faster."
+    },
+    {
+      "id": "anode",
+      "label": "Inspect the anode rod",
+      "family": "tank",
+      "firstMonths": 6,
+      "everyMonths": 12,
+      "softenedNote": "Softened water uses the rod up faster; GE says so in its anode note. Do not skip a year.",
+      "who": "You or a plumber (the rod is often tight)",
+      "link": "water-heater-anode-rod",
+      "ref": "ge-anode",
+      "quote": "The anode rod must be removed from the water heater's tank and inspected annually, and replaced when more than 6\" (15.2 cm) of core wire is exposed at either end of the rod."
+    },
+    {
+      "id": "tp",
+      "label": "Test the temperature and pressure (T&P) relief valve",
+      "family": "tank",
+      "firstMonths": 12,
+      "everyMonths": 12,
+      "who": "You, following the label on the valve",
+      "link": "water-heater-pressure-relief-valve-leaking",
+      "ref": "aos-manual",
+      "quote": "Inspect and operate the Temperature and Pressure Relief Valve (T&P) annually (see the label on the T&P valve for maintenance schedule)."
+    },
+    {
+      "id": "tpPro",
+      "label": "Have a professional inspect the T&P valve",
+      "family": "tank",
+      "firstMonths": 60,
+      "everyMonths": 60,
+      "who": "A licensed plumber",
+      "link": "water-heater-pressure-relief-valve-leaking",
+      "ref": "aos-maintenance",
+      "quote": "The T&P valve should be inspected by once a year by the consumer and every 5 years by a professional."
+    },
+    {
+      "id": "descale",
+      "label": "Descale (flush) the heat exchanger",
+      "family": "tankless",
+      "firstMonths": 12,
+      "everyMonths": 12,
+      "who": "You (with a flush kit) or a plumber",
+      "link": "how-to-flush-a-water-heater",
+      "ref": "rinnai-flush",
+      "quote": "It's important to flush those mineral deposits at least once a year."
+    },
+    {
+      "id": "inletFilter",
+      "label": "Clean the cold water inlet filter",
+      "family": "tankless",
+      "firstMonths": 12,
+      "everyMonths": 12,
+      "who": "You, at the same visit as the descale",
+      "link": "how-to-flush-a-water-heater",
+      "ref": "rinnai-tb",
+      "quote": "When unit has finished draining, remove the in-line filter at the cold water inlet and clean out any residue."
+    }
+  ],
+  "replacement": {
+    "id": "replace",
+    "label": "Start planning a replacement",
+    "who": "You: price it before it fails",
+    "link": "water-heater-cost-calculator",
+    "lifespanKey": "low",
+    "note": "Sent once, when the heater reaches the low end of the lifespan range for its type (data/lifespans.json, from DOE). A heater can last longer; planning ahead means you replace it on your schedule instead of after a leak."
+  },
+  "dueSoonDays": 45,
+  "references": {
+    "aos-manual": { "publisher": "A. O. Smith", "title": "Residential Gas Water Heater Installation Instructions and Use & Care Guide (100400765)", "sourceUrl": "https://assets.hotwater.com/damroot/Original/10017/100400765.pdf", "checked": "2026-11-21" },
+    "aos-maintenance": { "publisher": "A. O. Smith", "title": "Water heater maintenance", "sourceUrl": "https://www.hotwater.com/info-center/water-heater-maintenance.html", "checked": "2026-11-21" },
+    "aos-checklist": { "publisher": "A. O. Smith", "title": "Water heater maintenance checklist", "sourceUrl": "https://www.hotwater.com/info-center/water-heater-maintenance-checklist.html", "checked": "2026-11-21" },
+    "ge-anode": { "publisher": "GE Appliances", "title": "Water heater: anode rod maintenance and service", "sourceUrl": "https://products.geappliances.com/appliance/gea-support-search-content?contentId=39725", "checked": "2026-11-21" },
+    "rinnai-flush": { "publisher": "Rinnai", "title": "Flushing my Rinnai tankless water heater", "sourceUrl": "https://www.rinnai.us/residential/flushing-my-rinnai-tankless-water-heater", "checked": "2026-11-21" },
+    "rinnai-tb": { "publisher": "Rinnai", "title": "Technical Bulletin TB-188: Sensei enhanced flush procedure", "sourceUrl": "https://media.rinnai.us/salsify_asset/s-9d6a83e9-c52a-47d5-83f9-b3a459b7b79d/TB-188%20Sensei%20Enhanced%20Flush%20Procedure.pdf", "checked": "2026-11-21" }
+  }
+}

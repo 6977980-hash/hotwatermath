@@ -110,6 +110,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>The two pre-<?php echo esc_html( $hwm_from ); ?> layouts come from independent decoders, not from State, and a serial that fits neither may belong to a format we have not confirmed. Week codes give a month that can be off by one near a boundary. State's commercial products may follow other rules. Expected life is a DOE average, and our adjustments for water and maintenance are editorial assumptions described on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'state', 'brandLabel' => 'State' ) ); ?>
 <?php
 $faq = array(
 	array(

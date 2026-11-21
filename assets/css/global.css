@@ -433,3 +433,15 @@ details.disclosure > :not(summary) { margin: 0 var(--space-3) var(--space-3); }
 @media (min-width: 900px) { .split { grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: var(--space-6); } }
 @media print { .rail { display: none !important; } }
 .guide-group__note { display: block; font-size: var(--step--1); color: var(--muted); margin-top: var(--space-1); }
+
+/* Email signup and failure report forms (2026-11-21) */
+.signup { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: var(--space-4); margin: var(--space-5) 0; }
+.signup h2 { margin-top: 0; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field--check label { display: flex; gap: var(--space-2); align-items: flex-start; font-weight: 400; }
+.field--check input { width: 22px; height: 22px; flex: 0 0 auto; margin-top: 2px; }
+.form-msg { margin: var(--space-3) 0 0; font-weight: 600; min-height: 1.5em; }
+form.is-sent [type="submit"] { opacity: .7; }
+.report-form textarea { width: 100%; min-height: 88px; }
+.heater-care { margin: var(--space-5) 0; }
+.heater-care__title { margin: 0 0 var(--space-2); }

@@ -163,6 +163,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-age-calculator', 'inputs'
 
 <h2>When is replacing a water heater a job for a licensed professional?</h2>
 <p>Checking the age, flushing a tank as the manual describes and looking for leaks are homeowner jobs. Replacing a water heater usually is not: gas lines, venting, electrical connections and the relief valve are covered by code, and your area may require a permit. If you smell gas, leave the house and call your gas utility from outside.</p>
+<?php hwm_part( 'heater-care-links', array( 'only' => array( 'failure', 'schedule', 'recall' ) ) ); ?>
 <?php
 $faq = array(
 	array(

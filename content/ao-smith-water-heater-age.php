@@ -119,6 +119,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>The year-week code gives a week, not a day, so the month we show can be off by one at a month boundary. The older letter layouts come from the Energy Trust of Oregon decoder and from a recall serial range that fits them; A. O. Smith does not publish them. Commercial, boiler and oil-fired products can use other codes. Expected life is a DOE average, and our water and maintenance adjustments are editorial assumptions documented on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'ao-smith', 'brandLabel' => 'A. O. Smith' ) ); ?>
 <?php
 $faq = array(
 	array(

@@ -18,7 +18,8 @@
     "check-links": "node scripts/check-links.mjs",
     "fetch:metros": "node scripts/fetch-metro-rpp.mjs",
     "build:charts": "node scripts/build-charts.mjs",
-    "check-embeds": "node scripts/check-embeds.mjs"
+    "check-embeds": "node scripts/check-embeds.mjs",
+    "fetch:recalls": "node scripts/fetch-recalls.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "2.6.2"

@@ -126,6 +126,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>The Y and Z months and the older hyphenated layout come from third-party decoders, not Navien or the CPSC. The calculator reports the month, not the day. Expected tankless life is a DOE figure; Navien's own range is wider. Our adjustments for hardness and descaling are editorial assumptions explained on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'navien', 'brandLabel' => 'Navien' ) ); ?>
 <?php
 $faq = array(
 	array(

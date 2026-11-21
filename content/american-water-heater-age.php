@@ -127,6 +127,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>The <?php echo esc_html( (string) $hwm_old['year'] ); ?> example comes from a third-party site, and the notes on American Standard and American Appliance come from third-party decoders. A week code gives the month, which can be off by one at a boundary. Commercial American models may follow other rules. Expected life is a DOE average, and our adjustments are editorial assumptions described on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'american', 'brandLabel' => 'American Water Heater' ) ); ?>
 <?php
 $faq = array(
 	array(

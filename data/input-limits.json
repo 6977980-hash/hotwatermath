@@ -272,6 +272,32 @@
         "unit": "$",
         "optional": true
       }
+    },
+    "water-heater-recall-lookup": {
+      "madeYear": {
+        "label": "Year made",
+        "min": 1980,
+        "max": 2027,
+        "optional": true,
+        "integer": true,
+        "note": "Use the year on the label, or leave it blank."
+      }
+    },
+    "water-heater-maintenance-schedule": {
+      "installYear": {
+        "label": "Year installed",
+        "min": 1986,
+        "max": 2027,
+        "integer": true,
+        "note": "Use the year on the label or the install receipt; a heater older than 40 years is outside our schedule."
+      },
+      "lastYear": {
+        "label": "Last service year",
+        "min": 1986,
+        "max": 2027,
+        "optional": true,
+        "integer": true
+      }
     }
   }
 }

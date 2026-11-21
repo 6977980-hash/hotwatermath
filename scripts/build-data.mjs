@@ -26,6 +26,8 @@ import { describe as describeEt } from '../assets/js/expansion-tank.js';
 import { describe as describeMl, readModel } from '../assets/js/model-lookup.js';
 import { describe as describeRb } from '../assets/js/rebate-finder.js';
 import { describe as describeQc } from '../assets/js/quote-checker.js';
+import { describe as describeRl } from '../assets/js/recall-lookup.js';
+import { describe as describeMs } from '../assets/js/maintenance-schedule.js';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'data/computed');
@@ -84,6 +86,11 @@ export const INPUTS = [
 	'assets/js/model-lookup.js',
 	'assets/js/rebate-finder.js',
 	'assets/js/quote-checker.js',
+	'data/recalls.json',
+	'data/maintenance.json',
+	'data/failure-database.json',
+	'assets/js/recall-lookup.js',
+	'assets/js/maintenance-schedule.js',
 ];
 
 const read = (f) => JSON.parse(readFileSync(join(root, f), 'utf8'));
@@ -2257,6 +2264,126 @@ const stateTable = (caption, cols, fn, src) => table(caption, [{ key: 'name', la
 		tables: {
 			bands: table('What counts as a fair water heater quote (U.S. average, permit and haul-away included)', [{ key: 'job', label: 'Job' }, { key: 'fair', label: 'Fair range', unit: '$', num: true }, { key: 'typical', label: 'Typical', unit: '$', num: true }, { key: 'far', label: 'Far above', unit: '$', num: true }], bandRows, { source: `Hot Water Math cost model; "far above" = more than ${fmt(q.farAboveShare * 100)}% over our high estimate (our rule)`, sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: d['installation-costs'].lastReviewed }),
 			examples: table('Three example quotes, checked', [{ key: 'job', label: 'Quote' }, { key: 'total', label: 'Quote total', unit: '$', num: true }, { key: 'range', label: 'Our range', unit: '$', num: true }, { key: 'verdict', label: 'Verdict' }], exRes.map((e) => ({ job: e.label, total: fmt(e.total), range: `${e.low}–${e.high}`, verdict: q.bands.find((b) => b.id === e.band).label })), { source: q.examples.note, sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: q.meta.sourceDate }),
+		},
+	};
+}
+
+
+/* ---------- 2026-11-21: recall lookup, maintenance schedule, failure database ---------- */
+const dateLong = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+/* recall lookup */
+{
+	const rc = d.recalls;
+	const recalls = [...rc.recalls].sort((a, b) => b.date.localeCompare(a.date));
+	const since = Math.min(...recalls.map((x) => Number(x.date.slice(0, 4))));
+	const extra = { rinnai: 'Rinnai', noritz: 'Noritz', takagi: 'Takagi', bosch: 'Bosch', other: 'Other or not sure' };
+	const brandOptions = [...Object.entries(rc.brands).sort((a, b) => a[1].localeCompare(b[1])), ...Object.entries(extra)].map(([id, label]) => ({ id, label }));
+	const client = { recalls, brands: { ...rc.brands, ...extra }, brandOptions, limits: limitsOf('water-heater-recall-lookup'), count: recalls.length, since };
+	const v0 = { brand: 'rheem', model: 'XE50T12EC55U0', serial: 'Q2314A12345', madeYear: '' };
+	const d0 = describeRl(v0, client);
+	if (d0.result.top !== 'match') throw new Error('recall lookup default (Rheem XE50T12EC55U0, Q2314) must match recall 16177');
+	// Cross-checks: every listed model must match its own recall; a model from no notice must not match.
+	const selfChecks = recalls.filter((x) => x.models.length).map((x) => { const r = describeRl({ brand: x.brands[0], model: x.models[0], serial: '', madeYear: null }, client); return { id: x.id, model: x.models[0], ok: r.result.top === 'match' || r.result.top === 'possible' }; });
+	const failed = selfChecks.filter((c) => !c.ok);
+	if (failed.length) throw new Error(`recall self-check failed for ${failed.map((c) => c.id).join(', ')}`);
+	const control = describeRl({ brand: 'rheem', model: 'XG50T06EC38U1', serial: '', madeYear: null }, client);
+	if (control.result.top === 'match') throw new Error('Rheem XG50T06EC38U1 is in no recall notice but matched');
+	const cases = [
+		{ label: 'Rheem XE50T12EC55U0, serial Q2314… (2014 build)', v: v0 },
+		{ label: 'Same model, serial Q2517… (2017 build)', v: { ...v0, serial: 'Q2517A12345' } },
+		{ label: 'A. O. Smith G6-UT3030NV, serial 1807…', v: { brand: 'ao-smith', model: 'G6-UT3030NV', serial: '1807A123456', madeYear: null } },
+		{ label: 'Navien NPE-180A, no serial', v: { brand: 'navien', model: 'NPE-180A', serial: '', madeYear: null } },
+		{ label: 'Rheem XG50T06EC38U1 (not in any notice)', v: { brand: 'rheem', model: 'XG50T06EC38U1', serial: '', madeYear: null } },
+	].map((c) => ({ ...c, r: describeRl(c.v, client) }));
+	const types = { gas_tank: 'Gas tank', electric_tank: 'Electric tank', gas_tankless: 'Gas tankless', portable_tankless: 'Portable tankless (outdoor)', oil_tank: 'Oil-fired tank', component: 'Gas control part' };
+	const byType = Object.entries(types).map(([k, label]) => ({ type: label, n: recalls.filter((x) => x.type === k).length })).filter((x) => x.n);
+	const hazards = [['Carbon monoxide', /carbon monoxide|\bco\b/i], ['Fire or explosion', /fire|explosion/i], ['Burn or scald', /burn|scald/i]].map(([label, re]) => ({ label, re, n: recalls.filter((x) => re.test(`${x.title} ${x.hazard}`)).length }));
+	const hazardOf = (x) => hazards.filter((h) => h.re.test(`${x.title} ${x.hazard}`)).map((h) => h.label).join(', ');
+	const unitsNum = (u) => Number(((u.match(/[\d,]+/) || ['0'])[0]).replace(/,/g, ''));
+	const biggest = [...recalls].sort((a, b) => unitsNum(b.units) - unitsNum(a.units))[0];
+	const latest = recalls[0];
+	const rreg = d.pages.pages.find((x) => x.slug === 'water-heater-recall-lookup');
+	if (!rreg.description.includes(`${recalls.length} CPSC recalls since ${since}`)) throw new Error(`pages.json description for the recall lookup must say "${recalls.length} CPSC recalls since ${since}"; update it.`);
+	out['water-heater-recall-lookup'] = {
+		meta: { ...derived('data/recalls.json (U.S. CPSC recall database)'), sourceDate: rc.meta.sourceDate, notes: 'Recall list for the lookup, default result, test cases and summary figures. Matching: formulas.js recallCheck.' },
+		defaultInputs: v0,
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: `Recalls: U.S. Consumer Product Safety Commission recall database, read ${dateLong(rc.meta.sourceDate)}. <a href="/methodology/#water-heater-recall-lookup">How the match works</a>.` },
+		crossChecks: [
+			{ c: cases[0], id: '16177', want: 'match', published: 'CPSC notice: model XE50T12EC55U0, serial range Q0114XXXXX to Q5214XXXXX is recalled' },
+			{ c: cases[1], id: '16177', want: 'outside', published: 'CPSC notice: the same model is recalled only with 2014 (and some early 2015) serials' },
+			{ c: cases[2], id: '19030', want: 'match', published: 'CPSC notice: G6-UT3030NV with serial first four digits 1805 through 1809 is recalled' },
+		].map((x) => { const rec = recalls.find((y) => y.id === x.id); return { label: x.c.label, ours: x.c.r.headline, published: x.published, match: x.c.r.result.top === x.want, why: 'Same answer as the notice text.', source: `CPSC recall ${x.id}`, sourceUrl: rec.url }; }),
+		client,
+		figures: { count: recalls.length, since, latest: { product: latest.product, date: dateLong(latest.date), units: latest.units }, biggest: { product: biggest.product, date: dateLong(biggest.date), units: biggest.units }, byType, hazards: hazards.map(({ label, n }) => ({ label, n })), read: dateLong(rc.meta.sourceDate), selfChecks: selfChecks.length },
+		tables: {
+			recalls: table(`Water heater recalls announced by the U.S. CPSC, ${since} to ${latest.date.slice(0, 4)}`, [{ key: 'date', label: 'Date' }, { key: 'product', label: 'What was recalled' }, { key: 'units', label: 'Units (U.S.)' }, { key: 'hazard', label: 'Hazard' }], recalls.map((x) => ({ date: x.date, product: x.product, units: x.units.replace(/^About /, ''), hazard: hazardOf(x) })), { source: rc.meta.source, sourceUrl: rc.meta.sourceUrl, sourceDate: rc.meta.sourceDate }),
+			byBrand: table('Water heater recalls by brand (a recall can name several brands)', [{ key: 'brand', label: 'Brand' }, { key: 'n', label: 'Recalls', num: true }, { key: 'latest', label: 'Latest' }], Object.entries(rc.brands).map(([id, label]) => { const xs = recalls.filter((x) => x.brands.includes(id)); return { brand: label, n: xs.length, latest: xs[0] ? xs[0].date.slice(0, 4) : '' }; }).filter((x) => x.n >= 2).sort((a, b) => b.n - a.n || a.brand.localeCompare(b.brand)), { source: rc.meta.source, sourceUrl: rc.meta.sourceUrl, sourceDate: rc.meta.sourceDate }),
+			cases: table('Five test cases run through the lookup', [{ key: 'label', label: 'Input' }, { key: 'result', label: 'Result' }], cases.map((c) => ({ label: c.label, result: c.r.headline })), { source: 'Hot Water Math recall lookup (formulas.js recallCheck) on data/recalls.json', sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: rc.meta.sourceDate }),
+		},
+	};
+}
+
+/* maintenance schedule */
+{
+	const m = d.maintenance;
+	const asOfIso = d.site.dateVerified['water-heater-maintenance-schedule'];
+	const asOf = new Date(`${asOfIso}T12:00:00Z`);
+	const refs = m.references;
+	const lifespans = Object.fromEntries(Object.entries(d.lifespans.types).map(([k, x]) => [k, { low: x.low, typical: x.typical, high: x.high }]));
+	const tasks = m.tasks.map((t) => ({ ...t, publisher: refs[t.ref].publisher, sourceUrl: refs[t.ref].sourceUrl }));
+	const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+	const client = { types: m.types, water: m.water, tasks, replacement: m.replacement, dueSoonDays: m.dueSoonDays, lifespans, limits: limitsOf('water-heater-maintenance-schedule'), months };
+	const v0 = { type: 'gas_tank', installYear: asOf.getUTCFullYear() - 3, installMonth: 4, water: 'normal', lastYear: asOf.getUTCFullYear(), lastMonth: 3 };
+	const d0 = describeMs(v0, client, asOf);
+	const ex = { type: 'electric_tank', installYear: 2022, installMonth: 6, water: 'hard', lastYear: 2025, lastMonth: 9 };
+	const dx = describeMs(ex, client, asOf);
+	const every = (t) => (t.hardEveryMonths ? `${t.everyMonths} months (${t.hardEveryMonths} on hard water)` : `${t.everyMonths} months`);
+	const rows = tasks.map((t) => ({ task: t.label, applies: t.family === 'tank' ? 'Tank and heat pump' : 'Tankless', first: `${t.firstMonths} months after install`, every: every(t), who: t.who, source: `${t.publisher}: "${t.quote}"` }));
+	rows.push({ task: m.replacement.label, applies: 'All', first: `At ${lifespans.gas_tank.low} years (tank) or ${lifespans.gas_tankless.low} years (tankless)`, every: 'Once', who: m.replacement.who, source: d.lifespans.meta.source });
+	out['water-heater-maintenance-schedule'] = {
+		meta: { ...derived('data/maintenance.json and data/lifespans.json'), notes: `Default result and worked example computed as of ${asOfIso} (site.json dateVerified). The live calculator uses the visitor's date.` },
+		asOf: asOfIso,
+		defaultInputs: v0,
+		default: { status: d0.status, statusLabel: d0.statusLabel, headline: d0.headline, explain: d0.explain, formula: d0.formula, table: d0.table, sources: 'Intervals: A. O. Smith, GE Appliances and Rinnai manuals; replacement timing: DOE (data/lifespans.json). <a href="/methodology/#water-heater-maintenance-schedule">Every interval and quote</a>.' },
+		crossChecks: (() => {
+			const one = (v) => describeMs(v, client, new Date(`${v.installYear + 2}-01-15T12:00:00Z`));
+			const ta = one({ type: 'gas_tank', installYear: 2020, installMonth: 1, water: 'normal', lastYear: null, lastMonth: 1 });
+			const th = one({ type: 'gas_tank', installYear: 2020, installMonth: 1, water: 'hard', lastYear: 2021, lastMonth: 9 });
+			const tk = one({ type: 'gas_tankless', installYear: 2020, installMonth: 1, water: 'normal', lastYear: null, lastMonth: 1 });
+			const row = (r, id) => r.result.rows.find((x) => x.id === id);
+			const mon = (dt) => dt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', timeZone: 'UTC' });
+			return [
+				{ label: 'Gas tank installed January 2020, first flush', ours: mon(row(ta, 'flush').due), published: 'A. O. Smith: flush "after first six months of operation" = July 2020', match: mon(row(ta, 'flush').due) === 'July 2020', why: 'Install + 6 months.', source: 'A. O. Smith Use & Care Guide', sourceUrl: refs['aos-manual'].sourceUrl },
+				{ label: 'Gas tank on hard water, flushed September 2021, next flush', ours: mon(row(th, 'flush').due), published: 'A. O. Smith checklist: "Twice a year, if you have hard water" = March 2022', match: mon(row(th, 'flush').due) === 'March 2022', why: 'Last service + 6 months.', source: 'A. O. Smith maintenance checklist', sourceUrl: refs['aos-checklist'].sourceUrl },
+				{ label: 'Gas tankless installed January 2020, first descale', ours: mon(row(tk, 'descale').due), published: 'Rinnai: flush "at least once a year" = January 2021', match: mon(row(tk, 'descale').due) === 'January 2021', why: 'Install + 12 months.', source: 'Rinnai flushing procedure', sourceUrl: refs['rinnai-flush'].sourceUrl },
+			];
+		})(),
+		client,
+		figures: { example: { input: ex, headline: dx.headline, rows: dx.table.rows }, tankLow: lifespans.gas_tank.low, tanklessLow: lifespans.gas_tankless.low, dueSoonDays: m.dueSoonDays },
+		tables: {
+			intervals: table('Water heater maintenance intervals, from the makers\' manuals', [{ key: 'task', label: 'Task' }, { key: 'applies', label: 'Applies to' }, { key: 'first', label: 'First time' }, { key: 'every', label: 'Then every' }, { key: 'who', label: 'Who' }], rows, { source: m.meta.source, sourceUrl: m.meta.sourceUrl, sourceDate: m.meta.sourceDate }),
+			example: table(`Worked example: electric tank, installed June 2022, hard water, last flushed September 2025 (as of ${dateLong(asOfIso)})`, [{ key: 'task', label: 'Task' }, { key: 'due', label: 'Next due' }, { key: 'every', label: 'How often' }, { key: 'status', label: 'Status' }], dx.table.rows, { source: 'Hot Water Math maintenance schedule (formulas.js maintenanceSchedule)', sourceUrl: 'https://hotwatermath.com/methodology/', sourceDate: asOfIso }),
+		},
+	};
+}
+
+/* failure database (form options only; reports live in the WordPress database) */
+{
+	const f = d['failure-database'];
+	const sf = d['serial-formats'];
+	out['water-heater-failure-database'] = {
+		meta: { ...derived('data/failure-database.json'), notes: 'Form options for the failure report form. No reports are in this file.' },
+		form: { brands: sf.brandOptions.options.map(({ id, label }) => ({ id, label })), types: Object.entries(d.maintenance.types).map(([id, t]) => ({ id, label: t.label })), water: Object.entries(d.maintenance.water).map(([id, w]) => ({ id, label: w.label })), states: states.map(([code, s]) => ({ id: code, label: s.name })), causes: f.causes, outcomes: f.outcomes, yesNo: f.yesNo },
+		figures: { publishAt: f.publishAt, minPerBrand: f.minPerBrand, maxAgeYears: f.maxAgeYears, noteMaxChars: f.noteMaxChars },
+		tables: {
+			fields: table('What the report asks, and why', [{ key: 'field', label: 'Question' }, { key: 'why', label: 'Why we ask' }], [
+				{ field: 'Brand and type', why: 'To compare how long each brand and type lasts' },
+				{ field: 'Year installed and year it failed', why: 'Gives the age at failure, the number most people want' },
+				{ field: 'What failed', why: 'Shows whether tanks leak or parts give out first, by brand' },
+				{ field: 'Flushed? Anode replaced? Water?', why: 'Tests whether maintenance and hard water change the age at failure' },
+				{ field: 'State (optional)', why: 'Hard water and climate differ by state' },
+				{ field: 'Note (optional, never published)', why: 'Helps us spot mistakes and spam' },
+			], { source: f.meta.source, sourceUrl: f.meta.sourceUrl, sourceDate: f.meta.sourceDate }),
 		},
 	};
 }

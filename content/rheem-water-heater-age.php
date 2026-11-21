@@ -103,6 +103,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>Week-based serials give a week, so the month can be off by one at a boundary. The prefixed older layouts come from a third-party decoder, and the official lookup does not confirm them. Rheem tankless and commercial units may use other codes. Expected life is a DOE average across many homes; our hardness, flushing and anode adjustments are editorial assumptions explained on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'rheem', 'brandLabel' => 'Rheem' ) ); ?>
 <?php
 $faq = array(
 	array(

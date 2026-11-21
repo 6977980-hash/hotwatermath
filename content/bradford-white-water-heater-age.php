@@ -142,6 +142,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>The letter code gives a year and a month, never a day, and it cannot tell one <?php echo $hwm_cyc; // phpcs:ignore ?>-year cycle from the next. Bradford White also makes boilers, oil-fired and commercial products whose serials may follow other rules; this page covers residential water heaters. Expected life is an average from DOE survey data, and the hardness, flushing and anode adjustments are our own assumptions, set out on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'bradford-white', 'brandLabel' => 'Bradford White' ) ); ?>
 <?php
 $faq = array(
 	array(

@@ -87,7 +87,9 @@
     "water-heater-expansion-tank-size": "2026-11-13",
     "water-heater-model-number-lookup": "2026-11-20",
     "heat-pump-water-heater-rebates": "2026-11-20",
-    "water-heater-quote-checker": "2026-11-20"
+    "water-heater-quote-checker": "2026-11-20",
+    "water-heater-recall-lookup": "2026-11-21",
+    "water-heater-maintenance-schedule": "2026-11-21"
   },
   "dateVerifiedNote": "Per tool: the date its manufacturer cross-check on /methodology was last run (Phases 2–4). Empty = not yet verified, and the AuthorLine then shows no 'Last verified' date."
 }

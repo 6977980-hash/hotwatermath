@@ -4,28 +4,28 @@
 
 ## Current State
 
-**Last completed work:** Three new tools (owner request 2026-11-20, ideas 1, 5, 6), style 0.20.1 (0.20.1 = mobile first-viewport fix), owner OKed 2026-11-21 07:34Z, now `live` (style 0.20.2):
-- `/water-heater-model-number-lookup/`: model + serial (+ optional label photo, local only) → size, fuel, height, input, warranty years, build date, age, warranty end.
-- `/heat-pump-water-heater-rebates/`: state + income (+ cost) → 25C status ($0), HEEHR amount (14 NASEO-listed programs; CA fully reserved; DC and NM low-income only) and the utility programs we checked.
-- `/water-heater-quote-checker/`: quote total (+ unit, labor, permit lines) and the job → below / fair low / fair high / above / far above, using the cost calculator's model.
+**Last completed work (2026-11-21):** owner request ideas 3, 5, 1, style 0.21.0, all three pages **draft** (noindex) until the owner's OK:
+- `/water-heater-recall-lookup/`: brand + model + serial (+ year) → match / possible / outside against 24 CPSC water heater recalls since 2001, plus a recall alert email signup.
+- `/water-heater-maintenance-schedule/`: type, install month/year, water, last service → due dates per task (maker-sourced intervals) + replacement planning date, plus the Heater Health Reminder signup.
+- `/water-heater-failure-database/`: failure report form (brand, type, years, cause, outcome); report at 100 submissions.
 **Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Search Console has about 4 weeks of data.
 
 **What exists now (new or changed):**
-- `data/model-formats.json`, `data/heehr-states.json`, `data/quote-check.json`; `data/input-limits.json` (+2 tools); `data/site.json` dateVerified (+3); `data/pages.json` (+3 tools, live 2026-11-21).
-- `assets/js/formulas.js` (+ decodeModel, warrantyEnd, heehrRebate, quoteBand, lineBand); `assets/js/model-lookup.js`, `rebate-finder.js`, `quote-checker.js`.
-- `scripts/build-data.mjs` section "2026-11-20": computed files for the 3 tools; Rheem rule checked against all 80 Rheem listings (fails the build on a mismatch); registry figure guards.
-- `content/water-heater-model-number-lookup.php`, `content/heat-pump-water-heater-rebates.php`, `content/water-heater-quote-checker.php`; `content/methodology.php` (3 sections, TOC, quote assumption row); `parts/cost-inputs.php` (`legend` arg).
-- `tests/new-tools.test.mjs`; `docs/briefs/` (3 briefs with quality check); `docs/STRATEGY.md` Keyword Map items 8–10; `docs/DECISIONS.md` (5 rows); `assets/og/` (3 PNGs).
+- `data/recalls.json`, `data/maintenance.json`, `data/failure-database.json`; `data/input-limits.json` (+2); `data/site.json` (+2 dateVerified); `data/pages.json` (+3 draft).
+- `assets/js/formulas.js` (+ recallCheck, serialInRecall, normalizeCode, addMonths, maintenanceSchedule); `assets/js/recall-lookup.js`, `maintenance-schedule.js`, `forms.js`.
+- `inc/lists.php` (email lists, failure form, daily cron, `/subscription/` route, admin page, SMTP via wp-config constants); `templates/subscription.php`; `parts/signup-form.php`; `parts/heater-care-links.php` (in age calculator, 7 brand pages, lifespan, flush and anode pages).
+- `content/` 3 new pages; `content/methodology.php` (2 sections); `content/privacy-policy.php` (#email-lists).
+- `scripts/build-data.mjs` (3 computed files, guards); `scripts/fetch-recalls.mjs` (`npm run fetch:recalls`, run with `NODE_USE_ENV_PROXY=1`); `tests/recalls-schedule.test.mjs`, `tests/lists-php.test.mjs`; `docs/briefs/` (3); Keyword Map 11–13; DECISIONS (5 rows); `assets/og/` (4 PNGs incl. the missing solar one).
 
-**Verified (before deploy):** `npm test` 89/89; `validate-data` 90 files OK; `php -l` clean; PHP render smoke test of the 3 pages and /methodology with WordPress stubs (no warnings; 1,139–1,552 body words each, 6 FAQs, 5–6 sources); Playwright on the rendered calculators: defaults, Bradford White propane 10-year, Rinnai (refused), CA reserved, OH none, AZ $1,750 cap, bad cost input flagged, TX $2,400 quote "fair, high side", type change refills sizes, share URL state; no console errors.
+**Verified (before deploy):** `npm test` 104/104; `validate-data` 96 files OK; `php -l` clean. Local WordPress (SQLite) end to end: signup, honeypot, bad email, confirm, health reminder by cron, recall alert brand filter, one-click unsubscribe, failure insert and validation, `/subscription/` no-cache + noindex. Playwright: calculators update, JS forms show messages, first input inside 360×640 (recall 588px, schedule 616px), no sideways scroll, no console errors.
 
 **Known issues / TODOs carried forward:**
-- NY (NYSERDA) and RI HEEHR pages answer 403 to our checker; their rows rely on NASEO only (`pageChecked: false`).
-- Model rules cover Rheem XG/XE, Bradford White RG, Whirlpool and American only; A. O. Smith, State and tankless brands are serial-only.
-- Rebate finder lists utilities only in the 8 states with utility data; ENERGY STAR's finder covers the rest. Review `heehr-states.json` and `hpwh-rebates.json` every three months (next 2027-02-20).
-- Earlier items still open: F-15 optional hPanel check; electric tankless UEF recheck vs CCMS; solar NREL 2012 cost; gas tankless headline metric; IRC P2903.4 (403).
+- Email does not send until the owner adds the `HWM_SMTP_*` lines to `wp-config.php` (mailbox contact@hotwatermath.com). WP-Cron runs on visits; an hPanel cron hitting `wp-cron.php` daily makes reminders punctual.
+- cpsc.gov HTML answers 403 to our checker; recall content is checked against the CPSC API record.
+- Re-run `npm run fetch:recalls` monthly; the daily job also emails the owner new CPSC candidates.
+- Earlier items still open: NY/RI HEEHR 403; rebate data review 2027-02-20; F-15 optional hPanel check; electric tankless UEF recheck vs CCMS; solar NREL 2012 cost; IRC P2903.4 (403).
 
-**Owner steps:** request indexing for the three new tools in Search Console; flush the Hostinger CDN after the deploy if a page looks stale.
+**Owner steps:** add the 4 SMTP lines to `wp-config.php`; flush the Hostinger CDN; review the 3 draft pages and OK them (failure database stays noindex until the report).
 
 - 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
@@ -71,3 +71,4 @@
 - 2026-11-13 — Phase 6d batch 1 pages live — owner OK; temperature setting, relief valve leaking, element replacement flipped live.
 - 2026-11-14 — GTM added — Google Tag Manager GTM-5K9PR6XR (deferred, consent defaults first, noscript iframe, no GTM on embeds); privacy policy and CLAUDE.md §2/§10 updated.
 - 2026-11-21 — GSC-driven content fixes — first GSC audit (report in project files gsc-audit/2026-11-21); max temperature H2 + FAQ (safety.temp.aosVeryHotF, A. O. Smith manual re-checked 2026-11-21), relief valve, tankless wiring and anode FAQs, FHR definition H2, links to quote checker, rebate finder and model lookup (style 0.20.3).
+- 2026-11-21 — New tools done — recall lookup (24 CPSC recalls) + recall alerts, maintenance schedule + Heater Health Reminder, failure database form; own email lists over Hostinger SMTP; all draft (style 0.21.0).

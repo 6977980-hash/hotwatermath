@@ -1,0 +1,37 @@
+{
+  "meta": {
+    "source": "Hot Water Math Water Heater Failure Database: reports sent by visitors through the form on /water-heater-failure-database/",
+    "sourceUrl": "https://hotwatermath.com/water-heater-failure-database/",
+    "sourceDate": "2026-11-21",
+    "notes": "Form options and the publishing rule for the crowd-sourced failure database. The answers people send are stored in the site's database (table hwm_failures), never in this file, and are not shown until the rule below is met. The cause list follows the failure points the maker manuals and our troubleshooting pages name (tank leak, burner or ignition, element, thermostat or control, relief valve, heat exchanger, venting); 'other' covers the rest. Nothing here is a measured figure."
+  },
+  "publishAt": 100,
+  "minPerBrand": 10,
+  "reviewEveryMonths": 1,
+  "maxAgeYears": 40,
+  "noteMaxChars": 300,
+  "causes": [
+    { "id": "tank-leak", "label": "Tank leaked or rusted through" },
+    { "id": "fitting-leak", "label": "Leak at a fitting, drain valve or pipe (tank still sound)" },
+    { "id": "burner-ignition", "label": "Burner, pilot, thermocouple or igniter" },
+    { "id": "gas-valve", "label": "Gas control valve or thermostat (gas)" },
+    { "id": "element", "label": "Heating element (electric)" },
+    { "id": "electric-control", "label": "Electric thermostat, control board or sensor" },
+    { "id": "relief-valve", "label": "Temperature and pressure relief valve" },
+    { "id": "heat-exchanger", "label": "Heat exchanger (tankless)" },
+    { "id": "venting", "label": "Venting, blower or flue" },
+    { "id": "compressor", "label": "Heat pump compressor or fan" },
+    { "id": "sediment", "label": "Sediment or scale stopped it working" },
+    { "id": "other", "label": "Something else or not sure" }
+  ],
+  "outcomes": [
+    { "id": "replaced", "label": "Replaced the whole heater" },
+    { "id": "repaired", "label": "Repaired it" },
+    { "id": "not-yet", "label": "Not decided yet" }
+  ],
+  "yesNo": [
+    { "id": "yes", "label": "Yes" },
+    { "id": "no", "label": "No" },
+    { "id": "unknown", "label": "Don't know" }
+  ]
+}

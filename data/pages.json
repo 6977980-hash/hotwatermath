@@ -117,7 +117,7 @@
       "subtitle": "What data this site collects, which third parties are involved, and the choices you have.",
       "quickAnswer": "Our calculators run in your browser and we do not store what you type. Google Analytics and, once approved, Google AdSense may use cookies; you can refuse or opt out.",
       "datePublished": "2026-11-13",
-      "dateModified": "2026-11-14"
+      "dateModified": "2026-11-21"
     },
     {
       "slug": "terms",
@@ -1631,6 +1631,89 @@
         "water heater replacement quote",
         "plumber quote for water heater",
         "water heater estimate"
+      ]
+    },
+    {
+      "slug": "water-heater-recall-lookup",
+      "type": "tool",
+      "status": "draft",
+      "phase": "tools-2026-11-21",
+      "datePublished": "2026-11-21",
+      "dateModified": "2026-11-21",
+      "title": "Water Heater Recall Lookup",
+      "summary": "Check a water heater's brand, model and serial number against every CPSC water heater recall since 2001, and get alerts for new ones.",
+      "metaTitle": "Water Heater Recall Lookup by Model Number | Hot Water Math",
+      "description": "Water heater recall lookup: check your model and serial against 24 CPSC recalls since 2001, see the hazard and the free fix, and get new-recall alerts.",
+      "h1": "Water heater recall lookup",
+      "subtitle": "Check it against every CPSC water heater recall.",
+      "quickAnswer": "Enter the brand, model and serial from the rating label. We check them against every U.S. CPSC water heater recall since 2001.",
+      "scripts": [
+        "recall-lookup",
+        "forms"
+      ],
+      "methodAnchor": "water-heater-recall-lookup",
+      "keywords": [
+        "water heater recall",
+        "water heater recall lookup",
+        "is my water heater recalled",
+        "water heater recall by model number",
+        "rheem water heater recall",
+        "a o smith water heater recall",
+        "navien tankless recall"
+      ]
+    },
+    {
+      "slug": "water-heater-maintenance-schedule",
+      "type": "tool",
+      "status": "draft",
+      "phase": "tools-2026-11-21",
+      "datePublished": "2026-11-21",
+      "dateModified": "2026-11-21",
+      "title": "Water Heater Maintenance Schedule",
+      "summary": "Your water heater's maintenance dates (flush, anode, relief valve, descaling) from the makers' manuals, with free email reminders.",
+      "metaTitle": "Water Heater Maintenance Schedule | Hot Water Math",
+      "description": "Water heater maintenance schedule from the makers' manuals: flush yearly (every 6 months on hard water), check the anode and relief valve. Free reminders.",
+      "h1": "Water heater maintenance schedule",
+      "subtitle": "Your next flush, anode and valve dates, with free reminders.",
+      "quickAnswer": "Makers say to flush a tank and check its anode and relief valve once a year, and to descale a tankless unit yearly. Enter yours for the dates.",
+      "scripts": [
+        "maintenance-schedule",
+        "forms"
+      ],
+      "methodAnchor": "water-heater-maintenance-schedule",
+      "keywords": [
+        "water heater maintenance schedule",
+        "water heater maintenance",
+        "how often to flush water heater",
+        "water heater maintenance checklist",
+        "tankless water heater maintenance",
+        "water heater maintenance reminder"
+      ]
+    },
+    {
+      "slug": "water-heater-failure-database",
+      "type": "article",
+      "status": "draft",
+      "group": "Lifespan & Replacement",
+      "phase": "tools-2026-11-21",
+      "datePublished": "2026-11-21",
+      "dateModified": "2026-11-21",
+      "title": "Water Heater Failure Database",
+      "summary": "Tell us when and how your water heater failed. Once 100 reports are in, we publish real ages at failure by brand, type and cause.",
+      "metaTitle": "Water Heater Failure Database: Report Yours | Hot Water Math",
+      "description": "Water heater failure database: report your heater's brand, age and what failed. At 100 reports we publish average age at failure by brand, free to cite.",
+      "h1": "Water heater failure database",
+      "subtitle": "Report how old your heater was and what failed.",
+      "quickAnswer": "No public data shows how long each brand really lasts. Report your failed heater below; at 100 reports we publish average age at failure by brand.",
+      "scripts": [
+        "forms"
+      ],
+      "keywords": [
+        "water heater failure rate by brand",
+        "most reliable water heater brand",
+        "why do water heaters fail",
+        "water heater failure statistics",
+        "average age water heater failure"
       ]
     }
   ]

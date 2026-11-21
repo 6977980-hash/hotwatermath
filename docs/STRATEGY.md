@@ -46,6 +46,11 @@ Format: `URL` — **Primary keyword** (bucket) — secondary keywords — type �
 9. `/heat-pump-water-heater-rebates` — **heat pump water heater rebates** — heat pump water heater rebates by state, HEEHR/HEAR rebate water heater, IRA heat pump water heater rebate — TOOL — state + income → HEEHR amount and utility programs. "heat pump water heater tax credit (2026)" stays with `/heat-pump-water-heater-cost`.
 10. `/water-heater-quote-checker` — **water heater quote** / is my water heater quote fair — water heater installation quote, plumber quote for water heater, water heater estimate — TOOL — quote + job → fair/high/low verdict. "water heater replacement/installation cost" stays with the cost pages.
 
+### Tools added 2026-11-21 (owner request: ideas 3, 5, 1)
+11. `/water-heater-recall-lookup` — **water heater recall lookup** — water heater recall by model number, is my water heater recalled, {brand} water heater recall, CPSC water heater recall — TOOL — brand + model + serial → match against every CPSC recall, plus recall alert email.
+12. `/water-heater-maintenance-schedule` — **water heater maintenance schedule** — how often should a water heater be serviced, water heater maintenance checklist, tankless descaling schedule — TOOL — type + install date + water → due dates, plus Heater Health Reminder email. "how to flush" stays with page `/how-to-flush-a-water-heater`.
+13. `/water-heater-failure-database` — **water heater failure rate by brand** — ARTICLE (form now, report at 100 submissions) — stays draft/noindex until the report is published.
+
 ### Articles with embedded calculator (Phase 6)
 8. `/water-heater-installation-cost` — **water heater replacement cost** (50K) — water heater installation cost (5K, falling), cost to replace water heater, labor cost — ARTICLE + cost calc. Title and H1 lead with "Water Heater Replacement Cost" and use "installation" as the secondary term; one page for both, do NOT make a separate page. The URL stays as is (changing it needs owner approval).
 9. `/tankless-water-heater-installation-cost` — **tankless water heater installation cost** (50K) — tankless water heater cost (50K), cost to install tankless water heater — ARTICLE + cost calc preset tankless
