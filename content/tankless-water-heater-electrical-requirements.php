@@ -96,6 +96,10 @@ hwm_part( 'calculator', array( 'tool' => 'tankless-water-heater-size-calculator'
 <?php
 $faq = array(
 	array(
+		'q' => 'What are the wiring requirements for an electric tankless water heater?',
+		'a' => 'Four things, all set by the installation manual and local code: the number of 240-volt circuits (one to four), the double-pole breaker size for each, the copper wire size and temperature rating for each, and enough main service for the whole house. Stiebel Eltron also asks for under ' . hwm_value( 'safety', 'electrical.stiebelVoltageDropPct' ) . '% voltage drop. A licensed electrician does the work.',
+	),
+	array(
 		'q' => 'What size breaker do I need for a tankless water heater?',
 		'a' => 'The size in its installation manual. Whole-house electric units use one to four double-pole breakers, each sized by the maker: Stiebel Eltron specifies ' . hwm_value( $hwm_c, 'figures.t24Circuits' ) . ' × ' . hwm_value( $hwm_c, 'figures.t24Breaker' ) . ' A for a ' . hwm_value( $hwm_c, 'figures.t24kw' ) . ' kW unit. The code says the breaker must not exceed the rating marked on the appliance.',
 	),

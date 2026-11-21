@@ -51,7 +51,17 @@ hwm_part( 'safety-notice', array( 'gas' => true, 'power' => true, 'scald' => tru
 <p>Every 5 °F above 120 °F cuts the time to a serious burn sharply. A. O. Smith's manual puts it at <?php echo $hwm_sc( 0, 'aos' ); // phpcs:ignore ?> at 120 °F, <?php echo $hwm_sc( 2, 'aos' ); // phpcs:ignore ?> at 130 °F and <?php echo $hwm_sc( 4, 'aos' ); // phpcs:ignore ?> at 140 °F. The CPSC's figures for adults are close: <?php echo $hwm_sc( 0, 'cpsc' ); // phpcs:ignore ?>, <?php echo $hwm_sc( 2, 'cpsc' ); // phpcs:ignore ?> and <?php echo $hwm_sc( 4, 'cpsc' ); // phpcs:ignore ?>. Children and older adults burn faster.</p>
 <?php echo hwm_table( $hwm_f, 'scald' ); // phpcs:ignore -- escaped in the part. ?>
 <p>The CPSC says most tap water scald injuries and deaths happen to older people and to children under five. If anyone like that lives with you, or visits often, 120 °F at the tap matters more than any other number on this page.</p>
-<p>The dial letters in the table are A. O. Smith's gas control. A. O. Smith calls them approximate, and other brands use other markings, so check your own heater's label or manual before you turn anything.</p>
+<p>The dial letters in the table are A. O. Smith's gas control. A. O. Smith calls them approximate, and other brands use other markings, so check your own heater's label or manual before you turn anything. If you are not sure which model you have, the <?php echo hwm_link( 'water-heater-model-number-lookup', 'water heater model number lookup' ); // phpcs:ignore ?> reads the label for you.</p>
+
+<h2>What is the maximum water heater temperature?</h2>
+<p>Most tank thermostats go up to about <?php echo $hwm_s( 'temp.aosVeryHotF' ); // phpcs:ignore ?> °F: that is the "VERY HOT" mark on A. O. Smith's gas control. The maximum safe temperature at the tap is lower, about <?php echo $hwm_s( 'temp.cpscF' ); // phpcs:ignore ?> °F, which is the setting the CPSC urges for every home. Anything hotter should pass through a mixing valve before it reaches skin.</p>
+<p>Three numbers get mixed up when people ask "how hot can a water heater get":</p>
+<ul>
+	<li><strong>The highest dial setting.</strong> About <?php echo $hwm_s( 'temp.aosVeryHotF' ); // phpcs:ignore ?> °F on A. O. Smith's gas control, which the manual calls approximate. At that temperature A. O. Smith says a serious burn takes <?php echo $hwm_sc( 7, 'aos' ); // phpcs:ignore ?>.</li>
+	<li><strong>What the tank can actually reach.</strong> Higher than the dial. A. O. Smith warns that repeated short draws can stack the water up to <?php echo $hwm_s( 'temp.stackingF' ); // phpcs:ignore ?> °F hotter than the setting. If the water ever gets far hotter than that, the temperature and pressure relief valve is the last safeguard, and it is a job for a qualified person.</li>
+	<li><strong>The temperature at the tap.</strong> This is the number that burns people. A. O. Smith's manual says the ASSE 1070 standard and most local plumbing codes do not allow the heater's thermostat to be the only scald protection; a mixing valve does that job.</li>
+</ul>
+<p>Is there a legal maximum? We found no single U.S. law that sets the temperature of a home water heater. The rules that exist are in plumbing codes, which are adopted and enforced locally, and A. O. Smith says those codes expect a mixing valve, not the thermostat, to limit the temperature. Ask your local building department what applies where you live.</p>
 
 <h2>Does 120 °F let Legionella grow?</h2>
 <p>It is the edge, not the danger zone. CDC's guidance for building water systems is to store hot water above <?php echo $hwm_s( 'temp.cdcStoreF' ); // phpcs:ignore ?> °F and keep it from falling below <?php echo $hwm_s( 'temp.cdcCirculateF' ); // phpcs:ignore ?> °F in the pipes, and it says growth is possible when warm water falls below 120 °F. For homes rented to guests, CDC says to set the heater "at or above 120°F".</p>
@@ -132,6 +142,10 @@ $faq = array(
 	array(
 		'q' => 'Why is my hot water hotter than the setting?',
 		'a' => 'A. O. Smith says repeated short draws can stack the tank in layers up to 30 °F hotter than the setting. A hot room, solar pre-heating or a failing control can also do it. If the water stays much hotter than the setting, have the control checked by a qualified person.',
+	),
+	array(
+		'q' => 'What is the maximum safe hot water temperature?',
+		'a' => 'About 120 °F at the tap. The CPSC urges every home to set its heater there, and its figures show adults can get a third-degree burn in ' . strtolower( hwm_value( 'safety', 'tables.scald.rows.6.cpsc' ) ) . ' at 150 °F. A tank can be set as high as about ' . hwm_value( 'safety', 'temp.aosVeryHotF' ) . ' °F on A. O. Smith\'s gas control, but only with mixing valves at the taps.',
 	),
 	array(
 		'q' => 'What is 120 °F in Celsius?',

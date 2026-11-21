@@ -132,6 +132,10 @@ $faq = array(
 		'a' => 'Once the rod is used up, the steel tank starts to corrode from the inside, which ends in a leak that cannot be repaired. GE says failing to replace a consumed rod also voids the tank warranty.',
 	),
 	array(
+		'q' => 'What size anode rod do I need?',
+		'a' => 'The one your manual or the maker\'s parts list names for your model. A replacement must match the thread size, the length and the type: a rod in its own port on top of the tank, or one combined with the hot water outlet nipple. If there is little room above the tank, a linked rod made in sections fits.',
+	),
+	array(
 		'q' => 'Does a tankless water heater have an anode rod?',
 		'a' => 'No. A tankless unit has no storage tank to protect. Its care task is descaling the heat exchanger, which Rinnai says to do at least once a year.',
 	),

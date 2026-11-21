@@ -383,6 +383,7 @@
     "thermometerWaitHours": "two",
     "hydrogenWeeks": "two",
     "vacationF": 55,
+    "aosVeryHotF": 155,
     "capacitySettingsF": [
       120,
       130,

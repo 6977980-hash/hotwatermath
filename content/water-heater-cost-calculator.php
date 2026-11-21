@@ -93,7 +93,7 @@ $hwm_pm  = (array) ( $hwm_f['permit'] ?? array() );
 <p>If the local code also asks for an expansion tank, tick it and the total rises by its line. In a state with a higher price factor, labor and extras rise with it, but the unit price does not.</p>
 
 <h2>How do you get a fair quote?</h2>
-<p>Get two or three written quotes for the same unit size and the same scope, then compare them line by line with this calculator. A quote far above the high end usually includes work the others left out, or work you may not need.</p>
+<p>Get two or three written quotes for the same unit size and the same scope, then compare them line by line with this calculator. A quote far above the high end usually includes work the others left out, or work you may not need. To check a quote you already have, line by line, use the <?php echo hwm_link( 'water-heater-quote-checker', 'water heater quote checker' ); // phpcs:ignore ?>.</p>
 <ul>
 	<li>Ask for the unit's brand, model, size and first hour rating in writing, and its warranty length.</li>
 	<li>Ask whether the price includes the permit, haul-away, new connectors, an expansion tank, a drain pan and code updates.</li>
