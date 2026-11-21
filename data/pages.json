@@ -1555,7 +1555,7 @@
     {
       "slug": "water-heater-model-number-lookup",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "tools-2026-11-20",
       "datePublished": "2026-11-20",
       "dateModified": "2026-11-20",
@@ -1582,7 +1582,7 @@
     {
       "slug": "heat-pump-water-heater-rebates",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "tools-2026-11-20",
       "datePublished": "2026-11-20",
       "dateModified": "2026-11-20",
@@ -1609,7 +1609,7 @@
     {
       "slug": "water-heater-quote-checker",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "tools-2026-11-20",
       "datePublished": "2026-11-20",
       "dateModified": "2026-11-20",
