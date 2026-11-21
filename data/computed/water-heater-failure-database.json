@@ -1,0 +1,438 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/failure-database.json with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-12",
+    "notes": "Form options for the failure report form. No reports are in this file."
+  },
+  "form": {
+    "brands": [
+      {
+        "id": "rheem",
+        "label": "Rheem / Ruud"
+      },
+      {
+        "id": "ao-smith",
+        "label": "A. O. Smith"
+      },
+      {
+        "id": "bradford-white",
+        "label": "Bradford White"
+      },
+      {
+        "id": "state",
+        "label": "State"
+      },
+      {
+        "id": "american",
+        "label": "American"
+      },
+      {
+        "id": "whirlpool",
+        "label": "Whirlpool"
+      },
+      {
+        "id": "ge",
+        "label": "GE"
+      },
+      {
+        "id": "kenmore",
+        "label": "Kenmore"
+      },
+      {
+        "id": "navien",
+        "label": "Navien"
+      },
+      {
+        "id": "rinnai",
+        "label": "Rinnai"
+      },
+      {
+        "id": "noritz",
+        "label": "Noritz"
+      },
+      {
+        "id": "takagi",
+        "label": "Takagi"
+      },
+      {
+        "id": "bosch",
+        "label": "Bosch"
+      },
+      {
+        "id": "other",
+        "label": "Other or not sure"
+      }
+    ],
+    "types": [
+      {
+        "id": "gas_tank",
+        "label": "Gas tank"
+      },
+      {
+        "id": "electric_tank",
+        "label": "Electric tank"
+      },
+      {
+        "id": "heat_pump",
+        "label": "Heat pump (hybrid)"
+      },
+      {
+        "id": "gas_tankless",
+        "label": "Gas tankless"
+      },
+      {
+        "id": "electric_tankless",
+        "label": "Electric tankless"
+      }
+    ],
+    "water": [
+      {
+        "id": "normal",
+        "label": "Normal or don't know"
+      },
+      {
+        "id": "hard",
+        "label": "Hard water (scale on faucets and showerheads)"
+      },
+      {
+        "id": "softened",
+        "label": "Softened (a water softener)"
+      }
+    ],
+    "states": [
+      {
+        "id": "AL",
+        "label": "Alabama"
+      },
+      {
+        "id": "AK",
+        "label": "Alaska"
+      },
+      {
+        "id": "AZ",
+        "label": "Arizona"
+      },
+      {
+        "id": "AR",
+        "label": "Arkansas"
+      },
+      {
+        "id": "CA",
+        "label": "California"
+      },
+      {
+        "id": "CO",
+        "label": "Colorado"
+      },
+      {
+        "id": "CT",
+        "label": "Connecticut"
+      },
+      {
+        "id": "DE",
+        "label": "Delaware"
+      },
+      {
+        "id": "DC",
+        "label": "District of Columbia"
+      },
+      {
+        "id": "FL",
+        "label": "Florida"
+      },
+      {
+        "id": "GA",
+        "label": "Georgia"
+      },
+      {
+        "id": "HI",
+        "label": "Hawaii"
+      },
+      {
+        "id": "ID",
+        "label": "Idaho"
+      },
+      {
+        "id": "IL",
+        "label": "Illinois"
+      },
+      {
+        "id": "IN",
+        "label": "Indiana"
+      },
+      {
+        "id": "IA",
+        "label": "Iowa"
+      },
+      {
+        "id": "KS",
+        "label": "Kansas"
+      },
+      {
+        "id": "KY",
+        "label": "Kentucky"
+      },
+      {
+        "id": "LA",
+        "label": "Louisiana"
+      },
+      {
+        "id": "ME",
+        "label": "Maine"
+      },
+      {
+        "id": "MD",
+        "label": "Maryland"
+      },
+      {
+        "id": "MA",
+        "label": "Massachusetts"
+      },
+      {
+        "id": "MI",
+        "label": "Michigan"
+      },
+      {
+        "id": "MN",
+        "label": "Minnesota"
+      },
+      {
+        "id": "MS",
+        "label": "Mississippi"
+      },
+      {
+        "id": "MO",
+        "label": "Missouri"
+      },
+      {
+        "id": "MT",
+        "label": "Montana"
+      },
+      {
+        "id": "NE",
+        "label": "Nebraska"
+      },
+      {
+        "id": "NV",
+        "label": "Nevada"
+      },
+      {
+        "id": "NH",
+        "label": "New Hampshire"
+      },
+      {
+        "id": "NJ",
+        "label": "New Jersey"
+      },
+      {
+        "id": "NM",
+        "label": "New Mexico"
+      },
+      {
+        "id": "NY",
+        "label": "New York"
+      },
+      {
+        "id": "NC",
+        "label": "North Carolina"
+      },
+      {
+        "id": "ND",
+        "label": "North Dakota"
+      },
+      {
+        "id": "OH",
+        "label": "Ohio"
+      },
+      {
+        "id": "OK",
+        "label": "Oklahoma"
+      },
+      {
+        "id": "OR",
+        "label": "Oregon"
+      },
+      {
+        "id": "PA",
+        "label": "Pennsylvania"
+      },
+      {
+        "id": "RI",
+        "label": "Rhode Island"
+      },
+      {
+        "id": "SC",
+        "label": "South Carolina"
+      },
+      {
+        "id": "SD",
+        "label": "South Dakota"
+      },
+      {
+        "id": "TN",
+        "label": "Tennessee"
+      },
+      {
+        "id": "TX",
+        "label": "Texas"
+      },
+      {
+        "id": "UT",
+        "label": "Utah"
+      },
+      {
+        "id": "VT",
+        "label": "Vermont"
+      },
+      {
+        "id": "VA",
+        "label": "Virginia"
+      },
+      {
+        "id": "WA",
+        "label": "Washington"
+      },
+      {
+        "id": "WV",
+        "label": "West Virginia"
+      },
+      {
+        "id": "WI",
+        "label": "Wisconsin"
+      },
+      {
+        "id": "WY",
+        "label": "Wyoming"
+      }
+    ],
+    "causes": [
+      {
+        "id": "tank-leak",
+        "label": "Tank leaked or rusted through"
+      },
+      {
+        "id": "fitting-leak",
+        "label": "Leak at a fitting, drain valve or pipe (tank still sound)"
+      },
+      {
+        "id": "burner-ignition",
+        "label": "Burner, pilot, thermocouple or igniter"
+      },
+      {
+        "id": "gas-valve",
+        "label": "Gas control valve or thermostat (gas)"
+      },
+      {
+        "id": "element",
+        "label": "Heating element (electric)"
+      },
+      {
+        "id": "electric-control",
+        "label": "Electric thermostat, control board or sensor"
+      },
+      {
+        "id": "relief-valve",
+        "label": "Temperature and pressure relief valve"
+      },
+      {
+        "id": "heat-exchanger",
+        "label": "Heat exchanger (tankless)"
+      },
+      {
+        "id": "venting",
+        "label": "Venting, blower or flue"
+      },
+      {
+        "id": "compressor",
+        "label": "Heat pump compressor or fan"
+      },
+      {
+        "id": "sediment",
+        "label": "Sediment or scale stopped it working"
+      },
+      {
+        "id": "other",
+        "label": "Something else or not sure"
+      }
+    ],
+    "outcomes": [
+      {
+        "id": "replaced",
+        "label": "Replaced the whole heater"
+      },
+      {
+        "id": "repaired",
+        "label": "Repaired it"
+      },
+      {
+        "id": "not-yet",
+        "label": "Not decided yet"
+      }
+    ],
+    "yesNo": [
+      {
+        "id": "yes",
+        "label": "Yes"
+      },
+      {
+        "id": "no",
+        "label": "No"
+      },
+      {
+        "id": "unknown",
+        "label": "Don't know"
+      }
+    ]
+  },
+  "figures": {
+    "publishAt": 100,
+    "minPerBrand": 10,
+    "maxAgeYears": 40,
+    "noteMaxChars": 300
+  },
+  "tables": {
+    "fields": {
+      "caption": "What the report asks, and why",
+      "columns": [
+        {
+          "key": "field",
+          "label": "Question"
+        },
+        {
+          "key": "why",
+          "label": "Why we ask"
+        }
+      ],
+      "rows": [
+        {
+          "field": "Brand and type",
+          "why": "To compare how long each brand and type lasts"
+        },
+        {
+          "field": "Year installed and year it failed",
+          "why": "Gives the age at failure, the number most people want"
+        },
+        {
+          "field": "What failed",
+          "why": "Shows whether tanks leak or parts give out first, by brand"
+        },
+        {
+          "field": "Flushed? Anode replaced? Water?",
+          "why": "Tests whether maintenance and hard water change the age at failure"
+        },
+        {
+          "field": "State (optional)",
+          "why": "Hard water and climate differ by state"
+        },
+        {
+          "field": "Note (optional, never published)",
+          "why": "Helps us spot mistakes and spam"
+        }
+      ],
+      "source": "Hot Water Math Water Heater Failure Database: reports sent by visitors through the form on /water-heater-failure-database/",
+      "sourceUrl": "https://hotwatermath.com/water-heater-failure-database/",
+      "sourceDate": "2026-11-21"
+    }
+  }
+}

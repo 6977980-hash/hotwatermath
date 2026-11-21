@@ -22,7 +22,7 @@ $hwm_gtm_on  = '' !== hwm_gtm_id();
 <ul>
 	<li><strong>Server logs.</strong> Like every website, our web host receives technical data with each request: IP address, browser type, the page requested, the referring page and the time. The host uses it to deliver pages, keep the site secure and fix problems. We do not use it to identify you.</li>
 	<li><strong>Caching.</strong> Pages are served from a cache to make them fast. The cache does not set tracking cookies for visitors.</li>
-	<li><strong>No accounts, no comments, no forms.</strong> You cannot create an account or post comments, and there is no contact form. If you email us, we receive your email address and message and use them only to reply.</li>
+	<li><strong>No accounts, no comments, no contact form.</strong> You cannot create an account or post comments, and there is no contact form. If you email us, we receive your email address and message and use them only to reply. The only forms are the optional email lists and the failure report, described below.</li>
 </ul>
 
 <h2>Analytics: Google Analytics</h2>
@@ -51,6 +51,17 @@ $hwm_gtm_on  = '' !== hwm_gtm_id();
 <h2>Affiliate links</h2>
 <p>Some sizing results may show labeled links to retailers. If you click one, the retailer may set its own cookies to record that you came from our site, under its own privacy policy. We do not receive your name or what you bought.</p>
 
+<h2 id="email-lists">Email lists and the failure report</h2>
+<p>Two optional email lists are run by us on our own site, with no outside email service: <strong>water heater recall alerts</strong> (we email you when a new U.S. CPSC water heater recall names the brand you chose, or any brand) and the <strong>Heater Health Reminder</strong> (we email you when a maintenance job for the heater you described is due, and once when it is time to plan a replacement).</p>
+<ul>
+	<li><strong>What we store.</strong> Your email address, the list, the answers in the signup form (the brand; or the heater type, install month and year and water type), the dates you signed up and confirmed, and which reminders we have sent. We do not store your IP address with it.</li>
+	<li><strong>Double opt-in.</strong> Nothing is sent until you click the link in the confirmation email and press the confirm button. An unconfirmed address is never emailed again after that one message.</li>
+	<li><strong>Unsubscribe.</strong> Every email has a one-click unsubscribe link. Unsubscribing deletes your address from that list. You can also ask us to delete it at <a href="mailto:<?php echo esc_attr( $hwm_email ); ?>"><?php echo esc_html( $hwm_email ); ?></a>.</li>
+	<li><strong>Use.</strong> We use your address only to send the emails you asked for. We do not sell, rent or share it, and the emails carry no ads and no affiliate links. Emails are sent from our mailbox at our web host.</li>
+	<li><strong>Failure report.</strong> The water heater failure report asks no name or email. We store the answers and the date, and publish only totals across many reports, never a single report or the optional note.</li>
+	<li><strong>Spam protection.</strong> To stop abuse, the forms keep a short-lived, one-way code made from your connection's address for one hour, then it is deleted. It cannot be turned back into the address.</li>
+</ul>
+
 <h2>Embedded calculators</h2>
 <p>If you use one of our calculators embedded on another website, that website's own privacy policy also applies to your visit there.</p>
 
@@ -58,7 +69,7 @@ $hwm_gtm_on  = '' !== hwm_gtm_id();
 <p>This site is meant for adults planning home purchases. It is not directed at children under 13, and we do not knowingly collect information from them.</p>
 
 <h2>Your rights</h2>
-<p>Depending on where you live, you may have the right to ask what personal information we hold about you, to correct it or to delete it. Because we do not run accounts or forms, we usually hold nothing beyond any emails you sent us. Write to <a href="mailto:<?php echo esc_attr( $hwm_email ); ?>"><?php echo esc_html( $hwm_email ); ?></a> and we will respond. For data held by Google, use your Google account settings or <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</p>
+<p>Depending on where you live, you may have the right to ask what personal information we hold about you, to correct it or to delete it. We run no accounts; we hold only any emails you sent us and, if you signed up, your email list entry described above. Write to <a href="mailto:<?php echo esc_attr( $hwm_email ); ?>"><?php echo esc_html( $hwm_email ); ?></a> and we will respond. For data held by Google, use your Google account settings or <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</p>
 
 <h2>Changes to this policy</h2>
 <p>If we add a new service that collects data, we will update this page first and change the "Last updated" date below.</p>

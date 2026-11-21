@@ -138,6 +138,7 @@ hwm_part(
 
 <h2>Limitations</h2>
 <p>The Whirlpool examples come from a third-party decoder; the code itself rests on the CPSC recall, which covers several brands at once. A week code gives the month, which can be off by one at a boundary. Whirlpool's own lookup only reads serials in its records. Expected life is a DOE average, and our hardness, flushing and anode adjustments are editorial assumptions explained on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array( 'brand' => 'whirlpool', 'brandLabel' => 'Whirlpool' ) ); ?>
 <?php
 $faq = array(
 	array(

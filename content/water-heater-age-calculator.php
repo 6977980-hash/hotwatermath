@@ -154,6 +154,7 @@ $hwm_rows = (array) hwm_raw( $hwm_c, 'summaryRows' );
 
 <h2>Limitations of this estimate</h2>
 <p>We decode only the brands whose date code we could confirm in a source we opened. Codes can change between factories and years, so a result that looks wrong probably is: trust the label and the manufacturer over the decoder. Expected life is an average across many homes; a single unit can fail early or run years longer. The hardness, flushing and anode adjustments are our editorial assumptions, documented on <a href="<?php echo esc_url( hwm_url( 'methodology' ) . '#water-heater-age-calculator' ); ?>">our methodology page</a>.</p>
+<?php hwm_part( 'heater-care-links', array() ); ?>
 <?php
 $faq = array(
 	array(

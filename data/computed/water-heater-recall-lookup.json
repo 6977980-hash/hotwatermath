@@ -1,0 +1,1470 @@
+{
+  "meta": {
+    "source": "Computed by npm run build:data from data/recalls.json (U.S. CPSC recall database) with assets/js/formulas.js",
+    "sourceUrl": "https://hotwatermath.com/methodology/",
+    "sourceDate": "2026-11-21",
+    "notes": "Recall list for the lookup, default result, test cases and summary figures. Matching: formulas.js recallCheck."
+  },
+  "defaultInputs": {
+    "brand": "rheem",
+    "model": "XE50T12EC55U0",
+    "serial": "Q2314A12345",
+    "madeYear": ""
+  },
+  "default": {
+    "status": "bad",
+    "statusLabel": "Recall match",
+    "headline": "This heater matches a CPSC recall: Rheem Performance Platinum electric water heaters (40, 50 and 80 gallons) sold at The Home Depot",
+    "explain": "Your model is listed and your serial is inside the recalled range. The hazard: The control panel on the water heaters can overheat, posing fire and burn hazards. What to do: Consumers should immediately turn off and stop using the recalled water heaters. Consumers should contact Rheem to request a free repair by a Rheem field technician. Confirm with the company before you act: Rheem toll-free at 866-369- 4786 from 7 a.m. to 7 p.m. CT Monday through Saturday and from 8 a.m. to 3:30 p.m. CT on Sunday or online at www.rheem.com and click on Recall Information for more information.",
+    "formula": "Model typed: XE50T12EC55U0 → compared without spaces, dashes or dots\nChecked against the model lists, model prefixes and serial ranges of the 24 U.S. CPSC water heater recalls announced since 2001\nBrand-wide and part (gas valve) recalls: matched by brand, then by serial range and year made where the notice gives them\nResult: 1 match, 0 possible, 2 other recall(s) of the brand",
+    "table": {
+      "caption": "Recalls that touch your brand or model",
+      "columns": [
+        {
+          "key": "recall",
+          "label": "Recall (CPSC date)"
+        },
+        {
+          "key": "level",
+          "label": "Result"
+        },
+        {
+          "key": "why",
+          "label": "Why"
+        }
+      ],
+      "rows": [
+        {
+          "recall": "Rheem Performance Platinum electric water heaters (40, 50 and 80 gallons) sold at The Home Depot (May 26, 2016)",
+          "level": "Recalled: matches",
+          "why": "Your model is listed and your serial is inside the recalled range."
+        },
+        {
+          "recall": "Indoor Power Vent 199,900 BTU/h tankless water heaters (Paloma, Rheem, Ruud, Richmond) (February 21, 2007)",
+          "level": "Same brand, not your model",
+          "why": "The listed indoor models, sold May 2004 to December 2006."
+        },
+        {
+          "recall": "Robertshaw R110 gas control valves installed on gas water heaters (September 16, 2005)",
+          "level": "Same brand: check the year and serial",
+          "why": "Only valves made July 25 to August 14, 2005 (date codes 5-31 to 5-33), on gas water heaters of the brands listed. Electric heaters are not included. A heater built in late 2005 is the one to check."
+        }
+      ]
+    },
+    "sources": "Recalls: U.S. Consumer Product Safety Commission recall database, read November 21, 2026. <a href=\"/methodology/#water-heater-recall-lookup\">How the match works</a>."
+  },
+  "crossChecks": [
+    {
+      "label": "Rheem XE50T12EC55U0, serial Q2314… (2014 build)",
+      "ours": "This heater matches a CPSC recall: Rheem Performance Platinum electric water heaters (40, 50 and 80 gallons) sold at The Home Depot",
+      "published": "CPSC notice: model XE50T12EC55U0, serial range Q0114XXXXX to Q5214XXXXX is recalled",
+      "match": true,
+      "why": "Same answer as the notice text.",
+      "source": "CPSC recall 16177",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2016/Rheem-Recalls-to-Repair-Water-Heaters"
+    },
+    {
+      "label": "Same model, serial Q2517… (2017 build)",
+      "ours": "Your model is in a recall, but your serial is outside the recalled range",
+      "published": "CPSC notice: the same model is recalled only with 2014 (and some early 2015) serials",
+      "match": true,
+      "why": "Same answer as the notice text.",
+      "source": "CPSC recall 16177",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2016/Rheem-Recalls-to-Repair-Water-Heaters"
+    },
+    {
+      "label": "A. O. Smith G6-UT3030NV, serial 1807…",
+      "ours": "This heater matches a CPSC recall: A. O. Smith 30-gallon natural gas water heaters sold at Lowe's in California",
+      "published": "CPSC notice: G6-UT3030NV with serial first four digits 1805 through 1809 is recalled",
+      "match": true,
+      "why": "Same answer as the notice text.",
+      "source": "CPSC recall 19030",
+      "sourceUrl": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-30-Gallon-Gas-Water-Heaters-Due-to-Fire-Hazard-Sold-Exclusively-at-Lowes"
+    }
+  ],
+  "client": {
+    "recalls": [
+      {
+        "id": "26026",
+        "date": "2025-10-16",
+        "title": "VESTA.DS Recalls VST Brand Tankless Water Heaters Due to Carbon Monoxide (CO) Poisoning Hazard and Risk of Serious Injury and Death",
+        "url": "https://www.cpsc.gov/Recalls/2026/VESTA-DS-Recalls-VST-Brand-Tankless-Water-Heaters-Due-to-Carbon-Monoxide-CO-Poisoning-Hazard-and-Risk-of-Serious-Injury-and-Death",
+        "brands": [
+          "vst"
+        ],
+        "type": "gas_tankless",
+        "product": "VST (VESTA.DS) gas tankless water heaters, Series VT, VR and VR Plus",
+        "models": [
+          "VRS-150",
+          "VRS-199",
+          "VRP-150",
+          "VRP-199",
+          "VRS Plus-150",
+          "VRS Plus-199",
+          "VRP Plus-150",
+          "VRP Plus-199",
+          "VTS-150",
+          "VTS-199",
+          "VTP-150",
+          "VTP-199"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "The model numbers listed; the model number is bold near the top of the white label on the side.",
+        "serialRules": [],
+        "units": "About 36,700 (In addition, about 3,500 were sold in Canada)",
+        "hazard": "The exhaust duct can crack, allowing gases to escape inside of the home, posing a carbon monoxide (CO) poisoning hazard that can result in death or serious injury.",
+        "remedy": "Consumers should immediately stop using the recalled water heater and contact VESTA.DS to have a certified technician install the free repair. Consumers who must continue using the water heater while awaiting repair should have working smoke and carbon monoxide alarms in their homes.",
+        "contact": "VESTA.DS toll-free at 888-505-5525 from 8:30 a.m. to 6 p.m. ET Monday through Friday, email condensingwaterheater@realtimeresults.net or online at www.recallrtr.com/condensingwaterheater or at https://www.vestahws.com and click on \"Recall\" under the \"Documents/Support\" tab at the top of the page for more information."
+      },
+      {
+        "id": "24137",
+        "date": "2024-02-29",
+        "title": "The Home Appliances Recalls Camplux Brand Portable Tankless Water Heaters Due to Fire Hazard",
+        "url": "https://www.cpsc.gov/Recalls/2024/The-Home-Appliances-Recalls-Camplux-Brand-Portable-Tankless-Water-Heaters-Due-to-Fire-Hazard",
+        "brands": [
+          "camplux"
+        ],
+        "type": "portable_tankless",
+        "product": "Camplux portable propane tankless water heaters (outdoor)",
+        "models": [
+          "AY132",
+          "BD158",
+          "BW211",
+          "BW264",
+          "BW422"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Made on or before September 17, 2021 (AY132), November 17, 2021 (BD158, BW211, BW264) or December 20, 2021 (BW422). The date is on the label on the side.",
+        "serialRules": [],
+        "units": "About 42,000",
+        "hazard": "The portable water heaters can leak gas from the gas regulator connection, posing a fire hazard.",
+        "remedy": "Consumers should immediately turn off and stop using the recalled portable water heaters and contact The Home Appliances for a free repair kit. The repair kit consists of a replacement gas regulator with a quick connect attachment that allows for easy connection and disconnection without the need to screw in the gas regulator. Instructions for installing this repair kit will also be provided.",
+        "contact": "The Home Appliances (\"Camplux\") toll-free at 844-538-7475 from 9 a.m. to 5 p.m. ET Monday through Friday, email at support@camplux.com, online at www.thehomeappliances.com and click on \"Recalls\" or www.thehomeappliances.com/waterheaterrecall for more information."
+      },
+      {
+        "id": "22016",
+        "date": "2021-11-03",
+        "title": "Usines Giant Factories Recalls Gas Water Heaters with Emerson Control Valves Due to Risk of Carbon Monoxide Poisoning",
+        "url": "https://www.cpsc.gov/Recalls/2022/Usines-Giant-Factories-Recalls-Gas-Water-Heaters-with-Emerson-Control-Valves-Due-to-Risk-of-Carbon-Monoxide-Poisoning",
+        "brands": [
+          "giant"
+        ],
+        "type": "gas_tank",
+        "product": "Giant gas water heaters (40, 50 and 75 gallons) with Emerson control valves",
+        "models": [
+          "UG40-38LFPV2-P1U-US",
+          "UG40-40LFPV2-N1U-US",
+          "UG50-38LFPV2-P1U-US",
+          "UG50-38LFPV2-P2U-US",
+          "UG50-38TFPDV1-N2U-US",
+          "UG50-40LFPV2-N1U-US",
+          "UG50-40LFPV2-N2U-US",
+          "UG75-76MEPV1-N2U-US",
+          "UG75-76MEPV1-P2U-US"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Only with an Emerson control valve 37H73A-301P1 (natural gas) or 37H74A-301P1 (propane) with date code 1821 to 1839, on the label beside the valve bracket.",
+        "serialRules": [],
+        "units": "About 168 (in addition, about 10,832 were sold in Canada)",
+        "hazard": "The power handle can short circuit and overheat, posing fire and burn hazards",
+        "remedy": "Consumers should immediately contact Usines Giant Factories, who will arrange to have the Emerson control valve replaced by a certified technician, and to receive a free replacement valve. Consumers who continue to use the water heaters while awaiting repair should have working carbon monoxide alarms outside of sleeping areas and on every level of the home.",
+        "contact": "Giant at 800 363-9354 from 8 a.m. to 5 p.m. ET Monday through Thursday and 8 a.m. to 3 p.m. ET on Friday, or e-mail at recall@giantinc.com. or online at www.giantinc.com then click on \"Recall Information\" located at the bottom of the page, or click on https://giantinc.com/en/recall-information."
+      },
+      {
+        "id": "19057",
+        "date": "2018-12-20",
+        "title": "Navien Recalls Tankless Water Heaters and Boilers Due to Risk of Carbon Monoxide Poisoning",
+        "url": "https://www.cpsc.gov/Recalls/2019/Navien-Recalls-Tankless-Water-Heaters-and-Boilers-Due-to-Risk-of-Carbon-Monoxide-Poisoning",
+        "brands": [
+          "navien"
+        ],
+        "type": "gas_tankless",
+        "product": "Navien condensing tankless water heaters and combi boilers converted to propane",
+        "models": [
+          "NPE-180A",
+          "NPE-180S",
+          "NCB-180E"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Only units converted from natural gas to propane and made July 9 to October 14, 2018 (serial date code 18709 to 18X14; X = October).",
+        "serialRules": [
+          {
+            "re": "^\\d{4}.?18(709|7[1-3]\\d|8\\d\\d|9\\d\\d|X0\\d|X1[0-4])",
+            "note": "build date July 9 to October 14, 2018 in the serial"
+          }
+        ],
+        "units": "About 3,400",
+        "hazard": "A kit installed on the tankless water heaters and boilers to convert them from natural gas to propane can cause the unit to produce excessive amounts of carbon monoxide, posing a risk of carbon monoxide poisoning to consumers.",
+        "remedy": "Consumers should immediately stop using the recalled water heaters and boilers that are using propane gas and contact Navien for a free replacement conversion kit. Consumers who continue use of the water heaters and boilers while awaiting repair, should have a working carbon monoxide alarm installed outside of sleeping areas in the home.",
+        "contact": "Navien at 800-244-8202 from 8 a.m. to 5 p.m. PT or e-mail recall@navien.com or online at https://www.navieninc.com/news for more information."
+      },
+      {
+        "id": "19030",
+        "date": "2018-11-08",
+        "title": "A. O. Smith Recalls 30-Gallon Gas Water Heaters Due to Fire Hazard; Sold Exclusively at Lowe's",
+        "url": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-30-Gallon-Gas-Water-Heaters-Due-to-Fire-Hazard-Sold-Exclusively-at-Lowes",
+        "brands": [
+          "ao-smith"
+        ],
+        "type": "gas_tank",
+        "product": "A. O. Smith 30-gallon natural gas water heaters sold at Lowe's in California",
+        "models": [
+          "G6-UT3030NV",
+          "G6-UT3030N"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Serial numbers whose first four digits are 1805 to 1809.",
+        "serialRules": [
+          {
+            "from": "1805",
+            "to": "1809",
+            "note": "first four digits 1805 to 1809"
+          }
+        ],
+        "units": "About 190",
+        "hazard": "The water heater's flame arrestor can fail to work properly, posing a fire hazard.",
+        "remedy": "Consumers should immediately turn off and stop using the recalled water heaters and contact A. O. Smith to arrange for a free repair.",
+        "contact": "A. O. Smith toll-free at 866-854-2793 from 8 a.m. to 10 p.m. ET Monday through Friday and 9 a.m. to 6 p.m. ET Saturday and Sunday or online at www.waterheaterrecall.com and click on the “check my serial number” link associated with this recall for more information."
+      },
+      {
+        "id": "19029",
+        "date": "2018-11-08",
+        "title": "A. O. Smith Recalls Ultra-Low NOx Water Heaters Due to Fire Hazard",
+        "url": "https://www.cpsc.gov/Recalls/2019/A-O-Smith-Recalls-Ultra-Low-NOx-Water-Heaters-Due-to-Fire-Hazard",
+        "brands": [
+          "american",
+          "ao-smith",
+          "kenmore",
+          "reliance",
+          "state",
+          "us-craftmaster",
+          "whirlpool"
+        ],
+        "type": "gas_tank",
+        "product": "Ultra-Low NOx gas water heaters, 30 to 50 gallons, sold mainly in California",
+        "models": [],
+        "prefixes": [],
+        "brandWide": true,
+        "component": false,
+        "which": "Only Ultra-Low NOx models (built for California air districts), with a serial number whose first four digits are 1115 to 1631 (year and week of production). Check at waterheaterrecall.com.",
+        "serialRules": [
+          {
+            "from": "1115",
+            "to": "1631",
+            "note": "first four digits 1115 to 1631"
+          }
+        ],
+        "units": "About 616,000",
+        "hazard": "The water heater's gas burner screen develops tears. The water heater's burner can then create excess radiant heat, posing a fire hazard if the water heater is installed directly on a wood or other combustible floor.",
+        "remedy": "Consumers should immediately turn off and stop using the recalled water heaters and contact A. O. Smith to determine if a free repair is necessary.",
+        "contact": "Consumers should go to www.waterheaterrecall.com, input their model and serial number and complete the form to determine if their water heater is subject to this recall. Consumers with Whirlpool, U.S. Craftmaster or American Water Heater brand water heaters can call toll-free 866-854-2793 from 8 a.m. to 10 p.m. Eastern Time Monday through Friday or 9 a.m. to 6 p.m. Saturday and Sunday. Consumers with Reliance, State, A. O. Smith, and Kenmore brand water heaters can call toll-free 866-880-4661 8 a.m. to 8 p.m. Eastern Time Monday through Friday or 9 a.m. to 6 p.m. Saturday for more information.",
+        "builtYears": [
+          2011,
+          2016
+        ]
+      },
+      {
+        "id": "16177",
+        "date": "2016-05-26",
+        "title": "Rheem Recalls to Repair Water Heaters Due to Fire and Burn Hazards; Sold Exclusively at Home Depot",
+        "url": "https://www.cpsc.gov/Recalls/2016/Rheem-Recalls-to-Repair-Water-Heaters",
+        "brands": [
+          "rheem"
+        ],
+        "type": "electric_tank",
+        "product": "Rheem Performance Platinum electric water heaters (40, 50 and 80 gallons) sold at The Home Depot",
+        "models": [
+          "XE40M12EC55U0",
+          "XE50M12EC55U0",
+          "XE50T12EC55U0",
+          "XE80T12EC55U0"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Serial numbers A0114 to A5214, M0114 to M5214 or Q0114 to Q5214 (2014 builds), plus A0515 and A1015 to A1615 for the 40- and 50-gallon M models.",
+        "serialRules": [
+          {
+            "re": "^[AMQ](0[1-9]|[1-4]\\d|5[0-2])14",
+            "note": "built in 2014 (week 01 to 52)"
+          },
+          {
+            "re": "^A(0515|1[0-6]15)",
+            "note": "A0515 or A1015 to A1615"
+          }
+        ],
+        "units": "About 54,000",
+        "hazard": "The control panel on the water heaters can overheat, posing fire and burn hazards.",
+        "remedy": "Consumers should immediately turn off and stop using the recalled water heaters. Consumers should contact Rheem to request a free repair by a Rheem field technician.",
+        "contact": "Rheem toll-free at 866-369- 4786 from 7 a.m. to 7 p.m. CT Monday through Saturday and from 8 a.m. to 3:30 p.m. CT on Sunday or online at www.rheem.com and click on Recall Information for more information."
+      },
+      {
+        "id": "16171",
+        "date": "2016-05-24",
+        "title": "Water Heating Technologies Recalls Gas Water Heaters Due to Fire Hazard",
+        "url": "https://www.cpsc.gov/Recalls/2016/Water-Heating-Technologies-Recalls-Gas-Water-Heaters",
+        "brands": [
+          "american-standard"
+        ],
+        "type": "gas_tank",
+        "product": "American Standard gas water heaters (30, 40 and 50 gallons) by Water Heating Technologies",
+        "models": [],
+        "prefixes": [
+          "GN",
+          "GSN"
+        ],
+        "brandWide": false,
+        "component": false,
+        "which": "Model numbers starting with GN or GSN, sold May 2015 to February 2016. The full model and serial list is on the maker's recall page.",
+        "serialRules": [],
+        "units": "About 14,400",
+        "hazard": "The water heaters have a space between the burner flange and the combustion chamber that allows flammable liquids or gases to contact burning flammable vapors inside the combustion chamber, posing a risk of fire or explosion.",
+        "remedy": "Consumers should immediately stop using the gas water heaters and call Water Heating Technologies to arrange for a service technician to inspect, repair or replace the water heater free of charge.",
+        "contact": "Water Heating Technologies toll-free at 888-883-0788 from 9 a.m. to 5 p.m. ET Monday through Friday or online at www.americanstandardwaterheaters.com and click on \"Recall Information\" for more information."
+      },
+      {
+        "id": "15155",
+        "date": "2015-06-02",
+        "title": "A.O. Smith Recalls John Wood Brand Oil-Fired Water Heaters Due to Fire and Burn Hazards",
+        "url": "https://www.cpsc.gov/Recalls/2015/A-O-Smith-Recalls-John-Wood-Brand-Oil-Fired-Water-Heaters",
+        "brands": [
+          "john-wood"
+        ],
+        "type": "oil_tank",
+        "product": "John Wood oil-fired water heaters (50 and 70 gallons)",
+        "models": [
+          "JW517",
+          "JW717"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "JW517 serials 1349A021678 to 1503A016643; JW717 serials from 1421M001517. Oil-fired units only.",
+        "serialRules": [],
+        "units": "About 250",
+        "hazard": "The water heater's combustion chamber can be misaligned and heat the exterior walls of the water heater instead of the water. Combustible material near the outside of the water heater can catch fire, posing fire and burn hazards.",
+        "remedy": "Consumers should immediately turn off and stop using the recalled water heaters and contact A.O. Smith for a free inspection and free replacement of misaligned water heaters.",
+        "contact": "A.O. Smith toll free at (866) 880-4661 between 8 a.m. and 4:30 p.m. ET Monday through Friday, or online at www.johnwoodwaterheaters.com and click on Recall Notices for more information."
+      },
+      {
+        "id": "15107",
+        "date": "2015-03-31",
+        "title": "Giant Factories Recalls Water Heaters Due to Risk of Fire, Explosion",
+        "url": "https://www.cpsc.gov/Recalls/2015/Giant-Factories-Recalls-Water-Heaters-Due-to-Risk-of-Fire-Explosion",
+        "brands": [
+          "giant"
+        ],
+        "type": "gas_tank",
+        "product": "Giant atmospherically vented gas water heaters (30 to 60 gallons)",
+        "models": [
+          "UG30-30MF-N2U-US",
+          "UG40-32LF-P1U-US",
+          "UG50-36LF-P1U-US",
+          "UG50-40LF-N1U-US"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Only the serial ranges in the notice (they start with A7), sold April to October 2014 in Maryland, New York and Pennsylvania.",
+        "serialRules": [
+          {
+            "re": "^A ?7",
+            "note": "serial starts with A7"
+          }
+        ],
+        "units": "About 240",
+        "hazard": "On units with a space between the bottom of the water tank and the combustion chamber, the flame arrestor or flame arrestor plate can fail, posing a risk of fire or explosion if flammable liquids or gases are nearby.",
+        "remedy": "Consumers should immediately ensure there are no combustible materials near the water heater and contact Giant for a free inspection. If the water heater has a space between the bottom of the water tank and the combustion chamber, Giant will replace the water heater free of charge.",
+        "contact": "Giant at (800) 363-9354 anytime or online at www.giantinc.com then click on Recall Information for more information. "
+      },
+      {
+        "id": "15026",
+        "date": "2014-11-13",
+        "title": "Tankless Water Heaters Recalled Due to Fire Hazard; Manufactured by Daesung Celtic Enersys; Distributed Exclusively by Challenger Supply Holdings",
+        "url": "https://www.cpsc.gov/Recalls/2015/Tankless-Water-Heaters-Recalled",
+        "brands": [
+          "coaire",
+          "quietside"
+        ],
+        "type": "gas_tankless",
+        "product": "Coaire and Quietside S-Line Condensing tankless gas water heaters",
+        "models": [],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "All models of the Coaire and Quietside brands (4 or 7.2 gallons per minute), sold July 2008 to August 2014.",
+        "serialRules": [],
+        "units": "About 29,000 in the United States and 2,200 in Canada",
+        "hazard": "The water heaters can overheat, posing a fire hazard.",
+        "remedy": "Consumers should immediately stop using the recalled water heaters and contact Challenger Supply Holdings to arrange for a free repair.",
+        "contact": "Challenger Supply Holdings at (800) 729-6118 between 7 a.m. and 6 p.m. CT Monday through Friday or online at www.challengersupply.com and click on \"Product Recall\" for more information.",
+        "builtYears": [
+          2008,
+          2014
+        ],
+        "allModels": true
+      },
+      {
+        "id": "12074",
+        "date": "2011-12-27",
+        "title": "Navien Recalls Tankless Water Heaters Due to Risk of Carbon Monoxide Poisoning",
+        "url": "https://www.cpsc.gov/Recalls/2012/Navien-Recalls-Tankless-Water-Heaters-Due-to-Risk-of-Carbon-Monoxide-Poisoning",
+        "brands": [
+          "navien"
+        ],
+        "type": "gas_tankless",
+        "product": "Navien T-Creator tankless water heaters made in 2008",
+        "models": [
+          "CR-180",
+          "CR-210",
+          "CR-240",
+          "CC-180",
+          "CC-210",
+          "CC-240",
+          "CR-180A",
+          "CR-210A",
+          "CR-240A",
+          "CC-180A",
+          "CC-210A",
+          "CC-240A"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Made in 2008 (the label shows the year as YYYY).",
+        "serialRules": [],
+        "units": "About 13,000",
+        "hazard": "An unstable connection can cause the water heater's vent collar to separate or detach if pressure is applied. A detached vent collar poses a risk of carbon monoxide poisoning to the consumer.",
+        "remedy": "Consumers should immediately stop using and check the model and manufacture year information on their Navien water heater. Consumers with recalled water heaters should immediately contact Navien to schedule a free repair. Navien will replace all Nylon 66 vent collar with PVC collars. Consumers who continue use of the water heaters while awaiting repair, should have a working carbon monoxide alarm installed outside of sleeping areas in the home.",
+        "contact": "For additional information, contact Navien at (800) 244-8202 between 8 a.m. and 5 p.m. PT Monday through Friday, or visit the firm's website at http://us.navien.com/"
+      },
+      {
+        "id": "08241",
+        "date": "2008-04-03",
+        "title": "A.O. Smith Recalls Gas Water Heaters Due to Fire and Carbon Monoxide Hazards",
+        "url": "https://www.cpsc.gov/Recalls/2008/AO-Smith-Recalls-Gas-Water-Heaters-Due-to-Fire-and-Carbon-Monoxide-Hazards",
+        "brands": [
+          "ao-smith",
+          "state"
+        ],
+        "type": "gas_tank",
+        "product": "A. O. Smith and State 75-gallon gas water heaters",
+        "models": [
+          "FCG-75 300",
+          "FCG-75 301",
+          "GS6 75 XRR S",
+          "GS6 75 CRR S"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "A. O. Smith serials L07A071460 to L07A144966 or M07A009387 to M07A072884; State models as listed. Sold November 2007 to January 2008.",
+        "serialRules": [
+          {
+            "re": "^[LM]07A",
+            "note": "serial starts L07A or M07A"
+          }
+        ],
+        "units": "About 1,500",
+        "hazard": "The water heater's flue gas temperatures can exceed safe limits and produce excessive temperatures in the venting unit, posing a fire hazard. Also, the water heater's exhaust can leak into the surrounding room, posing a carbon monoxide hazard.",
+        "remedy": "Consumers should immediately stop using the recalled water heater and contact A.O. Smith to arrange for a free repair.",
+        "contact": "For additional information, contact A.O. Smith toll-free at (866) 880-4661 between 7 a.m. and 7 p.m. CT, or visit the firm's Web site at www.hotwater.com"
+      },
+      {
+        "id": "07535",
+        "date": "2007-03-19",
+        "title": "Laars Heating Systems Recalls Gas Boilers and Water Heaters Due to Carbon Monoxide Poisoning Hazard",
+        "url": "https://www.cpsc.gov/Recalls/2007/Laars-Heating-Systems-Recalls-Gas-Boilers-and-Water-Heaters-Due-to-Carbon-Monoxide-Poisoning-Hazard",
+        "brands": [
+          "laars"
+        ],
+        "type": "gas_tank",
+        "product": "Laars 9600 HWG condensing water heaters (and 9600 CB boilers) with black vent tubing",
+        "models": [
+          "HWG 150",
+          "HWG 175",
+          "HWG 200",
+          "CB 150",
+          "CB 175",
+          "CB 200"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Only units with black internal vent pipe or tubing.",
+        "serialRules": [],
+        "units": "About 2,100",
+        "hazard": "Internal black plastic venting components in the gas boilers and water heaters can crack and leak flue gases, including carbon monoxide (CO), posing a risk of CO poisoning.",
+        "remedy": "Consumers should contact Laars Heating Systems to help determine if their boiler or water heater needs to be shut off immediately and to schedule a free repair.",
+        "contact": "Contact Laars Service Department at (800) 900-9276, Extension 4, between 7 a.m. and 4 p.m. PT Monday through Friday, or visit the firm's Web site at www.Laars.com"
+      },
+      {
+        "id": "07108",
+        "date": "2007-02-21",
+        "title": "Tankless Water Heaters Recalled for Repair Due to Carbon Monoxide Poisoning Hazard",
+        "url": "https://www.cpsc.gov/Recalls/2007/Tankless-Water-Heaters-Recalled-for-Repair-Due-to-Carbon-Monoxide-Poisoning-Hazard",
+        "brands": [
+          "paloma",
+          "rheem",
+          "ruud",
+          "richmond"
+        ],
+        "type": "gas_tankless",
+        "product": "Indoor Power Vent 199,900 BTU/h tankless water heaters (Paloma, Rheem, Ruud, Richmond)",
+        "models": [
+          "PTG-74PVN",
+          "PTG-74PVP",
+          "PTG-74PVN-1",
+          "PTG-74PVP-1",
+          "PTG-74PVNH",
+          "PTG-74PVPH",
+          "PTG-74PVNUH",
+          "PTG-74PVPUH",
+          "PH-28RIFSN",
+          "PH-28RIFSP",
+          "PH-28RIFSN-1",
+          "PH-28RIFSP-1",
+          "PH-28CIFSN",
+          "PH-28CIFSP",
+          "PH-28CIFSN-1",
+          "PH-28CIFSP-1",
+          "RTG-74PVN",
+          "RTG-74PVP",
+          "RTG-74PVN-1",
+          "RTG-74PVP-1",
+          "RUTG-74PVN",
+          "RUTG-74PVP",
+          "RUTG-74PVN-1",
+          "RUTG-74PVP-1",
+          "GT-199PV-N",
+          "GT-199PV-P",
+          "GT-199PV-N-1",
+          "GT-199PV-P-1",
+          "RMTG-74PVN",
+          "RMTG-74PVP",
+          "RMTG-74PVN-1",
+          "RMTG-74PVP-1",
+          "RMTG-74PVNH",
+          "RMTG-74PVPH",
+          "RMTG-74PVNUH",
+          "RMTG-74PVPUH"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "The listed indoor models, sold May 2004 to December 2006.",
+        "serialRules": [],
+        "units": "About 42,200",
+        "hazard": "Components inside the water heater may shift during transit, causing an air filter door switch to operate improperly. If the switch fails and the air filter door is out of place, the water heater could continue to operate and dust and lint could build up, posing a carbon monoxide poisoning hazard.",
+        "remedy": "Consumers with the recalled water heaters should stop using them immediately, if the air filter door is not in place. Consumers who have not already been contacted by an authorized contractor should immediately contact their installer or Rheem Manufacturing Company to arrange for a free, on-site repair. Consumers are reminded to use the air filter door for these water heaters to avoid a carbon monoxide hazard.",
+        "contact": "For more information, contact Rheem toll-free at (866) 369-4786 between 7 a.m. and 7 p.m. CT Monday through Friday and 9 a.m. and 4:30 p.m. CT Saturday and Sunday, or visit the firm's Web site at www.tankless-recall.com"
+      },
+      {
+        "id": "06252",
+        "date": "2006-09-07",
+        "title": "Delta Combination Water Heaters Recalled by Triangle Tube for Carbon Monoxide Poisoning Hazard",
+        "url": "https://www.cpsc.gov/Recalls/2006/Delta-Combination-Water-Heaters-Recalled-by-Triangle-Tube-for-Carbon-Monoxide-Poisoning-Hazard",
+        "brands": [
+          "triangle-tube"
+        ],
+        "type": "gas_tank",
+        "product": "Triangle Tube Delta Performance and Performance Plus combination water heaters",
+        "models": [
+          "PG-25",
+          "PG-30",
+          "PG-35",
+          "PG-40",
+          "PG-45",
+          "PG PLUS-25",
+          "PG PLUS-30",
+          "PG PLUS-35",
+          "PG PLUS-40",
+          "PG PLUS-45"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Serial numbers in the range given in the notice, sold August 2001 to January 2006.",
+        "serialRules": [],
+        "units": "About 3,000",
+        "hazard": "The burner plate and flue hood seal on the water heaters can fail due to an improper seal causing a leak of flue gases and carbon monoxide (CO). This poses the risk of CO poisoning to consumers inside of the house.",
+        "remedy": "Consumers should immediately stop using the recalled water heaters and contact Triangle Tube to schedule a free repair.",
+        "contact": "For more information, contact Triangle Tube at (800) 856-6271 between 8 a.m. and 4 p.m. ET Monday through Friday, or visit the company's Web site at www.triangletube.com"
+      },
+      {
+        "id": "06002",
+        "date": "2005-10-06",
+        "title": "CPSC, A.O. Smith Announce Recall of Water Heaters",
+        "url": "https://www.cpsc.gov/Recalls/2006/CPSC-AO-Smith-Recall-of-Water-Heaters",
+        "brands": [
+          "ao-smith",
+          "reliance",
+          "apollo",
+          "state",
+          "maytag"
+        ],
+        "type": "gas_tank",
+        "product": "75-gallon propane water heaters (A. O. Smith, Reliance, Apollo, State, Maytag)",
+        "models": [
+          "675CRRS",
+          "675CRRSD",
+          "S7576PE",
+          "A675CQRSL",
+          "A675CRRSL",
+          "A675CRRSLCGAD",
+          "BT-80-271",
+          "FCG-75-271",
+          "PCG-75-271",
+          "HRP11275Q",
+          "GS675CRRS",
+          "GS675CRRSD",
+          "SBS7576PE",
+          "SBS7576PED",
+          "SBS7576PECGA",
+          "SBS7576PECGAD"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Made January 2004 to July 2005; the serial starts with the month letter and 04 or 05 (for example MA04, AA04, A04 ... G05).",
+        "serialRules": [
+          {
+            "re": "^[MA]?[A-F]04|^[G-M]04|^[A-G]05",
+            "note": "built January 2004 to July 2005"
+          }
+        ],
+        "units": "About 5,000",
+        "hazard": "The water heaters can accumulate soot on the burners, posing a fire hazard.",
+        "remedy": "Contact A. O. Smith to arrange for installation of free repair.",
+        "contact": "Contact A.O. Smith toll-free at (866) 880-4661 between 7 a.m. and 7 p.m. Monday through Friday or visit www.hotwater.com"
+      },
+      {
+        "id": "05274",
+        "date": "2005-09-16",
+        "title": "CPSC, Robertshaw Controls Co. Announce Recall of Gas Control Valves on Water Heaters",
+        "url": "https://www.cpsc.gov/Recalls/2005/CPSC-Robertshaw-Controls-Co-Announce-Recall-of-Gas-Control-Valves-on-Water-Heaters-",
+        "brands": [
+          "american",
+          "bradford-white",
+          "ge",
+          "gsw",
+          "hotpoint",
+          "john-wood",
+          "lochinvar",
+          "rheem",
+          "richmond",
+          "ruud",
+          "whirlpool",
+          "us-craftmaster"
+        ],
+        "type": "component",
+        "product": "Robertshaw R110 gas control valves installed on gas water heaters",
+        "models": [],
+        "prefixes": [],
+        "brandWide": true,
+        "component": true,
+        "which": "Only valves made July 25 to August 14, 2005 (date codes 5-31 to 5-33), on gas water heaters of the brands listed. Electric heaters are not included. A heater built in late 2005 is the one to check.",
+        "serialRules": [],
+        "units": "About 178,000",
+        "hazard": "Screws on some water heater valves could break. If this happens, gas could leak from the valve, which poses a risk of gas explosion and fire.",
+        "remedy": "Consumers that believe they may have an affected water heater, please click on http://www.icca.invensys.com/robertshaw/recallarchive.htm. Have the model and serial numbers of your water heater ready. For further assistance, please contact Robertshaw. The model and serial numbers can be found on the manufacturer's label on the water heater. Robertshaw will arrange for a free repair or replacement, if necessary. If you smell gas near the appliance or in the building, immediately leave the area and call your gas company or a certified gas technician to investigate the cause.",
+        "contact": "Call Robertshaw at (800) 232-9389 between 8:30 a.m. to 5:00 p.m. CT Monday through Friday, or visit the firm's Web site at www.icca.invensys.com/robertshaw/recallarchive.htm to review a list of the appliances with recalled valves and to register for the recall.",
+        "builtYears": [
+          2005,
+          2005
+        ]
+      },
+      {
+        "id": "04128",
+        "date": "2004-04-28",
+        "title": "CPSC, White-Rodgers Announce Recall of LP and Convertible Gas Water Heater Temperature Controls",
+        "url": "https://www.cpsc.gov/Recalls/2004/CPSC-White-Rodgers-Announce-Recall-of-LP-and-Convertible-Gas-Water-Heater-Temperature-Controls-",
+        "brands": [
+          "ao-smith",
+          "apollo",
+          "kenmore",
+          "maytag",
+          "reliance",
+          "state"
+        ],
+        "type": "component",
+        "product": "White-Rodgers temperature controls on LP and convertible gas water heaters",
+        "models": [],
+        "prefixes": [],
+        "brandWide": true,
+        "component": true,
+        "which": "Controls with model 37C55U 658, 37C57U 602 or 37C72U 520/546/547/548/676 and date code 0240 to 0329 (late 2002 to mid 2003).",
+        "serialRules": [],
+        "units": "88,000",
+        "hazard": "The gas water heater controls can gradually open instead of snapping open to full flow, which can cause soot to build up on the water heater burner, presenting a fire hazard.",
+        "remedy": "Contact White-Rodgers to arrange for a qualified service technician to replace the recalled control, free of charge.",
+        "contact": "Call White-Rodgers Special Project Office at (800) 633-6709 or visit their website at https://climate.emerson.com/en-us/brands/white-rodgers/recall/lpwaterheater",
+        "builtYears": [
+          2002,
+          2003
+        ]
+      },
+      {
+        "id": "03156",
+        "date": "2003-07-02",
+        "title": "CPSC, Firms Announce Recall of GSW Water Heaters With S.I.T. Temperature Controls",
+        "url": "https://www.cpsc.gov/Recalls/2003/CPSC-Firms-Announce-Recall-of-GSW-Water-Heaters-With-SIT-Temperature-Controls-",
+        "brands": [
+          "gsw"
+        ],
+        "type": "gas_tank",
+        "product": "GSW gas water heaters with S.I.T. 650 AC4 controls",
+        "models": [],
+        "prefixes": [],
+        "brandWide": true,
+        "component": false,
+        "which": "Serial numbers 0202694162 to 0304507825.",
+        "serialRules": [
+          {
+            "from": "0202694162",
+            "to": "0304507825",
+            "note": "serial 0202694162 to 0304507825"
+          }
+        ],
+        "units": "13,000 (In addition, 140,000 units were sold in Canada)",
+        "hazard": "A potential burn hazard from ignition flashback or an increase in tank water temperature.",
+        "remedy": "When installing a GSW water heater with a SIT AC4 gas control valve in the identified group, or re-lighting the pilot light, the following instructions must be complied with: 1 - Make sure that the water heater contains cool water prior to lighting the pilot by opening a hot water faucet near your water heater and allowing the water to run for five minutes. Close the faucet. 2 - Turn the gas/temperature control knob clockwise to the maximum (VERY HOT) setting, and then slowly turn the knob back counterclockwise to the PILOT position, indicated by the yellow button. Listen for the main valve to close- this would be a popping or snapping sound. This sound is different from the clicking sound that the knob makes as you turn it. 3 - If you hear the popping sound then the valve is working properly. You should then read and follow the \"Installation and Operating Instructions\". If you do not hear the popping sound then do not attempt to light the pilot and replace the valve. 4 - If the unit has been stored or is being installed in a cold environment and the main valve does not close before the knob is turned back to the PILOT position, the gas control valve must be warmed up to a temperature above 32 degrees F or 0 degrees C. Once warmed up, repeat the procedure above. If the gas control valve does not close (popping sound), replace the valve. If the water is too hot or if the temperature and pressure valve opens, turn down the temperature using the temperature control. If the water remains too hot or the temperature and pressure relief valve continues to open, then replace the valve.",
+        "contact": "Call GSW toll-free at (800) 263-3502 between 8 a.m. and 5 p.m. ET Monday through Friday or visit the firm's website at www.gsw-wh.com. Consumers can also contact S.I.T. Controls USA Inc. at (704) 369-2810 between 8 a.m. and 5 p.m. ET Monday through Friday.",
+        "builtYears": [
+          2002,
+          2003
+        ]
+      },
+      {
+        "id": "02553",
+        "date": "2002-08-15",
+        "title": "CPSC, Bradford White Corporation, Announce Recall of Gas Water Heater",
+        "url": "https://www.cpsc.gov/Recalls/2002/CPSC-Bradford-White-Corporation-Announce-Recall-of-Gas-Water-Heater",
+        "brands": [
+          "bradford-white"
+        ],
+        "type": "gas_tank",
+        "product": "Bradford White 75-gallon power-vented gas water heaters",
+        "models": [
+          "MIITW75T6EN12",
+          "MIITW75T6CX12",
+          "TW375S76E3N",
+          "TW375S763X"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Serial numbers starting YD, and YE up to YE1395234.",
+        "serialRules": [
+          {
+            "re": "^Y[DE]",
+            "note": "serial starts YD or YE"
+          }
+        ],
+        "units": "1,220",
+        "hazard": "The water heater may have been fitted with incorrectly made flue gas baffles. These baffles may affect fuel combustion, resulting in excessive carbon monoxide emissions, which can cause serious injuries and death.",
+        "remedy": "Consumers who purchased one of these water heaters should immediately contact their installing contractor or call Bradford White Technical Support. Bradford White will confirm the status of the product. If involved, Bradford White will arrange for inspection (and replacement if necessary) of the flue baffle at no cost to the consumer.",
+        "contact": "Consumers may contact their installing contractor or call Bradford White Technical Support at (800) 334-3393, between 8:00 a.m. and 7:00p.m. ET, Monday through Friday, or visit the firm's Internet site at www.bradfordwhite.com"
+      },
+      {
+        "id": "02533",
+        "date": "2002-04-10",
+        "title": "CPSC and Gas-Fired Products Inc. Announce Recall of Water Heaters",
+        "url": "https://www.cpsc.gov/Recalls/2002/CPSC-and-Gas-Fired-Products-Inc-Announce-Recall-of-Water-Heaters",
+        "brands": [
+          "seahorse",
+          "bradford-white"
+        ],
+        "type": "gas_tank",
+        "product": "Seahorse and \"Bradford & White\" outdoor gas water heaters",
+        "models": [
+          "WH60-N1",
+          "WH60-N3",
+          "WH60-N5",
+          "WH60-L1",
+          "WH60-L3",
+          "WH60-L5",
+          "WHT60-N1",
+          "WHT60-N3",
+          "WHT60-N5",
+          "WHT60-L1",
+          "WHT60-L3",
+          "WHT60-L5",
+          "HE-15N",
+          "HE-15X"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "The models listed, sold 1992 to 2000.",
+        "serialRules": [],
+        "units": "About 1,300 Seahorse® and 25 \"Bradford & White\" water heaters",
+        "hazard": "Over time, the heat exchanger could become blocked, creating a potential ventilation and cracking problem, posing a fire hazard, if nearby combustibles ignite.",
+        "remedy": "Consumers should stop using the water heaters immediately and contact the recall hotline to receive a free repair kit. Most consumers were sent direct mail notification of this recall.",
+        "contact": "Consumers may contact the recall hotline toll-free at (800) 438-4936 between 8 a.m. and 5 p.m. ET Monday through Friday."
+      },
+      {
+        "id": "02020",
+        "date": "2001-10-18",
+        "title": "CPSC, American Water Heater Co. Announce Recall to Replace Burners in Gas Water Heaters",
+        "url": "https://www.cpsc.gov/Recalls/2002/CPSC-American-Water-Heater-Co-Announce-Recall-to-Replace-Burners-in-Gas-Water-Heaters",
+        "brands": [
+          "american",
+          "us-craftmaster",
+          "american-proline",
+          "envirotemp",
+          "mor-flo",
+          "powerflex",
+          "premier-plus"
+        ],
+        "type": "gas_tank",
+        "product": "American Water Heater natural gas water heaters (American Proline, Envirotemp, Mor-Flo, Powerflex, Premier Plus, U.S. Craftmaster)",
+        "models": [],
+        "prefixes": [],
+        "brandWide": true,
+        "component": false,
+        "which": "Natural gas models whose serial starts with 0124 to 0127 (built June to September 2001).",
+        "serialRules": [
+          {
+            "from": "0124",
+            "to": "0127",
+            "note": "serial starts 0124 to 0127"
+          }
+        ],
+        "units": "About 16,000",
+        "hazard": "The burners could produce excess carbon monoxide (CO), posing a risk of CO poisoning to consumers.",
+        "remedy": "Consumers should contact the American Water Heater Co. immediately, to arrange for a free repair.",
+        "contact": "Consumers may contact the firm at (800) 999-9515 between 8 a.m. and 8 p.m. ET Monday through Friday, or between 9 a.m. and 6 p.m. ET on Saturday. Consumers also can reach the firm by fax at (800) 999-5210 or by email at support@americanwaterheater.com",
+        "builtYears": [
+          2001,
+          2001
+        ]
+      },
+      {
+        "id": "01085",
+        "date": "2001-02-15",
+        "title": "CPSC, Controlled Energy Corporation Announce Recall of Water Heaters",
+        "url": "https://www.cpsc.gov/Recalls/2001/CPSC-Controlled-Energy-Corporation-Announce-Recall-of-Water-Heaters",
+        "brands": [
+          "aquastar"
+        ],
+        "type": "gas_tankless",
+        "product": "AquaStar natural gas water heaters (Controlled Energy Corporation)",
+        "models": [
+          "AQ38B NG",
+          "AQ38BNG",
+          "AQ38B"
+        ],
+        "prefixes": [],
+        "brandWide": false,
+        "component": false,
+        "which": "Model AQ38B NG, sold March 1997 to January 2001.",
+        "serialRules": [],
+        "units": "About 320",
+        "hazard": "The heaters can produce dangerous levels of carbon monoxide in the exhaust gas, which can cause serious injuries and death.",
+        "remedy": "Consumers who have the recalled AquaStar unit (model number AQ38B NG), should turn off the water heater immediately and call Controlled Energy Corporation. CEC is offering consumers a free on-site repair conducted by a licensed professional plumber.",
+        "contact": "Consumers may call Controlled Energy Corporation toll-free at (800) 642-3111 between 8:30 a.m. and 7 p.m. ET Monday through Friday."
+      }
+    ],
+    "brands": {
+      "american": "American Water Heater",
+      "american-proline": "American Proline",
+      "american-standard": "American Standard",
+      "ao-smith": "A. O. Smith",
+      "apollo": "Apollo",
+      "aquastar": "AquaStar",
+      "bradford-white": "Bradford White",
+      "camplux": "Camplux",
+      "coaire": "Coaire",
+      "envirotemp": "Envirotemp",
+      "ge": "GE",
+      "giant": "Giant",
+      "gsw": "GSW",
+      "hotpoint": "Hotpoint",
+      "john-wood": "John Wood",
+      "kenmore": "Kenmore",
+      "laars": "Laars",
+      "lochinvar": "Lochinvar",
+      "maytag": "Maytag",
+      "mor-flo": "Mor-Flo",
+      "navien": "Navien",
+      "paloma": "Paloma",
+      "powerflex": "Powerflex",
+      "premier-plus": "Premier Plus",
+      "quietside": "Quietside",
+      "reliance": "Reliance",
+      "rheem": "Rheem",
+      "richmond": "Richmond",
+      "ruud": "Ruud",
+      "seahorse": "Seahorse",
+      "state": "State",
+      "triangle-tube": "Triangle Tube",
+      "us-craftmaster": "U.S. Craftmaster",
+      "vst": "VST (VESTA.DS)",
+      "whirlpool": "Whirlpool",
+      "rinnai": "Rinnai",
+      "noritz": "Noritz",
+      "takagi": "Takagi",
+      "bosch": "Bosch",
+      "other": "Other or not sure"
+    },
+    "brandOptions": [
+      {
+        "id": "ao-smith",
+        "label": "A. O. Smith"
+      },
+      {
+        "id": "american-proline",
+        "label": "American Proline"
+      },
+      {
+        "id": "american-standard",
+        "label": "American Standard"
+      },
+      {
+        "id": "american",
+        "label": "American Water Heater"
+      },
+      {
+        "id": "apollo",
+        "label": "Apollo"
+      },
+      {
+        "id": "aquastar",
+        "label": "AquaStar"
+      },
+      {
+        "id": "bradford-white",
+        "label": "Bradford White"
+      },
+      {
+        "id": "camplux",
+        "label": "Camplux"
+      },
+      {
+        "id": "coaire",
+        "label": "Coaire"
+      },
+      {
+        "id": "envirotemp",
+        "label": "Envirotemp"
+      },
+      {
+        "id": "ge",
+        "label": "GE"
+      },
+      {
+        "id": "giant",
+        "label": "Giant"
+      },
+      {
+        "id": "gsw",
+        "label": "GSW"
+      },
+      {
+        "id": "hotpoint",
+        "label": "Hotpoint"
+      },
+      {
+        "id": "john-wood",
+        "label": "John Wood"
+      },
+      {
+        "id": "kenmore",
+        "label": "Kenmore"
+      },
+      {
+        "id": "laars",
+        "label": "Laars"
+      },
+      {
+        "id": "lochinvar",
+        "label": "Lochinvar"
+      },
+      {
+        "id": "maytag",
+        "label": "Maytag"
+      },
+      {
+        "id": "mor-flo",
+        "label": "Mor-Flo"
+      },
+      {
+        "id": "navien",
+        "label": "Navien"
+      },
+      {
+        "id": "paloma",
+        "label": "Paloma"
+      },
+      {
+        "id": "powerflex",
+        "label": "Powerflex"
+      },
+      {
+        "id": "premier-plus",
+        "label": "Premier Plus"
+      },
+      {
+        "id": "quietside",
+        "label": "Quietside"
+      },
+      {
+        "id": "reliance",
+        "label": "Reliance"
+      },
+      {
+        "id": "rheem",
+        "label": "Rheem"
+      },
+      {
+        "id": "richmond",
+        "label": "Richmond"
+      },
+      {
+        "id": "ruud",
+        "label": "Ruud"
+      },
+      {
+        "id": "seahorse",
+        "label": "Seahorse"
+      },
+      {
+        "id": "state",
+        "label": "State"
+      },
+      {
+        "id": "triangle-tube",
+        "label": "Triangle Tube"
+      },
+      {
+        "id": "us-craftmaster",
+        "label": "U.S. Craftmaster"
+      },
+      {
+        "id": "vst",
+        "label": "VST (VESTA.DS)"
+      },
+      {
+        "id": "whirlpool",
+        "label": "Whirlpool"
+      },
+      {
+        "id": "rinnai",
+        "label": "Rinnai"
+      },
+      {
+        "id": "noritz",
+        "label": "Noritz"
+      },
+      {
+        "id": "takagi",
+        "label": "Takagi"
+      },
+      {
+        "id": "bosch",
+        "label": "Bosch"
+      },
+      {
+        "id": "other",
+        "label": "Other or not sure"
+      }
+    ],
+    "limits": {
+      "madeYear": {
+        "label": "Year made",
+        "min": 1980,
+        "max": 2027,
+        "optional": true,
+        "integer": true,
+        "note": "Use the year on the label, or leave it blank."
+      }
+    },
+    "count": 24,
+    "since": 2001
+  },
+  "figures": {
+    "count": 24,
+    "since": 2001,
+    "latest": {
+      "product": "VST (VESTA.DS) gas tankless water heaters, Series VT, VR and VR Plus",
+      "date": "October 16, 2025",
+      "units": "About 36,700 (In addition, about 3,500 were sold in Canada)"
+    },
+    "biggest": {
+      "product": "Ultra-Low NOx gas water heaters, 30 to 50 gallons, sold mainly in California",
+      "date": "November 8, 2018",
+      "units": "About 616,000"
+    },
+    "byType": [
+      {
+        "type": "Gas tank",
+        "n": 13
+      },
+      {
+        "type": "Electric tank",
+        "n": 1
+      },
+      {
+        "type": "Gas tankless",
+        "n": 6
+      },
+      {
+        "type": "Portable tankless (outdoor)",
+        "n": 1
+      },
+      {
+        "type": "Oil-fired tank",
+        "n": 1
+      },
+      {
+        "type": "Gas control part",
+        "n": 2
+      }
+    ],
+    "hazards": [
+      {
+        "label": "Carbon monoxide",
+        "n": 12
+      },
+      {
+        "label": "Fire or explosion",
+        "n": 14
+      },
+      {
+        "label": "Burn or scald",
+        "n": 10
+      }
+    ],
+    "read": "November 21, 2026",
+    "selfChecks": 17
+  },
+  "tables": {
+    "recalls": {
+      "caption": "Water heater recalls announced by the U.S. CPSC, 2001 to 2025",
+      "columns": [
+        {
+          "key": "date",
+          "label": "Date"
+        },
+        {
+          "key": "product",
+          "label": "What was recalled"
+        },
+        {
+          "key": "units",
+          "label": "Units (U.S.)"
+        },
+        {
+          "key": "hazard",
+          "label": "Hazard"
+        }
+      ],
+      "rows": [
+        {
+          "date": "2025-10-16",
+          "product": "VST (VESTA.DS) gas tankless water heaters, Series VT, VR and VR Plus",
+          "units": "36,700 (In addition, about 3,500 were sold in Canada)",
+          "hazard": "Carbon monoxide"
+        },
+        {
+          "date": "2024-02-29",
+          "product": "Camplux portable propane tankless water heaters (outdoor)",
+          "units": "42,000",
+          "hazard": "Fire or explosion"
+        },
+        {
+          "date": "2021-11-03",
+          "product": "Giant gas water heaters (40, 50 and 75 gallons) with Emerson control valves",
+          "units": "168 (in addition, about 10,832 were sold in Canada)",
+          "hazard": "Carbon monoxide, Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2018-12-20",
+          "product": "Navien condensing tankless water heaters and combi boilers converted to propane",
+          "units": "3,400",
+          "hazard": "Carbon monoxide"
+        },
+        {
+          "date": "2018-11-08",
+          "product": "A. O. Smith 30-gallon natural gas water heaters sold at Lowe's in California",
+          "units": "190",
+          "hazard": "Fire or explosion"
+        },
+        {
+          "date": "2018-11-08",
+          "product": "Ultra-Low NOx gas water heaters, 30 to 50 gallons, sold mainly in California",
+          "units": "616,000",
+          "hazard": "Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2016-05-26",
+          "product": "Rheem Performance Platinum electric water heaters (40, 50 and 80 gallons) sold at The Home Depot",
+          "units": "54,000",
+          "hazard": "Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2016-05-24",
+          "product": "American Standard gas water heaters (30, 40 and 50 gallons) by Water Heating Technologies",
+          "units": "14,400",
+          "hazard": "Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2015-06-02",
+          "product": "John Wood oil-fired water heaters (50 and 70 gallons)",
+          "units": "250",
+          "hazard": "Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2015-03-31",
+          "product": "Giant atmospherically vented gas water heaters (30 to 60 gallons)",
+          "units": "240",
+          "hazard": "Fire or explosion"
+        },
+        {
+          "date": "2014-11-13",
+          "product": "Coaire and Quietside S-Line Condensing tankless gas water heaters",
+          "units": "29,000 in the United States and 2,200 in Canada",
+          "hazard": "Fire or explosion"
+        },
+        {
+          "date": "2011-12-27",
+          "product": "Navien T-Creator tankless water heaters made in 2008",
+          "units": "13,000",
+          "hazard": "Carbon monoxide"
+        },
+        {
+          "date": "2008-04-03",
+          "product": "A. O. Smith and State 75-gallon gas water heaters",
+          "units": "1,500",
+          "hazard": "Carbon monoxide, Fire or explosion"
+        },
+        {
+          "date": "2007-03-19",
+          "product": "Laars 9600 HWG condensing water heaters (and 9600 CB boilers) with black vent tubing",
+          "units": "2,100",
+          "hazard": "Carbon monoxide"
+        },
+        {
+          "date": "2007-02-21",
+          "product": "Indoor Power Vent 199,900 BTU/h tankless water heaters (Paloma, Rheem, Ruud, Richmond)",
+          "units": "42,200",
+          "hazard": "Carbon monoxide"
+        },
+        {
+          "date": "2006-09-07",
+          "product": "Triangle Tube Delta Performance and Performance Plus combination water heaters",
+          "units": "3,000",
+          "hazard": "Carbon monoxide, Burn or scald"
+        },
+        {
+          "date": "2005-10-06",
+          "product": "75-gallon propane water heaters (A. O. Smith, Reliance, Apollo, State, Maytag)",
+          "units": "5,000",
+          "hazard": "Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2005-09-16",
+          "product": "Robertshaw R110 gas control valves installed on gas water heaters",
+          "units": "178,000",
+          "hazard": "Carbon monoxide, Fire or explosion"
+        },
+        {
+          "date": "2004-04-28",
+          "product": "White-Rodgers temperature controls on LP and convertible gas water heaters",
+          "units": "88,000",
+          "hazard": "Fire or explosion, Burn or scald"
+        },
+        {
+          "date": "2003-07-02",
+          "product": "GSW gas water heaters with S.I.T. 650 AC4 controls",
+          "units": "13,000 (In addition, 140,000 units were sold in Canada)",
+          "hazard": "Burn or scald"
+        },
+        {
+          "date": "2002-08-15",
+          "product": "Bradford White 75-gallon power-vented gas water heaters",
+          "units": "1,220",
+          "hazard": "Carbon monoxide"
+        },
+        {
+          "date": "2002-04-10",
+          "product": "Seahorse and \"Bradford & White\" outdoor gas water heaters",
+          "units": "1,300 Seahorse® and 25 \"Bradford & White\" water heaters",
+          "hazard": "Fire or explosion"
+        },
+        {
+          "date": "2001-10-18",
+          "product": "American Water Heater natural gas water heaters (American Proline, Envirotemp, Mor-Flo, Powerflex, Premier Plus, U.S. Craftmaster)",
+          "units": "16,000",
+          "hazard": "Carbon monoxide, Burn or scald"
+        },
+        {
+          "date": "2001-02-15",
+          "product": "AquaStar natural gas water heaters (Controlled Energy Corporation)",
+          "units": "320",
+          "hazard": "Carbon monoxide"
+        }
+      ],
+      "source": "U.S. Consumer Product Safety Commission (CPSC) recall database, SaferProducts.gov Recall REST web service",
+      "sourceUrl": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
+      "sourceDate": "2026-11-21"
+    },
+    "byBrand": {
+      "caption": "Water heater recalls by brand (a recall can name several brands)",
+      "columns": [
+        {
+          "key": "brand",
+          "label": "Brand"
+        },
+        {
+          "key": "n",
+          "label": "Recalls",
+          "num": true
+        },
+        {
+          "key": "latest",
+          "label": "Latest"
+        }
+      ],
+      "rows": [
+        {
+          "brand": "A. O. Smith",
+          "n": 5,
+          "latest": "2018"
+        },
+        {
+          "brand": "State",
+          "n": 4,
+          "latest": "2018"
+        },
+        {
+          "brand": "American Water Heater",
+          "n": 3,
+          "latest": "2018"
+        },
+        {
+          "brand": "Bradford White",
+          "n": 3,
+          "latest": "2005"
+        },
+        {
+          "brand": "Reliance",
+          "n": 3,
+          "latest": "2018"
+        },
+        {
+          "brand": "Rheem",
+          "n": 3,
+          "latest": "2016"
+        },
+        {
+          "brand": "U.S. Craftmaster",
+          "n": 3,
+          "latest": "2018"
+        },
+        {
+          "brand": "Apollo",
+          "n": 2,
+          "latest": "2005"
+        },
+        {
+          "brand": "Giant",
+          "n": 2,
+          "latest": "2021"
+        },
+        {
+          "brand": "GSW",
+          "n": 2,
+          "latest": "2005"
+        },
+        {
+          "brand": "John Wood",
+          "n": 2,
+          "latest": "2015"
+        },
+        {
+          "brand": "Kenmore",
+          "n": 2,
+          "latest": "2018"
+        },
+        {
+          "brand": "Maytag",
+          "n": 2,
+          "latest": "2005"
+        },
+        {
+          "brand": "Navien",
+          "n": 2,
+          "latest": "2018"
+        },
+        {
+          "brand": "Richmond",
+          "n": 2,
+          "latest": "2007"
+        },
+        {
+          "brand": "Ruud",
+          "n": 2,
+          "latest": "2007"
+        },
+        {
+          "brand": "Whirlpool",
+          "n": 2,
+          "latest": "2018"
+        }
+      ],
+      "source": "U.S. Consumer Product Safety Commission (CPSC) recall database, SaferProducts.gov Recall REST web service",
+      "sourceUrl": "https://www.saferproducts.gov/RestWebServices/Recall?format=json",
+      "sourceDate": "2026-11-21"
+    },
+    "cases": {
+      "caption": "Five test cases run through the lookup",
+      "columns": [
+        {
+          "key": "label",
+          "label": "Input"
+        },
+        {
+          "key": "result",
+          "label": "Result"
+        }
+      ],
+      "rows": [
+        {
+          "label": "Rheem XE50T12EC55U0, serial Q2314… (2014 build)",
+          "result": "This heater matches a CPSC recall: Rheem Performance Platinum electric water heaters (40, 50 and 80 gallons) sold at The Home Depot"
+        },
+        {
+          "label": "Same model, serial Q2517… (2017 build)",
+          "result": "Your model is in a recall, but your serial is outside the recalled range"
+        },
+        {
+          "label": "A. O. Smith G6-UT3030NV, serial 1807…",
+          "result": "This heater matches a CPSC recall: A. O. Smith 30-gallon natural gas water heaters sold at Lowe's in California"
+        },
+        {
+          "label": "Navien NPE-180A, no serial",
+          "result": "Possible match: Navien condensing tankless water heaters and combi boilers converted to propane"
+        },
+        {
+          "label": "Rheem XG50T06EC38U1 (not in any notice)",
+          "result": "No match in the 24 U.S. CPSC water heater recalls announced since 2001"
+        }
+      ],
+      "source": "Hot Water Math recall lookup (formulas.js recallCheck) on data/recalls.json",
+      "sourceUrl": "https://hotwatermath.com/methodology/",
+      "sourceDate": "2026-11-21"
+    }
+  }
+}

@@ -1006,3 +1006,110 @@ export function lineBand(amount, range) {
 	if (amount > range.high) return 'high';
 	return 'in';
 }
+
+/* ---------- 2026-11-21: recall lookup, maintenance schedule ---------- */
+
+/** Model or serial as compared: upper case, no spaces, dashes, dots or slashes ("fcg-75 300" → "FCG75300"). */
+export function normalizeCode(s) {
+	return String(s ?? '').toUpperCase().replace(/[\s\-./_]/g, '');
+}
+
+/**
+ * Does a serial fall inside one recall's serial rules? Rules are { re } (a regular expression on the normalized
+ * serial) or { from, to } (the serial's first from.length characters, compared as text, between from and to).
+ * @returns {boolean|null} true = inside a rule, false = outside all, null = no rules or no serial (cannot tell).
+ */
+export function serialInRecall(serial, rules) {
+	const s = normalizeCode(serial);
+	if (!s || !rules || !rules.length) return null;
+	return rules.some((r) => {
+		if (r.re) return new RegExp(r.re).test(s);
+		const head = s.slice(0, r.from.length);
+		return head.length === r.from.length && head >= r.from && head <= r.to;
+	});
+}
+
+/**
+ * Check a brand, model and serial against the recall list (data/recalls.json).
+ * Each hit: { recall, level, reason } with level 'match' (model listed and serial inside the range or no range to
+ * test), 'possible' (model listed but serial not given or untestable; or a brand-wide or component recall for the
+ * brand) or 'outside' (model listed, serial outside every range). Recalls of the brand that do not list the model
+ * come back in `brandOnly`. Nothing here says a heater is safe: no hit only means no match in this list.
+ * allModels recalls match on the brand alone. Brand-wide and component recalls are 'possible' only when the serial is
+ * inside their range or input.year (year made) is inside r.builtYears; otherwise they are listed in `brandOnly`.
+ * @param {{brand?:string, model?:string, serial?:string, year?:number|null}} input
+ * @param {Array<object>} recalls
+ */
+export function recallCheck(input, recalls) {
+	const brand = String(input.brand || '');
+	const model = normalizeCode(input.model);
+	const hits = [];
+	const brandOnly = [];
+	for (const r of recalls) {
+		const listed = (r.models || []).some((m) => normalizeCode(m) === model) || (model && (r.prefixes || []).some((p) => model.startsWith(normalizeCode(p))));
+		const brandHit = brand && (r.brands || []).includes(brand);
+		if (model && listed) {
+			const s = serialInRecall(input.serial, r.serialRules);
+			const level = s === false ? 'outside' : s === true || !(r.serialRules || []).length ? 'match' : 'possible';
+			const reason = s === false ? 'Your model is listed, but your serial is outside the recalled range.' : s === true ? 'Your model is listed and your serial is inside the recalled range.' : (r.serialRules || []).length ? 'Your model is listed; add the serial number to check the recalled range.' : 'Your model is listed in this recall.';
+			hits.push({ recall: r, level, reason });
+		} else if (brandHit && r.allModels) {
+			hits.push({ recall: r, level: 'match', reason: 'This recall covers every model of your brand sold in the dates below.' });
+		} else if (brandHit && (r.brandWide || r.component)) {
+			// A recall that names no single model: flag it only on evidence (serial inside its range, or year made
+			// inside its years); otherwise list it as a same-brand recall to check.
+			const s = serialInRecall(input.serial, r.serialRules);
+			const y = Number(input.year);
+			const yearIn = Number.isInteger(y) && y > 0 && r.builtYears ? y >= r.builtYears[0] && y <= r.builtYears[1] : null;
+			if (s === false || yearIn === false || (s === null && yearIn === null)) brandOnly.push(r);
+			else hits.push({ recall: r, level: 'possible', reason: r.component ? 'Your heater\'s brand and build date fit this recall of a part; check the part named below.' : s === true ? 'Your serial is inside the range of this brand-wide recall.' : 'Your heater\'s brand and year made fit this brand-wide recall.' });
+		} else if (brandHit) {
+			brandOnly.push(r);
+		}
+	}
+	const rank = { match: 0, possible: 1, outside: 2 };
+	hits.sort((a, b) => rank[a.level] - rank[b.level] || b.recall.date.localeCompare(a.recall.date));
+	brandOnly.sort((a, b) => b.date.localeCompare(a.date));
+	return { hits, brandOnly, top: hits.length ? hits[0].level : 'none' };
+}
+
+/** Add whole months to a date (UTC), keeping the day where the month has it. */
+export function addMonths(date, months) {
+	const d = new Date(Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + months, 1));
+	const last = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + 1, 0)).getUTCDate();
+	d.setUTCDate(Math.min(date.getUTCDate(), last));
+	return d;
+}
+
+/**
+ * Maintenance schedule from data/maintenance.json: for each task of the heater's family, the first date it is due
+ * on or after the last time it was done (or the install date). Interval: hardEveryMonths on hard water, else
+ * everyMonths; the first service comes firstMonths after install. A task whose due date is before asOf is overdue;
+ * within dueSoonDays it is due soon. The replacement note is due when age reaches lifespans[type][lifespanKey].
+ * @param {{type:string, installed:Date, water?:string, lastService?:Date|null}} v
+ * @param {{types:object, tasks:Array, replacement:object, dueSoonDays:number, lifespans:object}} cfg
+ * @param {Date} asOf
+ * @returns {Array<{id:string, label:string, everyMonths:number|null, due:Date, status:'overdue'|'soon'|'ok'}>}
+ */
+export function maintenanceSchedule(v, cfg, asOf) {
+	const fam = cfg.types[v.type]?.family;
+	if (!fam || !(v.installed instanceof Date) || Number.isNaN(v.installed.getTime())) return [];
+	const soon = asOf.getTime() + cfg.dueSoonDays * 86400000;
+	const status = (due) => (due.getTime() < asOf.getTime() ? 'overdue' : due.getTime() <= soon ? 'soon' : 'ok');
+	const rows = [];
+	for (const t of cfg.tasks.filter((x) => x.family === fam)) {
+		const every = v.water === 'hard' && t.hardEveryMonths ? t.hardEveryMonths : t.everyMonths;
+		let due = addMonths(v.installed, t.firstMonths);
+		const done = v.lastService instanceof Date && !Number.isNaN(v.lastService.getTime()) && t.id !== 'tpPro' ? v.lastService : null;
+		if (done && done.getTime() >= v.installed.getTime()) {
+			due = addMonths(done, every);
+		}
+		rows.push({ id: t.id, label: t.label, everyMonths: every, due, status: status(due) });
+	}
+	const life = cfg.lifespans[v.type];
+	if (life) {
+		const due = addMonths(v.installed, Math.round(life[cfg.replacement.lifespanKey] * 12));
+		rows.push({ id: cfg.replacement.id, label: cfg.replacement.label, everyMonths: null, due, status: status(due) });
+	}
+	return rows.sort((a, b) => a.due - b.due);
+}

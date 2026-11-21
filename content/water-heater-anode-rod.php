@@ -113,6 +113,7 @@ hwm_part( 'calculator', array( 'tool' => 'water-heater-age-calculator', 'inputs'
 
 <h2>Limitations of this guide</h2>
 <p>Rules and steps come from A. O. Smith and GE; other makers' rules can differ, and your manual wins. Prices are a single retailer's listings on one date, not quotes, and they change. We do not test rods ourselves. See <?php echo hwm_link( 'editorial-policy', 'our editorial policy' ); // phpcs:ignore ?> for how we choose sources.</p>
+<?php hwm_part( 'heater-care-links', array( 'only' => array( 'schedule' ) ) ); ?>
 <?php
 $faq = array(
 	array(

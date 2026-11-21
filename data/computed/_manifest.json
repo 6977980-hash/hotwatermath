@@ -58,12 +58,15 @@
     "datasets",
     "water-heater-model-number-lookup",
     "heat-pump-water-heater-rebates",
-    "water-heater-quote-checker"
+    "water-heater-quote-checker",
+    "water-heater-recall-lookup",
+    "water-heater-maintenance-schedule",
+    "water-heater-failure-database"
   ],
   "inputs": {
-    "assets/js/formulas.js": "2141098fdb435a95",
-    "scripts/build-data.mjs": "8342ebaaa4580f31",
-    "data/site.json": "4159aa592dbcff94",
+    "assets/js/formulas.js": "7269b58c0562bd0b",
+    "scripts/build-data.mjs": "73bbab10a6ab074c",
+    "data/site.json": "a36f81d68d57bc6b",
     "data/energy-prices.json": "b4e98398b34dad8f",
     "data/groundwater-temp-by-state.json": "e48d3fb12fd9de96",
     "data/regional-cost-index.json": "a176162a982ec7a9",
@@ -87,7 +90,7 @@
     "assets/js/repair-replace.js": "7d49fbbea50a8ec7",
     "data/household-size-guides.json": "7bfdcaed71e35006",
     "data/installation-costs.json": "b53cea72e723cf98",
-    "data/pages.json": "c922289c8c5e4743",
+    "data/pages.json": "6ff8c84bda02561e",
     "assets/js/cost-model.js": "d5e158ebb5b24ad4",
     "assets/js/cost-calculator.js": "5e0d11a582147e8f",
     "assets/js/tankless-vs-tank.js": "202bbcc76c53cb92",
@@ -102,7 +105,7 @@
     "data/metro-price-parities.json": "b3e2bb96ce8fc61f",
     "data/safety.json": "db359cfdece41fef",
     "data/datasets.json": "8a8b5d8fa0f7cd48",
-    "data/input-limits.json": "97c09ae425a99a38",
+    "data/input-limits.json": "46fda3a34e1bde98",
     "data/propane-prices.json": "f6160a0007d51a0b",
     "data/hpwh-rebates.json": "ab9d0b63cb1baae7",
     "data/solar-water-heating.json": "c658cff8b144fa83",
@@ -111,6 +114,11 @@
     "data/quote-check.json": "a0edc2b88eea5493",
     "assets/js/model-lookup.js": "457fba30a1d531aa",
     "assets/js/rebate-finder.js": "fe7a1a59a41da959",
-    "assets/js/quote-checker.js": "e269f4cf59c8b26b"
+    "assets/js/quote-checker.js": "e269f4cf59c8b26b",
+    "data/recalls.json": "de0a25c2ec572b73",
+    "data/maintenance.json": "36f9415a495a550e",
+    "data/failure-database.json": "43ec91c01ce73e66",
+    "assets/js/recall-lookup.js": "b9129643816ea7c1",
+    "assets/js/maintenance-schedule.js": "63c97384395a8e07"
   }
 }
