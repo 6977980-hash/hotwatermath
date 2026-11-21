@@ -70,3 +70,4 @@
 - 2026-11-13 — Go-live — owner OK: 10 state cost pages (Phase 6c) and 4 troubleshooting pages (Phase 6b batch 2) flipped to live.
 - 2026-11-13 — Phase 6d batch 1 pages live — owner OK; temperature setting, relief valve leaking, element replacement flipped live.
 - 2026-11-14 — GTM added — Google Tag Manager GTM-5K9PR6XR (deferred, consent defaults first, noscript iframe, no GTM on embeds); privacy policy and CLAUDE.md §2/§10 updated.
+- 2026-11-21 — GSC-driven content fixes — first GSC audit (report in project files gsc-audit/2026-11-21); max temperature H2 + FAQ (safety.temp.aosVeryHotF, A. O. Smith manual re-checked 2026-11-21), relief valve, tankless wiring and anode FAQs, FHR definition H2, links to quote checker, rebate finder and model lookup (style 0.20.3).

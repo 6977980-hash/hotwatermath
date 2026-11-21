@@ -146,6 +146,14 @@ $faq = array(
 		'a' => 'The valve itself listed for about $' . hwm_value( 'safety', 'tp.priceLow' ) . ' to $' . hwm_value( 'safety', 'tp.priceHigh' ) . ' at The Home Depot when we checked. Labor depends on your area. Watts says the valve must not be repaired, and A. O. Smith says to have a qualified person replace a broken one.',
 	),
 	array(
+		'q' => 'Why is water coming out of the relief valve pipe outside my house?',
+		'a' => 'The pipe that ends outside is the relief valve\'s discharge pipe, so the water is coming from the same valve. A. O. Smith allows it to end outside the building. The causes are the same as for a drip indoors: high water pressure, thermal expansion or a worn valve. If hot water or steam comes out, turn the heater off.',
+	),
+	array(
+		'q' => 'Is it normal for a water heater relief valve to leak a little?',
+		'a' => 'No. Watts\' tag says any discharge in normal use points to an unsafe temperature or pressure condition or a problem with the valve. A. O. Smith adds that a valve left dripping for a long time should be inspected for mineral buildup. Check the water pressure first, then the expansion tank.',
+	),
+	array(
 		'q' => 'Will an expansion tank stop my relief valve from leaking?',
 		'a' => 'If thermal expansion is the cause, yes. A. O. Smith recommends a properly sized expansion tank in almost all homes, with its air charge set to your water pressure and never above ' . hwm_value( 'safety', 'tp.expTankPrechargeMaxPsi' ) . ' psi. If the valve still drips with one installed, check the pressure and the tank\'s air charge.',
 	),
