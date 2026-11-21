@@ -149,7 +149,7 @@ function hwm_llms_txt(): string {
 	$lines[] = 'Every calculator shows its formula, and every default value names its source. Formulas and sources: ' . hwm_url( 'methodology' );
 	$lines[] = '';
 	foreach ( array( 'tool' => 'Calculators', 'article' => 'Guides' ) as $type => $label ) {
-		$items = hwm_pages_of( $type, array( 'live' ) );
+		$items = array_filter( hwm_pages_of( $type, array( 'live' ) ), 'hwm_is_indexable' );
 		if ( ! $items ) {
 			continue;
 		}
@@ -176,7 +176,7 @@ add_action(
 	static function () {
 		$current = array();
 		foreach ( hwm_pages() as $slug => $entry ) {
-			if ( hwm_is_live( $entry ) ) {
+			if ( hwm_is_indexable( $entry ) ) {
 				$current[ $slug ] = (string) ( $entry['dateModified'] ?? '' );
 			}
 		}

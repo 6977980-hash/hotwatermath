@@ -94,6 +94,11 @@ function hwm_is_live( ?array $entry ): bool {
 	return $entry && 'live' === ( $entry['status'] ?? '' );
 }
 
+/** Live and meant for search engines. A live page with "noindex": true is linked and usable but kept out of search, the sitemap and IndexNow (e.g. the failure database until its report exists). */
+function hwm_is_indexable( ?array $entry ): bool {
+	return hwm_is_live( $entry ) && empty( $entry['noindex'] );
+}
+
 /** Include a template part from parts/ with named arguments. */
 function hwm_part( string $name, array $args = array() ): void {
 	$file = HWM_DIR . '/parts/' . $name . '.php';

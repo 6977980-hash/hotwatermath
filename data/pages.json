@@ -1636,7 +1636,7 @@
     {
       "slug": "water-heater-recall-lookup",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "tools-2026-11-21",
       "datePublished": "2026-11-21",
       "dateModified": "2026-11-21",
@@ -1665,7 +1665,7 @@
     {
       "slug": "water-heater-maintenance-schedule",
       "type": "tool",
-      "status": "draft",
+      "status": "live",
       "phase": "tools-2026-11-21",
       "datePublished": "2026-11-21",
       "dateModified": "2026-11-21",
@@ -1693,7 +1693,7 @@
     {
       "slug": "water-heater-failure-database",
       "type": "article",
-      "status": "draft",
+      "status": "live",
       "group": "Lifespan & Replacement",
       "phase": "tools-2026-11-21",
       "datePublished": "2026-11-21",
@@ -1714,7 +1714,8 @@
         "why do water heaters fail",
         "water heater failure statistics",
         "average age water heater failure"
-      ]
+      ],
+      "noindex": true
     }
   ]
 }
