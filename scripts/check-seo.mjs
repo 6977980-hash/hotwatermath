@@ -66,7 +66,7 @@ async function checkPage(entry) {
 
 	const robotsTag = (head.match(/<meta[^>]+name=["']robots["'][^>]*>/i) || [])[0] || '';
 	const robots = (attr(robotsTag, 'content') || '').toLowerCase();
-	const wantNoindex = entry.status !== 'live';
+	const wantNoindex = entry.status !== 'live' || entry.noindex === true;
 	robots.includes('noindex') === wantNoindex ? pass() : fail(path, `robots "${robots}" wrong for status ${entry.status}`);
 
 	const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].map((m) => m[1]);
@@ -121,7 +121,7 @@ const robots = await get(base + '/robots.txt');
 robots.status === 200 && /Sitemap:\s*\S+wp-sitemap\.xml/i.test(robots.body) ? pass() : fail('/robots.txt', 'missing or has no Sitemap line (is "Discourage search engines" on?)');
 const sm = await get(base + '/wp-sitemap-posts-page-1.xml');
 const smUrls = [...sm.body.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
-const liveUrls = pages.filter((p) => p.status === 'live').map((p) => base + (p.slug === '' ? '/' : `/${p.slug}/`));
+const liveUrls = pages.filter((p) => p.status === 'live' && p.noindex !== true).map((p) => base + (p.slug === '' ? '/' : `/${p.slug}/`));
 for (const u of smUrls) (liveUrls.includes(u) ? pass() : fail('/wp-sitemap-posts-page-1.xml', `non-live URL in sitemap: ${u}`));
 for (const u of liveUrls) (smUrls.includes(u) ? pass() : fail('/wp-sitemap-posts-page-1.xml', `live URL missing from sitemap: ${u}`));
 for (const p of ['/wp-sitemap-users-1.xml', '/wp-sitemap-taxonomies-category-1.xml', '/wp-sitemap-posts-post-1.xml']) {

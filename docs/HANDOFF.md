@@ -4,7 +4,7 @@
 
 ## Current State
 
-**Last completed work (2026-11-21):** owner request ideas 3, 5, 1, style 0.21.0, all three pages **draft** (noindex) until the owner's OK:
+**Last completed work (2026-11-21):** owner request ideas 3, 5, 1, style 0.21.0; owner OKed 2026-11-21 22:10Z, so all three are `live` (style 0.21.1). The failure database is live but `"noindex": true` until its report:
 - `/water-heater-recall-lookup/`: brand + model + serial (+ year) → match / possible / outside against 24 CPSC water heater recalls since 2001, plus a recall alert email signup.
 - `/water-heater-maintenance-schedule/`: type, install month/year, water, last service → due dates per task (maker-sourced intervals) + replacement planning date, plus the Heater Health Reminder signup.
 - `/water-heater-failure-database/`: failure report form (brand, type, years, cause, outcome); report at 100 submissions.
@@ -20,12 +20,12 @@
 **Verified (before deploy):** `npm test` 104/104; `validate-data` 96 files OK; `php -l` clean. Local WordPress (SQLite) end to end: signup, honeypot, bad email, confirm, health reminder by cron, recall alert brand filter, one-click unsubscribe, failure insert and validation, `/subscription/` no-cache + noindex. Playwright: calculators update, JS forms show messages, first input inside 360×640 (recall 588px, schedule 616px), no sideways scroll, no console errors.
 
 **Known issues / TODOs carried forward:**
-- Email does not send until the owner adds the `HWM_SMTP_*` lines to `wp-config.php` (mailbox contact@hotwatermath.com). WP-Cron runs on visits; an hPanel cron hitting `wp-cron.php` daily makes reminders punctual.
+- When the failure database reaches 100 submissions, publish the report and remove `noindex` from its registry entry. WP-Cron runs on visits; an hPanel cron hitting `wp-cron.php` daily makes reminders punctual.
 - cpsc.gov HTML answers 403 to our checker; recall content is checked against the CPSC API record.
 - Re-run `npm run fetch:recalls` monthly; the daily job also emails the owner new CPSC candidates.
 - Earlier items still open: NY/RI HEEHR 403; rebate data review 2027-02-20; F-15 optional hPanel check; electric tankless UEF recheck vs CCMS; solar NREL 2012 cost; IRC P2903.4 (403).
 
-**Owner steps:** add the 4 SMTP lines to `wp-config.php`; flush the Hostinger CDN; review the 3 draft pages and OK them (failure database stays noindex until the report).
+**Owner steps:** flush the Hostinger CDN; request indexing for the recall lookup and the maintenance schedule in Search Console. SMTP is set in `wp-config.php` and tested (confirm email arrived and was confirmed, 2026-11-21).
 
 - 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
@@ -72,3 +72,4 @@
 - 2026-11-14 — GTM added — Google Tag Manager GTM-5K9PR6XR (deferred, consent defaults first, noscript iframe, no GTM on embeds); privacy policy and CLAUDE.md §2/§10 updated.
 - 2026-11-21 — GSC-driven content fixes — first GSC audit (report in project files gsc-audit/2026-11-21); max temperature H2 + FAQ (safety.temp.aosVeryHotF, A. O. Smith manual re-checked 2026-11-21), relief valve, tankless wiring and anode FAQs, FHR definition H2, links to quote checker, rebate finder and model lookup (style 0.20.3).
 - 2026-11-21 — New tools done — recall lookup (24 CPSC recalls) + recall alerts, maintenance schedule + Heater Health Reminder, failure database form; own email lists over Hostinger SMTP; all draft (style 0.21.0).
+- 2026-11-21 — Go-live — owner OK: recall lookup and maintenance schedule live; failure database live with the new `noindex` flag; SMTP tested (style 0.21.1).

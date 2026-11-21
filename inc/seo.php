@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /** Robots value for the current request. */
 function hwm_robots(): string {
 	$entry = hwm_current();
-	if ( $entry && hwm_is_live( $entry ) ) {
+	if ( $entry && hwm_is_indexable( $entry ) ) {
 		return 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
 	}
 	return 'noindex, follow';
@@ -142,7 +142,7 @@ add_filter(
 		$ids = array( 0 );
 		foreach ( get_posts( array( 'post_type' => 'page', 'numberposts' => -1, 'fields' => 'ids', 'meta_key' => '_hwm_slug' ) ) as $id ) {
 			$entry = hwm_page( (string) get_post_meta( $id, '_hwm_slug', true ) );
-			if ( hwm_is_live( $entry ) ) {
+			if ( hwm_is_indexable( $entry ) ) {
 				$ids[] = $id;
 			}
 		}
