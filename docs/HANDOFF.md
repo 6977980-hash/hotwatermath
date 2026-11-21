@@ -4,14 +4,14 @@
 
 ## Current State
 
-**Last completed work:** Three new tools (owner request 2026-11-20, ideas 1, 5, 6), style 0.20.1 (0.20.1 = mobile first-viewport fix), all `draft` (noindex) until the owner's OK:
+**Last completed work:** Three new tools (owner request 2026-11-20, ideas 1, 5, 6), style 0.20.1 (0.20.1 = mobile first-viewport fix), owner OKed 2026-11-21 07:34Z, now `live` (style 0.20.2):
 - `/water-heater-model-number-lookup/`: model + serial (+ optional label photo, local only) → size, fuel, height, input, warranty years, build date, age, warranty end.
 - `/heat-pump-water-heater-rebates/`: state + income (+ cost) → 25C status ($0), HEEHR amount (14 NASEO-listed programs; CA fully reserved; DC and NM low-income only) and the utility programs we checked.
 - `/water-heater-quote-checker/`: quote total (+ unit, labor, permit lines) and the job → below / fair low / fair high / above / far above, using the cost calculator's model.
-**Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Search Console has about 4 weeks of data. Before that: owner OK to flip the three new tools live.
+**Next phase to run:** Phase 7 (from `docs/PHASES.md`), once Search Console has about 4 weeks of data.
 
 **What exists now (new or changed):**
-- `data/model-formats.json`, `data/heehr-states.json`, `data/quote-check.json`; `data/input-limits.json` (+2 tools); `data/site.json` dateVerified (+3); `data/pages.json` (+3 drafts).
+- `data/model-formats.json`, `data/heehr-states.json`, `data/quote-check.json`; `data/input-limits.json` (+2 tools); `data/site.json` dateVerified (+3); `data/pages.json` (+3 tools, live 2026-11-21).
 - `assets/js/formulas.js` (+ decodeModel, warrantyEnd, heehrRebate, quoteBand, lineBand); `assets/js/model-lookup.js`, `rebate-finder.js`, `quote-checker.js`.
 - `scripts/build-data.mjs` section "2026-11-20": computed files for the 3 tools; Rheem rule checked against all 80 Rheem listings (fails the build on a mismatch); registry figure guards.
 - `content/water-heater-model-number-lookup.php`, `content/heat-pump-water-heater-rebates.php`, `content/water-heater-quote-checker.php`; `content/methodology.php` (3 sections, TOC, quote assumption row); `parts/cost-inputs.php` (`legend` arg).
@@ -25,7 +25,7 @@
 - Rebate finder lists utilities only in the 8 states with utility data; ENERGY STAR's finder covers the rest. Review `heehr-states.json` and `hpwh-rebates.json` every three months (next 2027-02-20).
 - Earlier items still open: F-15 optional hPanel check; electric tankless UEF recheck vs CCMS; solar NREL 2012 cost; gas tankless headline metric; IRC P2903.4 (403).
 
-**Owner steps:** OK the three draft tools (then a thread flips them `live`); flush the Hostinger CDN after the deploy if a page looks stale.
+**Owner steps:** request indexing for the three new tools in Search Console; flush the Hostinger CDN after the deploy if a page looks stale.
 
 - 2026-11-13 — Phase 8 done — cost index by state (51 rows, chart, CSV, embed code), /data/ with 12 CSV datasets + Dataset schema, /embed-calculators/, nofollow in-frame links, check-embeds script, OUTREACH.md rewritten (draft pages).
 
@@ -38,6 +38,7 @@
 - 2026-11-14 — Home redesign done — banded home page: start-here paths, icon calculator cards, stat tiles, grouped guides (style 0.19.0).
 - 2026-11-20 — New tools done — model number lookup, heat pump water heater rebate finder (HEEHR by state + utilities), water heater quote checker; all draft (style 0.20.0).
 - 2026-11-20 — Live fix — 360px first-viewport rule: new tools' field grid stacks to one column under 600px (`.field-grid--stack`), two quick answers shortened (style 0.20.1).
+- 2026-11-21 — Go-live — owner OK: model number lookup, heat pump water heater rebates, quote checker flipped to live (style 0.20.2).
 
 ## Template (copy this into "Current State" when you finish a phase)
 
